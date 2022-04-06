@@ -1,0 +1,6 @@
+[submodule "3rdparty/verdigris"]
+	path = 3rdparty/verdigris
+	url = https://github.com/woboq/verdigris.git
+[submodule "3rdparty/android_openssl"]
+	path = 3rdparty/android_openssl
+	url = git@github.com:KDAB/android_openssl.git

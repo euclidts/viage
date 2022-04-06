@@ -1,0 +1,128 @@
+#include <vector>
+
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QLocale>
+#include <QTranslator>
+
+#include <access.hpp>
+#include <smtp.hpp>
+#include <bridge.hpp>
+#include <Cache/cache.hpp>
+#include <Cache/cached_nested_item.hpp>
+#include <Cache/cached_nested_list.hpp>
+#include <Models/list_model.hpp>
+#include <Models/urls_model.hpp>
+#include <Models/account_filter_model.hpp>
+#include <Models/advisor_filter_model.hpp>
+#include "Items/advisor_item.hpp"
+#include "Items/account_item.hpp"
+#include "Items/owner_item.hpp"
+#include "Items/habitat_item.hpp"
+#include "Items/exterior_item.hpp"
+#include "Items/documents_item.hpp"
+
+int main(int argc, char *argv[])
+{
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
+
+    QGuiApplication app(argc, argv);
+
+    qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
+
+    QTranslator translator;
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "viage_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            app.installTranslator(&translator);
+            break;
+        }
+    }
+
+    QQmlApplicationEngine engine;
+
+    auto context = engine.rootContext();
+
+    Interface::bridge bridge{};
+
+    Service::access access{"https://viagetestrive.euclidtradingsystems.com",
+                          "auth",
+                          "format=json"};
+
+    QObject::connect(&bridge, &Interface::bridge::authenticate,
+            &access, &Service::access::authenticate);
+    QObject::connect(&access, &Service::access::loggedIn,
+                     &bridge, &Interface::bridge::loggedIn);
+
+    qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
+    context->setContextProperty("bridge", &bridge);
+
+    Data::Cache::cache cache{};
+
+    // accounts
+    Data::Cache::cached_list<Data::item_list<Data::account_item>>
+            cached_accounts{&cache, &access, context};
+
+    Data::list_model<Data::account_item> accountModel{};
+    accountModel.setList(cached_accounts.getItem());
+
+    Data::account_filter_model accountFilter{&accountModel};
+    qmlRegisterUncreatableType<Data::account_filter_model>("Data", 1, 0, "AccountsModel", "");
+    context->setContextProperty("accountModel", &accountFilter);
+
+    QObject::connect(&access, &Service::access::loggedIn,
+                     [&cached_accounts](const bool& success)
+    { if (success) cached_accounts.get(); });
+
+    // owners
+    Data::Cache::cached_nested_list<Data::item_list<Data::People::owner_item>, Data::account_item>
+            cached_owners{&cache, &access, cached_accounts.getItem(), context};
+    qmlRegisterType<Data::urls_model>("Data", 1, 0, "UrlsModel");
+    qmlRegisterUncreatableType<Data::url_list>("Data", 1, 0, "UrlList", "");
+    qmlRegisterType<Data::list_model<Data::People::owner_item>>("People", 1, 0, "OwnersModel");
+
+    // infants
+    Data::Cache::cached_nested_list<Data::item_list<Data::People::infant_item>, Data::account_item>
+            cached_infants{&cache, &access, cached_accounts.getItem(), context};
+    qmlRegisterType<Data::list_model<Data::People::infant_item>>("People", 1, 0, "InfantModel");
+
+    // habitat
+    Data::Cache::cached_nested_item<Data::Places::habitat_item, Data::account_item>
+            cached_habitat{&cache, &access, cached_accounts.getItem(), context};
+    // exterior
+    Data::Cache::cached_nested_item<Data::Places::exterior_item, Data::account_item>
+            cached_exterior{&cache, &access, cached_accounts.getItem(), context};
+    // documents
+    Data::Cache::cached_nested_item<Data::documents_item, Data::account_item>
+            cached_documents{&cache, &access, cached_accounts.getItem(), context};
+
+    // advisorrs
+    Data::Cache::cached_list<Data::item_list<Data::People::advisor_item>>
+            cached_advisors{&cache, &access, context};
+
+    Data::list_model<Data::People::advisor_item> advisorModel{};
+    advisorModel.setList(cached_advisors.getItem());
+
+    Data::advisor_filter_model advisorFilter{&advisorModel};
+    qmlRegisterUncreatableType<Data::advisor_filter_model>("People", 1, 0, "AdvisorModel", "");
+    context->setContextProperty("advisorModel", &advisorFilter);
+
+    // qml engine
+    const QUrl url(QStringLiteral("qrc:/ui/main.qml"));
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &app, [&bridge, url](QObject* obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl)
+            QCoreApplication::exit(-1);
+        else
+            bridge.set_qmlObject(obj);
+    }, Qt::QueuedConnection);
+
+    engine.load(url);
+
+    return app.exec();
+}
