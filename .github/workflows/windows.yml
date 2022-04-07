@@ -1,8 +1,9 @@
 name: Windows
 
-on:
-  release:
-    types: [published]
+on: push
+#    on:
+#    release:
+#    types: [published]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
