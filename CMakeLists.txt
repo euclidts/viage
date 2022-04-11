@@ -156,3 +156,16 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_import_qml_plugins(viage)
     qt_finalize_executable(viage)
 endif()
+
+set(COMPONENT_NAME_MAIN "Viage")
+
+install(TARGETS viage DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${COMPONENT_NAME_MAIN})
+
+include(InstallRequiredSystemLibraries)
+set(CPACK_GENERATOR "IFW")
+set(CPACK_RESOURCE_FILE_LICENSE  ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+set(CPACK_PACKAGE_VERSION_MAJOR "1")
+set(CPACK_PACKAGE_VERSION_MINOR "0")
+include(CPack)
+
+CPACK_ADD_COMPONENT(${COMPONENT_NAME_MAIN})
