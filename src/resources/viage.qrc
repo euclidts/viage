@@ -46,5 +46,6 @@
         <file>ui/FlickableItem.qml</file>
         <file>ui/BackgroundRect.qml</file>
         <file>ui/PhotoBooth.qml</file>
+        <file>icons/ViageLogo.ico</file>
     </qresource>
 </RCC>

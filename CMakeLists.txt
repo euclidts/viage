@@ -59,7 +59,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
     Svg
     REQUIRED)
 
-set(TS_FILES src/ressources/ts_files/viage_fr_FR.ts)
+set(TS_FILES src/resources/ts_files/viage_fr_FR.ts)
 
 set(PROJECT_SOURCES
     src/main.cpp
@@ -110,7 +110,7 @@ set(PROJECT_SOURCES
     src/Data/Models/account_filter_model.cpp
     src/Data/Models/advisor_filter_model.hpp
     src/Data/Models/advisor_filter_model.cpp
-    src/ressources/viage.qrc
+    src/resources/viage.qrc
     ${TS_FILES})
 
 include_directories(SYSTEM
@@ -119,8 +119,11 @@ include_directories(SYSTEM
     "${SERVICE_FOLDER}"
     "${3RDPARTY_FOLDER}/verdigris/src")
 
+set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/appicon.rc")
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(viage
+        WIN32 ${app_icon_resource_windows}
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES})
 
@@ -169,17 +172,20 @@ set(CPACK_GENERATOR "IFW")
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
 set(CPACK_PACKAGE_VERSION_MINOR "0")
 
-set(CPACK_IFW_PACKAGE_NAME "Viage")
+set(CPACK_IFW_PACKAGE_NAME "Install-Viage")
 set(CPACK_IFW_PACKAGE_TITLE "Viage")
 set(CPACK_IFW_PACKAGE_PUBLISHER "Viage")
 set(CPACK_IFW_PACKAGE_WIZARD_STYLE "Aero")
 set(CPACK_IFW_PACKAGE_WIZARD_SHOW_PAGE_LIST OFF)
+set(CPACK_MONOLITHIC_INSTALL ON)
+set(CPACK_PACKAGE_EXECUTABLES "${COMPONENT_NAME_MAIN};Viage")
+set(CPACK_CREATE_DESKTOP_LINKS "Viage")
 
-set(CPACK_RESOURCE_FILE_LICENSE  ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
 
 if (WIN32)
     find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
-    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake.in" "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in" "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
 
     set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake)
 endif()
