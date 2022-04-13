@@ -162,36 +162,42 @@ endif()
 
 # Installer setup copyed from https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeLists.txt
 
-set(COMPONENT_NAME_MAIN "viage")
-set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
+if (NOT ANDROID AND NOT IOS)
 
-install(TARGETS viage DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${COMPONENT_NAME_MAIN})
+    set(COMPONENT_NAME_MAIN "Viage")
+    set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
-include(InstallRequiredSystemLibraries)
-set(CPACK_GENERATOR "IFW")
-set(CPACK_PACKAGE_VERSION_MAJOR "1")
-set(CPACK_PACKAGE_VERSION_MINOR "0")
+    install(TARGETS viage DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${COMPONENT_NAME_MAIN})
 
-set(CPACK_IFW_PACKAGE_NAME "viage")
-set(CPACK_IFW_PACKAGE_TITLE "viage")
-set(CPACK_IFW_PACKAGE_PUBLISHER "viage")
-set(CPACK_IFW_PACKAGE_WIZARD_STYLE "Aero")
-set(CPACK_IFW_PACKAGE_WIZARD_SHOW_PAGE_LIST OFF)
+    include(InstallRequiredSystemLibraries)
+    set(CPACK_GENERATOR "IFW")
+    set(CPACK_PACKAGE_VERSION_MAJOR "1")
+    set(CPACK_PACKAGE_VERSION_MINOR "0")
 
-set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+    set(CPACK_IFW_PACKAGE_NAME "Viage")
+    set(CPACK_IFW_PACKAGE_TITLE "Viage")
+    set(CPACK_IFW_PACKAGE_PUBLISHER "Viage")
+    set(CPACK_IFW_PACKAGE_WIZARD_STYLE "Classic")
+    set(CPACK_IFW_PACKAGE_WIZARD_SHOW_PAGE_LIST OFF)
 
-if (WIN32)
-    find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
-    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in" "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
+    set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
 
-    set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake)
+    if (WIN32)
+        find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
+        configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in" "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
+
+        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/ViageLogo.ico")
+        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/ViageLogo.ico")
+        set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake)
+    endif()
+
+    include(CPack)
+    include(CPackIFW)
+
+    CPACK_ADD_COMPONENT(${COMPONENT_NAME_MAIN})
+
+    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} ESSENTIAL FORCED_INSTALLATION)
+    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})
+    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/ci/installScript.qs)
+
 endif()
-
-include(CPack)
-include(CPackIFW)
-
-CPACK_ADD_COMPONENT(${COMPONENT_NAME_MAIN})
-
-cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} ESSENTIAL FORCED_INSTALLATION)
-cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})
-cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/ci/installScript.qs)

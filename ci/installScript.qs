@@ -37,7 +37,8 @@ Component.prototype.createOperations = function()
 
     if (systemInfo.productType === "windows") {
         component.addOperation("CreateShortcut", "@TargetDir@/bin/viage.exe", "@StartMenuDir@/viage.lnk",
-            "workingDirectory=@TargetDir@"/*, "iconPath=%SystemRoot%/system32/SHELL32.dll",
-            "iconId=2", "description=Open README file"*/);
+            "workingDirectory=@TargetDir@");
+        component.addOperation("CreateShortcut", "@TargetDir@/bin/viage.exe", "@DesktopDir@/viage.lnk",
+            "workingDirectory=@TargetDir@");
     }
 }
