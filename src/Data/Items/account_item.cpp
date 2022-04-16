@@ -12,8 +12,6 @@
 namespace Data
 {
 account_item::account_item()
-    : created{new QDate()}
-    , modified{new QDate()}
 {
 }
 
@@ -59,9 +57,9 @@ QVariant account_item::data(int role) const
     case StateRole:
         return QVariant(state);
     case CreatedRole:
-        return QVariant(*created);
+        return QVariant(created);
     case ModifiedRole:
-        return QVariant(*modified);
+        return QVariant(modified);
     case AdvisorFirstNameRole:
         return QVariant(advisorFirstName);
     case AdvisorLastNameRole:
@@ -108,7 +106,7 @@ void account_item::set(item_list<People::owner_item>* ol)
     ol->write(arr);
     owners = arr;
 
-    *modified = QDate::currentDate();
+    modified = QDate::currentDate();
 
 //    const auto owner{ol->item_at(0)};
 //    auto firstName{owner.firstName};
@@ -127,7 +125,7 @@ void account_item::set(item_list<People::infant_item>* il)
     il->write(arr);
     infants = arr;
 
-    *modified = QDate::currentDate();
+    modified = QDate::currentDate();
 }
 
 void account_item::set(Places::habitat_item* ht)
@@ -136,7 +134,7 @@ void account_item::set(Places::habitat_item* ht)
     ht->write(obj);
     habitat = obj;
 
-    *modified = QDate::currentDate();
+    modified = QDate::currentDate();
 }
 
 void account_item::set(Places::exterior_item* er)
@@ -145,7 +143,7 @@ void account_item::set(Places::exterior_item* er)
     er->write(obj);
     exterior = obj;
 
-    *modified = QDate::currentDate();
+    modified = QDate::currentDate();
 }
 
 void account_item::set(documents_item* ds)
@@ -154,7 +152,7 @@ void account_item::set(documents_item* ds)
     ds->write(obj);
     documents = obj;
 
-    *modified = QDate::currentDate();
+    modified = QDate::currentDate();
 }
 
 QJsonArray account_item::get(item_list<People::owner_item> *ol)
@@ -237,10 +235,10 @@ void account_item::read(const QJsonObject& json)
         exterior = json["documents"].toObject();
 
     if (json.contains("created") && json["created"].isString())
-        created->fromString(json["created"].toString(), "dd.MM.yyyy");
+        created = QDate::fromString(json["created"].toString(), "dd.MM.yyyy");
 
     if (json.contains("modified") && json["modified"].isString())
-        modified->fromString(json["modified"].toString(), "dd.MM.yyyy");
+        modified = QDate::fromString(json["modified"].toString(), "dd.MM.yyyy");
 
     if (json.contains("acronym") && json["acronym"].isString())
         acronym = json["acronym"].toString();
@@ -275,8 +273,8 @@ void account_item::write(QJsonObject& json) const
     json["exterior"] = exterior;
     json["documents"] = documents;
     json["state"] = state;
-    json["created"] = created->toString("dd.MM.yyyy");
-    json["modified"] = modified->toString("dd.MM.yyyy");
+    json["created"] = created.toString("dd.MM.yyyy");
+    json["modified"] = modified.toString("dd.MM.yyyy");
     json["advisorFirstName"] = advisorFirstName;
     json["advisorLastName"] = advisorLastName;
     json["company"] = company;

@@ -17,7 +17,7 @@ habitat_item::habitat_item(QObject *parent)
 
 void habitat_item::read(const QJsonObject& json)
 {
-    if (json.contains("addres") && json["address"].isObject())
+    if (json.contains("address") && json["address"].isObject())
     {
         address.read(json["address"].toObject());
         emit streetChanged();

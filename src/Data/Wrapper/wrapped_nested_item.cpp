@@ -51,10 +51,7 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
     {
         this->service->getFromKey(makeKey(parentList, index).c_str(),
                 [this](const QByteArray& rep)
-        {
-            qDebug() << rep;
-            this->item->read(rep);
-        });
+        { this->item->read(rep); });
     });
 
     if (context)

@@ -103,7 +103,7 @@ void advisor_item::read(const QJsonObject &json)
     if (json.contains("beneficiary") && json["beneficiary"].isString())
         beneficiary = json["beneficiary"].toString();
 
-    if (json.contains("addres") && json["address"].isObject())
+    if (json.contains("address") && json["address"].isObject())
         address_item::read(json["address"].toObject());
 
     if (json.contains("iban") && json["iban"].isString())

@@ -89,7 +89,7 @@ void owner_item::read(const QJsonObject &json)
     infant_item::read(json);
 
     if (json.contains("birthDay") && json["birthDay"].isString())
-        birthDay.fromString(json["birthDay"].toString(), "dd.MM.yyyy");
+        birthDay = QDate::fromString(json["birthDay"].toString(), "dd.MM.yyyy");
 
     if (json.contains("civilStatus") && json["civilStatus"].isDouble())
         civilStatus = json["civilStatus"].toInt();
@@ -97,7 +97,7 @@ void owner_item::read(const QJsonObject &json)
     if (json.contains("avs") && json["avs"].isString())
         avs = json["avs"].toString();
 
-    if (json.contains("addres") && json["address"].isObject())
+    if (json.contains("address") && json["address"].isObject())
         address_item::read(json["address"].toObject());
 }
 
