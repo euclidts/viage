@@ -1,20 +1,17 @@
-#ifndef DATA_NOTIFYER_HPP
-#define DATA_NOTIFYER_HPP
+#ifndef BASE_DATA_HPP
+#define BASE_DATA_HPP
 
 #include <QObject>
 #include <wobjectdefs.h>
 
 namespace Data
 {
-class data_notifyer : public QObject
+class base_data : public QObject
 {
-    W_OBJECT(data_notifyer)
+    W_OBJECT(base_data)
 
 public:
     virtual const constexpr char* key() = 0;
-
-    virtual void write(QJsonObject &json) const {};
-    const QByteArray toData(const char* parentKey, int parnetId);
 
     void validate(int parentIndex)
     W_SIGNAL(validate, parentIndex)
@@ -25,9 +22,13 @@ public:
     void loaded()
     W_SIGNAL(loaded)
 
+    const QByteArray toData(const char* parentKey, int parnetId);
+
 protected:
-    explicit data_notifyer(QObject* = nullptr);
+    explicit base_data(QObject* parent = nullptr);
+
+    virtual void writeWithKey(QJsonObject &json) {};
 };
 
 }
-#endif // DATA_NOTIFYER_HPP
+#endif // BASE_DATA_HPP

@@ -5,13 +5,13 @@
 
 #include <wobjectdefs.h>
 
-#include "data_notifyer.hpp"
+#include "base_item.hpp"
 
 namespace Data
 {
 struct url_list;
 
-class documents_item : public Data::data_notifyer
+class documents_item : public base_item
 {
     W_OBJECT(documents_item)
 

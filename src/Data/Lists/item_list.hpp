@@ -8,6 +8,7 @@
 #include <wobjectdefs.h>
 
 #include "base_list.hpp"
+#include "base_data.hpp"
 
 namespace Data
 {
@@ -19,18 +20,9 @@ class item_list : public base_list<T>
 public:
     explicit item_list(QObject* parent = nullptr);
 
-    const char* key() { return items_key; };
+    const constexpr char* key() override { return items_key; };
     const char* qmlName;
     static const constexpr auto uri{T::uri};
-
-    void validate(int parentIndex)
-    W_SIGNAL(validate, parentIndex)
-
-    void loadFrom(int parentIndex)
-    W_SIGNAL(loadFrom, parentIndex)
-
-    void loaded()
-    W_SIGNAL(loaded)
 
     void add()
     W_SIGNAL(add)
@@ -41,7 +33,8 @@ public:
     void read(const QByteArray& bytes);
     void write(QJsonArray& json) const;
 
-    const QByteArray toData(const char* parentKey, int parentId);
+protected:
+    void writeWithKey(QJsonObject &json) override;
 
 private:
     const char* items_key;

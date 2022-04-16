@@ -10,7 +10,7 @@ namespace Places
 W_OBJECT_IMPL(exterior_item)
 
 exterior_item::exterior_item(QObject *parent)
-    : Data::data_notifyer{parent}
+    : base_item{parent}
 {
 }
 

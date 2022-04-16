@@ -10,7 +10,7 @@ namespace Places
 W_OBJECT_IMPL(habitat_item)
 
 habitat_item::habitat_item(QObject *parent)
-    : Data::data_notifyer{parent}
+    : base_item{parent}
     , address{}
 {
 }

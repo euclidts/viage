@@ -6,13 +6,13 @@
 
 #include <wobjectdefs.h>
 
-#include "data_notifyer.hpp"
+#include "base_item.hpp"
 
 namespace Data
 {
 namespace Places
 {
-class exterior_item : public Data::data_notifyer
+class exterior_item : public base_item
 {
 W_OBJECT(exterior_item)
 

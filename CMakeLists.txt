@@ -69,11 +69,13 @@ set(PROJECT_SOURCES
     src/Service/access.hpp
     src/Service/smtp.cpp
     src/Service/smtp.hpp
+    src/Data/base_data.hpp
+    src/Data/base_data.cpp
     src/Data/Wrapper/wrapped_list.hpp
     src/Data/Wrapper/wrapped_nested_item.hpp
     src/Data/Wrapper/wrapped_nested_list.hpp
-    src/Data/Items/data_notifyer.hpp
-    src/Data/Items/data_notifyer.cpp
+    src/Data/Items/base_item.hpp
+    src/Data/Items/base_item.cpp
     src/Data/Items/address_item.hpp
     src/Data/Items/address_item.cpp
     src/Data/Items/person_item.hpp

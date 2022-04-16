@@ -46,7 +46,7 @@ void item_list<T>::read(const QJsonArray& array)
 
     this->set_list(vec);
 
-    emit loaded();
+    emit base_data::loaded();
 }
 
 template <typename T>
@@ -68,21 +68,12 @@ void item_list<T>::write(QJsonArray& json) const
 }
 
 template<typename T>
-const QByteArray item_list<T>::toData(const char* parentKey, int parentId)
+void item_list<T>::writeWithKey(QJsonObject &json)
 {
-    QJsonArray json{};
-    write(json);
+    QJsonArray array{};
+    write(array);
 
-    QString str{parentKey};
-    str.append("Id");
-
-    QJsonObject data{
-        {str, parentId},
-        {key(), json}
-    };
-
-    QJsonDocument bytes{data};
-    return bytes.toJson();
+    json[key()] = array;
 }
 
 }

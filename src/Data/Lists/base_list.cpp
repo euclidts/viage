@@ -10,7 +10,7 @@ W_OBJECT_IMPL(base_list<T>, template <typename T>)
 
 template <typename T>
 base_list<T>::base_list(QObject* parent)
-    : QObject{parent}
+    : base_data{parent}
 {
 }
 

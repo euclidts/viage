@@ -10,7 +10,7 @@ namespace Data
 W_OBJECT_IMPL(documents_item)
 
 documents_item::documents_item(QObject* parent)
-    : Data::data_notifyer{parent}
+    : base_item{parent}
     , id{new url_list(parent)}
     , registeryExcerpt{new url_list(parent)}
     , pursuitExcerpt{new url_list(parent)}

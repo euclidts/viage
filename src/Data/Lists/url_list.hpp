@@ -16,6 +16,8 @@ struct url_list : public base_list<url_item>
 public:
     explicit url_list(QObject* parent = nullptr);
 
+    const constexpr char* key() override { return "url"; };
+
     std::vector<url_item> get_list() const;
 
     QJsonArray arrayFromList() const;

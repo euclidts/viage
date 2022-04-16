@@ -1,16 +1,14 @@
 #ifndef BASE_LIST_HPP
 #define BASE_LIST_HPP
 
-#include <QDebug>
-#include <QObject>
 #include <QVector>
 
-#include <wobjectdefs.h>
+#include <base_data.hpp>
 
 namespace Data
 {
 template <typename T>
-class base_list : public QObject
+class base_list : public base_data
 {
     W_OBJECT(base_list)
 
