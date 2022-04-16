@@ -69,10 +69,9 @@ set(PROJECT_SOURCES
     src/Service/access.hpp
     src/Service/smtp.cpp
     src/Service/smtp.hpp
-    src/Data/Cache/cache.hpp
-    src/Data/Cache/cached_list.hpp
-    src/Data/Cache/cached_nested_item.hpp
-    src/Data/Cache/cached_nested_list.hpp
+    src/Data/Wrapper/wrapped_list.hpp
+    src/Data/Wrapper/wrapped_nested_item.hpp
+    src/Data/Wrapper/wrapped_nested_list.hpp
     src/Data/Items/data_notifyer.hpp
     src/Data/Items/data_notifyer.cpp
     src/Data/Items/address_item.hpp

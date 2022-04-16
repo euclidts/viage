@@ -3,36 +3,24 @@
 
 #include <wobjectimpl.h>
 
-#include "cached_list.hpp"
+#include "wrapped_list.hpp"
 
-#include "cache.hpp"
 #include <access.hpp>
 #include <Lists/item_list.hpp>
 
 namespace Data
 {
-namespace Cache
+namespace Wrapper
 {
-W_OBJECT_IMPL(cached_list<Inner>, template <typename Inner>)
+W_OBJECT_IMPL(wrapped_list<Inner>, template <typename Inner>)
 
 template <typename Inner>
-cached_list<Inner>::cached_list(cache* storage,
-                                Service::access* srv,
+wrapped_list<Inner>::wrapped_list(Service::access* srv,
                                 QQmlContext* context)
     : QObject{}
     , service(srv)
     , item{new Inner{}}
 {
-//    connect(item,
-//            &Inner::validate,
-//            this,
-//            [=] (int index)
-//    {
-//        QJsonObject jsonElement{};
-//        item->item_at(index).write(jsonElement);
-//        storage->update(index, jsonElement, item->key());
-//    });
-
     connect(this->item,
             &Inner::validate,
             this,
@@ -71,7 +59,7 @@ cached_list<Inner>::cached_list(cache* storage,
 }
 
 template<typename Inner>
-cached_list<Inner>::cached_list(Service::access* srv)
+wrapped_list<Inner>::wrapped_list(Service::access* srv)
     : QObject{}
     , service(srv)
     , item{new Inner{}}
@@ -79,20 +67,20 @@ cached_list<Inner>::cached_list(Service::access* srv)
 }
 
 template<typename Inner>
-void cached_list<Inner>::registerToQml(QQmlContext* context) const
+void wrapped_list<Inner>::registerToQml(QQmlContext* context) const
 {
     qmlRegisterUncreatableType<Inner>(item->uri, 1, 0, item->qmlName, "");
     context->setContextProperty(item->key(), item);
 }
 
 template<typename Inner>
-Inner* cached_list<Inner>::getItem() const
+Inner* wrapped_list<Inner>::getItem() const
 {
     return item;
 }
 
 template<typename Inner>
-void cached_list<Inner>::get()
+void wrapped_list<Inner>::get()
 {
     service->getFromKey(item->key(),
                         [this](const QByteArray& bytes)

@@ -1,22 +1,19 @@
 #pragma once
 #include <wobjectimpl.h>
 
-#include "cached_nested_list.hpp"
-#include "cache.hpp"
+#include "wrapped_nested_list.hpp"
 
 namespace Data
 {
-namespace Cache
+namespace Wrapper
 {
-W_OBJECT_IMPL((cached_nested_list<Inner, Outer>), template <typename Inner, typename Outer>)
+W_OBJECT_IMPL((wrapped_nested_list<Inner, Outer>), template <typename Inner, typename Outer>)
 
 template <typename Inner, typename Outer>
-cached_nested_list<Inner, Outer>::cached_nested_list(cache* storage,
-                                                     Service::access* srv,
+wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
                                                      item_list<Outer>* parentList,
                                                      QQmlContext* context)
-    : cached_nested_item<Inner, Outer>{storage,
-                                       srv,
+    : wrapped_nested_item<Inner, Outer>{srv,
                                        parentList,
                                        context}
 {

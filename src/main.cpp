@@ -9,9 +9,8 @@
 #include <access.hpp>
 #include <smtp.hpp>
 #include <bridge.hpp>
-#include <Cache/cache.hpp>
-#include <Cache/cached_nested_item.hpp>
-#include <Cache/cached_nested_list.hpp>
+#include <Wrapper/wrapped_nested_item.hpp>
+#include <Wrapper/wrapped_nested_list.hpp>
 #include <Models/list_model.hpp>
 #include <Models/urls_model.hpp>
 #include <Models/account_filter_model.hpp>
@@ -62,51 +61,49 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
     context->setContextProperty("bridge", &bridge);
 
-    Data::Cache::cache cache{};
-
     // accounts
-    Data::Cache::cached_list<Data::item_list<Data::account_item>>
-            cached_accounts{&cache, &access, context};
+    Data::Wrapper::wrapped_list<Data::item_list<Data::account_item>>
+            wrapped_accounts{&access, context};
 
     Data::list_model<Data::account_item> accountModel{};
-    accountModel.setList(cached_accounts.getItem());
+    accountModel.setList(wrapped_accounts.getItem());
 
     Data::account_filter_model accountFilter{&accountModel};
     qmlRegisterUncreatableType<Data::account_filter_model>("Data", 1, 0, "AccountsModel", "");
     context->setContextProperty("accountModel", &accountFilter);
 
     QObject::connect(&access, &Service::access::loggedIn,
-                     [&cached_accounts](const bool& success)
-    { if (success) cached_accounts.get(); });
+                     [&wrapped_accounts](const bool& success)
+    { if (success) wrapped_accounts.get(); });
 
     // owners
-    Data::Cache::cached_nested_list<Data::item_list<Data::People::owner_item>, Data::account_item>
-            cached_owners{&cache, &access, cached_accounts.getItem(), context};
+    Data::Wrapper::wrapped_nested_list<Data::item_list<Data::People::owner_item>, Data::account_item>
+            wrapped_owners{&access, wrapped_accounts.getItem(), context};
     qmlRegisterType<Data::urls_model>("Data", 1, 0, "UrlsModel");
     qmlRegisterUncreatableType<Data::url_list>("Data", 1, 0, "UrlList", "");
     qmlRegisterType<Data::list_model<Data::People::owner_item>>("People", 1, 0, "OwnersModel");
 
     // infants
-    Data::Cache::cached_nested_list<Data::item_list<Data::People::infant_item>, Data::account_item>
-            cached_infants{&cache, &access, cached_accounts.getItem(), context};
+    Data::Wrapper::wrapped_nested_list<Data::item_list<Data::People::infant_item>, Data::account_item>
+            wrapped_infants{&access, wrapped_accounts.getItem(), context};
     qmlRegisterType<Data::list_model<Data::People::infant_item>>("People", 1, 0, "InfantModel");
 
     // habitat
-    Data::Cache::cached_nested_item<Data::Places::habitat_item, Data::account_item>
-            cached_habitat{&cache, &access, cached_accounts.getItem(), context};
+    Data::Wrapper::wrapped_nested_item<Data::Places::habitat_item, Data::account_item>
+            wrapped_habitat{&access, wrapped_accounts.getItem(), context};
     // exterior
-    Data::Cache::cached_nested_item<Data::Places::exterior_item, Data::account_item>
-            cached_exterior{&cache, &access, cached_accounts.getItem(), context};
+    Data::Wrapper::wrapped_nested_item<Data::Places::exterior_item, Data::account_item>
+            wrapped_exterior{&access, wrapped_accounts.getItem(), context};
     // documents
-    Data::Cache::cached_nested_item<Data::documents_item, Data::account_item>
-            cached_documents{&cache, &access, cached_accounts.getItem(), context};
+    Data::Wrapper::wrapped_nested_item<Data::documents_item, Data::account_item>
+            wrapped_documents{&access, wrapped_accounts.getItem(), context};
 
     // advisorrs
-    Data::Cache::cached_list<Data::item_list<Data::People::advisor_item>>
-            cached_advisors{&cache, &access, context};
+    Data::Wrapper::wrapped_list<Data::item_list<Data::People::advisor_item>>
+            wrapped_advisors{&access, context};
 
     Data::list_model<Data::People::advisor_item> advisorModel{};
-    advisorModel.setList(cached_advisors.getItem());
+    advisorModel.setList(wrapped_advisors.getItem());
 
     Data::advisor_filter_model advisorFilter{&advisorModel};
     qmlRegisterUncreatableType<Data::advisor_filter_model>("People", 1, 0, "AdvisorModel", "");

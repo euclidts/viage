@@ -1,21 +1,19 @@
 #pragma once
 #include <wobjectimpl.h>
 
-#include "cached_nested_item.hpp"
-#include "cache.hpp"
+#include "wrapped_nested_item.hpp"
 
 namespace Data
 {
-namespace Cache
+namespace Wrapper
 {
-W_OBJECT_IMPL((cached_nested_item<Inner, Outer>), template <typename Inner, typename Outer>)
+W_OBJECT_IMPL((wrapped_nested_item<Inner, Outer>), template <typename Inner, typename Outer>)
 
 template <typename Inner, typename Outer>
-cached_nested_item<Inner, Outer>::cached_nested_item(cache* storage,
-                                                     Service::access* srv,
+wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
                                                      item_list<Outer>* parentList,
                                                      QQmlContext* context)
-    : cached_list<Inner>{srv}
+    : wrapped_list<Inner>{srv}
 {
     this->connect(this->item,
             &Inner::validate,
@@ -24,7 +22,6 @@ cached_nested_item<Inner, Outer>::cached_nested_item(cache* storage,
     {
         Outer* outer = new Outer{parentList->item_at(index)};
         outer->set(this->item);
-//        storage->update(parentList->key(), index, outer.get(this->list), this->list->key);
         parentList->setItemAt(index, *outer);
 
         this->service->putToKey(makeKey(parentList).c_str(),
@@ -52,8 +49,6 @@ cached_nested_item<Inner, Outer>::cached_nested_item(cache* storage,
             this,
             [=] (int index)
     {
-//        this->list->read(parentList->item_at(index).get(this->list));
-
         this->service->getFromKey(makeKey(parentList, index).c_str(),
                 [this](const QByteArray& rep)
         {
@@ -67,7 +62,7 @@ cached_nested_item<Inner, Outer>::cached_nested_item(cache* storage,
 }
 
 template<typename Inner, typename Outer>
-std::string cached_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList)
+std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList)
 {
     std::string newkey = parentList->key();
     newkey.append("/");
@@ -77,7 +72,7 @@ std::string cached_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentLi
 }
 
 template<typename Inner, typename Outer>
-std::string cached_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList, int index)
+std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList, int index)
 {
     const int id = parentList->item_at(index).id;
 
