@@ -29,7 +29,7 @@ cached_nested_list<Inner, Outer>::cached_nested_list(cache* storage,
         QString str{outer.key()};
         str.append("Id");
 
-        QJsonObject json{ { str, outer.id} };
+        QJsonObject json{ {str, outer.id} };
         QJsonDocument data{json};
 
         this->service->postToKey(this->item->key(),

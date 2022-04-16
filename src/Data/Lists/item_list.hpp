@@ -41,7 +41,7 @@ public:
     void read(const QByteArray& bytes);
     void write(QJsonArray& json) const;
 
-    const QByteArray toData(int id);
+    const QByteArray toData(const char* parentKey, int parentId);
 
 private:
     const char* items_key;

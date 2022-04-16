@@ -28,7 +28,7 @@ cached_nested_item<Inner, Outer>::cached_nested_item(cache* storage,
         parentList->setItemAt(index, *outer);
 
         this->service->putToKey(makeKey(parentList).c_str(),
-                                this->item->toData(outer->id),
+                                this->item->toData(outer->key(), outer->id),
                                 [=](const QByteArray& rep)
         {
             const auto json = QJsonDocument::fromJson(rep).object();

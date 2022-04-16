@@ -12,13 +12,16 @@ data_notifyer::data_notifyer(QObject *parent)
 {
 }
 
-const QByteArray data_notifyer::toData(int id)
+const QByteArray data_notifyer::toData(const char* parentKey, int parentId)
 {
     QJsonObject json{};
     write(json);
 
+    QString str{parentKey};
+    str.append("Id");
+
     QJsonObject data{
-        {"id", id},
+        {str, parentId},
         {key(), json}
     };
 

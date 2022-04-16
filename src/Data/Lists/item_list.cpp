@@ -68,13 +68,16 @@ void item_list<T>::write(QJsonArray& json) const
 }
 
 template<typename T>
-const QByteArray item_list<T>::toData(int id)
+const QByteArray item_list<T>::toData(const char* parentKey, int parentId)
 {
     QJsonArray json{};
     write(json);
 
+    QString str{parentKey};
+    str.append("Id");
+
     QJsonObject data{
-        {"id", id},
+        {str, parentId},
         {key(), json}
     };
 

@@ -14,7 +14,7 @@ public:
     virtual const constexpr char* key() = 0;
 
     virtual void write(QJsonObject &json) const {};
-    const QByteArray toData(int id);
+    const QByteArray toData(const char* parentKey, int parnetId);
 
     void validate(int parentIndex)
     W_SIGNAL(validate, parentIndex)

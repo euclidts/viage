@@ -163,7 +163,6 @@ endif()
 # Installer setup copyed from https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeLists.txt
 
 if (NOT ANDROID AND NOT IOS)
-
     set(COMPONENT_NAME_MAIN "Viage")
     set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
@@ -199,5 +198,4 @@ if (NOT ANDROID AND NOT IOS)
     cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} ESSENTIAL FORCED_INSTALLATION)
     cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})
     cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/ci/installScript.qs)
-
 endif()

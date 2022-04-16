@@ -38,10 +38,10 @@ cached_list<Inner>::cached_list(cache* storage,
             this,
             [=] (int index)
     {
-        const auto id = item->item_at(index).id;
+        auto outer = item->item_at(index);
 
         service->putToKey(item->key(),
-                          item->toData(id),
+                          item->toData(outer.key(), outer.id),
                           [this](const QByteArray& rep)
         { qDebug() << rep; });
     });
