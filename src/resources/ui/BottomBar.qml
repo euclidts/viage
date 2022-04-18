@@ -64,8 +64,8 @@ RowLayout {
     MaterialButton {
         text: qsTr("Ajouter un partenaire")
         visible: accountsPages.currentIndex === 1
-//                 && ownersPage.completed
-//                 && ownersPage.count < 2
+                 && ownersPage.completed
+                 && ownersPage.count < 2
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {

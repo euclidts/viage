@@ -55,8 +55,8 @@ ScrollView {
                             //                    if (!foucsOnEmpty())
                         {
                             completed = true
-                            if (currentAccount.state < accountsPages.currentIndex)
-                                currentAccount.state = accountsPages.getComplitionIndex()
+//                            if (currentAccount.state < accountsPages.currentIndex)
+//                                currentAccount.state = accountsPages.getComplitionIndex()
                         }
                     }
                 }

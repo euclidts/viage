@@ -27,7 +27,7 @@ public:
 protected:
     explicit base_data(QObject* parent = nullptr);
 
-    virtual void writeWithKey(QJsonObject &json) {};
+    virtual void writeWithKey(QJsonObject& json) {};
 };
 
 }

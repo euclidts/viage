@@ -10,10 +10,12 @@ struct url_item
     url_item(const QUrl address = QUrl{""});
 
     QUrl url;
+    int id{0};
 
     enum roles
     {
-        UrlRole = Qt::UserRole
+        UrlRole = Qt::UserRole,
+        IdRole
     };
 
     static QHash<int, QByteArray> roleNames();

@@ -174,8 +174,8 @@ ApplicationWindow {
                     break;
                 }
 
-                if (currentAccount.state < accountsPages.currentIndex)
-                    currentAccount.state = accountsPages.getComplitionIndex()
+//                if (currentAccount.state < accountsPages.currentIndex)
+//                    currentAccount.state = accountsPages.getComplitionIndex()
             }
 
             ListView {

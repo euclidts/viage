@@ -44,8 +44,6 @@ void access::authenticate(const QString& username,
 
     authenticating = true;
     QNetworkReply* reply = get(rqst);
-    //     just for working
-    //    emit loggedIn(true);
 
     connect(reply, &QNetworkReply::finished,
             [=]()
@@ -72,11 +70,23 @@ void access::authenticate(const QString& username,
                     delete user;
                     user = new Data::People::advisor_item();
                     authenticating = false;
-                    sessionId = json["sessionId"].toString();
-                    const auto displayName = json["displayName"].toString();
-                    auto lastAndFirst = displayName.split(" ");
-                    user->firstName = lastAndFirst[1];
-                    user->lastName = lastAndFirst[0];
+
+                    if (json.contains("sessionId") && json["sessionId"].isString())
+                        sessionId = json["sessionId"].toString();
+
+                    if (json.contains("displayName") && json["displayName"].isString())
+                    {
+                        const auto displayName = json["displayName"].toString();
+                        auto lastAndFirst = displayName.split(" ");
+                        user->firstName = lastAndFirst[1];
+                        user->lastName = lastAndFirst[0];
+                    }
+
+                    if (json.contains("email") && json["email"].isString())
+                        user->eMail = json["email"].toString();
+
+                    if (json.contains("clearance") && json["clearance"].isDouble())
+                        user->clearance = json["clearance"].toInt();
 
                     emit loggedIn(true);
                 }
