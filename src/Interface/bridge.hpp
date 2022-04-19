@@ -17,8 +17,8 @@ public:
     void authenticate(const QString& username, const QString& password)
     W_SIGNAL(authenticate, username, password)
 
-    void hire()
-    W_SIGNAL(hire)
+    void requestReport(const QUrl& path)
+    W_SIGNAL(requestReport, path)
 
     void set_qmlObject(QObject* obj) { qmlObject = obj; }
 

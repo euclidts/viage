@@ -97,6 +97,17 @@ void access::authenticate(const QString& username,
     });
 }
 
+void access::getReport(const QUrl &path)
+{
+    setRequest("export/accounts");
+    QNetworkReply* reply = get(rqst);
+    setCallback(reply,
+                [](const QByteArray& bytes)
+    {
+
+    });
+}
+
 void access::getFromKey(const char* key,
                         const std::function<void(const QByteArray&)>& callback)
 {
@@ -119,6 +130,7 @@ void access::postToKey(const char* key,
                        const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
+    qDebug() << data;
     QNetworkReply* reply = post(rqst, data);
     setCallback(reply, callback);
 }

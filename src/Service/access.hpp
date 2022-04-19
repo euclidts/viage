@@ -31,6 +31,7 @@ public:
     void loggedIn(const bool& success)
     W_SIGNAL(loggedIn, success);
 
+    void getReport(const QUrl& path);
     void getFromKey(const char* key,
                     const std::function<void (const QByteArray &)> &callback);
     void putToKey(const char* key,

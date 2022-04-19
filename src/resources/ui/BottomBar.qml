@@ -3,6 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 import QtQuick.Controls.Material.impl
+import QtQuick.Dialogs
+import QtCore
 
 RowLayout {
     visible: false
@@ -18,12 +20,21 @@ RowLayout {
         onClicked: rootStack.currentIndex = 1
     }
 
+
+    FolderDialog {
+        id: folderDialog
+        currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
+        onAccepted: bridge.requestReport(currentFolder)
+    }
+
     MaterialButton {
         visible: accountsPages.currentIndex < 1
                  && rootStack.currentIndex === 0
         text: qsTr("Rapport")
         icon.source: "qrc:/icons/file.svg"
         icon.width: height * 0.35
+
+        onClicked: folderDialog.open()
     }
 
     MaterialButton {

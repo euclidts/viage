@@ -49,7 +49,20 @@ int main(int argc, char *argv[])
 
     Interface::bridge bridge{};
 
-    Service::access access{"https://viagetestrive.euclidtradingsystems.com",
+    QString host{"https://viagetestrive.euclidtradingsystems.com"};
+
+    for(int i = 0; i < argc; i++)
+    {
+        if (QString::compare(argv[i], "--host") == 0)
+        {
+            host = argv[i + 1];
+            break;
+        }
+    }
+
+    qDebug() << "Host : " << host;
+
+    Service::access access{host,
                           "auth",
                           "format=json"};
 
@@ -57,6 +70,9 @@ int main(int argc, char *argv[])
             &access, &Service::access::authenticate);
     QObject::connect(&access, &Service::access::loggedIn,
                      &bridge, &Interface::bridge::loggedIn);
+
+    QObject::connect(&bridge, &Interface::bridge::requestReport,
+                     [] (const QUrl& url) { qDebug() << url; });
 
     qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
     context->setContextProperty("bridge", &bridge);
