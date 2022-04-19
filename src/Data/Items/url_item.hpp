@@ -7,9 +7,10 @@ namespace Data
 {
 struct url_item
 {
-    url_item(const QUrl address = QUrl{""});
+    url_item();
+    url_item(const QJsonObject& json);
 
-    QUrl url;
+    QUrl url{};
     int id{0};
 
     enum roles
@@ -23,8 +24,8 @@ struct url_item
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    void read(const QJsonValue& json);
-    const QJsonValue write() const;
+    void read(const QJsonObject& json);
+    void write(QJsonObject& json) const;
 };
 
 }

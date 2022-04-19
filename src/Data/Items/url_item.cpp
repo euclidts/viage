@@ -4,9 +4,13 @@
 
 namespace Data
 {
-url_item::url_item(const QUrl address)
-    : url{address}
+url_item::url_item()
 {
+}
+
+url_item::url_item(const QJsonObject &json)
+{
+    read(json);
 }
 
 QHash<int, QByteArray> url_item::roleNames()
@@ -37,14 +41,19 @@ void url_item::setData(const QVariant &value, int role)
         id = value.toInt();
 }
 
-void url_item::read(const QJsonValue& json)
+void url_item::read(const QJsonObject& json)
 {
-        url = json.toString();
+    if (json.contains("url") && json["url"].isString())
+        url = json["url"].toString();
+
+    if (json.contains("id") && json["id"].isDouble())
+        id = json["id"].toInt();
 }
 
-const QJsonValue url_item::write() const
+void url_item::write(QJsonObject& json) const
 {
-    return QJsonValue(url.toString());
+    json["url"] = url.toString();
+    json["id"] = id;
 }
 
 }

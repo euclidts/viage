@@ -86,6 +86,7 @@ ItemDelegate {
     Component.onCompleted: {
         currentAccount = model
         if (onboarding) {
+            onboarding = false
             accountsPages.setComplitedPages()
             accountsPages.currentIndex = 1
         }

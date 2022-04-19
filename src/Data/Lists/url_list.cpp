@@ -23,7 +23,11 @@ QJsonArray url_list::arrayFromList() const
     QJsonArray arr{};
 
     for (const auto& url : m_items)
-        arr.push_back(url.write());
+    {
+        QJsonObject json{};
+        url.write(json);
+        arr.push_back(json);
+    }
 
     return arr;
 }
@@ -32,8 +36,8 @@ void url_list::setFromArray(const QJsonArray &array)
 {
     std::vector<url_item> new_vec{};
 
-    for (const auto& url : array)
-        new_vec.push_back(url_item{url.toString()});
+    for (const auto& json : array)
+        new_vec.push_back(url_item{json.toObject()});
 
     set_list(new_vec);
 }

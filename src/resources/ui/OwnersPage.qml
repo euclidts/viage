@@ -17,13 +17,6 @@ ListView {
 
     property bool completed: false
 
-    onVisibleChanged: {
-        if (onboarding) {
-            owners.addIn(currentAccount.index)
-            onboarding = false
-        }
-    }
-
     delegate: BackgroundRect {
         id: owner
 

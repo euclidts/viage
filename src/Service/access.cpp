@@ -141,7 +141,6 @@ void access::postToKey(const char* key,
                        const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
-    qDebug() << data;
     QNetworkReply* reply = post(rqst, data);
     setCallback(reply, callback);
 }
