@@ -3,6 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 
+import Places
+
 ItemDelegate {
     width: parent.width
     leftInset: 6

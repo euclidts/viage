@@ -78,6 +78,7 @@ void person_item::read(const QJsonObject& json)
 
 void person_item::write(QJsonObject& json) const
 {
+    json["id"] = id;
     json["firstName"] = firstName;
     json["lastName"] = lastName;
     json["phone"] = phone;
