@@ -142,10 +142,8 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked:
-//                        if (currentAccount.state >= 1) {
-                        infants.loadFrom(currentAccount.index)
-//                }
+                    onClicked: if (currentAccount.state >= 1) { infants.loadFrom(currentAccount.index) }
+                    visible: currentAccount.state >= 1
                 }
 
                 RoundButton {
@@ -155,10 +153,8 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked:
-//                        if (currentAccount.state >= 2) {
-                            habitat.loadFrom(currentAccount.index)
-//                        }
+                    onClicked: if (currentAccount.state >= 2) { habitat.loadFrom(currentAccount.index) }
+                    visible: currentAccount.state >= 2
                 }
 
                 RoundButton {
@@ -168,10 +164,8 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked:
-//                        if (currentAccount.state >= 3) {
-                            exterior.loadFrom(currentAccount.index)
-//                        }
+                    onClicked: if (currentAccount.state >= 3) { exterior.loadFrom(currentAccount.index) }
+                    visible: currentAccount.state >= 3
                 }
 
                 RoundButton {
@@ -182,6 +176,7 @@ RowLayout {
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: if (currentAccount.state >= 4) { documents.loadFrom(currentAccount.index) }
+                    visible: currentAccount.state >= 4
                 }
 
                 RoundButton {
@@ -191,6 +186,7 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
+                    visible: currentAccount.state >= 5
                 }
             }
         }
