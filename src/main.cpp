@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
                      &bridge, &Interface::bridge::loggedIn);
 
     QObject::connect(&bridge, &Interface::bridge::requestReport,
-                     [] (const QUrl& url) { qDebug() << url; });
+                     &access, &Service::access::getReport);
 
     qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
     context->setContextProperty("bridge", &bridge);

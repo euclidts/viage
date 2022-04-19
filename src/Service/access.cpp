@@ -2,6 +2,7 @@
 #include <QNetworkRequest>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QSaveFile>
 
 #include <wobjectimpl.h>
 
@@ -97,14 +98,24 @@ void access::authenticate(const QString& username,
     });
 }
 
-void access::getReport(const QUrl &path)
+void access::getReport(const QUrl &directory)
 {
     setRequest("export/accounts");
     QNetworkReply* reply = get(rqst);
     setCallback(reply,
-                [](const QByteArray& bytes)
+                [&directory](const QByteArray& bytes)
     {
+        QDateTime now{QDateTime::currentDateTime()};
 
+        QString fileName{directory.path()};
+        fileName.append("/Viage-");
+        fileName.append(now.toString("dd-MM-yy-hh-mm"));
+        fileName.append(".xlsb");
+
+        QSaveFile file(fileName);
+        file.open(QIODevice::WriteOnly);
+        file.write(bytes);
+        file.commit();
     });
 }
 
