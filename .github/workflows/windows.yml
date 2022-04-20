@@ -1,9 +1,9 @@
 name: Windows
 
-on:
-  push:
-    tags:
-      - '*'
+on: push
+#  push:
+#    tags:
+#      - '*'
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -26,28 +26,29 @@ jobs:
       with:
         packages: aqtinstall
     - run: aqt install-qt windows desktop 6.3.0 win64_msvc2019_64 -m qtmultimedia
-#    - run: aqt install-tool windows desktop tools_ifw qt.tools.ifw.43
+    - run: aqt install-tool windows desktop tools_ifw qt.tools.ifw.43
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH=${{github.workspace}}/6.3.0/msvc2019_64
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH=${{github.workspace}}/6.3.0/msvc2019_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.3
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target all
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target package
 
-    - name: Deploy
-      run: ${{github.workspace}}/6.3.0/msvc2019_64/bin/windeployqt --qmldir ${{github.workspace}}/src/ressources/ui ${{github.workspace}}/build/Release/viage.exe
+#    - name: Deploy
+#      run: ${{github.workspace}}/6.3.0/msvc2019_64/bin/windeployqt --qmldir ${{github.workspace}}/src/ressources/ui ${{github.workspace}}/build/Release/viage.exe
 
     - uses: actions/upload-artifact@v3
       with:
         name: viage
-        path: ${{github.workspace}}/build/Release/viage.exe
+        path: ${{github.workspace}}/build/Release/viage-1.0-win64.exe
 
     #- name: Test
       # working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.  
+      # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       # run: ctest -C ${{env.BUILD_TYPE}}
-      
+
