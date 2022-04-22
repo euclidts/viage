@@ -16,12 +16,16 @@ ListView {
 
     property bool completed: false
 
+    onCountChanged: busyDialog.close()
+
     delegate: BackgroundRect {
         id: infant
 
         required property var model
         required property int index
         property bool editing: true
+
+        onVisibleChanged: if (visible) checkCompeted()
 
         function checkCompeted() {
             if (model.name === "") {

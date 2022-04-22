@@ -47,5 +47,6 @@
         <file>ui/BackgroundRect.qml</file>
         <file>ui/PhotoBooth.qml</file>
         <file>icons/ViageLogo.ico</file>
+        <file>ui/BusyDialog.qml</file>
     </qresource>
 </RCC>

@@ -6,10 +6,10 @@ namespace Interface
 {
 W_OBJECT_IMPL(bridge)
 
-void bridge::loggedIn(const bool& success)
+void bridge::onLogin(const bool& success)
 {
     QMetaObject::invokeMethod(qmlObject,
-                              "loggedIn",
+                              "onLogin",
                               Q_ARG(bool, success));
 }
 }

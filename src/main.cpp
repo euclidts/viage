@@ -44,10 +44,7 @@ int main(int argc, char *argv[])
     }
 
     QQmlApplicationEngine engine;
-
     auto context = engine.rootContext();
-
-    Interface::bridge bridge{};
 
     QString host{"https://viagetestrive.euclidtradingsystems.com"};
 
@@ -60,16 +57,17 @@ int main(int argc, char *argv[])
         }
     }
 
-    qDebug() << "Host : " << host;
+    qDebug() << "Host :" << host;
 
     Service::access access{host,
                           "auth",
                           "format=json"};
 
+    Interface::bridge bridge{};
     QObject::connect(&bridge, &Interface::bridge::authenticate,
             &access, &Service::access::authenticate);
     QObject::connect(&access, &Service::access::loggedIn,
-                     &bridge, &Interface::bridge::loggedIn);
+                     &bridge, &Interface::bridge::onLogin);
 
     QObject::connect(&bridge, &Interface::bridge::requestReport,
                      &access, &Service::access::getReport);
@@ -95,8 +93,6 @@ int main(int argc, char *argv[])
     // owners
     Data::Wrapper::wrapped_nested_list<Data::item_list<Data::People::owner_item>, Data::account_item>
             wrapped_owners{&access, wrapped_accounts.getItem(), context};
-    qmlRegisterType<Data::urls_model>("Data", 1, 0, "UrlsModel");
-    qmlRegisterUncreatableType<Data::url_list>("Data", 1, 0, "UrlList", "");
     qmlRegisterType<Data::list_model<Data::People::owner_item>>("People", 1, 0, "OwnersModel");
 
     // infants
@@ -110,9 +106,12 @@ int main(int argc, char *argv[])
     // exterior
     Data::Wrapper::wrapped_nested_item<Data::Places::exterior_item, Data::account_item>
             wrapped_exterior{&access, wrapped_accounts.getItem(), context};
+
     // documents
     Data::Wrapper::wrapped_nested_item<Data::documents_item, Data::account_item>
             wrapped_documents{&access, wrapped_accounts.getItem(), context};
+    qmlRegisterType<Data::urls_model>("Data", 1, 0, "UrlsModel");
+    qmlRegisterUncreatableType<Data::url_list>("Data", 1, 0, "UrlList", "");
 
     // advisorrs
     Data::Wrapper::wrapped_list<Data::item_list<Data::People::advisor_item>>
@@ -132,7 +131,7 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
         else
-            bridge.set_qmlObject(obj);
+            bridge.setQmlObject(obj);
     }, Qt::QueuedConnection);
 
     engine.load(url);

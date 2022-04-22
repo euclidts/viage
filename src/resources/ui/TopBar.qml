@@ -132,7 +132,10 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 0) { owners.loadFrom(currentAccount.index) }
+                    onClicked: if (currentAccount.state >= 0) {
+                                   accountsPages.validateItem()
+                                   owners.loadFrom(currentAccount.index)
+                               }
                 }
 
                 RoundButton {
@@ -142,7 +145,10 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 1) { infants.loadFrom(currentAccount.index) }
+                    onClicked: if (currentAccount.state >= 1) {
+                                   accountsPages.validateItem()
+                                   infants.loadFrom(currentAccount.index)
+                               }
                     visible: currentAccount.state >= 1
                 }
 
@@ -153,7 +159,10 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 2) { habitat.loadFrom(currentAccount.index) }
+                    onClicked: if (currentAccount.state >= 2) {
+                                   accountsPages.validateItem()
+                                   habitat.loadFrom(currentAccount.index)
+                               }
                     visible: currentAccount.state >= 2
                 }
 
@@ -175,13 +184,16 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 4) { documents.loadFrom(currentAccount.index) }
+                    onClicked: if (currentAccount.state >= 4) {
+                                   accountsPages.validateItem()
+                                   documents.loadFrom(currentAccount.index)
+                               }
                     visible: currentAccount.state >= 4
                 }
 
                 RoundButton {
                     id: signatureButton
-                    text: qsTr("Signature")
+                    text: qsTr("Etats")
                     highlighted: accountsPages.currentIndex == 6 ? true : false
                     font.capitalization: Font.MixedCase
                     font.bold: true

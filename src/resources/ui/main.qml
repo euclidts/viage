@@ -28,6 +28,18 @@ ApplicationWindow {
     property bool onboarding: false
     property bool hiring: false
 
+    function onLogin (success: bool) {
+        if (success) {
+            topBar.visible = true
+            bottomBar.visible = true
+            logginDialog.close()
+        }
+        else {
+            busyDialog.close()
+            logginDialog.currentState = "error"
+        }
+    }
+
     Image {
         id: backDrop
         source: "qrc:/images/vue_du_lac.jpg"
@@ -39,22 +51,9 @@ ApplicationWindow {
                              logginDialog.open()
     }
 
-    function loggedIn (success: bool) {
-        if (success) {
-            logginDialog.close()
-            topBar.visible = true
-            bottomBar.visible = true
-        } else {
-            logginDialog.currentState = "error"
-        }
-    }
+    BusyDialog { id: busyDialog }
 
-    LoggInDialog {
-        id: logginDialog
-        x: Math.round((parent.width - width) / 2)
-        y: 120
-        implicitWidth: 270
-    }
+    LoggInDialog { id: logginDialog }
 
     Rectangle {
         id: urlProvider
@@ -173,9 +172,6 @@ ApplicationWindow {
                     documents.validate(currentAccount.index)
                     break;
                 }
-
-//                if (currentAccount.state < accountsPages.currentIndex)
-//                    currentAccount.state = accountsPages.getComplitionIndex()
             }
 
             ListView {
@@ -194,24 +190,38 @@ ApplicationWindow {
             StatePage { id: statePage }
 
             Connections {
+                target: accounts
+                function onLoaded() { busyDialog.close() }
+            }
+            Connections {
                 target: owners
-                function onLoaded() { accountsPages.currentIndex = 1 }
+                function onLoaded() {
+                    accountsPages.currentIndex = 1
+                }
             }
             Connections {
                 target: infants
-                function onLoaded() { accountsPages.currentIndex = 2 }
+                function onLoaded() {
+                    accountsPages.currentIndex = 2
+                }
             }
             Connections {
                 target: habitat
-                function onLoaded() { accountsPages.currentIndex = 3 }
+                function onLoaded() {
+                    accountsPages.currentIndex = 3
+                }
             }
             Connections {
                 target: exterior
-                function onLoaded() { accountsPages.currentIndex = 4 }
+                function onLoaded() {
+                    accountsPages.currentIndex = 4
+                }
             }
             Connections {
                 target: documents
-                function onLoaded() { accountsPages.currentIndex = 5 }
+                function onLoaded() {
+                    accountsPages.currentIndex = 5
+                }
             }
         }
 

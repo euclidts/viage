@@ -40,9 +40,10 @@ ItemDelegate {
             Layout.alignment: Qt.AlignRight
 
             Label {
-                text: habitat.street + ' ' + habitat.city + ' ' + habitat.zip + ' ' + habitat.canton
+                property var address: habitat["address"]
+                text: address.street + ' ' + address.city + ' ' + address.zip + ' ' + address.canton
                 font.bold: true
-                visible: (habitat.street !== "")
+                visible: (Object.keys(address).length)
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
             }
@@ -88,7 +89,7 @@ ItemDelegate {
         if (onboarding) {
             onboarding = false
             accountsPages.setComplitedPages()
-            accountsPages.currentIndex = 1
+            accountsPages.loadItem()
         }
     }
 }

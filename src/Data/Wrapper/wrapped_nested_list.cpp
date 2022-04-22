@@ -39,7 +39,7 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
             if (ok)
                 this->item->appendWith(id);
             else
-                qDebug() << res;
+                qDebug() << "addIn reply not ok" << res;
         });
     });
 }

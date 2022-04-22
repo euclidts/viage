@@ -8,8 +8,18 @@ Dialog {
     modal: true
     closePolicy: Popup.NoAutoClose
     background.opacity: .8
+    x: Math.round((parent.width - width) / 2)
+    y: 120
+    implicitWidth: 270
 
     property string currentState: "ready"
+
+    function validate() {
+        currentState = "authenticating"
+        bridge.authenticate(usernNameField.text,
+                            passwordField.text)
+        busyDialog.open()
+    }
 
     contentItem: Column {
         id: credentialsEditors
@@ -40,8 +50,8 @@ Dialog {
                 placeholderText: qsTr("Mot de passe")
                 text: ""
                 echoMode: TextInput.Password
-//                onAccepted: companyField.focus = true
-                onAccepted: validationButton.focus = true
+                onAccepted: usernNameField.text != "" ? validate()
+                                                      : usernNameField.focus = true
             }
 
             Button {
@@ -84,19 +94,6 @@ Dialog {
             }
         }
 
-//        ComboBox {
-//            id: companyField
-//            width: parent.width
-//            background.opacity: 0.
-
-//            model: ListModel {
-//                id: companies
-//                ListElement { text: qsTr("Societe 1") }
-//                ListElement { text: qsTr("Societe 2") }
-//                ListElement { text: qsTr("Societe 3") }
-//            }
-//        }
-
         Button {
             id: validationButton
             text: qsTr("Valider")
@@ -105,17 +102,7 @@ Dialog {
             font.bold: true
             highlighted: true
             anchors.bottomMargin: 2
-            onClicked: {
-                currentState = "authenticating"
-                bridge.authenticate(usernNameField.text,
-                                    passwordField.text)
-            }
-        }
-
-        BusyIndicator {
-            id: busyIndicator
-            visible: currentState == "authenticating"
-            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: validate()
         }
 
         Label {

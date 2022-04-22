@@ -13,6 +13,8 @@ ScrollView {
     property bool editing: true
     property bool completed: true
 
+    onVisibleChanged: if (visible) checkCompeted()
+
     function checkCompeted() {
         if (documents.id.empty()) {
             documentPage.completed = false

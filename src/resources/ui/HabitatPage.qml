@@ -12,15 +12,7 @@ ScrollView {
     property bool editing: true
     property bool completed: false
 
-    //    function foucsOnEmpty() {
-    //        if (surfaceField.text === "") {
-    //            surfaceField.focus = true
-    //            this.contentItem.contentY = surfaceField.y
-    //        } else if (gardenSurfaceField.text === "") {
-    //            gardenSurfaceField.focus = true
-    //            this.contentItem.contentY = gardenSurfaceField.y
-    //        }
-    //    }
+    onVisibleChanged: if (visible) checkCompeted()
 
     function checkCompeted() {
         if (habitat.street === "") {

@@ -17,12 +17,16 @@ ListView {
 
     property bool completed: false
 
+    onCountChanged: busyDialog.close()
+
     delegate: BackgroundRect {
         id: owner
 
         required property var model
         required property int index
         property bool editing: true
+
+        onVisibleChanged: if (visible) checkCompeted()
 
         function checkCompeted() {
             if (model.firstName === "") {
@@ -54,7 +58,7 @@ ListView {
             target: ownersPage.model
             function onDataChanged(topLeft, bottomRight, roles) {
                 if (topLeft.row === model.index) {
-                    owner.checkCompeted()
+                    owner.checkCompleted()
                 }
             }
         }

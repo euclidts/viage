@@ -44,6 +44,7 @@ RowLayout {
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
+            busyDialog.open()
             topBar.searchBar.text = ""
             onboarding = true
             accounts.add()
@@ -80,6 +81,7 @@ RowLayout {
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
+            busyDialog.open()
             owners.addIn(currentAccount.index)
             ownersPage.completed = false
         }
@@ -93,6 +95,7 @@ RowLayout {
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
+            busyDialog.open()
             infants.addIn(currentAccount.index)
             infantPage.completed = false
         }

@@ -37,7 +37,7 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
                     parentList->setItemAt(index, *outer);
                 }
                 else
-                    qDebug() << json["errorMessage"].toString();
+                    qDebug() << "validate error :" << json["errorMessage"].toString();
             };
 
             delete outer;

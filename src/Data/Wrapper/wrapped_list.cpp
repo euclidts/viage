@@ -30,8 +30,7 @@ wrapped_list<Inner>::wrapped_list(Service::access* srv,
 
         service->putToKey(item->key(),
                           item->toData(outer.key(), outer.id),
-                          [this](const QByteArray& rep)
-        { qDebug() << rep; });
+                          [this](const QByteArray& rep) {});
     });
 
     connect(item,
@@ -49,7 +48,7 @@ wrapped_list<Inner>::wrapped_list(Service::access* srv,
                 if (json["success"].toBool())
                     item->appendWith(json);
                 else
-                    qDebug() << json["errorMessage"].toString();
+                    qDebug() << "Add error :" << json["errorMessage"].toString();
             }
         });
     });
