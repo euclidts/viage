@@ -41,14 +41,14 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
             .contains(filterRegularExpression()))
         return true;
 
-    const auto& advisorName{sourceModel()->data(
+    const auto& userName{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    account_item::AdvisorLastNameRole)};
+                    account_item::UserLastNameRole)};
     const auto& company{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     account_item::CompanyRole)};
 
-    if (advisorName.toString().contains(filterRegularExpression())
+    if (userName.toString().contains(filterRegularExpression())
             || company.toString().contains(filterRegularExpression()))
         return true;
 
@@ -117,8 +117,8 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
 
     if (sortIndex == 6)
     {
-        const auto leftData{sourceModel()->data(left, account_item::AdvisorLastNameRole)};
-        const auto rightData{sourceModel()->data(right, account_item::AdvisorLastNameRole)};
+        const auto leftData{sourceModel()->data(left, account_item::UserLastNameRole)};
+        const auto rightData{sourceModel()->data(right, account_item::UserLastNameRole)};
 
         return leftData.toString() < rightData.toString();
     }

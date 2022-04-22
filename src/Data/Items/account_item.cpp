@@ -31,8 +31,8 @@ QHash<int, QByteArray> account_item::roleNames()
     names[StateRole] = "state";
     names[CreatedRole] = "created";
     names[ModifiedRole] = "modified";
-    names[AdvisorFirstNameRole] = "advisorFirstName";
-    names[AdvisorLastNameRole] = "advisorLastName";
+    names[UserFirstNameRole] = "userFirstName";
+    names[UserLastNameRole] = "userLastName";
     names[CompanyRole] = "company";
     names[AcronymRole] = "acronym";
     names[IdRole] = "id";
@@ -60,10 +60,10 @@ QVariant account_item::data(int role) const
         return QVariant(created);
     case ModifiedRole:
         return QVariant(modified);
-    case AdvisorFirstNameRole:
-        return QVariant(advisorFirstName);
-    case AdvisorLastNameRole:
-        return QVariant(advisorLastName);
+    case UserFirstNameRole:
+        return QVariant(userFirstName);
+    case UserLastNameRole:
+        return QVariant(userLastName);
     case CompanyRole:
         return QVariant(company);
     case AcronymRole:
@@ -243,11 +243,11 @@ void account_item::read(const QJsonObject& json)
     if (json.contains("acronym") && json["acronym"].isString())
         acronym = json["acronym"].toString();
 
-    if (json.contains("advisorFirstName") && json["advisorFirstName"].isString())
-        advisorFirstName = json["advisorFirstName"].toString();
+    if (json.contains("userFirstName") && json["userFirstName"].isString())
+        userFirstName = json["userFirstName"].toString();
 
-    if (json.contains("advisorLastName") && json["advisorLastName"].isString())
-        advisorLastName = json["advisorLastName"].toString();
+    if (json.contains("userLastName") && json["userLastName"].isString())
+        userLastName = json["userLastName"].toString();
 
     if (json.contains("company") && json["company"].isString())
         company = json["company"].toString();
@@ -275,8 +275,8 @@ void account_item::write(QJsonObject& json) const
     json["state"] = state;
     json["created"] = created.toString("dd.MM.yyyy");
     json["modified"] = modified.toString("dd.MM.yyyy");
-    json["advisorFirstName"] = advisorFirstName;
-    json["advisorLastName"] = advisorLastName;
+    json["userFirstName"] = userFirstName;
+    json["userLastName"] = userLastName;
     json["company"] = company;
     json["acronym"] = acronym;
     json["id"] = id;

@@ -35,10 +35,8 @@
         <file>ui/UrlLisView.qml</file>
         <file>icons/trash-alt.svg</file>
         <file>ui/InfantDelegate.qml</file>
-        <file>ui/AdvisorDelegate.qml</file>
         <file>icons/users.svg</file>
         <file>icons/folder-open.svg</file>
-        <file>ui/AdvisorPage.qml</file>
         <file>images/ViageLogo.svg</file>
         <file>icons/filter.svg</file>
         <file>icons/star.svg</file>
@@ -48,5 +46,8 @@
         <file>ui/PhotoBooth.qml</file>
         <file>icons/ViageLogo.ico</file>
         <file>ui/BusyDialog.qml</file>
+        <file>ui/FlickableRect.qml</file>
+        <file>ui/UserDelegate.qml</file>
+        <file>ui/UserPage.qml</file>
     </qresource>
 </RCC>

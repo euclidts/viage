@@ -58,8 +58,8 @@ struct account_item
 
     QDate created{};
     QDate modified{};
-    QString advisorFirstName{""};
-    QString advisorLastName{""};
+    QString userFirstName{""};
+    QString userLastName{""};
     QString company{""};
 
     QString acronym{""};
@@ -78,8 +78,8 @@ struct account_item
         StateRole,
         CreatedRole,
         ModifiedRole,
-        AdvisorFirstNameRole,
-        AdvisorLastNameRole,
+        UserFirstNameRole,
+        UserLastNameRole,
         CompanyRole,
         AcronymRole,
         IdRole

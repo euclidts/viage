@@ -24,7 +24,7 @@ ApplicationWindow {
     font.pixelSize: 16
 
     property var currentAccount
-    property var currentAdvisor
+    property var currentUser
     property bool onboarding: false
     property bool hiring: false
     readonly property var stateNames: [
@@ -116,7 +116,7 @@ ApplicationWindow {
 
         onCurrentIndexChanged: currentIndex < 1 ?
                                    accountModel.setFilterFixedString(topBar.searchBar.text)
-                                 : advisorModel.setFilterFixedString(topBar.searchBar.text)
+                                 : userModel.setFilterFixedString(topBar.searchBar.text)
 
         StackLayout {
             id: accountsPages
@@ -218,16 +218,16 @@ ApplicationWindow {
         }
 
         StackLayout {
-            id: advisorsPages
+            id: usersPages
             clip: true
 
             ListView {
                 Layout.fillWidth: true
-                model: advisorModel
-                delegate: AdvisorDelegate {}
+                model: userModel
+                delegate: UserDelegate {}
             }
 
-            AdvisorPage { id: advisorPage }
+            UserPage { id: userPage }
         }
     }
 

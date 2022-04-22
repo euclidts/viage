@@ -1,5 +1,5 @@
-#ifndef ADVISOR_ITEM_HPP
-#define ADVISOR_ITEM_HPP
+#ifndef USER_ITEM_HPP
+#define USER_ITEM_HPP
 
 #include "person_item.hpp"
 #include "address_item.hpp"
@@ -8,13 +8,13 @@ namespace Data
 {
 namespace People
 {
-struct advisor_item : public person_item
+struct user_item : public person_item
                     , public Places::address_item
 {
-    advisor_item();
+    user_item();
 
-    const constexpr char* key() { return "advisor"; };
-    static const constexpr auto qmlName{"Advisor"};
+    const constexpr char* key() { return "user"; };
+    static const constexpr auto qmlName{"User"};
 
     enum level
     {
@@ -55,4 +55,4 @@ struct advisor_item : public person_item
 }
 }
 
-#endif // ADVISOR_ITEM_HPP
+#endif // USER_ITEM_HPP

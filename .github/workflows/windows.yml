@@ -1,9 +1,10 @@
 name: Windows
 
-on: push
-#  push:
-#    tags:
-#      - '*'
+on:
+#  push
+  push:
+    tags:
+      - '*'
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)

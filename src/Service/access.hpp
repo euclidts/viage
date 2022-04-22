@@ -11,7 +11,7 @@ namespace Data
 {
 namespace People
 {
-struct advisor_item;
+struct user_item;
 }
 }
 
@@ -48,7 +48,7 @@ private:
     QString suffix;
 
     QString sessionId{""};
-    Data::People::advisor_item* user;
+    Data::People::user_item* user;
     void setCallback(QNetworkReply* reply,
                      const std::function<void (const QByteArray &)> &callback);
     void setRequest(const char* key);

@@ -1,5 +1,5 @@
-#ifndef ADVISOR_FILTER_MODEL_HPP
-#define ADVISOR_FILTER_MODEL_HPP
+#ifndef USER_FILTER_MODEL_HPP
+#define USER_FILTER_MODEL_HPP
 
 #include <wobjectdefs.h>
 
@@ -7,12 +7,12 @@
 
 namespace Data {
 
-class advisor_filter_model : public base_filter_model
+class user_filter_model : public base_filter_model
 {
-    W_OBJECT(advisor_filter_model)
+    W_OBJECT(user_filter_model)
 
 public:
-    explicit advisor_filter_model(QAbstractItemModel* model, QObject* parent = nullptr);
+    explicit user_filter_model(QAbstractItemModel* model, QObject* parent = nullptr);
 
 private:
     bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const override;
@@ -20,4 +20,4 @@ private:
 };
 }
 
-#endif // ACCOUNT_FILTER_MODEL_HPP
+#endif // USER_FILTER_MODEL_HPP

@@ -25,16 +25,16 @@ ItemDelegate {
     }
 
     Component.onCompleted: {
-        currentAdvisor = model
+        currentUser = model
         if (hiring) {
-            advisorsPages.currentIndex = 1
+            UsersPages.currentIndex = 1
             hiring = false
         }
     }
 
     onClicked: {
-        currentAdvisor = model
-        advisorsPages.currentIndex = 1
+        currentUser = model
+        usersPages.currentIndex = 1
     }
 
     background: Rectangle {

@@ -1,16 +1,16 @@
-#include "advisor_item.hpp"
+#include "user_item.hpp"
 
 namespace Data
 {
 namespace People
 {
-advisor_item::advisor_item()
+user_item::user_item()
     : person_item()
     , address_item()
 {
 }
 
-QHash<int, QByteArray> advisor_item::roleNames()
+QHash<int, QByteArray> user_item::roleNames()
 {
     QHash<int, QByteArray> names = person_item::roleNames();
 
@@ -27,7 +27,7 @@ QHash<int, QByteArray> advisor_item::roleNames()
     return names;
 }
 
-QVariant advisor_item::data(int role) const
+QVariant user_item::data(int role) const
 {
     QVariant extra_data{person_item::data(role)};
 
@@ -58,7 +58,7 @@ QVariant advisor_item::data(int role) const
     return QVariant();
 }
 
-void advisor_item::setData(const QVariant &value, int role)
+void user_item::setData(const QVariant &value, int role)
 {
     person_item::setData(value, role);
 
@@ -87,7 +87,7 @@ void advisor_item::setData(const QVariant &value, int role)
     address_item::setData(value, role);
 }
 
-void advisor_item::read(const QJsonObject &json)
+void user_item::read(const QJsonObject &json)
 {
     person_item::read(json);
 
@@ -113,7 +113,7 @@ void advisor_item::read(const QJsonObject &json)
         bic = json["bic"].toString();
 }
 
-void advisor_item::write(QJsonObject& json) const
+void user_item::write(QJsonObject& json) const
 {
     person_item::write(json);
 

@@ -7,7 +7,7 @@
 #include <wobjectimpl.h>
 
 #include "access.hpp"
-#include <Items/advisor_item.hpp>
+#include <Items/user_item.hpp>
 
 namespace Service
 {
@@ -69,7 +69,7 @@ void access::authenticate(const QString& username,
                 if (authenticating)
                 {
                     delete user;
-                    user = new Data::People::advisor_item();
+                    user = new Data::People::user_item();
                     authenticating = false;
 
                     if (json.contains("sessionId") && json["sessionId"].isString())

@@ -19,20 +19,20 @@ ScrollView {
 
                 Label {
                     Layout.margins: 6
-                    text: qsTr("Conseiller ") + (currentAdvisor.index + 1)
+                    text: qsTr("Conseiller ") + (currentUser.index + 1)
                     font.bold: true
                 }
 
                 PersonDelegate {
                     Layout.margins: 12
                     Layout.fillWidth: true
-                    model: currentAdvisor
+                    model: currentUser
 
                     LabeledTextField {
                         name: qsTr("Sosciete")
-                        textOf: currentAdvisor.company
+                        textOf: currentUser.company
                         canEdit: editing
-                        onEdit: function(txt) { currentAdvisor.company = txt }
+                        onEdit: function(txt) { currentUser.company = txt }
                     }
 
                     Label {
@@ -49,12 +49,12 @@ ScrollView {
                             qsTr("administrateur")
                         ]
                         Layout.minimumWidth: 180
-                        onActivated: currentAdvisor.clearance = currentIndex
-                        currentIndex: currentAdvisor.clearance
+                        onActivated: currentUser.clearance = currentIndex
+                        currentIndex: currentUser.clearance
                     }
 
                     TextField {
-                        text: clearanceCombo.model[currentAdvisor.clearance]
+                        text: clearanceCombo.model[currentUser.clearance]
                         readOnly: true
                         visible: !editing
                         Layout.fillWidth: true
@@ -64,33 +64,33 @@ ScrollView {
                         minimum: 1
                         maximum: 100
                         name: qsTr("Numéro d'équipe")
-                        numberOf: currentAdvisor.team
-                        onEdit: function(val) { currentAdvisor.team = val }
+                        numberOf: currentUser.team
+                        onEdit: function(val) { currentUser.team = val }
                     }
 
                     LabeledTextField {
                         name: qsTr("Bénéficiaire du compte")
-                        textOf: currentAdvisor.beneficiary
+                        textOf: currentUser.beneficiary
                         canEdit: editing
-                        onEdit: function(txt) { currentAdvisor.beneficiary = txt }
+                        onEdit: function(txt) { currentUser.beneficiary = txt }
                     }
 
                     LabeledTextField {
                         name: qsTr("Iban")
-                        textOf: currentAdvisor.iban
+                        textOf: currentUser.iban
                         canEdit: editing
-                        onEdit: function(txt) { currentAdvisor.iban = txt }
+                        onEdit: function(txt) { currentUser.iban = txt }
                     }
 
                     LabeledTextField {
                         name: qsTr("SWIFT/BIC")
-                        textOf: currentAdvisor.bic
+                        textOf: currentUser.bic
                         canEdit: editing
-                        onEdit: function(txt) { currentAdvisor.bic = txt }
+                        onEdit: function(txt) { currentUser.bic = txt }
                     }
 
                     AddressChooser {
-                        addressOf: currentAdvisor
+                        addressOf: currentUser
                         canEdit: editing
                     }
 
@@ -112,7 +112,7 @@ ScrollView {
                             //                if (!foucsOnEmpty())
                         {
                             editing = false
-                            advisors.validate(currentAdvisor.index)
+                            users.validate(currentUser.index)
                         }
                     }
                 }

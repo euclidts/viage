@@ -54,19 +54,19 @@ RowLayout {
     MaterialButton {
         text: qsTr("Ajouter un conseiller")
         visible: rootStack.currentIndex === 1
-                 && advisorsPages.currentIndex === 0
+                 && usersPages.currentIndex === 0
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
             topBar.searchBar.text = ""
             hiring = true
-            advisors.appendItems(1)
+            users.appendItems(1)
         }
     }
 
     MaterialButton {
         visible: rootStack.currentIndex === 1
-                 && advisorsPages.currentIndex === 0
+                 && usersPages.currentIndex === 0
         text: qsTr("Accueil")
         icon.source: "qrc:/icons/home.svg"
 

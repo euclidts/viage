@@ -14,7 +14,7 @@ RowLayout {
         id: sort
         Layout.rightMargin: -12
 
-        visible: accountsPages.currentIndex < 1 && advisorsPages.currentIndex < 1
+        visible: accountsPages.currentIndex < 1 && usersPages.currentIndex < 1
         contentItem: IconLabel {
             leftPadding: 6
             rightPadding: -18
@@ -26,7 +26,7 @@ RowLayout {
 
         onActivated: rootStack.currentIndex < 1 ?
                          accountModel.setSortIndex = currentIndex
-                       : advisorModel.setSortIndex = currentIndex
+                       : userModel.setSortIndex = currentIndex
 
         model: rootStack.currentIndex < 1 ?
                    [qsTr("Creation"),
@@ -61,7 +61,7 @@ RowLayout {
 
     Button {
         id: magnifyingGlass
-        visible: accountsPages.currentIndex < 1 && advisorsPages.currentIndex < 1
+        visible: accountsPages.currentIndex < 1 && usersPages.currentIndex < 1
         flat: true
         icon.source: search.text == "" ? "qrc:/icons/search.svg" : "qrc:/icons/times-circle.svg"
         background: Rectangle {
@@ -87,23 +87,23 @@ RowLayout {
         id: search
         Layout.fillWidth: true
         placeholderText: qsTr("Recherche")
-        visible: accountsPages.currentIndex < 1 && advisorsPages.currentIndex < 1
+        visible: accountsPages.currentIndex < 1 && usersPages.currentIndex < 1
         onVisibleChanged: if (!visible) { focus = false }
         onTextChanged: rootStack.currentIndex === 0 ?
                            accountModel.setFilterFixedString(text.toString())
-                         : advisorModel.setFilterFixedString(text.toString())
+                         : userModel.setFilterFixedString(text.toString())
     }
 
     Button {
         id: backButton
-        visible: accountsPages.currentIndex > 0 || advisorsPages.currentIndex > 0
+        visible: accountsPages.currentIndex > 0 || usersPages.currentIndex > 0
         icon.source: "qrc:/icons/arrow-left.svg"
         font.bold: true
         onClicked: if (rootStack.currentIndex === 0) {
                        accountsPages.validateItem()
                        accountsPages.currentIndex = 0
                    } else {
-                       advisorsPages.currentIndex = 0
+                       usersPages.currentIndex = 0
                    }
         background: Rectangle {
             implicitHeight: Material.buttonHeight

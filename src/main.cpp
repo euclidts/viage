@@ -14,8 +14,8 @@
 #include <Models/list_model.hpp>
 #include <Models/urls_model.hpp>
 #include <Models/account_filter_model.hpp>
-#include <Models/advisor_filter_model.hpp>
-#include "Items/advisor_item.hpp"
+#include <Models/user_filter_model.hpp>
+#include "Items/user_item.hpp"
 #include "Items/account_item.hpp"
 #include "Items/owner_item.hpp"
 #include "Items/habitat_item.hpp"
@@ -60,12 +60,12 @@ int main(int argc, char *argv[])
     qDebug() << "Host :" << host;
 
     Service::access access{host,
-                          "auth",
-                          "format=json"};
+                "auth",
+                "format=json"};
 
     Interface::bridge bridge{};
     QObject::connect(&bridge, &Interface::bridge::authenticate,
-            &access, &Service::access::authenticate);
+                     &access, &Service::access::authenticate);
     QObject::connect(&access, &Service::access::loggedIn,
                      &bridge, &Interface::bridge::onLogin);
 
@@ -85,10 +85,6 @@ int main(int argc, char *argv[])
     Data::account_filter_model accountFilter{&accountModel};
     qmlRegisterUncreatableType<Data::account_filter_model>("Data", 1, 0, "AccountsModel", "");
     context->setContextProperty("accountModel", &accountFilter);
-
-    QObject::connect(&access, &Service::access::loggedIn,
-                     [&wrapped_accounts](const bool& success)
-    { if (success) wrapped_accounts.get(); });
 
     // owners
     Data::Wrapper::wrapped_nested_list<Data::item_list<Data::People::owner_item>, Data::account_item>
@@ -113,16 +109,25 @@ int main(int argc, char *argv[])
     qmlRegisterType<Data::urls_model>("Data", 1, 0, "UrlsModel");
     qmlRegisterUncreatableType<Data::url_list>("Data", 1, 0, "UrlList", "");
 
-    // advisorrs
-    Data::Wrapper::wrapped_list<Data::item_list<Data::People::advisor_item>>
-            wrapped_advisors{&access, context};
+    // users
+    Data::Wrapper::wrapped_list<Data::item_list<Data::People::user_item>>
+            wrapped_user{&access, context};
 
-    Data::list_model<Data::People::advisor_item> advisorModel{};
-    advisorModel.setList(wrapped_advisors.getItem());
+    Data::list_model<Data::People::user_item> userModel{};
+    userModel.setList(wrapped_user.getItem());
 
-    Data::advisor_filter_model advisorFilter{&advisorModel};
-    qmlRegisterUncreatableType<Data::advisor_filter_model>("People", 1, 0, "AdvisorModel", "");
-    context->setContextProperty("advisorModel", &advisorFilter);
+    Data::user_filter_model userFilter{&userModel};
+    qmlRegisterUncreatableType<Data::user_filter_model>("People", 1, 0, "UserModel", "");
+    context->setContextProperty("userModel", &userFilter);
+
+    QObject::connect(&access, &Service::access::loggedIn,
+                     [&wrapped_accounts, &wrapped_user](const bool& success)
+    { if (success)
+        {
+            wrapped_accounts.get();
+            wrapped_user.get();
+        }
+    });
 
     // qml engine
     const QUrl url(QStringLiteral("qrc:/ui/main.qml"));

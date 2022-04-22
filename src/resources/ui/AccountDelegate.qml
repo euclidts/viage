@@ -52,7 +52,7 @@ ItemDelegate {
             }
 
             Label {
-                text: advisorFirstName + ' ' + advisorLastName + ' ' + company
+                text: userFirstName + ' ' + userLastName + ' ' + company
                 font.italic: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter

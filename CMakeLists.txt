@@ -80,8 +80,8 @@ set(PROJECT_SOURCES
     src/Data/Items/address_item.cpp
     src/Data/Items/person_item.hpp
     src/Data/Items/person_item.cpp
-    src/Data/Items/advisor_item.hpp
-    src/Data/Items/advisor_item.cpp
+    src/Data/Items/user_item.hpp
+    src/Data/Items/user_item.cpp
     src/Data/Items/infant_item.hpp
     src/Data/Items/infant_item.cpp
     src/Data/Items/person_item.cpp
@@ -109,8 +109,8 @@ set(PROJECT_SOURCES
     src/Data/Models/base_filter_model.cpp
     src/Data/Models/account_filter_model.hpp
     src/Data/Models/account_filter_model.cpp
-    src/Data/Models/advisor_filter_model.hpp
-    src/Data/Models/advisor_filter_model.cpp
+    src/Data/Models/user_filter_model.hpp
+    src/Data/Models/user_filter_model.cpp
     src/resources/viage.qrc
     ${TS_FILES})
 
