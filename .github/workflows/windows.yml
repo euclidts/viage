@@ -37,13 +37,10 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target package
 
-#    - name: Deploy
-#      run: ${{github.workspace}}/6.3.0/msvc2019_64/bin/windeployqt --qmldir ${{github.workspace}}/src/ressources/ui ${{github.workspace}}/build/Release/viage.exe
-
     - uses: actions/upload-artifact@v3
       with:
         name: viage
-        path: ${{github.workspace}}/build/Release/viage-1.0-win64.exe
+        path: ${{github.workspace}}/build/viage-1.0-win64.exe
 
     #- name: Test
       # working-directory: ${{github.workspace}}/build

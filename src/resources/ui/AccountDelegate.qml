@@ -24,13 +24,16 @@ ItemDelegate {
             }
 
             Label {
-                text: [
-                    qsTr("Incomplet"),
-                    qsTr("Signé"),
-                    qsTr("Reçu"),
-                    qsTr("Expertisé")
-                ][Math.max(model.state - 7, 0)]
-                + " - " + Qt.formatDate(modified, "dd.MM.yy");
+                property string accountState: if (model.state < 16)
+                                                  stateNames[0]
+                                              else if (model.state === 32)
+                                                  stateNames[1]
+                                              else if (mdoel.state === 64)
+                                                  stateNames[2]
+                                              else
+                                                  stateNames[3]
+
+                text: accountState + " - " + Qt.formatDate(modified, "dd.MM.yy");
             }
         }
 
@@ -73,7 +76,6 @@ ItemDelegate {
 
     onClicked: {
         currentAccount = model
-        accountsPages.setComplitedPages()
         accountsPages.loadItem()
     }
 
@@ -88,7 +90,6 @@ ItemDelegate {
         currentAccount = model
         if (onboarding) {
             onboarding = false
-            accountsPages.setComplitedPages()
             accountsPages.loadItem()
         }
     }

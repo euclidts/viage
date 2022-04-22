@@ -224,41 +224,8 @@ ScrollView {
                         urlFrom: urlProvider
                         canEdit: editing
                     }
-
-                    //            Button {
-                    //                text: qsTr("Modifier")
-                    //                highlighted: true
-                    //                Layout.alignment: Qt.AlignRight
-                    //                visible: !editing
-                    //                onClicked: editing = true
-                    //            }
-
-                    //            Button {
-                    //                id: validateButton
-                    //                highlighted: true
-                    //                text: qsTr("Valider")
-                    //                Layout.alignment: Qt.AlignRight
-                    //                visible: editing
-                    //                onClicked: {
-                    //                    //                foucsOnEmpty()
-                    //                    documentPage.editing = false
-                    //                    documentPage.completed = true
-                    //                    documents.validate(currentAccount.index)
-                    //                    //                if (currentAccount.state < accountsPages.currentIndex)
-                    //                    //                    currentAccount.state = accountsPages.getComplitionIndex()
-                    //                }
-                    //            }
                 }
             }
-
-            //            onCompleted: {
-            //                if (currentAccount.state > 4) {
-            //                    editing = false
-            //                    completed = true
-            //                }
-
-            //                contentItem.contentY = this.y
-            //            }
         }
     }
 }

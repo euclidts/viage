@@ -214,42 +214,8 @@ ScrollView {
                             habitatPage.checkCompeted()
                         }
                     }
-
-                    //            Button {
-                    //                text: qsTr("Modifier")
-                    //                highlighted: true
-                    //                Layout.alignment: Qt.AlignRight
-                    //                visible: !editing
-                    //                onClicked: editing = true
-                    //            }
-
-                    //            Button {
-                    //                id: validateButton
-                    //                highlighted: true
-                    //                text: qsTr("Valider")
-                    //                Layout.alignment: Qt.AlignRight
-                    //                visible: editing
-                    //                onClicked:
-                    //                    //                if (!foucsOnEmpty())
-                    //                {
-                    //                    editing = false
-                    //                    completed = true
-                    //                    habitat.validate(currentAccount.index)
-                    //                    if (currentAccount.state < accountsPages.currentIndex)
-                    //                        currentAccount.state = accountsPages.getComplitionIndex()
-                    //                }
-                    //            }
                 }
             }
-
-            //    onCompleted: {
-            //        if (currentAccount.state > 2) {
-            //            editing = false
-            //            completed = true
-            //        }
-
-            //        contentItem.contentY = this.y
-            //    }
         }
     }
 }

@@ -173,8 +173,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 3) { exterior.loadFrom(currentAccount.index) }
-                    visible: currentAccount.state >= 3
+                    onClicked: if (currentAccount.state >= 4) {
+                                   accountsPages.validateItem()
+                                   exterior.loadFrom(currentAccount.index)
+                               }
+                    visible: currentAccount.state >= 4
                 }
 
                 RoundButton {
@@ -184,11 +187,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 4) {
+                    onClicked: if (currentAccount.state >= 8) {
                                    accountsPages.validateItem()
                                    documents.loadFrom(currentAccount.index)
                                }
-                    visible: currentAccount.state >= 4
+                    visible: currentAccount.state >= 8
                 }
 
                 RoundButton {
@@ -198,7 +201,7 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    visible: currentAccount.state >= 5
+                    visible: currentAccount.state >= 16
                 }
             }
         }

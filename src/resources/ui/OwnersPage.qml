@@ -253,55 +253,10 @@ ListView {
                         id: deleteButton
                         icon.source: "qrc:/icons/trash-alt.svg"
                         visible: owner.editing && model.index > 0
-                        onClicked:
-                            //                    if (!foucsOnEmpty())
-                        {
-                            owners.removeItems(model.index, model.index)
-                        }
+                        onClicked: owners.removeItems(model.index, model.index)
                     }
-
-                    //                Item {
-                    //                    Layout.fillWidth: true
-                    //                    height: deleteButton.implicitHeight
-                    //                }
-
-                    //                Button {
-                    //                    id: validateButton
-                    //                    highlighted: true
-                    //                    text: qsTr("Valider")
-                    //                    Layout.alignment: Qt.AlignRight
-                    //                    visible: owner.editing
-                    //                    onClicked: {
-                    //                        //                    if (!foucsOnEmpty())
-                    //                        owner.editing = false
-                    //                        ownersPage.completed = true
-                    //                        owners.validate(currentAccount.index)
-                    //                        if (currentAccount.state < accountsPages.currentIndex)
-                    //                            currentAccount.state = accountsPages.getComplitionIndex()
-                    //                    }
-                    //                }
-
-                    //                Button {
-                    //                    text: qsTr("Modifier")
-                    //                    highlighted: true
-                    //                    Layout.alignment: Qt.AlignRight
-                    //                    visible: !owner.editing && ownersPage.completed
-                    //                    onClicked: {
-                    //                        owner.editing = true
-                    //                        ownersPage.completed = false
-                    //                    }
-                    //                }
                 }
             }
-
-            //        Component.onCompleted: {
-            //            if (currentAccount.state > 0) {
-            //                owner.editing = false
-            //                ownersPage.completed = true
-            //            }
-
-            //            contentItem.contentY = this.y
-            //        }
         }
     }
 }

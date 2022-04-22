@@ -27,6 +27,12 @@ ApplicationWindow {
     property var currentAdvisor
     property bool onboarding: false
     property bool hiring: false
+    readonly property var stateNames: [
+        qsTr("Incomplet"),
+        qsTr("Envoyé"),
+        qsTr("En attente d'expertise"),
+        qsTr("Expertisé")
+    ]
 
     function onLogin (success: bool) {
         if (success) {
@@ -115,20 +121,6 @@ ApplicationWindow {
         StackLayout {
             id: accountsPages
             currentIndex: 0
-
-            function getComplitionIndex() {
-                for (var i = 0; i < 5; i++) {
-                    if (!accountsPages.itemAt(i + 1).completed)
-                        return i;
-                }
-
-                return currentAccount.state
-            }
-
-            function setComplitedPages() {
-                for (var i = 1; i <= currentAccount.state; i++)
-                    accountsPages.itemAt(i).completed = true;
-            }
 
             function loadItem() {
                 switch (currentAccount.state) {

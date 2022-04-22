@@ -192,42 +192,8 @@ ScrollView {
                             onClicked: exterior.rating = 5
                         }
                     }
-
-                    //            Button {
-                    //                text: qsTr("Modifier")
-                    //                highlighted: true
-                    //                Layout.alignment: Qt.AlignRight
-                    //                visible: !editing
-                    //                onClicked: editing = true
-                    //            }
-
-                    //            Button {
-                    //                id: validateButton
-                    //                highlighted: true
-                    //                text: qsTr("Valider")
-                    //                Layout.alignment: Qt.AlignRight
-                    //                visible: editing
-                    //                onClicked:
-                    //                    //                if (!foucsOnEmpty())
-                    //                {
-                    //                    editing = false
-                    //                    completed = true
-                    //                    exterior.validate(currentAccount.index)
-                    //                    if (exterior.state < accountsPages.currentIndex)
-                    //                        exterior.state = accountsPages.getComplitionIndex()
-                    //                }
-                    //            }
                 }
             }
         }
-
-        //    onCompleted: {
-        //        if (currentAccount.state > 3) {
-        //            editing = false
-        //            completed = true
-        //        }
-
-        //        contentItem.contentY = this.y
-        //    }
     }
 }

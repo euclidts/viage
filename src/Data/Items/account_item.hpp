@@ -44,7 +44,7 @@ struct account_item
     enum states
     {
         Initialized = 0,
-        OwnersComple1ted = 1,
+        OwnersCompleted = 1,
         InfantsCompleted = 2,
         HabitatCompleted = 4,
         ExteriorCompleted = 8,

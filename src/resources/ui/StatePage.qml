@@ -22,53 +22,31 @@ ScrollView {
                     Layout.margins: 12
 
                     Label {
-                        Layout.leftMargin: -6
-                        text: qsTr("Demande de Dossier")
+                        text: qsTr("Etat du Dossier")
                         font.bold: true
                     }
 
-                    Label {
-                        text: qsTr("Envoyer le code de validation au ")
-                        font.italic: true
+                    CheckBox {
+                        checked: currentAccount.state >= 32
+                        onCheckStateChanged: exterior.parking = checked
+                        text: stateNames[1]
+                        checkable: currentAccount.state < 32
                     }
 
-                    ComboBox {
-                        Layout.fillWidth: true
-                        textRole: "phone"
-                        model: OwnersModel { list: owners }
+                    CheckBox {
+                        checked: currentAccount.state >= 64
+                        onCheckStateChanged: exterior.parking = checked
+                        text: stateNames[2]
+                        checkable: currentAccount.state < 32
                     }
 
-                    TextField {
-                        id: code
-                        inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        placeholderText: qsTr("Veuillez saisir le code reçu par sms")
-                        Layout.fillWidth: true
-                    }
-
-                    Button {
-                        id: validateButton
-                        highlighted: true
-                        text: qsTr("Siger électroniquement")
-                        Layout.alignment: Qt.AlignRight
-                        visible: code.text !== ""
-                        onClicked:
-                            //                    if (!foucsOnEmpty())
-                        {
-                            completed = true
-//                            if (currentAccount.state < accountsPages.currentIndex)
-//                                currentAccount.state = accountsPages.getComplitionIndex()
-                        }
+                    CheckBox {
+                        checked: currentAccount.state >= 32
+                        onCheckStateChanged: exterior.parking = checked
+                        text: stateNames[3]
+                        checkable: editing
                     }
                 }
-
-                //    onCompleted: {
-                //        if (currentAccount.state > 0) {
-                //            editing = false
-                //            completed = true
-                //        }
-
-                //        contentItem.contentY = this.y
-                //    }
             }
         }
     }

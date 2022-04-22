@@ -58,43 +58,8 @@ ListView {
             Button {
                 id: deleteButton
                 icon.source: "qrc:/icons/trash-alt.svg"
-                //                    visible: owner.editing && ownersPage.count > 1
-                onClicked:
-                    //                    if (!foucsOnEmpty())
-                {
-                    infants.removeItems(model.index, model.index)
-                }
+                onClicked: infants.removeItems(model.index, model.index)
             }
-
-            //        Button {
-            //            text: qsTr("Modifier")
-            //            highlighted: true
-            //            Layout.margins: 12
-            //            Layout.alignment: Qt.AlignRight
-            //            visible: !infant.editing
-            //            onClicked: {
-            //                infant.editing = true
-            //                infantrenPage.completed = false
-            //            }
-            //        }
-
-            //        Button {
-            //            id: validateButton
-            //            highlighted: true
-            //            text: qsTr("Valider")
-            //            Layout.margins: 12
-            //            Layout.alignment: Qt.AlignRight
-            //            visible: infant.editing
-            //            onClicked:
-            //                //                    if (!foucsOnEmpty())
-            //            {
-            //                infant.editing = false
-            //                infantPage.completed = true
-            //                infants.validate(currentAccount.index)
-            //                if (currentAccount.state < accountsPages.currentIndex)
-            //                    currentAccount.state = accountsPages.getComplitionIndex()
-            //            }
-            //        }
         }
     }
 }
