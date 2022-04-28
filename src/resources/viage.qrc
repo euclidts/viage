@@ -32,7 +32,7 @@
         <file>ui/AddressChooser.qml</file>
         <file>ui/CameraScene.qml</file>
         <file>icons/camera.svg</file>
-        <file>ui/UrlLisView.qml</file>
+        <file>ui/DocumentLisView.qml</file>
         <file>icons/trash-alt.svg</file>
         <file>ui/InfantDelegate.qml</file>
         <file>icons/users.svg</file>

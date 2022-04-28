@@ -14,7 +14,7 @@ class data_notifyer;
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
-class wrapped_nested_item : protected wrapped_list<Inner>
+class wrapped_nested_item : public wrapped_list<Inner>
 {
     W_OBJECT(wrapped_nested_item)
 

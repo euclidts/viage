@@ -5,7 +5,7 @@
 #include "Items/owner_item.hpp"
 #include "Items/habitat_item.hpp"
 #include "Items/exterior_item.hpp"
-#include "Items/documents_item.hpp"
+#include "Items/document_item.hpp"
 
 #include "Lists/item_list.hpp"
 
@@ -53,7 +53,7 @@ QVariant account_item::data(int role) const
     case ExteriorRole:
         return exterior;
     case DocumentsRole:
-        return documents;
+        return documents.toVariantList();
     case StateRole:
         return QVariant(state);
     case CreatedRole:
@@ -92,7 +92,7 @@ void account_item::setData(const QVariant &value, int role)
         exterior = value.toJsonObject();
         break;
     case DocumentsRole:
-        documents = value.toJsonObject();
+        documents = value.toJsonArray();
         break;
     case StateRole:
         state = states(value.toInt());
@@ -146,11 +146,11 @@ void account_item::set(Places::exterior_item* er)
     modified = QDate::currentDate();
 }
 
-void account_item::set(documents_item* ds)
+void account_item::set(item_list<document_item>* ds)
 {
-    QJsonObject obj{};
-    ds->write(obj);
-    documents = obj;
+    QJsonArray arr{};
+    ds->write(arr);
+    documents = arr;
 
     modified = QDate::currentDate();
 }
@@ -203,17 +203,8 @@ QJsonObject account_item::get(Places::exterior_item* er)
     return exterior;
 }
 
-QJsonObject account_item::get(documents_item* ds)
+QJsonArray account_item::get(item_list<document_item>* ds)
 {
-    if (documents.isEmpty())
-    {
-        QJsonObject obj{};
-
-        documents_item newDocuments{};
-        newDocuments.write(obj);
-        documents = obj;
-    }
-
     return documents;
 }
 
@@ -231,8 +222,8 @@ void account_item::read(const QJsonObject& json)
     if (json.contains("exterior") && json["exterior"].isObject())
         exterior = json["exterior"].toObject();
 
-    if (json.contains("documents") && json["documents"].isObject())
-        exterior = json["documents"].toObject();
+    if (json.contains("documents") && json["documents"].isArray())
+        documents = json["documents"].toArray();
 
     if (json.contains("created") && json["created"].isString())
         created = QDate::fromString(json["created"].toString(), "dd.MM.yyyy");
@@ -254,9 +245,6 @@ void account_item::read(const QJsonObject& json)
 
     if (json.contains("id") && json["id"].isDouble())
         id = json["id"].toInt();
-
-    if (json.contains("accountId") && json["accountId"].isDouble())
-        id = json["accountId"].toInt();
 
     if (json.contains("state") && json["state"].isDouble())
         state = states(json["state"].toInt());

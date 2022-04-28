@@ -11,7 +11,7 @@ ColumnLayout {
     Layout.margins: 6
 
     required property string name
-    required property var listOf
+    required property int documentCategory
     required property var onEdit
     required property var urlFrom
     property bool canEdit: true
@@ -31,7 +31,22 @@ ColumnLayout {
         property bool aquiring: false
         property bool fromCamera: false
 
-        model: UrlsModel { list: listOf }
+        Connections {
+            target: documents
+            function onPostItemsAppended() {
+                if(aquiring) {
+                    var index = documents.count() - 1
+                    var last = documents.item_at(index)
+                    last.category = documentCategory
+                    documtents.setItemAt(index)
+                }
+            }
+        }
+
+        model: DocumentFileteModel {
+            sourceModel: documentModel
+            category: documentCategory
+        }
 
         delegate: RowLayout {
             spacing: 0
@@ -77,7 +92,7 @@ ColumnLayout {
             RoundButton {
                 icon.source: "qrc:/icons/trash-alt.svg"
                 onClicked: {
-                    listOf.removeItems(model.index, model.index)
+                    //                    listOf.removeItems(model.index, model.index)
                     onEdit(root)
                 }
             }
@@ -91,7 +106,7 @@ ColumnLayout {
             onClicked: {
                 root.aquiring = true
                 root.fromCamera = false
-                listOf.appendItems(1)
+                documents.add()
             }
         }
 
@@ -100,7 +115,7 @@ ColumnLayout {
             onClicked: {
                 root.aquiring = true
                 root.fromCamera = true
-                listOf.appendItems(1)
+                documents.add()
             }
         }
     }

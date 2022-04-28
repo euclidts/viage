@@ -15,7 +15,7 @@ namespace Wrapper
 {
 
 template <typename Inner, typename Outer>
-class wrapped_nested_list : protected wrapped_nested_item<Inner, Outer>
+class wrapped_nested_list : public wrapped_nested_item<Inner, Outer>
 {
     W_OBJECT(wrapped_nested_list)
 

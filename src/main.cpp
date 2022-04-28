@@ -15,12 +15,13 @@
 #include <Models/urls_model.hpp>
 #include <Models/account_filter_model.hpp>
 #include <Models/user_filter_model.hpp>
+#include <Models/document_filter_model.hpp>
 #include "Items/user_item.hpp"
 #include "Items/account_item.hpp"
 #include "Items/owner_item.hpp"
 #include "Items/habitat_item.hpp"
 #include "Items/exterior_item.hpp"
-#include "Items/documents_item.hpp"
+#include "Items/document_item.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -104,10 +105,14 @@ int main(int argc, char *argv[])
             wrapped_exterior{&access, wrapped_accounts.getItem(), context};
 
     // documents
-    Data::Wrapper::wrapped_nested_item<Data::documents_item, Data::account_item>
+    Data::Wrapper::wrapped_nested_list<Data::item_list<Data::document_item>, Data::account_item>
             wrapped_documents{&access, wrapped_accounts.getItem(), context};
-    qmlRegisterType<Data::urls_model>("Data", 1, 0, "UrlsModel");
-    qmlRegisterUncreatableType<Data::url_list>("Data", 1, 0, "UrlList", "");
+
+    Data::list_model<Data::document_item> documentModel{};
+    documentModel.setList(wrapped_documents.getItem());
+    qmlRegisterUncreatableType<Data::list_model<Data::document_item>>("Data", 1, 0, "DocumentModel", "");
+    context->setContextProperty("documentModel", &documentModel);
+    qmlRegisterType<Data::document_filter_model>("Data", 1, 0, "DocumentFileteModel");
 
     // users
     Data::Wrapper::wrapped_list<Data::item_list<Data::People::user_item>>
@@ -122,7 +127,8 @@ int main(int argc, char *argv[])
 
     QObject::connect(&access, &Service::access::loggedIn,
                      [&wrapped_accounts, &wrapped_user](const bool& success)
-    { if (success)
+    {
+        if (success)
         {
             wrapped_accounts.get();
             wrapped_user.get();

@@ -22,7 +22,7 @@ struct exterior_item;
 template <typename T>
 struct item_list;
 
-class documents_item;
+class document_item;
 
 struct account_item
 {
@@ -39,7 +39,7 @@ struct account_item
     // --- Exterior ---
     QJsonObject exterior{};
     // --- Documents ---
-    QJsonObject documents{};
+    QJsonArray documents{};
 
     enum states
     {
@@ -94,13 +94,13 @@ struct account_item
     void set(item_list<People::infant_item>* il);
     void set(Places::habitat_item* ht);
     void set(Places::exterior_item* er);
-    void set(documents_item* ds);
+    void set(item_list<Data::document_item>* il);
 
     QJsonArray get(item_list<People::owner_item>* ol);
     QJsonArray get(item_list<People::infant_item>* il) const;
     QJsonObject get(Places::habitat_item* ht);
     QJsonObject get(Places::exterior_item* er);
-    QJsonObject get(documents_item* ds);
+    QJsonArray get(item_list<Data::document_item>* il);
 
     void read(const QJsonObject& json);
     void write(QJsonObject &json) const;

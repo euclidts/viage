@@ -93,22 +93,20 @@ set(PROJECT_SOURCES
     src/Data/Items/exterior_item.cpp
     src/Data/Items/url_item.hpp
     src/Data/Items/url_item.cpp
-    src/Data/Items/documents_item.hpp
-    src/Data/Items/documents_item.cpp
+    src/Data/Items/document_item.hpp
+    src/Data/Items/document_item.cpp
     src/Data/Items/account_item.hpp
     src/Data/Items/account_item.cpp
     src/Data/Lists/base_list.hpp
-    src/Data/Lists/url_list.hpp
-    src/Data/Lists/url_list.cpp
     src/Data/Lists/item_list.hpp
     src/Data/Models/base_model.hpp
-    src/Data/Models/urls_model.hpp
-    src/Data/Models/urls_model.cpp
     src/Data/Models/list_model.hpp
     src/Data/Models/base_filter_model.hpp
     src/Data/Models/base_filter_model.cpp
     src/Data/Models/account_filter_model.hpp
     src/Data/Models/account_filter_model.cpp
+    src/Data/Models/document_filter_model.hpp
+    src/Data/Models/document_filter_model.cpp
     src/Data/Models/user_filter_model.hpp
     src/Data/Models/user_filter_model.cpp
     src/resources/viage.qrc
