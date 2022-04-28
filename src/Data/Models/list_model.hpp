@@ -1,8 +1,6 @@
 #ifndef LIST_MODEL_H
 #define LIST_MODEL_H
 
-#include <QAbstractListModel>
-
 #include <wobjectdefs.h>
 
 namespace Data

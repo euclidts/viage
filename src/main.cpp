@@ -12,7 +12,6 @@
 #include <Wrapper/wrapped_nested_item.hpp>
 #include <Wrapper/wrapped_nested_list.hpp>
 #include <Models/list_model.hpp>
-#include <Models/urls_model.hpp>
 #include <Models/account_filter_model.hpp>
 #include <Models/user_filter_model.hpp>
 #include <Models/document_filter_model.hpp>
@@ -108,11 +107,8 @@ int main(int argc, char *argv[])
     Data::Wrapper::wrapped_nested_list<Data::item_list<Data::document_item>, Data::account_item>
             wrapped_documents{&access, wrapped_accounts.getItem(), context};
 
-    Data::list_model<Data::document_item> documentModel{};
-    documentModel.setList(wrapped_documents.getItem());
-    qmlRegisterUncreatableType<Data::list_model<Data::document_item>>("Data", 1, 0, "DocumentModel", "");
-    context->setContextProperty("documentModel", &documentModel);
-    qmlRegisterType<Data::document_filter_model>("Data", 1, 0, "DocumentFileteModel");
+    qmlRegisterType<Data::list_model<Data::document_item>>("Data", 1, 0, "DocumentModel");
+    qmlRegisterType<Data::document_filter_model>("Data", 1, 0, "DocumentFilterModel");
 
     // users
     Data::Wrapper::wrapped_list<Data::item_list<Data::People::user_item>>

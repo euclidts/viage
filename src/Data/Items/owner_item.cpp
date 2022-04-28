@@ -4,7 +4,6 @@
 #include <QJsonArray>
 
 #include "owner_item.hpp"
-#include <Lists/url_list.hpp>
 
 namespace Data
 {

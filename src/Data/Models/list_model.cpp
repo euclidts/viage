@@ -1,6 +1,8 @@
+#pragma once
 #include <wobjectimpl.h>
 
 #include "list_model.hpp"
+#include "base_model.hpp"
 #include "../Lists/item_list.hpp"
 
 namespace Data

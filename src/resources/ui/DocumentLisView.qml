@@ -43,8 +43,8 @@ ColumnLayout {
             }
         }
 
-        model: DocumentFileteModel {
-            sourceModel: documentModel
+        model: DocumentFilterModel {
+            sourceModel: DocumentModel { list: documents }
             category: documentCategory
         }
 

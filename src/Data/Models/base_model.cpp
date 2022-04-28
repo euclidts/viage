@@ -1,3 +1,4 @@
+#pragma once
 #include <wobjectimpl.h>
 
 #include "base_model.hpp"
