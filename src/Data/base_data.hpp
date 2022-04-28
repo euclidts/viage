@@ -23,6 +23,7 @@ public:
     W_SIGNAL(loaded)
 
     const QByteArray toData(const char* parentKey, int parnetId);
+    const QByteArray toData(int parnetId);
 
 protected:
     explicit base_data(QObject* parent = nullptr);

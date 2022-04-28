@@ -26,9 +26,9 @@ ListView {
         required property int index
         property bool editing: true
 
-        onVisibleChanged: if (visible) checkCompeted()
+        onVisibleChanged: if (visible) checkCompleted()
 
-        function checkCompeted() {
+        function checkCompleted() {
             if (model.firstName === "") {
                 ownersPage.completed = false
                 return

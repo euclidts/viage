@@ -27,44 +27,64 @@ documents_item::documents_item(QObject* parent)
 void documents_item::read(const QJsonObject& json)
 {
     if (json.contains("id") && json["id"].isArray())
+    {
         id->setFromArray(json["id"].toArray());
         emit idChanged();
+    }
 
     if (json.contains("registeryExcerpt") && json["registeryExcerpt"].isArray())
+    {
         registeryExcerpt->setFromArray(json["registeryExcerpt"].toArray());
         emit registeryExcerptChanged();
+    }
 
     if (json.contains("pursuitExcerpt") && json["pursuitExcerpt"].isArray())
+    {
         pursuitExcerpt->setFromArray(json["pursuitExcerpt"].toArray());
         emit pursuitExcerptChanged();
+    }
 
     if (json.contains("taxDeclaration") && json["taxDeclaration"].isArray())
+    {
         taxDeclaration->setFromArray(json["taxDeclaration"].toArray());
         emit taxDeclarationChanged();
+    }
 
     if (json.contains("buildingDetails") && json["buildingDetails"].isArray())
+    {
         buildingDetails->setFromArray(json["buildingDetails"].toArray());
         emit buildingDetailsChanged();
+    }
 
     if (json.contains("picture") && json["picture"].isArray())
+    {
         picture->setFromArray(json["picture"].toArray());
         emit pictureChanged();
+    }
 
     if (json.contains("insurance") && json["insurance"].isArray())
+    {
         insurance->setFromArray(json["insurance"].toArray());
         emit insuranceChanged();
+    }
 
     if (json.contains("beb") && json["beb"].isArray())
+    {
         beb->setFromArray(json["beb"].toArray());
         emit bebChanged();
+    }
 
     if (json.contains("jobs") && json["jobs"].isArray())
+    {
         jobs->setFromArray(json["jobs"].toArray());
         emit jobsChanged();
+    }
 
     if (json.contains("futureJobs") && json["futureJobs"].isArray())
+    {
         futureJobs->setFromArray(json["futureJobs"].toArray());
         emit futureJobsChanged();
+    }
 
     emit loaded();
 }

@@ -72,8 +72,14 @@ void access::authenticate(const QString& username,
                     user = new Data::People::user_item();
                     authenticating = false;
 
+
                     if (json.contains("sessionId") && json["sessionId"].isString())
-                        sessionId = json["sessionId"].toString();
+                    {
+                        const QString str{json["sessionId"].toString()};
+                        rqst.setRawHeader("sessionId",
+                                          QByteArray::fromStdString(str.toStdString()));
+                    }
+
 
                     if (json.contains("displayName") && json["displayName"].isString())
                     {
@@ -159,7 +165,6 @@ void access::setCallback(QNetworkReply* reply,
 void access::setRequest(const char* key)
 {
     QUrl url{prefix + key + '?'
-                + "sessionId=" + sessionId
                 + '&' + suffix};
 
     rqst.setUrl(url);

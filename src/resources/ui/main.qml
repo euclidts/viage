@@ -130,14 +130,17 @@ ApplicationWindow {
                 case 1:
                     infants.loadFrom(currentAccount.index);
                     break;
-                case 2:
+                case 3:
                     habitat.loadFrom(currentAccount.index);
                     break;
-                case 3:
+                case 7:
                     exterior.loadFrom(currentAccount.index);
                     break;
-                case 4:
+                case 15:
                     documents.loadFrom(currentAccount.index);
+                    break;
+                case 31:
+                    accountsPages.currentIndex = 6;
                     break;
                 }
             }

@@ -25,9 +25,9 @@ ListView {
         required property int index
         property bool editing: true
 
-        onVisibleChanged: if (visible) checkCompeted()
+        onVisibleChanged: if (visible) checkCompleted()
 
-        function checkCompeted() {
+        function checkCompleted() {
             if (model.name === "") {
                 infantPage.completed = false
                 return
@@ -50,7 +50,7 @@ ListView {
                 target: infantPage.model
                 function onDataChanged(topLeft, bottomRight, roles) {
                     if (topLeft.row === model.index) {
-                        infant.checkCompeted()
+                        infant.checkCompleted()
                     }
                 }
             }

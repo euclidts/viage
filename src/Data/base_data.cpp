@@ -24,4 +24,14 @@ const QByteArray base_data::toData(const char* parentKey, int parentId)
     QJsonDocument bytes{data};
     return bytes.toJson();
 }
+
+const QByteArray base_data::toData(int parentId)
+{
+    QJsonObject data{ {"Id", parentId} };
+
+    writeWithKey(data);
+
+    QJsonDocument bytes{data};
+    return bytes.toJson();
+}
 }

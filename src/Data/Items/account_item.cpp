@@ -95,7 +95,7 @@ void account_item::setData(const QVariant &value, int role)
         documents = value.toJsonObject();
         break;
     case StateRole:
-        state = account_item::states(value.toInt());
+        state = states(value.toInt());
         break;
     }
 }

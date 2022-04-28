@@ -13,7 +13,7 @@ ItemDelegate {
     contentItem: RowLayout {
 
         Label {
-            text: model.name + ' ' + model.surname
+            text: model.firstName + ' ' + model.lastName
             Layout.fillWidth: true
         }
 
@@ -41,5 +41,6 @@ ItemDelegate {
         implicitHeight: Material.delegateHeight - 4
         radius: 4
         color: Material.background
+        opacity: .8
     }
 }

@@ -159,11 +159,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 2) {
+                    onClicked: if (currentAccount.state >= 3) {
                                    accountsPages.validateItem()
                                    habitat.loadFrom(currentAccount.index)
                                }
-                    visible: currentAccount.state >= 2
+                    visible: currentAccount.state >= 3
                 }
 
                 RoundButton {
@@ -173,11 +173,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 4) {
+                    onClicked: if (currentAccount.state >= 7) {
                                    accountsPages.validateItem()
                                    exterior.loadFrom(currentAccount.index)
                                }
-                    visible: currentAccount.state >= 4
+                    visible: currentAccount.state >= 7
                 }
 
                 RoundButton {
@@ -187,11 +187,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 8) {
+                    onClicked: if (currentAccount.state >= 15) {
                                    accountsPages.validateItem()
                                    documents.loadFrom(currentAccount.index)
                                }
-                    visible: currentAccount.state >= 8
+                    visible: currentAccount.state >= 15
                 }
 
                 RoundButton {
@@ -201,7 +201,7 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    visible: currentAccount.state >= 16
+                    visible: currentAccount.state >= 31
                 }
             }
         }
