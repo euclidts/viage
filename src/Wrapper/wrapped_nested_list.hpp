@@ -3,7 +3,7 @@
 
 #include <wobjectdefs.h>
 
-#include <Wrapper/wrapped_nested_item.hpp>
+#include "wrapped_nested_item.hpp"
 
 class QQmlContext;
 
