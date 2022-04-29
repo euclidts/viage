@@ -132,10 +132,10 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 0) {
-                                   accountsPages.validateItem()
-                                   owners.loadFrom(currentAccount.index)
-                               }
+                    onClicked: {
+                        accountsPages.validateItem()
+                        owners.loadFrom(currentAccount.index)
+                    }
                 }
 
                 RoundButton {
@@ -145,11 +145,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 1) {
-                                   accountsPages.validateItem()
-                                   infants.loadFrom(currentAccount.index)
-                               }
-                    visible: currentAccount.state >= 1
+                    onClicked: {
+                        accountsPages.validateItem()
+                        infants.loadFrom(currentAccount.index)
+                    }
+                    visible: hasFlag(currentAccount.state, 1)
                 }
 
                 RoundButton {
@@ -159,11 +159,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 3) {
-                                   accountsPages.validateItem()
-                                   habitat.loadFrom(currentAccount.index)
-                               }
-                    visible: currentAccount.state >= 3
+                    onClicked: {
+                        accountsPages.validateItem()
+                        habitat.loadFrom(currentAccount.index)
+                    }
+                    visible: hasFlag(currentAccount.state, 2) & infantButton.visible
                 }
 
                 RoundButton {
@@ -173,11 +173,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 7) {
-                                   accountsPages.validateItem()
-                                   exterior.loadFrom(currentAccount.index)
-                               }
-                    visible: currentAccount.state >= 7
+                    onClicked: {
+                        accountsPages.validateItem()
+                        exterior.loadFrom(currentAccount.index)
+                    }
+                    visible: hasFlag(currentAccount.state, 4) & habitatButton.visible
                 }
 
                 RoundButton {
@@ -187,11 +187,11 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    onClicked: if (currentAccount.state >= 15) {
-                                   accountsPages.validateItem()
-                                   documents.loadFrom(currentAccount.index)
-                               }
-                    visible: currentAccount.state >= 15
+                    onClicked: {
+                        accountsPages.validateItem()
+                        documents.loadFrom(currentAccount.index)
+                    }
+//                    visible: hasFlag(currentAccount.state, 8) & exteriorButton.visible
                 }
 
                 RoundButton {
@@ -201,7 +201,7 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    visible: currentAccount.state >= 31
+                    visible: hasFlag(currentAccount.state, 16) & documentButton.visible
                 }
             }
         }

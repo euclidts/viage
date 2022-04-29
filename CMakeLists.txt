@@ -91,8 +91,6 @@ set(PROJECT_SOURCES
     src/Data/Items/habitat_item.cpp
     src/Data/Items/exterior_item.hpp
     src/Data/Items/exterior_item.cpp
-    src/Data/Items/url_item.hpp
-    src/Data/Items/url_item.cpp
     src/Data/Items/document_item.hpp
     src/Data/Items/document_item.cpp
     src/Data/Items/account_item.hpp

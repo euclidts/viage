@@ -100,10 +100,4 @@ void base_list<T>::set_list(const std::vector<T>& list)
     emit postItemsAppended();
 }
 
-template<typename T>
-int base_list<T>::count() const
-{
-    m_items.size();
-}
-
 }

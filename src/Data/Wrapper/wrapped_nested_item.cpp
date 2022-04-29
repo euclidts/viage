@@ -25,7 +25,6 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
         parentList->setItemAt(index, *outer);
 
         this->service->putToKey(makeKey(parentList).c_str(),
-//                                this->item->toData(outer->key(), outer->id),
                                 this->item->toData(outer->id),
                                 [=](const QByteArray& rep)
         {
@@ -34,7 +33,6 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
             {
                 if (json["success"].toBool())
                 {
-                    qDebug() << json;
                     outer->read(json);
                     parentList->setItemAt(index, *outer);
                 }

@@ -10,6 +10,7 @@ ListView {
     rightMargin: 6
     topMargin: 3
     bottomMargin: 3
+    spacing: 6
     clip: true
 
     model : InfantModel { list: infants }

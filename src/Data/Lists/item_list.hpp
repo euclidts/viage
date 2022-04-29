@@ -28,6 +28,8 @@ public:
     W_SIGNAL(add)
     void addIn(int parentIndex)
     W_SIGNAL(addIn, parentIndex)
+    void addInWith(int parentIndex, const QJsonObject& obj)
+    W_SIGNAL(addInWith, parentIndex, obj)
 
     void read(const QJsonArray& json);
     void read(const QByteArray& bytes);

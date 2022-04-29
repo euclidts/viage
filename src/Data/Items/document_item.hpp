@@ -15,19 +15,20 @@ struct document_item
 
     enum categories
     {
-        Passeport = 0,
+        None = 0,
+        Picture,
+        Passeport,
         RegisteryExcerpt,
         PursuitExcerpt,
         TaxDeclaration,
         BuildingDetails,
-        Picture,
         Insurance,
         Beb,
         Jobs,
         FutureJobs
     };
 
-    categories category;
+    categories category{categories::None};
     bool isUploaded{false};
     QUrl url{};
     int id{0};

@@ -38,8 +38,10 @@ public:
                   const QByteArray& data,
                   const std::function<void (const QByteArray &)> &callback);
     void postToKey(const char* key,
-                  const QByteArray& data,
-                  const std::function<void (const QByteArray &)> &callback);
+                   const QByteArray& data,
+                   const std::function<void (const QByteArray &)> &callback);
+    void postToKeyAs(const char* key,
+                     const std::function<void (const QByteArray &)> &callback);
 
 private:
     QNetworkRequest rqst;

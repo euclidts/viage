@@ -31,18 +31,6 @@ ColumnLayout {
         property bool aquiring: false
         property bool fromCamera: false
 
-        Connections {
-            target: documents
-            function onPostItemsAppended() {
-                if(aquiring) {
-                    var index = documents.count() - 1
-                    var last = documents.item_at(index)
-                    last.category = documentCategory
-                    documtents.setItemAt(index)
-                }
-            }
-        }
-
         model: DocumentFilterModel {
             sourceModel: DocumentModel { list: documents }
             category: documentCategory
@@ -106,7 +94,9 @@ ColumnLayout {
             onClicked: {
                 root.aquiring = true
                 root.fromCamera = false
-                documents.add()
+                var txt = '{ "category" : ' + documentCategory + ' }'
+                var json = JSON.parse(txt)
+                documents.addInWith(currentAccount.index, json)
             }
         }
 
@@ -115,7 +105,7 @@ ColumnLayout {
             onClicked: {
                 root.aquiring = true
                 root.fromCamera = true
-                documents.add()
+                documents.addWith({ "category" : documentCategory })
             }
         }
     }

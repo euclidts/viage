@@ -106,7 +106,6 @@ int main(int argc, char *argv[])
     // documents
     Data::Wrapper::wrapped_nested_list<Data::item_list<Data::document_item>, Data::account_item>
             wrapped_documents{&access, wrapped_accounts.getItem(), context};
-
     qmlRegisterType<Data::list_model<Data::document_item>>("Data", 1, 0, "DocumentModel");
     qmlRegisterType<Data::document_filter_model>("Data", 1, 0, "DocumentFilterModel");
 

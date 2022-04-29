@@ -13,16 +13,6 @@ ScrollView {
     property bool editing: true
     property bool completed: true
 
-    DocumentLisView {
-        name: qsTr("Pieces d'identitee des parteniares")
-        documentCategory: 0
-        onEdit: function(list) {
-            documents.id = list
-        }
-        urlFrom: urlProvider
-        canEdit: editing
-    }
-
 //    onVisibleChanged: if (visible) checkCompeted()
 
 //    function checkCompeted() {
@@ -123,15 +113,25 @@ ScrollView {
 //        }
 //    }
 
-//    FlickableItem {
-//        BackgroundRect {
-//            ColumnLayout {
-//                width: availableWidth
-//                Layout.minimumWidth: 200
+    FlickableItem {
+        BackgroundRect {
+            ColumnLayout {
+                width: availableWidth
+                Layout.minimumWidth: 200
 
-//                ColumnLayout {
-//                    spacing: 12
-//                    Layout.margins: 12
+                ColumnLayout {
+                    spacing: 12
+                    Layout.margins: 12
+
+                    DocumentLisView {
+                        name: qsTr("Pieces d'identité des parteniares")
+                        documentCategory: 1
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
 
 //                    UrlLisView {
 //                        name: qsTr("Pieces d'identitee des parteniares")
@@ -234,8 +234,8 @@ ScrollView {
 //                        urlFrom: urlProvider
 //                        canEdit: editing
 //                    }
-//                }
-//            }
-//        }
-//    }
+                }
+            }
+        }
+    }
 }

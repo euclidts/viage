@@ -46,6 +46,10 @@ ApplicationWindow {
         }
     }
 
+    function hasFlag (value: int, flag: int) {
+        return (value & flag) === flag
+    }
+
     Image {
         id: backDrop
         source: "qrc:/images/vue_du_lac.jpg"
@@ -123,25 +127,24 @@ ApplicationWindow {
             currentIndex: 0
 
             function loadItem() {
-                switch (currentAccount.state) {
-                case 0:
-                    owners.loadFrom(currentAccount.index);
-                    break;
-                case 1:
-                    infants.loadFrom(currentAccount.index);
-                    break;
-                case 3:
-                    habitat.loadFrom(currentAccount.index);
-                    break;
-                case 7:
-                    exterior.loadFrom(currentAccount.index);
-                    break;
-                case 15:
+                if (!hasFlag(currentAccount.state, 1)) {
+                    owners.loadFrom(currentAccount.index)
+                    return
+                } else if (!hasFlag(currentAccount.state, 2)) {
+                    infants.loadFrom(currentAccount.index)
+                    return
+                } else if (!hasFlag(currentAccount.state, 4)) {
+                    habitat.loadFrom(currentAccount.index)
+                    return
+                } else if (!hasFlag(currentAccount.state, 8)) {
+                    exterior.loadFrom(currentAccount.index)
+                    return
+                } else if (!hasFlag(currentAccount.state, 16)) {
                     documents.loadFrom(currentAccount.index);
-                    break;
-                case 31:
+                    return
+                } else if (!hasFlag(currentAccount.state, 32)) {
                     accountsPages.currentIndex = 6;
-                    break;
+                    return
                 }
             }
 

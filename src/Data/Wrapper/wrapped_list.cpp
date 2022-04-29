@@ -16,12 +16,12 @@ W_OBJECT_IMPL(wrapped_list<Inner>, template <typename Inner>)
 
 template <typename Inner>
 wrapped_list<Inner>::wrapped_list(Service::access* srv,
-                                QQmlContext* context)
+                                  QQmlContext* context)
     : QObject{}
     , service(srv)
     , item{new Inner{}}
 {
-    connect(this->item,
+    connect(item,
             &Inner::validate,
             this,
             [=] (int index)
@@ -38,11 +38,10 @@ wrapped_list<Inner>::wrapped_list(Service::access* srv,
             this,
             [=] ()
     {
-        service->postToKey(item->key(),
-                           QByteArray(),
+        service->postToKeyAs(item->key(),
                            [this](const QByteArray& rep)
         {
-            const auto json = QJsonDocument::fromJson(rep).object();
+            auto json = QJsonDocument::fromJson(rep).object();
             if (json.contains("success") && json["success"].isBool())
             {
                 if (json["success"].toBool())

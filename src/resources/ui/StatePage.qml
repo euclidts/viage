@@ -27,24 +27,24 @@ ScrollView {
                     }
 
                     CheckBox {
-                        checked: currentAccount.state >= 32
-                        onCheckStateChanged: exterior.parking = checked
+                        checked: hasFlag(currentAccount.state, 32)
+//                        onCheckStateChanged: exterior.parking = checked
                         text: stateNames[1]
-                        checkable: currentAccount.state < 32
+                        checkable: !checked
                     }
 
                     CheckBox {
-                        checked: currentAccount.state >= 64
-                        onCheckStateChanged: exterior.parking = checked
+                        checked: hasFlag(currentAccount.state, 64)
+//                        onCheckStateChanged: exterior.parking = checked
                         text: stateNames[2]
-                        checkable: currentAccount.state < 32
+                        checkable: !checked
                     }
 
                     CheckBox {
-                        checked: currentAccount.state >= 32
-                        onCheckStateChanged: exterior.parking = checked
+                        checked: hasFlag(currentAccount.state, 128)
+//                        onCheckStateChanged: exterior.parking = checked
                         text: stateNames[3]
-                        checkable: editing
+                        checkable: !checked
                     }
                 }
             }

@@ -29,6 +29,9 @@ ListView {
         onVisibleChanged: if (visible) checkCompleted()
 
         function checkCompleted() {
+
+            console.log("checking")
+
             if (model.firstName === "") {
                 ownersPage.completed = false
                 return

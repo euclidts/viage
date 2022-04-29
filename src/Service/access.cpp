@@ -72,14 +72,12 @@ void access::authenticate(const QString& username,
                     user = new Data::People::user_item();
                     authenticating = false;
 
-
                     if (json.contains("sessionId") && json["sessionId"].isString())
                     {
                         const QString str{json["sessionId"].toString()};
                         rqst.setRawHeader("sessionId",
                                           QByteArray::fromStdString(str.toStdString()));
                     }
-
 
                     if (json.contains("displayName") && json["displayName"].isString())
                     {
@@ -147,6 +145,19 @@ void access::postToKey(const char* key,
                        const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
+    qDebug() << rqst.url() << data;
+    QNetworkReply* reply = post(rqst, data);
+    setCallback(reply, callback);
+}
+
+void access::postToKeyAs(const char *key, const std::function<void (const QByteArray &)> &callback)
+{
+    setRequest(key);
+
+    QJsonObject json{ {"advisor", user->id} };
+    QByteArray data{QJsonDocument{json}.toJson()};
+
+    qDebug() << rqst.url() << data;
     QNetworkReply* reply = post(rqst, data);
     setCallback(reply, callback);
 }
@@ -157,7 +168,10 @@ void access::setCallback(QNetworkReply* reply,
     connect(reply, &QNetworkReply::finished,
             [=]()
     {
-        callback(reply->readAll());
+        const auto data = reply->readAll();
+        qDebug() << data;
+        callback(data);
+//        callback(reply->readAll());
         reply->deleteLater();
     });
 }

@@ -11,11 +11,11 @@ W_OBJECT_IMPL((wrapped_nested_list<Inner, Outer>), template <typename Inner, typ
 
 template <typename Inner, typename Outer>
 wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
-                                                     item_list<Outer>* parentList,
-                                                     QQmlContext* context)
+                                                       item_list<Outer>* parentList,
+                                                       QQmlContext* context)
     : wrapped_nested_item<Inner, Outer>{srv,
-                                       parentList,
-                                       context}
+                                        parentList,
+                                        context}
 {
     this->connect(this->item,
                   &Inner::addIn,
@@ -23,23 +23,48 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
                   [=] (int index)
     {
         auto outer = parentList->item_at(index);
-        QString str{outer.key()};
-        str.append("Id");
 
-        QJsonObject json{ {str, outer.id} };
+        QJsonObject json{ {"id", outer.id} };
         QJsonDocument data{json};
 
-        this->service->postToKey(this->item->key(),
+        this->service->postToKey(this->makeKey(parentList).c_str(),
                                  data.toJson(),
                                  [this](const QByteArray& res)
         {
-            bool ok;
-            const auto id{res.toInt(&ok)};
+            const auto json = QJsonDocument::fromJson(res).object();
+            if (json.contains("success") && json["success"].isBool())
+            {
+                if (json["success"].toBool())
+                    this->item->appendWith(json["id"].toInt());
+                else
+                    qDebug() << "addIn error :" << json["errorMessage"].toString();
+            };
+        });
+    });
 
-            if (ok)
-                this->item->appendWith(id);
-            else
-                qDebug() << "addIn reply not ok" << res;
+    this->connect(this->item,
+                  &Inner::addInWith,
+                  this,
+                  [=] (int index, const QJsonObject& obj)
+    {
+        auto outer = parentList->item_at(index);
+
+        QJsonObject json{obj};
+        json["id"] = outer.id;
+        QJsonDocument data{json};
+
+        this->service->postToKey(this->makeKey(parentList).c_str(),
+                                 data.toJson(),
+                                 [this, &obj](const QByteArray& res)
+        {
+            const auto json = QJsonDocument::fromJson(res).object();
+            if (json.contains("success") && json["success"].isBool())
+            {
+                if (json["success"].toBool())
+                    this->item->appendWith(json);
+                else
+                    qDebug() << "addInWith error :" << json["errorMessage"].toString();
+            };
         });
     });
 }
