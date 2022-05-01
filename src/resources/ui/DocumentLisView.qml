@@ -96,7 +96,7 @@ ColumnLayout {
                 root.fromCamera = false
                 var txt = '{ "category" : ' + documentCategory + ' }'
                 var json = JSON.parse(txt)
-                documents.addInWith(currentAccount.index, json)
+                documents.appendWith(json)
             }
         }
 
@@ -105,7 +105,9 @@ ColumnLayout {
             onClicked: {
                 root.aquiring = true
                 root.fromCamera = true
-                documents.addWith({ "category" : documentCategory })
+                var txt = '{ "category" : ' + documentCategory + ' }'
+                var json = JSON.parse(txt)
+                documents.appendWith(json)
             }
         }
     }

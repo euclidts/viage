@@ -48,14 +48,14 @@ endif()
 find_package(QT NAMES Qt6 COMPONENTS
     Core
     Quick
-    LinguistTools
+#    Translation
     Multimedia
     Svg
     REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
     Core
     Quick
-    LinguistTools
+#    Translation
     Multimedia
     Svg
     REQUIRED)
@@ -133,7 +133,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
     endif()
 
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+#    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
 target_compile_definitions(viage

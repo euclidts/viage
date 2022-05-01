@@ -150,18 +150,6 @@ void access::postToKey(const char* key,
     setCallback(reply, callback);
 }
 
-void access::postToKeyAs(const char *key, const std::function<void (const QByteArray &)> &callback)
-{
-    setRequest(key);
-
-    QJsonObject json{ {"advisor", user->id} };
-    QByteArray data{QJsonDocument{json}.toJson()};
-
-    qDebug() << rqst.url() << data;
-    QNetworkReply* reply = post(rqst, data);
-    setCallback(reply, callback);
-}
-
 void access::setCallback(QNetworkReply* reply,
                          const std::function<void (const QByteArray &)> &callback)
 {

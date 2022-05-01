@@ -133,6 +133,96 @@ ScrollView {
                         canEdit: editing
                     }
 
+                    DocumentLisView {
+                        name: qsTr("Extrait du registre foncier")
+                        documentCategory: 2
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
+                    DocumentLisView {
+                        name: qsTr("Extrait des poursuites")
+                        documentCategory: 3
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
+                    DocumentLisView {
+                        name: qsTr("Déclaration d'impôt")
+                        documentCategory: 4
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
+                    DocumentLisView {
+                        name: qsTr("Détails concernant l'immeuble")
+                        documentCategory: 5
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
+                    DocumentLisView {
+                        name: qsTr("Photo de l'objet")
+                        documentCategory: 6
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
+                    DocumentLisView {
+                        name: qsTr("Assurance du batiment")
+                        documentCategory: 7
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
+                    DocumentLisView {
+                        name: qsTr("Cas échéant / police détaillé de l'établissement ou le BEB")
+                        documentCategory: 8
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
+                    DocumentLisView {
+                        name: qsTr("Descriptif / justificatifs des traveaux des 5 dernières années")
+                        documentCategory: 9
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
+                    DocumentLisView {
+                        name: qsTr("Descriptif des traveaux à prévoir / devis")
+                        documentCategory: 10
+                        onEdit: function(list) {
+                            documents.id = list
+                        }
+                        urlFrom: urlProvider
+                        canEdit: editing
+                    }
+
 //                    UrlLisView {
 //                        name: qsTr("Pieces d'identitee des parteniares")
 //                        listOf: documents.id

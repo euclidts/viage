@@ -27,7 +27,7 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
         QJsonObject json{ {"id", outer.id} };
         QJsonDocument data{json};
 
-        this->service->postToKey(this->makeKey(parentList).c_str(),
+        this->service->postToKey(this->item->key(),
                                  data.toJson(),
                                  [this](const QByteArray& res)
         {

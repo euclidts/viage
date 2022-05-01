@@ -38,7 +38,8 @@ wrapped_list<Inner>::wrapped_list(Service::access* srv,
             this,
             [=] ()
     {
-        service->postToKeyAs(item->key(),
+        service->postToKey(item->key(),
+                           QByteArray{},
                            [this](const QByteArray& rep)
         {
             auto json = QJsonDocument::fromJson(rep).object();

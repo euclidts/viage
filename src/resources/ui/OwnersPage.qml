@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Material
+import QtCore
 
 import People
 
@@ -26,11 +27,9 @@ ListView {
         required property int index
         property bool editing: true
 
-        onVisibleChanged: if (visible) checkCompleted()
-
         function checkCompleted() {
 
-            console.log("checking")
+            if (ownersPage.completed) return
 
             if (model.firstName === "") {
                 ownersPage.completed = false
@@ -61,6 +60,15 @@ ListView {
             target: ownersPage.model
             function onDataChanged(topLeft, bottomRight, roles) {
                 if (topLeft.row === model.index) {
+                    owner.checkCompleted()
+                }
+            }
+        }
+
+        Connections {
+            target: ownersPage
+            function onVisibleChanged() {
+                if (ownersPage.visible) {
                     owner.checkCompleted()
                 }
             }

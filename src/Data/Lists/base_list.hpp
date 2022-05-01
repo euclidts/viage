@@ -29,6 +29,7 @@ public:
 
     void appendWith(int id);
     void appendWith(const QJsonObject &json);
+    W_SLOT(appendWith, (const QJsonObject&))
 
     void preItemsRemoved(int first, int last)
     W_SIGNAL(preItemsRemoved, first, last)
