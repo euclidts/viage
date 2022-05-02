@@ -194,31 +194,56 @@ ApplicationWindow {
             Connections {
                 target: owners
                 function onLoaded() {
+                    if (hasFlag(currentAccount.state, 1))
+                        ownersPage.completed = true
+                    else
+                        ownersPage.completed = false
                     accountsPages.currentIndex = 1
+                    busyDialog.close()
                 }
             }
             Connections {
                 target: infants
                 function onLoaded() {
+                    if (hasFlag(currentAccount.state, 2))
+                        infantPage.completed = true
+                    else
+                        infantPage.completed = false
                     accountsPages.currentIndex = 2
+                    busyDialog.close()
                 }
             }
             Connections {
                 target: habitat
                 function onLoaded() {
+                    if (hasFlag(currentAccount.state, 3))
+                        habitatPage.completed = true
+                    else
+                        habitatPage.completed = false
                     accountsPages.currentIndex = 3
+                    busyDialog.close()
                 }
             }
             Connections {
                 target: exterior
                 function onLoaded() {
+                    if (hasFlag(currentAccount.state, 4))
+                        exteriorPage.completed = true
+                    else
+                        exteriorPage.completed = false
                     accountsPages.currentIndex = 4
+                    busyDialog.close()
                 }
             }
             Connections {
                 target: documents
                 function onLoaded() {
+                    if (hasFlag(currentAccount.state, 5))
+                        documentPage.completed = true
+                    else
+                        documentPage.completed = false
                     accountsPages.currentIndex = 5
+                    busyDialog.close()
                 }
             }
         }
