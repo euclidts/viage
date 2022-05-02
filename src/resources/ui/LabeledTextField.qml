@@ -6,7 +6,7 @@ import QtQuick.Controls.Material
 ColumnLayout {
     spacing: 0
 
-    property string placeHolder: qsTr("* Champ necessaire")
+    property string placeHolder: qsTr("* Champ Obligatire")
     property alias validator: field.validator
     property alias text: field.text
     required property string name
@@ -30,5 +30,7 @@ ColumnLayout {
         placeholderText: placeHolder
         Layout.fillWidth: true
         onAccepted: focus = false
+        onTextChanged: acceptableInput ? color = Material.foreground
+                                       : color = "red"
     }
 }

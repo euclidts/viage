@@ -13,19 +13,6 @@ ColumnLayout {
     required property var model
     property bool editing: true
 
-//    function foucsOnEmpty() {
-//        if (nameField.text === "") {
-//            nameField.focus = true
-//            contentItem.contentY = nameField.y
-//        } else if (surNameField.text === "") {
-//            surNameField.focus = true
-//            contentItem.contentY = surNameField.y
-//        } else if (phoneNumberField.text === "") {
-//            phoneNumberField.focus = true
-//            contentItem.contentY = phoneNumberField.y
-//        }
-//    }
-
     LabeledTextField {
         id: nameField
         name: qsTr("Nom")
@@ -60,5 +47,6 @@ ColumnLayout {
         validator: RegularExpressionValidator {
             regularExpression: /\S+@\S+\.\S+$/
         }
+        placeHolder: qsTr("* Champ Nécessaire")
     }
 }
