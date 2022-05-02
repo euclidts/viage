@@ -15,8 +15,10 @@ class base_list : public base_data
 public:
     QVector<T> items() const;
     T item_at(int index) const;
+    T item_at_id(int id) const;
 
     bool setItemAt(int index, const T& item);
+    bool setItemAtId(int id, const T& item);
     void set_list(const std::vector<T>& list);
 
     void preItemsAppended(int number = 1)

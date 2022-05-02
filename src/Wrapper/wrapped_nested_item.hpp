@@ -25,7 +25,7 @@ public:
 
 protected:
     std::string makeKey(item_list<Outer>* parentList);
-    std::string makeKey(item_list<Outer>* parentList, int index);
+    std::string makeKey(item_list<Outer>* parentList, int id);
 };
 
 }

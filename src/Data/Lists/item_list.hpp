@@ -26,10 +26,10 @@ public:
 
     void add()
     W_SIGNAL(add)
-    void addIn(int parentIndex)
-    W_SIGNAL(addIn, parentIndex)
-    void addInWith(int parentIndex, const QJsonObject& obj)
-    W_SIGNAL(addInWith, parentIndex, obj)
+    void addIn(int parentId)
+    W_SIGNAL(addIn, parentId)
+    void addInWith(int parentId, const QJsonObject& obj)
+    W_SIGNAL(addInWith, parentId, obj)
 
     void read(const QJsonArray& json);
     void read(const QByteArray& bytes);

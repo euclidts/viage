@@ -18,14 +18,12 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
     this->connect(this->item,
             &Inner::validate,
             this,
-            [=] (int index)
+            [=] (int id)
     {
-        Outer* outer = new Outer{parentList->item_at(index)};
-        outer->set(this->item);
-        parentList->setItemAt(index, *outer);
+        Outer* outer = new Outer{parentList->item_at_id(id)};
 
         this->service->putToKey(makeKey(parentList).c_str(),
-                                this->item->toData(outer->id),
+                                this->item->toData(id),
                                 [=](const QByteArray& rep)
         {
             const auto json = QJsonDocument::fromJson(rep).object();
@@ -34,7 +32,7 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
                 if (json["success"].toBool())
                 {
                     outer->read(json);
-                    parentList->setItemAt(index, *outer);
+                    parentList->setItemAtId(id, *outer);
                 }
                 else
                     qDebug() << "validate error :" << json["errorMessage"].toString();
@@ -47,9 +45,9 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
     this->connect(this->item,
             &Inner::loadFrom,
             this,
-            [=] (int index)
+            [=] (int id)
     {
-        this->service->getFromKey(makeKey(parentList, index).c_str(),
+        this->service->getFromKey(makeKey(parentList, id).c_str(),
                 [this](const QByteArray& rep)
         { this->item->read(rep); });
     });
@@ -69,10 +67,8 @@ std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentL
 }
 
 template<typename Inner, typename Outer>
-std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList, int index)
+std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList, int id)
 {
-    const int id = parentList->item_at(index).id;
-
     std::string newkey = parentList->key();
     newkey.append("/");
     newkey.append(std::to_string(id));

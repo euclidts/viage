@@ -12,7 +12,10 @@
 namespace Data
 {
 account_item::account_item()
+    : created{QDate::currentDate()}
+    , modified{QDate::currentDate()}
 {
+
 }
 
 QHash<int, QByteArray> account_item::roleNames()

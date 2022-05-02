@@ -82,7 +82,7 @@ RowLayout {
 
         onClicked: {
             busyDialog.open()
-            owners.addIn(currentAccount.index)
+            owners.addIn(currentAccount.id)
             ownersPage.completed = false
         }
     }
@@ -96,7 +96,7 @@ RowLayout {
 
         onClicked: {
             busyDialog.open()
-            infants.addIn(currentAccount.index)
+            infants.addIn(currentAccount.id)
             infantPage.completed = false
         }
     }

@@ -17,6 +17,13 @@ ColumnLayout {
     property bool canEdit: true
     property bool completed: false
 
+    function makeJson () {
+        var txt = '{ "category" : '
+                + documentCategory
+                + ' }'
+        return JSON.parse(txt)
+    }
+
     Label {
         text: name
         font.bold: true
@@ -56,7 +63,7 @@ ColumnLayout {
                         urlFrom.pictureName = StandardPaths.writableLocation(
                                     StandardPaths.DocumentsLocation)
                                 + "/viage_"
-                                + currentAccount.index
+                                + currentAccount.id
                                 + '_'
                                 + name
                                 + '_'
@@ -94,9 +101,7 @@ ColumnLayout {
             onClicked: {
                 root.aquiring = true
                 root.fromCamera = false
-                var txt = '{ "category" : ' + documentCategory + ' }'
-                var json = JSON.parse(txt)
-                documents.appendWith(json)
+                documents.appendWith(makeJson())
             }
         }
 
@@ -105,9 +110,7 @@ ColumnLayout {
             onClicked: {
                 root.aquiring = true
                 root.fromCamera = true
-                var txt = '{ "category" : ' + documentCategory + ' }'
-                var json = JSON.parse(txt)
-                documents.appendWith(json)
+                documents.appendWith(makeJson())
             }
         }
     }

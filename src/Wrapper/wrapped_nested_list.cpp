@@ -20,11 +20,9 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
     this->connect(this->item,
                   &Inner::addIn,
                   this,
-                  [=] (int index)
+                  [=] (int id)
     {
-        auto outer = parentList->item_at(index);
-
-        QJsonObject json{ {"id", outer.id} };
+        QJsonObject json{ {"id", id} };
         QJsonDocument data{json};
 
         this->service->postToKey(this->item->key(),
@@ -45,12 +43,10 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
     this->connect(this->item,
                   &Inner::addInWith,
                   this,
-                  [=] (int index, const QJsonObject& obj)
+                  [=] (int id, const QJsonObject& obj)
     {
-        auto outer = parentList->item_at(index);
-
         QJsonObject json{obj};
-        json["id"] = outer.id;
+        json["id"] = id;
         QJsonDocument data{json};
 
         this->service->postToKey(this->makeKey(parentList).c_str(),

@@ -24,7 +24,9 @@ ApplicationWindow {
     font.pixelSize: 16
 
     property var currentAccount
+    property int currentAccountIndex
     property var currentUser
+    property int currentUserIndex
     property bool onboarding: false
     property bool hiring: false
     readonly property var stateNames: [
@@ -130,19 +132,19 @@ ApplicationWindow {
                 busyDialog.open()
 
                 if (!hasFlag(currentAccount.state, 1)) {
-                    owners.loadFrom(currentAccount.index)
+                    owners.loadFrom(currentAccount.id)
                     return
                 } else if (!hasFlag(currentAccount.state, 2)) {
-                    infants.loadFrom(currentAccount.index)
+                    infants.loadFrom(currentAccount.id)
                     return
                 } else if (!hasFlag(currentAccount.state, 4)) {
-                    habitat.loadFrom(currentAccount.index)
+                    habitat.loadFrom(currentAccount.id)
                     return
                 } else if (!hasFlag(currentAccount.state, 8)) {
-                    exterior.loadFrom(currentAccount.index)
+                    exterior.loadFrom(currentAccount.id)
                     return
                 } else if (!hasFlag(currentAccount.state, 16)) {
-                    documents.loadFrom(currentAccount.index);
+                    documents.loadFrom(currentAccount.id);
                     return
                 } else if (!hasFlag(currentAccount.state, 32)) {
                     accountsPages.currentIndex = 6;
@@ -153,23 +155,23 @@ ApplicationWindow {
             function validateItem() {
                 switch (accountsPages.currentIndex) {
                 case 1:
-                    owners.validate(currentAccount.index)
+                    owners.validate(currentAccount.id)
                     break;
                 case 2:
                 {
                     infantPage.completed = true
                     // exception for potentially empty children list
-                    infants.validate(currentAccount.index)
+                    infants.validate(currentAccount.id)
                     break;
                 }
                 case 3:
-                    habitat.validate(currentAccount.index)
+                    habitat.validate(currentAccount.id)
                     break;
                 case 4:
-                    exterior.validate(currentAccount.index)
+                    exterior.validate(currentAccount.id)
                     break;
                 case 5:
-                    documents.validate(currentAccount.index)
+                    documents.validate(currentAccount.id)
                     break;
                 }
             }

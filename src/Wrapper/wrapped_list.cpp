@@ -24,9 +24,9 @@ wrapped_list<Inner>::wrapped_list(Service::access* srv,
     connect(item,
             &Inner::validate,
             this,
-            [=] (int index)
+            [=] (int id)
     {
-        auto outer = item->item_at(index);
+        auto outer = item->item_at_id(id);
 
         service->putToKey(item->key(),
                           item->toData(outer.key(), outer.id),

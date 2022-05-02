@@ -135,7 +135,7 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        owners.loadFrom(currentAccount.index)
+                        owners.loadFrom(currentAccount.id)
                     }
                 }
 
@@ -149,7 +149,7 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        infants.loadFrom(currentAccount.index)
+                        infants.loadFrom(currentAccount.id)
                     }
                     visible: hasFlag(currentAccount.state, 1)
                 }
@@ -164,7 +164,7 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        habitat.loadFrom(currentAccount.index)
+                        habitat.loadFrom(currentAccount.id)
                     }
                     visible: hasFlag(currentAccount.state, 2) & infantButton.visible
                 }
@@ -179,7 +179,7 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        exterior.loadFrom(currentAccount.index)
+                        exterior.loadFrom(currentAccount.id)
                     }
                     visible: hasFlag(currentAccount.state, 4) & habitatButton.visible
                 }
@@ -194,7 +194,7 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        documents.loadFrom(currentAccount.index)
+                        documents.loadFrom(currentAccount.id)
                     }
                     visible: hasFlag(currentAccount.state, 8) & exteriorButton.visible
                 }

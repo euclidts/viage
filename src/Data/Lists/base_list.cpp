@@ -33,6 +33,24 @@ bool base_list<T>::setItemAt(int index, const T& item)
     return true;
 }
 
+template<typename T>
+bool base_list<T>::setItemAtId(int id, const T &item)
+{
+    int i{0};
+    for (const auto& obj : m_items)
+    {
+        if (obj.id == id)
+        {
+            m_items[i] = item;
+            emit dataChangedAt(i);
+            return true;
+        }
+        i++;
+    }
+
+    return false;
+}
+
 template <typename T>
 void base_list<T>::appendItems(int number)
 {
@@ -73,6 +91,18 @@ template<typename T>
 T base_list<T>::item_at(int index) const
 {
     return m_items[index];
+}
+
+template<typename T>
+T base_list<T>::item_at_id(int id) const
+{
+    T item{};
+
+    for (const auto& obj : m_items)
+        if(item.id == id)
+            item = obj;
+
+    return item;
 }
 
 template<typename T>

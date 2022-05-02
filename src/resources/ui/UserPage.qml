@@ -19,7 +19,7 @@ ScrollView {
 
                 Label {
                     Layout.margins: 6
-                    text: qsTr("Conseiller ") + (currentUser.index + 1)
+                    text: qsTr("Conseiller ") + (currentUser.id)
                     font.bold: true
                 }
 
@@ -112,7 +112,7 @@ ScrollView {
                             //                if (!foucsOnEmpty())
                         {
                             editing = false
-                            users.validate(currentUser.index)
+                            users.validate(currentUser.id)
                         }
                     }
                 }
