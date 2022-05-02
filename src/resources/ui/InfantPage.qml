@@ -29,6 +29,9 @@ ListView {
         onVisibleChanged: if (visible) checkCompleted()
 
         function checkCompleted() {
+
+            if (ownersPage.completed) return
+
             if (model.name === "") {
                 infantPage.completed = false
                 return
@@ -42,19 +45,28 @@ ListView {
             infantPage.completed = true
         }
 
+        Connections {
+            target: infantPage.model
+            function onDataChanged(topLeft, bottomRight, roles) {
+                if (topLeft.row === model.index) {
+                    infant.checkCompleted()
+                }
+            }
+        }
+
+        Connections {
+            target: infantPage
+            function onVisibleChanged() {
+                if (infantPage.visible) {
+                    infant.checkCompleted()
+                }
+            }
+        }
+
         InfantDelegate {
             title: qsTr("Enfant")
             width: parent.width
             model: infant.model
-
-            Connections {
-                target: infantPage.model
-                function onDataChanged(topLeft, bottomRight, roles) {
-                    if (topLeft.row === model.index) {
-                        infant.checkCompleted()
-                    }
-                }
-            }
 
             Button {
                 id: deleteButton

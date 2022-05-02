@@ -21,6 +21,8 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
             [=] (int id)
     {
         Outer* outer = new Outer{parentList->item_at_id(id)};
+        outer->set(this->item);
+        parentList->setItemAtId(id, *outer);
 
         this->service->putToKey(makeKey(parentList).c_str(),
                                 this->item->toData(id),

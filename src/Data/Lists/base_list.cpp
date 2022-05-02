@@ -34,18 +34,16 @@ bool base_list<T>::setItemAt(int index, const T& item)
 }
 
 template<typename T>
-bool base_list<T>::setItemAtId(int id, const T &item)
+bool base_list<T>::setItemAtId(int id, const T& item)
 {
-    int i{0};
-    for (const auto& obj : m_items)
+    for (int i = 0; i < m_items.size(); i++)
     {
-        if (obj.id == id)
+        if (m_items[i].id == id)
         {
             m_items[i] = item;
             emit dataChangedAt(i);
             return true;
         }
-        i++;
     }
 
     return false;
@@ -99,7 +97,7 @@ T base_list<T>::item_at_id(int id) const
     T item{};
 
     for (const auto& obj : m_items)
-        if(item.id == id)
+        if (obj.id == id)
             item = obj;
 
     return item;

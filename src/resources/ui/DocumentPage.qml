@@ -13,9 +13,10 @@ ScrollView {
     property bool editing: true
     property bool completed: true
 
-//    onVisibleChanged: if (visible) checkCompeted()
-
 //    function checkCompeted() {
+
+//        if (documentPage.completed) return
+
 //        if (documents.id.empty()) {
 //            documentPage.completed = false
 //            return
@@ -60,55 +61,6 @@ ScrollView {
 //    Connections {
 //        target: documents
 //        function onPursuitExcerptChanged() {
-//            documentPage.checkCompeted()
-//        }
-//    }
-
-//    Connections {
-//        target: documents
-//        function onTaxDeclarationChanged() {
-//            documentPage.checkCompeted()
-//        }
-//    }
-
-//    Connections {
-//        target: documents
-//        function onBuildingDetailsChanged() {
-//            documentPage.checkCompeted()
-//        }
-//    }
-
-//    Connections {
-//        target: documents
-//        function onPictureChanged() {
-//            documentPage.checkCompeted()
-//        }
-//    }
-
-//    Connections {
-//        target: documents
-//        function onInsuranceChanged() {
-//            documentPage.checkCompeted()
-//        }
-//    }
-
-//    Connections {
-//        target: documents
-//        function onBebChanged() {
-//            documentPage.checkCompeted()
-//        }
-//    }
-
-//    Connections {
-//        target: documents
-//        function onJobsChanged() {
-//            documentPage.checkCompeted()
-//        }
-//    }
-
-//    Connections {
-//        target: documents
-//        function onFutureJobsChanged() {
 //            documentPage.checkCompeted()
 //        }
 //    }
@@ -222,108 +174,6 @@ ScrollView {
                         urlFrom: urlProvider
                         canEdit: editing
                     }
-
-//                    UrlLisView {
-//                        name: qsTr("Pieces d'identitee des parteniares")
-//                        listOf: documents.id
-//                        onEdit: function(list) {
-//                            documents.id = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Extrait du registre foncier")
-//                        listOf: documents.registeryExcerpt
-//                        onEdit: function(list) {
-//                            documents.registeryExcerpt = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Extrait des poursuites")
-//                        listOf: documents.pursuitExcerpt
-//                        onEdit: function(list) {
-//                            documents.pursuitExcerpt = list
-//                        }
-//                        urlFrom: urlProvider
-
-
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Déclaration d'impôt")
-//                        listOf: documents.taxDeclaration
-//                        onEdit: function(list) {
-//                            documents.taxDeclaration = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Détails concernant l'immeuble")
-//                        listOf: documents.buildingDetails
-//                        onEdit: function(list) {
-//                            documents.buildingDetails = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Photo de l'objet")
-//                        listOf: documents.picture
-//                        onEdit: function(list) {
-//                            documents.picture = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Assurance du batiment")
-//                        listOf: documents.insurance
-//                        onEdit: function(list) {
-//                            documents.insurance = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Cas échéant / police détaillé de l'établissement ou le BEB")
-//                        listOf: documents.beb
-//                        onEdit: function(list) {
-//                            documents.beb = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Descriptif / justificatifs des traveaux des 5 dernières années")
-//                        listOf: documents.jobs
-//                        onEdit: function(list) {
-//                            documents.jobs = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
-
-//                    UrlLisView {
-//                        name: qsTr("Descriptif des traveaux à prévoir / devis")
-//                        listOf: documents.futureJobs
-//                        onEdit: function(list) {
-//                            documents.futureJobs = list
-//                        }
-//                        urlFrom: urlProvider
-//                        canEdit: editing
-//                    }
                 }
             }
         }

@@ -16,6 +16,7 @@ ColumnLayout {
     required property var urlFrom
     property bool canEdit: true
     property bool completed: false
+    property alias count: root.count
 
     function makeJson () {
         var txt = '{ "category" : '
