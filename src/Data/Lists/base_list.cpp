@@ -116,16 +116,23 @@ void base_list<T>::removeItems(int first, int last)
 template<typename T>
 void base_list<T>::set_list(const std::vector<T>& list)
 {
-    emit preItemsRemoved(0, m_items.size() - 1);
+    clear();
 
-    m_items.clear();
-
-    emit postItemsRemoved();
     emit preItemsAppended(list.size());
 
     m_items = list;
 
     emit postItemsAppended();
+}
+
+template<typename T>
+void base_list<T>::clear()
+{
+    emit preItemsRemoved(0, m_items.size() - 1);
+
+    m_items.clear();
+
+    emit postItemsRemoved();
 }
 
 }

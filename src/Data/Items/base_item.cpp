@@ -8,6 +8,7 @@ namespace Data
 base_item::base_item(QObject* parent)
     : base_data{parent}
 {
+    clear();
 }
 
 void base_item::writeWithKey(QJsonObject &json)

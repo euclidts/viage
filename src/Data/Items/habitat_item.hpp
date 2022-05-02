@@ -27,6 +27,16 @@ public:
     void read(const QJsonObject& json);
     void read(const QByteArray& bytes);
     void write(QJsonObject &json) const override;
+    void clear() override;
+    W_SLOT(clear)
+
+    enum habitatTypes
+    {
+        None = 0,
+        DetachedHouse,
+        AdjacentHouse,
+        Appartement
+    };
 
     const QString &getStreet() const;
     void setStreet(const QString &newStreet);
@@ -40,8 +50,8 @@ public:
     void setEquipements(const QString &newEquipements);
     const QString &getProblems() const;
     void setProblems(const QString &newProblems);
-    const QString &getType() const;
-    void setType(const QString &newType);
+    const habitatTypes &getType() const;
+    void setType(habitatTypes newType);
     int getRooms() const;
     void setRooms(int newRooms);
     int getRawSurface() const;
@@ -88,7 +98,7 @@ public:
     W_PROPERTY(QString, city READ getCity WRITE setCity NOTIFY cityChanged)
     W_PROPERTY(QString, equipements READ getEquipements WRITE setEquipements NOTIFY equipementsChanged)
     W_PROPERTY(QString, problems READ getProblems WRITE setProblems NOTIFY problemsChanged)
-    W_PROPERTY(QString, type READ getType WRITE setType NOTIFY typeChanged)
+    W_PROPERTY(habitatTypes, type READ getType WRITE setType NOTIFY typeChanged)
     W_PROPERTY(int, rooms READ getRooms WRITE setRooms NOTIFY roomsChanged)
     W_PROPERTY(int, rawSurface READ getRawSurface WRITE setRawSurface NOTIFY rawSurfaceChanged)
     W_PROPERTY(int, surface READ getSurface WRITE setSurface NOTIFY surfaceChanged)
@@ -100,16 +110,16 @@ private:
     // --- Habitat ---
     Places::address_item address;
     // Global
-    QString equipements{""};
-    QString problems{""};
+    QString equipements;
+    QString problems;
     // Habitat data
-    QString type{QObject::tr("Maison individuelle")};
-    int rooms{2};
-    int rawSurface{50};
-    int surface{50};
-    int m2Constructed{25};
-    int m2Available{25};
-    int m3s{15625};
+    habitatTypes type;
+    int rooms;
+    int rawSurface;
+    int surface;
+    int m2Constructed;
+    int m2Available;
+    int m3s;
 };
 
 }

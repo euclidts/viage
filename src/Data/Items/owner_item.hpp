@@ -20,7 +20,19 @@ struct owner_item : public infant_item
     static const constexpr auto qmlName{"Owner"};
 
     QDate birthDay;
-    int civilStatus{0};
+
+    enum civilStates
+    {
+        Single = 0,
+        Maried,
+        Registered,
+        Separated,
+        Divorced,
+        Disolved,
+        Widow
+    };
+
+    civilStates civilStatus{Single};
     QString avs{""};
 
     enum roles

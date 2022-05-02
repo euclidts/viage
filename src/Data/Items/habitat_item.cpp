@@ -17,6 +17,8 @@ habitat_item::habitat_item(QObject *parent)
 
 void habitat_item::read(const QJsonObject& json)
 {
+    qDebug() << "habitat read" << json["address"];
+
     if (json.contains("address") && json["address"].isObject())
     {
         address.read(json["address"].toObject());
@@ -32,8 +34,8 @@ void habitat_item::read(const QJsonObject& json)
     if (json.contains("problems") && json["problems"].isString())
         setProblems(json["problems"].toString());
 
-    if (json.contains("type") && json["type"].isString())
-        setType(json["type"].toString());
+    if (json.contains("type") && json["type"].isDouble())
+        setType(habitatTypes(json["type"].toInt()));
 
     if (json.contains("rooms") && json["rooms"].isDouble())
         setRooms(json["rooms"].toInt());
@@ -77,6 +79,36 @@ void habitat_item::write(QJsonObject& json) const
     json["m2Constructed"] = m2Constructed;
     json["m2Available"] = m2Available;
     json["m3s"] = m3s;
+}
+
+void habitat_item::clear()
+{
+    address.street = QString{""};
+    emit streetChanged();
+    address.city = QString{""};
+    emit cityChanged();
+    address.zip = 1000;
+    emit zipChanged();
+    address.canton = QString{"Appenzell"};
+    emit cantonChanged();
+    equipements = QString{""};
+    emit equipementsChanged();
+    problems = QString{""};
+    emit problemsChanged();
+    type = None;
+    emit typeChanged();
+    rooms = 2;
+    emit roomsChanged();
+    rawSurface = 50;
+    emit rawSurfaceChanged();
+    surface = 50;
+    emit surfaceChanged();
+    m2Constructed = 25;
+    emit m2ConstructedChanged();
+    m2Available = 25;
+    emit m2AvailableChanged();
+    m3s = 15625;
+    emit m3sChanged();
 }
 
 const QString &habitat_item::getStreet() const
@@ -157,12 +189,12 @@ void habitat_item::setProblems(const QString &newProblems)
     emit problemsChanged();
 }
 
-const QString &habitat_item::getType() const
+const habitat_item::habitatTypes &habitat_item::getType() const
 {
     return type;
 }
 
-void habitat_item::setType(const QString &newType)
+void habitat_item::setType(habitatTypes newType)
 {
     if (type == newType)
         return;

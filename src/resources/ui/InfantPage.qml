@@ -30,8 +30,6 @@ ListView {
 
         function checkCompleted() {
 
-            if (ownersPage.completed) return
-
             if (model.name === "") {
                 infantPage.completed = false
                 return
@@ -42,6 +40,7 @@ ListView {
                 infantPage.completed = false
                 return
             }
+
             infantPage.completed = true
         }
 
@@ -49,15 +48,6 @@ ListView {
             target: infantPage.model
             function onDataChanged(topLeft, bottomRight, roles) {
                 if (topLeft.row === model.index) {
-                    infant.checkCompleted()
-                }
-            }
-        }
-
-        Connections {
-            target: infantPage
-            function onVisibleChanged() {
-                if (infantPage.visible) {
                     infant.checkCompleted()
                 }
             }

@@ -26,6 +26,8 @@ public:
     void read(const QJsonObject& json);
     void read(const QByteArray& bytes);
     void write(QJsonObject& json) const override;
+    void clear() override;
+    W_SLOT(clear)
 
     bool getParking() const;
     void setParking(bool newParking);
@@ -68,14 +70,14 @@ public:
 private:
     // --- Exterior ---
     // Parking
-    bool parking{true};
-    int parkingSpots{0};
-    QString parkingType{""};
-    int parkingSurface{0};
+    bool parking;
+    int parkingSpots;
+    QString parkingType;
+    int parkingSurface;
     // Terrain
-    QString terrainDescription{""};
-    int terrainSurface{50};
-    int rating{0};
+    QString terrainDescription;
+    int terrainSurface;
+    int rating;
 };
 
 }

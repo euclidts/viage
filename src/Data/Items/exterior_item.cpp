@@ -57,6 +57,24 @@ void exterior_item::write(QJsonObject& json) const
     json["rating"] = rating;
 }
 
+void exterior_item::clear()
+{
+    parking = true;
+    emit parkingChanged();
+    parkingSpots = 0;
+    emit parkingSpotsChanged();
+    parkingType = "";
+    emit parkingTypeChanged();
+    parkingSurface = 0;
+    emit parkingSurfaceChanged();
+    terrainDescription = "";
+    emit terrainDescriptionChanged();
+    terrainSurface = 50;
+    emit terrainSurfaceChanged();
+    rating = 0;
+    emit ratingChanged();
+}
+
 int exterior_item::getParkingSpots() const
 {
     return parkingSpots;

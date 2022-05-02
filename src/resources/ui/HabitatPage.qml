@@ -12,8 +12,6 @@ ScrollView {
     property bool editing: true
     property bool completed: false
 
-    onVisibleChanged: if (visible) checkCompeted()
-
     function checkCompeted() {
         if (habitat.street === "") {
             habitatPage.completed = false
@@ -21,7 +19,11 @@ ScrollView {
         } else if (habitat.city === "") {
             habitatPage.completed = false
             return
+        } else if (habitat.type === 0) {
+            habitatPage.completed = false
+            return
         }
+
         habitatPage.completed = true
     }
 
@@ -34,6 +36,12 @@ ScrollView {
     Connections {
         target: habitat
         function onCityChanged() {
+            habitatPage.checkCompeted()
+        }
+    }
+    Connections {
+        target: habitat
+        function onTypeChanged() {
             habitatPage.checkCompeted()
         }
     }
@@ -62,30 +70,32 @@ ScrollView {
 
                     ButtonGroup {
                         id: habitatTypes
-                        onCheckedButtonChanged: habitat.type = checkedButton.text
+                        buttons: habitatTypeColumn
+                        onCheckedButtonChanged: habitat.type = checkedButton.index
                     }
 
                     RowLayout {
                         ColumnLayout {
+                            id: habitatTypeColumn
                             spacing: 0
                             visible: editing
                             Layout.rightMargin: 12
 
                             RadioButton {
                                 text: qsTr("Maison individuelle")
-                                ButtonGroup.group: habitatTypes
-                                checked: habitat.type === text
+                                readonly property int index: 1
+                                checked: habitat.type === index
                             }
                             RadioButton {
                                 text: qsTr("Maison mitoyenne")
-                                ButtonGroup.group: habitatTypes
-                                checked: habitat.type === text
+                                readonly property int index: 2
+                                checked: habitat.type === index
                             }
 
                             RadioButton {
                                 text: qsTr("Appartement")
-                                ButtonGroup.group: habitatTypes
-                                checked: habitat.type === text
+                                readonly property int index: 3
+                                checked: habitat.type === index
                             }
                         }
 

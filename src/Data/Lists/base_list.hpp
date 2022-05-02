@@ -20,6 +20,8 @@ public:
     bool setItemAt(int index, const T& item);
     bool setItemAtId(int id, const T& item);
     void set_list(const std::vector<T>& list);
+    void clear();
+    W_SLOT(clear)
 
     void preItemsAppended(int number = 1)
     W_SIGNAL(preItemsAppended, number)

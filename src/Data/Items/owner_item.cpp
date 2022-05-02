@@ -73,7 +73,7 @@ void owner_item::setData(const QVariant &value, int role)
     }
         break;
     case CivilStatusRole:
-        civilStatus = value.toInt();
+        civilStatus = civilStates(value.toInt());
         break;
     case AVSRole:
         avs = value.toString();
@@ -91,7 +91,7 @@ void owner_item::read(const QJsonObject &json)
         birthDay = QDate::fromString(json["birthDay"].toString(), "dd.MM.yyyy");
 
     if (json.contains("civilStatus") && json["civilStatus"].isDouble())
-        civilStatus = json["civilStatus"].toInt();
+        civilStatus = civilStates(json["civilStatus"].toInt());
 
     if (json.contains("avs") && json["avs"].isString())
         avs = json["avs"].toString();

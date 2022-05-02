@@ -152,18 +152,35 @@ ApplicationWindow {
                 }
             }
 
+            function loadItemAt(index : int) {
+                busyDialog.open()
+
+                switch (index) {
+                case 2:
+                    infants.loadFrom(currentAccount.id)
+                    break
+                case 3:
+                    habitat.loadFrom(currentAccount.id)
+                    break;
+                case 4:
+                    exterior.loadFrom(currentAccount.id)
+                    break;
+                case 5:
+                    documents.validate(currentAccount.id)
+                    break;
+                default:
+                    accountsPages.currentIndex = index
+                }
+            }
+
             function validateItem() {
                 switch (accountsPages.currentIndex) {
                 case 1:
                     owners.validate(currentAccount.id)
                     break;
                 case 2:
-                {
-                    infantPage.completed = true
-                    // exception for potentially empty children list
                     infants.validate(currentAccount.id)
                     break;
-                }
                 case 3:
                     habitat.validate(currentAccount.id)
                     break;

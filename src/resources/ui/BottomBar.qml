@@ -48,6 +48,10 @@ RowLayout {
             topBar.searchBar.text = ""
             onboarding = true
             accounts.add()
+            infants.clear()
+            habitat.clear()
+            exterior.clear()
+            documents.clear()
         }
     }
 
@@ -61,6 +65,7 @@ RowLayout {
             topBar.searchBar.text = ""
             hiring = true
             users.appendItems(1)
+            user.clear()
         }
     }
 
@@ -113,7 +118,9 @@ RowLayout {
 
         onClicked: {
             accountsPages.validateItem()
-            accountsPages.currentIndex++
+            hasFlag(currentAccount,
+                    accountsPages.currentIndex) ? accountsPages.loadItemAt(accountsPages.currentIndex + 1)
+                                                : accountsPages.currentIndex++
         }
     }
 }
