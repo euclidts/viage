@@ -29,6 +29,7 @@ ColumnLayout {
         readOnly: !canEdit
         placeholderText: placeHolder
         Layout.fillWidth: true
+        font.capitalization: Font.Capitalize
         onAccepted: focus = false
         onTextChanged: acceptableInput ? color = Material.foreground
                                        : color = "red"

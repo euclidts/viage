@@ -127,6 +127,8 @@ ApplicationWindow {
             currentIndex: 0
 
             function loadItem() {
+                busyDialog.open()
+
                 if (!hasFlag(currentAccount.state, 1)) {
                     owners.loadFrom(currentAccount.index)
                     return

@@ -134,6 +134,7 @@ RowLayout {
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         accountsPages.validateItem()
+                        busyDialog.open()
                         owners.loadFrom(currentAccount.index)
                     }
                 }
@@ -147,6 +148,7 @@ RowLayout {
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         accountsPages.validateItem()
+                        busyDialog.open()
                         infants.loadFrom(currentAccount.index)
                     }
                     visible: hasFlag(currentAccount.state, 1)
@@ -161,6 +163,7 @@ RowLayout {
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         accountsPages.validateItem()
+                        busyDialog.open()
                         habitat.loadFrom(currentAccount.index)
                     }
                     visible: hasFlag(currentAccount.state, 2) & infantButton.visible
@@ -175,6 +178,7 @@ RowLayout {
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         accountsPages.validateItem()
+                        busyDialog.open()
                         exterior.loadFrom(currentAccount.index)
                     }
                     visible: hasFlag(currentAccount.state, 4) & habitatButton.visible
@@ -189,9 +193,10 @@ RowLayout {
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         accountsPages.validateItem()
+                        busyDialog.open()
                         documents.loadFrom(currentAccount.index)
                     }
-//                    visible: hasFlag(currentAccount.state, 8) & exteriorButton.visible
+                    visible: hasFlag(currentAccount.state, 8) & exteriorButton.visible
                 }
 
                 RoundButton {
