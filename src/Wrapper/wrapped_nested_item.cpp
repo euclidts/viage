@@ -11,14 +11,14 @@ W_OBJECT_IMPL((wrapped_nested_item<Inner, Outer>), template <typename Inner, typ
 
 template <typename Inner, typename Outer>
 wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
-                                                     item_list<Outer>* parentList,
-                                                     QQmlContext* context)
+                                                       item_list<Outer>* parentList,
+                                                       QQmlContext* context)
     : wrapped_list<Inner>{srv}
 {
     this->connect(this->item,
-            &Inner::validate,
-            this,
-            [=] (int id)
+                  &Inner::validate,
+                  this,
+                  [=] (int id)
     {
         Outer* outer = new Outer{parentList->item_at_id(id)};
         outer->set(this->item);
@@ -45,13 +45,18 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
     });
 
     this->connect(this->item,
-            &Inner::loadFrom,
-            this,
-            [=] (int id)
+                  &Inner::loadFrom,
+                  this,
+                  [=] (int id)
     {
         this->service->getFromKey(makeKey(parentList, id).c_str(),
-                [this](const QByteArray& rep)
-        { this->item->read(rep); });
+                                  [this](const QByteArray& rep)
+        {
+            if(rep.isEmpty())
+                this->item->clear();
+            else
+                this->item->read(rep);
+        });
     });
 
     if (context)

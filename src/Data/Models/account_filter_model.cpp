@@ -31,13 +31,15 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     account_item::HabitatRole).toJsonObject()};
 
-    if (habitat["street"].toString()
+    const auto address{habitat["address"]};
+
+    if (address["street"].toString()
             .contains(filterRegularExpression())
-            || habitat["canton"].toString()
+            || address["canton"].toString()
             .contains(filterRegularExpression())
-            || habitat["zip"].toString()
+            || address["zip"].toString()
             .contains(filterRegularExpression())
-            || habitat["city"].toString()
+            || address["city"].toString()
             .contains(filterRegularExpression()))
         return true;
 
@@ -102,8 +104,11 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
         const auto leftData{sourceModel()->data(left, account_item::HabitatRole)};
         const auto rightData{sourceModel()->data(right, account_item::HabitatRole)};
 
-        return leftData.toJsonObject()["zip"].toString()
-                < rightData.toJsonObject()["zip"].toString();
+        const auto address_1{leftData.toJsonObject()};
+        const auto address_2{rightData.toJsonObject()};
+
+        return address_1["zip"].toString()
+                < address_2["zip"].toString();
     }
 
     if (sortIndex == 5)
@@ -111,8 +116,11 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
         const auto leftData{sourceModel()->data(left, account_item::HabitatRole)};
         const auto rightData{sourceModel()->data(right, account_item::HabitatRole)};
 
-        return leftData.toJsonObject()["canton"].toString()
-                < rightData.toJsonObject()["canton"].toString();
+        const auto address_1{leftData.toJsonObject()};
+        const auto address_2{rightData.toJsonObject()};
+
+        return address_1["canton"].toString()
+                < address_2["canton"].toString();
     }
 
     if (sortIndex == 6)

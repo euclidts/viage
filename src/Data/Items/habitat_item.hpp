@@ -50,7 +50,7 @@ public:
     void setEquipements(const QString &newEquipements);
     const QString &getProblems() const;
     void setProblems(const QString &newProblems);
-    const habitatTypes &getType() const;
+    const habitatTypes& getType() const;
     void setType(habitatTypes newType);
     int getRooms() const;
     void setRooms(int newRooms);

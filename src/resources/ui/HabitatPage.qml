@@ -70,7 +70,7 @@ ScrollView {
 
                     ButtonGroup {
                         id: habitatTypes
-                        buttons: habitatTypeColumn
+                        buttons: habitatTypeColumn.children
                         onCheckedButtonChanged: habitat.type = checkedButton.index
                     }
 

@@ -118,9 +118,7 @@ RowLayout {
 
         onClicked: {
             accountsPages.validateItem()
-            hasFlag(currentAccount,
-                    accountsPages.currentIndex) ? accountsPages.loadItemAt(accountsPages.currentIndex + 1)
-                                                : accountsPages.currentIndex++
+            accountsPages.loadItemAt(accountsPages.currentIndex + 1)
         }
     }
 }

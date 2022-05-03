@@ -17,8 +17,6 @@ habitat_item::habitat_item(QObject *parent)
 
 void habitat_item::read(const QJsonObject& json)
 {
-    qDebug() << "habitat read" << json["address"];
-
     if (json.contains("address") && json["address"].isObject())
     {
         address.read(json["address"].toObject());
@@ -189,13 +187,14 @@ void habitat_item::setProblems(const QString &newProblems)
     emit problemsChanged();
 }
 
-const habitat_item::habitatTypes &habitat_item::getType() const
+const habitat_item::habitatTypes& habitat_item::getType() const
 {
     return type;
 }
 
 void habitat_item::setType(habitatTypes newType)
 {
+    qDebug() << "set Type";
     if (type == newType)
         return;
     type = newType;
