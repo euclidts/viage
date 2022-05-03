@@ -19,7 +19,7 @@ ScrollView {
         } else if (habitat.city === "") {
             habitatPage.completed = false
             return
-        } else if (habitat.type === 0) {
+        } else if (habitat.habitatType === 0) {
             habitatPage.completed = false
             return
         }
@@ -41,7 +41,7 @@ ScrollView {
     }
     Connections {
         target: habitat
-        function onTypeChanged() {
+        function onHabitatTypeChanged() {
             habitatPage.checkCompeted()
         }
     }
@@ -71,7 +71,7 @@ ScrollView {
                     ButtonGroup {
                         id: habitatTypes
                         buttons: habitatTypeColumn.children
-                        onCheckedButtonChanged: habitat.type = checkedButton.index
+                        onCheckedButtonChanged: habitat.habitatType = checkedButton.index
                     }
 
                     RowLayout {
@@ -84,18 +84,18 @@ ScrollView {
                             RadioButton {
                                 text: qsTr("Maison individuelle")
                                 readonly property int index: 1
-                                checked: habitat.type === index
+                                checked: habitat.habitatType === index
                             }
                             RadioButton {
                                 text: qsTr("Maison mitoyenne")
                                 readonly property int index: 2
-                                checked: habitat.type === index
+                                checked: habitat.habitatType === index
                             }
 
                             RadioButton {
                                 text: qsTr("Appartement")
                                 readonly property int index: 3
-                                checked: habitat.type === index
+                                checked: habitat.habitatType === index
                             }
                         }
 

@@ -152,7 +152,7 @@ ListView {
                                 property int currentYear: new Date().getFullYear()
 
                                 minimum: currentYear - 120
-                                maximum: currentYear
+                                maximum: currentYear - 65
                                 name: qsTr("Année")
                                 numberOf: model.birthDay.getFullYear()
                                 onEdit: function(val) {

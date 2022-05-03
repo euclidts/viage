@@ -16,8 +16,8 @@ exterior_item::exterior_item(QObject *parent)
 
 void exterior_item::read(const QJsonObject& json)
 {
-    if (json.contains("parking") && json["parking"].isBool())
-        setParking(json["parking"].toBool());
+    if (json.contains("hasParking") && json["hasParking"].isBool())
+        setHasParking(json["hasParking"].toBool());
 
     if (json.contains("parkingSpots") && json["parkingSpots"].isDouble())
         setParkingSpots(json["parkingSpots"].toInt());
@@ -48,7 +48,7 @@ void exterior_item::read(const QByteArray &bytes)
 
 void exterior_item::write(QJsonObject& json) const
 {
-    json["parking"] = parking;
+    json["hasParking"] = hasParking;
     json["parkingSpots"] = parkingSpots;
     json["parkingType"] = parkingType;
     json["parkingSurface"] = parkingSurface;
@@ -59,8 +59,8 @@ void exterior_item::write(QJsonObject& json) const
 
 void exterior_item::clear()
 {
-    parking = true;
-    emit parkingChanged();
+    hasParking = true;
+    emit hasParkingChanged();
     parkingSpots = 0;
     emit parkingSpotsChanged();
     parkingType = "";
@@ -140,17 +140,17 @@ void exterior_item::setTerrainSurface(int newTerrainSurface)
     emit terrainSurfaceChanged();
 }
 
-bool exterior_item::getParking() const
+bool exterior_item::getHasParking() const
 {
-    return parking;
+    return hasParking;
 }
 
-void exterior_item::setParking(bool newParking)
+void exterior_item::setHasParking(bool newHasParking)
 {
-    if (parking == newParking)
+    if (hasParking == newHasParking)
         return;
-    parking = newParking;
-    emit parkingChanged();
+    hasParking = newHasParking;
+    emit hasParkingChanged();
 }
 
 int exterior_item::getRating() const

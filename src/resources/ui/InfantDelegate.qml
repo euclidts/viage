@@ -25,6 +25,7 @@ ColumnLayout {
     ButtonGroup {
         id: sexGroup
         buttons: sexRow.children
+        onCheckedButtonChanged: model.sex = checkedButton.index
     }
 
     RowLayout {
@@ -35,14 +36,14 @@ ColumnLayout {
 
         RadioButton {
             text: qsTr("Monsieur")
-            checked: model.sex === 'M'
-            onClicked: model.sex = 'M'
+            readonly property int index: 0
+            checked: model.sex === index
         }
 
         RadioButton {
             text: qsTr("Madame")
-            checked: model.sex === 'F'
-            onClicked: model.sex = 'F'
+            readonly property int index: 1
+            checked: model.sex === index
         }
     }
 

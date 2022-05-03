@@ -32,8 +32,8 @@ void habitat_item::read(const QJsonObject& json)
     if (json.contains("problems") && json["problems"].isString())
         setProblems(json["problems"].toString());
 
-    if (json.contains("type") && json["type"].isDouble())
-        setType(habitatTypes(json["type"].toInt()));
+    if (json.contains("habitatType") && json["abitatType"].isDouble())
+        setHabitatType(habitatTypes(json["habitatType"].toInt()));
 
     if (json.contains("rooms") && json["rooms"].isDouble())
         setRooms(json["rooms"].toInt());
@@ -70,7 +70,7 @@ void habitat_item::write(QJsonObject& json) const
     json["address"] = jsonAddress;
     json["equipements"] = equipements;
     json["problems"] = problems;
-    json["type"] = type;
+    json["habitatType"] = habitatType;
     json["rooms"] = rooms;
     json["rawSurface"] = rawSurface;
     json["surface"] = surface;
@@ -93,8 +93,8 @@ void habitat_item::clear()
     emit equipementsChanged();
     problems = QString{""};
     emit problemsChanged();
-    type = None;
-    emit typeChanged();
+    habitatType = None;
+    emit habitatTypeChanged();
     rooms = 2;
     emit roomsChanged();
     rawSurface = 50;
@@ -187,18 +187,17 @@ void habitat_item::setProblems(const QString &newProblems)
     emit problemsChanged();
 }
 
-const habitat_item::habitatTypes& habitat_item::getType() const
+const habitat_item::habitatTypes& habitat_item::getHabitatType() const
 {
-    return type;
+    return habitatType;
 }
 
-void habitat_item::setType(habitatTypes newType)
+void habitat_item::setHabitatType(habitatTypes newHabitatType)
 {
-    qDebug() << "set Type";
-    if (type == newType)
+    if (habitatType == newHabitatType)
         return;
-    type = newType;
-    emit typeChanged();
+    habitatType = newHabitatType;
+    emit habitatTypeChanged();
 }
 
 int habitat_item::getRooms() const

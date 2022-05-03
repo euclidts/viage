@@ -57,8 +57,8 @@ ScrollView {
                                 spacing: 0
 
                                 CheckBox {
-                                    checked: exterior.parking
-                                    onCheckStateChanged: exterior.parking = checked
+                                    checked: exterior.hasParking
+                                    onCheckStateChanged: exterior.hasParking = checked
                                     text: qsTr("Disponible")
                                     checkable: editing
                                 }
@@ -69,13 +69,13 @@ ScrollView {
                                     onEdit: function(val) { exterior.parkingSurface = val }
                                     canEdit: editing
                                     name: qsTr("Surface (m2)")
-                                    visible: exterior.parking
+                                    visible: exterior.hasParking
                                 }
 
                                 TextField {
                                     text: exterior.parkingSurface + ' m2'
                                     readOnly: true
-                                    visible: !editing
+                                    visible: !editing && exterior.hasParking
                                     Layout.fillWidth: true
                                 }
 
@@ -85,14 +85,14 @@ ScrollView {
                                     onEdit: function(val) { exterior.parkingSpots = val }
                                     canEdit: editing
                                     name: qsTr("Nombre de places")
-                                    visible: exterior.parking
+                                    visible: exterior.hasParking
                                 }
                             }
 
                             TextField {
                                 text: exterior.parkingSpots + ' places'
                                 readOnly: true
-                                visible: !editing
+                                visible: !editing && exterior.hasParking
                                 Layout.fillWidth: true
                             }
 
@@ -102,7 +102,7 @@ ScrollView {
                                 canEdit: editing
                                 onEdit: function(txt) { exterior.parkingType = txt }
                                 placeHolder: qsTr("* Optionnel")
-                                visible: exterior.parking
+                                visible: exterior.hasParking
                             }
                         }
                     }

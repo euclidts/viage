@@ -50,8 +50,8 @@ public:
     void setEquipements(const QString &newEquipements);
     const QString &getProblems() const;
     void setProblems(const QString &newProblems);
-    const habitatTypes& getType() const;
-    void setType(habitatTypes newType);
+    const habitatTypes& getHabitatType() const;
+    void setHabitatType(habitatTypes newHabitatType);
     int getRooms() const;
     void setRooms(int newRooms);
     int getRawSurface() const;
@@ -77,8 +77,8 @@ public:
     W_SIGNAL(equipementsChanged)
     void problemsChanged()
     W_SIGNAL(problemsChanged)
-    void typeChanged()
-    W_SIGNAL(typeChanged)
+    void habitatTypeChanged()
+    W_SIGNAL(habitatTypeChanged)
     void roomsChanged()
     W_SIGNAL(roomsChanged)
     void rawSurfaceChanged()
@@ -98,7 +98,7 @@ public:
     W_PROPERTY(QString, city READ getCity WRITE setCity NOTIFY cityChanged)
     W_PROPERTY(QString, equipements READ getEquipements WRITE setEquipements NOTIFY equipementsChanged)
     W_PROPERTY(QString, problems READ getProblems WRITE setProblems NOTIFY problemsChanged)
-    W_PROPERTY(habitatTypes, type READ getType WRITE setType NOTIFY typeChanged)
+    W_PROPERTY(habitatTypes, habitatType READ getHabitatType WRITE setHabitatType NOTIFY habitatTypeChanged)
     W_PROPERTY(int, rooms READ getRooms WRITE setRooms NOTIFY roomsChanged)
     W_PROPERTY(int, rawSurface READ getRawSurface WRITE setRawSurface NOTIFY rawSurfaceChanged)
     W_PROPERTY(int, surface READ getSurface WRITE setSurface NOTIFY surfaceChanged)
@@ -113,7 +113,7 @@ private:
     QString equipements;
     QString problems;
     // Habitat data
-    habitatTypes type;
+    habitatTypes habitatType;
     int rooms;
     int rawSurface;
     int surface;

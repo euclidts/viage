@@ -29,8 +29,8 @@ public:
     void clear() override;
     W_SLOT(clear)
 
-    bool getParking() const;
-    void setParking(bool newParking);
+    bool getHasParking() const;
+    void setHasParking(bool newHasParking);
     int getParkingSpots() const;
     void setParkingSpots(int newParkingSpots);
     const QString &getParkingType() const;
@@ -44,8 +44,8 @@ public:
     int getRating() const;
     void setRating(int newRating);
 
-    void parkingChanged()
-    W_SIGNAL(parkingChanged)
+    void hasParkingChanged()
+    W_SIGNAL(hasParkingChanged)
     void parkingSpotsChanged()
     W_SIGNAL(parkingSpotsChanged)
     void parkingTypeChanged()
@@ -59,7 +59,7 @@ public:
     void ratingChanged()
     W_SIGNAL(ratingChanged)
 
-    W_PROPERTY(bool, parking READ getParking WRITE setParking NOTIFY parkingChanged)
+    W_PROPERTY(bool, hasParking READ getHasParking WRITE setHasParking NOTIFY hasParkingChanged)
     W_PROPERTY(int, parkingSpots READ getParkingSpots WRITE setParkingSpots NOTIFY parkingSpotsChanged)
     W_PROPERTY(QString, parkingType READ getParkingType WRITE setParkingType NOTIFY parkingTypeChanged)
     W_PROPERTY(int, parkingSurface READ getParkingSurface WRITE setParkingSurface NOTIFY parkingSurfaceChanged)
@@ -70,7 +70,7 @@ public:
 private:
     // --- Exterior ---
     // Parking
-    bool parking;
+    bool hasParking;
     int parkingSpots;
     QString parkingType;
     int parkingSurface;
