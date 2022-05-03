@@ -12,7 +12,7 @@ namespace People {
 owner_item::owner_item()
     : infant_item()
     , address_item()
-    , birthDay{QDate::currentDate().addYears(-100)}
+    , birthDay{QDate::currentDate().addYears(-minAge)}
 {
     //    using namespace std::chrono;
 

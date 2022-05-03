@@ -16,6 +16,8 @@ struct owner_item : public infant_item
 {
     owner_item();
 
+    static const int minAge{65};
+
     const constexpr char* key() { return "owner"; };
     static const constexpr auto qmlName{"Owner"};
 

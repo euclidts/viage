@@ -38,22 +38,22 @@ void infant_item::setData(const QVariant &value, int role)
     person_item::setData(value, role);
 
     if (role == SexRole)
-        sex = value.toString()[0];
+        sex = sexes(value.toInt());
 }
 
 void infant_item::read(const QJsonObject& json)
 {
     person_item::read(json);
 
-    if (json.contains("sex") && json["sex"].isString())
-        sex = json["sex"].toString()[0];
+    if (json.contains("sex") && json["sex"].isDouble())
+        sex = sexes(json["sex"].toInt());
 }
 
 void infant_item::write(QJsonObject& json) const
 {
     person_item::write(json);
 
-    json["sex"] = QString(sex);
+    json["sex"] = sex;
 }
 
 }

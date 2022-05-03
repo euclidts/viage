@@ -16,7 +16,13 @@ struct infant_item : public person_item
     const constexpr char* key() { return "infant"; };
     static const constexpr auto qmlName{"Infant"};
 
-    QChar sex{'M'};
+    enum sexes
+    {
+        M = 0,
+        F
+    };
+
+    sexes sex{sexes(M)};
 
     enum roles
     {
