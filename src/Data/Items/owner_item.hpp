@@ -3,6 +3,7 @@
 
 #include "infant_item.hpp"
 #include "address_item.hpp"
+#include <individual.hpp> // for age Macros
 
 namespace Data
 {
@@ -15,8 +16,6 @@ struct owner_item : public infant_item
                   , public Places::address_item
 {
     owner_item();
-
-    static const int minAge{65};
 
     const constexpr char* key() { return "owner"; };
     static const constexpr auto qmlName{"Owner"};

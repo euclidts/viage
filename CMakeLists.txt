@@ -20,6 +20,7 @@ set(DATA_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Data")
 set(WRAPPER_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Wrapper")
 set(INTERFACE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Interface")
 set(SERVICE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Service")
+set(CALCULATOR_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Calculator")
 set(3RDPARTY_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty")
 
 if(ANDROID)
@@ -108,6 +109,8 @@ set(PROJECT_SOURCES
     src/Data/Models/document_filter_model.cpp
     src/Data/Models/user_filter_model.hpp
     src/Data/Models/user_filter_model.cpp
+    src/Calculator/individual.hpp
+    src/Calculator/individual.cpp
     src/resources/viage.qrc
     ${TS_FILES})
 
@@ -116,6 +119,7 @@ include_directories(SYSTEM
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"
     "${SERVICE_FOLDER}"
+    "${CALCULATOR_FOLDER}"
     "${3RDPARTY_FOLDER}/verdigris/src")
 
 set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/appicon.rc")
