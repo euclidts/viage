@@ -1,31 +1,21 @@
-#ifndef RENTCALCULATOR_HPP
-#define RENTCALCULATOR_HPP
+#ifndef EXPECTENCY
+#define EXPECTENCY
 
 #include <QDate>
 
 #include <Items/infant_item.hpp> // needed for Sex enum
 
-#define AGE_MIN 65
-#define AGE_MAX 120
-
 namespace Calculator
 {
-namespace Expectency
-{
-class individual
+
+class expectency
 {
 public:
-    individual();
+    expectency();
 
     double get_expectency();
 
-    const QDate &getBirthDay() const;
-    void setBirthDay(const QDate &newBirthDay);
-
-    Data::People::infant_item::sexes sex{Data::People::infant_item::M};
-
 private:
-    QDate birthDay;
     int thousand_bDAy{0};
     double age{0};
     double age_trunc{0};
@@ -43,6 +33,4 @@ private:
 
 }
 
-}
-
-#endif // RENTCALCULATOR_HPP
+#endif // EXPECTENCY

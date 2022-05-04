@@ -73,6 +73,7 @@ set(PROJECT_SOURCES
     src/Service/smtp.hpp
     src/Data/base_data.hpp
     src/Data/base_data.cpp
+    src/Wrapper/base_wrapper.hpp
     src/Wrapper/wrapped_list.hpp
     src/Wrapper/wrapped_nested_item.hpp
     src/Wrapper/wrapped_nested_list.hpp
@@ -82,6 +83,8 @@ set(PROJECT_SOURCES
     src/Data/Items/address_item.cpp
     src/Data/Items/person_item.hpp
     src/Data/Items/person_item.cpp
+    src/Data/Items/senior_citizen_item.hpp
+    src/Data/Items/senior_citizen_item.cpp
     src/Data/Items/user_item.hpp
     src/Data/Items/user_item.cpp
     src/Data/Items/infant_item.hpp
@@ -98,6 +101,7 @@ set(PROJECT_SOURCES
     src/Data/Items/account_item.hpp
     src/Data/Items/account_item.cpp
     src/Data/Lists/base_list.hpp
+    src/Data/Lists/simple_item_list.hpp
     src/Data/Lists/item_list.hpp
     src/Data/Models/base_model.hpp
     src/Data/Models/list_model.hpp
@@ -109,8 +113,8 @@ set(PROJECT_SOURCES
     src/Data/Models/document_filter_model.cpp
     src/Data/Models/user_filter_model.hpp
     src/Data/Models/user_filter_model.cpp
-    src/Calculator/individual.hpp
-    src/Calculator/individual.cpp
+    src/Calculator/life_expectency.hpp
+    src/Calculator/life_expectency.cpp
     src/resources/viage.qrc
     ${TS_FILES})
 

@@ -7,22 +7,17 @@
 
 #include <wobjectdefs.h>
 
-#include "base_list.hpp"
-#include "base_data.hpp"
+#include "simple_item_list.hpp"
 
 namespace Data
 {
 template <typename T>
-class item_list : public base_list<T>
+class item_list : public simple_item_list<T>
 {
     W_OBJECT(item_list)
 
 public:
     explicit item_list(QObject* parent = nullptr);
-
-    const constexpr char* key() override { return items_key; };
-    const char* qmlName;
-    static const constexpr auto uri{T::uri};
 
     void add()
     W_SIGNAL(add)
@@ -35,11 +30,9 @@ public:
     void read(const QByteArray& bytes);
     void write(QJsonArray& json) const;
 
-protected:
+private:
     void writeWithKey(QJsonObject &json) override;
 
-private:
-    const char* items_key;
 };
 };
 

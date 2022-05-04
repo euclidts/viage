@@ -5,7 +5,11 @@
 
 #include <wobjectdefs.h>
 
+#include <base_wrapper.hpp>
+
 class QQmlContext;
+
+class Outer;
 
 namespace Service
 {
@@ -14,29 +18,23 @@ class access;
 
 namespace Data
 {
+template <typename Outer>
+class item_list;
+
 namespace Wrapper
 {
 
 template <typename Inner>
-class wrapped_list : public QObject
+class wrapped_list : public base_wrapper<Inner>
 {
     W_OBJECT(wrapped_list)
 
 public:
-    wrapped_list(Service::access *srv,
-                QQmlContext* context);
+    explicit wrapped_list(Service::access* srv,
+                 QQmlContext* context = nullptr);
 
-    Inner* getItem() const;
-
-    void get();
-
-protected:
-    wrapped_list(Service::access* srv);
-    void registerToQml(QQmlContext* context) const;
-
-    Inner* item;
-
-    Service::access* service;
+    void makeConnections() const;
+    void get() const;
 };
 
 }

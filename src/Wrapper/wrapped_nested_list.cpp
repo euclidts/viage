@@ -13,11 +13,11 @@ template <typename Inner, typename Outer>
 wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
                                                        item_list<Outer>* parentList,
                                                        QQmlContext* context)
-    : wrapped_nested_item<Inner, Outer>{srv,
-                                        parentList,
-                                        context}
+    : wrapped_nested_item<Inner, Outer>{srv, context}
 {
-    this->connect(this->item,
+    this->makeConnections(parentList);
+
+    this->connect(this->inner,
                   &Inner::addIn,
                   this,
                   [=] (int id)
@@ -25,7 +25,7 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
         QJsonObject json{ {"id", id} };
         QJsonDocument data{json};
 
-        this->service->postToKey(this->item->key(),
+        this->service->postToKey(this->inner->key(),
                                  data.toJson(),
                                  [this](const QByteArray& res)
         {
@@ -33,14 +33,14 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
             if (json.contains("success") && json["success"].isBool())
             {
                 if (json["success"].toBool())
-                    this->item->appendWith(json["id"].toInt());
+                    this->inner->appendWith(json["id"].toInt());
                 else
                     qDebug() << "addIn error :" << json["errorMessage"].toString();
             };
         });
     });
 
-    this->connect(this->item,
+    this->connect(this->inner,
                   &Inner::addInWith,
                   this,
                   [=] (int id, const QJsonObject& obj)
@@ -57,7 +57,7 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
             if (json.contains("success") && json["success"].isBool())
             {
                 if (json["success"].toBool())
-                    this->item->appendWith(json);
+                    this->inner->appendWith(json);
                 else
                     qDebug() << "addInWith error :" << json["errorMessage"].toString();
             };

@@ -15,21 +15,8 @@ W_OBJECT_IMPL(item_list<T>, template <typename T>)
 
 template <typename T>
 item_list<T>::item_list(QObject* parent)
-    : base_list<T>{parent}
+    : simple_item_list<T>{parent}
 {
-    std::string str{T().key()};
-    str += 's';
-
-    auto key_str = new char[str.length() + 1];
-    strcpy(key_str, str.c_str());
-    items_key = key_str;
-
-    str = T::qmlName;
-    str += "List";
-
-    auto qml_str = new char[str.length() + 1];
-    strcpy(qml_str, str.c_str());
-    qmlName = qml_str;
 }
 
 template <typename T>
@@ -73,7 +60,7 @@ void item_list<T>::writeWithKey(QJsonObject &json)
     QJsonArray array{};
     write(array);
 
-    json[key()] = array;
+    json[this->key()] = array;
 }
 
 }

@@ -38,7 +38,7 @@ void infant_item::setData(const QVariant &value, int role)
     person_item::setData(value, role);
 
     if (role == SexRole)
-        sex = sexes(value.toInt());
+        sex = senior_citizen_item::sexes(value.toInt());
 }
 
 void infant_item::read(const QJsonObject& json)
@@ -46,7 +46,7 @@ void infant_item::read(const QJsonObject& json)
     person_item::read(json);
 
     if (json.contains("sex") && json["sex"].isDouble())
-        sex = sexes(json["sex"].toInt());
+        sex = senior_citizen_item::sexes(json["sex"].toInt());
 }
 
 void infant_item::write(QJsonObject& json) const

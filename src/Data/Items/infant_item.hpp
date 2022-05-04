@@ -4,25 +4,20 @@
 #include <QJsonObject>
 
 #include "person_item.hpp"
+#include "senior_citizen_item.hpp" // needed for sexes enum
 
 namespace Data
 {
 namespace People
 {
 struct infant_item : public person_item
-{
+{   
     infant_item();
 
     const constexpr char* key() { return "infant"; };
     static const constexpr auto qmlName{"Infant"};
 
-    enum sexes
-    {
-        M = 0,
-        F
-    };
-
-    sexes sex{sexes(M)};
+    senior_citizen_item::sexes sex{senior_citizen_item::sexes::M};
 
     enum roles
     {

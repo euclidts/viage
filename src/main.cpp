@@ -21,6 +21,9 @@
 #include <Items/exterior_item.hpp>
 #include <Items/document_item.hpp>
 
+#include <Items/senior_citizen_item.hpp>
+#include <life_expectency.hpp>
+
 int main(int argc, char *argv[])
 {
 
@@ -77,9 +80,10 @@ int main(int argc, char *argv[])
     // accounts
     Data::Wrapper::wrapped_list<Data::item_list<Data::account_item>>
             wrapped_accounts{&access, context};
+    wrapped_accounts.makeConnections();
 
     Data::list_model<Data::account_item> accountModel{};
-    accountModel.setList(wrapped_accounts.getItem());
+    accountModel.setList(wrapped_accounts.get_inner());
 
     Data::account_filter_model accountFilter{&accountModel};
     qmlRegisterUncreatableType<Data::account_filter_model>("Data", 1, 0, "AccountsModel", "");
@@ -87,45 +91,48 @@ int main(int argc, char *argv[])
 
     // owners
     Data::Wrapper::wrapped_nested_list<Data::item_list<Data::People::owner_item>, Data::account_item>
-            wrapped_owners{&access, wrapped_accounts.getItem(), context};
+            wrapped_owners{&access, wrapped_accounts.get_inner(), context};
     qmlRegisterType<Data::list_model<Data::People::owner_item>>("People", 1, 0, "OwnersModel");
 
     // infants
     Data::Wrapper::wrapped_nested_list<Data::item_list<Data::People::infant_item>, Data::account_item>
-            wrapped_infants{&access, wrapped_accounts.getItem(), context};
+            wrapped_infants{&access, wrapped_accounts.get_inner(), context};
     qmlRegisterType<Data::list_model<Data::People::infant_item>>("People", 1, 0, "InfantModel");
 
     // habitat
     Data::Wrapper::wrapped_nested_item<Data::Places::habitat_item, Data::account_item>
-            wrapped_habitat{&access, wrapped_accounts.getItem(), context};
+            wrapped_habitat{&access, context};
+    wrapped_habitat.makeConnections(wrapped_accounts.get_inner());
     // exterior
     Data::Wrapper::wrapped_nested_item<Data::Places::exterior_item, Data::account_item>
-            wrapped_exterior{&access, wrapped_accounts.getItem(), context};
+            wrapped_exterior{&access, context};
+    wrapped_exterior.makeConnections(wrapped_accounts.get_inner());
 
     // documents
     Data::Wrapper::wrapped_nested_list<Data::item_list<Data::document_item>, Data::account_item>
-            wrapped_documents{&access, wrapped_accounts.getItem(), context};
+            wrapped_documents{&access, wrapped_accounts.get_inner(), context};
     qmlRegisterType<Data::list_model<Data::document_item>>("Data", 1, 0, "DocumentModel");
     qmlRegisterType<Data::document_filter_model>("Data", 1, 0, "DocumentFilterModel");
 
     // users
     Data::Wrapper::wrapped_list<Data::item_list<Data::People::user_item>>
-            wrapped_user{&access, context};
+            wrapped_users{&access, context};
+    wrapped_users.makeConnections();
 
     Data::list_model<Data::People::user_item> userModel{};
-    userModel.setList(wrapped_user.getItem());
+    userModel.setList(wrapped_users.get_inner());
 
     Data::user_filter_model userFilter{&userModel};
     qmlRegisterUncreatableType<Data::user_filter_model>("People", 1, 0, "UserModel", "");
     context->setContextProperty("userModel", &userFilter);
 
     QObject::connect(&access, &Service::access::loggedIn,
-                     [&wrapped_accounts, &wrapped_user](const bool& success)
+                     [&wrapped_accounts, &wrapped_users](const bool& success)
     {
         if (success)
         {
             wrapped_accounts.get();
-            wrapped_user.get();
+            wrapped_users.get();
         }
     });
 

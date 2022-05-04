@@ -11,21 +11,47 @@ W_OBJECT_IMPL((wrapped_nested_item<Inner, Outer>), template <typename Inner, typ
 
 template <typename Inner, typename Outer>
 wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
-                                                       item_list<Outer>* parentList,
                                                        QQmlContext* context)
-    : wrapped_list<Inner>{srv}
+    : wrapped_list<Inner>{srv, context}
 {
-    this->connect(this->item,
+}
+
+template<typename Inner, typename Outer>
+std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList)
+{
+    std::string newkey = parentList->key();
+    newkey.append("/");
+    newkey.append(this->inner->key());
+
+    return newkey;
+}
+
+template<typename Inner, typename Outer>
+std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList, int id)
+{
+    std::string newkey = parentList->key();
+    newkey.append("/");
+    newkey.append(std::to_string(id));
+    newkey.append("/");
+    newkey.append(this->inner->key());
+
+    return newkey;
+}
+
+template<typename Inner, typename Outer>
+void wrapped_nested_item<Inner, Outer>::makeConnections(item_list<Outer>* parentList)
+{
+    this->connect(this->inner,
                   &Inner::validate,
                   this,
                   [=] (int id)
     {
         Outer* outer = new Outer{parentList->item_at_id(id)};
-        outer->set(this->item);
+        outer->set(this->inner);
         parentList->setItemAtId(id, *outer);
 
         this->service->putToKey(makeKey(parentList).c_str(),
-                                this->item->toData(id),
+                                this->inner->toData(id),
                                 [=](const QByteArray& rep)
         {
             const auto json = QJsonDocument::fromJson(rep).object();
@@ -44,7 +70,7 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
         });
     });
 
-    this->connect(this->item,
+    this->connect(this->inner,
                   &Inner::loadFrom,
                   this,
                   [=] (int id)
@@ -53,36 +79,12 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
                                   [this](const QByteArray& rep)
         {
             if(rep.isEmpty())
-                this->item->clear();
+                this->inner->clear();
             else
-                this->item->read(rep);
+                this->inner->read(rep);
         });
     });
 
-    if (context)
-        this->registerToQml(context);
-}
-
-template<typename Inner, typename Outer>
-std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList)
-{
-    std::string newkey = parentList->key();
-    newkey.append("/");
-    newkey.append(this->item->key());
-
-    return newkey;
-}
-
-template<typename Inner, typename Outer>
-std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList, int id)
-{
-    std::string newkey = parentList->key();
-    newkey.append("/");
-    newkey.append(std::to_string(id));
-    newkey.append("/");
-    newkey.append(this->item->key());
-
-    return newkey;
 }
 
 }

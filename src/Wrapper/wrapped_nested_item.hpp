@@ -19,9 +19,10 @@ class wrapped_nested_item : public wrapped_list<Inner>
     W_OBJECT(wrapped_nested_item)
 
 public:
-    wrapped_nested_item(Service::access *srv,
-                       item_list<Outer>* parentList,
-                       QQmlContext* context);
+    explicit wrapped_nested_item(Service::access *srv,
+                       QQmlContext* context = nullptr);
+
+    void makeConnections(item_list<Outer>* parentList);
 
 protected:
     std::string makeKey(item_list<Outer>* parentList);

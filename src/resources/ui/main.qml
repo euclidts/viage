@@ -166,7 +166,7 @@ ApplicationWindow {
                     exterior.loadFrom(currentAccount.id)
                     break;
                 case 5:
-                    documents.validate(currentAccount.id)
+                    documents.loadFrom(currentAccount.id)
                     break;
                 default:
                     accountsPages.currentIndex = index

@@ -20,9 +20,9 @@ class wrapped_nested_list : public wrapped_nested_item<Inner, Outer>
     W_OBJECT(wrapped_nested_list)
 
 public:
-    wrapped_nested_list(Service::access *srv,
+    explicit wrapped_nested_list(Service::access *srv,
                 item_list<Outer>* parentList,
-                QQmlContext* context);
+                QQmlContext* context = nullptr);
 };
 
 }
