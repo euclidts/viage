@@ -1,22 +1,22 @@
+#include <QVector>
 #include <QFile>
 
 #include "life_expectency.hpp"
-#include <Items/senior_citizen_item.hpp> // needed for sexes enum
+#include <Lists/simple_item_list.hpp>
+#include <Items/senior_citizen_item.hpp>
 
 namespace Calculator
 {
 
-expectency::expectency()
+life_expectency::life_expectency(
+        Data::simple_item_list<Data::People::senior_citizen_item>*
+        senior_citizens)
+    : seniors{senior_citizens}
 {
     readMortality(":/ofs.csv");
-
-//    thousand_bDAy = birthDay.year() * 1000;
-//    age = birthDay.daysTo(QDate::currentDate()) / 365.25;
-//    age_trunc = std::trunc(age);
-//    age_diff = age - std::round(age);
 }
 
-void expectency::readMortality(const QString& path)
+void life_expectency::readMortality(const QString& path)
 {
     QFile csv{path};
 
@@ -31,35 +31,66 @@ void expectency::readMortality(const QString& path)
         auto line{csv.readLine()};
         auto splitedLine{line.split(',')};
 
-//        mortality[splitedLine[2].toInt()] = splitedLine[3 + sex].toDouble();
+        int key{splitedLine[2].toInt()};
+        std::array values = {splitedLine[3].toDouble(), splitedLine[4].toDouble()};
+
+        mortality.insert(std::pair{key, values});
     }
 }
 
-double expectency::get_expectency()
+double life_expectency::get_expectency()
 {
-    double lx{1};
-    double ex{0};
+    int count = seniors->items().size();
 
-    for (int i = 0; i <= 126; i++)
+    data x_data{seniors->item_at(0)};
+
+    data y_data{};
+    if (count == 2)
+        y_data = data{seniors->item_at(1)};
+
+    double lx{1};
+    double ex{lx};
+
+    double ly{lx};
+    double ey{lx};
+    double lx_plus_y{lx};
+    double ex_plus_y{lx};
+
+    for (int i = 1; i <= 125; i++)
     {
+        lx = lx * (1 - get_qx(x_data, i));
         ex += lx;
-        lx = lx * (1 - get_qx(i));
+
+        if (count == 2)
+        {
+            ly = ly * (1 - get_qx(y_data, i));
+            ey += ly;
+
+            lx_plus_y = lx + ly - lx * ly;
+            ex_plus_y += lx_plus_y;
+        }
     }
 
     ex -= 0.5;
-    return ex;
+    ey -= 0.5;
+    ex_plus_y -= 0.5;
+
+    if (count == 1)
+        return ex;
+
+    return ex_plus_y;
 }
 
-double expectency::get_pers(int index, int plus)
+double life_expectency::get_pers(const data& d, int index, int plus)
 {
-    int add = age_trunc + index + plus;
-    int key = thousand_bDAy + std::min(add, AGE_MAX);
-    return mortality[key];
+    int add = d.age_trunc + index + plus;
+    int key = d.thousand_bDAy + std::min(add, AGE_MAX);
+    return mortality[key][d.sex];
 }
 
-double expectency::get_qx(int index)
+double life_expectency::get_qx(const data& d, int index)
 {
-    return age_diff * get_pers(index, 1) + (1 - age_diff) * get_pers(index);
+    return d.age_diff * get_pers(d, index, 1) + (1 - d. age_diff) * get_pers(d, index);
 }
 
 }

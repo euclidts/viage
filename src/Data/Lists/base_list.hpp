@@ -15,13 +15,8 @@ class base_list : public base_data
 public:
     QVector<T> items() const;
     T item_at(int index) const;
-    T item_at_id(int id) const;
 
     bool setItemAt(int index, const T& item);
-    bool setItemAtId(int id, const T& item);
-    void set_list(const std::vector<T>& list);
-    void clear();
-    W_SLOT(clear)
 
     void preItemsAppended(int number = 1)
     W_SIGNAL(preItemsAppended, number)
@@ -30,10 +25,6 @@ public:
 
     void appendItems(int number = 1);
     W_SLOT(appendItems, (int))
-
-    void appendWith(int id);
-    void appendWith(const QJsonObject &json);
-    W_SLOT(appendWith, (const QJsonObject&))
 
     void preItemsRemoved(int first, int last)
     W_SIGNAL(preItemsRemoved, first, last)

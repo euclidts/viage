@@ -18,6 +18,12 @@ class item_list : public simple_item_list<T>
 
 public:
     explicit item_list(QObject* parent = nullptr);
+    T item_at_id(int id) const;
+
+    bool setItemAtId(int id, const T& item);
+    void set_list(const std::vector<T>& list);
+    void clear();
+    W_SLOT(clear)
 
     void add()
     W_SIGNAL(add)
@@ -25,6 +31,10 @@ public:
     W_SIGNAL(addIn, parentId)
     void addInWith(int parentId, const QJsonObject& obj)
     W_SIGNAL(addInWith, parentId, obj)
+
+    void appendWith(int id);
+    void appendWith(const QJsonObject &json);
+    W_SLOT(appendWith, (const QJsonObject&))
 
     void read(const QJsonArray& json);
     void read(const QByteArray& bytes);
@@ -34,7 +44,8 @@ private:
     void writeWithKey(QJsonObject &json) override;
 
 };
-};
+
+}
 
 #include "item_list.cpp"
 #endif // ITEM_LIST_HPP
