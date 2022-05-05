@@ -1,17 +1,10 @@
 #pragma once
-#include <QVector>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
 #include <array>
-
-#include <wobjectimpl.h>
 
 #include "simple_item_list.hpp"
 
 namespace Data
 {
-W_OBJECT_IMPL(simple_item_list<T>, template <typename T>)
 
 template <typename T>
 simple_item_list<T>::simple_item_list(QObject* parent)

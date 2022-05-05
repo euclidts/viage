@@ -9,7 +9,7 @@ namespace Data
 namespace People
 {
 struct user_item : public person_item
-                    , public Places::address_item
+                 , public Places::address_item
 {
     user_item();
 

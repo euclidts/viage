@@ -13,11 +13,11 @@ class base_data : public QObject
 public:
     virtual const constexpr char* key() = 0;
 
-    void validate(int parentIndex)
-    W_SIGNAL(validate, parentIndex)
+    void validate(int id)
+    W_SIGNAL(validate, id)
 
-    void loadFrom(int parentIndex)
-    W_SIGNAL(loadFrom, parentIndex)
+    void loadFrom(int id)
+    W_SIGNAL(loadFrom, id)
 
     void loaded()
     W_SIGNAL(loaded)

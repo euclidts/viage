@@ -1,11 +1,7 @@
-#include <wobjectimpl.h>
-
 #include <Items/account_item.hpp>
 #include "account_filter_model.hpp"
 
 namespace Data {
-
-W_OBJECT_IMPL(account_filter_model);
 
 account_filter_model::account_filter_model(QAbstractItemModel* model, QObject* parent)
     : base_filter_model{model, parent}

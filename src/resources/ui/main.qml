@@ -148,6 +148,7 @@ ApplicationWindow {
                     return
                 } else if (!hasFlag(currentAccount.state, 32)) {
                     accountsPages.currentIndex = 6;
+                    busyDialog.close()
                     return
                 }
             }
@@ -170,6 +171,8 @@ ApplicationWindow {
                     break;
                 default:
                     accountsPages.currentIndex = index
+                    busyDialog.close()
+                    break;
                 }
             }
 

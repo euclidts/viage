@@ -1,10 +1,6 @@
 #ifndef ITEM_LIST_HPP
 #define ITEM_LIST_HPP
 
-#include <QDebug>
-#include <QObject>
-#include <QVector>
-
 #include <wobjectdefs.h>
 
 #include "simple_item_list.hpp"

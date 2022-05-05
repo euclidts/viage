@@ -1,8 +1,6 @@
 #pragma once
 #include <QQmlContext>
 
-#include <wobjectimpl.h>
-
 #include "wrapped_list.hpp"
 
 #include <access.hpp>
@@ -12,8 +10,6 @@ namespace Data
 {
 namespace Wrapper
 {
-W_OBJECT_IMPL(wrapped_list<Inner>, template <typename Inner>)
-
 template <typename Inner>
 wrapped_list<Inner>::wrapped_list(Service::access* srv,
                                   QQmlContext* context)
@@ -40,7 +36,7 @@ void wrapped_list<Inner>::makeConnections() const
         auto item = this->inner->item_at_id(id);
 
         this->service->putToKey(this->inner->key(),
-                                this->inner->toData(item.key(), item.id),
+                                this->inner->toData(item.key(), id),
                                 [this](const QByteArray& rep) {});
     });
 

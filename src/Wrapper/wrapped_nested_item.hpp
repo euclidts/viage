@@ -1,8 +1,6 @@
 #ifndef WRAPPED_NESTED_ITEM_HPP
 #define WRAPPED_NESTED_ITEM_HPP
 
-#include <wobjectdefs.h>
-
 #include "wrapped_list.hpp"
 
 class QQmlContext;
@@ -16,8 +14,6 @@ namespace Wrapper
 template <typename Inner, typename Outer>
 class wrapped_nested_item : public wrapped_list<Inner>
 {
-    W_OBJECT(wrapped_nested_item)
-
 public:
     explicit wrapped_nested_item(Service::access *srv,
                        QQmlContext* context = nullptr);

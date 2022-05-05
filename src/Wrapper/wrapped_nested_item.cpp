@@ -1,5 +1,4 @@
 #pragma once
-#include <wobjectimpl.h>
 
 #include "wrapped_nested_item.hpp"
 
@@ -7,8 +6,6 @@ namespace Data
 {
 namespace Wrapper
 {
-W_OBJECT_IMPL((wrapped_nested_item<Inner, Outer>), template <typename Inner, typename Outer>)
-
 template <typename Inner, typename Outer>
 wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
                                                        QQmlContext* context)
