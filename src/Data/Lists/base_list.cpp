@@ -60,4 +60,12 @@ void base_list<T>::removeItems(int first, int last)
     emit postItemsRemoved();
 }
 
+template<typename T>
+void base_list<T>::removeItems(int number)
+{
+    int count{m_items.size()};
+
+    removeItems(count - number, count - 1);
+}
+
 }

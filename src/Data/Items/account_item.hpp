@@ -94,13 +94,13 @@ struct account_item
     void set(item_list<People::infant_item>* il);
     void set(Places::habitat_item* ht);
     void set(Places::exterior_item* er);
-    void set(item_list<document_item>* il);
+    void set(item_list<document_item>* ds);
 
     QJsonArray get(item_list<People::owner_item>* ol);
     QJsonArray get(item_list<People::infant_item>* il) const;
     QJsonObject get(Places::habitat_item* ht);
     QJsonObject get(Places::exterior_item* er);
-    QJsonArray get(item_list<document_item>* il);
+    QJsonArray get(item_list<document_item>* ds) const;
 
     void read(const QJsonObject& json);
     void write(QJsonObject &json) const;

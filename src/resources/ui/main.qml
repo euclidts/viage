@@ -24,9 +24,7 @@ ApplicationWindow {
     font.pixelSize: 16
 
     property var currentAccount
-    property int currentAccountIndex
     property var currentUser
-    property int currentUserIndex
     property bool onboarding: false
     property bool hiring: false
     readonly property var stateNames: [
@@ -59,8 +57,9 @@ ApplicationWindow {
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
 
-        onStatusChanged: if (status === Image.Ready)
+        onStatusChanged: if (status === Image.Ready) {
                              logginDialog.open()
+                         }
     }
 
     BusyDialog { id: busyDialog }
@@ -109,12 +108,7 @@ ApplicationWindow {
         }
     }
 
-    SettingsDialog {
-        id: settingsDialog
-        x: Math.round((parent.width - width) / 2)
-        y: 120
-        implicitWidth: 270
-    }
+    SettingsDialog { id: settingsDialog }
 
     StackLayout {
         id: rootStack
@@ -284,6 +278,8 @@ ApplicationWindow {
 
             UserPage { id: userPage }
         }
+
+        CalculatorPage { id: calculatorPage }
     }
 
     header: TopBar { id: topBar }

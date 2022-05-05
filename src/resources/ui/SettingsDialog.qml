@@ -6,12 +6,14 @@ import QtQuick.Controls.Material
 Dialog {
     modal: true
     background.opacity: .8
+    x: Math.round((parent.width - width) / 2)
+    y: 120
+    implicitWidth: 270
 
     property alias theme: themeSwitch
     property alias invisible: invisibleSwitch
 
     contentItem: Column {
-        id: credentialsEditors
         Layout.fillWidth: true
         spacing: 0
 

@@ -20,9 +20,7 @@
 #include <Items/habitat_item.hpp>
 #include <Items/exterior_item.hpp>
 #include <Items/document_item.hpp>
-
-#include <Items/senior_citizen_item.hpp>
-#include <life_expectency.hpp>
+#include <wrapped_calculator.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -51,16 +49,13 @@ int main(int argc, char *argv[])
     QString host{"https://viagetestrive.euclidtradingsystems.com"};
 
     for(int i = 0; i < argc; i++)
-    {
         if (QString::compare(argv[i], "--host") == 0)
         {
             host = argv[i + 1];
             break;
         }
-    }
 
     qDebug() << "Host :" << host;
-
 
     Service::access access{host,
                 "auth",
@@ -82,7 +77,12 @@ int main(int argc, char *argv[])
     context->setContextProperty("bridge", &bridge);
 
     using namespace Data;
+    using namespace People;
     using namespace Wrapper;
+
+    // calculator
+    Calculator::wrapped_calculator calculator{&access, context};
+    qmlRegisterType<list_model<senior_citizen_item>>("People", 1, 0, "SeniorCitizenModel");
 
     // accounts
     wrapped_list<item_list<account_item>>
@@ -95,8 +95,6 @@ int main(int argc, char *argv[])
     account_filter_model accountFilter{&accountModel};
     qmlRegisterUncreatableType<account_filter_model>("Data", 1, 0, "AccountsModel", "");
     context->setContextProperty("accountModel", &accountFilter);
-
-    using namespace People;
 
     // owners
     wrapped_nested_list<item_list<owner_item>, account_item>
@@ -159,20 +157,5 @@ int main(int argc, char *argv[])
 
     engine.load(url);
 
-//    simple_item_list<senior_citizen_item> seniors{};
-//    seniors.appendItems(2);
-
-//    senior_citizen_item senior_1{};
-//    senior_1.birthDay = QDate::fromString("07.10.1957", "dd.MM.yyyy");
-//    senior_citizen_item senior_2{};
-//    senior_2.sex = senior_citizen_item::sexes::F;
-//    senior_2.birthDay = QDate::fromString("26.09.1951", "dd.MM.yyyy");
-
-//    seniors.setItemAt(0, senior_1);
-//    seniors.setItemAt(1, senior_2);
-
-//    Calculator::life_expectency exp(&seniors);
-
-//    qDebug() << exp.get_expectency();
     return app.exec();
 }

@@ -2,8 +2,6 @@
 
 #include "wrapped_nested_item.hpp"
 
-namespace Data
-{
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
@@ -14,7 +12,7 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
 }
 
 template<typename Inner, typename Outer>
-std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList)
+std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::item_list<Outer>* parentList)
 {
     std::string newkey = parentList->key();
     newkey.append("/");
@@ -24,7 +22,7 @@ std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentL
 }
 
 template<typename Inner, typename Outer>
-std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentList, int id)
+std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::item_list<Outer>* parentList, int id)
 {
     std::string newkey = parentList->key();
     newkey.append("/");
@@ -36,7 +34,7 @@ std::string wrapped_nested_item<Inner, Outer>::makeKey(item_list<Outer>* parentL
 }
 
 template<typename Inner, typename Outer>
-void wrapped_nested_item<Inner, Outer>::makeConnections(item_list<Outer>* parentList)
+void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* parentList)
 {
     this->connect(this->inner,
                   &Inner::validate,
@@ -84,5 +82,4 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(item_list<Outer>* parent
 
 }
 
-}
 }

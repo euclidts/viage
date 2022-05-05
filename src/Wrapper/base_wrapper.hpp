@@ -12,8 +12,6 @@ namespace Service
 class access;
 }
 
-namespace Data
-{
 namespace Wrapper
 {
 
@@ -27,7 +25,7 @@ public:
 
 protected:
     explicit base_wrapper(Service::access* srv,
-                 QQmlContext* context = nullptr);
+                          QQmlContext* context = nullptr);
 
     void registerToQml(QQmlContext* context) const;
 
@@ -35,7 +33,6 @@ protected:
     Service::access* service;
 };
 
-}
 }
 
 #include "base_wrapper.cpp"

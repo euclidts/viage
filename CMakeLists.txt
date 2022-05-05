@@ -100,6 +100,8 @@ set(PROJECT_SOURCES
     src/Data/Items/document_item.cpp
     src/Data/Items/account_item.hpp
     src/Data/Items/account_item.cpp
+    src/Data/Items/rent_item.hpp
+    src/Data/Items/rent_item.cpp
     src/Data/Lists/base_list.hpp
     src/Data/Lists/simple_item_list.hpp
     src/Data/Lists/item_list.hpp
@@ -115,6 +117,8 @@ set(PROJECT_SOURCES
     src/Data/Models/user_filter_model.cpp
     src/Calculator/life_expectency.hpp
     src/Calculator/life_expectency.cpp
+    src/Calculator/wrapped_calculator.hpp
+    src/Calculator/wrapped_calculator.cpp
     src/resources/viage.qrc
     ${TS_FILES})
 

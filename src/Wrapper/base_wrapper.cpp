@@ -7,8 +7,6 @@
 
 #include <access.hpp>
 
-namespace Data
-{
 namespace Wrapper
 {
 W_OBJECT_IMPL(base_wrapper<Inner>, template <typename Inner>)
@@ -37,5 +35,4 @@ Inner* base_wrapper<Inner>::get_inner() const
     return inner;
 }
 
-}
 }

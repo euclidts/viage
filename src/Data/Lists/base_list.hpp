@@ -37,6 +37,9 @@ public:
     void removeItems(int first, int last);
     W_SLOT(removeItems, (int, int))
 
+    void removeItems(int number = 1);
+    W_SLOT(removeItems, (int))
+
 protected:
     explicit base_list(QObject* parent = nullptr);
 

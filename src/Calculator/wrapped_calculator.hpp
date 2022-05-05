@@ -1,0 +1,32 @@
+#ifndef WRAPPED_CALCULATOR_HPP
+#define WRAPPED_CALCULATOR_HPP
+
+#include <base_wrapper.hpp>
+#include <Lists/simple_item_list.hpp>
+#include <Items/senior_citizen_item.hpp>
+#include "life_expectency.hpp"
+
+namespace Data
+{
+class rent_item;
+}
+
+namespace Calculator
+{
+using namespace Wrapper;
+
+class wrapped_calculator
+        : public base_wrapper<simple_item_list<senior_citizen_item>>
+{
+public:
+    wrapped_calculator(Service::access* srv,
+                       QQmlContext* context);
+
+private:
+    life_expectency exp;
+
+    rent_item* rent;
+};
+}
+
+#endif // WRAPPED_CALCULATOR_HPP

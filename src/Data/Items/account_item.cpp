@@ -110,16 +110,6 @@ void account_item::set(item_list<People::owner_item>* ol)
     owners = arr;
 
     modified = QDate::currentDate();
-
-//    const auto owner{ol->item_at(0)};
-//    auto firstName{owner.firstName};
-//    auto lastName{owner.lastName};
-//    auto birth{owner.birthDay.toString("yy")};
-
-//    firstName.truncate(3);
-//    lastName.truncate(3);
-//    auto res{firstName += lastName += birth};
-//    acronym = res.toUpper();
 }
 
 void account_item::set(item_list<People::infant_item>* il)
@@ -206,7 +196,7 @@ QJsonObject account_item::get(Places::exterior_item* er)
     return exterior;
 }
 
-QJsonArray account_item::get(item_list<document_item>* ds)
+QJsonArray account_item::get(item_list<document_item>* ds) const
 {
     return documents;
 }

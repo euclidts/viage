@@ -33,8 +33,16 @@ RowLayout {
         text: qsTr("Rapport")
         icon.source: "qrc:/icons/file.svg"
         icon.width: height * 0.35
-
         onClicked: folderDialog.open()
+    }
+
+    MaterialButton {
+        visible: accountsPages.currentIndex < 1
+                 && rootStack.currentIndex === 0
+        text: qsTr("Calcul")
+        icon.source: "qrc:/icons/calculator.svg"
+        icon.width: height * 0.35
+        onClicked: rootStack.currentIndex = 2
     }
 
     MaterialButton {

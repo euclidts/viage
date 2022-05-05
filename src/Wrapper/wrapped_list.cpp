@@ -6,8 +6,6 @@
 #include <access.hpp>
 #include <Lists/item_list.hpp>
 
-namespace Data
-{
 namespace Wrapper
 {
 template <typename Inner>
@@ -61,5 +59,4 @@ void wrapped_list<Inner>::makeConnections() const
     });
 }
 
-}
 }

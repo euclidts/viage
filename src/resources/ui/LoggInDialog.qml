@@ -22,7 +22,6 @@ Dialog {
     }
 
     contentItem: Column {
-        id: credentialsEditors
         spacing: 15
 
         Image {

@@ -49,5 +49,7 @@
         <file>ui/FlickableRect.qml</file>
         <file>ui/UserDelegate.qml</file>
         <file>ui/UserPage.qml</file>
+        <file>ui/CalculatorPage.qml</file>
+        <file>icons/calculator.svg</file>
     </qresource>
 </RCC>

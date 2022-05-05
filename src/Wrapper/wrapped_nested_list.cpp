@@ -2,13 +2,11 @@
 
 #include "wrapped_nested_list.hpp"
 
-namespace Data
-{
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
 wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
-                                                       item_list<Outer>* parentList,
+                                                       Data::item_list<Outer>* parentList,
                                                        QQmlContext* context)
     : wrapped_nested_item<Inner, Outer>{srv, context}
 {
@@ -62,5 +60,4 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
     });
 }
 
-}
 }

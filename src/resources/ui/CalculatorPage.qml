@@ -1,0 +1,177 @@
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Material
+
+import People
+
+ScrollView {
+    ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+    FlickableItem {
+        BackgroundRect {
+            ColumnLayout {
+                spacing: 12
+                Layout.margins: 12
+                Layout.minimumWidth: 200
+                width: parent.width
+
+                ListView {
+                    id: seniorList
+                    interactive: false
+                    implicitHeight: childrenRect.height
+                    Layout.fillWidth: true
+                    leftMargin: 6
+                    rightMargin: 6
+                    topMargin: 3
+                    bottomMargin: 3
+                    spacing: 6
+
+                    model : SeniorCitizenModel { list: seniorCitizens }
+
+                    delegate: ColumnLayout {
+                        id: senior
+                        spacing: 0
+                        width: parent.width
+
+                        required property var model
+                        required property int index
+
+                        GroupBox {
+                            label: Label {
+                                text: qsTr("Pateniare " + (index + 1) + ": Sex & Date de naissance")
+                                font.bold: true
+                            }
+                            Layout.topMargin: 12
+                            Layout.fillWidth: true
+
+                            ColumnLayout {
+                                width: parent.width
+
+                                ButtonGroup {
+                                    id: sexGroup
+                                    buttons: sexRow.children
+                                    onCheckedButtonChanged: model.sex = checkedButton.index
+                                }
+
+                                RowLayout {
+                                    id: sexRow
+                                    spacing: 0
+                                    Layout.margins: 0
+
+                                    RadioButton {
+                                        text: qsTr("Monsieur")
+                                        readonly property int index: 0
+                                        checked: model.sex === index
+                                    }
+
+                                    RadioButton {
+                                        text: qsTr("Madame")
+                                        readonly property int index: 1
+                                        checked: model.sex === index
+                                    }
+                                }
+
+                                ColumnLayout {
+                                    spacing: 0
+                                    Layout.fillWidth: true
+
+                                    RowLayout {
+                                        spacing: 0
+
+                                        IntChooser {
+                                            name: qsTr("Jour")
+                                            minimum: 1
+                                            maximum: 31
+                                            numberOf: model.birthDay.getDate()
+                                            onEdit: function(val) {
+                                                let date = model.birthDay
+                                                date.setDate(val)
+                                                model.birthDay = date
+                                            }
+                                        }
+
+                                        ColumnLayout {
+                                            spacing: 0
+
+                                            Label {
+                                                text: qsTr("Mois")
+                                                font.italic: true
+                                            }
+
+                                            ComboBox {
+                                                Layout.minimumWidth: 164
+                                                model: [qsTr("Janvier"),
+                                                    qsTr("Fevrier"),
+                                                    qsTr("Mars"),
+                                                    qsTr("Avril"),
+                                                    qsTr("Mai"),
+                                                    qsTr("Juin"),
+                                                    qsTr("Juillet"),
+                                                    qsTr("Août"),
+                                                    qsTr("Septembre"),
+                                                    qsTr("Octobre"),
+                                                    qsTr("Novembre"),
+                                                    qsTr("Decembre")]
+                                                onActivated:
+                                                {
+                                                    let date = senior.model.birthDay
+                                                    date.setMonth(currentIndex)
+                                                    senior.model.birthDay = date
+                                                }
+                                                currentIndex: senior.model.birthDay.getMonth()
+                                            }
+                                        }
+                                    }
+
+                                    IntChooser {
+                                        property int currentYear: new Date().getFullYear()
+
+                                        minimum: currentYear - 120
+                                        maximum: currentYear - 65
+                                        name: qsTr("Année")
+                                        numberOf: model.birthDay.getFullYear()
+                                        onEdit: function(val) {
+                                            let date = model.birthDay
+                                            date.setFullYear(val)
+                                            senior.model.birthDay = date
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                RoundButton {
+                    readonly property bool single: seniorList.count === 1
+                    text: (single ? qsTr("Ajouter") : qsTr("Suprimer")) + "un partenaire"
+                    icon.source: single ? "qrc:/icons/plus.svg"
+                                       : "qrc:/icons/trash-alt.svg"
+                    onClicked: single ? seniorCitizens.appendItems(1)
+                                                      : seniorCitizens.removeItems(1)
+                    highlighted: single
+                }
+
+                RowLayout {
+                    RoundButton {
+                        text: qsTr("Calculer")
+                        icon.source: "qrc:/icons/calculator.svg"
+                        onClicked: rent.calculate()
+                        highlighted: true
+                    }
+
+                    Label {
+                        text: qsTr("Espérance de vie:")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: rent.expectency === 0 ? "" : (rent.expectency === 125.5 ? 0.5 : rent.expectency)
+                    }
+                }
+            }
+        }
+    }
+}

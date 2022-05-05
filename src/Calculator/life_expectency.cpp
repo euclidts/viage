@@ -7,10 +7,7 @@
 
 namespace Calculator
 {
-
-life_expectency::life_expectency(
-        Data::simple_item_list<Data::People::senior_citizen_item>*
-        senior_citizens)
+life_expectency::life_expectency(simple_item_list<senior_citizen_item>* senior_citizens)
     : seniors{senior_citizens}
 {
     readMortality(":/ofs.csv");
@@ -42,11 +39,11 @@ double life_expectency::get_expectency()
 {
     int count = seniors->items().size();
 
-    data x_data{seniors->item_at(0)};
+    dto x_dto{seniors->item_at(0)};
 
-    data y_data{};
+    dto y_dto{};
     if (count == 2)
-        y_data = data{seniors->item_at(1)};
+        y_dto = dto{seniors->item_at(1)};
 
     double lx{1};
     double ex{lx};
@@ -58,12 +55,12 @@ double life_expectency::get_expectency()
 
     for (int i = 1; i <= 125; i++)
     {
-        lx = lx * (1 - get_qx(x_data, i));
+        lx = lx * (1 - get_qx(x_dto, i));
         ex += lx;
 
         if (count == 2)
         {
-            ly = ly * (1 - get_qx(y_data, i));
+            ly = ly * (1 - get_qx(y_dto, i));
             ey += ly;
 
             lx_plus_y = lx + ly - lx * ly;
@@ -81,14 +78,14 @@ double life_expectency::get_expectency()
     return ex_plus_y;
 }
 
-double life_expectency::get_pers(const data& d, int index, int plus)
+double life_expectency::get_pers(const dto& d, int index, int plus)
 {
     int add = d.age_trunc + index + plus;
     int key = d.thousand_bDAy + std::min(add, AGE_MAX);
     return mortality[key][d.sex];
 }
 
-double life_expectency::get_qx(const data& d, int index)
+double life_expectency::get_qx(const dto& d, int index)
 {
     return d.age_diff * get_pers(d, index, 1) + (1 - d. age_diff) * get_pers(d, index);
 }

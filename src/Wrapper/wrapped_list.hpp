@@ -16,6 +16,7 @@ namespace Data
 {
 template <typename Outer>
 class item_list;
+}
 
 namespace Wrapper
 {
@@ -25,13 +26,12 @@ class wrapped_list : public base_wrapper<Inner>
 {
 public:
     explicit wrapped_list(Service::access* srv,
-                 QQmlContext* context = nullptr);
+                          QQmlContext* context = nullptr);
 
     void makeConnections() const;
     void get() const;
 };
 
-}
 }
 
 #include "wrapped_list.cpp"
