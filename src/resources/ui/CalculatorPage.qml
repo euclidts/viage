@@ -126,7 +126,7 @@ ScrollView {
                                     }
 
                                     IntChooser {
-                                        property int currentYear: new Date().getFullYear()
+                                        readonly property int currentYear: new Date().getFullYear()
 
                                         minimum: currentYear - 120
                                         maximum: currentYear - 65
@@ -148,13 +148,52 @@ ScrollView {
                     readonly property bool single: seniorList.count === 1
                     text: (single ? qsTr("Ajouter") : qsTr("Suprimer")) + "un partenaire"
                     icon.source: single ? "qrc:/icons/plus.svg"
-                                       : "qrc:/icons/trash-alt.svg"
+                                        : "qrc:/icons/trash-alt.svg"
                     onClicked: single ? seniorCitizens.appendItems(1)
-                                                      : seniorCitizens.removeItems(1)
+                                      : seniorCitizens.removeItems(1)
                     highlighted: single
                 }
 
-                RowLayout {
+                GridLayout {
+                    Layout.leftMargin: 6
+                    Layout.bottomMargin: 6
+                    rowSpacing: 6
+                    columns: 2
+
+                    ColumnLayout {
+                        spacing: 0
+
+                        Label {
+                            text: qsTr("Valeur de marché du bien")
+                            font.italic: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+
+                        SpinBox {
+                            from: 50000
+                            to: 10000000
+                            editable: true
+                            value: rent.marketPrice
+                            onValueModified: function(val) {
+                                rent.marketPrice = val
+                            }
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            textFromValue: function(value, locale) {
+                                return Number(value).toString();
+                            }
+                        }
+                    }
+
+                    IntChooser {
+                        minimum: 250
+                        maximum: 10000
+                        name: qsTr("Rente mensuelle")
+                        numberOf: rent.monthly
+                        onEdit: function(val) {
+                            senior.model.monthly = val
+                        }
+                    }
+
                     RoundButton {
                         text: qsTr("Calculer")
                         icon.source: "qrc:/icons/calculator.svg"
@@ -162,13 +201,45 @@ ScrollView {
                         highlighted: true
                     }
 
+                    RoundButton {
+                        text: qsTr("C")
+                        onClicked: rent.clear()
+                    }
+
                     Label {
-                        text: qsTr("Espérance de vie:")
+                        text: qsTr("Bouquet :")
                         font.bold: true
                     }
 
                     Label {
-                        text: rent.expectency === 0 ? "" : (rent.expectency === 125.5 ? 0.5 : rent.expectency)
+                        text: rent.bou === 0 ? "" : rent.bou
+                    }
+
+                    Label {
+                        text: qsTr("Droit d'habitation :")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: rent.dab === 0 ? "" : rent.dab
+                    }
+
+                    Label {
+                        text: qsTr("Valeur estimée du bien :")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: rent.estimation === 0 ? "" : rent.estimation
+                    }
+
+                    Label {
+                        text: qsTr("Estimation de la valeur d'une rente :")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: rent.rva === 0 ? "" : rent.rva
                     }
                 }
             }

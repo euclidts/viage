@@ -1,7 +1,7 @@
 #include <QQmlEngine>
 
-#include <Items/rent_item.hpp>
 #include "wrapped_calculator.hpp"
+#include <Items/rent_item.hpp>
 
 namespace Calculator
 {
@@ -18,7 +18,7 @@ wrapped_calculator::wrapped_calculator(Service::access* srv,
                   this,
                   [this] ()
     {
-        rent->setExpectency(exp.get_expectency());
+        rent->from_expectency(exp.get_expectency());
     });
 
     context->setContextProperty("rent", rent);

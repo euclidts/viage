@@ -7,6 +7,7 @@ namespace Data
 namespace People
 {
 senior_citizen_item::senior_citizen_item()
+    : birthDay{QDate::currentDate().addYears(-AGE_MIN)}
 {
 }
 
