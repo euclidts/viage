@@ -11,9 +11,8 @@ ColumnLayout {
     Layout.margins: 6
 
     required property string name
+    required property var createFunc
     required property int documentCategory
-    required property var onEdit
-    required property var urlFrom
     property bool canEdit: true
     property bool completed: false
     property alias count: root.count
@@ -51,28 +50,9 @@ ColumnLayout {
             required property var model
             required property int index
 
-            function aquire(url) {
-                model.url = url
-                onEdit(root.model.list)
-            }
-
             Component.onCompleted: {
                 if (root.aquiring) {
-                    urlFrom.func = aquire
-
-                    if (root.fromCamera) {
-                        urlFrom.pictureName = StandardPaths.writableLocation(
-                                    StandardPaths.DocumentsLocation)
-                                + "/viage_"
-                                + currentAccount.id
-                                + '_'
-                                + name
-                                + '_'
-                                + index
-                                + ".jpeg"
-                        urlFrom.camerLoader.active = true
-                    } else { urlFrom.fileDialog.open() }
-
+                    model.url = urlProvider.path
                     root.aquiring = false
                 }
             }
@@ -88,8 +68,7 @@ ColumnLayout {
             RoundButton {
                 icon.source: "qrc:/icons/trash-alt.svg"
                 onClicked: {
-                    listOf.removeItems(model.index, model.index)
-                    onEdit(root)
+//                    listOf.removeItems(model.index, model.index)
                 }
             }
         }
@@ -97,12 +76,12 @@ ColumnLayout {
 
     RowLayout {
         RoundButton {
-            icon.source: "qrc:/icons/file-pdf.svg"
+            icon.source: "qrc:/icons/folder-open.svg"
             icon.width: height * 0.4
             onClicked: {
                 root.aquiring = true
-                root.fromCamera = false
-                documents.appendWith(makeJson())
+                urlProvider.func = createFunc(makeJson())
+                urlProvider.fileDialog.open()
             }
         }
 
@@ -110,8 +89,17 @@ ColumnLayout {
             icon.source: "qrc:/icons/camera.svg"
             onClicked: {
                 root.aquiring = true
-                root.fromCamera = true
-                documents.appendWith(makeJson())
+                urlProvider.func = createFunc(makeJson())
+                urlProvider.path = StandardPaths.writableLocation(
+                            StandardPaths.DocumentsLocation)
+                        + "/viage/"
+                        + currentAccount.id
+                        + '/'
+                        + name
+                        + '_'
+                        + (count + 1)
+                        + ".jpeg"
+                urlProvider.camerLoader.active = true
             }
         }
     }

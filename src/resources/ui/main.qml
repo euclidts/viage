@@ -75,14 +75,17 @@ ApplicationWindow {
 
         property alias fileDialog: fileDialog
         property alias camerLoader: cameraLoader
-        property string pictureName
+        property string path
         property var func
 
         FileDialog {
             id: fileDialog
             currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
             nameFilters: ["(*.pdf *.png *.jpg *.jpeg *.raw *.tiff)", "(*)"]
-            onAccepted: urlProvider.func(selectedFile)
+            onAccepted: {
+                urlProvider.path = selectedFile
+                urlProvider.func(selectedFile)
+            }
         }
 
         Loader {
@@ -95,7 +98,7 @@ ApplicationWindow {
                 if (active) {
                     urlProvider.visible = true
                     item.onValidate = urlProvider.func
-                    item.pictureName = urlProvider.pictureName
+                    item.path = urlProvider.path
                     topBar.visible = false
                     rootStack.visible = false
                     bottomBar.visible = false
