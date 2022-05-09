@@ -19,10 +19,10 @@ struct habitat_item;
 struct exterior_item;
 }
 
+struct document_item;
+
 template <typename T>
 struct item_list;
-
-class document_item;
 
 struct account_item
 {

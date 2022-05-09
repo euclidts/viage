@@ -29,7 +29,7 @@ void wrapped_list<Inner>::makeConnections() const
     this->connect(this->inner,
                   &Inner::validate,
                   this,
-                  [=] (int id)
+                  [this] (int id)
     {
         auto item = this->inner->item_at_id(id);
 
@@ -41,7 +41,7 @@ void wrapped_list<Inner>::makeConnections() const
     this->connect(this->inner,
                   &Inner::add,
                   this,
-                  [=] ()
+                  [this] ()
     {
         this->service->postToKey(this->inner->key(),
                                  QByteArray{},

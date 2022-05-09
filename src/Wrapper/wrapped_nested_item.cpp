@@ -39,7 +39,7 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
     this->connect(this->inner,
                   &Inner::validate,
                   this,
-                  [=] (int id)
+                  [this, parentList] (int id)
     {
         Outer* outer = new Outer{parentList->item_at_id(id)};
         outer->set(this->inner);
@@ -68,7 +68,7 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
     this->connect(this->inner,
                   &Inner::loadFrom,
                   this,
-                  [=] (int id)
+                  [this, parentList] (int id)
     {
         this->service->getFromKey(makeKey(parentList, id).c_str(),
                                   [this](const QByteArray& rep)

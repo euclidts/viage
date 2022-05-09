@@ -40,7 +40,7 @@ ScrollView {
 
                         GroupBox {
                             label: Label {
-                                text: qsTr("Pateniare " + (index + 1) + ": Sex & Date de naissance")
+                                text: qsTr("Patenaire " + (index + 1))
                                 font.bold: true
                             }
                             Layout.topMargin: 12
@@ -146,7 +146,7 @@ ScrollView {
 
                 RoundButton {
                     readonly property bool single: seniorList.count === 1
-                    text: (single ? qsTr("Ajouter") : qsTr("Suprimer")) + "un partenaire"
+                    text: (single ? qsTr("Ajouter") : qsTr("Suprimer")) + " un partenaire"
                     icon.source: single ? "qrc:/icons/plus.svg"
                                         : "qrc:/icons/trash-alt.svg"
                     onClicked: single ? seniorCitizens.appendItems(1)
@@ -172,15 +172,12 @@ ScrollView {
                         SpinBox {
                             from: 50000
                             to: 10000000
+                            stepSize: 1000
                             editable: true
                             value: rent.marketPrice
-                            onValueModified: function(val) {
-                                rent.marketPrice = val
-                            }
+                            locale: Qt.locale()
+                            onValueModified: rent.marketPrice = value
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            textFromValue: function(value, locale) {
-                                return Number(value).toString();
-                            }
                         }
                     }
 
@@ -207,12 +204,12 @@ ScrollView {
                     }
 
                     Label {
-                        text: qsTr("Bouquet :")
+                        text: qsTr("Valeur estimée du bien :")
                         font.bold: true
                     }
 
                     Label {
-                        text: rent.bou === 0 ? "" : rent.bou
+                        text: rent.estimation === 0 ? "" : rent.estimation.toLocaleString(Qt.locale())
                     }
 
                     Label {
@@ -221,16 +218,16 @@ ScrollView {
                     }
 
                     Label {
-                        text: rent.dab === 0 ? "" : rent.dab
+                        text: rent.dab === 0 ? "" : rent.dab.toLocaleString(Qt.locale())
                     }
 
                     Label {
-                        text: qsTr("Valeur estimée du bien :")
+                        text: qsTr("Bouquet :")
                         font.bold: true
                     }
 
                     Label {
-                        text: rent.estimation === 0 ? "" : rent.estimation
+                        text: rent.bou === 0 ? "" : rent.bou.toLocaleString(Qt.locale())
                     }
 
                     Label {
@@ -239,7 +236,7 @@ ScrollView {
                     }
 
                     Label {
-                        text: rent.rva === 0 ? "" : rent.rva
+                        text: rent.rva === 0 ? "" : rent.rva.toLocaleString(Qt.locale())
                     }
                 }
             }
