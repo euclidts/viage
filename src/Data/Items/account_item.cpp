@@ -263,4 +263,12 @@ void account_item::write(QJsonObject& json) const
     json["id"] = id;
 }
 
+bool account_item::is_completed() const
+{
+    if (state > 16)
+        return true;
+
+    return false;
+}
+
 }

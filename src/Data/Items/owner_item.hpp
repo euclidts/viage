@@ -23,7 +23,8 @@ struct owner_item : public infant_item
 
     enum civilStates
     {
-        Single = 0,
+        None = 0,
+        Single,
         Maried,
         Registered,
         Separated,
@@ -32,7 +33,7 @@ struct owner_item : public infant_item
         Widow
     };
 
-    civilStates civilStatus{Single};
+    civilStates civilStatus{None};
     QString avs{""};
 
     enum roles
@@ -50,6 +51,8 @@ struct owner_item : public infant_item
 
     void read(const QJsonObject& json);
     void write(QJsonObject& json) const;
+
+    bool is_completed() const;
 };
 
 }

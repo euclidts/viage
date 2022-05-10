@@ -116,15 +116,6 @@ ScrollView {
                         }
                     }
                 }
-
-                //    onCompleted: {
-                //        if (currentAccount.state > 3) {
-                //            editing = false
-                //            completed = true
-                //        }
-
-                //        contentItem.contentY = this.y
-                //    }
             }
         }
     }

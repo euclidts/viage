@@ -18,14 +18,15 @@ struct user_item : public person_item
 
     enum level
     {
-        Vendor = 0,
+        None = 0,
+        Vendor,
         Manager,
         Director,
         Administrator
     };
 
     QString company{""};
-    int clearance{Vendor};
+    int clearance{None};
     int team{1};
     QString beneficiary{""};
     QString iban{""};
@@ -50,6 +51,8 @@ struct user_item : public person_item
 
     void read(const QJsonObject& json);
     void write(QJsonObject& json) const;
+
+    bool is_completed() const;
 };
 
 }

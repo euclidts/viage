@@ -36,9 +36,12 @@ public:
     void read(const QByteArray& bytes);
     void write(QJsonArray& json) const;
 
+    void complitionChecks();
+
 private:
     void writeWithKey(QJsonObject &json) override;
 
+    void checkCompleted() override;
 };
 
 }

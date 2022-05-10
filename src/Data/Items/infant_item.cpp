@@ -56,5 +56,13 @@ void infant_item::write(QJsonObject& json) const
     json["sex"] = sex;
 }
 
+bool infant_item::is_completed() const
+{
+    if (!person_item::is_completed())
+        return false;
+
+    return true;
+}
+
 }
 }

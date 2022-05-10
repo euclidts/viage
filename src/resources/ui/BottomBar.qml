@@ -89,34 +89,33 @@ RowLayout {
     MaterialButton {
         text: qsTr("Ajouter un partenaire")
         visible: accountsPages.currentIndex === 1
-                 && ownersPage.completed
+                 && owners.completed
                  && ownersPage.count < 2
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
             busyDialog.open()
             owners.addIn(currentAccount.id)
-            ownersPage.completed = false
         }
     }
 
     MaterialButton {
         text: qsTr("Ajouter un enfant")
         visible: accountsPages.currentIndex === 2
-                 && (infantPage.completed || infantPage.count === 0)
+                 && (infants.completed || infantPage.count === 0)
         // exception for potentially empty children list
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
             busyDialog.open()
             infants.addIn(currentAccount.id)
-            infantPage.completed = false
         }
     }
 
     MaterialButton {
         id: continueButton
         text: qsTr("Continuer")
+
         visible: ( accountsPages.currentIndex > 0
                   && accountsPages.itemAt(accountsPages.currentIndex).completed )
                  || ( accountsPages.currentIndex === 2 &&

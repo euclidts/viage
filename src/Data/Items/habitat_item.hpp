@@ -120,6 +120,8 @@ private:
     int m2Constructed;
     int m2Available;
     int m3s;
+
+    void checkCompleted() override;
 };
 
 }

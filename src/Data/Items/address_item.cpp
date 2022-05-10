@@ -80,5 +80,16 @@ void address_item::write(QJsonObject& json) const
     json["city"] = city;
 }
 
+bool address_item::is_completed() const
+{
+    if (street == "")
+        return false;
+
+    if (city == "")
+        return false;
+
+    return true;
+}
+
 }
 }

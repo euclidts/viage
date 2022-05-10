@@ -9,8 +9,6 @@ ScrollView {
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-    property bool completed: false
-
     FlickableItem {
         BackgroundRect {
             ColumnLayout {
@@ -28,21 +26,18 @@ ScrollView {
 
                     CheckBox {
                         checked: hasFlag(currentAccount.state, 32)
-//                        onCheckStateChanged: exterior.parking = checked
                         text: stateNames[1]
                         checkable: !checked
                     }
 
                     CheckBox {
                         checked: hasFlag(currentAccount.state, 64)
-//                        onCheckStateChanged: exterior.parking = checked
                         text: stateNames[2]
                         checkable: !checked
                     }
 
                     CheckBox {
                         checked: hasFlag(currentAccount.state, 128)
-//                        onCheckStateChanged: exterior.parking = checked
                         text: stateNames[3]
                         checkable: !checked
                     }

@@ -10,24 +10,8 @@ ScrollView {
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
     property bool editing: true
-    property bool completed: false
 
-    onVisibleChanged: if (visible) checkCompeted()
-
-    function checkCompeted() {
-        if (exterior.rating === 0) {
-            exteriorPage.completed = false
-            return
-        }
-        exteriorPage.completed = true
-    }
-
-    Connections {
-        target: exterior
-        function onRatingChanged() {
-            exteriorPage.checkCompeted()
-        }
-    }
+    property bool completed: exterior.completed
 
     FlickableItem {
         BackgroundRect {

@@ -11,11 +11,9 @@ ColumnLayout {
     Layout.margins: 6
 
     required property string name
-    required property var createFunc
+    required property var documentsFrom
     required property int documentCategory
     property bool canEdit: true
-    property bool completed: false
-    property alias count: root.count
 
     function makeJson () {
         var txt = '{ "category" : '
@@ -61,8 +59,6 @@ ColumnLayout {
                 text: model.url
                 readOnly: true
                 Layout.fillWidth: true
-                onTextChanged: text !== "" ? completed = true
-                                           : completed = false
             }
 
             RoundButton {
@@ -80,7 +76,10 @@ ColumnLayout {
             icon.width: height * 0.4
             onClicked: {
                 root.aquiring = true
-                urlProvider.func = createFunc(makeJson())
+                urlProvider.jsonMetadata = makeJson()
+                urlProvider.func = function(json) {
+                    documentsFrom.addInWith(currentAccount.id, json)
+                }
                 urlProvider.fileDialog.open()
             }
         }
@@ -89,7 +88,10 @@ ColumnLayout {
             icon.source: "qrc:/icons/camera.svg"
             onClicked: {
                 root.aquiring = true
-                urlProvider.func = createFunc(makeJson())
+                urlProvider.jsonMetadata = makeJson()
+                urlProvider.func = function(json) {
+                    documentsFrom.addInWith(currentAccount.id, json)
+                }
                 urlProvider.path = StandardPaths.writableLocation(
                             StandardPaths.DocumentsLocation)
                         + "/viage/"

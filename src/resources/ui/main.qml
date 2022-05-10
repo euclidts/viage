@@ -76,6 +76,7 @@ ApplicationWindow {
         property alias fileDialog: fileDialog
         property alias camerLoader: cameraLoader
         property string path
+        property var jsonMetadata
         property var func
 
         FileDialog {
@@ -84,7 +85,7 @@ ApplicationWindow {
             nameFilters: ["(*.pdf *.png *.jpg *.jpeg *.raw *.tiff)", "(*)"]
             onAccepted: {
                 urlProvider.path = selectedFile
-                urlProvider.func(selectedFile)
+                urlProvider.func(urlProvider.jsonMetadata)
             }
         }
 
@@ -215,10 +216,6 @@ ApplicationWindow {
             Connections {
                 target: owners
                 function onLoaded() {
-                    if (hasFlag(currentAccount.state, 1))
-                        ownersPage.completed = true
-                    else
-                        ownersPage.completed = false
                     accountsPages.currentIndex = 1
                     busyDialog.close()
                 }
@@ -226,10 +223,6 @@ ApplicationWindow {
             Connections {
                 target: infants
                 function onLoaded() {
-                    if (hasFlag(currentAccount.state, 2))
-                        infantPage.completed = true
-                    else
-                        infantPage.completed = false
                     accountsPages.currentIndex = 2
                     busyDialog.close()
                 }
@@ -237,10 +230,6 @@ ApplicationWindow {
             Connections {
                 target: habitat
                 function onLoaded() {
-                    if (hasFlag(currentAccount.state, 3))
-                        habitatPage.completed = true
-                    else
-                        habitatPage.completed = false
                     accountsPages.currentIndex = 3
                     busyDialog.close()
                 }
@@ -248,10 +237,6 @@ ApplicationWindow {
             Connections {
                 target: exterior
                 function onLoaded() {
-                    if (hasFlag(currentAccount.state, 4))
-                        exteriorPage.completed = true
-                    else
-                        exteriorPage.completed = false
                     accountsPages.currentIndex = 4
                     busyDialog.close()
                 }
@@ -259,10 +244,6 @@ ApplicationWindow {
             Connections {
                 target: documents
                 function onLoaded() {
-                    if (hasFlag(currentAccount.state, 5))
-                        documentPage.completed = true
-                    else
-                        documentPage.completed = false
                     accountsPages.currentIndex = 5
                     busyDialog.close()
                 }

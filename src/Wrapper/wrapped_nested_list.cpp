@@ -10,6 +10,8 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
                                                        QQmlContext* context)
     : wrapped_nested_item<Inner, Outer>{srv, context}
 {
+    this->inner->complitionChecks();
+
     this->makeConnections(parentList);
 
     this->connect(this->inner,

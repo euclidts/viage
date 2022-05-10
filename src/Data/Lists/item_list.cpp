@@ -18,6 +18,20 @@ item_list<T>::item_list(QObject* parent)
 }
 
 template<typename T>
+void item_list<T>::complitionChecks()
+{
+    this->connect(this, &item_list<T>::postItemsAppended,
+            this, &item_list::checkCompleted);
+
+    this->connect(this, &item_list<T>::postItemsRemoved,
+            this, &item_list::checkCompleted);
+
+    this->connect(this, &item_list<T>::dataChangedAt,
+            this, &item_list::checkCompleted);
+}
+
+
+template<typename T>
 T item_list<T>::item_at_id(int id) const
 {
     T item{};
@@ -134,6 +148,25 @@ void item_list<T>::clear()
     this->m_items.clear();
 
     emit this->postItemsRemoved();
+}
+
+template<typename T>
+void item_list<T>::checkCompleted()
+{
+    if(this->m_items.empty())
+    {
+        this->setCompleted(false);
+        return;
+    }
+
+    for (const auto& item : this->m_items)
+        if (!item.is_completed())
+        {
+            this->setCompleted(false);
+            return;
+        }
+
+    this->setCompleted(true);
 }
 
 }

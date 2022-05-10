@@ -10,41 +10,8 @@ ScrollView {
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
     property bool editing: true
-    property bool completed: false
 
-    function checkCompeted() {
-        if (habitat.street === "") {
-            habitatPage.completed = false
-            return
-        } else if (habitat.city === "") {
-            habitatPage.completed = false
-            return
-        } else if (habitat.habitatType === 0) {
-            habitatPage.completed = false
-            return
-        }
-
-        habitatPage.completed = true
-    }
-
-    Connections {
-        target: habitat
-        function onStreetChanged() {
-            habitatPage.checkCompeted()
-        }
-    }
-    Connections {
-        target: habitat
-        function onCityChanged() {
-            habitatPage.checkCompeted()
-        }
-    }
-    Connections {
-        target: habitat
-        function onHabitatTypeChanged() {
-            habitatPage.checkCompeted()
-        }
-    }
+    property bool completed: habitat.completed
 
     FlickableItem {
         BackgroundRect {
@@ -221,7 +188,6 @@ ScrollView {
                         canEdit: editing
                         onEdit: function(txt) {
                             habitat.equipements = txt
-                            habitatPage.checkCompeted()
                         }
                     }
                 }

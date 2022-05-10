@@ -116,5 +116,19 @@ void owner_item::write(QJsonObject& json) const
     json["address"] = jsonAddress;
 }
 
+bool owner_item::is_completed() const
+{
+    if (!infant_item::is_completed())
+        return false;
+
+    if (civilStatus == None)
+        return false;
+
+    if (avs == "")
+        return false;
+
+    return true;
+}
+
 }
 }

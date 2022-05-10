@@ -107,6 +107,8 @@ void habitat_item::clear()
     emit m2AvailableChanged();
     m3s = 15625;
     emit m3sChanged();
+    completed = false;
+    emit completedChanged();
 }
 
 const QString &habitat_item::getStreet() const
@@ -276,6 +278,17 @@ void habitat_item::setM3s(int newM3s)
         return;
     m3s = newM3s;
     emit m3sChanged();
+}
+
+void habitat_item::checkCompleted()
+{
+    if(!address.is_completed())
+    {
+        setCompleted(false);
+        return;
+    }
+
+    setCompleted(true);
 }
 
 }

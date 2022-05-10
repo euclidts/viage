@@ -78,4 +78,12 @@ void document_item::write(QJsonObject& json) const
     json["id"] = id;
 }
 
+bool document_item::is_completed() const
+{
+    if (url.isEmpty() || !isUploaded)
+        return false;
+
+    return true;
+}
+
 }

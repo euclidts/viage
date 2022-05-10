@@ -16,9 +16,9 @@ ListView {
 
     model : OwnersModel { list: owners }
 
-    property bool completed: false
-
     onCountChanged: busyDialog.close()
+
+    property bool completed: owners.completed
 
     delegate: BackgroundRect {
         id: owner
@@ -26,43 +26,6 @@ ListView {
         required property var model
         required property int index
         property bool editing: true
-
-        function checkCompleted() {
-
-            if (model.firstName === "") {
-                ownersPage.completed = false
-                return
-            } else if (model.lastName === "") {
-                ownersPage.completed = false
-                return
-            } else if (model.phone === "") {
-                ownersPage.completed = false
-                return
-            } else if (model.street === "") {
-                ownersPage.completed = false
-                return
-            } else if (model.city === "") {
-                ownersPage.completed = false
-                return
-            } else if (model.avs === "") {
-                ownersPage.completed = false
-                return
-            } else if (model.civilStatus === 0) {
-                ownersPage.completed = false
-                return
-            }
-
-            ownersPage.completed = true
-        }
-
-        Connections {
-            target: ownersPage.model
-            function onDataChanged(topLeft, bottomRight, roles) {
-                if (topLeft.row === model.index) {
-                    owner.checkCompleted()
-                }
-            }
-        }
 
         InfantDelegate {
             title: qsTr("Partenaire")

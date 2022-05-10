@@ -44,7 +44,7 @@ void access::authenticate(const QString& username,
     rqst.setUrl(url);
 
     authenticating = true;
-    QNetworkReply* reply = get(rqst);
+    auto* reply = get(rqst);
 
     connect(reply, &QNetworkReply::finished,
             [=]()
@@ -74,7 +74,7 @@ void access::authenticate(const QString& username,
 
                     if (json.contains("sessionId") && json["sessionId"].isString())
                     {
-                        const QString str{json["sessionId"].toString()};
+                        const auto str{json["sessionId"].toString()};
                         rqst.setRawHeader("sessionId",
                                           QByteArray::fromStdString(str.toStdString()));
                     }
@@ -105,13 +105,13 @@ void access::authenticate(const QString& username,
 void access::getReport(const QUrl &directory)
 {
     setRequest("export/accounts");
-    QNetworkReply* reply = get(rqst);
+    auto* reply = get(rqst);
     setCallback(reply,
                 [&directory](const QByteArray& bytes)
     {
-        QDateTime now{QDateTime::currentDateTime()};
+        auto now{QDateTime::currentDateTime()};
 
-        QString fileName{directory.path()};
+        auto fileName{directory.path()};
         fileName.append("/Viage-");
         fileName.append(now.toString("dd-MM-yy-hh-mm"));
         fileName.append(".xlsb");
@@ -127,7 +127,7 @@ void access::getFromKey(const char* key,
                         const std::function<void(const QByteArray&)>& callback)
 {
     setRequest(key);
-    QNetworkReply* reply = get(rqst);
+    auto* reply = get(rqst);
     setCallback(reply, callback);
 }
 
@@ -136,7 +136,7 @@ void access::putToKey(const char* key,
                       const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
-    QNetworkReply* reply = put(rqst, data);
+    auto* reply = put(rqst, data);
     setCallback(reply, callback);
 }
 
@@ -145,7 +145,7 @@ void access::postToKey(const char* key,
                        const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
-    QNetworkReply* reply = post(rqst, data);
+    auto* reply = post(rqst, data);
     setCallback(reply, callback);
 }
 

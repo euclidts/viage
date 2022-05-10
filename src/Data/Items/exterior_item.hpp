@@ -78,6 +78,8 @@ private:
     QString terrainDescription;
     int terrainSurface;
     int rating;
+
+    void checkCompleted() override;
 };
 
 }

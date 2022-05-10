@@ -130,5 +130,31 @@ void user_item::write(QJsonObject& json) const
     json["bic"] = bic;
 }
 
+bool user_item::is_completed() const
+{
+    if(!person_item::is_completed())
+        return  false;
+
+    if(company == "")
+        return false;
+
+    if(clearance == None)
+        return false;
+
+    if(beneficiary == "")
+        return false;
+
+    if(!address_item::is_completed())
+        return false;
+
+    if(iban == "")
+        return false;
+
+    if(bic == "")
+        return false;
+
+    return true;
+}
+
 }
 }

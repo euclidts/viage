@@ -34,4 +34,18 @@ const QByteArray base_data::toData(int parentId)
     QJsonDocument bytes{data};
     return bytes.toJson();
 }
+
+bool base_data::getCompleted() const
+{
+    return completed;
+}
+
+void base_data::setCompleted(bool newCompleted)
+{
+    if (completed == newCompleted)
+        return;
+    completed = newCompleted;
+    emit completedChanged();
+}
+
 }

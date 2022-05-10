@@ -35,6 +35,8 @@ struct person_item
 
 protected:
     person_item();
+
+    bool is_completed() const;
 };
 
 }

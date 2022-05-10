@@ -15,9 +15,9 @@ ListView {
 
     model : InfantModel { list: infants }
 
-    property bool completed: false
-
     onCountChanged: busyDialog.close()
+
+    property bool completed: infants.completed
 
     delegate: BackgroundRect {
         id: infant
@@ -25,33 +25,6 @@ ListView {
         required property var model
         required property int index
         property bool editing: true
-
-        onVisibleChanged: if (visible) checkCompleted()
-
-        function checkCompleted() {
-
-            if (model.name === "") {
-                infantPage.completed = false
-                return
-            } else if (model.surname === "") {
-                infantPage.completed = false
-                return
-            } else if (model.phone === "") {
-                infantPage.completed = false
-                return
-            }
-
-            infantPage.completed = true
-        }
-
-        Connections {
-            target: infantPage.model
-            function onDataChanged(topLeft, bottomRight, roles) {
-                if (topLeft.row === model.index) {
-                    infant.checkCompleted()
-                }
-            }
-        }
 
         InfantDelegate {
             title: qsTr("Enfant")

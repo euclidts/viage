@@ -104,6 +104,8 @@ struct account_item
 
     void read(const QJsonObject& json);
     void write(QJsonObject &json) const;
+
+    bool is_completed() const;
 };
 
 }

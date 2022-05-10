@@ -73,6 +73,8 @@ void exterior_item::clear()
     emit terrainSurfaceChanged();
     rating = 0;
     emit ratingChanged();
+    completed = false;
+    emit completedChanged();
 }
 
 int exterior_item::getParkingSpots() const
@@ -164,6 +166,19 @@ void exterior_item::setRating(int newRating)
         return;
     rating = newRating;
     emit ratingChanged();
+
+    checkCompleted();
+}
+
+void exterior_item::checkCompleted()
+{
+    if(rating == 0)
+    {
+        setCompleted(false);
+        return;
+    }
+
+    setCompleted(true);
 }
 
 }

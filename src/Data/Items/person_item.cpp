@@ -10,6 +10,20 @@ person_item::person_item()
 {
 }
 
+bool person_item::is_completed() const
+{
+    if (firstName == "")
+        return false;
+
+    if (lastName == "")
+        return false;
+
+    if (phone == "")
+        return false;
+
+    return true;
+}
+
 QHash<int, QByteArray> person_item::roleNames()
 {
     QHash<int, QByteArray> names;
