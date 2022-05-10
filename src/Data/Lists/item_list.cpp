@@ -18,7 +18,7 @@ item_list<T>::item_list(QObject* parent)
 }
 
 template<typename T>
-void item_list<T>::complitionChecks()
+void item_list<T>::complitionChecks() const
 {
     this->connect(this, &item_list<T>::postItemsAppended,
             this, &item_list::checkCompleted);

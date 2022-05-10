@@ -13,7 +13,6 @@
         <file>icons/eye-slash.svg</file>
         <file>icons/eye.svg</file>
         <file>ui/BottomBar.qml</file>
-        <file>icons/file.svg</file>
         <file>icons/home.svg</file>
         <file>icons/search.svg</file>
         <file>icons/times-circle.svg</file>
@@ -27,7 +26,6 @@
         <file>ui/ExteriorPage.qml</file>
         <file>ui/IntChooser.qml</file>
         <file>ui/LabeledTextField.qml</file>
-        <file>icons/file-pdf.svg</file>
         <file>ui/StatePage.qml</file>
         <file>ui/AddressChooser.qml</file>
         <file>ui/CameraScene.qml</file>
@@ -43,7 +41,6 @@
         <file>icons/empty-star.svg</file>
         <file>ui/FlickableItem.qml</file>
         <file>ui/BackgroundRect.qml</file>
-        <file>ui/PhotoBooth.qml</file>
         <file>icons/ViageLogo.ico</file>
         <file>ui/BusyDialog.qml</file>
         <file>ui/FlickableRect.qml</file>
@@ -51,5 +48,6 @@
         <file>ui/UserPage.qml</file>
         <file>ui/CalculatorPage.qml</file>
         <file>icons/calculator.svg</file>
+        <file>icons/download.svg</file>
     </qresource>
 </RCC>

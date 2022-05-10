@@ -29,15 +29,21 @@ struct document_item
     };
 
     categories category{categories::None};
+    QUrl relativePath{};
+    QString fileName{""};
+    QString extension{""};
     bool isUploaded{false};
-    QUrl url{};
+    QDate uploadDate{};
     int id{0};
 
     enum roles
     {
-        Category = Qt::UserRole,
-        IsUploaded,
-        UrlRole,
+        CategoryRole = Qt::UserRole,
+        RelativePathRole,
+        FileNameRole,
+        ExtensionRole,
+        IsUploadedRole,
+        UploadDateRole,
         IdRole
     };
 
@@ -50,6 +56,9 @@ struct document_item
     void write(QJsonObject& json) const;
 
     bool is_completed() const;
+
+private:
+    void setFileInfo();
 };
 
 }

@@ -10,7 +10,6 @@ ScrollView {
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
     property bool editing: true
-
     property bool completed: habitat.completed
 
     FlickableItem {

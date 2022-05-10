@@ -48,9 +48,15 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
 
         this->service->postToKey(this->makeKey(parentList).c_str(),
                                  data.toJson(),
-                                 [this, &obj](const QByteArray& res)
+                                 [this, obj](const QByteArray& res)
         {
-            const auto json = QJsonDocument::fromJson(res).object();
+            auto json = QJsonDocument::fromJson(res).object();
+            auto map{json.toVariantMap()};
+
+            map.insert(obj.toVariantMap());
+
+            json = QJsonObject::fromVariantMap(map);
+
             if (json.contains("success") && json["success"].isBool())
             {
                 if (json["success"].toBool())

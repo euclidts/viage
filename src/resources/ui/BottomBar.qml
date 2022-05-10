@@ -31,8 +31,7 @@ RowLayout {
         visible: accountsPages.currentIndex < 1
                  && rootStack.currentIndex === 0
         text: qsTr("Rapport")
-        icon.source: "qrc:/icons/file.svg"
-        icon.width: height * 0.35
+        icon.source: "qrc:/icons/download.svg"
         onClicked: folderDialog.open()
     }
 
