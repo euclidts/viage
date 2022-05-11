@@ -47,7 +47,7 @@ void access::authenticate(const QString& username,
     auto* reply = get(rqst);
 
     connect(reply, &QNetworkReply::finished,
-            [=]()
+            [this, reply]()
     {
         if (reply->error())
         {
@@ -116,10 +116,16 @@ void access::getReport(const QUrl &directory)
         fileName.append(now.toString("dd-MM-yy-hh-mm"));
         fileName.append(".xlsb");
 
-        QSaveFile file(fileName);
-        file.open(QIODevice::WriteOnly);
-        file.write(bytes);
-        file.commit();
+        const auto fullPath{QUrl::fromLocalFile(fileName)};
+
+        QSaveFile file(fullPath.toLocalFile());
+        if (file.open(QIODevice::WriteOnly))
+        {
+            file.write(bytes);
+            file.commit();
+        }
+        else
+            qDebug() << "file error :" << file.errorString();
     });
 }
 
@@ -153,7 +159,7 @@ void access::setCallback(QNetworkReply* reply,
                          const std::function<void (const QByteArray &)> &callback)
 {
     connect(reply, &QNetworkReply::finished,
-            [=]()
+            [reply, callback]()
     {
         callback(reply->readAll());
         reply->deleteLater();

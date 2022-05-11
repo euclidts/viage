@@ -18,6 +18,7 @@ ColumnLayout {
     property var aquireFunc: function(json) {
         root.aquiring = true
         documentsFrom.addInWith(currentAccount.id, json)
+        busyDialog.open()
     }
 
     Label {
@@ -54,6 +55,7 @@ ColumnLayout {
                 if (root.aquiring) {
                     model.relativePath = urlProvider.path
                     root.aquiring = false
+                    busyDialog.close()
                 }
             }
 
@@ -93,6 +95,7 @@ ColumnLayout {
 
             RoundButton {
                 icon.source: "qrc:/icons/download.svg"
+                visible: model.isUploaded
                 onClicked: {
                 }
             }
