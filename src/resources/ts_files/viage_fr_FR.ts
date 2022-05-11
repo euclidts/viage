@@ -580,14 +580,14 @@
     </message>
 </context>
 <context>
-    <name>Service::smtp</name>
+    <name>Interface::smtp</name>
     <message>
-        <location filename="../../Service/smtp.cpp" line="241"/>
+        <location filename="../../Interface/smtp.cpp" line="241"/>
         <source>Message sent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../Service/smtp.cpp" line="252"/>
+        <location filename="../../Interface/smtp.cpp" line="252"/>
         <source>Failed to send message</source>
         <translation type="unfinished"></translation>
     </message>

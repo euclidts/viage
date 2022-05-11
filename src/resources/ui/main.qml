@@ -100,6 +100,7 @@ ApplicationWindow {
                     urlProvider.visible = true
                     item.onValidate = urlProvider.func
                     item.path = urlProvider.path
+                    item.jsonMetadata = urlProvider.jsonMetadata
                     topBar.visible = false
                     rootStack.visible = false
                     bottomBar.visible = false

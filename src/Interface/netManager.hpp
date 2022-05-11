@@ -1,5 +1,5 @@
-#ifndef ACCESS_HPP
-#define ACCESS_HPP
+#ifndef NETMANAGER_HPP
+#define NETMANAGER_HPP
 
 #include <wobjectdefs.h>
 
@@ -15,23 +15,23 @@ struct user_item;
 }
 }
 
-namespace Service
+namespace Interface
 {
-class access final : public QNetworkAccessManager
+class netManager final : public QNetworkAccessManager
 {
-    W_OBJECT(access)
+    W_OBJECT(netManager)
 
 public:
-    access(const QString& url,
-           const QString& authentication_arguments,
-           const QString& extra_arguments);
+    netManager(const QString& url,
+               const QString& authentication_arguments,
+               const QString& extra_arguments);
 
     void authenticate(const QString& username, const QString& password);
 
     void loggedIn(const bool& success)
     W_SIGNAL(loggedIn, success);
 
-    void getReport(const QUrl& path);
+    void downloadFile(const char* key, const QString& path);
     void getFromKey(const char* key,
                     const std::function<void (const QByteArray &)> &callback);
     void putToKey(const char* key,
@@ -57,4 +57,4 @@ private:
 };
 
 }
-#endif // ACCESS_HPP
+#endif // NETMANAGER_HPP

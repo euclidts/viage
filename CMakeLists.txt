@@ -19,7 +19,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(DATA_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Data")
 set(WRAPPER_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Wrapper")
 set(INTERFACE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Interface")
-set(SERVICE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Service")
 set(CALCULATOR_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Calculator")
 set(3RDPARTY_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty")
 
@@ -67,10 +66,10 @@ set(PROJECT_SOURCES
     src/main.cpp
     src/Interface/bridge.hpp
     src/Interface/bridge.cpp
-    src/Service/access.cpp
-    src/Service/access.hpp
-    src/Service/smtp.cpp
-    src/Service/smtp.hpp
+    src/Interface/netManager.cpp
+    src/Interface/netManager.hpp
+    src/Interface/smtp.cpp
+    src/Interface/smtp.hpp
     src/Data/base_data.hpp
     src/Data/base_data.cpp
     src/Wrapper/base_wrapper.hpp
@@ -126,7 +125,6 @@ include_directories(SYSTEM
     "${DATA_FOLDER}"
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"
-    "${SERVICE_FOLDER}"
     "${CALCULATOR_FOLDER}"
     "${3RDPARTY_FOLDER}/verdigris/src")
 

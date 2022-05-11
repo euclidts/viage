@@ -7,9 +7,9 @@
 
 class QQmlContext;
 
-namespace Service
+namespace Interface
 {
-class access;
+class netManager;
 }
 
 namespace Wrapper
@@ -24,13 +24,13 @@ public:
     Inner* get_inner() const;
 
 protected:
-    explicit base_wrapper(Service::access* srv,
+    explicit base_wrapper(Interface::netManager* manager,
                           QQmlContext* context = nullptr);
 
     void registerToQml(QQmlContext* context) const;
 
     Inner* inner;
-    Service::access* service;
+    Interface::netManager* mng;
 };
 
 }

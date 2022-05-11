@@ -3,22 +3,22 @@
 
 #include "wrapped_list.hpp"
 
-#include <access.hpp>
+#include <netManager.hpp>
 #include <Lists/item_list.hpp>
 
 namespace Wrapper
 {
 template <typename Inner>
-wrapped_list<Inner>::wrapped_list(Service::access* srv,
+wrapped_list<Inner>::wrapped_list(Interface::netManager* manager,
                                   QQmlContext* context)
-    : base_wrapper<Inner>{srv, context}
+    : base_wrapper<Inner>{manager, context}
 {
 }
 
 template<typename Inner>
 void wrapped_list<Inner>::get() const
 {
-    this->service->getFromKey(this->inner->key(),
+    this->mng->getFromKey(this->inner->key(),
                               [this](const QByteArray& bytes)
     { this->inner->read(bytes); });
 }
@@ -33,7 +33,7 @@ void wrapped_list<Inner>::makeConnections() const
     {
         auto item = this->inner->item_at_id(id);
 
-        this->service->putToKey(this->inner->key(),
+        this->mng->putToKey(this->inner->key(),
                                 this->inner->toData(item.key(), id),
                                 [this](const QByteArray& rep) {});
     });
@@ -43,7 +43,7 @@ void wrapped_list<Inner>::makeConnections() const
                   this,
                   [this] ()
     {
-        this->service->postToKey(this->inner->key(),
+        this->mng->postToKey(this->inner->key(),
                                  QByteArray{},
                                  [this](const QByteArray& rep)
         {

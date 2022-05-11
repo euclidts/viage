@@ -5,17 +5,17 @@
 
 #include "base_wrapper.hpp"
 
-#include <access.hpp>
+#include <netManager.hpp>
 
 namespace Wrapper
 {
 W_OBJECT_IMPL(base_wrapper<Inner>, template <typename Inner>)
 
 template <typename Inner>
-base_wrapper<Inner>::base_wrapper(Service::access* srv,
+base_wrapper<Inner>::base_wrapper(Interface::netManager* manager,
                                   QQmlContext* context)
     : QObject{}
-    , service(srv)
+    , mng(manager)
     , inner{new Inner{}}
 {
     if (context)

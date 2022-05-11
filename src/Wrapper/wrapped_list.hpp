@@ -7,9 +7,9 @@ class QQmlContext;
 
 class Outer;
 
-namespace Service
+namespace Interface
 {
-class access;
+class netManager;
 }
 
 namespace Data
@@ -25,7 +25,7 @@ template <typename Inner>
 class wrapped_list : public base_wrapper<Inner>
 {
 public:
-    explicit wrapped_list(Service::access* srv,
+    explicit wrapped_list(Interface::netManager* manager,
                           QQmlContext* context = nullptr);
 
     void makeConnections() const;

@@ -17,7 +17,7 @@
 
 class QSslSocket;
 
-namespace Service {
+namespace Interface {
 
 class smtp : public QObject
 {

@@ -6,16 +6,16 @@
 
 #include <wobjectimpl.h>
 
-#include "access.hpp"
+#include "netManager.hpp"
 #include <Items/user_item.hpp>
 
-namespace Service
+namespace Interface
 {
-W_OBJECT_IMPL(access)
+W_OBJECT_IMPL(netManager)
 
-access::access(const QString& url,
-               const QString &authentication_arguments,
-               const QString &extra_arguments)
+netManager::netManager(const QString& url,
+                       const QString &authentication_arguments,
+                       const QString &extra_arguments)
     : prefix{url + '/'}
     , auth_args{authentication_arguments}
     , suffix{extra_arguments}
@@ -32,8 +32,8 @@ access::access(const QString& url,
     { reply->ignoreSslErrors(errors); });
 }
 
-void access::authenticate(const QString& username,
-                          const QString& password)
+void netManager::authenticate(const QString& username,
+                              const QString& password)
 {
     QUrl url{prefix + auth_args
                 + '?' + "userName=" + username
@@ -102,23 +102,14 @@ void access::authenticate(const QString& username,
     });
 }
 
-void access::getReport(const QUrl &directory)
+void netManager::downloadFile(const char* key, const QString& path)
 {
-    setRequest("export/accounts");
+    setRequest(key);
     auto* reply = get(rqst);
     setCallback(reply,
-                [&directory](const QByteArray& bytes)
+                [path](const QByteArray& bytes)
     {
-        auto now{QDateTime::currentDateTime()};
-
-        auto fileName{directory.path()};
-        fileName.append("/Viage-");
-        fileName.append(now.toString("dd-MM-yy-hh-mm"));
-        fileName.append(".xlsb");
-
-        const auto fullPath{QUrl::fromLocalFile(fileName)};
-
-        QSaveFile file(fullPath.toLocalFile());
+        QSaveFile file(path);
         if (file.open(QIODevice::WriteOnly))
         {
             file.write(bytes);
@@ -129,7 +120,7 @@ void access::getReport(const QUrl &directory)
     });
 }
 
-void access::getFromKey(const char* key,
+void netManager::getFromKey(const char* key,
                         const std::function<void(const QByteArray&)>& callback)
 {
     setRequest(key);
@@ -137,7 +128,7 @@ void access::getFromKey(const char* key,
     setCallback(reply, callback);
 }
 
-void access::putToKey(const char* key,
+void netManager::putToKey(const char* key,
                       const QByteArray &data,
                       const std::function<void (const QByteArray &)> &callback)
 {
@@ -146,7 +137,7 @@ void access::putToKey(const char* key,
     setCallback(reply, callback);
 }
 
-void access::postToKey(const char* key,
+void netManager::postToKey(const char* key,
                        const QByteArray &data,
                        const std::function<void (const QByteArray &)> &callback)
 {
@@ -155,7 +146,7 @@ void access::postToKey(const char* key,
     setCallback(reply, callback);
 }
 
-void access::setCallback(QNetworkReply* reply,
+void netManager::setCallback(QNetworkReply* reply,
                          const std::function<void (const QByteArray &)> &callback)
 {
     connect(reply, &QNetworkReply::finished,
@@ -166,7 +157,7 @@ void access::setCallback(QNetworkReply* reply,
     });
 }
 
-void access::setRequest(const char* key)
+void netManager::setRequest(const char* key)
 {
     QUrl url{prefix + key + '?'
                 + '&' + suffix};

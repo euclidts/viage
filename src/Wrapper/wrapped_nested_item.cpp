@@ -5,9 +5,9 @@
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
-wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Service::access* srv,
+wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Interface::netManager* manager,
                                                        QQmlContext* context)
-    : wrapped_list<Inner>{srv, context}
+    : wrapped_list<Inner>{manager, context}
 {
 }
 
@@ -45,7 +45,7 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
         outer->set(this->inner);
         parentList->setItemAtId(id, *outer);
 
-        this->service->putToKey(makeKey(parentList).c_str(),
+        this->mng->putToKey(makeKey(parentList).c_str(),
                                 this->inner->toData(id),
                                 [=](const QByteArray& rep)
         {
@@ -70,7 +70,7 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
                   this,
                   [this, parentList] (int id)
     {
-        this->service->getFromKey(makeKey(parentList, id).c_str(),
+        this->mng->getFromKey(makeKey(parentList, id).c_str(),
                                   [this](const QByteArray& rep)
         {
             if(rep.isEmpty())

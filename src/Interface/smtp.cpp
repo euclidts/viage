@@ -15,7 +15,7 @@
 
 #include "smtp.hpp"
 
-namespace Service {
+namespace Interface {
 W_OBJECT_IMPL(smtp)
 
 smtp::smtp(const QString& usr,

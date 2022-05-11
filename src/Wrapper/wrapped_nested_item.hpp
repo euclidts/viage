@@ -16,7 +16,7 @@ template <typename Inner, typename Outer>
 class wrapped_nested_item : public wrapped_list<Inner>
 {
 public:
-    explicit wrapped_nested_item(Service::access *srv,
+    explicit wrapped_nested_item(Interface::netManager* manager,
                        QQmlContext* context = nullptr);
 
     void makeConnections(Data::item_list<Outer> *parentList);

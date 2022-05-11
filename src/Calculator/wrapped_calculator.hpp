@@ -19,7 +19,7 @@ class wrapped_calculator
         : public base_wrapper<simple_item_list<senior_citizen_item>>
 {
 public:
-    wrapped_calculator(Service::access* srv,
+    wrapped_calculator(Interface::netManager* manager,
                        QQmlContext* context);
 
 private:

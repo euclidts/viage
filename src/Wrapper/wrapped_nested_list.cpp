@@ -5,10 +5,10 @@
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
-wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
+wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* manager,
                                                        Data::item_list<Outer>* parentList,
                                                        QQmlContext* context)
-    : wrapped_nested_item<Inner, Outer>{srv, context}
+    : wrapped_nested_item<Inner, Outer>{manager, context}
 {
     this->inner->complitionChecks();
 
@@ -22,7 +22,7 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
         QJsonObject json{ {"id", id} };
         QJsonDocument data{json};
 
-        this->service->postToKey(this->inner->key(),
+        this->mng->postToKey(this->inner->key(),
                                  data.toJson(),
                                  [this](const QByteArray& res)
         {
@@ -42,11 +42,13 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Service::access* srv,
                   this,
                   [=] (int id, const QJsonObject& obj)
     {
+        qDebug() << obj;
+
         QJsonObject json{obj};
         json["id"] = id;
         QJsonDocument data{json};
 
-        this->service->postToKey(this->makeKey(parentList).c_str(),
+        this->mng->postToKey(this->makeKey(parentList).c_str(),
                                  data.toJson(),
                                  [this, obj](const QByteArray& res)
         {

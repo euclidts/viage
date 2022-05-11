@@ -7,8 +7,9 @@ ColumnLayout {
     id: root
     anchors.fill: parent
 
-    property string pictureName
+    property string path
     property var onValidate
+    property var jsonMetadata
 
     CaptureSession {
         camera: Camera {
@@ -17,7 +18,7 @@ ColumnLayout {
             onErrorOccurred: function(error, errorString) {
                 if (Camera.NoError !== error) {
                     console.log("Camera.onError error " + error + " errorString " + errorString)
-                    root.fatalError()
+                    root.parent.active = false
                 }
             }
         }
@@ -43,7 +44,6 @@ ColumnLayout {
         MaterialButton {
             text: qsTr("Scanner")
             icon.source: "qrc:/icons/camera.svg"
-
             onClicked: {
                 imageCapture.capture()
                 captureColumn.visible = false
@@ -67,23 +67,29 @@ ColumnLayout {
         RowLayout {
             Layout.margins: 12
 
-            Button {
+            MaterialButton {
+                text: qsTr("Annuler")
+                icon.source: "qrc:/icons/arrow-left.svg"
+                onClicked: {
+                    root.parent.active = false
+                }
+            }
+
+            MaterialButton {
                 text: qsTr("Scanner de nouveau")
-                highlighted: true
+                icon.source: "qrc:/icons/camera.svg"
                 onClicked: {
                     previewColumn.visible = false
                     captureColumn.visible = true
                 }
             }
 
-            Item { Layout.fillWidth: true }
-
-            Button {
-                highlighted: true
+            MaterialButton {
                 text: qsTr("Valider")
+                icon.source: "qrc:/icons/arrow-right.svg"
                 onClicked: {
-                    imageCapture.saveToFile(pictureName)
-                    onValidate(pictureName)
+                    imageCapture.saveToFile(path)
+                    onValidate(jsonMetadata)
                     root.parent.active = false
                 }
             }

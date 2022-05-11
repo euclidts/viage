@@ -5,9 +5,9 @@
 
 namespace Calculator
 {
-wrapped_calculator::wrapped_calculator(Service::access* srv,
+wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
                                        QQmlContext* context)
-    : base_wrapper<simple_item_list<senior_citizen_item>>{srv, context}
+    : base_wrapper<simple_item_list<senior_citizen_item>>{manager, context}
     , exp{inner}
     , rent{new rent_item{}}
 {

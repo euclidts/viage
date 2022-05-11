@@ -65,6 +65,8 @@ void document_item::setData(const QVariant &value, int role)
 
 void document_item::read(const QJsonObject& json)
 {
+    qDebug() << json;
+
     if (json.contains("category") && json["category"].isDouble())
         category = categories(json["category"].toInt());
 

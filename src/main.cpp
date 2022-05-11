@@ -6,7 +6,7 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include <access.hpp>
+#include <netManager.hpp>
 #include <smtp.hpp>
 #include <bridge.hpp>
 #include <wrapped_nested_list.hpp>
@@ -57,21 +57,13 @@ int main(int argc, char *argv[])
 
     qDebug() << "Host :" << host;
 
-    Service::access access{host,
+    using namespace Interface;
+
+    netManager manager{host,
                 "auth",
                 "format=json"};
 
-    using namespace Interface;
-    using namespace Service;
-
-    bridge bridge{};
-    QObject::connect(&bridge, &bridge::authenticate,
-                     &access, &access::authenticate);
-    QObject::connect(&access, &access::loggedIn,
-                     &bridge, &bridge::onLogin);
-
-    QObject::connect(&bridge, &bridge::requestReport,
-                     &access, &access::getReport);
+    bridge bridge{&manager};
 
     qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
     context->setContextProperty("bridge", &bridge);
@@ -81,12 +73,12 @@ int main(int argc, char *argv[])
     using namespace Wrapper;
 
     // calculator
-    Calculator::wrapped_calculator calculator{&access, context};
+    Calculator::wrapped_calculator calculator{&manager, context};
     qmlRegisterType<list_model<senior_citizen_item>>("People", 1, 0, "SeniorCitizenModel");
 
     // accounts
     wrapped_list<item_list<account_item>>
-            wrapped_accounts{&access, context};
+            wrapped_accounts{&manager, context};
     wrapped_accounts.makeConnections();
 
     list_model<account_item> accountModel{};
@@ -98,34 +90,34 @@ int main(int argc, char *argv[])
 
     // owners
     wrapped_nested_list<item_list<owner_item>, account_item>
-            wrapped_owners{&access, wrapped_accounts.get_inner(), context};
+            wrapped_owners{&manager, wrapped_accounts.get_inner(), context};
     qmlRegisterType<list_model<owner_item>>("People", 1, 0, "OwnersModel");
 
     // infants
     wrapped_nested_list<item_list<infant_item>, account_item>
-            wrapped_infants{&access, wrapped_accounts.get_inner(), context};
+            wrapped_infants{&manager, wrapped_accounts.get_inner(), context};
     qmlRegisterType<list_model<infant_item>>("People", 1, 0, "InfantModel");
 
     using namespace Places;
 
     // habitat
     wrapped_nested_item<habitat_item, account_item>
-            wrapped_habitat{&access, context};
+            wrapped_habitat{&manager, context};
     wrapped_habitat.makeConnections(wrapped_accounts.get_inner());
     // exterior
     wrapped_nested_item<exterior_item, account_item>
-            wrapped_exterior{&access, context};
+            wrapped_exterior{&manager, context};
     wrapped_exterior.makeConnections(wrapped_accounts.get_inner());
 
     // documents
     wrapped_nested_list<item_list<document_item>, account_item>
-            wrapped_documents{&access, wrapped_accounts.get_inner(), context};
+            wrapped_documents{&manager, wrapped_accounts.get_inner(), context};
     qmlRegisterType<list_model<document_item>>("Data", 1, 0, "DocumentModel");
     qmlRegisterType<document_filter_model>("Data", 1, 0, "DocumentFilterModel");
 
     // users
     wrapped_list<item_list<user_item>>
-            wrapped_users{&access, context};
+            wrapped_users{&manager, context};
     wrapped_users.makeConnections();
 
     list_model<user_item> userModel{};
@@ -135,7 +127,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<user_filter_model>("People", 1, 0, "UserModel", "");
     context->setContextProperty("userModel", &userFilter);
 
-    QObject::connect(&access, &Service::access::loggedIn,
+    QObject::connect(&manager, &Interface::netManager::loggedIn,
                      [&wrapped_accounts, &wrapped_users](const bool& success)
     {
         if (success)

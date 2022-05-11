@@ -21,6 +21,18 @@ ColumnLayout {
         busyDialog.open()
     }
 
+    function getPictureName(index : int) {
+        return StandardPaths.writableLocation(
+                    StandardPaths.DocumentsLocation)
+                + "/viage/"
+                + currentAccount.id
+                + '/'
+                + name
+                + '_'
+                + (index + 1)
+                + ".jpeg"
+    }
+
     Label {
         text: name
         font.bold: true
@@ -52,6 +64,7 @@ ColumnLayout {
             }
 
             Component.onCompleted: {
+                console.log("aquiring :" + root.aquiring)
                 if (root.aquiring) {
                     model.relativePath = urlProvider.path
                     root.aquiring = false
@@ -80,15 +93,7 @@ ColumnLayout {
                 onClicked: {
                     urlProvider.jsonMetadata = jsonMetadata
                     urlProvider.func = updateFunc
-                    urlProvider.path = StandardPaths.writableLocation(
-                                StandardPaths.DocumentsLocation)
-                            + "/viage/"
-                            + currentAccount.id
-                            + '/'
-                            + name
-                            + '_'
-                            + (count + 1)
-                            + ".jpeg"
+                    urlProvider.path = getPictureName(index)
                     urlProvider.camerLoader.active = true
                 }
             }
@@ -100,12 +105,12 @@ ColumnLayout {
                 }
             }
 
-//            RoundButton {
-//                icon.source: "qrc:/icons/trash-alt.svg"
-//                onClicked: {
-//                    listOf.removeItems(model.index, model.index)
-//                }
-//            }
+            //            RoundButton {
+            //                icon.source: "qrc:/icons/trash-alt.svg"
+            //                onClicked: {
+            //                    listOf.removeItems(model.index, model.index)
+            //                }
+            //            }
         }
     }
 
@@ -125,15 +130,7 @@ ColumnLayout {
             onClicked: {
                 urlProvider.jsonMetadata = jsonMetadata
                 urlProvider.func = aquireFunc
-                urlProvider.path = StandardPaths.writableLocation(
-                            StandardPaths.DocumentsLocation)
-                        + "/viage/"
-                        + currentAccount.id
-                        + '/'
-                        + name
-                        + '_'
-                        + (count + 1)
-                        + ".jpeg"
+                urlProvider.path = getPictureName(root.count)
                 urlProvider.camerLoader.active = true
             }
         }
