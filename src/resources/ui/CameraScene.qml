@@ -9,7 +9,6 @@ ColumnLayout {
 
     property string path
     property var onValidate
-    property var jsonMetadata
 
     CaptureSession {
         camera: Camera {
@@ -89,7 +88,7 @@ ColumnLayout {
                 icon.source: "qrc:/icons/arrow-right.svg"
                 onClicked: {
                     imageCapture.saveToFile(path)
-                    onValidate(jsonMetadata)
+                    onValidate()
                     root.parent.active = false
                 }
             }

@@ -15,9 +15,9 @@ ColumnLayout {
     required property int documentCategory
     property bool canEdit: true
     property var jsonMetadata
-    property var aquireFunc: function(json) {
+    property var aquireFunc: function() {
         root.aquiring = true
-        documentsFrom.addInWith(currentAccount.id, json)
+        documentsFrom.addInWith(currentAccount.id, urlProvider.jsonMetadata)
         busyDialog.open()
     }
 
@@ -58,8 +58,7 @@ ColumnLayout {
 
             required property var model
             required property int index
-            property var updateFunc: function(json) {
-                // json arg for aquireFunc compatibility only
+            property var updateFunc: function() {
                 model.relativePath = urlProvider.path
             }
 
@@ -73,6 +72,7 @@ ColumnLayout {
             }
 
             TextField {
+                id: flieName
                 text: model.fileName + '.' + model.extension
                 readOnly: true
                 Layout.fillWidth: true
@@ -102,6 +102,12 @@ ColumnLayout {
                 icon.source: "qrc:/icons/download.svg"
                 visible: model.isUploaded
                 onClicked: {
+                    urlProvider.func = function() {
+                        bridge.downloadFile("documents/" + model.id + "/body",
+                                            urlProvider.path,
+                                            flieName.text)
+                    }
+                    urlProvider.folderDialog.open()
                 }
             }
 

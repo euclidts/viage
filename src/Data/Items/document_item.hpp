@@ -1,6 +1,8 @@
 #ifndef DOCUMENT_ITEM_H
 #define DOCUMENT_ITEM_H
 
+#define CATEGOIES_SUMED 1023
+
 #include <QJsonObject>
 
 namespace Data
@@ -16,16 +18,16 @@ struct document_item
     enum categories
     {
         None = 0,
-        Picture,
-        Passeport,
-        RegisteryExcerpt,
-        PursuitExcerpt,
-        TaxDeclaration,
-        BuildingDetails,
-        Insurance,
-        Beb,
-        Jobs,
-        FutureJobs
+        Picture = 1,
+        Passeport = 2,
+        RegisteryExcerpt = 4,
+        PursuitExcerpt = 8,
+        TaxDeclaration = 16,
+        BuildingDetails = 32,
+        Insurance = 64,
+        Beb = 128,
+        Jobs = 256,
+        FutureJobs = 512
     };
 
     categories category{categories::None};

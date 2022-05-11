@@ -8,7 +8,7 @@
 namespace Data
 {
 template <typename T>
-class item_list : public simple_item_list<T>
+class item_list final : public simple_item_list<T>
 {
     W_OBJECT(item_list)
 

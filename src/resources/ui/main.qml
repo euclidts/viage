@@ -73,11 +73,21 @@ ApplicationWindow {
         visible: false
         color: "transparent"
 
+        property alias folderDialog: folderDialog
         property alias fileDialog: fileDialog
         property alias camerLoader: cameraLoader
         property string path
         property var jsonMetadata
         property var func
+
+        FolderDialog {
+            id: folderDialog
+            currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
+            onAccepted: {
+                urlProvider.path = currentFolder
+                urlProvider.func()
+            }
+        }
 
         FileDialog {
             id: fileDialog
@@ -85,7 +95,7 @@ ApplicationWindow {
             nameFilters: ["(*.pdf *.png *.jpg *.jpeg *.raw *.tiff)", "(*)"]
             onAccepted: {
                 urlProvider.path = selectedFile
-                urlProvider.func(urlProvider.jsonMetadata)
+                urlProvider.func()
             }
         }
 
@@ -100,7 +110,6 @@ ApplicationWindow {
                     urlProvider.visible = true
                     item.onValidate = urlProvider.func
                     item.path = urlProvider.path
-                    item.jsonMetadata = urlProvider.jsonMetadata
                     topBar.visible = false
                     rootStack.visible = false
                     bottomBar.visible = false
