@@ -38,6 +38,7 @@ void exterior_item::read(const QJsonObject& json)
         setRating(json["rating"].toInt());
 
     emit loaded();
+    checkCompleted();
 }
 
 void exterior_item::read(const QByteArray &bytes)
@@ -166,7 +167,6 @@ void exterior_item::setRating(int newRating)
         return;
     rating = newRating;
     emit ratingChanged();
-
     checkCompleted();
 }
 

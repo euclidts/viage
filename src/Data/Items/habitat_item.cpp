@@ -54,6 +54,7 @@ void habitat_item::read(const QJsonObject& json)
         setM3s(json["m3s"].toInt());
 
     emit loaded();
+    checkCompleted();
 }
 
 void habitat_item::read(const QByteArray &bytes)
@@ -122,6 +123,7 @@ void habitat_item::setStreet(const QString &newStreet)
         return;
     address.street = newStreet;
     emit streetChanged();
+    checkCompleted();
 }
 
 int habitat_item::getZip() const
@@ -200,6 +202,7 @@ void habitat_item::setHabitatType(habitatTypes newHabitatType)
         return;
     habitatType = newHabitatType;
     emit habitatTypeChanged();
+    checkCompleted();
 }
 
 int habitat_item::getRooms() const
@@ -282,7 +285,13 @@ void habitat_item::setM3s(int newM3s)
 
 void habitat_item::checkCompleted()
 {
-    if(!address.is_completed())
+    if (!address.is_completed())
+    {
+        setCompleted(false);
+        return;
+    }
+
+    if (habitatType == None)
     {
         setCompleted(false);
         return;
