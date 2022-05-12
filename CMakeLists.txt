@@ -47,6 +47,7 @@ endif()
 
 find_package(QT NAMES Qt6 COMPONENTS
     Core
+    Widgets
     Quick
     LinguistTools
     Multimedia
@@ -54,11 +55,13 @@ find_package(QT NAMES Qt6 COMPONENTS
     REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
     Core
+    Widgets
     Quick
     LinguistTools
     Multimedia
     Svg
     REQUIRED)
+
 
 set(TS_FILES src/resources/ts_files/viage_fr_FR.ts)
 
@@ -148,8 +151,10 @@ endif()
 
 target_compile_definitions(viage
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+
 target_link_libraries(viage PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Svg
     Qt${QT_VERSION_MAJOR}::Multimedia)

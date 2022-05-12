@@ -1,6 +1,7 @@
 #include <vector>
 
-#include <QGuiApplication>
+#include <QApplication>
+
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QLocale>
@@ -29,7 +30,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
@@ -62,11 +63,6 @@ int main(int argc, char *argv[])
     netManager manager{host,
                 "auth",
                 "format=json"};
-
-    bridge bridge{&manager};
-
-    qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
-    context->setContextProperty("bridge", &bridge);
 
     using namespace Data;
     using namespace People;
@@ -114,6 +110,11 @@ int main(int argc, char *argv[])
             wrapped_documents{&manager, wrapped_accounts.get_inner(), context};
     qmlRegisterType<list_model<document_item>>("Data", 1, 0, "DocumentModel");
     qmlRegisterType<document_filter_model>("Data", 1, 0, "DocumentFilterModel");
+
+    bridge bridge{&manager, wrapped_documents.get_inner()};
+
+    qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
+    context->setContextProperty("bridge", &bridge);
 
     // users
     wrapped_list<item_list<user_item>>

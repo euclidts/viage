@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
 import QtQuick.Controls.Material
+import Qt.labs.platform
 import QtCore
 
 import Data
@@ -91,7 +92,7 @@ ApplicationWindow {
 
         FileDialog {
             id: fileDialog
-            currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
+            folder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
             nameFilters: ["(*.pdf *.png *.jpg *.jpeg *.raw *.tiff)", "(*)"]
             onAccepted: {
                 urlProvider.path = selectedFile
