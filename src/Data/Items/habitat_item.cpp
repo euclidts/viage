@@ -32,7 +32,7 @@ void habitat_item::read(const QJsonObject& json)
     if (json.contains("problems") && json["problems"].isString())
         setProblems(json["problems"].toString());
 
-    if (json.contains("habitatType") && json["abitatType"].isDouble())
+    if (json.contains("habitatType") && json["habitatType"].isDouble())
         setHabitatType(habitatTypes(json["habitatType"].toInt()));
 
     if (json.contains("rooms") && json["rooms"].isDouble())

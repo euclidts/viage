@@ -24,11 +24,11 @@ ItemDelegate {
             }
 
             Label {
-                property string accountState: if (model.state < 16)
+                property string accountState: if (state < 16)
                                                   stateNames[0]
-                                              else if (model.state === 32)
+                                              else if (state === 32)
                                                   stateNames[1]
-                                              else if (mdoel.state === 64)
+                                              else if (state === 64)
                                                   stateNames[2]
                                               else
                                                   stateNames[3]

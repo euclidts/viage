@@ -42,8 +42,6 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
                   this,
                   [=] (int id, const QJsonObject& obj)
     {
-        qDebug() << obj;
-
         QJsonObject json{obj};
         json["id"] = id;
         QJsonDocument data{json};

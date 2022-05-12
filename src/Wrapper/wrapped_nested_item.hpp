@@ -17,7 +17,7 @@ class wrapped_nested_item : public wrapped_list<Inner>
 {
 public:
     explicit wrapped_nested_item(Interface::netManager* manager,
-                       QQmlContext* context = nullptr);
+                                 QQmlContext* context = nullptr);
 
     void makeConnections(Data::item_list<Outer> *parentList);
 

@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
     netManager manager{host,
                 "auth",
-                "format=json"};
+                "format=json&jsconfig=TreatEnumAsInteger"};
 
     using namespace Data;
     using namespace People;

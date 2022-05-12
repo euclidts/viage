@@ -43,7 +43,7 @@ ScrollView {
                     DocumentLisView {
                         id: registery
                         name: qsTr("Extrait du registre foncier")
-                        documentCategory: 3
+                        documentCategory: 4
                         documentsFrom: documents
                         canEdit: editing
                     }
@@ -51,7 +51,7 @@ ScrollView {
                     DocumentLisView {
                         id: pursuit
                         name: qsTr("Extrait des poursuites")
-                        documentCategory: 4
+                        documentCategory: 8
                         documentsFrom: documents
                         canEdit: editing
                     }
@@ -59,7 +59,7 @@ ScrollView {
                     DocumentLisView {
                         id: tax
                         name: qsTr("Déclaration d'impôt")
-                        documentCategory: 5
+                        documentCategory: 16
                         documentsFrom: documents
                         canEdit: editing
                     }
@@ -67,7 +67,7 @@ ScrollView {
                     DocumentLisView {
                         id: building
                         name: qsTr("Détails concernant l'immeuble")
-                        documentCategory: 6
+                        documentCategory: 32
                         documentsFrom: documents
                         canEdit: editing
                     }
@@ -75,7 +75,7 @@ ScrollView {
                     DocumentLisView {
                         id: insurance
                         name: qsTr("Assurance du batiment")
-                        documentCategory: 7
+                        documentCategory: 64
                         documentsFrom: documents
                         canEdit: editing
                     }
@@ -83,7 +83,7 @@ ScrollView {
                     DocumentLisView {
                         id: beb
                         name: qsTr("Cas échéant / police détaillé de l'établissement ou le BEB")
-                        documentCategory: 8
+                        documentCategory: 128
                         documentsFrom: documents
                         canEdit: editing
                     }
@@ -91,7 +91,7 @@ ScrollView {
                     DocumentLisView {
                         id: jobs
                         name: qsTr("Descriptif / justificatifs des traveaux des 5 dernières années")
-                        documentCategory: 9
+                        documentCategory: 256
                         documentsFrom: documents
                         canEdit: editing
                     }
@@ -99,7 +99,7 @@ ScrollView {
                     DocumentLisView {
                         id: futurs
                         name: qsTr("Descriptif des traveaux à prévoir / devis")
-                        documentCategory: 10
+                        documentCategory: 512
                         documentsFrom: documents
                         canEdit: editing
                     }

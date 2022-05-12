@@ -63,7 +63,6 @@ ColumnLayout {
             }
 
             Component.onCompleted: {
-                console.log("aquiring :" + root.aquiring)
                 if (root.aquiring) {
                     model.relativePath = urlProvider.path
                     root.aquiring = false

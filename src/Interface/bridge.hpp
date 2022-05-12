@@ -54,9 +54,11 @@ public:
 private:
     QObject* qmlObject;
     netManager* mng;
+
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted;
     void check_doc_completion(int index);
+    void uplaod_docs(int index);
 
     bool has_flag(int value, int flag) const noexcept;
 

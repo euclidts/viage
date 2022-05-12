@@ -1,5 +1,6 @@
 #include <QDate>
 #include <QUrl>
+#include <QFile>
 
 #include <wobjectimpl.h>
 
@@ -24,6 +25,10 @@ bridge::bridge(Interface::netManager* manager, Data::item_list<Data::document_it
 
     connect(docs, &item_list<document_item>::dataChangedAt,
             this, &bridge::check_doc_completion);
+
+// curently does not work
+//    connect(docs, &item_list<document_item>::validate,
+//            this, &bridge::uplaod_docs);
 }
 
 void bridge::onLogin(const bool& success) const
@@ -79,7 +84,45 @@ void bridge::check_doc_completion(int index)
             flags += doc.category;
     }
 
-    setDocumentsCompleted(flags == CATEGOIES_SUMED);
+    setDocumentsCompleted(flags == CATEGOIES_SUMED
+                          || flags == (CATEGOIES_SUMED - document_item::Beb)
+                          || flags == (CATEGOIES_SUMED - document_item::FutureJobs)
+                          || flags == (CATEGOIES_SUMED - document_item::Beb
+                                       - document_item::FutureJobs)
+                          );
+}
+
+void bridge::uplaod_docs(int index)
+{
+    for (const auto& doc : docs->items())
+    {
+        if (!doc.isUploaded)
+        {
+            QFile file{doc.relativePath.path()};
+            if (file.exists())
+            {
+                if (!file.open(QIODevice::ReadOnly))
+                {
+                    qDebug() << "couldn't open the file";
+                    return;
+                }
+
+                const auto size{file.size()};
+                char bytes[size];
+
+                QJsonObject obj{ { "id", doc.id},
+                                 { "body", bytes }
+                               };
+
+                QJsonDocument data{obj};
+
+                mng->putToKey(docs->key(),
+                              data.toJson(),
+                              [](const QByteArray& rep)
+                { qDebug() << "upload reply :" << rep; });
+            }
+        }
+    }
 }
 
 bool bridge::has_flag(int value, int flag) const noexcept
