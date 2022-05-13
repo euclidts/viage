@@ -47,7 +47,7 @@ endif()
 
 find_package(QT NAMES Qt6 COMPONENTS
     Core
-    Widgets
+#    Widgets
     Quick
     LinguistTools
     Multimedia
@@ -55,7 +55,7 @@ find_package(QT NAMES Qt6 COMPONENTS
     REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
     Core
-    Widgets
+#    Widgets
     Quick
     LinguistTools
     Multimedia
@@ -154,7 +154,7 @@ target_compile_definitions(viage
 
 target_link_libraries(viage PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Widgets
+#    Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Svg
     Qt${QT_VERSION_MAJOR}::Multimedia)

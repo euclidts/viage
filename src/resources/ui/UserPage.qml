@@ -30,7 +30,7 @@ ScrollView {
                     model: currentUser
 
                     LabeledTextField {
-                        name: qsTr("Sosciete")
+                        name: qsTr("Société")
                         textOf: currentUser.company
                         canEdit: editing
                         onEdit: function(txt) { currentUser.company = txt }

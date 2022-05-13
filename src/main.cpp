@@ -1,6 +1,7 @@
 #include <vector>
 
-#include <QApplication>
+//#include <QApplication>
+#include <QGuiApplication>
 
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -30,7 +31,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-    QApplication app(argc, argv);
+//    QApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
 
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 

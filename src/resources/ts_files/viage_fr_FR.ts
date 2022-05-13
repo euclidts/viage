@@ -241,6 +241,16 @@
 <context>
     <name>DocumentPage</name>
     <message>
+        <location filename="../ui/DocumentPage.qml" line="29"/>
+        <source>Photo de l&apos;objet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/DocumentPage.qml" line="37"/>
+        <source>Pieces d&apos;identité des parteniares</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../ui/DocumentPage.qml" line="45"/>
         <source>Extrait du registre foncier</source>
         <translation type="unfinished"></translation>
@@ -258,16 +268,6 @@
     <message>
         <location filename="../ui/DocumentPage.qml" line="69"/>
         <source>Détails concernant l&apos;immeuble</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/DocumentPage.qml" line="29"/>
-        <source>Photo de l&apos;objet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/DocumentPage.qml" line="37"/>
-        <source>Pieces d&apos;identité des parteniares</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -498,6 +498,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../ui/OwnersPage.qml" line="40"/>
+        <source>AVS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../ui/OwnersPage.qml" line="52"/>
         <source>Date de naissance</source>
         <translation type="unfinished"></translation>
@@ -615,11 +620,6 @@
     <message>
         <location filename="../ui/OwnersPage.qml" line="197"/>
         <source>Veuf</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/OwnersPage.qml" line="40"/>
-        <source>AVS</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
