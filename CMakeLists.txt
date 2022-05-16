@@ -47,7 +47,6 @@ endif()
 
 find_package(QT NAMES Qt6 COMPONENTS
     Core
-#    Widgets
     Quick
     LinguistTools
     Multimedia
@@ -55,7 +54,6 @@ find_package(QT NAMES Qt6 COMPONENTS
     REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
     Core
-#    Widgets
     Quick
     LinguistTools
     Multimedia
@@ -154,14 +152,9 @@ target_compile_definitions(viage
 
 target_link_libraries(viage PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
-#    Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Svg
     Qt${QT_VERSION_MAJOR}::Multimedia)
-
-if(MSVC)
-    target_compile_options(viage PRIVATE /Zc:__cplusplus)
-endif()
 
 #set_target_properties(viage PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

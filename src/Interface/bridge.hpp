@@ -2,6 +2,7 @@
 #define BRIDGE_HPP
 
 #include <QObject>
+#include <QStandardPaths>
 
 #include <wobjectdefs.h>
 
@@ -25,6 +26,9 @@ public:
     bridge(Interface::netManager* manager,
            Data::item_list<Data::document_item>* docs);
 
+    const QString rootPath {QStandardPaths::writableLocation(
+                    QStandardPaths::DocumentsLocation) + "/viage"};
+
     void onLogin(const bool& success) const;
 
     void authenticate(const QString& username, const QString& password) const;
@@ -39,6 +43,9 @@ public:
 
     void requestReport(const QUrl& directory) const;
     W_INVOKABLE(requestReport, (const QUrl&))
+
+    QUrl getPictureName(int id, QString& name, int index) const;
+    W_INVOKABLE(getPictureName, (int, QString&, int))
 
     void setQmlObject(QObject* obj) noexcept { qmlObject = obj; }
 
@@ -56,7 +63,7 @@ private:
     netManager* mng;
 
     Data::item_list<Data::document_item>* docs;
-    bool documentsCompleted;
+    bool documentsCompleted{false};
     void check_doc_completion(int index);
     void uplaod_docs(int index);
 

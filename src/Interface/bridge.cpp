@@ -1,6 +1,7 @@
 #include <QDate>
 #include <QUrl>
 #include <QFile>
+#include <QDir>
 
 #include <wobjectimpl.h>
 
@@ -18,6 +19,8 @@ bridge::bridge(Interface::netManager* manager, Data::item_list<Data::document_it
     , docs{documents}
 
 {
+    QDir{rootPath}.mkpath(".");
+
     connect(mng, &netManager::loggedIn,
             this, &bridge::onLogin);
 
@@ -56,6 +59,18 @@ void bridge::requestReport(const QUrl &directory) const
     fileName.append(".xlsb");
 
     mng->downloadFile("account/export", filePath(directory, fileName));
+}
+
+QUrl bridge::getPictureName(int id, QString& name, int index) const
+{
+    return QUrl::fromLocalFile(rootPath
+                               + '/'
+                               + QString::number(id)
+                               + '_'
+                               + name.replace(' ', '_')
+                               + '_'
+                               + QString::number(index + 1)
+                               + ".jpeg");
 }
 
 bool bridge::getDocumentsCompleted() const
@@ -111,7 +126,6 @@ void bridge::uplaod_docs(int index)
 
                 QJsonObject obj{};
                 doc.write(obj);
-
                 obj["body"] = body;
 
                 QJsonDocument data{obj};

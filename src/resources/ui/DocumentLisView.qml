@@ -21,18 +21,6 @@ ColumnLayout {
         busyDialog.open()
     }
 
-    function getPictureName(index : int) {
-        return StandardPaths.writableLocation(
-                    StandardPaths.DocumentsLocation)
-                + "/viage/"
-                + currentAccount.id
-                + '/'
-                + name
-                + '_'
-                + (index + 1)
-                + ".jpeg"
-    }
-
     Label {
         text: name
         font.bold: true
@@ -92,7 +80,9 @@ ColumnLayout {
                 onClicked: {
                     urlProvider.jsonMetadata = jsonMetadata
                     urlProvider.func = updateFunc
-                    urlProvider.path = getPictureName(index)
+                    urlProvider.path = bridge.getPictureName(currentAccount.id,
+                                                             name,
+                                                             index)
                     urlProvider.camerLoader.active = true
                 }
             }
@@ -135,7 +125,9 @@ ColumnLayout {
             onClicked: {
                 urlProvider.jsonMetadata = jsonMetadata
                 urlProvider.func = aquireFunc
-                urlProvider.path = getPictureName(root.count)
+                urlProvider.path = bridge.getPictureName(currentAccount.id,
+                                                         name,
+                                                         root.count)
                 urlProvider.camerLoader.active = true
             }
         }

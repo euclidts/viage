@@ -83,7 +83,7 @@ ApplicationWindow {
 
         FolderDialog {
             id: folderDialog
-            currentFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+            currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
             onAccepted: {
                 urlProvider.path = currentFolder
                 urlProvider.func()
@@ -92,7 +92,7 @@ ApplicationWindow {
 
         FileDialog {
             id: fileDialog
-            currentFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+            currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
             nameFilters: ["(*.pdf *.png *.jpg *.jpeg *.raw *.tiff)", "(*)"]
             onAccepted: {
                 urlProvider.path = currentFile

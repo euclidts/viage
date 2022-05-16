@@ -25,6 +25,7 @@ ColumnLayout {
         imageCapture: ImageCapture {
             id: imageCapture
             onImageSaved: console.log("Saved")
+            onErrorOccurred: console.log(error + ' ' + message)
         }
 
         videoOutput: videoOutput
@@ -87,6 +88,7 @@ ColumnLayout {
                 text: qsTr("Valider")
                 icon.source: "qrc:/icons/arrow-right.svg"
                 onClicked: {
+                    console.log(path)
                     imageCapture.saveToFile(path)
                     onValidate()
                     root.parent.active = false
