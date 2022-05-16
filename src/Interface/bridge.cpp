@@ -26,9 +26,8 @@ bridge::bridge(Interface::netManager* manager, Data::item_list<Data::document_it
     connect(docs, &item_list<document_item>::dataChangedAt,
             this, &bridge::check_doc_completion);
 
-// curently does not work
-//    connect(docs, &item_list<document_item>::validate,
-//            this, &bridge::uplaod_docs);
+    connect(docs, &item_list<document_item>::validate,
+            this, &bridge::uplaod_docs);
 }
 
 void bridge::onLogin(const bool& success) const
@@ -56,7 +55,7 @@ void bridge::requestReport(const QUrl &directory) const
     fileName.append(now.toString("dd-MM-yy-hh-mm"));
     fileName.append(".xlsb");
 
-    mng->downloadFile("export/accounts", filePath(directory, fileName));
+    mng->downloadFile("account/export", filePath(directory, fileName));
 }
 
 bool bridge::getDocumentsCompleted() const
@@ -107,12 +106,13 @@ void bridge::uplaod_docs(int index)
                     return;
                 }
 
-                const auto size{file.size()};
-                char bytes[size];
+                const auto bytes{file.readAll()};
+                const auto body{QString(bytes.toBase64())};
 
-                QJsonObject obj{ { "id", doc.id},
-                                 { "body", bytes }
-                               };
+                QJsonObject obj{};
+                doc.write(obj);
+
+                obj["body"] = body;
 
                 QJsonDocument data{obj};
 
@@ -141,7 +141,7 @@ const QString bridge::filePath(const QUrl &directory, const QString &fileName) c
     filePath.append('/');
     filePath.append(fileName);
 
-    const auto fullPath{QUrl::fromLocalFile(fileName)};
+    const auto fullPath{QUrl::fromLocalFile(filePath)};
 
     return fullPath.toLocalFile();
 }

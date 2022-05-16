@@ -102,7 +102,7 @@ void netManager::authenticate(const QString& username,
     });
 }
 
-void netManager::downloadFile(const char* key, const QString& path)
+void netManager::downloadFile(const char* key, const QString &path)
 {
     setRequest(key);
     auto* reply = get(rqst);
@@ -121,7 +121,7 @@ void netManager::downloadFile(const char* key, const QString& path)
 }
 
 void netManager::getFromKey(const char* key,
-                        const std::function<void(const QByteArray&)>& callback)
+                            const std::function<void(const QByteArray&)>& callback)
 {
     setRequest(key);
     auto* reply = get(rqst);
@@ -129,8 +129,8 @@ void netManager::getFromKey(const char* key,
 }
 
 void netManager::putToKey(const char* key,
-                      const QByteArray &data,
-                      const std::function<void (const QByteArray &)> &callback)
+                          const QByteArray &data,
+                          const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
     auto* reply = put(rqst, data);
@@ -138,8 +138,8 @@ void netManager::putToKey(const char* key,
 }
 
 void netManager::postToKey(const char* key,
-                       const QByteArray &data,
-                       const std::function<void (const QByteArray &)> &callback)
+                           const QByteArray &data,
+                           const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
     auto* reply = post(rqst, data);
@@ -147,7 +147,7 @@ void netManager::postToKey(const char* key,
 }
 
 void netManager::setCallback(QNetworkReply* reply,
-                         const std::function<void (const QByteArray &)> &callback)
+                             const std::function<void (const QByteArray &)> &callback)
 {
     connect(reply, &QNetworkReply::finished,
             [reply, callback]()

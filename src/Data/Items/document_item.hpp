@@ -4,6 +4,7 @@
 #define CATEGOIES_SUMED 1023
 
 #include <QJsonObject>
+#include <QFile>
 
 namespace Data
 {
@@ -48,6 +49,8 @@ struct document_item
         UploadDateRole,
         IdRole
     };
+
+    QFile file{};
 
     static QHash<int, QByteArray> roleNames();
 
