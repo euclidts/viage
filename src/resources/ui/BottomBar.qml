@@ -4,7 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import QtQuick.Controls.Material.impl
 import QtQuick.Dialogs
-import QtCore
+
+import Complete
 
 RowLayout {
     visible: false
@@ -20,18 +21,7 @@ RowLayout {
         onClicked: rootStack.currentIndex = 1
     }
 
-    MaterialButton {
-        visible: accountsPages.currentIndex < 1
-                 && rootStack.currentIndex === 0
-        text: qsTr("Rapport")
-        icon.source: "qrc:/icons/download.svg"
-        onClicked: {
-            urlProvider.func = function() {
-                bridge.requestReport(urlProvider.path)
-            }
-            urlProvider.folderDialog.open()
-        }
-    }
+    ReportButton {}
 
     MaterialButton {
         visible: accountsPages.currentIndex < 1

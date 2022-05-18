@@ -19,7 +19,6 @@
         <file>icons/arrow-left.svg</file>
         <file>icons/ellipsis-v.svg</file>
         <file>ui/InfantPage.qml</file>
-        <file>ui/MaterialButton.qml</file>
         <file>ui/PersonDelegate.qml</file>
         <file>icons/arrow-right.svg</file>
         <file>icons/plus.svg</file>
@@ -30,7 +29,6 @@
         <file>ui/AddressChooser.qml</file>
         <file>ui/CameraScene.qml</file>
         <file>icons/camera.svg</file>
-        <file>ui/DocumentLisView.qml</file>
         <file>icons/trash-alt.svg</file>
         <file>ui/InfantDelegate.qml</file>
         <file>icons/users.svg</file>
@@ -49,5 +47,6 @@
         <file>ui/CalculatorPage.qml</file>
         <file>icons/calculator.svg</file>
         <file>icons/download.svg</file>
+        <file>ui/DocumentListView.qml</file>
     </qresource>
 </RCC>

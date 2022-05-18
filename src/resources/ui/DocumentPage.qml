@@ -5,6 +5,7 @@ import QtQuick.Controls.Material
 
 import People
 import Data
+import Complete
 
 ScrollView {
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
@@ -24,7 +25,7 @@ ScrollView {
                     spacing: 12
                     Layout.margins: 12
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: photos
                         name: qsTr("Photo de l'objet")
                         documentCategory: 1
@@ -32,7 +33,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: passport
                         name: qsTr("Pieces d'identité des parteniares")
                         documentCategory: 2
@@ -40,7 +41,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: registery
                         name: qsTr("Extrait du registre foncier")
                         documentCategory: 4
@@ -48,7 +49,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: pursuit
                         name: qsTr("Extrait des poursuites")
                         documentCategory: 8
@@ -56,7 +57,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: tax
                         name: qsTr("Déclaration d'impôt")
                         documentCategory: 16
@@ -64,7 +65,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: building
                         name: qsTr("Détails concernant l'immeuble")
                         documentCategory: 32
@@ -72,7 +73,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: insurance
                         name: qsTr("Assurance du batiment")
                         documentCategory: 64
@@ -80,7 +81,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: beb
                         name: qsTr("Cas échéant / police détaillé de l'établissement ou le BEB")
                         documentCategory: 128
@@ -88,7 +89,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: jobs
                         name: qsTr("Descriptif / justificatifs des traveaux des 5 dernières années")
                         documentCategory: 256
@@ -96,7 +97,7 @@ ScrollView {
                         canEdit: editing
                     }
 
-                    DocumentLisView {
+                    DocumentListView {
                         id: futurs
                         name: qsTr("Descriptif des traveaux à prévoir / devis")
                         documentCategory: 512

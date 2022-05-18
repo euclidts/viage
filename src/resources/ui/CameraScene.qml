@@ -3,6 +3,8 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import QtMultimedia
 
+import Complete
+
 ColumnLayout {
     id: root
     anchors.fill: parent
@@ -16,7 +18,7 @@ ColumnLayout {
 
             onErrorOccurred: function(error, errorString) {
                 if (Camera.NoError !== error) {
-                    console.log("Camera.onError error " + error + " errorString " + errorString)
+                    console.log("Camera error " + error + errorString)
                     root.parent.active = false
                 }
             }

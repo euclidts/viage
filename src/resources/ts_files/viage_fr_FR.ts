@@ -32,47 +32,42 @@
 <context>
     <name>BottomBar</name>
     <message>
-        <location filename="../ui/BottomBar.qml" line="16"/>
+        <location filename="../ui/BottomBar.qml" line="17"/>
         <source>Conseillers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="26"/>
-        <source>Rapport</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/BottomBar.qml" line="39"/>
+        <location filename="../ui/BottomBar.qml" line="29"/>
         <source>Calcul</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="46"/>
+        <location filename="../ui/BottomBar.qml" line="36"/>
         <source>Onboarding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="64"/>
+        <location filename="../ui/BottomBar.qml" line="54"/>
         <source>Ajouter un conseiller</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="80"/>
+        <location filename="../ui/BottomBar.qml" line="70"/>
         <source>Accueil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="87"/>
+        <location filename="../ui/BottomBar.qml" line="77"/>
         <source>Ajouter un partenaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="100"/>
+        <location filename="../ui/BottomBar.qml" line="90"/>
         <source>Ajouter un enfant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="114"/>
+        <location filename="../ui/BottomBar.qml" line="104"/>
         <source>Continuer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -218,22 +213,22 @@
 <context>
     <name>CameraScene</name>
     <message>
-        <location filename="../ui/CameraScene.qml" line="44"/>
+        <location filename="../ui/CameraScene.qml" line="47"/>
         <source>Scanner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/CameraScene.qml" line="70"/>
+        <location filename="../ui/CameraScene.qml" line="73"/>
         <source>Annuler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/CameraScene.qml" line="78"/>
+        <location filename="../ui/CameraScene.qml" line="81"/>
         <source>Scanner de nouveau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/CameraScene.qml" line="87"/>
+        <location filename="../ui/CameraScene.qml" line="90"/>
         <source>Valider</source>
         <translation type="unfinished"></translation>
     </message>
@@ -241,52 +236,52 @@
 <context>
     <name>DocumentPage</name>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="29"/>
+        <location filename="../ui/DocumentPage.qml" line="30"/>
         <source>Photo de l&apos;objet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="37"/>
+        <location filename="../ui/DocumentPage.qml" line="38"/>
         <source>Pieces d&apos;identité des parteniares</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="45"/>
+        <location filename="../ui/DocumentPage.qml" line="46"/>
         <source>Extrait du registre foncier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="53"/>
+        <location filename="../ui/DocumentPage.qml" line="54"/>
         <source>Extrait des poursuites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="61"/>
+        <location filename="../ui/DocumentPage.qml" line="62"/>
         <source>Déclaration d&apos;impôt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="69"/>
+        <location filename="../ui/DocumentPage.qml" line="70"/>
         <source>Détails concernant l&apos;immeuble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="77"/>
+        <location filename="../ui/DocumentPage.qml" line="78"/>
         <source>Assurance du batiment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="85"/>
+        <location filename="../ui/DocumentPage.qml" line="86"/>
         <source>Cas échéant / police détaillé de l&apos;établissement ou le BEB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="93"/>
+        <location filename="../ui/DocumentPage.qml" line="94"/>
         <source>Descriptif / justificatifs des traveaux des 5 dernières années</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="101"/>
+        <location filename="../ui/DocumentPage.qml" line="102"/>
         <source>Descriptif des traveaux à prévoir / devis</source>
         <translation type="unfinished"></translation>
     </message>
@@ -652,6 +647,14 @@
     </message>
 </context>
 <context>
+    <name>ReportButton</name>
+    <message>
+        <location filename="../ui/Complete/ReportButton.qml" line="6"/>
+        <source>Rapport</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsDialog</name>
     <message>
         <location filename="../ui/SettingsDialog.qml" line="24"/>
@@ -765,7 +768,7 @@
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="33"/>
-        <source>Sosciete</source>
+        <source>Société</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -830,22 +833,22 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../ui/main.qml" line="32"/>
+        <location filename="../ui/main.qml" line="31"/>
         <source>Incomplet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="33"/>
+        <location filename="../ui/main.qml" line="32"/>
         <source>Envoyé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="34"/>
+        <location filename="../ui/main.qml" line="33"/>
         <source>En attente d&apos;expertise</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="35"/>
+        <location filename="../ui/main.qml" line="34"/>
         <source>Expertisé</source>
         <translation type="unfinished"></translation>
     </message>

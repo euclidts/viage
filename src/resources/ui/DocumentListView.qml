@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
-import QtCore
 
 import Data
+import Complete
 
 ColumnLayout {
     spacing: 0
@@ -65,15 +65,7 @@ ColumnLayout {
                 Layout.fillWidth: true
             }
 
-            RoundButton {
-                icon.source: "qrc:/icons/folder-open.svg"
-                icon.width: height * 0.4
-                onClicked: {
-                    urlProvider.jsonMetadata = jsonMetadata
-                    urlProvider.func = updateFunc
-                    urlProvider.fileDialog.open()
-                }
-            }
+            FolderButton {}
 
             RoundButton {
                 icon.source: "qrc:/icons/camera.svg"
@@ -87,18 +79,7 @@ ColumnLayout {
                 }
             }
 
-            RoundButton {
-                icon.source: "qrc:/icons/download.svg"
-                visible: model.isUploaded
-                onClicked: {
-                    urlProvider.func = function() {
-                        bridge.downloadFile("documents/" + model.id + "/body",
-                                            urlProvider.path,
-                                            flieName.text)
-                    }
-                    urlProvider.folderDialog.open()
-                }
-            }
+            DownloadButton {}
 
             //            RoundButton {
             //                icon.source: "qrc:/icons/trash-alt.svg"
@@ -110,15 +91,7 @@ ColumnLayout {
     }
 
     RowLayout {
-        RoundButton {
-            icon.source: "qrc:/icons/folder-open.svg"
-            icon.width: height * 0.4
-            onClicked: {
-                urlProvider.jsonMetadata = jsonMetadata
-                urlProvider.func = aquireFunc
-                urlProvider.fileDialog.open()
-            }
-        }
+        FolderButton {}
 
         RoundButton {
             icon.source: "qrc:/icons/camera.svg"

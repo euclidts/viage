@@ -10,7 +10,7 @@ project(viage VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC OFF)
-set(CMAKE_AUTOMOC OFF)
+set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -43,23 +43,18 @@ if(ANDROID)
         ${3RDPARTY_FOLDER}/android_openssl/latest/x86_64/libcrypto_1_1.so
         DESTINATION
         ${CMAKE_BINARY_DIR}/android-build/libs/x86_64)
+
+        find_package(Qt6 COMPONENTS
+            Widgets)
 endif()
 
-find_package(QT NAMES Qt6 COMPONENTS
+find_package(Qt6 COMPONENTS
     Core
     Quick
     LinguistTools
     Multimedia
     Svg
     REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
-    Core
-    Quick
-    LinguistTools
-    Multimedia
-    Svg
-    REQUIRED)
-
 
 set(TS_FILES src/resources/ts_files/viage_fr_FR.ts)
 
@@ -131,30 +126,57 @@ include_directories(SYSTEM
 
 set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/appicon.rc")
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(viage
-        WIN32 ${app_icon_resource_windows}
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES})
+qt_add_executable(viage
+    WIN32 ${app_icon_resource_windows}
+    MANUAL_FINALIZATION
+    ${PROJECT_SOURCES})
 
-    if(ANDROID)
-        # Define target properties for Android with Qt 6 as:
-        set_property(TARGET viage APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-            ${CMAKE_CURRENT_SOURCE_DIR}/android)
-        # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-    endif()
+if(ANDROID)
+    # Define target properties for Android with Qt 6 as:
+    set_property(TARGET viage APPEND PROPERTY
+        QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
+# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    set(ALT_QML
+        "src/resources/ui/UrlProvider.qml"
+        "src/resources/ui/ReportButton.qml"
+        "src/resources/ui/DownloadButton.qml"
+        "src/resources/ui/FolderButton.qml")
+else()
+    set(ALT_QML
+        "src/resources/ui/Complete/UrlProvider.qml"
+        "src/resources/ui/Complete/ReportButton.qml"
+        "src/resources/ui/Complete/DownloadButton.qml"
+        "src/resources/ui/Complete/FolderButton.qml")
 endif()
+
+qt_add_qml_module(viage
+    URI Complete
+    VERSION 1.0
+    QML_FILES
+        src/resources/ui/MaterialButton.qml
+        ${ALT_QML}
+    )
+
+qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
 target_compile_definitions(viage
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
+if(ANDROID)
+    target_link_libraries(viage PRIVATE
+        Qt6::Widgets)
+endif()
+
 target_link_libraries(viage PRIVATE
-    Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Quick
-    Qt${QT_VERSION_MAJOR}::Svg
-    Qt${QT_VERSION_MAJOR}::Multimedia)
+    Qt6::Core
+    Qt6::Quick
+    Qt6::Svg
+    Qt6::Multimedia)
+
+if(MSVC)
+    target_compile_options(viage PRIVATE /Zc:__cplusplus)
+endif()
 
 #set_target_properties(viage PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -162,10 +184,9 @@ target_link_libraries(viage PRIVATE
 #    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 #    )
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(viage)
-    qt_finalize_executable(viage)
-endif()
+qt_import_qml_plugins(viage)
+
+qt_finalize_executable(viage)
 
 # Installer setup copyed from https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeLists.txt
 
