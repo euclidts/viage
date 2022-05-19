@@ -55,7 +55,7 @@ double life_expectency::get_expectency()
     double lx_plus_y{lx};
     double ex_plus_y{lx};
 
-    for (int i = 1; i <= OMEGA; i++)
+    for (int i = 0; i < OMEGA; i++)
     {
         lx = lx * (1 - get_qx(x_dto, i));
         ex += lx;

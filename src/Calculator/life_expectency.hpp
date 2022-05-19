@@ -34,7 +34,7 @@ private:
             , thousand_bDAy{senior.birthDay.year() * 1000}
             , age{senior.birthDay.daysTo(QDate::currentDate()) / 365.25}
             , age_trunc{std::trunc(age)}
-            , age_diff{age - std::round(age)}
+            , age_diff{age - age_trunc}
         {}
         senior_citizen_item::sexes sex{senior_citizen_item::M};
         int thousand_bDAy{0};

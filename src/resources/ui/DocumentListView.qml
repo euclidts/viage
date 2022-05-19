@@ -21,8 +21,10 @@ ColumnLayout {
     }
 
     Label {
+        Layout.fillWidth: true
         text: name
         font.bold: true
+        wrapMode: Text.Wrap
     }
 
     ListView {

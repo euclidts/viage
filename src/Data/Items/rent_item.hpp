@@ -72,7 +72,7 @@ public:
 //    W_PROPERTY(int, dam READ getDam WRITE setDam NOTIFY damChanged)
 
 private:
-    int marketPrice{500000};
+    int marketPrice{1500000};
     int monthly{1000};
 
     int rva{0};

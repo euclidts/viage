@@ -13,7 +13,7 @@ rent_item::rent_item(QObject *parent)
 
 void rent_item::clear()
 {
-    marketPrice = 500000;
+    marketPrice = 1500000;
     emit marketPriceChanged();
     monthly = 1000;
     emit monthlyChanged();
