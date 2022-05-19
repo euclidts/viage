@@ -5,7 +5,6 @@ import QtQuick.Controls.Material
 
 import People
 import Data
-import Complete
 
 ScrollView {
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff

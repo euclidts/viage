@@ -48,5 +48,6 @@
         <file>icons/calculator.svg</file>
         <file>icons/download.svg</file>
         <file>ui/DocumentListView.qml</file>
+        <file>ui/MaterialButton.qml</file>
     </qresource>
 </RCC>

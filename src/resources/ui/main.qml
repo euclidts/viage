@@ -8,7 +8,6 @@ import Data
 import People
 import Places
 import Interface
-import Complete
 
 ApplicationWindow {
     id: window

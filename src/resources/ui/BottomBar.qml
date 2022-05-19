@@ -5,8 +5,6 @@ import QtQuick.Controls.Material
 import QtQuick.Controls.Material.impl
 import QtQuick.Dialogs
 
-import Complete
-
 RowLayout {
     visible: false
     spacing: 0

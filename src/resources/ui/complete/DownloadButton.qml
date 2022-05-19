@@ -1,8 +1,6 @@
 import QtQuick.Controls
 import QtQuick.Controls.Material
 
-import Complete
-
 RoundButton {
     icon.source: "qrc:/icons/download.svg"
     visible: model.isUploaded

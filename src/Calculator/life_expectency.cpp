@@ -5,6 +5,8 @@
 #include <Lists/simple_item_list.hpp>
 #include <Items/senior_citizen_item.hpp>
 
+#define OMEGA 125
+
 namespace Calculator
 {
 life_expectency::life_expectency(simple_item_list<senior_citizen_item>* senior_citizens)
@@ -53,7 +55,7 @@ double life_expectency::get_expectency()
     double lx_plus_y{lx};
     double ex_plus_y{lx};
 
-    for (int i = 1; i <= 125; i++)
+    for (int i = 1; i <= OMEGA; i++)
     {
         lx = lx * (1 - get_qx(x_dto, i));
         ex += lx;

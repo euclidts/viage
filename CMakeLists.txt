@@ -44,8 +44,9 @@ if(ANDROID)
         DESTINATION
         ${CMAKE_BINARY_DIR}/android-build/libs/x86_64)
 
-        find_package(Qt6 COMPONENTS
-            Widgets)
+    set(ALT_QRC "src/resources/empty.qrc")
+else()
+    set(ALT_QRC "src/resources/complete.qrc")
 endif()
 
 find_package(Qt6 COMPONENTS
@@ -115,6 +116,7 @@ set(PROJECT_SOURCES
     src/Calculator/wrapped_calculator.hpp
     src/Calculator/wrapped_calculator.cpp
     src/resources/viage.qrc
+    ${ALT_QRC}
     ${TS_FILES})
 
 include_directories(SYSTEM
@@ -137,36 +139,12 @@ if(ANDROID)
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
-    set(ALT_QML
-        "src/resources/ui/UrlProvider.qml"
-        "src/resources/ui/ReportButton.qml"
-        "src/resources/ui/DownloadButton.qml"
-        "src/resources/ui/FolderButton.qml")
-else()
-    set(ALT_QML
-        "src/resources/ui/Complete/UrlProvider.qml"
-        "src/resources/ui/Complete/ReportButton.qml"
-        "src/resources/ui/Complete/DownloadButton.qml"
-        "src/resources/ui/Complete/FolderButton.qml")
 endif()
-
-qt_add_qml_module(viage
-    URI Complete
-    VERSION 1.0
-    QML_FILES
-        src/resources/ui/MaterialButton.qml
-        ${ALT_QML}
-    )
 
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
 target_compile_definitions(viage
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-
-if(ANDROID)
-    target_link_libraries(viage PRIVATE
-        Qt6::Widgets)
-endif()
 
 target_link_libraries(viage PRIVATE
     Qt6::Core

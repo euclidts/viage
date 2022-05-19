@@ -1,5 +1,3 @@
-import Complete
-
 MaterialButton {
     visible: accountsPages.currentIndex < 1
              && rootStack.currentIndex === 0

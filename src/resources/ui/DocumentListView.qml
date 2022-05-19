@@ -4,7 +4,6 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 
 import Data
-import Complete
 
 ColumnLayout {
     spacing: 0

@@ -3,8 +3,6 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import QtMultimedia
 
-import Complete
-
 ColumnLayout {
     id: root
     anchors.fill: parent

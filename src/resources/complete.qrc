@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="ui/DownloadButton.qml">ui/complete/DownloadButton.qml</file>
+        <file alias="ui/FolderButton.qml">ui/complete/FolderButton.qml</file>
+        <file alias="ui/ReportButton.qml">ui/complete/ReportButton.qml</file>
+        <file alias="ui/UrlProvider.qml">ui/complete/UrlProvider.qml</file>
+    </qresource>
+</RCC>
