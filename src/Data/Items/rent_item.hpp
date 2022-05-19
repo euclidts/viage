@@ -12,10 +12,6 @@ namespace Data
 {
 class rent_item : public base_item
 {
-#define INTEREST 0.04
-#define I -0.025
-#define V 1/(1 + I)
-
 W_OBJECT(rent_item)
 
 public:

@@ -181,13 +181,24 @@ ScrollView {
                         }
                     }
 
-                    IntChooser {
-                        minimum: 250
-                        maximum: 10000
-                        name: qsTr("Rente mensuelle")
-                        numberOf: rent.monthly
-                        onEdit: function(val) {
-                            senior.model.monthly = val
+                    ColumnLayout {
+                        spacing: 0
+
+                        Label {
+                            text: qsTr("Rente mensuelle")
+                            font.italic: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+
+                        SpinBox {
+                            from: 250
+                            to: 10000
+                            stepSize: 1000
+                            editable: true
+                            value: rent.monthly
+                            locale: Qt.locale()
+                            onValueModified: rent.monthly = value
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
                         }
                     }
 

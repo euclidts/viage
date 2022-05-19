@@ -4,6 +4,11 @@
 
 namespace Data
 {
+
+#define INTEREST 0.04
+#define I -0.0225
+#define V 1/(1 + I)
+
 W_OBJECT_IMPL(rent_item)
 
 rent_item::rent_item(QObject *parent)
