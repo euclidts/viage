@@ -69,7 +69,7 @@ public:
 
 private:
     int marketPrice{1500000};
-    int monthly{1000};
+    int monthly{0};
 
     int rva{0};
     int bou{0};

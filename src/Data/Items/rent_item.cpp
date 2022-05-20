@@ -52,7 +52,7 @@ void rent_item::from_expectency(double expectency)
     else
     {
         double ve{1 - pow(V, expectency)};
-        ae = ve / (1 - V) - 11 / 24 * ve;
+        ae = ve / (1 - V) - 11.f / 24.f * ve;
     }
 
     setRva(12 * monthly * ae);

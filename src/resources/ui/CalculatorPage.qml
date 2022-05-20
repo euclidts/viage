@@ -181,26 +181,26 @@ ScrollView {
                         }
                     }
 
-                    ColumnLayout {
-                        spacing: 0
+//                    ColumnLayout {
+//                        spacing: 0
 
-                        Label {
-                            text: qsTr("Rente mensuelle")
-                            font.italic: true
-                            Layout.alignment: Qt.AlignHCenter
-                        }
+//                        Label {
+//                            text: qsTr("Rente mensuelle")
+//                            font.italic: true
+//                            Layout.alignment: Qt.AlignHCenter
+//                        }
 
-                        SpinBox {
-                            from: 250
-                            to: 10000
-                            stepSize: 1000
-                            editable: true
-                            value: rent.monthly
-                            locale: Qt.locale()
-                            onValueModified: rent.monthly = value
-                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        }
-                    }
+//                        SpinBox {
+//                            from: 0
+//                            to: 10000
+//                            stepSize: 1000
+//                            editable: true
+//                            value: rent.monthly
+//                            locale: Qt.locale()
+//                            onValueModified: rent.monthly = value
+//                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+//                        }
+//                    }
 
                     RoundButton {
                         text: qsTr("Calculer")
@@ -209,10 +209,10 @@ ScrollView {
                         highlighted: true
                     }
 
-                    RoundButton {
-                        text: qsTr("C")
-                        onClicked: rent.clear()
-                    }
+//                    RoundButton {
+//                        text: qsTr("C")
+//                        onClicked: rent.clear()
+//                    }
 
                     Label {
                         text: qsTr("Valeur estimée du bien :")
@@ -241,14 +241,14 @@ ScrollView {
                         text: rent.bou === 0 ? "" : rent.bou.toLocaleString(Qt.locale())
                     }
 
-                    Label {
-                        text: qsTr("Estimation de la valeur d'une rente :")
-                        font.bold: true
-                    }
+//                    Label {
+//                        text: qsTr("Estimation de la valeur d'une rente :")
+//                        font.bold: true
+//                    }
 
-                    Label {
-                        text: rent.rva === 0 ? "" : rent.rva.toLocaleString(Qt.locale())
-                    }
+//                    Label {
+//                        text: rent.rva === 0 ? "" : rent.rva.toLocaleString(Qt.locale())
+//                    }
                 }
             }
         }
