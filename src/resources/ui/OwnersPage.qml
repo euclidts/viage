@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Material
-//import QtCore
 
 import People
 
@@ -47,92 +46,9 @@ ListView {
                     }
                 }
 
-                GroupBox {
-                    label: Label {
-                        text: qsTr("Date de naissance")
-                        font.italic: true
-                    }
-                    Layout.topMargin: 12
-                    Layout.fillWidth: true
-
-                    ColumnLayout {
-                        width: parent.width
-
-                        ColumnLayout {
-                            spacing: 0
-                            Layout.fillWidth: true
-                            visible: owner.editing
-
-                            RowLayout {
-                                spacing: 0
-
-                                IntChooser {
-                                    name: qsTr("Jour")
-                                    minimum: 1
-                                    maximum: 31
-                                    numberOf: model.birthDay.getDate()
-                                    onEdit: function(val) {
-                                        let date = model.birthDay
-                                        date.setDate(val)
-                                        model.birthDay = date
-                                    }
-                                }
-
-                                ColumnLayout {
-                                    spacing: 0
-
-                                    Label {
-                                        text: qsTr("Mois")
-                                        font.italic: true
-                                    }
-
-                                    ComboBox {
-                                        Layout.minimumWidth: 164
-                                        model: [qsTr("Janvier"),
-                                            qsTr("Fevrier"),
-                                            qsTr("Mars"),
-                                            qsTr("Avril"),
-                                            qsTr("Mai"),
-                                            qsTr("Juin"),
-                                            qsTr("Juillet"),
-                                            qsTr("Août"),
-                                            qsTr("Septembre"),
-                                            qsTr("Octobre"),
-                                            qsTr("Novembre"),
-                                            qsTr("Decembre")]
-                                        onActivated:
-                                        {
-                                            let date = owner.model.birthDay
-                                            date.setMonth(currentIndex)
-                                            owner.model.birthDay = date
-                                        }
-                                        currentIndex: owner.model.birthDay.getMonth()
-                                    }
-                                }
-                            }
-
-                            IntChooser {
-                                property int currentYear: new Date().getFullYear()
-
-                                minimum: currentYear - 120
-                                maximum: currentYear - 65
-                                name: qsTr("Année")
-                                numberOf: model.birthDay.getFullYear()
-                                onEdit: function(val) {
-                                    let date = model.birthDay
-                                    date.setFullYear(val)
-                                    owner.model.birthDay = date
-                                }
-                            }
-                        }
-
-                        TextField {
-                            text: Qt.formatDate(model.birthDay, "dd.MM.yy")
-                            readOnly: true
-                            visible: !owner.editing
-                            Layout.fillWidth: true
-                        }
-                    }
+                DateChooser {
+                    dateOf: model
+                    editing: owner.editing
                 }
 
                 AddressChooser {

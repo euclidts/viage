@@ -18,7 +18,7 @@ wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
                   this,
                   [this] ()
     {
-        rent->from_expectency(exp.get_expectency());
+        rent->from_expectency(exp.get_expectency(rent->getBirthDay()));
     });
 
     context->setContextProperty("rent", rent);

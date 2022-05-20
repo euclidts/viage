@@ -183,6 +183,7 @@ ScrollView {
 
                     LabeledTextField {
                         name: qsTr("Equipement de proximité")
+                        placeHolder: qsTr("* Optionel")
                         textOf: habitat.equipements
                         canEdit: editing
                         onEdit: function(txt) {

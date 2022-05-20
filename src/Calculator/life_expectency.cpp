@@ -37,15 +37,15 @@ void life_expectency::readMortality(const QString& path)
     }
 }
 
-double life_expectency::get_expectency()
+double life_expectency::get_expectency(const QDate &date)
 {
     int count = seniors->items().size();
 
-    dto x_dto{seniors->item_at(0)};
+    dto x_dto{seniors->item_at(0), date};
 
-    dto y_dto{};
+    dto y_dto;
     if (count == 2)
-        y_dto = dto{seniors->item_at(1)};
+        y_dto = dto{seniors->item_at(1), date};
 
     double lx{1};
     double ex{lx};

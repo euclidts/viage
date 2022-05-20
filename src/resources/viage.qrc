@@ -49,5 +49,7 @@
         <file>icons/download.svg</file>
         <file>ui/DocumentListView.qml</file>
         <file>ui/MaterialButton.qml</file>
+        <file>ui/DateChooser.qml</file>
+        <file>ui/SexChooser.qml</file>
     </qresource>
 </RCC>

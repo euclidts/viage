@@ -13,11 +13,14 @@ W_OBJECT_IMPL(rent_item)
 
 rent_item::rent_item(QObject *parent)
     : base_item{parent}
+    , birthDay{QDate::currentDate()}
 {
 }
 
 void rent_item::clear()
 {
+    birthDay = QDate::currentDate();
+    emit birthDayChanged();
     marketPrice = 1500000;
     emit marketPriceChanged();
     monthly = 1000;
@@ -135,6 +138,19 @@ void rent_item::setEstimation(int newEstimation)
         return;
     estimation = newEstimation;
     emit estimationChanged();
+}
+
+const QDate &rent_item::getBirthDay() const
+{
+    return birthDay;
+}
+
+void rent_item::setBirthDay(const QDate &newBirthDay)
+{
+    if (birthDay == newBirthDay)
+        return;
+    birthDay = newBirthDay;
+    emit birthDayChanged();
 }
 
 //int rent_item::getDam() const

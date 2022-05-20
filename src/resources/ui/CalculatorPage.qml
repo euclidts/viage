@@ -17,6 +17,13 @@ ScrollView {
                 Layout.minimumWidth: 200
                 width: parent.width
 
+                DateChooser {
+                    Layout.margins: 6
+                    dateOf: rent
+                    maxYear: 30
+                    name: qsTr("Date de l'évaluation")
+                }
+
                 ListView {
                     id: seniorList
                     interactive: false
@@ -31,115 +38,24 @@ ScrollView {
                     model : SeniorCitizenModel { list: seniorCitizens }
 
                     delegate: ColumnLayout {
-                        id: senior
                         spacing: 0
                         width: parent.width
 
                         required property var model
                         required property int index
 
-                        GroupBox {
-                            label: Label {
-                                text: qsTr("Patenaire " + (index + 1))
-                                font.bold: true
-                            }
-                            Layout.topMargin: 12
-                            Layout.fillWidth: true
+                        Label {
+                            Layout.margins: 6
+                            text: qsTr("Patenaire " + (index + 1))
+                            font.bold: true
+                        }
 
-                            ColumnLayout {
-                                width: parent.width
+                        SexChooser {
+                            sexOf: model
+                        }
 
-                                ButtonGroup {
-                                    id: sexGroup
-                                    buttons: sexRow.children
-                                    onCheckedButtonChanged: model.sex = checkedButton.index
-                                }
-
-                                RowLayout {
-                                    id: sexRow
-                                    spacing: 0
-                                    Layout.margins: 0
-
-                                    RadioButton {
-                                        text: qsTr("Monsieur")
-                                        readonly property int index: 0
-                                        checked: model.sex === index
-                                    }
-
-                                    RadioButton {
-                                        text: qsTr("Madame")
-                                        readonly property int index: 1
-                                        checked: model.sex === index
-                                    }
-                                }
-
-                                ColumnLayout {
-                                    spacing: 0
-                                    Layout.fillWidth: true
-
-                                    RowLayout {
-                                        spacing: 0
-
-                                        IntChooser {
-                                            name: qsTr("Jour")
-                                            minimum: 1
-                                            maximum: 31
-                                            numberOf: model.birthDay.getDate()
-                                            onEdit: function(val) {
-                                                let date = model.birthDay
-                                                date.setDate(val)
-                                                model.birthDay = date
-                                            }
-                                        }
-
-                                        ColumnLayout {
-                                            spacing: 0
-
-                                            Label {
-                                                text: qsTr("Mois")
-                                                font.italic: true
-                                            }
-
-                                            ComboBox {
-                                                Layout.minimumWidth: 164
-                                                model: [qsTr("Janvier"),
-                                                    qsTr("Fevrier"),
-                                                    qsTr("Mars"),
-                                                    qsTr("Avril"),
-                                                    qsTr("Mai"),
-                                                    qsTr("Juin"),
-                                                    qsTr("Juillet"),
-                                                    qsTr("Août"),
-                                                    qsTr("Septembre"),
-                                                    qsTr("Octobre"),
-                                                    qsTr("Novembre"),
-                                                    qsTr("Decembre")]
-                                                onActivated:
-                                                {
-                                                    let date = senior.model.birthDay
-                                                    date.setMonth(currentIndex)
-                                                    senior.model.birthDay = date
-                                                }
-                                                currentIndex: senior.model.birthDay.getMonth()
-                                            }
-                                        }
-                                    }
-
-                                    IntChooser {
-                                        readonly property int currentYear: new Date().getFullYear()
-
-                                        minimum: currentYear - 120
-                                        maximum: currentYear - 65
-                                        name: qsTr("Année")
-                                        numberOf: model.birthDay.getFullYear()
-                                        onEdit: function(val) {
-                                            let date = model.birthDay
-                                            date.setFullYear(val)
-                                            senior.model.birthDay = date
-                                        }
-                                    }
-                                }
-                            }
+                        DateChooser {
+                            dateOf: model
                         }
                     }
                 }
@@ -217,37 +133,45 @@ ScrollView {
                     Label {
                         text: qsTr("Valeur estimée du bien :")
                         font.bold: true
+                        Layout.alignment: Qt.AlignRight
                     }
 
                     Label {
                         text: rent.estimation === 0 ? "" : rent.estimation.toLocaleString(Qt.locale())
+                        Layout.alignment: Qt.AlignRight
                     }
 
                     Label {
                         text: qsTr("Droit d'habitation :")
                         font.bold: true
+                        Layout.alignment: Qt.AlignRight
                     }
 
                     Label {
                         text: rent.dab === 0 ? "" : rent.dab.toLocaleString(Qt.locale())
+                        Layout.alignment: Qt.AlignRight
                     }
 
                     Label {
                         text: qsTr("Bouquet :")
                         font.bold: true
+                        Layout.alignment: Qt.AlignRight
                     }
 
                     Label {
                         text: rent.bou === 0 ? "" : rent.bou.toLocaleString(Qt.locale())
+                        Layout.alignment: Qt.AlignRight
                     }
 
 //                    Label {
-//                        text: qsTr("Estimation de la valeur d'une rente :")
+//                        text: qsTr("Estimation d'une rente :")
 //                        font.bold: true
+//                        Layout.alignment: Qt.AlignRight
 //                    }
 
 //                    Label {
 //                        text: rent.rva === 0 ? "" : rent.rva.toLocaleString(Qt.locale())
+//                        Layout.alignment: Qt.AlignRight
 //                    }
                 }
             }

@@ -29,6 +29,8 @@ public:
     void clear() override;
     W_SLOT(clear)
 
+    void birthDayChanged()
+    W_SIGNAL(birthDayChanged)
     void marketPriceChanged()
     W_SIGNAL(marketPriceChanged)
     void monthlyChanged()
@@ -44,6 +46,8 @@ public:
 //    void damChanged()
 //    W_SIGNAL(damChanged)
 
+    const QDate &getBirthDay() const;
+    void setBirthDay(const QDate &newBirthDay);
     int getmarketPrice() const;
     void setmarketPrice(int newmarketPrice);
     int getMonthly() const;
@@ -59,6 +63,7 @@ public:
 //    int getDam() const;
 //    void setDam(int newDam);
 
+    W_PROPERTY(QDate, birthDay READ getBirthDay WRITE setBirthDay NOTIFY birthDayChanged)
     W_PROPERTY(int, marketPrice READ getmarketPrice WRITE setmarketPrice NOTIFY marketPriceChanged)
     W_PROPERTY(int, monthly READ getMonthly WRITE setMonthly NOTIFY monthlyChanged)
     W_PROPERTY(int, rva READ getRva NOTIFY rvaChanged)
@@ -68,6 +73,7 @@ public:
 //    W_PROPERTY(int, dam READ getDam WRITE setDam NOTIFY damChanged)
 
 private:
+    QDate birthDay;
     int marketPrice{1500000};
     int monthly{0};
 
