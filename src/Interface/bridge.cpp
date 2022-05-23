@@ -58,7 +58,7 @@ void bridge::requestReport(const QUrl &directory) const
     fileName.append(now.toString("dd-MM-yy-hh-mm"));
     fileName.append(".xlsb");
 
-    mng->downloadFile("account/export", filePath(directory, fileName));
+    mng->downloadFile("export/accounts", filePath(directory, fileName));
 }
 
 QUrl bridge::getPictureName(int id, QString& name, int index) const
