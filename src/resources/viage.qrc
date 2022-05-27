@@ -1,55 +1,59 @@
 <RCC>
-    <qresource prefix="/">
-        <file>ui/LoggInDialog.qml</file>
-        <file>ui/main.qml</file>
-        <file>images/vue_du_lac.jpg</file>
-        <file>ui/OwnersPage.qml</file>
-        <file>ui/DocumentPage.qml</file>
-        <file>ui/HabitatPage.qml</file>
-        <file>ui/SettingsDialog.qml</file>
-        <file>ui/TopBar.qml</file>
-        <file>ui/SwissCantons.qml</file>
-        <file>ui/AccountDelegate.qml</file>
-        <file>icons/eye-slash.svg</file>
-        <file>icons/eye.svg</file>
-        <file>ui/BottomBar.qml</file>
-        <file>icons/home.svg</file>
-        <file>icons/search.svg</file>
-        <file>icons/times-circle.svg</file>
-        <file>icons/arrow-left.svg</file>
-        <file>icons/ellipsis-v.svg</file>
-        <file>ui/InfantPage.qml</file>
-        <file>ui/PersonDelegate.qml</file>
-        <file>icons/arrow-right.svg</file>
-        <file>icons/plus.svg</file>
-        <file>ui/ExteriorPage.qml</file>
-        <file>ui/IntChooser.qml</file>
-        <file>ui/LabeledTextField.qml</file>
-        <file>ui/StatePage.qml</file>
-        <file>ui/AddressChooser.qml</file>
-        <file>ui/CameraScene.qml</file>
-        <file>icons/camera.svg</file>
-        <file>icons/trash-alt.svg</file>
-        <file>ui/InfantDelegate.qml</file>
-        <file>icons/users.svg</file>
-        <file>icons/folder-open.svg</file>
-        <file>images/ViageLogo.svg</file>
-        <file>icons/filter.svg</file>
-        <file>icons/star.svg</file>
-        <file>icons/empty-star.svg</file>
-        <file>ui/FlickableItem.qml</file>
-        <file>ui/BackgroundRect.qml</file>
-        <file>icons/ViageLogo.ico</file>
-        <file>ui/BusyDialog.qml</file>
-        <file>ui/FlickableRect.qml</file>
-        <file>ui/UserDelegate.qml</file>
-        <file>ui/UserPage.qml</file>
-        <file>ui/CalculatorPage.qml</file>
-        <file>icons/calculator.svg</file>
-        <file>icons/download.svg</file>
-        <file>ui/DocumentListView.qml</file>
-        <file>ui/MaterialButton.qml</file>
-        <file>ui/DateChooser.qml</file>
-        <file>ui/SexChooser.qml</file>
+    <qresource prefix="/ui">
+        <file alias="AddressChooser.qml">ui/AddressChooser.qml</file>
+        <file alias="BackgroundRect.qml">ui/BackgroundRect.qml</file>
+        <file alias="BusyDialog.qml">ui/BusyDialog.qml</file>
+        <file alias="CalculatorPage.qml">ui/CalculatorPage.qml</file>
+        <file alias="CameraScene.qml">ui/CameraScene.qml</file>
+        <file alias="DateChooser.qml">ui/DateChooser.qml</file>
+        <file alias="DocumentListView.qml">ui/DocumentListView.qml</file>
+        <file alias="ExteriorPage.qml">ui/ExteriorPage.qml</file>
+        <file alias="FlickableItem.qml">ui/FlickableItem.qml</file>
+        <file alias="FlickableRect.qml">ui/FlickableRect.qml</file>
+        <file alias="InfantDelegate.qml">ui/InfantDelegate.qml</file>
+        <file alias="InfantPage.qml">ui/InfantPage.qml</file>
+        <file alias="IntChooser.qml">ui/IntChooser.qml</file>
+        <file alias="LabeledTextField.qml">ui/LabeledTextField.qml</file>
+        <file alias="MaterialButton.qml">ui/MaterialButton.qml</file>
+        <file alias="PersonDelegate.qml">ui/PersonDelegate.qml</file>
+        <file alias="SexChooser.qml">ui/SexChooser.qml</file>
+        <file alias="StatePage.qml">ui/StatePage.qml</file>
+        <file alias="UserDelegate.qml">ui/UserDelegate.qml</file>
+        <file alias="UserPage.qml">ui/UserPage.qml</file>
+        <file alias="AccountDelegate.qml">ui/AccountDelegate.qml</file>
+        <file alias="BottomBar.qml">ui/BottomBar.qml</file>
+        <file alias="DocumentPage.qml">ui/DocumentPage.qml</file>
+        <file alias="HabitatPage.qml">ui/HabitatPage.qml</file>
+        <file alias="LoggInDialog.qml">ui/LoggInDialog.qml</file>
+        <file alias="main.qml">ui/main.qml</file>
+        <file alias="OwnersPage.qml">ui/OwnersPage.qml</file>
+        <file alias="SettingsDialog.qml">ui/SettingsDialog.qml</file>
+        <file alias="SwissCantons.qml">ui/SwissCantons.qml</file>
+        <file alias="TopBar.qml">ui/TopBar.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="ViageLogo.svg">images/ViageLogo.svg</file>
+        <file alias="vue_du_lac.jpg">images/vue_du_lac.jpg</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file alias="download.svg">icons/download.svg</file>
+        <file alias="ellipsis-v.svg">icons/ellipsis-v.svg</file>
+        <file alias="empty-star.svg">icons/empty-star.svg</file>
+        <file alias="eye-slash.svg">icons/eye-slash.svg</file>
+        <file alias="eye.svg">icons/eye.svg</file>
+        <file alias="filter.svg">icons/filter.svg</file>
+        <file alias="folder-open.svg">icons/folder-open.svg</file>
+        <file alias="home.svg">icons/home.svg</file>
+        <file alias="plus.svg">icons/plus.svg</file>
+        <file alias="search.svg">icons/search.svg</file>
+        <file alias="star.svg">icons/star.svg</file>
+        <file alias="times-circle.svg">icons/times-circle.svg</file>
+        <file alias="trash-alt.svg">icons/trash-alt.svg</file>
+        <file alias="users.svg">icons/users.svg</file>
+        <file alias="ViageLogo.ico">icons/ViageLogo.ico</file>
+        <file alias="arrow-left.svg">icons/arrow-left.svg</file>
+        <file alias="arrow-right.svg">icons/arrow-right.svg</file>
+        <file alias="calculator.svg">icons/calculator.svg</file>
+        <file alias="camera.svg">icons/camera.svg</file>
     </qresource>
 </RCC>

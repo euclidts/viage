@@ -56,7 +56,7 @@ void bridge::requestReport(const QUrl &directory) const
 
     QString fileName{"Viage-"};
     fileName.append(now.toString("dd-MM-yy-hh-mm"));
-    fileName.append(".xlsb");
+    fileName.append(".xls");
 
     mng->downloadFile("export/accounts", filePath(directory, fileName));
 }
