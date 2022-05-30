@@ -7,6 +7,7 @@
 #include <wobjectimpl.h>
 
 #include "netManager.hpp"
+#include "smtp.hpp"
 #include <Items/user_item.hpp>
 
 namespace Interface
@@ -92,6 +93,18 @@ void netManager::authenticate(const QString& username,
                         });
                     }
 
+                    getFromKey("smtplogin",
+                               [this](const QByteArray& rep)
+                    {
+                        const auto json{QJsonDocument::fromJson(rep).object()};
+
+                        if (json.contains("email")) // basic check
+                            mailer = new smtp{json["email"].toString(),
+                                    json["password"].toString(),
+                                    json["server"].toString(),
+                                    json["port"].toInt()};
+                    });
+
                     emit loggedIn(true);
                 }
             }
@@ -143,6 +156,15 @@ void netManager::postToKey(const char* key,
     setRequest(key);
     auto* reply = post(rqst, data);
     setCallback(reply, callback);
+}
+
+void netManager::sendMail(const QString& from,
+                          const QString& to,
+                          const QString& subject,
+                          const QString& body,
+                          const QStringList& files)
+{
+    mailer->sendMail(from, to, subject, body, files);
 }
 
 void netManager::setCallback(QNetworkReply* reply,

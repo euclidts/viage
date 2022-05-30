@@ -17,6 +17,8 @@ struct user_item;
 
 namespace Interface
 {
+class smtp;
+
 class netManager final : public QNetworkAccessManager
 {
     W_OBJECT(netManager)
@@ -42,19 +44,26 @@ public:
                    const QByteArray& data,
                    const std::function<void (const QByteArray &)> &callback);
 
+    void sendMail(const QString& from,
+                  const QString& to,
+                  const QString& subject,
+                  const QString& body,
+                  const QStringList& files);
+
 private:
     QNetworkRequest rqst;
     const QString prefix;
     QString auth_args;
     QString suffix;
 
-    QString sessionId{""};
-    Data::People::user_item* user;
     void setCallback(QNetworkReply* reply,
                      const std::function<void (const QByteArray &)> &callback);
     void setRequest(const char* key);
 
     bool authenticating{false};
+
+    Data::People::user_item* user;
+    smtp* mailer{nullptr};
 };
 
 }

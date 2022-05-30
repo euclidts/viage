@@ -49,6 +49,7 @@ ItemDelegate {
                 visible: (Object.keys(address).length)
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
+                wrapMode: Text.Wrap
             }
 
             Label {
@@ -56,6 +57,7 @@ ItemDelegate {
                 font.italic: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
+                wrapMode: Text.Wrap
             }
         }
 

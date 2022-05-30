@@ -35,7 +35,10 @@ void wrapped_list<Inner>::makeConnections() const
 
         this->mng->putToKey(this->inner->key(),
                                 this->inner->toData(item.key(), id),
-                                [this](const QByteArray& rep) {});
+                                [this](const QByteArray& rep)
+        {
+            qDebug() << rep;
+        });
     });
 
     this->connect(this->inner,

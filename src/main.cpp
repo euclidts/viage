@@ -8,7 +8,6 @@
 #include <QTranslator>
 
 #include <netManager.hpp>
-#include <smtp.hpp>
 #include <bridge.hpp>
 #include <wrapped_nested_list.hpp>
 #include <Models/list_model.hpp>
@@ -127,7 +126,20 @@ int main(int argc, char* argv[])
         {
             const auto state{accounts->item_at_id(id).state};
 
-//            if (state = )
+            if (!bridge.has_flag(state, account_item::Sent))
+            {
+                QStringList files{};
+
+                for (const auto& doc : documents->items())
+                    if (doc.relativePath.toString() != "")
+                        files << doc.relativePath.toString();
+
+                manager.sendMail("Viage",
+                                 "thibaud.keller@euclidtradingsystems.com",
+                                 "Dossier complet",
+                                 "Onboarding termine",
+                                 files);
+            }
         }
     });
 

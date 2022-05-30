@@ -27,13 +27,15 @@ ItemDelegate {
     Component.onCompleted: {
         currentUser = model
         if (hiring) {
-            UsersPages.currentIndex = 1
             hiring = false
+            usersPages.currentIndex = 1
+            users.loadFrom(model.id)
         }
     }
 
     onClicked: {
         currentUser = model
+        users.loadFrom(model.id)
         usersPages.currentIndex = 1
     }
 

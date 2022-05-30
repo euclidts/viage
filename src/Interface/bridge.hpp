@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QStandardPaths>
+#include <QTemporaryDir>
 
 #include <wobjectdefs.h>
 
@@ -25,9 +26,6 @@ class bridge final : public QObject
 public:
     bridge(Interface::netManager* manager,
            Data::item_list<Data::document_item>* docs);
-
-    const QString rootPath {QStandardPaths::writableLocation(
-                    QStandardPaths::DocumentsLocation) + "/viage"};
 
     void onLogin(const bool& success) const;
 
@@ -58,16 +56,18 @@ public:
 
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
 
+    bool has_flag(int value, int flag) const noexcept;
+
 private:
     QObject* qmlObject;
     netManager* mng;
+    QTemporaryDir tempDir;
+    QString rootPath;
 
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};
     void check_doc_completion(int index);
     void uplaod_docs(int index);
-
-    bool has_flag(int value, int flag) const noexcept;
 
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;

@@ -19,8 +19,8 @@ Rectangle {
         id: folderDialog
         currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
         onAccepted: {
-            urlProvider.path = currentFolder
-            urlProvider.func()
+            path = currentFolder
+            func()
         }
     }
 
@@ -29,8 +29,8 @@ Rectangle {
         currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
         nameFilters: ["(*.pdf *.png *.jpg *.jpeg *.raw *.tiff)", "(*)"]
         onAccepted: {
-            urlProvider.path = currentFile
-            urlProvider.func()
+            path = currentFile
+            func()
         }
     }
 
@@ -42,14 +42,14 @@ Rectangle {
 
         onActiveChanged:
             if (active) {
-                urlProvider.visible = true
-                item.onValidate = urlProvider.func
-                item.path = urlProvider.path
+                parent.visible = true
+                item.onValidate = func
+                item.path = path
                 topBar.visible = false
                 rootStack.visible = false
                 bottomBar.visible = false
             } else {
-                urlProvider.visible = false
+                parent.visible = false
                 topBar.visible = true
                 rootStack.visible = true
                 bottomBar.visible = true

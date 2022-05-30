@@ -66,7 +66,13 @@ ColumnLayout {
                 Layout.fillWidth: true
             }
 
-            FolderButton {}
+            FolderButton {
+                onClicked: {
+                    urlProvider.jsonMetadata = jsonMetadata
+                    urlProvider.func = updateFunc
+                    urlProvider.fileDialog.open()
+                }
+            }
 
             RoundButton {
                 icon.source: "qrc:/icons/camera.svg"
@@ -92,7 +98,13 @@ ColumnLayout {
     }
 
     RowLayout {
-        FolderButton {}
+        FolderButton {
+            onClicked: {
+                urlProvider.jsonMetadata = jsonMetadata
+                urlProvider.func = aquireFunc
+                urlProvider.fileDialog.open()
+            }
+        }
 
         RoundButton {
             icon.source: "qrc:/icons/camera.svg"

@@ -111,8 +111,9 @@ RowLayout {
                        accountsPages.validateItem()
                        accountsPages.currentIndex = 0
                    } else if (rootStack.currentIndex === 1) {
+                       users.validate(currentUser.id)
                        usersPages.currentIndex = 0
-                   } else { rootStack.currentIndex = 0}
+                   } else { rootStack.currentIndex = 0 }
         background: Rectangle {
             implicitHeight: Material.buttonHeight
             radius: 2

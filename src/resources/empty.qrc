@@ -1,8 +1,8 @@
 <RCC>
-    <qresource prefix="/">
-        <file alias="ui/DownloadButton.qml">ui/empty/DownloadButton.qml</file>
-        <file alias="ui/FolderButton.qml">ui/empty/FolderButton.qml</file>
-        <file alias="ui/ReportButton.qml">ui/empty/ReportButton.qml</file>
-        <file alias="ui/UrlProvider.qml">ui/empty/UrlProvider.qml</file>
+    <qresource prefix="/ui">
+        <file alias="DownloadButton.qml">ui/empty/DownloadButton.qml</file>
+        <file alias="FolderButton.qml">ui/empty/FolderButton.qml</file>
+        <file alias="ReportButton.qml">ui/empty/ReportButton.qml</file>
+        <file alias="UrlProvider.qml">ui/empty/UrlProvider.qml</file>
     </qresource>
 </RCC>

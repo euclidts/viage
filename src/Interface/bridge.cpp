@@ -1,7 +1,6 @@
 #include <QDate>
 #include <QUrl>
 #include <QFile>
-#include <QDir>
 
 #include <wobjectimpl.h>
 
@@ -17,9 +16,12 @@ W_OBJECT_IMPL(bridge)
 bridge::bridge(Interface::netManager* manager, Data::item_list<Data::document_item> *documents)
     : mng{manager}
     , docs{documents}
-
+    , tempDir{}
 {
-    QDir{rootPath}.mkpath(".");
+    if (tempDir.isValid())
+        rootPath = tempDir.path();
+    else
+        qDebug() << "temp directory error :" << tempDir.errorString();
 
     connect(mng, &netManager::loggedIn,
             this, &bridge::onLogin);

@@ -102,20 +102,6 @@ ScrollView {
                         visible: !editing
                         onClicked: editing = true
                     }
-
-                    Button {
-                        id: validateButton
-                        highlighted: true
-                        text: qsTr("Valider")
-                        Layout.alignment: Qt.AlignRight
-                        visible: editing
-                        onClicked:
-                            //                if (!foucsOnEmpty())
-                        {
-                            editing = false
-                            users.validate(currentUser.id)
-                        }
-                    }
                 }
             }
         }

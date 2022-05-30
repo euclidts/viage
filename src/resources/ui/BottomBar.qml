@@ -55,9 +55,10 @@ RowLayout {
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
+            busyDialog.open()
             topBar.searchBar.text = ""
             hiring = true
-            users.appendItems(1)
+            users.add()
             user.clear()
         }
     }
