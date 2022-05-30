@@ -22,7 +22,8 @@ class netManager final : public QNetworkAccessManager
     W_OBJECT(netManager)
 
 public:
-    netManager(const QString& url,
+    netManager(Data::People::user_item* current_user,
+               const QString& url,
                const QString& authentication_arguments,
                const QString& extra_arguments);
 

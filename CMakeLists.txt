@@ -126,7 +126,7 @@ include_directories(SYSTEM
     "${CALCULATOR_FOLDER}"
     "${3RDPARTY_FOLDER}/verdigris/src")
 
-set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/appicon.rc")
+set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/appicon.rc")
 
 qt_add_executable(viage
     WIN32 ${app_icon_resource_windows}
@@ -191,8 +191,8 @@ if (NOT ANDROID AND NOT IOS)
         find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
         configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in" "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
 
-        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/ViageLogo.ico")
-        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/ViageLogo.ico")
+        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/ViageLogo.ico")
+        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/ViageLogo.ico")
         set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake)
     endif()
 

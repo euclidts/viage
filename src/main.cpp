@@ -23,7 +23,7 @@
 #include <Items/document_item.hpp>
 #include <wrapped_calculator.hpp>
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     QGuiApplication app(argc, argv);
 
@@ -42,9 +42,14 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     auto context = engine.rootContext();
 
+    using namespace Data;
+    using namespace People;
+
+    user_item* user{new user_item{}};
+
     QString host{"https://viagetestrive.euclidtradingsystems.com"};
 
-    for(int i = 0; i < argc; i++)
+    for (int i = 0; i < argc; i++)
         if (QString::compare(argv[i], "--host") == 0)
         {
             host = argv[i + 1];
@@ -55,12 +60,11 @@ int main(int argc, char *argv[])
 
     using namespace Interface;
 
-    netManager manager{host,
+    netManager manager{user,
+                host,
                 "auth",
                 "format=json&jsconfig=TreatEnumAsInteger"};
 
-    using namespace Data;
-    using namespace People;
     using namespace Wrapper;
 
     // calculator
@@ -110,6 +114,22 @@ int main(int argc, char *argv[])
 
     qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
     context->setContextProperty("bridge", &bridge);
+
+    // send email on documents completed
+    QObject::connect(wrapped_documents.get_inner(),
+                     &item_list<document_item>::validate,
+                     [accounts = wrapped_accounts.get_inner(),
+                     documents = wrapped_documents.get_inner(),
+                     &manager,
+                     &bridge] (int id)
+    {
+        if (bridge.getDocumentsCompleted())
+        {
+            const auto state{accounts->item_at_id(id).state};
+
+//            if (state = )
+        }
+    });
 
     // users
     wrapped_list<item_list<user_item>>

@@ -13,14 +13,15 @@ namespace Interface
 {
 W_OBJECT_IMPL(netManager)
 
-netManager::netManager(const QString& url,
+netManager::netManager(Data::People::user_item *current_user,
+                       const QString& url,
                        const QString &authentication_arguments,
                        const QString &extra_arguments)
     : prefix{url + '/'}
     , auth_args{authentication_arguments}
     , suffix{extra_arguments}
     , rqst{}
-    , user{}
+    , user{current_user}
 {
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);
@@ -68,8 +69,6 @@ void netManager::authenticate(const QString& username,
             {
                 if (authenticating)
                 {
-                    delete user;
-                    user = new Data::People::user_item();
                     authenticating = false;
 
                     if (json.contains("sessionId") && json["sessionId"].isString())
@@ -79,19 +78,19 @@ void netManager::authenticate(const QString& username,
                                           QByteArray::fromStdString(str.toStdString()));
                     }
 
-                    if (json.contains("displayName") && json["displayName"].isString())
+                    if (json.contains("id") && json["id"].isDouble())
                     {
-                        const auto displayName = json["displayName"].toString();
-                        auto lastAndFirst = displayName.split(" ");
-                        user->firstName = lastAndFirst[1];
-                        user->lastName = lastAndFirst[0];
+                        int id{json["id"].toInt()};
+                        std::string str{"users/"};
+                        str.append(std::to_string(id));
+
+                        getFromKey(str.c_str(),
+                                [this](const QByteArray& rep)
+                        {
+                            const auto json{QJsonDocument::fromJson(rep).object()};
+                            user->read(json);
+                        });
                     }
-
-                    if (json.contains("email") && json["email"].isString())
-                        user->eMail = json["email"].toString();
-
-                    if (json.contains("clearance") && json["clearance"].isDouble())
-                        user->clearance = json["clearance"].toInt();
 
                     emit loggedIn(true);
                 }
