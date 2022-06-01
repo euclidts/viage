@@ -166,7 +166,8 @@ qt_import_qml_plugins(viage)
 
 qt_finalize_executable(viage)
 
-# Installer setup copyed from https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeLists.txt
+# Installer setup copyed from
+# https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeLists.txt
 
 if (NOT ANDROID AND NOT IOS)
     set(COMPONENT_NAME_MAIN "Viage")
@@ -189,7 +190,8 @@ if (NOT ANDROID AND NOT IOS)
 
     if (WIN32)
         find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
-        configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in" "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
+        configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in"
+            "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
 
         set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/ViageLogo.ico")
         set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/ViageLogo.ico")
@@ -202,6 +204,8 @@ if (NOT ANDROID AND NOT IOS)
     CPACK_ADD_COMPONENT(${COMPONENT_NAME_MAIN})
 
     cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} ESSENTIAL FORCED_INSTALLATION)
-    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})
-    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/ci/installScript.qs)
+    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES
+        "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})
+    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} SCRIPT
+        ${CMAKE_CURRENT_SOURCE_DIR}/ci/installScript.qs)
 endif()

@@ -12,7 +12,7 @@ namespace Calculator
 life_expectency::life_expectency(simple_item_list<senior_citizen_item>* senior_citizens)
     : seniors{senior_citizens}
 {
-    readMortality(":/ofs.csv");
+    readMortality(":/data/ofs.csv");
 }
 
 void life_expectency::readMortality(const QString& path)

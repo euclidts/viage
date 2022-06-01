@@ -27,7 +27,7 @@ bool user_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &sourc
 
 bool user_filter_model::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
-    if (sortIndex == 0)
+    if (sortRole() == 0)
     {
         const auto leftData{sourceModel()->data(left, People::user_item::LastNameRole)};
         const auto rightData{sourceModel()->data(right, People::user_item::LastNameRole)};
@@ -35,7 +35,7 @@ bool user_filter_model::lessThan(const QModelIndex& left, const QModelIndex& rig
         return leftData.toString() < rightData.toString();
     }
 
-    if (sortIndex == 1)
+    if (sortRole() == 1)
     {
         const auto leftData{sourceModel()->data(left, People::user_item::CompanyRole)};
         const auto rightData{sourceModel()->data(right, People::user_item::CompanyRole)};

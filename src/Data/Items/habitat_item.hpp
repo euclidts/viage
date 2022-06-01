@@ -110,16 +110,16 @@ private:
     // --- Habitat ---
     Places::address_item address;
     // Global
-    QString equipements;
-    QString problems;
+    QString equipements{""};
+    QString problems{""};
     // Habitat data
-    habitatTypes habitatType;
-    int rooms;
-    int rawSurface;
-    int surface;
-    int m2Constructed;
-    int m2Available;
-    int m3s;
+    habitatTypes habitatType{None};
+    int rooms{2};
+    int rawSurface{50};
+    int surface{50};
+    int m2Constructed{25};
+    int m2Available{25};
+    int m3s{15625};
 
     void checkCompleted() override;
 };

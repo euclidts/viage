@@ -62,7 +62,7 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
 
 bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-    if (sortIndex == 0)
+    if (sortRole() == 0)
     {
         const auto leftData{sourceModel()->data(left, account_item::CreatedRole)};
         const auto rightData{sourceModel()->data(right, account_item::CreatedRole)};
@@ -70,7 +70,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
         return leftData.toDate() < rightData.toDate();
     }
 
-    if (sortIndex == 1)
+    if (sortRole() == 1)
     {
         const auto leftData{sourceModel()->data(left, account_item::ModifiedRole)};
         const auto rightData{sourceModel()->data(right, account_item::ModifiedRole)};
@@ -78,7 +78,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
         return leftData.toDate() < rightData.toDate();
     }
 
-    if (sortIndex == 2)
+    if (sortRole() == 2)
     {
         const auto leftData{sourceModel()->data(left, account_item::AcronymRole)};
         const auto rightData{sourceModel()->data(right, account_item::AcronymRole)};
@@ -86,7 +86,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
         return leftData.toString() < rightData.toString();
     }
 
-    if (sortIndex == 3)
+    if (sortRole() == 3)
     {
         const auto leftData{sourceModel()->data(left, account_item::OwnersRole)};
         const auto rightData{sourceModel()->data(right, account_item::OwnersRole)};
@@ -95,7 +95,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
                 < rightData.toJsonArray()[0].toObject()["lastName"].toString();
     }
 
-    if (sortIndex == 4)
+    if (sortRole() == 4)
     {
         const auto leftData{sourceModel()->data(left, account_item::HabitatRole)};
         const auto rightData{sourceModel()->data(right, account_item::HabitatRole)};
@@ -107,7 +107,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
                 < address_2["zip"].toString();
     }
 
-    if (sortIndex == 5)
+    if (sortRole() == 5)
     {
         const auto leftData{sourceModel()->data(left, account_item::HabitatRole)};
         const auto rightData{sourceModel()->data(right, account_item::HabitatRole)};
@@ -119,7 +119,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
                 < address_2["canton"].toString();
     }
 
-    if (sortIndex == 6)
+    if (sortRole() == 6)
     {
         const auto leftData{sourceModel()->data(left, account_item::UserLastNameRole)};
         const auto rightData{sourceModel()->data(right, account_item::UserLastNameRole)};
@@ -127,7 +127,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
         return leftData.toString() < rightData.toString();
     }
 
-    if (sortIndex == 7)
+    if (sortRole() == 7)
     {
         const auto leftData{sourceModel()->data(left, account_item::CompanyRole)};
         const auto rightData{sourceModel()->data(right, account_item::CompanyRole)};

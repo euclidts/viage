@@ -30,6 +30,8 @@ smtp::smtp(const QString& usr,
     , timeout{timeout}
     , socket{new QSslSocket(this)}
 {
+//    socket->setProtocol(QSsl::Tls);
+
     connect(socket, &QSslSocket::readyRead,
             this, &smtp::readyRead);
 
@@ -151,6 +153,15 @@ void smtp::readyRead()
 
         state = HandShake;
     }
+    /*else if (state == Tls && responseLine == "250")
+    {
+        // Trying AUTH
+        qDebug() << "STarting Tls";
+        *t << "STARTTLS" << "\r\n";
+        t->flush();
+
+        state = HandShake;
+    }*/
     else if (state == HandShake && responseLine == "250")
         // This stage currently returns
         // qt.network.ssl: QSslSocket::startClientEncryption: cannot start handshake on non-plain connectionun

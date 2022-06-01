@@ -26,9 +26,11 @@ RowLayout {
             icon.color: Material.foreground
         }
 
-        onActivated: rootStack.currentIndex < 1 ?
-                         accountModel.setSortIndex = currentIndex
-                       : userModel.setSortIndex = currentIndex
+        onActivated: {
+            rootStack.currentIndex === 0 ?
+                         accountModel.sortRole = currentIndex
+                       : userModel.sortRole = currentIndex
+        }
 
         model: rootStack.currentIndex < 1 ?
                    [qsTr("Création"),
