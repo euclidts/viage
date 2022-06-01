@@ -31,14 +31,14 @@ RowLayout {
                        : userModel.setSortIndex = currentIndex
 
         model: rootStack.currentIndex < 1 ?
-                   [qsTr("Creation"),
+                   [qsTr("Création"),
                     qsTr("Dernière modification"),
                     qsTr("Acronyme"),
                     qsTr("Partenaire"),
-                    qsTr("Code Postal"),
+                    qsTr("NPA"),
                     qsTr("Canton"),
                     qsTr("Conseiller"),
-                    qsTr("Sosciete")]
+                    qsTr("Société")]
                  : [qsTr("Nom"),
                     qsTr("Sosciete")]
 

@@ -48,13 +48,14 @@ ColumnLayout {
             required property var model
             required property int index
             property var updateFunc: function() {
-                model.relativePath = urlProvider.path
+                fromCamera ? model.relativePath = photoBooth.path
+                           : model.relativePath = urlProvider.path
             }
 
             Component.onCompleted: {
                 if (root.aquiring) {
-                    model.relativePath = urlProvider.path
                     root.aquiring = false
+                    updateFunc()
                     busyDialog.close()
                 }
             }
@@ -77,23 +78,20 @@ ColumnLayout {
             RoundButton {
                 icon.source: "qrc:/icons/camera.svg"
                 onClicked: {
-                    urlProvider.jsonMetadata = jsonMetadata
-                    urlProvider.func = updateFunc
-                    urlProvider.path = bridge.getPictureName(currentAccount.id,
+                    photoBooth.func = updateFunc
+                    photoBooth.path = bridge.getPictureName(currentAccount.id,
                                                              name,
                                                              index)
-                    urlProvider.camerLoader.active = true
+                    photoBooth.loader.active = true
                 }
             }
 
-            DownloadButton {}
-
-            //            RoundButton {
-            //                icon.source: "qrc:/icons/trash-alt.svg"
-            //                onClicked: {
-            //                    listOf.removeItems(model.index, model.index)
-            //                }
-            //            }
+            RoundButton {
+                icon.source: "qrc:/icons/trash-alt.svg"
+                onClicked: {
+                    listOf.removeItems(model.index, model.index)
+                }
+            }
         }
     }
 
@@ -109,12 +107,12 @@ ColumnLayout {
         RoundButton {
             icon.source: "qrc:/icons/camera.svg"
             onClicked: {
-                urlProvider.jsonMetadata = jsonMetadata
-                urlProvider.func = aquireFunc
-                urlProvider.path = bridge.getPictureName(currentAccount.id,
+                photoBooth.jsonMetadata = jsonMetadata
+                photoBooth.func = aquireFunc
+                photoBooth.path = bridge.getPictureName(currentAccount.id,
                                                          name,
                                                          root.count)
-                urlProvider.camerLoader.active = true
+                photoBooth.loader.active = true
             }
         }
     }

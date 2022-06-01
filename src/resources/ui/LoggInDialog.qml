@@ -49,7 +49,7 @@ Dialog {
                 placeholderText: qsTr("Mot de passe")
                 text: ""
                 echoMode: TextInput.Password
-                onAccepted: usernNameField.text != "" ? validate()
+                onAccepted: usernNameField.text !== "" ? validate()
                                                       : usernNameField.focus = true
             }
 

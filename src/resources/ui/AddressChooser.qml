@@ -7,7 +7,7 @@ import QtQuick.Controls.Material.impl
 GroupBox {
     id: root
     label: Label {
-        text: qsTr("Address")
+        text: qsTr("Addresse")
         font.italic: true
     }
     Layout.topMargin: 12
@@ -43,7 +43,7 @@ GroupBox {
                 Layout.fillWidth: true
 
                 Label {
-                    text: qsTr("Code Postal")
+                    text: qsTr("NPA")
                     font.italic: true
                     Layout.alignment: Qt.AlignHCenter
                 }

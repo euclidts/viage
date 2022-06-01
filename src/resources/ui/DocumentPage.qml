@@ -34,7 +34,7 @@ ScrollView {
 
                     DocumentListView {
                         id: passport
-                        name: qsTr("Pieces d'identité des parteniares")
+                        name: qsTr("Pièces d’identité des partenaires")
                         documentCategory: 2
                         documentsFrom: documents
                         canEdit: editing
@@ -74,7 +74,7 @@ ScrollView {
 
                     DocumentListView {
                         id: insurance
-                        name: qsTr("Assurance du batiment")
+                        name: qsTr("Assurance du bâtiment")
                         documentCategory: 64
                         documentsFrom: documents
                         canEdit: editing
@@ -82,7 +82,7 @@ ScrollView {
 
                     DocumentListView {
                         id: beb
-                        name: qsTr("Cas échéant / police détaillé de l'établissement ou le BEB")
+                        name: qsTr("Cas échéant / police détaillée de l’établissement ou le BEB")
                         documentCategory: 128
                         documentsFrom: documents
                         canEdit: editing
@@ -90,7 +90,7 @@ ScrollView {
 
                     DocumentListView {
                         id: jobs
-                        name: qsTr("Descriptif / justificatifs des traveaux des 5 dernières années")
+                        name: qsTr("Descriptif / justificatifs des travaux des 5 dernières années")
                         documentCategory: 256
                         documentsFrom: documents
                         canEdit: editing
@@ -98,7 +98,7 @@ ScrollView {
 
                     DocumentListView {
                         id: futurs
-                        name: qsTr("Descriptif des traveaux à prévoir / devis")
+                        name: qsTr("Descriptif des travaux à prévoir / devis")
                         documentCategory: 512
                         documentsFrom: documents
                         canEdit: editing

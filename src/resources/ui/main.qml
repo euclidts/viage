@@ -67,6 +67,8 @@ ApplicationWindow {
 
     UrlProvider { id: urlProvider }
 
+    PhotoBooth { id: photoBooth }
+
     SettingsDialog { id: settingsDialog }
 
     StackLayout {

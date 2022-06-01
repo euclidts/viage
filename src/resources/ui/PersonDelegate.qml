@@ -40,7 +40,7 @@ ColumnLayout {
     }
 
     LabeledTextField {
-        name: qsTr("Couriel")
+        name: qsTr("Courriel")
         textOf: model.eMail
         canEdit: editing
         onEdit: function(txt) { model.eMail = txt }

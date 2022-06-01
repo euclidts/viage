@@ -21,7 +21,7 @@ ScrollView {
                     Layout.margins: 6
                     dateOf: rent
                     maxYear: 30
-                    name: qsTr("Date de l'évaluation")
+                    name: qsTr("Date estimée de la transaction")
                 }
 
                 ListView {
@@ -46,7 +46,7 @@ ScrollView {
 
                         Label {
                             Layout.margins: 6
-                            text: qsTr("Patenaire " + (index + 1))
+                            text: qsTr("Partenaire " + (index + 1))
                             font.bold: true
                         }
 
@@ -80,7 +80,7 @@ ScrollView {
                         spacing: 0
 
                         Label {
-                            text: qsTr("Valeur de marché du bien")
+                            text: qsTr("Valeur estimée du bien")
                             font.italic: true
                             Layout.alignment: Qt.AlignHCenter
                         }
