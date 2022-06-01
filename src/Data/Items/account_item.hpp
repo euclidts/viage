@@ -49,17 +49,19 @@ struct account_item
         HabitatCompleted = 4,
         ExteriorCompleted = 8,
         DocumentsCompleted = 16,
-        Sent = 32,
-        AwaitingExpertise = 64,
-        Expertized = 128
+        Onboarded = 32,
+        Received = 64,
+        Expertized = 128,
+        Notarized = 256,
+        Payed = 512
     };
 
     states state{Initialized};
 
     QDate created;
     QDate modified;
-    QString userFirstName{""};
-    QString userLastName{""};
+    QString advisorFirstName{""};
+    QString advisorLastName{""};
     QString company{""};
 
     QString acronym{""};
@@ -78,8 +80,8 @@ struct account_item
         StateRole,
         CreatedRole,
         ModifiedRole,
-        UserFirstNameRole,
-        UserLastNameRole,
+        AdvisorFirstNameRole,
+        AdvisorLastNameRole,
         CompanyRole,
         AcronymRole,
         IdRole

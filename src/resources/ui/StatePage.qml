@@ -27,19 +27,31 @@ ScrollView {
                     CheckBox {
                         checked: hasFlag(currentAccount.state, 32)
                         text: stateNames[1]
-                        checkable: !checked
+                        checkable: bridge.getClearance() === 4
                     }
 
                     CheckBox {
                         checked: hasFlag(currentAccount.state, 64)
                         text: stateNames[2]
-                        checkable: !checked
+                        checkable: bridge.getClearance() === 4
                     }
 
                     CheckBox {
                         checked: hasFlag(currentAccount.state, 128)
                         text: stateNames[3]
-                        checkable: !checked
+                        checkable: bridge.getClearance() === 4
+                    }
+
+                    CheckBox {
+                        checked: hasFlag(currentAccount.state, 256)
+                        text: stateNames[4]
+                        checkable: bridge.getClearance() === 4
+                    }
+
+                    CheckBox {
+                        checked: hasFlag(currentAccount.state, 512)
+                        text: stateNames[5]
+                        checkable: bridge.getClearance() === 4
                     }
                 }
             }

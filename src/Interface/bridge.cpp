@@ -54,13 +54,7 @@ void bridge::downloadFile(const QString &key, const QUrl &directory, const QStri
 
 void bridge::requestReport(const QUrl &directory) const
 {
-    auto now{QDateTime::currentDateTime()};
-
-    QString fileName{"Viage-"};
-    fileName.append(now.toString("dd-MM-yy-hh-mm"));
-    fileName.append(".xls");
-
-    mng->downloadFile("export/accounts", filePath(directory, fileName));
+    mng->downloadFile("export/accounts", filePath(directory, "Viage.xlsx"));
 }
 
 QUrl bridge::getPictureName(int id, QString& name, int index) const
@@ -73,6 +67,11 @@ QUrl bridge::getPictureName(int id, QString& name, int index) const
                                + '_'
                                + QString::number(index + 1)
                                + ".jpeg");
+}
+
+int bridge::getClearance() const
+{
+    return mng->getClearance();
 }
 
 bool bridge::getDocumentsCompleted() const

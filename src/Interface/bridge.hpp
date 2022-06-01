@@ -45,6 +45,9 @@ public:
     QUrl getPictureName(int id, QString& name, int index) const;
     W_INVOKABLE(getPictureName, (int, QString&, int))
 
+    int getClearance() const;
+    W_INVOKABLE(getClearance, ())
+
     void setQmlObject(QObject* obj) noexcept { qmlObject = obj; }
 
     void setDocuments(Data::item_list<Data::document_item>* newDocuments);

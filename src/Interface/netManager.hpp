@@ -1,18 +1,16 @@
 #ifndef NETMANAGER_HPP
 #define NETMANAGER_HPP
 
-#include <wobjectdefs.h>
-
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QSslConfiguration>
 
+#include <wobjectdefs.h>
+
+#include <Items/user_item.hpp>
+
 namespace Data
 {
-namespace People
-{
-struct user_item;
-}
 }
 
 namespace Interface
@@ -24,8 +22,7 @@ class netManager final : public QNetworkAccessManager
     W_OBJECT(netManager)
 
 public:
-    netManager(Data::People::user_item* current_user,
-               const QString& url,
+    netManager(const QString& url,
                const QString& authentication_arguments,
                const QString& extra_arguments);
 
@@ -50,6 +47,8 @@ public:
                   const QString& body,
                   const QStringList& files);
 
+    int getClearance() const;
+
 private:
     QNetworkRequest rqst;
     const QString prefix;
@@ -62,7 +61,7 @@ private:
 
     bool authenticating{false};
 
-    Data::People::user_item* user;
+    Data::People::user_item user{};
     smtp* mailer{nullptr};
 };
 

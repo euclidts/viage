@@ -28,9 +28,12 @@ ApplicationWindow {
     property bool hiring: false
     readonly property var stateNames: [
         qsTr("Incomplet"),
-        qsTr("Envoyé"),
-        qsTr("En attente d'expertise"),
-        qsTr("Expertisé")
+        qsTr("Réception du dossier par Viage SA "),
+        qsTr("Expert immobilier"),
+        qsTr("Décision du CA de Viager Swiss SA"),
+        qsTr("Rendez-vous chez le notaire"),
+        qsTr("Paiement de la commission")
+
     ]
 
     function onLogin (success: bool) {

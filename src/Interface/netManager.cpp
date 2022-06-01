@@ -8,21 +8,18 @@
 
 #include "netManager.hpp"
 #include "smtp.hpp"
-#include <Items/user_item.hpp>
 
 namespace Interface
 {
 W_OBJECT_IMPL(netManager)
 
-netManager::netManager(Data::People::user_item *current_user,
-                       const QString& url,
+netManager::netManager(const QString& url,
                        const QString &authentication_arguments,
                        const QString &extra_arguments)
     : prefix{url + '/'}
     , auth_args{authentication_arguments}
     , suffix{extra_arguments}
     , rqst{}
-    , user{current_user}
 {
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);
@@ -89,7 +86,7 @@ void netManager::authenticate(const QString& username,
                                 [this](const QByteArray& rep)
                         {
                             const auto json{QJsonDocument::fromJson(rep).object()};
-                            user->read(json);
+                            user.read(json);
                         });
                     }
 
@@ -165,6 +162,11 @@ void netManager::sendMail(const QString& from,
                           const QStringList& files)
 {
     mailer->sendMail(from, to, subject, body, files);
+}
+
+int netManager::getClearance() const
+{
+    return user.clearance;
 }
 
 void netManager::setCallback(QNetworkReply* reply,

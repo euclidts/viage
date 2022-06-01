@@ -41,7 +41,7 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
 
     const auto& userName{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    account_item::UserLastNameRole)};
+                    account_item::AdvisorLastNameRole)};
     const auto& company{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     account_item::CompanyRole)};
@@ -121,8 +121,8 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
 
     if (sortRole() == 6)
     {
-        const auto leftData{sourceModel()->data(left, account_item::UserLastNameRole)};
-        const auto rightData{sourceModel()->data(right, account_item::UserLastNameRole)};
+        const auto leftData{sourceModel()->data(left, account_item::AdvisorLastNameRole)};
+        const auto rightData{sourceModel()->data(right, account_item::AdvisorLastNameRole)};
 
         return leftData.toString() < rightData.toString();
     }

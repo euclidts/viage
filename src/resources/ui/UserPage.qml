@@ -18,12 +18,6 @@ ScrollView {
                 width: parent.width
                 spacing: 12
 
-                Label {
-                    Layout.margins: 6
-                    text: qsTr("Conseiller ") + (currentUser.id)
-                    font.bold: true
-                }
-
                 PersonDelegate {
                     Layout.margins: 12
                     Layout.fillWidth: true
