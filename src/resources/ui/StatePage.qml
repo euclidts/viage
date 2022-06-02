@@ -53,6 +53,12 @@ ScrollView {
                         text: stateNames[5]
                         checkable: bridge.clearance === 4
                     }
+
+                    RoundButton {
+                        text: qsTr("Télécharger le document")
+                        icon.source: "qrc:/icons/download.svg"
+                        highlighted: true
+                    }
                 }
             }
         }

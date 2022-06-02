@@ -140,7 +140,7 @@ ScrollView {
                                 visible: editing
 
                                 IntChooser {
-                                    name: qsTr("M2 Construit")
+                                    name: qsTr("M2 Construits")
                                     minimum: 1
                                     maximum: 1000
                                     numberOf: habitat.m2Constructed
@@ -148,7 +148,7 @@ ScrollView {
                                 }
 
                                 IntChooser {
-                                    name: qsTr("M2 Disponible")
+                                    name: qsTr("M2 Disponibles")
                                     minimum: 1
                                     maximum: 1000
                                     numberOf: habitat.m2Available
@@ -182,7 +182,7 @@ ScrollView {
                     }
 
                     LabeledTextField {
-                        name: qsTr("Equipement de proximité")
+                        name: qsTr("Equipements de proximité")
                         placeHolder: qsTr("* Optionnel")
                         textOf: habitat.equipements
                         canEdit: editing

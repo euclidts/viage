@@ -30,7 +30,7 @@ jobs:
     - run: aqt install-tool linux desktop tools_ifw qt.tools.ifw.43
 
     - name: install dependencies
-      run: sudo apt install libegl1-mesa mesa-common-dev zlib1g-dev liblzma-dev libbz2-dev
+      run: sudo apt install libegl1-mesa mesa-common-dev zlib1g-dev liblzma-dev libbz2-dev libxcb-icccm4-dev
 
 #    - uses: seanmiddleditch/gha-setup-ninja@v3
 
