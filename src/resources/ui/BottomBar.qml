@@ -40,12 +40,12 @@ RowLayout {
         onClicked: {
             busyDialog.open()
             topBar.searchBar.text = ""
-            onboarding = true
-            accounts.add()
             infants.clear()
             habitat.clear()
             exterior.clear()
             documents.clear()
+            onboarding = true
+            accounts.add()
         }
     }
 
@@ -101,7 +101,8 @@ RowLayout {
 
     MaterialButton {
         id: continueButton
-        text: qsTr("Continuer")
+        text: accountsPages.currentIndex === 5 ? qsTr("Terminer")
+                                               : qsTr("Continuer")
 
         visible: ( accountsPages.currentIndex > 0
                   && accountsPages.itemAt(accountsPages.currentIndex).completed )

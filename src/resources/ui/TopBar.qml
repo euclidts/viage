@@ -162,7 +162,8 @@ RowLayout {
                         busyDialog.open()
                         infants.loadFrom(currentAccount.id)
                     }
-                    enabled: hasFlag(currentAccount.state, 1)
+//                    enabled: hasFlag(currentAccount.state, 1)
+                    enabled: accountsPages.currentIndex >= 2
                 }
 
                 RoundButton {
@@ -177,7 +178,7 @@ RowLayout {
                         busyDialog.open()
                         habitat.loadFrom(currentAccount.id)
                     }
-                    enabled: hasFlag(currentAccount.state, 2) & infantButton.enabled
+                    enabled: hasFlag(currentAccount.state, 2) /*& infantButton.enabled*/
                 }
 
                 RoundButton {

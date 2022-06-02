@@ -13,6 +13,7 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
     this->inner->complitionChecks();
 
     this->makeConnections(parentList);
+    this->connectRemove();
 
     this->connect(this->inner,
                   &Inner::addIn,

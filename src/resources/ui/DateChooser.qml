@@ -61,8 +61,7 @@ GroupBox {
                             qsTr("Octobre"),
                             qsTr("Novembre"),
                             qsTr("Decembre")]
-                        onActivated:
-                        {
+                        onActivated: {
                             let date = dateOf.birthDay
                             date.setMonth(currentIndex)
                             dateOf.birthDay = date

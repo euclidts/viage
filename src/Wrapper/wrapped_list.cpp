@@ -62,6 +62,12 @@ void wrapped_list<Inner>::makeConnections() const
         });
     });
 
+    connectRemove();
+}
+
+template<typename Inner>
+void wrapped_list<Inner>::connectRemove() const
+{
     this->connect(this->inner,
                   &Inner::remove,
                   this,
@@ -84,6 +90,7 @@ void wrapped_list<Inner>::makeConnections() const
             }
         });
     });
+
 }
 
 }

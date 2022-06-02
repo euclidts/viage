@@ -91,7 +91,7 @@ GroupBox {
                 RoundButton {
                     icon.source: "qrc:/icons/trash-alt.svg"
                     onClicked: {
-                        listOf.remove(model.id)
+                        documentsFrom.remove(model.id)
                     }
                 }
             }

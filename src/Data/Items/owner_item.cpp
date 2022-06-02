@@ -16,12 +16,6 @@ owner_item::owner_item()
     , address_item()
     , birthDay{QDate::currentDate().addYears(-AGE_MIN)}
 {
-    //    using namespace std::chrono;
-
-    //    auto tp = system_clock::now();
-    //    auto dp = floor<days>(tp);
-    //    year_month_day ymd{dp};
-    //    birthYear = (int)ymd.year() - 100;
 }
 
 QHash<int, QByteArray> owner_item::roleNames()
@@ -47,11 +41,11 @@ QVariant owner_item::data(int role) const
     switch (role)
     {
     case BirthDayRole:
-        return QVariant(birthDay);
+        return birthDay;
     case CivilStatusRole:
-        return QVariant(civilStatus);
+        return civilStatus;
     case AVSRole:
-        return QVariant(avs);
+        return avs;
     }
 
     extra_data = address_item::data(role);

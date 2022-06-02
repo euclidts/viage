@@ -30,6 +30,9 @@ public:
 
     void makeConnections() const;
     void get() const;
+
+protected:
+    void connectRemove() const;
 };
 
 }
