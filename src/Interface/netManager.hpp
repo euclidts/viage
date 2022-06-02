@@ -40,6 +40,9 @@ public:
     void postToKey(const char* key,
                    const QByteArray& data,
                    const std::function<void (const QByteArray &)> &callback);
+    void deleteToKey(const char* key,
+                     const QByteArray& data,
+                     const std::function<void (const QByteArray &)> &callback);
 
     void sendMail(const QString& from,
                   const QString& to,

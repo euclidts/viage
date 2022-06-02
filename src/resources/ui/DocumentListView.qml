@@ -87,7 +87,7 @@ ColumnLayout {
             RoundButton {
                 icon.source: "qrc:/icons/trash-alt.svg"
                 onClicked: {
-                    listOf.removeItems(model.index, model.index)
+                    listOf.remove(model.id)
                 }
             }
         }

@@ -61,6 +61,29 @@ void wrapped_list<Inner>::makeConnections() const
             }
         });
     });
+
+    this->connect(this->inner,
+                  &Inner::remove,
+                  this,
+                  [this] (int id)
+    {
+        const QJsonObject json{{"id", id}};
+
+        this->mng->deleteToKey(this->inner->key(),
+                               QJsonDocument{json}.toJson(),
+                               [this, id](const QByteArray& rep)
+        {
+            auto json = QJsonDocument::fromJson(rep).object();
+
+            if (json.contains("success") && json["success"].isBool())
+            {
+                if (json["success"].toBool())
+                    this->inner->erase(id);
+                else
+                    qDebug() << "Remove error :" << json["errorMessage"].toString();
+            }
+        });
+    });
 }
 
 }

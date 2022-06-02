@@ -169,4 +169,31 @@ void item_list<T>::checkCompleted()
     this->setCompleted(true);
 }
 
+template<typename T>
+void item_list<T>::erase(int id)
+{
+    int index{index_at_id(id)};
+
+    if (index == -1)
+        return;
+
+    emit this->preItemsRemoved(index, index);
+
+    this->m_items.erase(this->m_items.begin() + index);
+
+    emit this->postItemsRemoved();
+}
+
+template<typename T>
+int item_list<T>::index_at_id(int id)
+{
+    int index{-1};
+
+    for (int i = 0; i < this->m_items.size(); i++)
+        if (this->m_items[i].id == id)
+            index = i;
+
+    return index;
+}
+
 }

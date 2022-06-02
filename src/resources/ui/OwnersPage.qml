@@ -133,7 +133,7 @@ ListView {
                         id: deleteButton
                         icon.source: "qrc:/icons/trash-alt.svg"
                         visible: owner.editing && model.index > 0
-                        onClicked: owners.removeItems(model.index, model.index)
+                        onClicked: owners.remove(model.id)
                     }
                 }
             }

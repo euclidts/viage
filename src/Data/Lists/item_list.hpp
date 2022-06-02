@@ -28,9 +28,14 @@ public:
     void addInWith(int parentId, const QJsonObject& obj)
     W_SIGNAL(addInWith, parentId, obj)
 
+    void remove(int id)
+    W_SIGNAL(remove, id)
+
     void appendWith(int id);
     void appendWith(const QJsonObject &json);
     W_SLOT(appendWith, (const QJsonObject&))
+
+    void erase(int id);
 
     void read(const QJsonArray& json);
     void read(const QByteArray& bytes);
@@ -42,6 +47,8 @@ private:
     void writeWithKey(QJsonObject &json) override;
 
     void checkCompleted() override;
+
+    int index_at_id(int id);
 };
 
 }

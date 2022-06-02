@@ -156,6 +156,13 @@ void netManager::postToKey(const char* key,
     setCallback(reply, callback);
 }
 
+void netManager::deleteToKey(const char *key, const QByteArray &data, const std::function<void (const QByteArray &)> &callback)
+{
+    setRequest(key);
+    auto* reply = sendCustomRequest(rqst, "DELETE", data);
+    setCallback(reply, callback);
+}
+
 void netManager::sendMail(const QString& from,
                           const QString& to,
                           const QString& subject,
@@ -178,8 +185,7 @@ void netManager::setCallback(QNetworkReply* reply,
 
 void netManager::setRequest(const char* key)
 {
-    QUrl url{prefix + key + '?'
-                + '&' + suffix};
+    QUrl url{prefix + key + '?' + suffix};
 
     rqst.setUrl(url);
 }
