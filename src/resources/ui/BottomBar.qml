@@ -12,7 +12,7 @@ RowLayout {
     MaterialButton {
         visible: accountsPages.currentIndex < 1
                  && rootStack.currentIndex === 0
-                 && bridge.getClearance() === 4
+                 && bridge.clearance === 4
         text: qsTr("Conseillers")
         icon.source: "qrc:/icons/users.svg"
         icon.width: height * 0.6

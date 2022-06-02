@@ -30,7 +30,6 @@
         <file alias="SettingsDialog.qml">ui/SettingsDialog.qml</file>
         <file alias="SwissCantons.qml">ui/SwissCantons.qml</file>
         <file alias="TopBar.qml">ui/TopBar.qml</file>
-        <file alias="PhotoBooth.qml">ui/PhotoBooth.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="ViageLogo.svg">images/ViageLogo.svg</file>

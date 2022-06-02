@@ -32,9 +32,9 @@ ColumnLayout {
         interactive: false
         implicitHeight: contentHeight
         Layout.fillWidth: true
+        onCountChanged: positionViewAtEnd()
 
         property bool aquiring: false
-        property bool fromCamera: false
 
         model: DocumentFilterModel {
             sourceModel: DocumentModel { list: documents }
@@ -48,8 +48,7 @@ ColumnLayout {
             required property var model
             required property int index
             property var updateFunc: function() {
-                fromCamera ? model.relativePath = photoBooth.path
-                           : model.relativePath = urlProvider.path
+                model.relativePath = urlProvider.path
             }
 
             Component.onCompleted: {
@@ -69,7 +68,6 @@ ColumnLayout {
 
             FolderButton {
                 onClicked: {
-                    urlProvider.jsonMetadata = jsonMetadata
                     urlProvider.func = updateFunc
                     urlProvider.fileDialog.open()
                 }
@@ -78,11 +76,11 @@ ColumnLayout {
             RoundButton {
                 icon.source: "qrc:/icons/camera.svg"
                 onClicked: {
-                    photoBooth.func = updateFunc
-                    photoBooth.path = bridge.getPictureName(currentAccount.id,
+                    urlProvider.func = updateFunc
+                    urlProvider.path = bridge.getPictureName(currentAccount.id,
                                                              name,
                                                              index)
-                    photoBooth.loader.active = true
+                    urlProvider.loader.active = true
                 }
             }
 
@@ -107,12 +105,12 @@ ColumnLayout {
         RoundButton {
             icon.source: "qrc:/icons/camera.svg"
             onClicked: {
-                photoBooth.jsonMetadata = jsonMetadata
-                photoBooth.func = aquireFunc
-                photoBooth.path = bridge.getPictureName(currentAccount.id,
+                urlProvider.jsonMetadata = jsonMetadata
+                urlProvider.func = aquireFunc
+                urlProvider.path = bridge.getPictureName(currentAccount.id,
                                                          name,
                                                          root.count)
-                photoBooth.loader.active = true
+                urlProvider.loader.active = true
             }
         }
     }

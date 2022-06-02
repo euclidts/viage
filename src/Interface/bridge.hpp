@@ -7,6 +7,8 @@
 
 #include <wobjectdefs.h>
 
+#include "netManager.hpp"
+
 namespace Data
 {
 struct document_item;
@@ -17,8 +19,6 @@ class item_list;
 
 namespace Interface
 {
-class netManager;
-
 class bridge final : public QObject
 {
     W_OBJECT(bridge)
@@ -45,9 +45,6 @@ public:
     QUrl getPictureName(int id, QString& name, int index) const;
     W_INVOKABLE(getPictureName, (int, QString&, int))
 
-    int getClearance() const;
-    W_INVOKABLE(getClearance, ())
-
     void setQmlObject(QObject* obj) noexcept { qmlObject = obj; }
 
     void setDocuments(Data::item_list<Data::document_item>* newDocuments);
@@ -57,7 +54,13 @@ public:
     void documentsCompletedChanged()
     W_SIGNAL(documentsCompletedChanged)
 
+    int getClearance() const;
+
+    void clearanceChanged()
+    W_SIGNAL(clearanceChanged)
+
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
+    W_PROPERTY(int, clearance READ getClearance NOTIFY clearanceChanged)
 
     bool has_flag(int value, int flag) const noexcept;
 
@@ -66,6 +69,8 @@ private:
     netManager* mng;
     QTemporaryDir tempDir;
     QString rootPath;
+
+    int &clearance{mng->user.clearance};
 
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};

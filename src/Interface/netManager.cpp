@@ -87,6 +87,7 @@ void netManager::authenticate(const QString& username,
                         {
                             const auto json{QJsonDocument::fromJson(rep).object()};
                             user.read(json);
+                            emit clearanceChanged();
                         });
                     }
 
@@ -162,11 +163,6 @@ void netManager::sendMail(const QString& from,
                           const QStringList& files)
 {
     mailer->sendMail(from, to, subject, body, files);
-}
-
-int netManager::getClearance() const
-{
-    return user.clearance;
 }
 
 void netManager::setCallback(QNetworkReply* reply,

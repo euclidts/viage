@@ -51,6 +51,7 @@ void wrapped_list<Inner>::makeConnections() const
                                  [this](const QByteArray& rep)
         {
             auto json = QJsonDocument::fromJson(rep).object();
+
             if (json.contains("success") && json["success"].isBool())
             {
                 if (json["success"].toBool())

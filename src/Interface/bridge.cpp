@@ -5,7 +5,6 @@
 #include <wobjectimpl.h>
 
 #include "bridge.hpp"
-#include "netManager.hpp"
 #include <Items/document_item.hpp>
 #include <Lists/item_list.hpp>
 
@@ -25,6 +24,9 @@ bridge::bridge(Interface::netManager* manager, Data::item_list<Data::document_it
 
     connect(mng, &netManager::loggedIn,
             this, &bridge::onLogin);
+
+    connect(mng, &netManager::clearanceChanged,
+            this, &bridge::clearanceChanged);
 
     using namespace Data;
 
@@ -71,7 +73,7 @@ QUrl bridge::getPictureName(int id, QString& name, int index) const
 
 int bridge::getClearance() const
 {
-    return mng->getClearance();
+    return clearance;
 }
 
 bool bridge::getDocumentsCompleted() const

@@ -47,7 +47,10 @@ public:
                   const QString& body,
                   const QStringList& files);
 
-    int getClearance() const;
+    Data::People::user_item user{};
+
+    void clearanceChanged()
+    W_SIGNAL(clearanceChanged)
 
 private:
     QNetworkRequest rqst;
@@ -61,7 +64,6 @@ private:
 
     bool authenticating{false};
 
-    Data::People::user_item user{};
     smtp* mailer{nullptr};
 };
 

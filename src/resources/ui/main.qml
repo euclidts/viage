@@ -70,8 +70,6 @@ ApplicationWindow {
 
     UrlProvider { id: urlProvider }
 
-    PhotoBooth { id: photoBooth }
-
     SettingsDialog { id: settingsDialog }
 
     StackLayout {
@@ -160,6 +158,10 @@ ApplicationWindow {
                 delegate: AccountDelegate {}
                 onMovementStarted: topBar.searchBar.focus = false
                 clip: true
+                onCountChanged: {
+                    if (onboarding)
+                        positionViewAtEnd()
+                }
             }
 
             OwnersPage { id: ownersPage }
@@ -218,6 +220,12 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 model: userModel
                 delegate: UserDelegate {}
+                onMovementStarted: topBar.searchBar.focus = false
+                clip: true
+                onCountChanged: {
+                    if (hiring)
+                        positionViewAtEnd()
+                }
             }
 
             UserPage { id: userPage }
