@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<list_model<document_item>>("Data", 1, 0, "DocumentModel");
     qmlRegisterType<document_filter_model>("Data", 1, 0, "DocumentFilterModel");
 
-    bridge bridge{&manager, wrapped_documents.get_inner()};
+    bridge bridge{&manager, wrapped_accounts.get_inner(), wrapped_documents.get_inner()};
 
     qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
     context->setContextProperty("bridge", &bridge);

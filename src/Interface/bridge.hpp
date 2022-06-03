@@ -12,6 +12,7 @@
 namespace Data
 {
 struct document_item;
+struct account_item;
 
 template <typename T>
 class item_list;
@@ -25,7 +26,8 @@ class bridge final : public QObject
 
 public:
     bridge(Interface::netManager* manager,
-           Data::item_list<Data::document_item>* docs);
+           Data::item_list<Data::account_item>* accounts,
+           Data::item_list<Data::document_item>* documents);
 
     void onLogin(const bool& success) const;
 
@@ -55,7 +57,6 @@ public:
     W_SIGNAL(documentsCompletedChanged)
 
     int getClearance() const;
-
     void clearanceChanged()
     W_SIGNAL(clearanceChanged)
 
@@ -70,12 +71,15 @@ private:
     QTemporaryDir tempDir;
     QString rootPath;
 
-    int &clearance{mng->user.clearance};
-
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};
     void check_doc_completion(int index);
     void uplaod_docs(int index);
+
+    int &clearance{mng->user.clearance};
+
+    Data::item_list<Data::account_item>* acnts;
+    int accointId{0};
 
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;

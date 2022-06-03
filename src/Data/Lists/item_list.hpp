@@ -48,7 +48,7 @@ private:
 
     void checkCompleted() override;
 
-    int index_at_id(int id);
+    int index_at_id(int id) const noexcept;
 };
 
 }

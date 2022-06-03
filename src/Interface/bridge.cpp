@@ -6,14 +6,18 @@
 
 #include "bridge.hpp"
 #include <Items/document_item.hpp>
+#include <Items/account_item.hpp>
 #include <Lists/item_list.hpp>
 
 namespace Interface
 {
 W_OBJECT_IMPL(bridge)
 
-bridge::bridge(Interface::netManager* manager, Data::item_list<Data::document_item> *documents)
+bridge::bridge(Interface::netManager* manager,
+               Data::item_list<Data::account_item> *accounts,
+               Data::item_list<Data::document_item> *documents)
     : mng{manager}
+    , acnts{accounts}
     , docs{documents}
     , tempDir{}
 {

@@ -27,7 +27,7 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     account_item::HabitatRole).toJsonObject()};
 
-    const auto address{habitat["address"]};
+    const auto& address{habitat["address"]};
 
     if (address["street"].toString()
             .contains(filterRegularExpression())

@@ -15,7 +15,7 @@ namespace Calculator
 {
 using namespace Wrapper;
 
-class wrapped_calculator
+class wrapped_calculator final
         : public base_wrapper<simple_item_list<senior_citizen_item>>
 {
 public:

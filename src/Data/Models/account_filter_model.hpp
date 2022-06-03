@@ -5,7 +5,7 @@
 
 namespace Data {
 
-class account_filter_model : public base_filter_model
+class account_filter_model final : public base_filter_model
 {
 public:
     explicit account_filter_model(QAbstractItemModel *model, QObject *parent = nullptr);

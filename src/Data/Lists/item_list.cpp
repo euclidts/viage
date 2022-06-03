@@ -36,9 +36,10 @@ T item_list<T>::item_at_id(int id) const
 {
     T item{};
 
-    for (const auto& obj : this->m_items)
-        if (obj.id == id)
-            item = obj;
+    int index{index_at_id(id)};
+
+    if (index != -1)
+        item = this->m_items[index];
 
     return item;
 }
@@ -115,17 +116,14 @@ void item_list<T>::appendWith(int id)
 template<typename T>
 bool item_list<T>::setItemAtId(int id, const T& item)
 {
-    for (int i = 0; i < this->m_items.size(); i++)
-    {
-        if (this->m_items[i].id == id)
-        {
-            this->m_items[i] = item;
-            emit this->dataChangedAt(i);
-            return true;
-        }
-    }
+    int index{index_at_id(id)};
 
-    return false;
+    if (index == -1)
+        return false;
+
+    this->m_items[index] = item;
+    emit this->dataChangedAt(index);
+    return true;
 }
 
 template<typename T>
@@ -185,13 +183,16 @@ void item_list<T>::erase(int id)
 }
 
 template<typename T>
-int item_list<T>::index_at_id(int id)
+int item_list<T>::index_at_id(int id) const noexcept
 {
     int index{-1};
 
     for (int i = 0; i < this->m_items.size(); i++)
         if (this->m_items[i].id == id)
+        {
             index = i;
+            break;
+        }
 
     return index;
 }

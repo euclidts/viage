@@ -162,8 +162,7 @@ RowLayout {
                         busyDialog.open()
                         infants.loadFrom(currentAccount.id)
                     }
-//                    enabled: hasFlag(currentAccount.state, 1)
-                    enabled: accountsPages.currentIndex >= 2
+                    enabled: hasFlag(currentAccount.state, 1)
                 }
 
                 RoundButton {
@@ -178,7 +177,7 @@ RowLayout {
                         busyDialog.open()
                         habitat.loadFrom(currentAccount.id)
                     }
-                    enabled: hasFlag(currentAccount.state, 2) /*& infantButton.enabled*/
+                    enabled: hasFlag(currentAccount.state, 2)
                 }
 
                 RoundButton {
@@ -193,7 +192,7 @@ RowLayout {
                         busyDialog.open()
                         exterior.loadFrom(currentAccount.id)
                     }
-                    enabled: hasFlag(currentAccount.state, 4) & habitatButton.enabled
+                    enabled: hasFlag(currentAccount.state, 4)
                 }
 
                 RoundButton {
@@ -208,7 +207,7 @@ RowLayout {
                         busyDialog.open()
                         documents.loadFrom(currentAccount.id)
                     }
-                    enabled: hasFlag(currentAccount.state, 8) & exteriorButton.enabled
+                    enabled: hasFlag(currentAccount.state, 8)
                 }
 
                 RoundButton {
@@ -218,7 +217,7 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    enabled: hasFlag(currentAccount.state, 16) & documentButton.enabled
+                    enabled: hasFlag(currentAccount.state, 16)
                 }
             }
         }
