@@ -12,3 +12,5 @@
 * close url provider
 * onboarding email to advisor, client & no-reply
 * Create PDF document when onboarding (from empty pdf)
+* acronym width birthDay
+

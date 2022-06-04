@@ -39,12 +39,10 @@ RowLayout {
 
         onClicked: {
             busyDialog.open()
-            topBar.searchBar.text = ""
+            bridge.onboard()
             infants.clear()
             habitat.clear()
             exterior.clear()
-            documents.clear()
-            bridge.onboard()
         }
     }
 
