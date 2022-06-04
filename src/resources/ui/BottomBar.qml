@@ -44,8 +44,7 @@ RowLayout {
             habitat.clear()
             exterior.clear()
             documents.clear()
-            onboarding = true
-            accounts.add()
+            bridge.onboard()
         }
     }
 
@@ -82,7 +81,7 @@ RowLayout {
 
         onClicked: {
             busyDialog.open()
-            owners.addIn(currentAccount.id)
+            owners.addIn(bridge.accountId)
         }
     }
 
@@ -95,7 +94,7 @@ RowLayout {
 
         onClicked: {
             busyDialog.open()
-            infants.addIn(currentAccount.id)
+            infants.addIn(bridge.accountId)
         }
     }
 

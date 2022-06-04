@@ -22,9 +22,7 @@ ApplicationWindow {
 
     font.pixelSize: 16
 
-    property var currentAccount
     property var currentUser
-    property bool onboarding: false
     property bool hiring: false
     readonly property var stateNames: [
         qsTr("Incomplet"),
@@ -46,10 +44,6 @@ ApplicationWindow {
             busyDialog.close()
             logginDialog.currentState = "error"
         }
-    }
-
-    function hasFlag (value: int, flag: int) {
-        return (value & flag) === flag
     }
 
     Image {
@@ -87,22 +81,22 @@ ApplicationWindow {
             function loadItem() {
                 busyDialog.open()
 
-                if (!hasFlag(currentAccount.state, 1)) {
-                    owners.loadFrom(currentAccount.id)
+                if (!bridge.accountHasFlag(1)) {
+                    owners.loadFrom(bridge.accountId)
                     return
-                } else if (!hasFlag(currentAccount.state, 2)) {
-                    infants.loadFrom(currentAccount.id)
+                } else if (!bridge.accountHasFlag(2)) {
+                    infants.loadFrom(bridge.accountId)
                     return
-                } else if (!hasFlag(currentAccount.state, 4)) {
-                    habitat.loadFrom(currentAccount.id)
+                } else if (!bridge.accountHasFlag(4)) {
+                    habitat.loadFrom(bridge.accountId)
                     return
-                } else if (!hasFlag(currentAccount.state, 8)) {
-                    exterior.loadFrom(currentAccount.id)
+                } else if (!bridge.accountHasFlag(8)) {
+                    exterior.loadFrom(bridge.accountId)
                     return
-                } else if (!hasFlag(currentAccount.state, 16)) {
-                    documents.loadFrom(currentAccount.id);
+                } else if (!bridge.accountHasFlag(16)) {
+                    documents.loadFrom(bridge.accountId);
                     return
-                } else if (!hasFlag(currentAccount.state, 32)) {
+                } else if (!bridge.accountHasFlag(32)) {
                     accountsPages.currentIndex = 6;
                     busyDialog.close()
                     return
@@ -114,16 +108,16 @@ ApplicationWindow {
 
                 switch (index) {
                 case 2:
-                    infants.loadFrom(currentAccount.id)
+                    infants.loadFrom(bridge.accountId)
                     break
                 case 3:
-                    habitat.loadFrom(currentAccount.id)
+                    habitat.loadFrom(bridge.accountId)
                     break;
                 case 4:
-                    exterior.loadFrom(currentAccount.id)
+                    exterior.loadFrom(bridge.accountId)
                     break;
                 case 5:
-                    documents.loadFrom(currentAccount.id)
+                    documents.loadFrom(bridge.accountId)
                     break;
                 default:
                     accountsPages.currentIndex = index
@@ -135,19 +129,19 @@ ApplicationWindow {
             function validateItem() {
                 switch (accountsPages.currentIndex) {
                 case 1:
-                    owners.validate(currentAccount.id)
+                    owners.validate(bridge.accountId)
                     break;
                 case 2:
-                    infants.validate(currentAccount.id)
+                    infants.validate(bridge.accountId)
                     break;
                 case 3:
-                    habitat.validate(currentAccount.id)
+                    habitat.validate(bridge.accountId)
                     break;
                 case 4:
-                    exterior.validate(currentAccount.id)
+                    exterior.validate(bridge.accountId)
                     break;
                 case 5:
-                    documents.validate(currentAccount.id)
+                    documents.validate(bridge.accountId)
                     break;
                 }
             }
@@ -158,10 +152,6 @@ ApplicationWindow {
                 delegate: AccountDelegate {}
                 onMovementStarted: topBar.searchBar.focus = false
                 clip: true
-                onCountChanged: {
-                    if (onboarding)
-                        positionViewAtEnd()
-                }
             }
 
             OwnersPage { id: ownersPage }

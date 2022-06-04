@@ -23,7 +23,7 @@ GroupBox {
     property var jsonMetadata
     property var aquireFunc: function() {
         root.aquiring = true
-        documentsFrom.addInWith(currentAccount.id, urlProvider.jsonMetadata)
+        documentsFrom.addInWith(bridge.accountId, urlProvider.jsonMetadata)
         busyDialog.open()
     }
 
@@ -81,7 +81,7 @@ GroupBox {
                     icon.source: "qrc:/icons/camera.svg"
                     onClicked: {
                         urlProvider.func = updateFunc
-                        urlProvider.path = bridge.getPictureName(currentAccount.id,
+                        urlProvider.path = bridge.getPictureName(bridge.accountId,
                                                                  name,
                                                                  index)
                         urlProvider.loader.active = true
@@ -111,7 +111,7 @@ GroupBox {
                 onClicked: {
                     urlProvider.jsonMetadata = jsonMetadata
                     urlProvider.func = aquireFunc
-                    urlProvider.path = bridge.getPictureName(currentAccount.id,
+                    urlProvider.path = bridge.getPictureName(bridge.accountId,
                                                              name,
                                                              root.count)
                     urlProvider.loader.active = true

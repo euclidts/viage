@@ -25,31 +25,31 @@ ScrollView {
                     }
 
                     CheckBox {
-                        checked: hasFlag(currentAccount.state, 32)
+                        checked: bridge.accountHasFlag(32)
                         text: stateNames[1]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
-                        checked: hasFlag(currentAccount.state, 64)
+                        checked: bridge.accountHasFlag(64)
                         text: stateNames[2]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
-                        checked: hasFlag(currentAccount.state, 128)
+                        checked: bridge.accountHasFlag(128)
                         text: stateNames[3]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
-                        checked: hasFlag(currentAccount.state, 256)
+                        checked: bridge.accountHasFlag(256)
                         text: stateNames[4]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
-                        checked: hasFlag(currentAccount.state, 512)
+                        checked: bridge.accountHasFlag(512)
                         text: stateNames[5]
                         checkable: bridge.clearance === 4
                     }

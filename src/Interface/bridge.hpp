@@ -34,6 +34,9 @@ public:
     void authenticate(const QString& username, const QString& password) const;
     W_INVOKABLE(authenticate, (const QString&, const QString&))
 
+    void onboard();
+    W_INVOKABLE(onboard)
+
     void downloadFile(const QString& key,
                       const QUrl &directory,
                       const QString &fileName) const;
@@ -49,7 +52,22 @@ public:
 
     void setQmlObject(QObject* obj) noexcept { qmlObject = obj; }
 
-    void setDocuments(Data::item_list<Data::document_item>* newDocuments);
+    bool has_flag(int value, int flag) const noexcept;
+    bool accountHasFlag(int flag) const noexcept;
+    W_INVOKABLE(accountHasFlag, (int))
+
+    void requestOwners(int id)
+    W_SIGNAL(requestOwners, id)
+
+    int getAccountId() const;
+    void setAccountId(int newAccountId);
+    void accountIdChanged()
+    W_SIGNAL(accountIdChanged)
+
+    int getAccountState() const;
+    void setAccountState(int newAccountState);
+    void accountStateChanged()
+    W_SIGNAL(accountStateChanged)
 
     bool getDocumentsCompleted() const;
     void setDocumentsCompleted(bool newDocumentsCompleted);
@@ -62,14 +80,16 @@ public:
 
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(int, clearance READ getClearance NOTIFY clearanceChanged)
-
-    bool has_flag(int value, int flag) const noexcept;
+    W_PROPERTY(int, accountId READ getAccountId WRITE setAccountId NOTIFY accountIdChanged)
+    W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
 
 private:
     QObject* qmlObject;
     netManager* mng;
     QTemporaryDir tempDir;
     QString rootPath;
+
+    bool onboarding{false};
 
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};
@@ -79,10 +99,13 @@ private:
     int &clearance{mng->user.clearance};
 
     Data::item_list<Data::account_item>* acnts;
-    int accointId{0};
+    int accountId{0};
+    int accountState{0};
 
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;
+
+    void getLastAccount() noexcept;
 };
 
 }

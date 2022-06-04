@@ -78,7 +78,8 @@ ItemDelegate {
     }
 
     onClicked: {
-        currentAccount = model
+        bridge.accountId = model.id
+        bridge.accountState = model.state
         accountsPages.loadItem()
     }
 
@@ -87,13 +88,5 @@ ItemDelegate {
         radius: 4
         color: Material.background
         opacity: .8
-    }
-
-    Component.onCompleted: {
-        currentAccount = model
-        if (onboarding) {
-            onboarding = false
-            accountsPages.loadItem()
-        }
     }
 }

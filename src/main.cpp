@@ -111,6 +111,12 @@ int main(int argc, char* argv[])
     qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
     context->setContextProperty("bridge", &bridge);
 
+    // Onboarding
+    QObject::connect(&bridge,
+                     &bridge::requestOwners,
+                     wrapped_owners.get_inner(),
+                     &item_list<owner_item>::loadFrom);
+
     // send email on documents completed
 //    QObject::connect(wrapped_documents.get_inner(),
 //                     &item_list<document_item>::validate,

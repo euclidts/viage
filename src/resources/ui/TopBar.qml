@@ -146,7 +146,7 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        owners.loadFrom(currentAccount.id)
+                        owners.loadFrom(bridge.accountId)
                     }
                 }
 
@@ -160,9 +160,9 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        infants.loadFrom(currentAccount.id)
+                        infants.loadFrom(bridge.accountId)
                     }
-                    enabled: hasFlag(currentAccount.state, 1)
+                    enabled: bridge.accountHasFlag(1)
                 }
 
                 RoundButton {
@@ -175,9 +175,9 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        habitat.loadFrom(currentAccount.id)
+                        habitat.loadFrom(bridge.accountId)
                     }
-                    enabled: hasFlag(currentAccount.state, 2)
+                    enabled: bridge.accountHasFlag(2)
                 }
 
                 RoundButton {
@@ -190,9 +190,9 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        exterior.loadFrom(currentAccount.id)
+                        exterior.loadFrom(bridge.accountId)
                     }
-                    enabled: hasFlag(currentAccount.state, 4)
+                    enabled: bridge.accountHasFlag(4)
                 }
 
                 RoundButton {
@@ -205,9 +205,9 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        documents.loadFrom(currentAccount.id)
+                        documents.loadFrom(bridge.accountId)
                     }
-                    enabled: hasFlag(currentAccount.state, 8)
+                    enabled: bridge.accountHasFlag(8)
                 }
 
                 RoundButton {
@@ -217,7 +217,7 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    enabled: hasFlag(currentAccount.state, 16)
+                    enabled: bridge.accountHasFlag(16)
                 }
             }
         }

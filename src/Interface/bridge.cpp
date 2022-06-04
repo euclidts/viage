@@ -14,8 +14,8 @@ namespace Interface
 W_OBJECT_IMPL(bridge)
 
 bridge::bridge(Interface::netManager* manager,
-               Data::item_list<Data::account_item> *accounts,
-               Data::item_list<Data::document_item> *documents)
+               Data::item_list<Data::account_item>* accounts,
+               Data::item_list<Data::document_item>* documents)
     : mng{manager}
     , acnts{accounts}
     , docs{documents}
@@ -33,6 +33,9 @@ bridge::bridge(Interface::netManager* manager,
             this, &bridge::clearanceChanged);
 
     using namespace Data;
+
+    connect(acnts, &item_list<account_item>::postItemsAppended,
+            this, &bridge::getLastAccount);
 
     connect(docs, &item_list<document_item>::dataChangedAt,
             this, &bridge::check_doc_completion);
@@ -61,6 +64,12 @@ void bridge::downloadFile(const QString &key, const QUrl &directory, const QStri
 void bridge::requestReport(const QUrl &directory) const
 {
     mng->downloadFile("export/accounts", filePath(directory, "Viage.xlsx"));
+}
+
+void bridge::onboard()
+{
+    onboarding = true;
+    acnts->add();
 }
 
 QUrl bridge::getPictureName(int id, QString& name, int index) const
@@ -146,14 +155,40 @@ void bridge::uplaod_docs(int index)
     }
 }
 
+int bridge::getAccountState() const
+{
+    return accountState;
+}
+
+void bridge::setAccountState(int newAccountState)
+{
+    if (accountState == newAccountState)
+        return;
+    accountState = newAccountState;
+    emit accountStateChanged();
+}
+
+int bridge::getAccountId() const
+{
+    return accountId;
+}
+
+void bridge::setAccountId(int newAccountId)
+{
+    if (accountId == newAccountId)
+        return;
+    accountId = newAccountId;
+    emit accountIdChanged();
+}
+
 bool bridge::has_flag(int value, int flag) const noexcept
 {
     return (value & flag) == flag;
 }
 
-void bridge::setDocuments(Data::item_list<Data::document_item>* newDocuments)
+bool bridge::accountHasFlag(int flag) const noexcept
 {
-    docs = newDocuments;
+    return has_flag(accountState, flag);
 }
 
 const QString bridge::filePath(const QUrl &directory, const QString &fileName) const
@@ -165,5 +200,17 @@ const QString bridge::filePath(const QUrl &directory, const QString &fileName) c
     const auto fullPath{QUrl::fromLocalFile(filePath)};
 
     return fullPath.toLocalFile();
+}
+
+void bridge::getLastAccount() noexcept
+{
+    if (onboarding)
+    {
+        onboarding = false;
+        const auto& account{acnts->items().back()};
+        setAccountState(account.state);
+        setAccountId(account.id);
+        emit requestOwners(accountId);
+    }
 }
 }
