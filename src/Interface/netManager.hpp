@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QSslConfiguration>
+#include <QSaveFile>
 
 #include <wobjectdefs.h>
 
@@ -31,7 +32,9 @@ public:
     void loggedIn(const bool& success)
     W_SIGNAL(loggedIn, success);
 
-    void downloadFile(const char* key, const QString& path);
+    void downloadFile(const char* key,
+                      const QString& path,
+                      const std::function<void (bool, const QString &)> &callback);
     void getFromKey(const char* key,
                     const std::function<void (const QByteArray &)> &callback);
     void putToKey(const char* key,
@@ -66,8 +69,6 @@ private:
     void setRequest(const char* key);
 
     bool authenticating{false};
-
-    smtp* mailer{nullptr};
 };
 
 }

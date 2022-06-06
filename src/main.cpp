@@ -117,35 +117,6 @@ int main(int argc, char* argv[])
                      wrapped_owners.get_inner(),
                      &item_list<owner_item>::loadFrom);
 
-    // send email on documents completed
-//    QObject::connect(wrapped_documents.get_inner(),
-//                     &item_list<document_item>::validate,
-//                     [accounts = wrapped_accounts.get_inner(),
-//                     documents = wrapped_documents.get_inner(),
-//                     &manager,
-//                     &bridge] (int id)
-//    {
-//        if (bridge.getDocumentsCompleted())
-//        {
-//            const auto state{accounts->item_at_id(id).state};
-
-//            if (!bridge.has_flag(state, account_item::Sent))
-//            {
-//                QStringList files{};
-
-//                for (const auto& doc : documents->items())
-//                    if (doc.relativePath.toString() != "")
-//                        files << doc.relativePath.toString();
-
-//                manager.sendMail("Viage",
-//                                 "thibaud.keller@euclidtradingsystems.com",
-//                                 "Dossier complet",
-//                                 "Onboarding termine",
-//                                 files);
-//            }
-//        }
-//    });
-
     // users
     wrapped_list<item_list<user_item>>
             wrapped_users{&manager, context};

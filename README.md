@@ -8,9 +8,16 @@
 
 ## TODO
 
-* edit mode off when clearance is 0 && tate is Complete
-* close url provider
-* onboarding email to advisor, client & no-reply
+* Edit mode off when clearance is 0 && tate is Complete
+* Close url provider
+* Onboarding email to advisor, client & no-reply
 * Create PDF document when onboarding (from empty pdf)
-* acronym width birthDay
+* Acronym width birthDay
 
+## Server side
+
+* Check all state completed
+* Get clearance as enum (string curently)
+* Delete Document body by default
+* Delete Infants
+* Advisor management 

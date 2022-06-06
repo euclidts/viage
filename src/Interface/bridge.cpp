@@ -1,6 +1,4 @@
-#include <QDate>
-#include <QUrl>
-#include <QFile>
+#include <QDesktopServices>
 
 #include <wobjectimpl.h>
 
@@ -58,18 +56,25 @@ void bridge::authenticate(const QString &username, const QString &password) cons
 
 void bridge::downloadFile(const QString &key, const QUrl &directory, const QString &fileName) const
 {
-    mng->downloadFile(key.toStdString().c_str(), filePath(directory, fileName));
+    mng->downloadFile(key.toStdString().c_str(),
+                      filePath(directory, fileName),
+                      [] (bool success, const QString& string)
+    {
+        if (!success) qDebug() << "file error :" << string;
+    });
 }
 
-void bridge::requestReport(const QUrl &directory) const
+void bridge::requestReport() const
 {
-    mng->downloadFile("export/accounts", filePath(directory, "Viage.xlsx"));
-}
-
-void bridge::onboard()
-{
-    onboarding = true;
-    acnts->add();
+    mng->downloadFile("export/accounts",
+                      rootPath + "/Viage.xlsx",
+                      [this] (bool success, const QString& error)
+    {
+        if (success)
+            QDesktopServices::openUrl(rootPath + "/Viage.xlsx");
+        else
+            qDebug() << "file error :" << error;
+    });
 }
 
 QUrl bridge::getPictureName(int id, QString& name, int index) const
@@ -146,6 +151,8 @@ void bridge::uplaod_docs(int index)
 
                 QJsonDocument data{obj};
 
+                qDebug() << "uploading " << file.fileName();
+
                 mng->putToKey(docs->key(),
                               data.toJson(),
                               [](const QByteArray& rep)
@@ -200,6 +207,12 @@ const QString bridge::filePath(const QUrl &directory, const QString &fileName) c
     const auto fullPath{QUrl::fromLocalFile(filePath)};
 
     return fullPath.toLocalFile();
+}
+
+void bridge::onboard()
+{
+    onboarding = true;
+    acnts->add();
 }
 
 void bridge::getLastAccount() noexcept

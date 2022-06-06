@@ -19,6 +19,12 @@ ScrollView {
                     Layout.minimumWidth: 200
                     Layout.margins: 12
 
+                    RoundButton {
+                        text: qsTr("Télécharger le document")
+                        icon.source: "qrc:/icons/download.svg"
+                        highlighted: true
+                    }
+
                     Label {
                         text: qsTr("Etat du Dossier")
                         font.bold: true
@@ -52,12 +58,6 @@ ScrollView {
                         checked: bridge.accountHasFlag(512)
                         text: stateNames[5]
                         checkable: bridge.clearance === 4
-                    }
-
-                    RoundButton {
-                        text: qsTr("Télécharger le document")
-                        icon.source: "qrc:/icons/download.svg"
-                        highlighted: true
                     }
                 }
             }

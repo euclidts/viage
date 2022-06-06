@@ -1,11 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
 
-#if(MSVC)
-#    set(CMAKE_C_COMPILER_FORCED TRUE)
-#    set(CMAKE_CXX_COMPILER_FORCED TRUE)
-#endif()
-
-project(viage VERSION 0.1 LANGUAGES CXX)
 project(viage VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -66,8 +60,6 @@ set(PROJECT_SOURCES
     src/Interface/bridge.cpp
     src/Interface/netManager.cpp
     src/Interface/netManager.hpp
-    src/Interface/smtp.cpp
-    src/Interface/smtp.hpp
     src/Data/base_data.hpp
     src/Data/base_data.cpp
     src/Wrapper/base_wrapper.hpp
@@ -152,10 +144,6 @@ target_link_libraries(viage PRIVATE
     Qt6::Quick
     Qt6::Svg
     Qt6::Multimedia)
-
-#if(MSVC)
-#    target_compile_options(viage PRIVATE /Zc:__cplusplus)
-#endif()
 
 #set_target_properties(viage PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

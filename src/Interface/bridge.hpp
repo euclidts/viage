@@ -44,8 +44,8 @@ public:
                                const QUrl&,
                                const QString&))
 
-    void requestReport(const QUrl& directory) const;
-    W_INVOKABLE(requestReport, (const QUrl&))
+    void requestReport() const;
+    W_INVOKABLE(requestReport)
 
     QUrl getPictureName(int id, QString& name, int index) const;
     W_INVOKABLE(getPictureName, (int, QString&, int))

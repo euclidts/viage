@@ -2,12 +2,10 @@
 #include <QNetworkRequest>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QSaveFile>
 
 #include <wobjectimpl.h>
 
 #include "netManager.hpp"
-#include "smtp.hpp"
 
 namespace Interface
 {
@@ -91,17 +89,17 @@ void netManager::authenticate(const QString& username,
                         });
                     }
 
-                    getFromKey("smtplogin",
-                               [this](const QByteArray& rep)
-                    {
-                        const auto json{QJsonDocument::fromJson(rep).object()};
+//                    getFromKey("smtplogin",
+//                               [this](const QByteArray& rep)
+//                    {
+//                        const auto json{QJsonDocument::fromJson(rep).object()};
 
-                        if (json.contains("email")) // basic check
-                            mailer = new smtp{json["email"].toString(),
-                                    json["password"].toString(),
-                                    json["server"].toString(),
-                                    json["port"].toInt()};
-                    });
+//                        if (json.contains("email")) // basic check
+//                            mailer = new smtp{json["email"].toString(),
+//                                    json["password"].toString(),
+//                                    json["server"].toString(),
+//                                    json["port"].toInt()};
+//                    });
 
                     emit loggedIn(true);
                 }
@@ -112,21 +110,26 @@ void netManager::authenticate(const QString& username,
     });
 }
 
-void netManager::downloadFile(const char* key, const QString &path)
+void netManager::downloadFile(const char* key,
+                              const QString &path,
+                              const std::function<void (bool, const QString &)> &callback)
 {
     setRequest(key);
     auto* reply = get(rqst);
     setCallback(reply,
-                [path](const QByteArray& bytes)
+                [path, callback](const QByteArray& bytes)
     {
         QSaveFile file(path);
         if (file.open(QIODevice::WriteOnly))
         {
             file.write(bytes);
-            file.commit();
+            if (file.commit())
+                callback(true, "");
+            else
+                callback(false, file.errorString());
         }
         else
-            qDebug() << "file error :" << file.errorString();
+            callback(false, file.errorString());
     });
 }
 
@@ -156,20 +159,13 @@ void netManager::postToKey(const char* key,
     setCallback(reply, callback);
 }
 
-void netManager::deleteToKey(const char *key, const QByteArray &data, const std::function<void (const QByteArray &)> &callback)
+void netManager::deleteToKey(const char *key,
+                             const QByteArray &data,
+                             const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
     auto* reply = sendCustomRequest(rqst, "DELETE", data);
     setCallback(reply, callback);
-}
-
-void netManager::sendMail(const QString& from,
-                          const QString& to,
-                          const QString& subject,
-                          const QString& body,
-                          const QStringList& files)
-{
-    mailer->sendMail(from, to, subject, body, files);
 }
 
 void netManager::setCallback(QNetworkReply* reply,
