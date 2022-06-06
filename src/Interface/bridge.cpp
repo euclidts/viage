@@ -71,7 +71,12 @@ void bridge::requestReport() const
                       [this] (bool success, const QString& error)
     {
         if (success)
-            QDesktopServices::openUrl(rootPath + "/Viage.xlsx");
+        {
+            if (QDesktopServices::openUrl(rootPath + "/Viage.xlsx"))
+                emit loaded();
+            else
+                qDebug() << "Desktop services : could not open excel";
+        }
         else
             qDebug() << "file error :" << error;
     });

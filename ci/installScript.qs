@@ -26,9 +26,9 @@
 **
 ****************************************************************************/
 
-function Component()
+function Controller()
 {
-    // default constructor
+    installer.setDefaultPageVisible(QInstaller.ComponentSelectionPage, false);
 }
 
 Component.prototype.createOperations = function()

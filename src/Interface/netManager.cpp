@@ -89,18 +89,6 @@ void netManager::authenticate(const QString& username,
                         });
                     }
 
-//                    getFromKey("smtplogin",
-//                               [this](const QByteArray& rep)
-//                    {
-//                        const auto json{QJsonDocument::fromJson(rep).object()};
-
-//                        if (json.contains("email")) // basic check
-//                            mailer = new smtp{json["email"].toString(),
-//                                    json["password"].toString(),
-//                                    json["server"].toString(),
-//                                    json["port"].toInt()};
-//                    });
-
                     emit loggedIn(true);
                 }
             }
