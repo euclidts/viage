@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(viage VERSION 0.1 LANGUAGES CXX)
+project(viage VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -166,8 +166,6 @@ if (NOT ANDROID AND NOT IOS)
 
     include(InstallRequiredSystemLibraries)
     set(CPACK_GENERATOR "IFW")
-    set(CPACK_PACKAGE_VERSION_MAJOR "1")
-    set(CPACK_PACKAGE_VERSION_MINOR "0")
 
     set(CPACK_IFW_PACKAGE_NAME "Viage")
     set(CPACK_IFW_PACKAGE_TITLE "Viage")

@@ -31,6 +31,11 @@ function Component()
     // default constructor
 }
 
+//function Controller()
+//{
+//installer.setDefaultPageVisible(QInstaller.ComponentSelection,0);
+//}
+
 Component.prototype.createOperations = function()
 {
     component.createOperations();

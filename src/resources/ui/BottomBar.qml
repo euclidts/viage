@@ -21,11 +21,20 @@ RowLayout {
     }
 
     MaterialButton {
+        id: reportButton
         visible: accountsPages.currentIndex < 1
                  && rootStack.currentIndex === 0
         text: qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"
-        onClicked: bridge.requestReport()
+        onClicked: {
+            enabled = false
+            bridge.requestReport()
+        }
+
+        Connections {
+            target: bridge
+            function onLoaded() { reportButton.enabled = true }
+        }
     }
 
     MaterialButton {

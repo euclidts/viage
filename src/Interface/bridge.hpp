@@ -56,6 +56,9 @@ public:
     bool accountHasFlag(int flag) const noexcept;
     W_INVOKABLE(accountHasFlag, (int))
 
+    void loaded() const
+    W_SIGNAL(loaded)
+
     void requestOwners(int id)
     W_SIGNAL(requestOwners, id)
 
