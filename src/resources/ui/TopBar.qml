@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import QtQuick.Controls.Material.impl
 
+import Interface
+
 RowLayout {
     visible: false
     spacing: 0
@@ -124,6 +126,7 @@ RowLayout {
     }
 
     ScrollView {
+        id: buttonView
         Layout.fillWidth: true
         visible: accountsPages.currentIndex > 0
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
@@ -137,7 +140,6 @@ RowLayout {
 
             RowLayout {
                 RoundButton {
-                    id: infoButton
                     text: qsTr("Partenaires")
                     highlighted: accountsPages.currentIndex == 1 ? true : false
                     font.capitalization: Font.MixedCase
@@ -157,12 +159,12 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
+                    enabled: false
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
                         infants.loadFrom(bridge.accountId)
                     }
-                    enabled: bridge.accountHasFlag(1)
                 }
 
                 RoundButton {
@@ -172,12 +174,12 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
+                    enabled: false
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
                         habitat.loadFrom(bridge.accountId)
                     }
-                    enabled: bridge.accountHasFlag(2)
                 }
 
                 RoundButton {
@@ -187,12 +189,12 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
+                    enabled: false
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
                         exterior.loadFrom(bridge.accountId)
                     }
-                    enabled: bridge.accountHasFlag(4)
                 }
 
                 RoundButton {
@@ -202,23 +204,65 @@ RowLayout {
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
+                    enabled: false
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
                         documents.loadFrom(bridge.accountId)
                     }
-                    enabled: bridge.accountHasFlag(8)
                 }
 
                 RoundButton {
-                    id: signatureButton
+                    id: stateButton
                     text: qsTr("Etats")
                     highlighted: accountsPages.currentIndex == 6 ? true : false
                     font.capitalization: Font.MixedCase
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
-                    enabled: bridge.accountHasFlag(16)
+                    enabled: false
                 }
+            }
+        }
+
+        function enableButtons() {
+
+            if (bridge.accountHasFlag(1))
+                infantButton.enabled = true
+            else
+                infantButton.enabled = false
+
+            if (bridge.accountHasFlag(2))
+                habitatButton.enabled = true
+            else
+                habitatButton.enabled = false
+
+            if (bridge.accountHasFlag(4))
+                exteriorButton.enabled = true
+            else
+                exteriorButton.enabled = false
+
+            if (bridge.accountHasFlag(8))
+                documentButton.enabled = true
+            else
+                documentButton.enabled = false
+
+            if (bridge.accountHasFlag(16))
+                stateButton.enabled = true
+            else
+                stateButton.enabled = false
+        }
+
+        Connections {
+            target: accounts
+            function onDataChangedAt(index : int) {
+                buttonView.enableButtons()
+            }
+        }
+
+        Connections {
+            target: bridge
+            function onAccountIdChanged() {
+                buttonView.enableButtons()
             }
         }
     }
@@ -240,34 +284,4 @@ RowLayout {
             onClicked: settingsDialog.open()
         }
     }
-
-    /*{
-        id: settings
-        icon.source: "qrc:/icons/ellipsis-v.svg"
-        icon.width: height / 5.5
-        onClicked: settingsDialog.open()
-        Layout.alignment: Qt.AlignRight
-
-        background: Rectangle {
-            implicitHeight: Material.buttonHeight
-            implicitWidth: Material.buttonHeight
-            radius: 2
-            color: Material.backgroundColor
-        }
-    }*/
-
-    //    Button {
-    //        id: settings
-    //        icon.source: "qrc:/icons/ellipsis-v.svg"
-    //        icon.width: height / 5.5
-    //        onClicked: settingsDialog.open()
-    //        Layout.alignment: Qt.AlignRight
-
-    //        background: Rectangle {
-    //            implicitHeight: Material.buttonHeight
-    //            implicitWidth: Material.buttonHeight
-    //            radius: 2
-    //            color: Material.backgroundColor
-    //        }
-    //    }
 }

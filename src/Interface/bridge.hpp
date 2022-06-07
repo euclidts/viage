@@ -47,8 +47,8 @@ public:
     void requestReport() const;
     W_INVOKABLE(requestReport)
 
-    QUrl getPictureName(int id, QString& name, int index) const;
-    W_INVOKABLE(getPictureName, (int, QString&, int))
+    QUrl getPictureName(QString& name, int index) const;
+    W_INVOKABLE(getPictureName, (QString&, int))
 
     void setQmlObject(QObject* obj) noexcept { qmlObject = obj; }
 
@@ -63,14 +63,9 @@ public:
     W_SIGNAL(requestOwners, id)
 
     int getAccountId() const;
-    void setAccountId(int newAccountId);
+    void setAccoountId(int newAccountId);
     void accountIdChanged()
     W_SIGNAL(accountIdChanged)
-
-    int getAccountState() const;
-    void setAccountState(int newAccountState);
-    void accountStateChanged()
-    W_SIGNAL(accountStateChanged)
 
     bool getDocumentsCompleted() const;
     void setDocumentsCompleted(bool newDocumentsCompleted);
@@ -82,9 +77,8 @@ public:
     W_SIGNAL(clearanceChanged)
 
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
+    W_PROPERTY(int, accountId READ getAccountId WRITE setAccoountId NOTIFY accountIdChanged)
     W_PROPERTY(int, clearance READ getClearance NOTIFY clearanceChanged)
-    W_PROPERTY(int, accountId READ getAccountId WRITE setAccountId NOTIFY accountIdChanged)
-    W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
 
 private:
     QObject* qmlObject;
@@ -103,11 +97,11 @@ private:
 
     Data::item_list<Data::account_item>* acnts;
     int accountId{0};
-    int accountState{0};
 
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;
 
+    void getAccountAt(int id) noexcept;
     void getLastAccount() noexcept;
 };
 

@@ -38,6 +38,17 @@ public:
         Appartement
     };
 
+    enum equipements
+    {
+        Nothing = 0,
+        Sante = 1,
+        Restauration = 2,
+        Education = 4,
+        loisirs = 8,
+        Comerces = 16,
+        Transports = 32
+    };
+
     const QString &getStreet() const;
     void setStreet(const QString &newStreet);
     int getZip() const;
@@ -119,7 +130,7 @@ private:
     int surface{50};
     int m2Constructed{25};
     int m2Available{25};
-    int m3s{15625};
+    int m3s{1000};
 
     void checkCompleted() override;
 };

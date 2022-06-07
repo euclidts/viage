@@ -34,14 +34,12 @@ void item_list<T>::complitionChecks() const
 template<typename T>
 T item_list<T>::item_at_id(int id) const
 {
-    T item{};
-
     int index{index_at_id(id)};
 
-    if (index != -1)
-        item = this->m_items[index];
+    if (index != -1 && index < this->m_items.size())
+        return this->m_items[index];
 
-    return item;
+    return {};
 }
 
 template <typename T>
