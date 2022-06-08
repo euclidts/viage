@@ -26,9 +26,6 @@ void habitat_item::read(const QJsonObject& json)
         emit cantonChanged();
     }
 
-    if (json.contains("equipements") && json["equipements"].isString())
-        setEquipements(json["equipements"].toString());
-
     if (json.contains("problems") && json["problems"].isString())
         setProblems(json["problems"].toString());
 
@@ -69,7 +66,6 @@ void habitat_item::write(QJsonObject& json) const
     address.write(jsonAddress);
 
     json["address"] = jsonAddress;
-    json["equipements"] = equipements;
     json["problems"] = problems;
     json["habitatType"] = habitatType;
     json["rooms"] = rooms;
@@ -90,8 +86,6 @@ void habitat_item::clear()
     emit zipChanged();
     address.canton = QString{"Appenzell"};
     emit cantonChanged();
-    equipements = QString{""};
-    emit equipementsChanged();
     problems = QString{""};
     emit problemsChanged();
     habitatType = None;
@@ -106,7 +100,7 @@ void habitat_item::clear()
     emit m2ConstructedChanged();
     m2Available = 25;
     emit m2AvailableChanged();
-    m3s = 15625;
+    m3s = 1000;
     emit m3sChanged();
     completed = false;
     emit completedChanged();
@@ -165,19 +159,6 @@ void habitat_item::setCity(const QString &newCity)
     emit cityChanged();
 }
 
-const QString &habitat_item::getEquipements() const
-{
-    return equipements;
-}
-
-void habitat_item::setEquipements(const QString &newEquipements)
-{
-    if (equipements == newEquipements)
-        return;
-    equipements = newEquipements;
-    emit equipementsChanged();
-}
-
 const QString &habitat_item::getProblems() const
 {
     return problems;
@@ -196,7 +177,7 @@ const habitat_item::habitatTypes& habitat_item::getHabitatType() const
     return habitatType;
 }
 
-void habitat_item::setHabitatType(habitatTypes newHabitatType)
+void habitat_item::setHabitatType(const habitatTypes& newHabitatType)
 {
     if (habitatType == newHabitatType)
         return;

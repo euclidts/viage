@@ -79,13 +79,95 @@ ScrollView {
                                 Layout.fillWidth: true
                             }
 
-                            LabeledTextField {
-                                name: qsTr("Type de places")
-                                textOf: exterior.parkingType
-                                canEdit: editing
-                                onEdit: function(txt) { exterior.parkingType = txt }
-                                placeHolder: qsTr("* Optionnel")
+                            GroupBox {
+                                label: Label {
+                                    text: qsTr("Type de places")
+                                    font.italic: true
+                                }
                                 visible: exterior.hasParking
+                                Layout.topMargin: 12
+                                Layout.bottomMargin: 12
+                                Layout.fillWidth: true
+
+                                ColumnLayout {
+                                    width: parent.width
+
+                                    ColumnLayout {
+                                        id: parkingTypeColumn
+                                        spacing: 0
+
+                                        CheckBox {
+                                            id: bikeCheck
+                                            text: qsTr("Moto")
+                                            onCheckStateChanged: parkingTypeColumn.setTypes()
+                                            checkable: editing
+                                        }
+                                        CheckBox {
+                                            id: carCheck
+                                            text: qsTr("Voiture")
+                                            onCheckStateChanged: parkingTypeColumn.setTypes()
+                                            checkable: editing
+                                        }
+                                        CheckBox {
+                                            id: indoorCheck
+                                            text: qsTr("Interieur")
+                                            onCheckStateChanged: parkingTypeColumn.setTypes()
+                                            checkable: editing
+                                        }
+                                        CheckBox {
+                                            id: outdoorCheck
+                                            text: qsTr("Exterieur")
+                                            onCheckStateChanged: parkingTypeColumn.setTypes()
+                                            checkable: editing
+                                        }
+                                        CheckBox {
+                                            id: individualCheck
+                                            text: qsTr("Individuel")
+                                            onCheckStateChanged: parkingTypeColumn.setTypes()
+                                            checkable: editing
+                                        }
+                                        CheckBox {
+                                            id: colectiveCheck
+                                            text: qsTr("Collectif")
+                                            onCheckStateChanged: parkingTypeColumn.setTypes()
+                                            checkable: editing
+                                        }
+
+                                        property bool checking: false
+
+                                        function setTypes() {
+                                            if (!checking) {
+                                                let bytes = 0
+                                                if (bikeCheck.checked) bytes += 1
+                                                if (carCheck.checked) bytes += 2
+                                                if (indoorCheck.checked) bytes += 4
+                                                if (outdoorCheck.checked) bytes += 8
+                                                if (individualCheck.checked) bytes += 16
+                                                if (colectiveCheck.checked) bytes += 32
+
+                                                exterior.parkingType = bytes
+                                            }
+                                        }
+
+                                        function checkTypes() {
+                                            checking = true
+                                            bikeCheck.checked = bridge.hasFlag(exterior.parkingType, 1)
+                                            carCheck.checked = bridge.hasFlag(exterior.parkingType, 2)
+                                            indoorCheck.checked = bridge.hasFlag(exterior.parkingType, 4)
+                                            outdoorCheck.checked = bridge.hasFlag(exterior.parkingType, 8)
+                                            individualCheck.checked = bridge.hasFlag(exterior.parkingType, 16)
+                                            colectiveCheck.checked = bridge.hasFlag(exterior.parkingType, 32)
+                                            checking = false
+                                        }
+
+                                        Connections {
+                                            target: exterior
+                                            function onParkingTypeChanged() {
+                                                parkingTypeColumn.checkTypes()
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -125,6 +207,97 @@ ScrollView {
                                 readOnly: true
                                 visible: !editing
                                 placeholderText: qsTr("* Optionnel")
+                            }
+                        }
+                    }
+
+                    GroupBox {
+                        label: Label {
+                            text: qsTr("Equipements de proximité")
+                            font.italic: true
+                        }
+                        Layout.topMargin: 12
+                        Layout.bottomMargin: 12
+                        Layout.fillWidth: true
+
+                        ColumnLayout {
+                            width: parent.width
+
+                            ColumnLayout {
+                                id: equipementColumn
+                                spacing: 0
+
+                                CheckBox {
+                                    id: healthCheck
+                                    text: qsTr("Santé")
+                                    onCheckStateChanged: equipementColumn.setTypes()
+                                    checkable: editing
+                                }
+                                CheckBox {
+                                    id: foodCheck
+                                    text: qsTr("Restauration")
+                                    onCheckStateChanged: equipementColumn.setTypes()
+                                    checkable: editing
+                                }
+                                CheckBox {
+                                    id: educationCheck
+                                    text: qsTr("Education")
+                                    onCheckStateChanged: equipementColumn.setTypes()
+                                    checkable: editing
+                                }
+                                CheckBox {
+                                    id: leasureCheck
+                                    text: qsTr("Loisirs")
+                                    onCheckStateChanged: equipementColumn.setTypes()
+                                    checkable: editing
+                                }
+                                CheckBox {
+                                    id: shopsCheck
+                                    text: qsTr("Comerces")
+                                    onCheckStateChanged: equipementColumn.setTypes()
+                                    checkable: editing
+                                }
+                                CheckBox {
+                                    id: transportsCheck
+                                    text: qsTr("Transports")
+                                    onCheckStateChanged: equipementColumn.setTypes()
+                                    checkable: editing
+                                }
+
+                                property bool checking: false
+
+                                function setTypes() {
+                                    if (!checking) {
+
+                                        let bytes = 0
+                                        if (healthCheck.checked) bytes += 1
+                                        if (foodCheck.checked) bytes += 2
+                                        if (educationCheck.checked) bytes += 4
+                                        if (leasureCheck.checked) bytes += 8
+                                        if (shopsCheck.checked) bytes += 16
+                                        if (transportsCheck.checked) bytes += 32
+
+                                        exterior.equipement = bytes
+                                    }
+                                }
+
+                                function checkTypes() {
+                                    checking = true
+                                    healthCheck.checked = bridge.hasFlag(exterior.equipement, 1)
+                                    foodCheck.checked = bridge.hasFlag(exterior.equipement, 2)
+                                    educationCheck.checked = bridge.hasFlag(exterior.equipement, 4)
+                                    leasureCheck.checked = bridge.hasFlag(exterior.equipement, 8)
+                                    shopsCheck.checked = bridge.hasFlag(exterior.equipement, 16)
+                                    transportsCheck.checked = bridge.hasFlag(exterior.equipement, 32)
+                                    checking = false
+                                }
+
+                                Connections {
+                                    target: exterior
+                                    function onEquipementChanged() {
+                                        equipementColumn.checkTypes()
+                                    }
+                                }
                             }
                         }
                     }

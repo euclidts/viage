@@ -52,7 +52,8 @@ public:
 
     void setQmlObject(QObject* obj) noexcept { qmlObject = obj; }
 
-    bool has_flag(int value, int flag) const noexcept;
+    bool hasFlag(int value, int flag) const noexcept;
+    W_INVOKABLE(hasFlag, (int, int))
     bool accountHasFlag(int flag) const noexcept;
     W_INVOKABLE(accountHasFlag, (int))
 

@@ -152,7 +152,7 @@ void bridge::check_doc_completion(int index)
 
     for (const auto& doc : docs->items())
     {
-        if (!has_flag(flags, doc.category))
+        if (!hasFlag(flags, doc.category))
             flags += doc.category;
     }
 
@@ -199,14 +199,14 @@ void bridge::uplaod_docs(int index)
     }
 }
 
-bool bridge::has_flag(int value, int flag) const noexcept
+bool bridge::hasFlag(int value, int flag) const noexcept
 {
     return (value & flag) == flag;
 }
 
 bool bridge::accountHasFlag(int flag) const noexcept
 {
-    return has_flag(accountState, flag);
+    return hasFlag(accountState, flag);
 }
 
 const QString bridge::filePath(const QUrl &directory, const QString &fileName) const

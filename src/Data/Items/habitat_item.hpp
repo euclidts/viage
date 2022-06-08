@@ -38,17 +38,6 @@ public:
         Appartement
     };
 
-    enum equipements
-    {
-        Nothing = 0,
-        Sante = 1,
-        Restauration = 2,
-        Education = 4,
-        loisirs = 8,
-        Comerces = 16,
-        Transports = 32
-    };
-
     const QString &getStreet() const;
     void setStreet(const QString &newStreet);
     int getZip() const;
@@ -57,12 +46,10 @@ public:
     void setCanton(const QString &newCanton);
     const QString &getCity() const;
     void setCity(const QString& newCity);
-    const QString &getEquipements() const;
-    void setEquipements(const QString &newEquipements);
     const QString &getProblems() const;
     void setProblems(const QString &newProblems);
     const habitatTypes& getHabitatType() const;
-    void setHabitatType(habitatTypes newHabitatType);
+    void setHabitatType(const habitatTypes& newHabitatType);
     int getRooms() const;
     void setRooms(int newRooms);
     int getRawSurface() const;
@@ -84,8 +71,6 @@ public:
     W_SIGNAL(cantonChanged)
     void cityChanged()
     W_SIGNAL(cityChanged)
-    void equipementsChanged()
-    W_SIGNAL(equipementsChanged)
     void problemsChanged()
     W_SIGNAL(problemsChanged)
     void habitatTypeChanged()
@@ -107,7 +92,6 @@ public:
     W_PROPERTY(int, zip READ getZip WRITE setZip NOTIFY zipChanged)
     W_PROPERTY(QString, canton READ getCanton WRITE setCanton NOTIFY cantonChanged)
     W_PROPERTY(QString, city READ getCity WRITE setCity NOTIFY cityChanged)
-    W_PROPERTY(QString, equipements READ getEquipements WRITE setEquipements NOTIFY equipementsChanged)
     W_PROPERTY(QString, problems READ getProblems WRITE setProblems NOTIFY problemsChanged)
     W_PROPERTY(habitatTypes, habitatType READ getHabitatType WRITE setHabitatType NOTIFY habitatTypeChanged)
     W_PROPERTY(int, rooms READ getRooms WRITE setRooms NOTIFY roomsChanged)
@@ -121,7 +105,6 @@ private:
     // --- Habitat ---
     Places::address_item address;
     // Global
-    QString equipements{""};
     QString problems{""};
     // Habitat data
     habitatTypes habitatType{None};

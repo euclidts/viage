@@ -22,8 +22,8 @@ void exterior_item::read(const QJsonObject& json)
     if (json.contains("parkingSpots") && json["parkingSpots"].isDouble())
         setParkingSpots(json["parkingSpots"].toInt());
 
-    if (json.contains("parkingType") && json["parkingType"].isString())
-        setParkingType(json["parkingType"].toString());
+    if (json.contains("parkingType") && json["parkingType"].isDouble())
+        setParkingType(parkingTypes(json["parkingType"].toInt()));
 
     if (json.contains("parkingSurface") && json["parkingSurface"].isDouble())
         setParkingSurface(json["parkingSurface"].toInt());
@@ -36,6 +36,9 @@ void exterior_item::read(const QJsonObject& json)
 
     if (json.contains("rating") && json["rating"].isDouble())
         setRating(json["rating"].toInt());
+
+    if (json.contains("equipements") && json["equipements"].isDouble())
+        setEquipements(equipements(json["equipements"].toInt()));
 
     emit loaded();
     checkCompleted();
@@ -50,11 +53,15 @@ void exterior_item::read(const QByteArray &bytes)
 void exterior_item::write(QJsonObject& json) const
 {
     json["hasParking"] = hasParking;
-    json["parkingSpots"] = parkingSpots;
-    json["parkingType"] = parkingType;
-    json["parkingSurface"] = parkingSurface;
+    if (hasParking)
+    {
+        json["parkingSpots"] = parkingSpots;
+        json["parkingType"] = parkingType;
+        json["parkingSurface"] = parkingSurface;
+    }
     json["terrainDescription"] = terrainDescription;
     json["terrainSurface"] = terrainSurface;
+    json["equipements"] = equipement;
     json["rating"] = rating;
 }
 
@@ -64,7 +71,7 @@ void exterior_item::clear()
     emit hasParkingChanged();
     parkingSpots = 0;
     emit parkingSpotsChanged();
-    parkingType = "";
+    parkingType = NoParking;
     emit parkingTypeChanged();
     parkingSurface = 0;
     emit parkingSurfaceChanged();
@@ -72,6 +79,8 @@ void exterior_item::clear()
     emit terrainDescriptionChanged();
     terrainSurface = 50;
     emit terrainSurfaceChanged();
+    equipement = None;
+    emit equipementsChanged();
     rating = 0;
     emit ratingChanged();
     completed = false;
@@ -91,12 +100,12 @@ void exterior_item::setParkingSpots(int newParkingSpots)
     emit parkingSpotsChanged();
 }
 
-const QString &exterior_item::getParkingType() const
+const exterior_item::parkingTypes &exterior_item::getParkingType() const
 {
     return parkingType;
 }
 
-void exterior_item::setParkingType(const QString &newParkingType)
+void exterior_item::setParkingType(const parkingTypes &newParkingType)
 {
     if (parkingType == newParkingType)
         return;
@@ -154,6 +163,19 @@ void exterior_item::setHasParking(bool newHasParking)
         return;
     hasParking = newHasParking;
     emit hasParkingChanged();
+}
+
+const exterior_item::equipements& exterior_item::getEquipements() const
+{
+    return equipement;
+}
+
+void exterior_item::setEquipements(const equipements& newEquipement)
+{
+    if (equipement == newEquipement)
+        return;
+    equipement = newEquipement;
+    emit equipementsChanged();
 }
 
 int exterior_item::getRating() const

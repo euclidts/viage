@@ -180,16 +180,6 @@ ScrollView {
                         visible: !editing
                         Layout.fillWidth: true
                     }
-
-                    LabeledTextField {
-                        name: qsTr("Equipements de proximité")
-                        placeHolder: qsTr("* Optionnel")
-                        textOf: habitat.equipements
-                        canEdit: editing
-                        onEdit: function(txt) {
-                            habitat.equipements = txt
-                        }
-                    }
                 }
             }
         }
