@@ -17,6 +17,7 @@
 #include <Items/user_item.hpp>
 #include <Items/account_item.hpp>
 #include <Items/owner_item.hpp>
+#include <Items/contact_item.hpp>
 #include <Items/habitat_item.hpp>
 #include <Items/exterior_item.hpp>
 #include <Items/document_item.hpp>
@@ -84,10 +85,10 @@ int main(int argc, char* argv[])
             wrapped_owners{&manager, wrapped_accounts.get_inner(), context};
     qmlRegisterType<list_model<owner_item>>("People", 1, 0, "OwnersModel");
 
-    // infants
-    wrapped_nested_list<item_list<infant_item>, account_item>
-            wrapped_infants{&manager, wrapped_accounts.get_inner(), context};
-    qmlRegisterType<list_model<infant_item>>("People", 1, 0, "InfantModel");
+    // contacts
+    wrapped_nested_list<item_list<contact_item>, account_item>
+            wrapped_contacts{&manager, wrapped_accounts.get_inner(), context};
+    qmlRegisterType<list_model<contact_item>>("People", 1, 0, "ContactModel");
 
     using namespace Places;
 

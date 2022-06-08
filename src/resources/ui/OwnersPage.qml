@@ -12,6 +12,7 @@ ListView {
     bottomMargin: 3
     spacing: 6
     clip: true
+    boundsBehavior: Flickable.StopAtBounds
 
     model : OwnersModel { list: owners }
 

@@ -55,7 +55,7 @@ RowLayout {
         onClicked: {
             busyDialog.open()
             bridge.onboard()
-            infants.clear()
+            contacts.clear()
             habitat.clear()
             exterior.clear()
         }
@@ -99,15 +99,15 @@ RowLayout {
     }
 
     MaterialButton {
-        text: qsTr("Ajouter un enfant")
+        text: qsTr("Ajouter un contact")
         visible: accountsPages.currentIndex === 2
-                 && (infants.completed || infantPage.count === 0)
-        // exception for potentially empty children list
+                 && (contacts.completed || contactPage.count === 0)
+        // exception for potentially empty contact list
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
             busyDialog.open()
-            infants.addIn(bridge.accountId)
+            contacts.addIn(bridge.accountId)
         }
     }
 

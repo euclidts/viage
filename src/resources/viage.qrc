@@ -10,8 +10,8 @@
         <file alias="ExteriorPage.qml">ui/ExteriorPage.qml</file>
         <file alias="FlickableItem.qml">ui/FlickableItem.qml</file>
         <file alias="FlickableRect.qml">ui/FlickableRect.qml</file>
-        <file alias="InfantDelegate.qml">ui/InfantDelegate.qml</file>
-        <file alias="InfantPage.qml">ui/InfantPage.qml</file>
+        <file alias="ContactDelegate.qml">ui/ContactDelegate.qml</file>
+        <file alias="ContactPage.qml">ui/ContactPage.qml</file>
         <file alias="IntChooser.qml">ui/IntChooser.qml</file>
         <file alias="LabeledTextField.qml">ui/LabeledTextField.qml</file>
         <file alias="MaterialButton.qml">ui/MaterialButton.qml</file>
@@ -30,6 +30,7 @@
         <file alias="SettingsDialog.qml">ui/SettingsDialog.qml</file>
         <file alias="SwissCantons.qml">ui/SwissCantons.qml</file>
         <file alias="TopBar.qml">ui/TopBar.qml</file>
+        <file alias="InfantDelegate.qml">ui/InfantDelegate.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="ViageLogo.svg">images/ViageLogo.svg</file>

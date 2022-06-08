@@ -85,7 +85,7 @@ ApplicationWindow {
                     owners.loadFrom(bridge.accountId)
                     return
                 } else if (!bridge.accountHasFlag(2)) {
-                    infants.loadFrom(bridge.accountId)
+                    contacts.loadFrom(bridge.accountId)
                     return
                 } else if (!bridge.accountHasFlag(4)) {
                     habitat.loadFrom(bridge.accountId)
@@ -108,7 +108,7 @@ ApplicationWindow {
 
                 switch (index) {
                 case 2:
-                    infants.loadFrom(bridge.accountId)
+                    contacts.loadFrom(bridge.accountId)
                     break
                 case 3:
                     habitat.loadFrom(bridge.accountId)
@@ -133,7 +133,7 @@ ApplicationWindow {
                     owners.validate(bridge.accountId)
                     break;
                 case 2:
-                    infants.validate(bridge.accountId)
+                    contacts.validate(bridge.accountId)
                     break;
                 case 3:
                     habitat.validate(bridge.accountId)
@@ -153,10 +153,11 @@ ApplicationWindow {
                 delegate: AccountDelegate {}
                 onMovementStarted: topBar.searchBar.focus = false
                 clip: true
+                boundsBehavior: Flickable.StopAtBounds
             }
 
             OwnersPage { id: ownersPage }
-            InfantPage { id: infantPage }
+            ContactPage { id: contactPage }
             HabitatPage { id: habitatPage }
             ExteriorPage { id: exteriorPage }
             DocumentPage { id: documentPage }
@@ -174,7 +175,7 @@ ApplicationWindow {
                 }
             }
             Connections {
-                target: infants
+                target: contacts
                 function onLoaded() {
                     accountsPages.currentIndex = 2
                     busyDialog.close()
@@ -213,6 +214,7 @@ ApplicationWindow {
                 delegate: UserDelegate {}
                 onMovementStarted: topBar.searchBar.focus = false
                 clip: true
+                boundsBehavior: Flickable.StopAtBounds
                 onCountChanged: {
                     if (hiring)
                         positionViewAtEnd()

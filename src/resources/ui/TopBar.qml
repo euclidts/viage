@@ -153,8 +153,8 @@ RowLayout {
                 }
 
                 RoundButton {
-                    id: infantButton
-                    text: qsTr("Enfants")
+                    id: contactButton
+                    text: qsTr("Contacts")
                     highlighted: accountsPages.currentIndex == 2 ? true : false
                     font.capitalization: Font.MixedCase
                     font.bold: true
@@ -163,7 +163,7 @@ RowLayout {
                     onClicked: {
                         accountsPages.validateItem()
                         busyDialog.open()
-                        infants.loadFrom(bridge.accountId)
+                        contacts.loadFrom(bridge.accountId)
                     }
                 }
 
@@ -225,7 +225,7 @@ RowLayout {
         }
 
         function enableButtons() {
-                infantButton.enabled = bridge.accountHasFlag(1)
+                contactButton.enabled = bridge.accountHasFlag(1)
                 habitatButton.enabled = bridge.accountHasFlag(2)
                 exteriorButton.enabled = bridge.accountHasFlag(4)
                 documentButton.enabled = bridge.accountHasFlag(8)

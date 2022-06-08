@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(viage VERSION 0.1.0 LANGUAGES CXX)
+project(viage VERSION 0.1.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -78,6 +78,8 @@ set(PROJECT_SOURCES
     src/Data/Items/user_item.cpp
     src/Data/Items/infant_item.hpp
     src/Data/Items/infant_item.cpp
+    src/Data/Items/contact_item.hpp
+    src/Data/Items/contact_item.cpp
     src/Data/Items/person_item.cpp
     src/Data/Items/owner_item.hpp
     src/Data/Items/owner_item.cpp

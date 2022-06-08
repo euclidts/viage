@@ -9,4 +9,5 @@ Flickable {
     contentHeight: contentItem.childrenRect.height
     interactive: height < contentHeight
     clip: true
+    boundsBehavior: Flickable.StopAtBounds
 }
