@@ -10,7 +10,7 @@ namespace Data
 namespace People
 {
 struct owner_item;
-struct infant_item;
+struct contact_item;
 }
 
 namespace Places
@@ -33,7 +33,7 @@ struct account_item
     static const constexpr auto uri{"Data"};
 
     QJsonArray owners;
-    QJsonArray infants{};
+    QJsonArray contacts{};
     // --- Habitat ---
     QJsonObject habitat{};
     // --- Exterior ---
@@ -45,7 +45,7 @@ struct account_item
     {
         Initialized = 0,
         OwnersCompleted = 1,
-        InfantsCompleted = 2,
+        ContactsCompleted = 2,
         HabitatCompleted = 4,
         ExteriorCompleted = 8,
         DocumentsCompleted = 16,
@@ -70,7 +70,7 @@ struct account_item
     enum roles
     {
         OwnersRole = Qt::UserRole,
-        InfantsRole,
+        ContactsRole,
         HabitatRole,
         // --- Exterior ---
         ExteriorRole,
@@ -93,13 +93,13 @@ struct account_item
     void setData(const QVariant& value, int role);
 
     void set(item_list<People::owner_item>* ol);
-    void set(item_list<People::infant_item>* il);
+    void set(item_list<People::contact_item>* cl);
     void set(Places::habitat_item* ht);
     void set(Places::exterior_item* er);
     void set(item_list<document_item>* ds);
 
     QJsonArray get(item_list<People::owner_item>* ol);
-    QJsonArray get(item_list<People::infant_item>* il) const;
+    QJsonArray get(item_list<People::contact_item>* cl) const;
     QJsonObject get(Places::habitat_item* ht);
     QJsonObject get(Places::exterior_item* er);
     QJsonArray get(item_list<document_item>* ds) const;

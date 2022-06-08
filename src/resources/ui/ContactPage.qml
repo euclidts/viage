@@ -13,28 +13,29 @@ ListView {
     spacing: 6
     clip: true
 
-    model : InfantModel { list: infants }
+    model : ContactModel { list: contacts }
 
     onCountChanged: busyDialog.close()
 
-    property bool completed: infants.completed
+    property bool completed: contacts.completed
 
     delegate: BackgroundRect {
-        id: infant
+        id: contact
 
         required property var model
         required property int index
         property bool editing: true
 
-        InfantDelegate {
-            title: qsTr("Enfant")
+        ContactDelegate {
+            title: model.isInfant ? qsTr("Enfant")
+                                   : qsTr("Contact")
             width: parent.width
-            model: infant.model
+            model: contact.model
 
             Button {
                 id: deleteButton
                 icon.source: "qrc:/icons/trash-alt.svg"
-                onClicked: infants.removeItems(model.index, model.index)
+//                onClicked: infants.removeItems(model.index, model.index)
             }
         }
     }

@@ -14,9 +14,6 @@ struct infant_item : public person_item
 {   
     infant_item();
 
-    const constexpr char* key() { return "infant"; };
-    static const constexpr auto qmlName{"Infant"};
-
     senior_citizen_item::sexes sex{senior_citizen_item::sexes::M};
 
     enum roles

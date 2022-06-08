@@ -78,6 +78,8 @@ set(PROJECT_SOURCES
     src/Data/Items/user_item.cpp
     src/Data/Items/infant_item.hpp
     src/Data/Items/infant_item.cpp
+    src/Data/Items/contact_item.hpp
+    src/Data/Items/contact_item.cpp
     src/Data/Items/person_item.cpp
     src/Data/Items/owner_item.hpp
     src/Data/Items/owner_item.cpp

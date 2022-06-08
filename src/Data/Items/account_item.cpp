@@ -1,6 +1,7 @@
 #include <QJsonDocument>
 
 #include "Items/owner_item.hpp"
+#include "Items/contact_item.hpp"
 #include "Items/habitat_item.hpp"
 #include "Items/exterior_item.hpp"
 #include "Items/document_item.hpp"
@@ -23,7 +24,7 @@ QHash<int, QByteArray> account_item::roleNames()
     QHash<int, QByteArray> names;
 
     names[OwnersRole] = "owners";
-    names[InfantsRole] = "infants";
+    names[ContactsRole] = "contacts";
     // --- Habitat ---
     names[HabitatRole] = "habitat";
     // --- Exterior ---
@@ -49,8 +50,8 @@ QVariant account_item::data(int role) const
     {
     case OwnersRole:
         return owners.toVariantList();
-    case InfantsRole:
-        return infants.toVariantList();
+    case ContactsRole:
+        return contacts.toVariantList();
     case HabitatRole:
         return habitat;
     case ExteriorRole:
@@ -85,8 +86,8 @@ void account_item::setData(const QVariant &value, int role)
     case OwnersRole:
         owners = value.toJsonArray();
         break;
-    case InfantsRole:
-        infants = value.toJsonArray();
+    case ContactsRole:
+        contacts = value.toJsonArray();
         break;
     case HabitatRole:
         habitat = value.toJsonObject();
@@ -112,11 +113,11 @@ void account_item::set(item_list<People::owner_item>* ol)
     modified = QDate::currentDate();
 }
 
-void account_item::set(item_list<People::infant_item>* il)
+void account_item::set(item_list<People::contact_item>* cl)
 {
     QJsonArray arr{};
-    il->write(arr);
-    infants = arr;
+    cl->write(arr);
+    contacts = arr;
 
     modified = QDate::currentDate();
 }
@@ -163,9 +164,9 @@ QJsonArray account_item::get(item_list<People::owner_item> *ol)
     return owners;
 }
 
-QJsonArray account_item::get(item_list<People::infant_item> *ol) const
+QJsonArray account_item::get(item_list<People::contact_item> *cl) const
 {
-    return infants;
+    return contacts;
 }
 
 QJsonObject account_item::get(Places::habitat_item* ht)
@@ -206,8 +207,8 @@ void account_item::read(const QJsonObject& json)
     if (json.contains("owners") && json["owners"].isArray())
         owners = json["owners"].toArray();
 
-    if (json.contains("infants") && json["infants"].isArray())
-        infants = json["infants"].toArray();
+    if (json.contains("contacts") && json["contacts"].isArray())
+        contacts = json["contacts"].toArray();
 
     if (json.contains("habitat") && json["habitat"].isObject())
         habitat = json["habitat"].toObject();
@@ -249,7 +250,7 @@ void account_item::read(const QJsonObject& json)
 void account_item::write(QJsonObject& json) const
 {
     json["owners"] = owners;
-    json["infants"] = infants;
+    json["contacts"] = contacts;
     json["habitat"] = habitat;
     json["exterior"] = exterior;
     json["documents"] = documents;
