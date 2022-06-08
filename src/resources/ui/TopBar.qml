@@ -225,43 +225,16 @@ RowLayout {
         }
 
         function enableButtons() {
-
-            if (bridge.accountHasFlag(1))
-                infantButton.enabled = true
-            else
-                infantButton.enabled = false
-
-            if (bridge.accountHasFlag(2))
-                habitatButton.enabled = true
-            else
-                habitatButton.enabled = false
-
-            if (bridge.accountHasFlag(4))
-                exteriorButton.enabled = true
-            else
-                exteriorButton.enabled = false
-
-            if (bridge.accountHasFlag(8))
-                documentButton.enabled = true
-            else
-                documentButton.enabled = false
-
-            if (bridge.accountHasFlag(16))
-                stateButton.enabled = true
-            else
-                stateButton.enabled = false
-        }
-
-        Connections {
-            target: accounts
-            function onDataChangedAt(index : int) {
-                buttonView.enableButtons()
-            }
+                infantButton.enabled = bridge.accountHasFlag(1)
+                habitatButton.enabled = bridge.accountHasFlag(2)
+                exteriorButton.enabled = bridge.accountHasFlag(4)
+                documentButton.enabled = bridge.accountHasFlag(8)
+                stateButton.enabled = bridge.accountHasFlag(16)
         }
 
         Connections {
             target: bridge
-            function onAccountIdChanged() {
+            function onAccountStateChanged() {
                 buttonView.enableButtons()
             }
         }

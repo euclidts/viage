@@ -35,6 +35,12 @@ bridge::bridge(Interface::netManager* manager,
     connect(acnts, &item_list<account_item>::postItemsAppended,
             this, &bridge::getLastAccount);
 
+    connect(acnts, &item_list<account_item>::dataChangedAt,
+            this, [this] (int index)
+    {
+        setAccountState(acnts->item_at_id(accountId).state);
+    });
+
     connect(docs, &item_list<document_item>::dataChangedAt,
             this, &bridge::check_doc_completion);
 
@@ -106,9 +112,23 @@ int bridge::getAccountId() const
 
 void bridge::setAccoountId(int newAccountId)
 {
-    if (newAccountId != accountId)
-        accountId = newAccountId;
+    if (accountId == newAccountId)
+        return;
+    accountId = newAccountId;
     emit accountIdChanged();
+}
+
+int bridge::getAccountState() const
+{
+    return accountState;
+}
+
+void bridge::setAccountState(int newAccountState)
+{
+    if (accountState == newAccountState)
+        return;
+    accountState = newAccountState;
+    emit accountStateChanged();
 }
 
 bool bridge::getDocumentsCompleted() const
@@ -186,7 +206,7 @@ bool bridge::has_flag(int value, int flag) const noexcept
 
 bool bridge::accountHasFlag(int flag) const noexcept
 {
-    return has_flag(acnts->item_at_id(accountId).state, flag);
+    return has_flag(accountState, flag);
 }
 
 const QString bridge::filePath(const QUrl &directory, const QString &fileName) const
@@ -213,6 +233,7 @@ void bridge::getLastAccount() noexcept
         onboarding = false;
         auto account{acnts->items().constLast()};
         setAccoountId(account.id);
+        setAccountState(0);
         emit requestOwners(accountId);
     }
 }

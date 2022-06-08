@@ -16,6 +16,7 @@ ScrollView {
                 Layout.minimumWidth: 200
 
                 ColumnLayout {
+                    id: stateColumn
                     Layout.minimumWidth: 200
                     Layout.margins: 12
 
@@ -31,33 +32,48 @@ ScrollView {
                     }
 
                     CheckBox {
-                        checked: bridge.accountHasFlag(32)
+                        id: recieivedCheck
                         text: stateNames[1]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
-                        checked: bridge.accountHasFlag(64)
+                        id: expertCheck
                         text: stateNames[2]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
-                        checked: bridge.accountHasFlag(128)
+                        id: decisionCheck
                         text: stateNames[3]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
-                        checked: bridge.accountHasFlag(256)
+                        id: notaryCheck
                         text: stateNames[4]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
-                        checked: bridge.accountHasFlag(512)
+                        id: payedCheck
                         text: stateNames[5]
                         checkable: bridge.clearance === 4
+                    }
+
+                    function checkStates() {
+                        recieivedCheck.checked = bridge.accountHasFlag(32)
+                        expertCheck.checked = bridge.accountHasFlag(64)
+                        decisionCheck.checked = bridge.accountHasFlag(128)
+                        notaryCheck.checked = bridge.accountHasFlag(256)
+                        payedCheck.checked = bridge.accountHasFlag(512)
+                    }
+
+                    Connections {
+                        target: bridge
+                        function onAccountStateChanged() {
+                            stateColumn.checkStates()
+                        }
                     }
                 }
             }

@@ -67,6 +67,11 @@ public:
     void accountIdChanged()
     W_SIGNAL(accountIdChanged)
 
+    int getAccountState() const;
+    void setAccountState(int newAccountState);
+    void accountStateChanged()
+    W_SIGNAL(accountStateChanged)
+
     bool getDocumentsCompleted() const;
     void setDocumentsCompleted(bool newDocumentsCompleted);
     void documentsCompletedChanged()
@@ -76,6 +81,7 @@ public:
     void clearanceChanged()
     W_SIGNAL(clearanceChanged)
 
+    W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(int, accountId READ getAccountId WRITE setAccoountId NOTIFY accountIdChanged)
     W_PROPERTY(int, clearance READ getClearance NOTIFY clearanceChanged)
@@ -97,11 +103,11 @@ private:
 
     Data::item_list<Data::account_item>* acnts;
     int accountId{0};
+    int accountState{0};
 
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;
 
-    void getAccountAt(int id) noexcept;
     void getLastAccount() noexcept;
 };
 

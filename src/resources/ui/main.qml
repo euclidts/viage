@@ -127,6 +127,7 @@ ApplicationWindow {
             }
 
             function validateItem() {
+
                 switch (accountsPages.currentIndex) {
                 case 1:
                     owners.validate(bridge.accountId)
