@@ -168,7 +168,20 @@ void bridge::uplaod_docs(int index)
 {
     for (const auto& doc : docs->items())
     {
-        if (!doc.isUploaded)
+        if (doc.category == Data::document_item::None)
+        {
+            // clean orphan documents
+            QJsonObject obj{};
+            obj["id"] = doc.id;
+
+            QJsonDocument data{obj};
+
+            mng->deleteToKey(docs->key(),
+                             data.toJson(),
+                             [](const QByteArray& rep)
+            { qDebug() << "delete reply :" << rep; });
+        }
+        else if (!doc.isUploaded)
         {
             QFile file{doc.relativePath.path()};
             if (file.exists())

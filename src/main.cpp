@@ -130,8 +130,6 @@ int main(int argc, char* argv[])
     qmlRegisterUncreatableType<user_filter_model>("People", 1, 0, "UserModel", "");
     context->setContextProperty("userModel", &userFilter);
 
-//    context->setContextProperty("user", &user);
-
     QObject::connect(&manager, &Interface::netManager::loggedIn,
                      [&wrapped_accounts, &wrapped_users](const bool& success)
     {

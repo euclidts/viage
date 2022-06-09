@@ -36,7 +36,7 @@ T item_list<T>::item_at_id(int id) const
 {
     int index{index_at_id(id)};
 
-    if (index != -1 && index < this->m_items.size())
+    if (index != -1)
         return this->m_items[index];
 
     return {};

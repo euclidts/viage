@@ -47,12 +47,6 @@ public:
                      const QByteArray& data,
                      const std::function<void (const QByteArray &)> &callback);
 
-    void sendMail(const QString& from,
-                  const QString& to,
-                  const QString& subject,
-                  const QString& body,
-                  const QStringList& files);
-
     Data::People::user_item user{};
 
     void clearanceChanged()

@@ -67,7 +67,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
         const auto leftData{sourceModel()->data(left, account_item::CreatedRole)};
         const auto rightData{sourceModel()->data(right, account_item::CreatedRole)};
 
-        return leftData.toDate() < rightData.toDate();
+        return leftData.toDate() > rightData.toDate(); // invert order when sorting by date
     }
 
     if (sortRole() == 1)
@@ -75,7 +75,7 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
         const auto leftData{sourceModel()->data(left, account_item::ModifiedRole)};
         const auto rightData{sourceModel()->data(right, account_item::ModifiedRole)};
 
-        return leftData.toDate() < rightData.toDate();
+        return leftData.toDate() > rightData.toDate(); // invert order when sorting by date
     }
 
     if (sortRole() == 2)

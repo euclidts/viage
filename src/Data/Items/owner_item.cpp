@@ -41,11 +41,11 @@ QVariant owner_item::data(int role) const
     switch (role)
     {
     case BirthDayRole:
-        return birthDay;
+        return QVariant(birthDay);
     case CivilStatusRole:
-        return civilStatus;
+        return QVariant(civilStatus);
     case AVSRole:
-        return avs;
+        return QVariant(avs);
     }
 
     extra_data = address_item::data(role);
@@ -66,8 +66,8 @@ void owner_item::setData(const QVariant &value, int role)
     {
         const auto date{value.toDate()};
         birthDay.setDate(date.year(), date.month(), date.day());
-    }
         break;
+    }
     case CivilStatusRole:
         civilStatus = civilStates(value.toInt());
         break;
@@ -84,7 +84,8 @@ void owner_item::read(const QJsonObject &json)
     infant_item::read(json);
 
     if (json.contains("birthDay") && json["birthDay"].isString())
-        birthDay = QDate::fromString(json["birthDay"].toString(), "dd.MM.yyyy");
+        if (json["birthDay"].toString() != "")
+            birthDay = QDate::fromString(json["birthDay"].toString(), "dd.MM.yyyy");
 
     if (json.contains("civilStatus") && json["civilStatus"].isDouble())
         civilStatus = civilStates(json["civilStatus"].toInt());
@@ -119,6 +120,9 @@ bool owner_item::is_completed() const
         return false;
 
     if (avs == "")
+        return false;
+
+    if (!address_item::is_completed())
         return false;
 
     return true;

@@ -28,8 +28,7 @@ ListView {
         property bool editing: true
 
         ContactDelegate {
-            title: model.isInfant ? qsTr("Enfant")
-                                   : qsTr("Contact")
+            title: qsTr("Contact")
             width: parent.width
             model: contact.model
 

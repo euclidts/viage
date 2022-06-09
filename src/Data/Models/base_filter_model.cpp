@@ -13,7 +13,7 @@ base_filter_model::base_filter_model(QAbstractItemModel *model, QObject* parent)
     setSortCaseSensitivity(Qt::CaseInsensitive);
 
     setSourceModel(model);
-    sort(0, Qt::DescendingOrder);
+    sort(0);
 }
 
 }

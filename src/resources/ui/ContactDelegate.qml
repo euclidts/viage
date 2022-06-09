@@ -8,7 +8,7 @@ import People
 InfantDelegate {
 
     CheckBox {
-        text: qsTr("Enfant de propriétaire")
+        text: qsTr("Enfant")
         checked: model.isInfant
         onCheckStateChanged: model.isInfant = checked
     }

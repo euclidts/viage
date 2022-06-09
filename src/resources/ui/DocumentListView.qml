@@ -81,8 +81,7 @@ GroupBox {
                     icon.source: "qrc:/icons/camera.svg"
                     onClicked: {
                         urlProvider.func = updateFunc
-                        urlProvider.path = bridge.getPictureName(bridge.accountId,
-                                                                 name,
+                        urlProvider.path = bridge.getPictureName(name,
                                                                  index)
                         urlProvider.loader.active = true
                     }
@@ -111,8 +110,7 @@ GroupBox {
                 onClicked: {
                     urlProvider.jsonMetadata = jsonMetadata
                     urlProvider.func = aquireFunc
-                    urlProvider.path = bridge.getPictureName(bridge.accountId,
-                                                             name,
+                    urlProvider.path = bridge.getPictureName(name,
                                                              root.count)
                     urlProvider.loader.active = true
                 }
