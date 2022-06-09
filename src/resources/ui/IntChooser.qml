@@ -6,7 +6,6 @@ import QtQuick.Controls.Material.impl
 
 ColumnLayout {
     spacing: 0
-    visible: canEdit
     Layout.fillWidth: true
 
     required property int numberOf
@@ -14,7 +13,6 @@ ColumnLayout {
     property var onEdit
     property int minimum: 0
     property int maximum
-    property bool canEdit: true
 
     Label {
         text: name

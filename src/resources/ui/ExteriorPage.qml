@@ -9,7 +9,6 @@ ScrollView {
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-    property bool editing: true
     property bool completed: exterior.completed
 
     FlickableItem {
@@ -43,40 +42,23 @@ ScrollView {
                                     checked: exterior.hasParking
                                     onCheckStateChanged: exterior.hasParking = checked
                                     text: qsTr("Disponible")
-                                    checkable: editing
                                 }
 
                                 IntChooser {
                                     maximum: 20
                                     numberOf: exterior.parkingSurface
                                     onEdit: function(val) { exterior.parkingSurface = val }
-                                    canEdit: editing
                                     name: qsTr("Surface (m2)")
                                     visible: exterior.hasParking
-                                }
-
-                                TextField {
-                                    text: exterior.parkingSurface + ' m2'
-                                    readOnly: true
-                                    visible: !editing && exterior.hasParking
-                                    Layout.fillWidth: true
                                 }
 
                                 IntChooser {
                                     maximum: 10
                                     numberOf: exterior.parkingSpots
                                     onEdit: function(val) { exterior.parkingSpots = val }
-                                    canEdit: editing
                                     name: qsTr("Nombre de places")
                                     visible: exterior.hasParking
                                 }
-                            }
-
-                            TextField {
-                                text: exterior.parkingSpots + ' places'
-                                readOnly: true
-                                visible: !editing && exterior.hasParking
-                                Layout.fillWidth: true
                             }
 
                             GroupBox {
@@ -100,37 +82,31 @@ ScrollView {
                                             id: bikeCheck
                                             text: qsTr("Moto")
                                             onCheckStateChanged: parkingTypeColumn.setTypes()
-                                            checkable: editing
                                         }
                                         CheckBox {
                                             id: carCheck
                                             text: qsTr("Voiture")
                                             onCheckStateChanged: parkingTypeColumn.setTypes()
-                                            checkable: editing
                                         }
                                         CheckBox {
                                             id: indoorCheck
                                             text: qsTr("Interieur")
                                             onCheckStateChanged: parkingTypeColumn.setTypes()
-                                            checkable: editing
                                         }
                                         CheckBox {
                                             id: outdoorCheck
                                             text: qsTr("Exterieur")
                                             onCheckStateChanged: parkingTypeColumn.setTypes()
-                                            checkable: editing
                                         }
                                         CheckBox {
                                             id: individualCheck
                                             text: qsTr("Individuel")
                                             onCheckStateChanged: parkingTypeColumn.setTypes()
-                                            checkable: editing
                                         }
                                         CheckBox {
                                             id: colectiveCheck
                                             text: qsTr("Collectif")
                                             onCheckStateChanged: parkingTypeColumn.setTypes()
-                                            checkable: editing
                                         }
 
                                         property bool checking: false
@@ -188,7 +164,6 @@ ScrollView {
                             LabeledTextField {
                                 name: qsTr("Description")
                                 textOf: exterior.terrainDescription
-                                canEdit: editing
                                 onEdit: function(txt) { exterior.terrainDescription = txt }
                                 placeHolder: qsTr("* Optionnel")
                             }
@@ -199,14 +174,6 @@ ScrollView {
                                 maximum: 2000
                                 numberOf: exterior.terrainSurface
                                 onEdit: function(val) { exterior.terrainSurface = val }
-                                canEdit: editing
-                            }
-
-                            TextField {
-                                text: "Surface de " + exterior.terrainSurface + ' m2'
-                                readOnly: true
-                                visible: !editing
-                                placeholderText: qsTr("* Optionnel")
                             }
                         }
                     }
@@ -231,37 +198,31 @@ ScrollView {
                                     id: healthCheck
                                     text: qsTr("Santé")
                                     onCheckStateChanged: equipementColumn.setTypes()
-                                    checkable: editing
                                 }
                                 CheckBox {
                                     id: foodCheck
                                     text: qsTr("Restauration")
                                     onCheckStateChanged: equipementColumn.setTypes()
-                                    checkable: editing
                                 }
                                 CheckBox {
                                     id: educationCheck
                                     text: qsTr("Education")
                                     onCheckStateChanged: equipementColumn.setTypes()
-                                    checkable: editing
                                 }
                                 CheckBox {
                                     id: leasureCheck
                                     text: qsTr("Loisirs")
                                     onCheckStateChanged: equipementColumn.setTypes()
-                                    checkable: editing
                                 }
                                 CheckBox {
                                     id: shopsCheck
                                     text: qsTr("Comerces")
                                     onCheckStateChanged: equipementColumn.setTypes()
-                                    checkable: editing
                                 }
                                 CheckBox {
                                     id: transportsCheck
                                     text: qsTr("Transports")
                                     onCheckStateChanged: equipementColumn.setTypes()
-                                    checkable: editing
                                 }
 
                                 property bool checking: false

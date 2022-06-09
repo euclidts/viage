@@ -25,7 +25,6 @@ ListView {
 
         required property var model
         required property int index
-        property bool editing: true
 
         InfantDelegate {
             title: qsTr("Partenaire")
@@ -39,7 +38,6 @@ ListView {
                 LabeledTextField {
                     name: qsTr("AVS")
                     textOf: model.avs
-                    canEdit: owner.editing
                     onEdit: function(txt) { model.avs = txt }
                     inputHint: Qt.ImhFormattedNumbersOnly
                     validator: RegularExpressionValidator {
@@ -49,12 +47,10 @@ ListView {
 
                 DateChooser {
                     dateOf: model
-                    editing: owner.editing
                 }
 
                 AddressChooser {
                     addressOf: model
-                    canEdit: owner.editing
                 }
 
                 GroupBox {
@@ -116,14 +112,6 @@ ListView {
                                 checked: model.civilStatus === index
                             }
                         }
-
-                        TextField {
-                            id: civilStateDisplay
-                            text: civilStates.checkedButton.text
-                            readOnly: true
-                            visible: !owner.editing
-                            Layout.fillWidth: true
-                        }
                     }
                 }
 
@@ -133,7 +121,7 @@ ListView {
                     Button {
                         id: deleteButton
                         icon.source: "qrc:/icons/trash-alt.svg"
-                        visible: owner.editing && model.index > 0
+                        visible: model.index > 0
                         onClicked: owners.remove(model.id)
                     }
                 }

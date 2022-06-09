@@ -19,7 +19,6 @@ GroupBox {
     required property string name
     required property var documentsFrom
     required property int documentCategory
-    property bool canEdit: true
     property var jsonMetadata
     property var aquireFunc: function() {
         root.aquiring = true

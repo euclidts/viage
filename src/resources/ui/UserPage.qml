@@ -9,7 +9,6 @@ ScrollView {
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-    property bool editing: true
     property bool completed: users.completed
 
     FlickableItem {
@@ -26,7 +25,6 @@ ScrollView {
                     LabeledTextField {
                         name: qsTr("Société")
                         textOf: currentUser.company
-                        canEdit: editing
                         onEdit: function(txt) { currentUser.company = txt }
                     }
 
@@ -37,7 +35,6 @@ ScrollView {
 
                     ComboBox {
                         id: clearanceCombo
-                        visible: editing
                         model: [
                             qsTr("vendeur"),
                             qsTr("manager"),
@@ -46,13 +43,6 @@ ScrollView {
                         Layout.minimumWidth: 180
                         onActivated: currentUser.clearance = currentIndex
                         currentIndex: currentUser.clearance
-                    }
-
-                    TextField {
-                        text: clearanceCombo.model[currentUser.clearance]
-                        readOnly: true
-                        visible: !editing
-                        Layout.fillWidth: true
                     }
 
                     IntChooser {
@@ -66,35 +56,23 @@ ScrollView {
                     LabeledTextField {
                         name: qsTr("Bénéficiaire du compte")
                         textOf: currentUser.beneficiary
-                        canEdit: editing
                         onEdit: function(txt) { currentUser.beneficiary = txt }
                     }
 
                     LabeledTextField {
                         name: qsTr("Iban")
                         textOf: currentUser.iban
-                        canEdit: editing
                         onEdit: function(txt) { currentUser.iban = txt }
                     }
 
                     LabeledTextField {
                         name: qsTr("SWIFT/BIC")
                         textOf: currentUser.bic
-                        canEdit: editing
                         onEdit: function(txt) { currentUser.bic = txt }
                     }
 
                     AddressChooser {
                         addressOf: currentUser
-                        canEdit: editing
-                    }
-
-                    Button {
-                        text: qsTr("Modifier")
-                        highlighted: true
-                        Layout.alignment: Qt.AlignRight
-                        visible: !editing
-                        onClicked: editing = true
                     }
                 }
             }

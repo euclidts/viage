@@ -7,8 +7,6 @@ GroupBox {
     Layout.fillWidth: true
 
     required property var dateOf
-    property int maxYear: -65
-    property bool editing: true
     property string name: qsTr("Date de naissance")
 
     label: Label {
@@ -22,7 +20,6 @@ GroupBox {
         ColumnLayout {
             spacing: 0
             Layout.fillWidth: true
-            visible: editing
 
             RowLayout {
                 spacing: 0
@@ -72,10 +69,8 @@ GroupBox {
             }
 
             IntChooser {
-                property int currentYear: new Date().getFullYear()
-
-                minimum: currentYear - 120
-                maximum: currentYear + maxYear
+                minimum: new Date().getFullYear() - 120
+                maximum: new Date().getFullYear() - 65
                 name: qsTr("Année")
                 numberOf: dateOf.birthDay.getFullYear()
                 onEdit: function(val) {
@@ -84,13 +79,6 @@ GroupBox {
                     dateOf.birthDay = date
                 }
             }
-        }
-
-        TextField {
-            text: Qt.formatDate(dateOf.birthDay, "dd.MM.yy")
-            readOnly: true
-            visible: !editing
-            Layout.fillWidth: true
         }
     }
 }

@@ -14,7 +14,6 @@ GroupBox {
     Layout.fillWidth: true
 
     required property var addressOf
-    required property bool canEdit
 
     ColumnLayout {
         width: parent.width
@@ -22,19 +21,16 @@ GroupBox {
         ColumnLayout {
             Layout.fillWidth: true
             spacing: 12
-            visible: canEdit
 
             LabeledTextField {
                 name: qsTr("Rue")
                 textOf: addressOf.street
-                canEdit: root.canEdit
                 onEdit: function(txt) { addressOf.street = txt }
             }
 
             LabeledTextField {
                 name: qsTr("Ville")
                 textOf: addressOf.city
-                canEdit: root.canEdit
                 onEdit: function(txt) { addressOf.city = txt }
             }
 
@@ -83,13 +79,6 @@ GroupBox {
                     Component.onCompleted: currentIndex = indexOfValue(addressOf.canton)
                 }
             }
-        }
-
-        TextField {
-            text: addressOf.street + ' ' + addressOf.city + ' ' + addressOf.zip + ' ' + addressOf.canton
-            readOnly: true
-            visible: !canEdit
-            Layout.fillWidth: true
         }
     }
 }

@@ -9,7 +9,6 @@ ScrollView {
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-    property bool editing: true
     property bool completed: habitat.completed
 
     FlickableItem {
@@ -31,7 +30,6 @@ ScrollView {
 
                     AddressChooser {
                         addressOf: habitat
-                        canEdit: editing
                     }
 
                     ButtonGroup {
@@ -44,7 +42,6 @@ ScrollView {
                         ColumnLayout {
                             id: habitatTypeColumn
                             spacing: 0
-                            visible: editing
                             Layout.rightMargin: 12
 
                             RadioButton {
@@ -71,14 +68,7 @@ ScrollView {
                             maximum: 50
                             numberOf: habitat.rooms
                             onEdit: function(val) { habitat.rooms = val }
-                            canEdit: editing
                         }
-                    }
-
-                    TextField {
-                        text: habitat.rooms + ' Pièces'
-                        readOnly: true
-                        visible: !editing
                     }
 
                     GroupBox {
@@ -95,7 +85,6 @@ ScrollView {
 
                             RowLayout {
                                 Layout.fillWidth: true
-                                visible: editing
 
                                 IntChooser {
                                     name: qsTr("brut (m2)")
@@ -114,15 +103,7 @@ ScrollView {
                                 }
                             }
 
-                            TextField {
-                                text: habitat.rawSurface + ' m2 ' + qsTr("brut")  + ' / ' + habitat.surface + ' m2 ' + qsTr("net")
-                                readOnly: true
-                                visible: !editing
-                                Layout.fillWidth: true
-                            }
-
                             RowLayout {
-                                visible: !editing
 
                                 Label {
                                     text: habitat.rawSurface
@@ -137,7 +118,6 @@ ScrollView {
 
                             RowLayout {
                                 Layout.fillWidth: true
-                                visible: editing
 
                                 IntChooser {
                                     name: qsTr("M2 Construits")
@@ -155,13 +135,6 @@ ScrollView {
                                     onEdit: function(val) { habitat.m2Available = val }
                                 }
                             }
-
-                            TextField {
-                                text: habitat.m2Construit + qsTr(" M2 Construit ")  + ' / ' + habitat.m2Available + qsTr(" M2 Disponible")
-                                readOnly: true
-                                visible: !editing
-                                Layout.fillWidth: true
-                            }
                         }
                     }
 
@@ -171,14 +144,6 @@ ScrollView {
                         maximum: 100000
                         numberOf: habitat.m3s
                         onEdit: function(val) { habitat.m3s = val }
-                        canEdit: editing
-                    }
-
-                    TextField {
-                        text: habitat.m3s + ' m3'
-                        readOnly: true
-                        visible: !editing
-                        Layout.fillWidth: true
                     }
                 }
             }

@@ -10,7 +10,6 @@ ColumnLayout {
     property alias validator: field.validator
     property alias text: field.text
     required property string name
-    required property bool canEdit
     required property string textOf
     required property var onEdit
     property int inputHint: Qt.ImhNone
@@ -26,7 +25,6 @@ ColumnLayout {
         text: textOf
         onEditingFinished: onEdit(text)
         inputMethodHints: inputHint
-        readOnly: !canEdit
         placeholderText: placeHolder
         Layout.fillWidth: true
         font.capitalization: Font.Capitalize

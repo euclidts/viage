@@ -25,7 +25,6 @@ ListView {
 
         required property var model
         required property int index
-        property bool editing: true
 
         ContactDelegate {
             title: qsTr("Contact")

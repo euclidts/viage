@@ -10,7 +10,6 @@ ScrollView {
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-    property bool editing: true
     property bool completed: bridge.documentsCompleted
 
     FlickableItem {
@@ -29,7 +28,6 @@ ScrollView {
                         name: qsTr("Photo de l'objet")
                         documentCategory: 1
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -37,7 +35,6 @@ ScrollView {
                         name: qsTr("Pièces d’identité des partenaires")
                         documentCategory: 2
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -45,7 +42,6 @@ ScrollView {
                         name: qsTr("Extrait du registre foncier")
                         documentCategory: 4
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -53,7 +49,6 @@ ScrollView {
                         name: qsTr("Extrait des poursuites")
                         documentCategory: 8
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -61,7 +56,6 @@ ScrollView {
                         name: qsTr("Déclaration d'impôt")
                         documentCategory: 16
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -69,7 +63,6 @@ ScrollView {
                         name: qsTr("Détails concernant l'immeuble")
                         documentCategory: 32
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -77,7 +70,6 @@ ScrollView {
                         name: qsTr("Assurance du bâtiment")
                         documentCategory: 64
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -85,7 +77,6 @@ ScrollView {
                         name: qsTr("Cas échéant / police détaillée de l’établissement ou le BEB")
                         documentCategory: 128
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -93,7 +84,6 @@ ScrollView {
                         name: qsTr("Descriptif / justificatifs des travaux des 5 dernières années")
                         documentCategory: 256
                         documentsFrom: documents
-                        canEdit: editing
                     }
 
                     DocumentListView {
@@ -101,7 +91,6 @@ ScrollView {
                         name: qsTr("Descriptif des travaux à prévoir / devis")
                         documentCategory: 512
                         documentsFrom: documents
-                        canEdit: editing
                     }
                 }
             }

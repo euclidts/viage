@@ -11,27 +11,23 @@ ColumnLayout {
     Layout.minimumWidth: 200
 
     required property var model
-    property bool editing: true
 
     LabeledTextField {
         id: nameField
         name: qsTr("Nom")
         textOf: model.lastName
-        canEdit: editing
         onEdit: function(txt) { model.lastName = txt }
     }
 
     LabeledTextField {
         name: qsTr("Prénom")
         textOf: model.firstName
-        canEdit: editing
         onEdit: function(txt) { model.firstName = txt }
     }
 
     LabeledTextField {
         name: qsTr("Téléphone")
         textOf: model.phone
-        canEdit: editing
         onEdit: function(txt) { model.phone = txt }
         inputHint: Qt.ImhFormattedNumbersOnly
         validator: RegularExpressionValidator {
@@ -42,7 +38,6 @@ ColumnLayout {
     LabeledTextField {
         name: qsTr("Courriel")
         textOf: model.eMail
-        canEdit: editing
         onEdit: function(txt) { model.eMail = txt }
         validator: RegularExpressionValidator {
             regularExpression: /\S+@\S+\.\S+$/

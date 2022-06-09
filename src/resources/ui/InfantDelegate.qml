@@ -14,7 +14,6 @@ ColumnLayout {
 
     required property var model
     required property string title
-    property bool editing: true
 
     Label {
         Layout.margins: 6
@@ -28,7 +27,6 @@ ColumnLayout {
 
     PersonDelegate {
         Layout.fillWidth: true
-        editing: root.editing
         model: root.model
     }
 }

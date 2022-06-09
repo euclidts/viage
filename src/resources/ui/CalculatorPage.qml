@@ -174,6 +174,12 @@ ScrollView {
 //                        Layout.alignment: Qt.AlignRight
 //                    }
                 }
+
+                RoundButton {
+                    text: qsTr("Télécharger le document")
+                    icon.source: "qrc:/icons/download.svg"
+                    highlighted: true
+                }
             }
         }
     }
