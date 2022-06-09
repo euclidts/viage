@@ -27,8 +27,11 @@ bridge::bridge(Interface::netManager* manager,
     connect(mng, &netManager::loggedIn,
             this, &bridge::onLogin);
 
+    connect(mng, &netManager::userChanged,
+            this, &bridge::setUserId);
+
     connect(mng, &netManager::clearanceChanged,
-            this, &bridge::clearanceChanged);
+            this, &bridge::setClearance);
 
     using namespace Data;
 
@@ -100,9 +103,17 @@ QUrl bridge::getPictureName(QString& name, int index) const
                                + ".jpeg");
 }
 
-int bridge::getClearance() const
+Data::People::user_item::clearances bridge::getClearance() const
 {
     return clearance;
+}
+
+void bridge::setClearance(int newClearance)
+{
+    if (clearance == newClearance)
+        return;
+    clearance = Data::People::user_item::clearances(newClearance);
+    emit clearanceChanged();
 }
 
 int bridge::getAccountId() const
@@ -210,6 +221,11 @@ void bridge::uplaod_docs(int index)
             }
         }
     }
+}
+
+void bridge::setUserId(int newUserId)
+{
+    userId = newUserId;
 }
 
 bool bridge::hasFlag(int value, int flag) const noexcept

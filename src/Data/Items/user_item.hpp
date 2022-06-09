@@ -16,7 +16,7 @@ struct user_item : public person_item
     const constexpr char* key() { return "user"; };
     static const constexpr auto qmlName{"User"};
 
-    enum level
+    enum clearances
     {
         None = 0,
         Vendor,
@@ -26,7 +26,7 @@ struct user_item : public person_item
     };
 
     QString company{""};
-    int clearance{None};
+    clearances clearance{None};
     int team{1};
     QString beneficiary{""};
     QString iban{""};

@@ -8,8 +8,6 @@
 
 #include <wobjectdefs.h>
 
-#include <Items/user_item.hpp>
-
 namespace Data
 {
 }
@@ -47,10 +45,11 @@ public:
                      const QByteArray& data,
                      const std::function<void (const QByteArray &)> &callback);
 
-    Data::People::user_item user{};
+    void userChanged(int newId)
+    W_SIGNAL(userChanged, newId)
 
-    void clearanceChanged()
-    W_SIGNAL(clearanceChanged)
+    void clearanceChanged(int newClearance)
+    W_SIGNAL(clearanceChanged, newClearance)
 
 private:
     QNetworkRequest rqst;

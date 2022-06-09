@@ -68,7 +68,7 @@ void user_item::setData(const QVariant &value, int role)
         company = value.toString();
         break;
     case ClearanceRole:
-        clearance = value.toInt();
+        clearance = clearances(value.toInt());
         break;
     case TeamNumberRole:
         team = value.toInt();
@@ -95,7 +95,7 @@ void user_item::read(const QJsonObject &json)
         company = json["company"].toString();
 
     if (json.contains("clearance") && json["clearance"].isDouble())
-        clearance = json["clearance"].toInt();
+        clearance = clearances(json["clearance"].toInt());
 
     if (json.contains("team") && json["team"].isDouble())
         team = json["team"].toInt();

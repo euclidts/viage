@@ -9,6 +9,8 @@
 
 #include "netManager.hpp"
 
+#include <Items/user_item.hpp>
+
 namespace Data
 {
 struct document_item;
@@ -78,14 +80,17 @@ public:
     void documentsCompletedChanged()
     W_SIGNAL(documentsCompletedChanged)
 
-    int getClearance() const;
+    Data::People::user_item::clearances getClearance() const;
+    void setClearance(int newClearance);
     void clearanceChanged()
     W_SIGNAL(clearanceChanged)
 
     W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(int, accountId READ getAccountId WRITE setAccoountId NOTIFY accountIdChanged)
-    W_PROPERTY(int, clearance READ getClearance NOTIFY clearanceChanged)
+    W_PROPERTY(Data::People::user_item::clearances, clearance READ getClearance NOTIFY clearanceChanged)
+
+    void setUserId(int newUserId);
 
 private:
     QObject* qmlObject;
@@ -94,13 +99,15 @@ private:
     QString rootPath;
 
     bool onboarding{false};
+    bool hiring{false};
 
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};
     void check_doc_completion(int index);
     void uplaod_docs(int index);
 
-    int &clearance{mng->user.clearance};
+    int userId{0};
+    Data::People::user_item::clearances clearance{Data::People::user_item::None};
 
     Data::item_list<Data::account_item>* acnts;
     int accountId{0};

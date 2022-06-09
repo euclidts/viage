@@ -75,19 +75,10 @@ void netManager::authenticate(const QString& username,
                     }
 
                     if (json.contains("id") && json["id"].isDouble())
-                    {
-                        int id{json["id"].toInt()};
-                        std::string str{"users/"};
-                        str.append(std::to_string(id));
+                        emit userChanged(json["id"].toInt());
 
-                        getFromKey(str.c_str(),
-                                [this](const QByteArray& rep)
-                        {
-                            const auto json{QJsonDocument::fromJson(rep).object()};
-                            user.read(json);
-                            emit clearanceChanged();
-                        });
-                    }
+                    if (json.contains("clearance") && json["clearance"].isDouble())
+                        emit clearanceChanged(json["clearance"].toInt());
 
                     emit loggedIn(true);
                 }
