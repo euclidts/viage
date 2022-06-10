@@ -30,8 +30,8 @@ RowLayout {
 
         onActivated: {
             rootStack.currentIndex === 0 ?
-                         accountModel.sortRole = currentIndex
-                       : userModel.sortRole = currentIndex
+                        accountModel.sortRole = currentIndex
+                      : userModel.sortRole = currentIndex
         }
 
         model: rootStack.currentIndex < 1 ?
@@ -140,6 +140,7 @@ RowLayout {
 
             RowLayout {
                 RoundButton {
+                    id: ownerButton
                     text: qsTr("Partenaires")
                     highlighted: accountsPages.currentIndex == 1 ? true : false
                     font.capitalization: Font.MixedCase
@@ -220,22 +221,41 @@ RowLayout {
                     font.bold: true
                     Layout.alignment: Qt.AlignHCenter
                     enabled: false
+                    onClicked: accountsPages.currentIndex = 6
                 }
-            }
-        }
 
-        function enableButtons() {
-                contactButton.enabled = bridge.accountHasFlag(1)
-                habitatButton.enabled = bridge.accountHasFlag(2)
-                exteriorButton.enabled = bridge.accountHasFlag(4)
-                documentButton.enabled = bridge.accountHasFlag(8)
-                stateButton.enabled = bridge.accountHasFlag(16)
-        }
+                Connections {
+                    target: bridge
+                    function onAccountStateChanged () {
 
-        Connections {
-            target: bridge
-            function onAccountStateChanged() {
-                buttonView.enableButtons()
+                        if (bridge.accountHasFlag(16) && bridge.clearance < 4) {
+                            ownerButton.visible = false
+                            contactButton.visible = false
+                            habitatButton.visible = false
+                            exteriorButton.visible = false
+                            documentButton.visible = false
+                            documentButton.visible = false
+                            stateButton.visible = true
+                            stateButton.enable = true
+                        } else {
+                            ownerButton.visible = true
+                            contactButton.visible = true
+                            contactButton.enabled = bridge.accountHasFlag(1)
+                            habitatButton.visible = true
+                            habitatButton.enabled = bridge.accountHasFlag(2)
+                            exteriorButton.visible = true
+                            exteriorButton.enabled = bridge.accountHasFlag(4)
+                            documentButton.visible = true
+                            documentButton.enabled = bridge.accountHasFlag(8)
+                            if (bridge.clearance < 4)
+                                stateButton.visible = false
+                            else {
+                                stateButton.visible = true
+                                stateButton.enabled = bridge.accountHasFlag(16)
+                            }
+                        }
+                    }
+                }
             }
         }
     }

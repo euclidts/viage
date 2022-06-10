@@ -14,50 +14,44 @@ ScrollView {
             ColumnLayout {
                 width: parent.width
                 Layout.minimumWidth: 200
+                Layout.margins: 12
+
+                Label {
+                    text: qsTr("Etat du Dossier")
+                    font.bold: true
+                }
 
                 ColumnLayout {
                     id: stateColumn
                     Layout.minimumWidth: 200
-                    Layout.margins: 12
-
-                    RoundButton {
-                        text: qsTr("Télécharger le document")
-                        icon.source: "qrc:/icons/download.svg"
-                        highlighted: true
-                    }
-
-                    Label {
-                        text: qsTr("Etat du Dossier")
-                        font.bold: true
-                    }
 
                     CheckBox {
                         id: recieivedCheck
-                        text: stateNames[1]
+                        text: stateNames[7]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
                         id: expertCheck
-                        text: stateNames[2]
+                        text: stateNames[8]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
                         id: decisionCheck
-                        text: stateNames[3]
+                        text: stateNames[9]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
                         id: notaryCheck
-                        text: stateNames[4]
+                        text: stateNames[10]
                         checkable: bridge.clearance === 4
                     }
 
                     CheckBox {
                         id: payedCheck
-                        text: stateNames[5]
+                        text: stateNames[11]
                         checkable: bridge.clearance === 4
                     }
 
@@ -74,6 +68,12 @@ ScrollView {
                         function onAccountStateChanged() {
                             stateColumn.checkStates()
                         }
+                    }
+
+                    RoundButton {
+                        text: qsTr("Télécharger le document")
+                        icon.source: "qrc:/icons/download.svg"
+                        highlighted: true
                     }
                 }
             }

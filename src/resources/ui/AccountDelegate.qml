@@ -5,6 +5,7 @@ import QtQuick.Controls.Material
 
 import Data
 import Places
+import Interface
 
 ItemDelegate {
     width: parent.width
@@ -20,21 +21,34 @@ ItemDelegate {
             Layout.fillWidth: true
 
             Label {
-                text: (acronym === "" ? id : acronym)
-                      + " - " + Qt.formatDate(created, "dd.MM.yy")
+                text: Qt.formatDateTime(created, "dd.MM.yy")
+                      + " - " + acronym
             }
 
             Label {
-                property string accountState: if (state < 16)
-                                                  stateNames[0]
-                                              else if (state === 32)
-                                                  stateNames[1]
-                                              else if (state === 64)
-                                                  stateNames[2]
-                                              else
-                                                  stateNames[3]
+                id: stateLabel
+                function setAccountState() {
 
-                text: accountState + " - " + Qt.formatDate(modified, "dd.MM.yy");
+                    for (var i = 0; i < 11; i++) {
+                        if (!bridge.hasFlag(model.state, Math.pow(2, i)))
+                            return stateNames[i]
+                    }
+                }
+
+                property string accountState: setAccountState()
+
+                Connections {
+                    target: model
+                    function onStateChanged() {
+                        stateLabel.setAccountState()
+                    }
+                }
+
+                text: Qt.formatDateTime(modified, "dd.MM.yy") + " - " + accountState;
+            }
+
+            Component.onCompleted: {
+                stateLabel.setAccountState()
             }
         }
 

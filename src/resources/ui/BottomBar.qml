@@ -86,28 +86,20 @@ RowLayout {
     }
 
     MaterialButton {
-        text: qsTr("Ajouter un partenaire")
-        visible: accountsPages.currentIndex === 1
+        text: accountsPages.currentIndex === 1 ? qsTr("Ajouter un partenaire")
+                                               : qsTr("Ajouter un contact")
+        visible: (accountsPages.currentIndex === 1
                  && owners.completed
-                 && ownersPage.count < 2
-        icon.source: "qrc:/icons/plus.svg"
-
-        onClicked: {
-            busyDialog.open()
-            owners.addIn(bridge.accountId)
-        }
-    }
-
-    MaterialButton {
-        text: qsTr("Ajouter un contact")
-        visible: accountsPages.currentIndex === 2
-                 && (contacts.completed || contactPage.count === 0)
+                 && ownersPage.count < 2)
+                 || (accountsPages.currentIndex === 2
+                 && (contacts.completed || contactPage.count === 0))
         // exception for potentially empty contact list
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
             busyDialog.open()
-            contacts.addIn(bridge.accountId)
+            accountsPages.currentIndex === 1 ? owners.addIn(bridge.accountId)
+                                             : contacts.addIn(bridge.accountId)
         }
     }
 
@@ -121,11 +113,17 @@ RowLayout {
                  || ( accountsPages.currentIndex === 2 &&
                      accountsPages.itemAt(accountsPages.currentIndex).count === 0 )
         // exception for potentially empty children list
-        icon.source: "qrc:/icons/arrow-right.svg"
+        icon.source: accountsPages.currentIndex === 5 ? "qrc:/icons/arrow-left.svg"
+                                                      : "qrc:/icons/arrow-right.svg"
 
         onClicked: {
-            accountsPages.validateItem()
-            accountsPages.loadItemAt(accountsPages.currentIndex + 1)
+            if (accountsPages.currentIndex === 5) {
+                accountsPages.validateItem()
+                accountsPages.currentIndex = 0
+            } else {
+                accountsPages.validateItem()
+                accountsPages.loadItemAt(accountsPages.currentIndex + 1)
+            }
         }
     }
 }

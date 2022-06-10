@@ -58,8 +58,8 @@ struct account_item
 
     states state{Initialized};
 
-    QDate created;
-    QDate modified;
+    QDateTime created;
+    QDateTime modified;
     QString advisorFirstName{""};
     QString advisorLastName{""};
     QString company{""};

@@ -28,6 +28,7 @@ QHash<int, QByteArray> person_item::roleNames()
 {
     QHash<int, QByteArray> names;
 
+    names[IdRole] = "id";
     names[FirstNameRole] = "firstName";
     names[LastNameRole] = "lastName";
     names[PhoneRole] = "phone";
@@ -40,6 +41,8 @@ QVariant person_item::data(int role) const
 {
     switch (role)
     {
+    case IdRole:
+        return QVariant(id);
     case FirstNameRole:
         return QVariant(firstName);
     case LastNameRole:

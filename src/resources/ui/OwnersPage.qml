@@ -29,6 +29,7 @@ ListView {
         InfantDelegate {
             title: qsTr("Partenaire")
             model: owner.model
+            minIndex: 1
 
             ColumnLayout {
                 spacing: 0
@@ -112,17 +113,6 @@ ListView {
                                 checked: model.civilStatus === index
                             }
                         }
-                    }
-                }
-
-                RowLayout {
-                    spacing: 0
-
-                    Button {
-                        id: deleteButton
-                        icon.source: "qrc:/icons/trash-alt.svg"
-                        visible: model.index > 0
-                        onClicked: owners.remove(model.id)
                     }
                 }
             }

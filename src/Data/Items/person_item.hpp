@@ -19,7 +19,8 @@ struct person_item
 
     enum roles
     {
-        FirstNameRole = Qt::UserRole,
+        IdRole = Qt::UserRole,
+        FirstNameRole,
         LastNameRole,
         PhoneRole,
         EmailRole

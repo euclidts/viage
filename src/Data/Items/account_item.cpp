@@ -13,10 +13,9 @@
 namespace Data
 {
 account_item::account_item()
-    : created{QDate::currentDate()}
-    , modified{QDate::currentDate()}
+    : created{QDateTime::currentDateTime()}
+    , modified{QDateTime::currentDateTime()}
 {
-
 }
 
 QHash<int, QByteArray> account_item::roleNames()
@@ -110,7 +109,7 @@ void account_item::set(item_list<People::owner_item>* ol)
     ol->write(arr);
     owners = arr;
 
-    modified = QDate::currentDate();
+    modified = QDateTime::currentDateTime();
 }
 
 void account_item::set(item_list<People::contact_item>* cl)
@@ -119,7 +118,7 @@ void account_item::set(item_list<People::contact_item>* cl)
     cl->write(arr);
     contacts = arr;
 
-    modified = QDate::currentDate();
+    modified = QDateTime::currentDateTime();
 }
 
 void account_item::set(Places::habitat_item* ht)
@@ -128,7 +127,7 @@ void account_item::set(Places::habitat_item* ht)
     ht->write(obj);
     habitat = obj;
 
-    modified = QDate::currentDate();
+    modified = QDateTime::currentDateTime();
 }
 
 void account_item::set(Places::exterior_item* er)
@@ -137,7 +136,7 @@ void account_item::set(Places::exterior_item* er)
     er->write(obj);
     exterior = obj;
 
-    modified = QDate::currentDate();
+    modified = QDateTime::currentDateTime();
 }
 
 void account_item::set(item_list<document_item>* ds)
@@ -146,7 +145,7 @@ void account_item::set(item_list<document_item>* ds)
     ds->write(arr);
     documents = arr;
 
-    modified = QDate::currentDate();
+    modified = QDateTime::currentDateTime();
 }
 
 QJsonArray account_item::get(item_list<People::owner_item> *ol)
@@ -220,10 +219,11 @@ void account_item::read(const QJsonObject& json)
         documents = json["documents"].toArray();
 
     if (json.contains("created") && json["created"].isString())
-        created = QDate::fromString(json["created"].toString(), "dd.MM.yyyy");
+        created = QDateTime::fromString(json["created"].toString(), "dd.MM.yyyy");
+
 
     if (json.contains("modified") && json["modified"].isString())
-        modified = QDate::fromString(json["modified"].toString(), "dd.MM.yyyy");
+        modified = QDateTime::fromString(json["modified"].toString(), "dd.MM.yyyy");
 
     if (json.contains("acronym") && json["acronym"].isString())
         acronym = json["acronym"].toString();

@@ -25,13 +25,18 @@ ApplicationWindow {
     property var currentUser
     property bool hiring: false
     readonly property var stateNames: [
-        qsTr("Incomplet"),
-        qsTr("Réception du dossier par Viage SA "),
+        qsTr("Initialisé"),
+        qsTr("Partenaires completés"),
+        qsTr("Contactes completés"),
+        qsTr("Habitat completés"),
+        qsTr("Exterieur completés"),
+        qsTr("Documents completés"),
+        qsTr("Complet"),
+        qsTr("Réception du dossier par Viage SA"),
         qsTr("Expert immobilier"),
         qsTr("Décision du CA de Viager Swiss SA"),
         qsTr("Rendez-vous chez le notaire"),
         qsTr("Paiement de la commission")
-
     ]
 
     function onLogin (success: bool) {
@@ -170,6 +175,7 @@ ApplicationWindow {
             Connections {
                 target: owners
                 function onLoaded() {
+                    ownersPage.positionViewAtBeginning()
                     accountsPages.currentIndex = 1
                     busyDialog.close()
                 }
@@ -177,6 +183,7 @@ ApplicationWindow {
             Connections {
                 target: contacts
                 function onLoaded() {
+                    contactPage.positionViewAtBeginning()
                     accountsPages.currentIndex = 2
                     busyDialog.close()
                 }
@@ -184,6 +191,7 @@ ApplicationWindow {
             Connections {
                 target: habitat
                 function onLoaded() {
+                    habitatPage.y = 0
                     accountsPages.currentIndex = 3
                     busyDialog.close()
                 }
@@ -191,6 +199,7 @@ ApplicationWindow {
             Connections {
                 target: exterior
                 function onLoaded() {
+                    exteriorPage.y = 0
                     accountsPages.currentIndex = 4
                     busyDialog.close()
                 }
@@ -198,6 +207,7 @@ ApplicationWindow {
             Connections {
                 target: documents
                 function onLoaded() {
+                    documentPage.y = 0
                     accountsPages.currentIndex = 5
                     busyDialog.close()
                 }

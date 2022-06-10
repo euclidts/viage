@@ -46,8 +46,6 @@ public:
     void setCanton(const QString &newCanton);
     const QString &getCity() const;
     void setCity(const QString& newCity);
-    const QString &getProblems() const;
-    void setProblems(const QString &newProblems);
     const habitatTypes& getHabitatType() const;
     void setHabitatType(const habitatTypes& newHabitatType);
     int getRooms() const;
@@ -71,8 +69,6 @@ public:
     W_SIGNAL(cantonChanged)
     void cityChanged()
     W_SIGNAL(cityChanged)
-    void problemsChanged()
-    W_SIGNAL(problemsChanged)
     void habitatTypeChanged()
     W_SIGNAL(habitatTypeChanged)
     void roomsChanged()
@@ -92,7 +88,6 @@ public:
     W_PROPERTY(int, zip READ getZip WRITE setZip NOTIFY zipChanged)
     W_PROPERTY(QString, canton READ getCanton WRITE setCanton NOTIFY cantonChanged)
     W_PROPERTY(QString, city READ getCity WRITE setCity NOTIFY cityChanged)
-    W_PROPERTY(QString, problems READ getProblems WRITE setProblems NOTIFY problemsChanged)
     W_PROPERTY(habitatTypes, habitatType READ getHabitatType WRITE setHabitatType NOTIFY habitatTypeChanged)
     W_PROPERTY(int, rooms READ getRooms WRITE setRooms NOTIFY roomsChanged)
     W_PROPERTY(int, rawSurface READ getRawSurface WRITE setRawSurface NOTIFY rawSurfaceChanged)
@@ -102,11 +97,7 @@ public:
     W_PROPERTY(int, m3s READ getM3s WRITE setM3s NOTIFY m3sChanged)
 
 private:
-    // --- Habitat ---
     Places::address_item address;
-    // Global
-    QString problems{""};
-    // Habitat data
     habitatTypes habitatType{None};
     int rooms{2};
     int rawSurface{50};

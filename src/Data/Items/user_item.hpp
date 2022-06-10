@@ -35,13 +35,13 @@ struct user_item : public person_item
     enum roles
     {
         // following person_items roles
-        CompanyRole = Qt::UserRole + 4,
+        CompanyRole = Qt::UserRole + 5,
         ClearanceRole,
         TeamNumberRole,
         BeneficiaryRole,
         // gap left for address_item roles
-        IbanRole = Qt::UserRole + 12,
-        BicRole = Qt::UserRole + 13
+        IbanRole = Qt::UserRole + 13,
+        BicRole = Qt::UserRole + 14
     };
 
     static QHash<int, QByteArray> roleNames();

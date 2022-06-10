@@ -19,7 +19,7 @@ struct infant_item : public person_item
     enum roles
     {
         // following person_items roles
-        SexRole = Qt::UserRole + 4
+        SexRole = Qt::UserRole + 5
     };
 
     static QHash<int, QByteArray> roleNames();

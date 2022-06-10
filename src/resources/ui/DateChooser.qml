@@ -7,6 +7,7 @@ GroupBox {
     Layout.fillWidth: true
 
     required property var dateOf
+    property int maxYear: -65
     property string name: qsTr("Date de naissance")
 
     label: Label {
@@ -70,7 +71,7 @@ GroupBox {
 
             IntChooser {
                 minimum: new Date().getFullYear() - 120
-                maximum: new Date().getFullYear() - 65
+                maximum: new Date().getFullYear() - maxYear
                 name: qsTr("Année")
                 numberOf: dateOf.birthDay.getFullYear()
                 onEdit: function(val) {
