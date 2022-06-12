@@ -16,14 +16,17 @@ ScrollView {
                 Layout.minimumWidth: 200
                 Layout.margins: 12
 
-                Label {
-                    text: qsTr("Etat du Dossier")
-                    font.bold: true
-                }
-
                 ColumnLayout {
                     id: stateColumn
                     Layout.minimumWidth: 200
+                    Layout.margins: 12
+                    Layout.fillWidth: true
+
+                    Label {
+                        Layout.leftMargin: -6
+                        text: qsTr("Etat du Dossier")
+                        font.bold: true
+                    }
 
                     CheckBox {
                         id: recieivedCheck

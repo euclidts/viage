@@ -52,16 +52,18 @@ ItemDelegate {
             }
         }
 
+        Item {
+            Layout.fillWidth: true
+        }
+
         ColumnLayout {
             visible: !settingsDialog.invisible.checked
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignRight
 
             Label {
                 property var address: habitat["address"]
                 text: address.street + ' ' + address.city + ' ' + address.zip + ' ' + address.canton
                 font.bold: true
-                visible: (Object.keys(address).length)
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
                 wrapMode: Text.Wrap

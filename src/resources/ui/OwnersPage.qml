@@ -75,7 +75,6 @@ ListView {
                         ColumnLayout {
                             id: civilStateColumn
                             spacing: 0
-                            visible: !civilStateDisplay.visible
 
                             RadioButton {
                                 text: qsTr("Célibataire")

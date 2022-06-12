@@ -221,7 +221,6 @@ void account_item::read(const QJsonObject& json)
     if (json.contains("created") && json["created"].isString())
         created = QDateTime::fromString(json["created"].toString(), "dd.MM.yyyy");
 
-
     if (json.contains("modified") && json["modified"].isString())
         modified = QDateTime::fromString(json["modified"].toString(), "dd.MM.yyyy");
 

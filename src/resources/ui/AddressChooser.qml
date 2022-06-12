@@ -60,15 +60,6 @@ GroupBox {
                     textFromValue: function(value, locale) {
                         return Number(value).toString();
                     }
-                    // Workaround
-                    up.onPressedChanged: {
-                        streetField.focus = false
-                        cityField.focus = false
-                    }
-                    down.onPressedChanged: {
-                        streetField.focus = false
-                        cityField.focus = false
-                    }
                 }
 
                 ComboBox {

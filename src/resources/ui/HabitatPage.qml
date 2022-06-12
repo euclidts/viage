@@ -104,19 +104,6 @@ ScrollView {
                             }
 
                             RowLayout {
-
-                                Label {
-                                    text: habitat.rawSurface
-                                    Layout.alignment: Qt.AlignHCenter
-                                }
-
-                                Label {
-                                    text: habitat.surface
-                                    Layout.alignment: Qt.AlignHCenter
-                                }
-                            }
-
-                            RowLayout {
                                 Layout.fillWidth: true
 
                                 IntChooser {

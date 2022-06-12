@@ -71,7 +71,7 @@ GroupBox {
 
             IntChooser {
                 minimum: new Date().getFullYear() - 120
-                maximum: new Date().getFullYear() - maxYear
+                maximum: new Date().getFullYear() + maxYear
                 name: qsTr("Année")
                 numberOf: dateOf.birthDay.getFullYear()
                 onEdit: function(val) {

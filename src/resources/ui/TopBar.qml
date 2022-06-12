@@ -236,7 +236,7 @@ RowLayout {
                             documentButton.visible = false
                             documentButton.visible = false
                             stateButton.visible = true
-                            stateButton.enable = true
+                            stateButton.enabled = true
                         } else {
                             ownerButton.visible = true
                             contactButton.visible = true
@@ -247,9 +247,9 @@ RowLayout {
                             exteriorButton.enabled = bridge.accountHasFlag(4)
                             documentButton.visible = true
                             documentButton.enabled = bridge.accountHasFlag(8)
-                            if (bridge.clearance < 4)
+                            if (bridge.clearance < 4) {
                                 stateButton.visible = false
-                            else {
+                            } else {
                                 stateButton.visible = true
                                 stateButton.enabled = bridge.accountHasFlag(16)
                             }
