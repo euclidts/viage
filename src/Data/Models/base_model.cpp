@@ -10,7 +10,6 @@ W_OBJECT_IMPL((base_model<L, I>), template <typename L, typename I>)
 template <typename L, typename I>
 base_model<L, I>::base_model(QObject *parent)
     : QAbstractListModel(parent)
-    , m_list(nullptr)
 {
 }
 

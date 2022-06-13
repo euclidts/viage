@@ -126,9 +126,13 @@ int main(int argc, char* argv[])
     list_model<user_item> userModel{};
     userModel.setList(wrapped_users.get_inner());
 
-    user_filter_model userFilter{&userModel};
+    user_filter_model userFilter{&userModel, false};
+    user_filter_model selectedUser{&userModel, true};
+    user_filter_model currentUser{&userModel, true};
     qmlRegisterUncreatableType<user_filter_model>("People", 1, 0, "UserModel", "");
     context->setContextProperty("userModel", &userFilter);
+    context->setContextProperty("selectedUser", &selectedUser);
+    context->setContextProperty("currentUser", &currentUser);
 
     QObject::connect(&manager, &Interface::netManager::loggedIn,
                      [&wrapped_accounts, &wrapped_users](const bool& success)

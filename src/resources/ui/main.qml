@@ -22,7 +22,6 @@ ApplicationWindow {
 
     font.pixelSize: 16
 
-    property var currentUser
     property bool hiring: false
     readonly property var stateNames: [
         qsTr("Initialisé"),
@@ -75,9 +74,7 @@ ApplicationWindow {
         id: rootStack
         anchors.fill: parent
 
-        onCurrentIndexChanged: currentIndex < 1 ?
-                                   accountModel.setFilterFixedString(topBar.searchBar.text)
-                                 : userModel.setFilterFixedString(topBar.searchBar.text)
+        onCurrentIndexChanged: topBar.searchBar.text = ""
 
         StackLayout {
             id: accountsPages
@@ -225,9 +222,12 @@ ApplicationWindow {
                 onMovementStarted: topBar.searchBar.focus = false
                 clip: true
                 boundsBehavior: Flickable.StopAtBounds
-                onCountChanged: {
-                    if (hiring)
-                        positionViewAtEnd()
+            }
+
+            Connections {
+                target: bridge
+                function onUserIdChanged() {
+                    userModel.filterRole = bridge.userId
                 }
             }
 

@@ -34,7 +34,7 @@ public:
 protected:
     explicit base_model(QObject *parent = nullptr);
 
-    L* m_list;
+    L* m_list{nullptr};
 };
 }
 

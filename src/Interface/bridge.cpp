@@ -81,13 +81,13 @@ void bridge::requestReport() const
     {
         if (success)
         {
-            if (QDesktopServices::openUrl(rootPath + "/Viage.xlsx"))
-                emit loaded();
-            else
+            if (!QDesktopServices::openUrl(rootPath + "/Viage.xlsx"))
                 qDebug() << "Desktop services : could not open excel";
         }
         else
             qDebug() << "file error :" << error;
+
+        emit loaded();
     });
 }
 
@@ -223,9 +223,17 @@ void bridge::uplaod_docs(int index)
     }
 }
 
+int bridge::getUserId() const
+{
+    return userId;
+}
+
 void bridge::setUserId(int newUserId)
 {
+    if (userId == newUserId)
+        return;
     userId = newUserId;
+    emit userIdChanged();
 }
 
 bool bridge::hasFlag(int value, int flag) const noexcept

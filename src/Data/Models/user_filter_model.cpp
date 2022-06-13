@@ -1,15 +1,39 @@
+#include <wobjectimpl.h>
+
 #include <Items/user_item.hpp>
 #include "user_filter_model.hpp"
 
-namespace Data {
+namespace Data
+{
+W_OBJECT_IMPL(user_filter_model)
 
-user_filter_model::user_filter_model(QAbstractItemModel* model, QObject* parent)
+user_filter_model::user_filter_model(QAbstractItemModel *model,
+                                     const bool &exclusif,
+                                     QObject *parent)
     : base_filter_model{model, parent}
+    , isExclif{exclusif}
 {
 }
 
-bool user_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+bool user_filter_model::filterAcceptsRow(int sourceRow,
+                                         const QModelIndex &sourceParent) const
 {
+    const auto& id{sourceModel()->data(
+                    sourceModel()->index(sourceRow, 0, sourceParent),
+                    People::user_item::IdRole)};
+
+    if (isExclif)
+    {
+        if (filterRole() == id)
+            return true;
+        else
+            return false;
+    }
+    else
+        if (filterRole() == id)
+            return false;
+
+
     const auto& userName{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     People::user_item::LastNameRole)};

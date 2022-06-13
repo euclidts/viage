@@ -15,5 +15,4 @@ base_filter_model::base_filter_model(QAbstractItemModel *model, QObject* parent)
     setSourceModel(model);
     sort(0);
 }
-
 }

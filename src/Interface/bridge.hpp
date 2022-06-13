@@ -85,12 +85,16 @@ public:
     void clearanceChanged()
     W_SIGNAL(clearanceChanged)
 
+    int getUserId() const;
+    void setUserId(int newUserId);
+    void userIdChanged()
+    W_SIGNAL(userIdChanged)
+
     W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(int, accountId READ getAccountId WRITE setAccoountId NOTIFY accountIdChanged)
     W_PROPERTY(Data::People::user_item::clearances, clearance READ getClearance NOTIFY clearanceChanged)
-
-    void setUserId(int newUserId);
+    W_PROPERTY(int, userId READ getUserId NOTIFY userIdChanged)
 
 private:
     QObject* qmlObject;

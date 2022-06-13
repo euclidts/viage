@@ -34,8 +34,7 @@ ItemDelegate {
     }
 
     onClicked: {
-        currentUser = model
-        users.loadFrom(model.id)
+        selectedUser.filterRole = model.id
         usersPages.currentIndex = 1
     }
 
