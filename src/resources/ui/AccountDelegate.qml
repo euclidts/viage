@@ -57,7 +57,7 @@ ItemDelegate {
         }
 
         ColumnLayout {
-            visible: !settingsDialog.invisible.checked
+            visible: !settingsDrawer.invisible.checked
             Layout.fillWidth: true
 
             Label {
@@ -89,7 +89,7 @@ ItemDelegate {
                 required property int index
                 text: modelData.firstName + ' ' + modelData.lastName
             }
-            visible: !settingsDialog.invisible.checked
+            visible: !settingsDrawer.invisible.checked
         }
     }
 

@@ -161,7 +161,6 @@ void netManager::setCallback(QNetworkReply* reply,
 void netManager::setRequest(const char* key)
 {
     QUrl url{prefix + key + '?' + suffix};
-
     rqst.setUrl(url);
 }
 

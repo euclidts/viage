@@ -8,7 +8,7 @@ namespace Data
 namespace People
 {
 
-#define AGE_MIN 65
+#define AGE_MIN 70
 #define AGE_MAX 120
 
 struct senior_citizen_item

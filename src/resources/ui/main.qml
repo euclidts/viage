@@ -16,7 +16,7 @@ ApplicationWindow {
     width: 1024
     height: 768
 
-    Material.theme: settingsDialog.theme.checked ? Material.Light : Material.Dark
+    Material.theme: settingsDrawer.theme.checked ? Material.Light : Material.Dark
     Material.primary: "#3aaa35"
     Material.accent: "#3aaa35"
 
@@ -68,7 +68,7 @@ ApplicationWindow {
 
     UrlProvider { id: urlProvider }
 
-    SettingsDialog { id: settingsDialog }
+    SettingsDrawer { id: settingsDrawer }
 
     StackLayout {
         id: rootStack
@@ -228,6 +228,7 @@ ApplicationWindow {
                 target: bridge
                 function onUserIdChanged() {
                     userModel.filterRole = bridge.userId
+                    currentUser.filterRole = bridge.userId
                 }
             }
 

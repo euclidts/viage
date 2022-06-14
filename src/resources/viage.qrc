@@ -27,10 +27,11 @@
         <file alias="LoggInDialog.qml">ui/LoggInDialog.qml</file>
         <file alias="main.qml">ui/main.qml</file>
         <file alias="OwnersPage.qml">ui/OwnersPage.qml</file>
-        <file alias="SettingsDialog.qml">ui/SettingsDialog.qml</file>
+        <file alias="SettingsDrawer.qml">ui/SettingsDrawer.qml</file>
         <file alias="SwissCantons.qml">ui/SwissCantons.qml</file>
         <file alias="TopBar.qml">ui/TopBar.qml</file>
         <file alias="InfantDelegate.qml">ui/InfantDelegate.qml</file>
+        <file alias="UserFullDelegate.qml">ui/UserFullDelegate.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="ViageLogo.svg">images/ViageLogo.svg</file>
@@ -56,6 +57,10 @@
         <file alias="arrow-right.svg">icons/arrow-right.svg</file>
         <file alias="calculator.svg">icons/calculator.svg</file>
         <file alias="camera.svg">icons/camera.svg</file>
+        <file alias="moon.svg">icons/moon.svg</file>
+        <file alias="sun.svg">icons/sun.svg</file>
+        <file alias="user.svg">icons/user.svg</file>
+        <file alias="icon.svg">icons/cog.svg</file>
     </qresource>
     <qresource prefix="/data">
         <file alias="ofs.csv">ofs.csv</file>

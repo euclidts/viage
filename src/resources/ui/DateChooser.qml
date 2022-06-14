@@ -7,7 +7,7 @@ GroupBox {
     Layout.fillWidth: true
 
     required property var dateOf
-    property int maxYear: -65
+    property int maxYear: -70
     property string name: qsTr("Date de naissance")
 
     label: Label {

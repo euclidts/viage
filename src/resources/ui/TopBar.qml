@@ -16,6 +16,22 @@ RowLayout {
         id: sort
         Layout.rightMargin: -12
 
+        property var accountFilters: bridge.clearance === 4
+                                     ? [qsTr("Création"),
+                                        qsTr("Dernière modification"),
+                                        qsTr("Acronyme"),
+                                        qsTr("Partenaire"),
+                                        qsTr("NPA"),
+                                        qsTr("Canton"),
+                                        qsTr("Conseiller"),
+                                        qsTr("Société")]
+                                     : [qsTr("Création"),
+                                        qsTr("Dernière modification"),
+                                        qsTr("Acronyme"),
+                                        qsTr("Partenaire"),
+                                        qsTr("NPA"),
+                                        qsTr("Canton")]
+
         visible: accountsPages.currentIndex < 1 &&
                  usersPages.currentIndex < 1 &&
                  rootStack.currentIndex < 2
@@ -34,17 +50,10 @@ RowLayout {
                       : userModel.sortRole = currentIndex
         }
 
-        model: rootStack.currentIndex < 1 ?
-                   [qsTr("Création"),
-                    qsTr("Dernière modification"),
-                    qsTr("Acronyme"),
-                    qsTr("Partenaire"),
-                    qsTr("NPA"),
-                    qsTr("Canton"),
-                    qsTr("Conseiller"),
-                    qsTr("Société")]
-                 : [qsTr("Nom"),
-                    qsTr("Sosciete")]
+        model: rootStack.currentIndex < 1
+               ? sort.accountFilters
+               : [qsTr("Nom"),
+                  qsTr("Sosciete")]
 
         popup.width: 200
 
@@ -115,7 +124,7 @@ RowLayout {
                        accountsPages.validateItem()
                        accountsPages.currentIndex = 0
                    } else if (rootStack.currentIndex === 1) {
-                       users.validate(currentUser.id)
+                       users.validate(selectedUser.filterRole)
                        usersPages.currentIndex = 0
                    } else { rootStack.currentIndex = 0 }
         background: Rectangle {
@@ -274,7 +283,7 @@ RowLayout {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: settingsDialog.open()
+            onClicked: settingsDrawer.open()
         }
     }
 }

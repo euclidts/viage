@@ -31,12 +31,23 @@ void wrapped_list<Inner>::makeConnections() const
                   this,
                   [this] (int id)
     {
-        auto item = this->inner->item_at_id(id);
+        QJsonObject obj{};
+        auto item{this->inner->item_at_id(id)};
+        item.write(obj);
+
+        QJsonObject json{{ item.key(), obj }};
 
         this->mng->putToKey(this->inner->key(),
-                                this->inner->toData(item.key(), id),
-                                [this](const QByteArray& rep)
-        { qDebug() << rep; });
+                            QJsonDocument{json}.toJson(),
+                            [this](const QByteArray& rep)
+        {
+            auto json = QJsonDocument::fromJson(rep).object();
+
+            if (json.contains("success") && json["success"].isBool())
+                if (!json["success"].toBool())
+                    qDebug() << "Validate error :" << json["errorMessage"].toString();
+
+        });
     });
 
     this->connect(this->inner,
@@ -88,7 +99,5 @@ void wrapped_list<Inner>::connectRemove() const
             }
         });
     });
-
 }
-
 }
