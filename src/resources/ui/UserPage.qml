@@ -25,12 +25,15 @@ ListView {
             index: root.index
 
             LabeledTextField {
+                Layout.margins: 12
                 name: qsTr("Société")
                 textOf: model.company
                 onEdit: function(txt) { model.company = txt }
             }
 
             RowLayout {
+                Layout.margins: 12
+
                 ColumnLayout {
                     Label {
                         text: qsTr("Rôle")
@@ -39,17 +42,10 @@ ListView {
 
                     ComboBox {
                         id: clearanceCombo
-                        model: bridge.clearance === 4
-                               ? [qsTr("vendeur"),
-                                  qsTr("manager"),
-                                  qsTr("directeur"),
-                                  qsTr("administrateur")]
-                               : [qsTr("vendeur"),
-                                  qsTr("manager"),
-                                  qsTr("directeur")]
+                        model: clearanceNames
                         Layout.minimumWidth: 180
                         onActivated: root.model.clearance = currentIndex
-                        currentIndex: root.model.clearance
+                        currentIndex: root.model.clearance - 1
                     }
                 }
 

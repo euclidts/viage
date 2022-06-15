@@ -15,26 +15,27 @@ ItemDelegate {
     bottomInset: 3
 
     contentItem: RowLayout {
-        id: accountRow
 
         ColumnLayout {
-            Layout.fillWidth: true
+            Layout.preferredWidth: parent.width / 3
 
             Label {
                 text: Qt.formatDateTime(created, "dd.MM.yy")
                       + " - " + acronym
+                wrapMode: Text.Wrap
             }
 
             Label {
                 id: stateLabel
+
+                property string accountState: setAccountState()
+
                 function setAccountState() {
                     for (var i = 0; i < 11; i++) {
                         if (!bridge.hasFlag(model.state, Math.pow(2, i)))
                             return stateNames[i]
                     }
                 }
-
-                property string accountState: setAccountState()
 
                 Connections {
                     target: model
@@ -44,6 +45,7 @@ ItemDelegate {
                 }
 
                 text: Qt.formatDateTime(modified, "dd.MM.yy") + " - " + accountState;
+                wrapMode: Text.Wrap
             }
 
             Component.onCompleted: {
@@ -51,13 +53,9 @@ ItemDelegate {
             }
         }
 
-        Item {
-            Layout.fillWidth: true
-        }
-
         ColumnLayout {
-            visible: !settingsDrawer.invisible.checked
-            Layout.fillWidth: true
+            visible: settingsDrawer.invisible.checked
+            Layout.preferredWidth: parent.width / 3
 
             Label {
                 property var address: habitat["address"]
@@ -65,31 +63,53 @@ ItemDelegate {
                       + address.zip + ' ' + address.canton
                 font.bold: true
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignCenter
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
             }
 
-            Label {
-                text: advisorFirstName + ' ' + advisorLastName + ' ' + company
-                font.italic: true
+            ListView {
+                interactive: false
+                implicitHeight: contentHeight
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignCenter
-                wrapMode: Text.Wrap
+                model: owners
+                delegate: Label {
+                    required property var modelData
+                    required property int index
+                    text: modelData.firstName + ' ' + modelData.lastName
+                    horizontalAlignment: Text.AlignHCenter
+                    font.italic: true
+                    width: parent.width
+                    wrapMode: Text.Wrap
+                }
             }
         }
 
-        ListView {
-            interactive: false
-            implicitHeight: contentHeight
-            implicitWidth: accountRow.width / 3
-            Layout.alignment: Qt.AlignRight
-            model: owners
-            delegate: Label {
-                required property var modelData
-                required property int index
-                text: modelData.firstName + ' ' + modelData.lastName
+        RowLayout {
+            Layout.preferredWidth: parent.width / 3
+
+            ColumnLayout {
+                visible: settingsDrawer.invisible.checked
+                Layout.preferredWidth: parent.width - 100
+
+                Label {
+                    text: advisorFirstName + ' ' + advisorLastName
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignRight
+                    wrapMode: Text.Wrap
+                }
+
+                Label {
+                    text: qsTr("Sosciete ") + model.company
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignRight
+                    wrapMode: Text.Wrap
+                }
             }
-            visible: !settingsDrawer.invisible.checked
+
+            RoundButton {
+                visible: settingsDrawer.invisible.checked
+                icon.source: "qrc:/icons/trash-alt.svg"
+            }
         }
     }
 

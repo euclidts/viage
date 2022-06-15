@@ -53,7 +53,8 @@ RowLayout {
         model: rootStack.currentIndex < 1
                ? sort.accountFilters
                : [qsTr("Nom"),
-                  qsTr("Sosciete")]
+                  qsTr("Sosciete"),
+                 qsTr("Role")]
 
         popup.width: 200
 

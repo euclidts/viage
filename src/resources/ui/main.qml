@@ -38,6 +38,15 @@ ApplicationWindow {
         qsTr("Paiement de la commission")
     ]
 
+    readonly property var clearanceNames: bridge.clearance === 4
+                                          ? [qsTr("Vendeur"),
+                                             qsTr("Manager"),
+                                             qsTr("Directeur"),
+                                             qsTr("Administrateur")]
+                                          : [qsTr("Vendeur"),
+                                             qsTr("Manager"),
+                                             qsTr("Directeur")]
+
     function onLogin (success: bool) {
         if (success) {
             topBar.visible = true

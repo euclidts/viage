@@ -11,16 +11,47 @@ ItemDelegate {
     bottomInset: 3
 
     contentItem: RowLayout {
+        width: parent.width
 
-        Label {
-            text: model.firstName + ' ' + model.lastName
-            Layout.fillWidth: true
+        ColumnLayout {
+            Layout.preferredWidth: parent.width / 3
+
+            Label { text: model.company }
+
+            Label { text: qsTr("Equipe ") + model.team }
         }
 
-        Label {
-            text: model.company
-            font.bold: true
-            Layout.fillWidth: true
+        ColumnLayout {
+            Layout.preferredWidth: parent.width / 3
+
+            Label {
+                text: model.firstName + ' ' + model.lastName
+                font.bold: true
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Label {
+                text: clearanceNames[model.clearance - 1]
+                font.italic: true
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+
+        RowLayout {
+            Layout.preferredWidth: parent.width / 3
+            spacing: 0
+
+            Item { Layout.preferredWidth: parent.width - 220 }
+
+            RoundButton {
+                icon.source: "qrc:/icons/door-open.svg"
+            }
+
+            RoundButton {
+                icon.source: "qrc:/icons/times-circle.svg"
+            }
         }
     }
 

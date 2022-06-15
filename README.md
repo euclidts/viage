@@ -9,16 +9,12 @@
 * NPA in relation to Canton
 * Drag and drop Documents
 * Don't re-scale wallpaper
-* Page in A4 format (check button position)
-* Account delegate (invert owners and advisor, divide placement in 3)
-* user delegate (company, clearance team, name + add clearance in filter)
 * user inactive instead of delete
 * resend credentials by email
 * Delete button with text
-* page Layout
-* Flow layout for button groups (and everywhere possible)
 * pop up for validation (when deleting)
 * Account: Date of state changed 
+* Delete Button Position
 
 ## Server side
 

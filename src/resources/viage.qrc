@@ -61,6 +61,7 @@
         <file alias="user.svg">icons/user.svg</file>
         <file alias="cog.svg">icons/cog.svg</file>
         <file alias="checked-square.svg">icons/check-square.svg</file>
+        <file alias="door-open.svg">icons/door-open.svg</file>
     </qresource>
     <qresource prefix="/data">
         <file alias="ofs.csv">ofs.csv</file>

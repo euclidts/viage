@@ -91,8 +91,9 @@ Dialog {
             }
         }
 
-        Button {
+        RoundButton {
             id: validationButton
+            icon.source: "qrc:/icons/door-open.svg"
             text: qsTr("Valider")
             width: parent.width
             font.capitalization: Font.MixedCase
