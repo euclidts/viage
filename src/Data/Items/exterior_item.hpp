@@ -94,18 +94,18 @@ class exterior_item : public base_item
     W_PROPERTY(equipements, equipement READ getEquipements WRITE setEquipements NOTIFY equipementsChanged)
     W_PROPERTY(int, rating READ getRating WRITE setRating NOTIFY ratingChanged)
 
-    private:
-        // --- Exterior ---
-        // Parking
-        bool hasParking;
-    int parkingSpots;
-    parkingTypes parkingType;
-    int parkingSurface;
+private:
+    // --- Exterior ---
+    // Parking
+    bool hasParking{false};
+    int parkingSpots{0};
+    parkingTypes parkingType{NoParking};
+    int parkingSurface{0};
     // Terrain
-    QString terrainDescription;
-    int terrainSurface;
+    QString terrainDescription{""};
+    int terrainSurface{50};
     equipements equipement{None};
-    int rating;
+    int rating{0};
 
     void checkCompleted() override;
 };

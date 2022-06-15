@@ -71,76 +71,72 @@ ScrollView {
                                 Layout.bottomMargin: 12
                                 Layout.fillWidth: true
 
-                                ColumnLayout {
-                                    width: parent.width
+                                GridLayout {
+                                    id: parkingTypeColumn
+                                    columns: parent.width <  400 ? 2 : 3
 
-                                    ColumnLayout {
-                                        id: parkingTypeColumn
-                                        spacing: 0
+                                    CheckBox {
+                                        id: bikeCheck
+                                        text: qsTr("Moto")
+                                        onCheckStateChanged: parkingTypeColumn.setTypes()
+                                    }
+                                    CheckBox {
+                                        id: carCheck
+                                        text: qsTr("Voiture")
+                                        onCheckStateChanged: parkingTypeColumn.setTypes()
+                                    }
+                                    CheckBox {
+                                        id: indoorCheck
+                                        text: qsTr("Interieur")
+                                        onCheckStateChanged: parkingTypeColumn.setTypes()
+                                    }
+                                    CheckBox {
+                                        id: outdoorCheck
+                                        text: qsTr("Exterieur")
+                                        onCheckStateChanged: parkingTypeColumn.setTypes()
+                                    }
+                                    CheckBox {
+                                        id: individualCheck
+                                        text: qsTr("Individuel")
+                                        onCheckStateChanged: parkingTypeColumn.setTypes()
+                                    }
+                                    CheckBox {
+                                        id: colectiveCheck
+                                        text: qsTr("Collectif")
+                                        onCheckStateChanged: parkingTypeColumn.setTypes()
+                                    }
 
-                                        CheckBox {
-                                            id: bikeCheck
-                                            text: qsTr("Moto")
-                                            onCheckStateChanged: parkingTypeColumn.setTypes()
-                                        }
-                                        CheckBox {
-                                            id: carCheck
-                                            text: qsTr("Voiture")
-                                            onCheckStateChanged: parkingTypeColumn.setTypes()
-                                        }
-                                        CheckBox {
-                                            id: indoorCheck
-                                            text: qsTr("Interieur")
-                                            onCheckStateChanged: parkingTypeColumn.setTypes()
-                                        }
-                                        CheckBox {
-                                            id: outdoorCheck
-                                            text: qsTr("Exterieur")
-                                            onCheckStateChanged: parkingTypeColumn.setTypes()
-                                        }
-                                        CheckBox {
-                                            id: individualCheck
-                                            text: qsTr("Individuel")
-                                            onCheckStateChanged: parkingTypeColumn.setTypes()
-                                        }
-                                        CheckBox {
-                                            id: colectiveCheck
-                                            text: qsTr("Collectif")
-                                            onCheckStateChanged: parkingTypeColumn.setTypes()
-                                        }
+                                    property bool checking: false
 
-                                        property bool checking: false
+                                    function setTypes() {
+                                        if (!checking) {
+                                            let bytes = 0
+                                            if (bikeCheck.checked) bytes += 1
+                                            if (carCheck.checked) bytes += 2
+                                            if (indoorCheck.checked) bytes += 4
+                                            if (outdoorCheck.checked) bytes += 8
+                                            if (individualCheck.checked) bytes += 16
+                                            if (colectiveCheck.checked) bytes += 32
 
-                                        function setTypes() {
-                                            if (!checking) {
-                                                let bytes = 0
-                                                if (bikeCheck.checked) bytes += 1
-                                                if (carCheck.checked) bytes += 2
-                                                if (indoorCheck.checked) bytes += 4
-                                                if (outdoorCheck.checked) bytes += 8
-                                                if (individualCheck.checked) bytes += 16
-                                                if (colectiveCheck.checked) bytes += 32
-
-                                                exterior.parkingType = bytes
-                                            }
+                                            exterior.parkingType = bytes
                                         }
+                                    }
 
-                                        function checkTypes() {
-                                            checking = true
-                                            bikeCheck.checked = bridge.hasFlag(exterior.parkingType, 1)
-                                            carCheck.checked = bridge.hasFlag(exterior.parkingType, 2)
-                                            indoorCheck.checked = bridge.hasFlag(exterior.parkingType, 4)
-                                            outdoorCheck.checked = bridge.hasFlag(exterior.parkingType, 8)
-                                            individualCheck.checked = bridge.hasFlag(exterior.parkingType, 16)
-                                            colectiveCheck.checked = bridge.hasFlag(exterior.parkingType, 32)
-                                            checking = false
-                                        }
+                                    function checkTypes() {
+                                        checking = true
+                                        bikeCheck.checked = bridge.hasFlag(exterior.parkingType, 1)
+                                        carCheck.checked = bridge.hasFlag(exterior.parkingType, 2)
+                                        indoorCheck.checked = bridge.hasFlag(exterior.parkingType, 4)
+                                        outdoorCheck.checked = bridge.hasFlag(exterior.parkingType, 8)
+                                        individualCheck.checked = bridge.hasFlag(exterior.parkingType, 16)
+                                        colectiveCheck.checked = bridge.hasFlag(exterior.parkingType, 32)
+                                        checking = false
+                                    }
 
-                                        Connections {
-                                            target: exterior
-                                            function onParkingTypeChanged() {
-                                                parkingTypeColumn.checkTypes()
-                                            }
+                                    Connections {
+                                        target: exterior
+                                        function onParkingTypeChanged() {
+                                            parkingTypeColumn.checkTypes()
                                         }
                                     }
                                 }
@@ -157,16 +153,9 @@ ScrollView {
                         Layout.fillWidth: true
                         contentHeight: contentItem.childrenRect.height
 
-                        ColumnLayout {
+                        GridLayout {
+                            columns: parent.width <  400 ? 1 : 2
                             width: parent.width
-                            spacing: 0
-
-                            LabeledTextField {
-                                name: qsTr("Description")
-                                textOf: exterior.terrainDescription
-                                onEdit: function(txt) { exterior.terrainDescription = txt }
-                                placeHolder: qsTr("* Optionnel")
-                            }
 
                             IntChooser {
                                 name: qsTr("Surface (m2)")
@@ -174,6 +163,13 @@ ScrollView {
                                 maximum: 2000
                                 numberOf: exterior.terrainSurface
                                 onEdit: function(val) { exterior.terrainSurface = val }
+                            }
+
+                            LabeledTextField {
+                                name: qsTr("Description")
+                                textOf: exterior.terrainDescription
+                                onEdit: function(txt) { exterior.terrainDescription = txt }
+                                placeHolder: qsTr("* Optionnel")
                             }
                         }
                     }
@@ -187,77 +183,73 @@ ScrollView {
                         Layout.bottomMargin: 12
                         Layout.fillWidth: true
 
-                        ColumnLayout {
-                            width: parent.width
+                        GridLayout {
+                            columns: parent.width <  400 ? 2 : 3
+                            id: equipementColumn
 
-                            ColumnLayout {
-                                id: equipementColumn
-                                spacing: 0
+                            CheckBox {
+                                id: healthCheck
+                                text: qsTr("Santé")
+                                onCheckStateChanged: equipementColumn.setTypes()
+                            }
+                            CheckBox {
+                                id: foodCheck
+                                text: qsTr("Restauration")
+                                onCheckStateChanged: equipementColumn.setTypes()
+                            }
+                            CheckBox {
+                                id: educationCheck
+                                text: qsTr("Education")
+                                onCheckStateChanged: equipementColumn.setTypes()
+                            }
+                            CheckBox {
+                                id: leasureCheck
+                                text: qsTr("Loisirs")
+                                onCheckStateChanged: equipementColumn.setTypes()
+                            }
+                            CheckBox {
+                                id: shopsCheck
+                                text: qsTr("Comerces")
+                                onCheckStateChanged: equipementColumn.setTypes()
+                            }
+                            CheckBox {
+                                id: transportsCheck
+                                text: qsTr("Transports")
+                                onCheckStateChanged: equipementColumn.setTypes()
+                            }
 
-                                CheckBox {
-                                    id: healthCheck
-                                    text: qsTr("Santé")
-                                    onCheckStateChanged: equipementColumn.setTypes()
-                                }
-                                CheckBox {
-                                    id: foodCheck
-                                    text: qsTr("Restauration")
-                                    onCheckStateChanged: equipementColumn.setTypes()
-                                }
-                                CheckBox {
-                                    id: educationCheck
-                                    text: qsTr("Education")
-                                    onCheckStateChanged: equipementColumn.setTypes()
-                                }
-                                CheckBox {
-                                    id: leasureCheck
-                                    text: qsTr("Loisirs")
-                                    onCheckStateChanged: equipementColumn.setTypes()
-                                }
-                                CheckBox {
-                                    id: shopsCheck
-                                    text: qsTr("Comerces")
-                                    onCheckStateChanged: equipementColumn.setTypes()
-                                }
-                                CheckBox {
-                                    id: transportsCheck
-                                    text: qsTr("Transports")
-                                    onCheckStateChanged: equipementColumn.setTypes()
-                                }
+                            property bool checking: false
 
-                                property bool checking: false
+                            function setTypes() {
+                                if (!checking) {
 
-                                function setTypes() {
-                                    if (!checking) {
+                                    let bytes = 0
+                                    if (healthCheck.checked) bytes += 1
+                                    if (foodCheck.checked) bytes += 2
+                                    if (educationCheck.checked) bytes += 4
+                                    if (leasureCheck.checked) bytes += 8
+                                    if (shopsCheck.checked) bytes += 16
+                                    if (transportsCheck.checked) bytes += 32
 
-                                        let bytes = 0
-                                        if (healthCheck.checked) bytes += 1
-                                        if (foodCheck.checked) bytes += 2
-                                        if (educationCheck.checked) bytes += 4
-                                        if (leasureCheck.checked) bytes += 8
-                                        if (shopsCheck.checked) bytes += 16
-                                        if (transportsCheck.checked) bytes += 32
-
-                                        exterior.equipement = bytes
-                                    }
+                                    exterior.equipement = bytes
                                 }
+                            }
 
-                                function checkTypes() {
-                                    checking = true
-                                    healthCheck.checked = bridge.hasFlag(exterior.equipement, 1)
-                                    foodCheck.checked = bridge.hasFlag(exterior.equipement, 2)
-                                    educationCheck.checked = bridge.hasFlag(exterior.equipement, 4)
-                                    leasureCheck.checked = bridge.hasFlag(exterior.equipement, 8)
-                                    shopsCheck.checked = bridge.hasFlag(exterior.equipement, 16)
-                                    transportsCheck.checked = bridge.hasFlag(exterior.equipement, 32)
-                                    checking = false
-                                }
+                            function checkTypes() {
+                                checking = true
+                                healthCheck.checked = bridge.hasFlag(exterior.equipement, 1)
+                                foodCheck.checked = bridge.hasFlag(exterior.equipement, 2)
+                                educationCheck.checked = bridge.hasFlag(exterior.equipement, 4)
+                                leasureCheck.checked = bridge.hasFlag(exterior.equipement, 8)
+                                shopsCheck.checked = bridge.hasFlag(exterior.equipement, 16)
+                                transportsCheck.checked = bridge.hasFlag(exterior.equipement, 32)
+                                checking = false
+                            }
 
-                                Connections {
-                                    target: exterior
-                                    function onEquipementChanged() {
-                                        equipementColumn.checkTypes()
-                                    }
+                            Connections {
+                                target: exterior
+                                function onEquipementChanged() {
+                                    equipementColumn.checkTypes()
                                 }
                             }
                         }

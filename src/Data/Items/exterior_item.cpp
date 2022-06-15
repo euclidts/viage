@@ -67,7 +67,7 @@ void exterior_item::write(QJsonObject& json) const
 
 void exterior_item::clear()
 {
-    hasParking = true;
+    hasParking = false;
     emit hasParkingChanged();
     parkingSpots = 0;
     emit parkingSpotsChanged();

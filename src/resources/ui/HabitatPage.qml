@@ -80,58 +80,50 @@ ScrollView {
                         Layout.fillWidth: true
                         contentHeight: contentItem.childrenRect.height
 
-                        ColumnLayout {
-                            spacing: 0
+                        GridLayout {
+                            columns: parent.width <  400 ? 2 : 4
 
-                            RowLayout {
-                                Layout.fillWidth: true
-
-                                IntChooser {
-                                    name: qsTr("brut (m2)")
-                                    minimum: 1
-                                    maximum: 1000
-                                    numberOf: habitat.rawSurface
-                                    onEdit: function(val) { habitat.rawSurface = val }
-                                }
-
-                                IntChooser {
-                                    name: qsTr("net (m2)")
-                                    minimum: 1
-                                    maximum: 1000
-                                    numberOf: habitat.surface
-                                    onEdit: function(val) { habitat.surface = val }
-                                }
+                            IntChooser {
+                                name: qsTr("brut (m2)")
+                                minimum: 1
+                                maximum: 1000
+                                numberOf: habitat.rawSurface
+                                onEdit: function(val) { habitat.rawSurface = val }
                             }
 
-                            RowLayout {
-                                Layout.fillWidth: true
+                            IntChooser {
+                                name: qsTr("net (m2)")
+                                minimum: 1
+                                maximum: 1000
+                                numberOf: habitat.surface
+                                onEdit: function(val) { habitat.surface = val }
+                            }
 
-                                IntChooser {
-                                    name: qsTr("M2 Construits")
-                                    minimum: 1
-                                    maximum: 1000
-                                    numberOf: habitat.m2Constructed
-                                    onEdit: function(val) { habitat.m2Constructed = val }
-                                }
+                            IntChooser {
+                                name: qsTr("M2 Construits")
+                                minimum: 1
+                                maximum: 1000
+                                numberOf: habitat.m2Constructed
+                                onEdit: function(val) { habitat.m2Constructed = val }
+                            }
 
-                                IntChooser {
-                                    name: qsTr("M2 Disponibles")
-                                    minimum: 1
-                                    maximum: 1000
-                                    numberOf: habitat.m2Available
-                                    onEdit: function(val) { habitat.m2Available = val }
-                                }
+                            IntChooser {
+                                name: qsTr("M2 Disponibles")
+                                minimum: 1
+                                maximum: 1000
+                                numberOf: habitat.m2Available
+                                onEdit: function(val) { habitat.m2Available = val }
                             }
                         }
                     }
+                }
 
-                    IntChooser {
-                        name: qsTr("Nombre de M3")
-                        minimum: 0
-                        maximum: 100000
-                        numberOf: habitat.m3s
-                        onEdit: function(val) { habitat.m3s = val }
-                    }
+                IntChooser {
+                    name: qsTr("Nombre de M3")
+                    minimum: 0
+                    maximum: 100000
+                    numberOf: habitat.m3s
+                    onEdit: function(val) { habitat.m3s = val }
                 }
             }
         }

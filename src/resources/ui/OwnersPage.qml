@@ -69,48 +69,45 @@ ListView {
                         onCheckedButtonChanged: model.civilStatus = checkedButton.index
                     }
 
-                    ColumnLayout {
+                    GridLayout {
+                        id: civilStateColumn
                         width: parent.width
+                        columns: width <  400 ? 1 : 2
 
-                        ColumnLayout {
-                            id: civilStateColumn
-                            spacing: 0
-
-                            RadioButton {
-                                text: qsTr("Célibataire")
-                                readonly property int index: 1
-                                checked: model.civilStatus === index
-                            }
-                            RadioButton {
-                                text: qsTr("Marié(e)")
-                                readonly property int index: 2
-                                checked: model.civilStatus === index
-                            }
-                            RadioButton {
-                                text: qsTr("Partenariat enregistré")
-                                readonly property int index: 3
-                                checked: model.civilStatus === index
-                            }
-                            RadioButton {
-                                text: qsTr("Séparé(e)")
-                                readonly property int index: 4
-                                checked: model.civilStatus === index
-                            }
-                            RadioButton {
-                                text: qsTr("Divorcé(e)")
-                                readonly property int index: 5
-                                checked: model.civilStatus === index
-                            }
-                            RadioButton {
-                                text: qsTr("Partenariat dissous")
-                                readonly property int index: 6
-                                checked: model.civilStatus === index
-                            }
-                            RadioButton {
-                                text: qsTr("Veuf")
-                                readonly property int index: 7
-                                checked: model.civilStatus === index
-                            }
+                        RadioButton {
+                            text: qsTr("Célibataire")
+                            readonly property int index: 1
+                            checked: model.civilStatus === index
+                        }
+                        RadioButton {
+                            text: qsTr("Marié(e)")
+                            readonly property int index: 2
+                            checked: model.civilStatus === index
+                        }
+                        RadioButton {
+                            text: qsTr("Partenariat enregistré")
+                            readonly property int index: 3
+                            checked: model.civilStatus === index
+                        }
+                        RadioButton {
+                            text: qsTr("Séparé(e)")
+                            readonly property int index: 4
+                            checked: model.civilStatus === index
+                        }
+                        RadioButton {
+                            text: qsTr("Divorcé(e)")
+                            readonly property int index: 5
+                            checked: model.civilStatus === index
+                        }
+                        RadioButton {
+                            text: qsTr("Partenariat dissous")
+                            readonly property int index: 6
+                            checked: model.civilStatus === index
+                        }
+                        RadioButton {
+                            text: qsTr("Veuf")
+                            readonly property int index: 7
+                            checked: model.civilStatus === index
                         }
                     }
                 }

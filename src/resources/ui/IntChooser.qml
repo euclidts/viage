@@ -6,7 +6,6 @@ import QtQuick.Controls.Material.impl
 
 ColumnLayout {
     spacing: 0
-    Layout.fillWidth: true
 
     required property int numberOf
     required property string name
