@@ -12,36 +12,40 @@ ColumnLayout {
 
     required property var model
 
-    LabeledTextField {
-        id: nameField
-        name: qsTr("Nom")
-        textOf: model.lastName
-        onEdit: function(txt) { model.lastName = txt }
-    }
+    GridLayout {
+        columns: width <  400 ? 1 : 2
 
-    LabeledTextField {
-        name: qsTr("Prénom")
-        textOf: model.firstName
-        onEdit: function(txt) { model.firstName = txt }
-    }
-
-    LabeledTextField {
-        name: qsTr("Téléphone")
-        textOf: model.phone
-        onEdit: function(txt) { model.phone = txt }
-        inputHint: Qt.ImhFormattedNumbersOnly
-        validator: RegularExpressionValidator {
-            regularExpression: /\d{10,14}?$/
+        LabeledTextField {
+            id: nameField
+            name: qsTr("Nom")
+            textOf: model.lastName
+            onEdit: function(txt) { model.lastName = txt }
         }
-    }
 
-    LabeledTextField {
-        name: qsTr("Courriel")
-        textOf: model.eMail
-        onEdit: function(txt) { model.eMail = txt }
-        validator: RegularExpressionValidator {
-            regularExpression: /\S+@\S+\.\S+$/
+        LabeledTextField {
+            name: qsTr("Prénom")
+            textOf: model.firstName
+            onEdit: function(txt) { model.firstName = txt }
         }
-        placeHolder: qsTr("* Champ Nécessaire")
+
+        LabeledTextField {
+            name: qsTr("Téléphone")
+            textOf: model.phone
+            onEdit: function(txt) { model.phone = txt }
+            inputHint: Qt.ImhFormattedNumbersOnly
+            validator: RegularExpressionValidator {
+                regularExpression: /\d{10,14}?$/
+            }
+        }
+
+        LabeledTextField {
+            name: qsTr("Courriel")
+            textOf: model.eMail
+            onEdit: function(txt) { model.eMail = txt }
+            validator: RegularExpressionValidator {
+                regularExpression: /\S+@\S+\.\S+$/
+            }
+            placeHolder: qsTr("* Champ Nécessaire")
+        }
     }
 }

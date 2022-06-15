@@ -35,7 +35,6 @@ Dialog {
             id: usernNameField
             width: parent.width
             placeholderText: qsTr("Nom d'utilisateur")
-            text: ""
             onAccepted: passwordField.focus = true
         }
 
@@ -47,7 +46,6 @@ Dialog {
                 id: passwordField
                 Layout.fillWidth: true
                 placeholderText: qsTr("Mot de passe")
-                text: ""
                 echoMode: TextInput.Password
                 onAccepted: usernNameField.text !== "" ? validate()
                                                       : usernNameField.focus = true

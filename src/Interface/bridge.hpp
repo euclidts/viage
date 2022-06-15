@@ -49,6 +49,9 @@ public:
     void requestReport() const;
     W_INVOKABLE(requestReport)
 
+    void updatePwd(const QString& newPwd, int id) const;
+    W_INVOKABLE(updatePwd)
+
     QUrl getPictureName(QString& name, int index) const;
     W_INVOKABLE(getPictureName, (QString&, int))
 

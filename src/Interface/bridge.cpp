@@ -91,6 +91,20 @@ void bridge::requestReport() const
     });
 }
 
+void bridge::updatePwd(const QString &newPwd, int id) const
+{
+    QJsonObject json{{ "id", id },
+                     {"password", newPwd}};
+
+    mng->putToKey("changePassword",
+                  QJsonDocument(json).toJson(),
+                  [this] (const QByteArray& rep)
+    {
+        qDebug() << rep;
+        emit loaded();
+    });
+}
+
 QUrl bridge::getPictureName(QString& name, int index) const
 {
     return QUrl::fromLocalFile(rootPath

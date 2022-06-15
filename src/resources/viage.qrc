@@ -39,7 +39,6 @@
     </qresource>
     <qresource prefix="/icons">
         <file alias="download.svg">icons/download.svg</file>
-        <file alias="ellipsis-v.svg">icons/ellipsis-v.svg</file>
         <file alias="empty-star.svg">icons/empty-star.svg</file>
         <file alias="eye-slash.svg">icons/eye-slash.svg</file>
         <file alias="eye.svg">icons/eye.svg</file>
@@ -60,7 +59,8 @@
         <file alias="moon.svg">icons/moon.svg</file>
         <file alias="sun.svg">icons/sun.svg</file>
         <file alias="user.svg">icons/user.svg</file>
-        <file alias="icon.svg">icons/cog.svg</file>
+        <file alias="cog.svg">icons/cog.svg</file>
+        <file alias="checked-square.svg">icons/check-square.svg</file>
     </qresource>
     <qresource prefix="/data">
         <file alias="ofs.csv">ofs.csv</file>

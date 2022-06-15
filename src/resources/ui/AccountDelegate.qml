@@ -8,7 +8,7 @@ import Places
 import Interface
 
 ItemDelegate {
-    width: parent.width
+    width: window.width
     leftInset: 6
     rightInset: 6
     topInset: 3
@@ -28,7 +28,6 @@ ItemDelegate {
             Label {
                 id: stateLabel
                 function setAccountState() {
-
                     for (var i = 0; i < 11; i++) {
                         if (!bridge.hasFlag(model.state, Math.pow(2, i)))
                             return stateNames[i]
@@ -62,7 +61,8 @@ ItemDelegate {
 
             Label {
                 property var address: habitat["address"]
-                text: address.street + ' ' + address.city + ' ' + address.zip + ' ' + address.canton
+                text: address.street + ' ' + address.city + ' '
+                      + address.zip + ' ' + address.canton
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
