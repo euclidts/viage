@@ -72,7 +72,6 @@ RowLayout {
             topBar.searchBar.text = ""
             hiring = true
             users.add()
-            user.clear()
         }
     }
 

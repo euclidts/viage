@@ -12,12 +12,10 @@ Dialog {
     y: 120
     implicitWidth: 270
 
-    property string currentState: "ready"
-
     function validate() {
-        currentState = "authenticating"
         bridge.authenticate(usernNameField.text,
                             passwordField.text)
+        logginDialog.close()
         busyDialog.open()
     }
 
@@ -35,7 +33,8 @@ Dialog {
             id: usernNameField
             width: parent.width
             placeholderText: qsTr("Nom d'utilisateur")
-            onAccepted: passwordField.focus = true
+            onAccepted: passwordField.text !== "" ? validate()
+                                                   : passwordField.focus = true
         }
 
         RowLayout {
@@ -101,14 +100,6 @@ Dialog {
             highlighted: true
             anchors.bottomMargin: 2
             onClicked: validate()
-        }
-
-        Label {
-            id: errorLabel
-            visible: currentState == "error"
-            text: qsTr("Erreur d'authentification")
-            color: "red"
-            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
 }

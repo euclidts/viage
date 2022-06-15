@@ -51,12 +51,11 @@ ApplicationWindow {
         if (success) {
             topBar.visible = true
             bottomBar.visible = true
-            logginDialog.close()
         }
-        else {
-            busyDialog.close()
-            logginDialog.currentState = "error"
-        }
+        else
+            logginDialog.open()
+
+        busyDialog.close()
     }
 
     Image {
@@ -66,9 +65,8 @@ ApplicationWindow {
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
 
-        onStatusChanged: if (status === Image.Ready) {
+        onStatusChanged: if (status === Image.Ready)
                              logginDialog.open()
-                         }
     }
 
     BusyDialog { id: busyDialog }

@@ -42,8 +42,8 @@ Drawer {
                     checkable: true
                     icon.source: checked ? "qrc:/icons/moon.svg"
                                          : "qrc:/icons/sun.svg"
-                    text: checked ? qsTr("Theme sombre")
-                                  : qsTr("Theme clair")
+                    text: checked ? qsTr("Thème sombre")
+                                  : qsTr("Thème clair")
                     background.opacity: .0
                 }
 
@@ -55,6 +55,24 @@ Drawer {
                     text: checked ? qsTr("Mode invisible")
                                   : qsTr("Mode visible")
                     background.opacity: .0
+                }
+
+                MaterialButton {
+                    icon.source: "qrc:/icons/door-open.svg"
+                    text: qsTr("Déconnection")
+                    background.opacity: .0
+                    onClicked: {
+                        logginDialog.close()
+                        documents.clear()
+                        exterior.clear()
+                        habitat.clear()
+                        contacts.clear()
+                        owners.clear()
+                        accounts.clear()
+                        users.clear()
+                        settingsDrawer.close()
+                        logginDialog.open()
+                    }
                 }
             }
 
