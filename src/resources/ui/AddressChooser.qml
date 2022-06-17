@@ -19,7 +19,7 @@ GroupBox {
         width: parent.width
 
         GridLayout {
-            columns: width <  400 ? 1 : 2
+            columns: window.width <  400 ? 1 : 2
             Layout.fillWidth: true
 
             LabeledTextField {

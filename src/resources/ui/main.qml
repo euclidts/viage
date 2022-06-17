@@ -71,6 +71,15 @@ ApplicationWindow {
 
     BusyDialog { id: busyDialog }
 
+    MessageDialog {
+        id: messageDialog
+//        onOpen: busyDialog.close()
+
+//        property var func: function () {}
+
+//        onAccepted: func()
+    }
+
     LoggInDialog { id: logginDialog }
 
     UrlProvider { id: urlProvider }

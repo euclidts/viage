@@ -35,7 +35,7 @@ Drawer {
             currentIndex: bar.currentIndex
 
             GridLayout {
-                columns: width <  400 ? 1 : 2
+                columns: window.width <  400 ? 1 : 2
 
                 MaterialButton {
                     id: themeSwitch
@@ -104,7 +104,7 @@ Drawer {
 
                                 GridLayout {
                                     Layout.fillWidth: true
-                                    columns: width <  400 ? 1 : 2
+                                    columns: window.width <  400 ? 1 : 2
 
                                     TextField {
                                         id: newPwd

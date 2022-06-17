@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(viage VERSION 0.1.1 LANGUAGES CXX)
+project(viage VERSION 0.1.2 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -44,13 +44,12 @@ else()
     set(ALT_QRC "src/resources/complete.qrc")
 endif()
 
-find_package(Qt6 COMPONENTS
+find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
     LinguistTools
     Multimedia
-    Svg
-    REQUIRED)
+    Svg)
 
 set(TS_FILES src/resources/ts_files/viage_fr_FR.ts)
 

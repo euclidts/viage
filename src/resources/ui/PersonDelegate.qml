@@ -13,7 +13,7 @@ ColumnLayout {
     required property var model
 
     GridLayout {
-        columns: width <  400 ? 1 : 2
+        columns: window.width <  400 ? 1 : 2
 
         LabeledTextField {
             id: nameField

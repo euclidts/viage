@@ -73,7 +73,7 @@ ScrollView {
 
                                 GridLayout {
                                     id: parkingTypeColumn
-                                    columns: parent.width <  400 ? 2 : 3
+                                    columns: window.width <  400 ? 2 : 3
 
                                     CheckBox {
                                         id: bikeCheck
@@ -154,7 +154,7 @@ ScrollView {
                         contentHeight: contentItem.childrenRect.height
 
                         GridLayout {
-                            columns: parent.width <  400 ? 1 : 2
+                            columns: window.width <  400 ? 1 : 2
                             width: parent.width
 
                             IntChooser {
@@ -184,7 +184,7 @@ ScrollView {
                         Layout.fillWidth: true
 
                         GridLayout {
-                            columns: parent.width <  400 ? 2 : 3
+                            columns: window.width <  400 ? 2 : 3
                             id: equipementColumn
 
                             CheckBox {
