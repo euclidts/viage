@@ -16,9 +16,15 @@ ItemDelegate {
         ColumnLayout {
             Layout.preferredWidth: parent.width / 3
 
-            Label { text: model.company }
+            Label {
+                text: model.company
+                font.bold: true
+            }
 
-            Label { text: qsTr("Equipe ") + model.team }
+            Label {
+                text: qsTr("Equipe ") + model.team
+                font.italic: true
+            }
         }
 
         ColumnLayout {
@@ -41,32 +47,26 @@ ItemDelegate {
 
         RowLayout {
             Layout.preferredWidth: parent.width / 3
-            spacing: 0
 
-            Item { Layout.preferredWidth: parent.width - 220 }
+            Item { Layout.fillWidth: true }
 
             RoundButton {
                 icon.source: "qrc:/icons/door-open.svg"
+                ToolTip.visible: hovered
+                ToolTip.text: "Renvoyer de nouveaux identifiants"
             }
 
             RoundButton {
-                icon.source: "qrc:/icons/times-circle.svg"
+                Layout.rightMargin: 24
+                icon.source: "qrc:/icons/lock.svg"
+                ToolTip.visible: hovered
+                ToolTip.text: "Suspendre l'activité"
             }
-        }
-    }
-
-    Component.onCompleted: {
-        currentUser = model
-        if (hiring) {
-            hiring = false
-            usersPages.currentIndex = 1
-            users.loadFrom(model.id)
         }
     }
 
     onClicked: {
         selectedUser.filterRole = model.id
-        usersPages.currentIndex = 1
     }
 
     background: Rectangle {

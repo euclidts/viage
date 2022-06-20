@@ -2,8 +2,8 @@
 
 #include "document_filter_model.hpp"
 
-namespace Data {
-
+namespace Data
+{
 W_OBJECT_IMPL(document_filter_model);
 
 document_filter_model::document_filter_model(QObject* parent)

@@ -22,7 +22,6 @@ ApplicationWindow {
 
     font.pixelSize: 16
 
-    property bool hiring: false
     readonly property var stateNames: [
         qsTr("Initialisé"),
         qsTr("Partenaires completés"),
@@ -244,7 +243,13 @@ ApplicationWindow {
                 target: bridge
                 function onUserIdChanged() {
                     userModel.filterRole = bridge.userId
-                    currentUser.filterRole = bridge.userId
+                }
+            }
+
+            Connections {
+                target: selectedUser
+                function onFilterRoleChanged() {
+                    usersPages.currentIndex = 1
                 }
             }
 

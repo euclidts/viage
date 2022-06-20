@@ -1,8 +1,8 @@
 #include <Items/account_item.hpp>
 #include "account_filter_model.hpp"
 
-namespace Data {
-
+namespace Data
+{
 account_filter_model::account_filter_model(QAbstractItemModel* model, QObject* parent)
     : base_filter_model{model, parent}
 {
@@ -97,37 +97,13 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
 
     if (sortRole() == 4)
     {
-        const auto leftData{sourceModel()->data(left, account_item::HabitatRole)};
-        const auto rightData{sourceModel()->data(right, account_item::HabitatRole)};
-
-        const auto address_1{leftData.toJsonObject()};
-        const auto address_2{rightData.toJsonObject()};
-
-        return address_1["zip"].toString()
-                < address_2["zip"].toString();
-    }
-
-    if (sortRole() == 5)
-    {
-        const auto leftData{sourceModel()->data(left, account_item::HabitatRole)};
-        const auto rightData{sourceModel()->data(right, account_item::HabitatRole)};
-
-        const auto address_1{leftData.toJsonObject()};
-        const auto address_2{rightData.toJsonObject()};
-
-        return address_1["canton"].toString()
-                < address_2["canton"].toString();
-    }
-
-    if (sortRole() == 6)
-    {
         const auto leftData{sourceModel()->data(left, account_item::AdvisorLastNameRole)};
         const auto rightData{sourceModel()->data(right, account_item::AdvisorLastNameRole)};
 
         return leftData.toString() < rightData.toString();
     }
 
-    if (sortRole() == 7)
+    if (sortRole() == 5)
     {
         const auto leftData{sourceModel()->data(left, account_item::CompanyRole)};
         const auto rightData{sourceModel()->data(right, account_item::CompanyRole)};

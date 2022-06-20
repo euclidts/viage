@@ -15,14 +15,17 @@
 * pop up for validation (when deleting)
 * Account: Date of state changed 
 * Delete Button Position
+* settings: remove stackLayout and move change password in the settings 
+* Icon user dormant => lock
+* Filter user: soscietet by default
+* Company in Bold
+* Habitat completed
 
 ## Server side
 
-* Write numbers as string in the report
 * Filter invert order of filtered item in report
-* Report : phone and AVS (numbers) are all wrong 
-* Report : No filters on Parking Surface, Parking type, equipments
-* Report : columns order -> creation, update, state, advisor, acronyms 
+* Repport: follow interface field order 
+* Repport: inclusive filter (equivalent to the "contain" option)
 
 * Delete Infants
 

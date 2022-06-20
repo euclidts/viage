@@ -12,9 +12,11 @@ namespace Interface
 W_OBJECT_IMPL(bridge)
 
 bridge::bridge(Interface::netManager* manager,
+               Data::item_list<Data::People::user_item>* users,
                Data::item_list<Data::account_item>* accounts,
                Data::item_list<Data::document_item>* documents)
     : mng{manager}
+    , usrs{users}
     , acnts{accounts}
     , docs{documents}
     , tempDir{}
@@ -49,6 +51,11 @@ bridge::bridge(Interface::netManager* manager,
 
     connect(docs, &item_list<document_item>::validate,
             this, &bridge::uplaod_docs);
+
+    using namespace People;
+
+    connect(usrs, &item_list<user_item>::postItemsAppended,
+            this, &bridge::getLastUser);
 }
 
 void bridge::onLogin(const bool& success) const
@@ -277,15 +284,30 @@ void bridge::onboard()
     acnts->add();
 }
 
+void bridge::hire()
+{
+    hiring = true;
+    usrs->add();
+}
+
 void bridge::getLastAccount() noexcept
 {
     if (onboarding)
     {
         onboarding = false;
-        auto account{acnts->items().constLast()};
-        setAccoountId(account.id);
+        setAccoountId(acnts->items().constLast().id);
         setAccountState(0);
         emit requestOwners(accountId);
+    }
+}
+
+void bridge::getLastUser() noexcept
+{
+    if (hiring)
+    {
+        hiring = false;
+        setUserId(usrs->items().constLast().id);
+        emit requestUser(userId);
     }
 }
 

@@ -21,16 +21,12 @@ RowLayout {
                                         qsTr("Dernière modification"),
                                         qsTr("Acronyme"),
                                         qsTr("Partenaire"),
-                                        qsTr("NPA"),
-                                        qsTr("Canton"),
                                         qsTr("Conseiller"),
                                         qsTr("Société")]
                                      : [qsTr("Création"),
                                         qsTr("Dernière modification"),
                                         qsTr("Acronyme"),
-                                        qsTr("Partenaire"),
-                                        qsTr("NPA"),
-                                        qsTr("Canton")]
+                                        qsTr("Partenaire")]
 
         visible: accountsPages.currentIndex < 1 &&
                  usersPages.currentIndex < 1 &&
@@ -285,6 +281,9 @@ RowLayout {
         MouseArea {
             anchors.fill: parent
             onClicked: settingsDrawer.open()
+            hoverEnabled: true
+            ToolTip.visible: containsMouse
+            ToolTip.text: "Options"
         }
     }
 }

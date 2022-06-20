@@ -28,6 +28,7 @@ class bridge final : public QObject
 
 public:
     bridge(Interface::netManager* manager,
+           Data::item_list<Data::People::user_item>* users,
            Data::item_list<Data::account_item>* accounts,
            Data::item_list<Data::document_item>* documents);
 
@@ -38,6 +39,8 @@ public:
 
     void onboard();
     W_INVOKABLE(onboard)
+    void hire();
+    W_INVOKABLE(hire)
 
     void downloadFile(const QString& key,
                       const QUrl &directory,
@@ -64,6 +67,9 @@ public:
 
     void loaded() const
     W_SIGNAL(loaded)
+
+    void requestUser(int id)
+    W_SIGNAL(requestUser, id)
 
     void requestOwners(int id)
     W_SIGNAL(requestOwners, id)
@@ -116,6 +122,7 @@ private:
     int userId{0};
     Data::People::user_item::clearances clearance{Data::People::user_item::None};
 
+    Data::item_list<Data::People::user_item>* usrs;
     Data::item_list<Data::account_item>* acnts;
     int accountId{0};
     int accountState{0};
@@ -123,6 +130,7 @@ private:
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;
 
+    void getLastUser() noexcept;
     void getLastAccount() noexcept;
 };
 

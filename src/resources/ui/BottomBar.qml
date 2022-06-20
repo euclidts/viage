@@ -69,9 +69,7 @@ RowLayout {
 
         onClicked: {
             busyDialog.open()
-            topBar.searchBar.text = ""
-            hiring = true
-            users.add()
+            bridge.onboard()
         }
     }
 

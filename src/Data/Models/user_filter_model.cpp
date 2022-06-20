@@ -72,7 +72,7 @@ bool user_filter_model::lessThan(const QModelIndex& left, const QModelIndex& rig
         const auto leftData{sourceModel()->data(left, People::user_item::ClearanceRole)};
         const auto rightData{sourceModel()->data(right, People::user_item::ClearanceRole)};
 
-        return leftData.toString() < rightData.toString();
+        return leftData.toString() > rightData.toString();
     }
 
     return false;

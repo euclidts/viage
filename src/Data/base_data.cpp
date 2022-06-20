@@ -4,7 +4,8 @@
 
 #include "base_data.hpp"
 
-namespace Data {
+namespace Data
+{
 W_OBJECT_IMPL(base_data)
 
 base_data::base_data(QObject* parent)

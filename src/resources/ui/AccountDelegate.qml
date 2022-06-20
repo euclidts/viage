@@ -89,7 +89,6 @@ ItemDelegate {
 
             ColumnLayout {
                 visible: settingsDrawer.invisible.checked
-                Layout.preferredWidth: parent.width - 100
 
                 Label {
                     text: advisorFirstName + ' ' + advisorLastName
@@ -109,6 +108,8 @@ ItemDelegate {
             RoundButton {
                 visible: settingsDrawer.invisible.checked
                 icon.source: "qrc:/icons/trash-alt.svg"
+                ToolTip.visible: hovered
+                ToolTip.text: "Suprimer le dossier"
             }
         }
     }

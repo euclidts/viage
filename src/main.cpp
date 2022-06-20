@@ -107,17 +107,6 @@ int main(int argc, char* argv[])
     qmlRegisterType<list_model<document_item>>("Data", 1, 0, "DocumentModel");
     qmlRegisterType<document_filter_model>("Data", 1, 0, "DocumentFilterModel");
 
-    bridge bridge{&manager, wrapped_accounts.get_inner(), wrapped_documents.get_inner()};
-
-    qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
-    context->setContextProperty("bridge", &bridge);
-
-    // Onboarding
-    QObject::connect(&bridge,
-                     &bridge::requestOwners,
-                     wrapped_owners.get_inner(),
-                     &item_list<owner_item>::loadFrom);
-
     // users
     wrapped_list<item_list<user_item>>
             wrapped_users{&manager, context};
@@ -128,11 +117,17 @@ int main(int argc, char* argv[])
 
     user_filter_model userFilter{&userModel, false};
     user_filter_model selectedUser{&userModel, true};
-    user_filter_model currentUser{&userModel, true};
     qmlRegisterUncreatableType<user_filter_model>("People", 1, 0, "UserModel", "");
     context->setContextProperty("userModel", &userFilter);
     context->setContextProperty("selectedUser", &selectedUser);
-    context->setContextProperty("currentUser", &currentUser);
+
+    bridge bridge{&manager,
+                wrapped_users.get_inner(),
+                wrapped_accounts.get_inner(),
+                wrapped_documents.get_inner()};
+
+    qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
+    context->setContextProperty("bridge", &bridge);
 
     QObject::connect(&manager, &Interface::netManager::loggedIn,
                      [&wrapped_accounts, &wrapped_users](const bool& success)
@@ -143,6 +138,18 @@ int main(int argc, char* argv[])
             wrapped_users.get();
         }
     });
+
+    // Onboarding
+    QObject::connect(&bridge,
+                     &bridge::requestOwners,
+                     wrapped_owners.get_inner(),
+                     &item_list<owner_item>::loadFrom);
+
+    // Hiering
+    QObject::connect(&bridge,
+                     &bridge::requestUser,
+                     &selectedUser,
+                     &user_filter_model::setFilterRole);
 
     // qml engine
     const QUrl url(QStringLiteral("qrc:/ui/main.qml"));
