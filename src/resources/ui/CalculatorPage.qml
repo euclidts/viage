@@ -87,7 +87,7 @@ ScrollView {
 
                         SpinBox {
                             from: 50000
-                            to: 10000000
+                            to: 15000000
                             stepSize: 1000
                             editable: true
                             value: rent.marketPrice

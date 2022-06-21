@@ -32,6 +32,10 @@ QHash<int, QByteArray> account_item::roleNames()
     names[DocumentsRole] = "documents";
     // Account status
     names[StateRole] = "state";
+    names[ReceivedRole] = "receivedDate";
+    names[ExpertizedRole] = "expertiedDate";
+    names[NotarizedRole] = "notarizedDate";
+    names[PaidRole] = "paidDate";
     names[CreatedRole] = "created";
     names[ModifiedRole] = "modified";
     names[AdvisorFirstNameRole] = "advisorFirstName";
@@ -59,6 +63,14 @@ QVariant account_item::data(int role) const
         return documents.toVariantList();
     case StateRole:
         return QVariant(state);
+    case ReceivedRole:
+        return QVariant(receivedDate);
+    case ExpertizedRole:
+        return QVariant(expertizedDate);
+    case NotarizedRole:
+        return QVariant(notarizedDate);
+    case PaidRole:
+        return QVariant(paidDateDate);
     case CreatedRole:
         return QVariant(created);
     case ModifiedRole:
@@ -96,9 +108,6 @@ void account_item::setData(const QVariant &value, int role)
         break;
     case DocumentsRole:
         documents = value.toJsonArray();
-        break;
-    case StateRole:
-        state = states(value.toInt());
         break;
     }
 }
@@ -244,6 +253,18 @@ void account_item::read(const QJsonObject& json)
 
     if (json.contains("accountState") && json["accountState"].isDouble())
         state = states(json["accountState"].toInt());
+
+    if (json.contains("receivedDate") && json["receivedDate"].isString())
+        receivedDate = QDate::fromString(json["receivedDate"].toString(), "dd.MM.yyyy");
+
+    if (json.contains("expertizedDate") && json["expertizedDate"].isString())
+        expertizedDate = QDate::fromString(json["expertizedDate"].toString(), "dd.MM.yyyy");
+
+    if (json.contains("notarizedDate") && json["notarizedDate"].isString())
+        notarizedDate = QDate::fromString(json["notarizedDate"].toString(), "dd.MM.yyyy");
+
+    if (json.contains("paidDateDate") && json["paidDateDate"].isString())
+        paidDateDate = QDate::fromString(json["paidDateDate"].toString(), "dd.MM.yyyy");
 }
 
 void account_item::write(QJsonObject& json) const
@@ -254,6 +275,10 @@ void account_item::write(QJsonObject& json) const
     json["exterior"] = exterior;
     json["documents"] = documents;
     json["state"] = state;
+    json["receivedDate"] = receivedDate.toString("dd.MM.yyyy");
+    json["expertizedDate"] = expertizedDate.toString("dd.MM.yyyy");
+    json["notarizedDate"] = notarizedDate.toString("dd.MM.yyyy");
+    json["paidDateDate"] = paidDateDate.toString("dd.MM.yyyy");
     json["created"] = created.toString("dd.MM.yyyy");
     json["modified"] = modified.toString("dd.MM.yyyy");
     json["advisorFirstName"] = advisorFirstName;

@@ -57,6 +57,10 @@ struct account_item
     };
 
     states state{Initialized};
+    QDate receivedDate{};
+    QDate expertizedDate{};
+    QDate notarizedDate{};
+    QDate paidDateDate{};
 
     QDateTime created;
     QDateTime modified;
@@ -78,6 +82,10 @@ struct account_item
         DocumentsRole,
         // Account status
         StateRole,
+        ReceivedRole,
+        ExpertizedRole,
+        NotarizedRole,
+        PaidRole,
         CreatedRole,
         ModifiedRole,
         AdvisorFirstNameRole,
