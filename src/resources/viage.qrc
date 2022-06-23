@@ -32,6 +32,7 @@
         <file alias="TopBar.qml">ui/TopBar.qml</file>
         <file alias="InfantDelegate.qml">ui/InfantDelegate.qml</file>
         <file alias="UserFullDelegate.qml">ui/UserFullDelegate.qml</file>
+        <file alias="PwdField.qml">ui/PwdField.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="ViageLogo.svg">images/ViageLogo.svg</file>

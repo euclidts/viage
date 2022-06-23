@@ -130,12 +130,13 @@ int main(int argc, char* argv[])
     context->setContextProperty("bridge", &bridge);
 
     QObject::connect(&manager, &Interface::netManager::loggedIn,
-                     [&wrapped_accounts, &wrapped_users](const bool& success)
+                     [&wrapped_accounts, &bridge, &wrapped_users](const bool& success)
     {
         if (success)
         {
             wrapped_accounts.get();
-            wrapped_users.get();
+            if (bridge.getClearance() == user_item::Administrator)
+                wrapped_users.get();
         }
     });
 

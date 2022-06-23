@@ -44,32 +44,41 @@ Drawer {
             Layout.margins: 12
 
             ColumnLayout {
+                id: newPwdLayout
                 width: parent.width
 
-                TextField {
-                    id: newPwd
-                    Layout.fillWidth: true
-                    placeholderText: qsTr("Nouveau mot de passe")
-                    echoMode: TextInput.Password
+                function validate () {
+                    if (validateButton.highlighted) {
+                        bridge.updatePwd(newPwd.text)
+                        busyDialog.open()
+                    }
                 }
 
-                TextField {
+                PwdField {
+                    id: newPwd
+                    placeholder: qsTr("Nouveau mot de passe")
+                    onFieldAccepted: function () {
+                        confirmPwd.text !== "" ? newPwdLayout.validate()
+                                               : usernNameField.focus = true
+                    }
+                }
+
+                PwdField {
                     id: confirmPwd
-                    Layout.fillWidth: true
-                    placeholderText: qsTr("Confirmer le mot de passe")
-                    echoMode: TextInput.Password
+                    placeholder: qsTr("Nouveau mot de passe")
+                    onFieldAccepted: function () {
+                        newPwd.text !== "" ? newPwdLayout.validate()
+                                           : usernNameField.focus = true
+                    }
                 }
 
                 RoundButton {
+                    id: validateButton
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("Valider")
                     highlighted: newPwd.text !== "" && confirmPwd.text !== ""
                     icon.source: "qrc:/icons/checked-square.svg"
-                    onClicked: if (newPwd.text === confirmPwd.text && newPwd.text !== "")
-                               {
-                                   bridge.updatePwd(newPwd.test)
-                                   busyDialog.open()
-                               }
+                    onClicked: newPwdLayout.validate()
                 }
             }
         }
@@ -79,7 +88,6 @@ Drawer {
             text: qsTr("Déconnection")
             background.opacity: .0
             onClicked: {
-                logginDialog.close()
                 documents.clear()
                 exterior.clear()
                 habitat.clear()
@@ -88,6 +96,7 @@ Drawer {
                 accounts.clear()
                 users.clear()
                 settingsDrawer.close()
+                rootStack.currentIndex = 0
                 logginDialog.open()
             }
         }

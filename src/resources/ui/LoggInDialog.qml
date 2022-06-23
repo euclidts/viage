@@ -19,74 +19,32 @@ Dialog {
         busyDialog.open()
     }
 
-    contentItem: Column {
+    function clear() { passwordField.text = "" }
+
+    contentItem: ColumnLayout {
         spacing: 15
 
         Image {
             id: logo
             source: "qrc:/images/ViageLogo.svg"
-            width: parent.width
+            Layout.fillWidth: true
+            Layout.preferredHeight: width
             fillMode: Image.PreserveAspectFit
         }
 
         TextField {
             id: usernNameField
-            width: parent.width
+            Layout.fillWidth: true
             placeholderText: qsTr("Nom d'utilisateur")
             onAccepted: passwordField.text !== "" ? validate()
-                                                   : passwordField.focus = true
+                                                   : passwordField.fieldFocus = true
         }
 
-        RowLayout {
-            width: parent.width
-            spacing: 0
-
-            TextField {
-                id: passwordField
-                Layout.fillWidth: true
-                placeholderText: qsTr("Mot de passe")
-                echoMode: TextInput.Password
-                onAccepted: usernNameField.text !== "" ? validate()
-                                                      : usernNameField.focus = true
-            }
-
-            Button {
-                id: echoSwitch
-                flat: true
-                checkable: true
-                icon.source: "qrc:/icons/eye.svg"
-                Layout.alignment: Qt.AlignLeft
-                background: Rectangle {
-                    radius: 2
-                    color: Material.buttonDisabledColor
-
-                    PaddedRectangle {
-                        y: passwordField.height - height - passwordField.bottomPadding + 3
-                        width: parent.width
-                        height: passwordField.activeFocus || passwordField.hovered ? 2 : 1
-                        color: passwordField.activeFocus ? Material.accentColor
-                                                   : (passwordField.hovered ? Material.primaryTextColor : Material.hintTextColor)
-                        topPadding: -2
-                        clip: true
-                    }
-
-                    Ripple {
-                        clipRadius: 2
-                        width: parent.width
-                        height: parent.height
-                        pressed: echoSwitch.pressed
-                        anchor: echoSwitch
-                        color: echoSwitch.flat && echoSwitch.highlighted ? Material.highlightedRippleColor : Material.rippleColor
-                    }
-                }
-
-                onClicked: if (checked) {
-                               passwordField.echoMode = TextInput.Normal;
-                               this.icon.source = "qrc:/icons/eye-slash.svg";
-                           } else {
-                               passwordField.echoMode = TextInput.Password;
-                               this.icon.source = "qrc:/icons/eye.svg";
-                           }
+        PwdField {
+            id: passwordField
+            onFieldAccepted: function () {
+                usernNameField.text !== "" ? validate()
+                                           : usernNameField.focus = true
             }
         }
 
@@ -94,11 +52,10 @@ Dialog {
             id: validationButton
             icon.source: "qrc:/icons/door-open.svg"
             text: qsTr("Valider")
-            width: parent.width
+            Layout.fillWidth: true
             font.capitalization: Font.MixedCase
             font.bold: true
             highlighted: true
-            anchors.bottomMargin: 2
             onClicked: validate()
         }
     }

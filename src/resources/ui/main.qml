@@ -50,6 +50,7 @@ ApplicationWindow {
         if (success) {
             topBar.visible = true
             bottomBar.visible = true
+            logginDialog.clear()
         }
         else
             logginDialog.open()
