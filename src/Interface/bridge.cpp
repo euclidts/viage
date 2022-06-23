@@ -43,7 +43,13 @@ bridge::bridge(Interface::netManager* manager,
     connect(acnts, &item_list<account_item>::dataChangedAt,
             this, [this] (int index)
     {
-        setAccountState(acnts->item_at_id(accountId).state);
+        const auto item{acnts->item_at_id(accountId)};
+
+        setAccountState(item.state);
+        setAccountReceived(item.receivedDate);
+        setAccountExpertized(item.expertizedDate);
+        setAccountNotarized(item.notarizedDate);
+        setAccountPaid(item.paidDate);
     });
 
     connect(docs, &item_list<document_item>::dataChangedAt,
@@ -98,12 +104,23 @@ void bridge::requestReport() const
     });
 }
 
-void bridge::updatePwd(const QString &newPwd, int id) const
+void bridge::updatePwd(const QString &newPwd) const
 {
-    QJsonObject json{{ "id", id },
-                     {"password", newPwd}};
+    QJsonObject json{{"password", newPwd}};
 
-    mng->putToKey("changePassword",
+    changePwd("changePassword", json);
+}
+
+void bridge::resetPwd(int id) const
+{
+    QJsonObject json{{ "id", id }};
+
+    changePwd("resetPassword", json);
+}
+
+void bridge::changePwd(const char *key, const QJsonObject &json) const
+{
+    mng->putToKey(key,
                   QJsonDocument(json).toJson(),
                   [this] (const QByteArray& rep)
     {
@@ -242,6 +259,58 @@ void bridge::uplaod_docs(int index)
             }
         }
     }
+}
+
+const QDate &bridge::getAccountReceived() const
+{
+    return accountReceived;
+}
+
+void bridge::setAccountReceived(const QDate &newAccountReceived)
+{
+    if (accountReceived == newAccountReceived)
+        return;
+    accountReceived = newAccountReceived;
+    emit accountReceivedChanged();
+}
+
+const QDate &bridge::getAccountExpertized() const
+{
+    return accountExpertized;
+}
+
+void bridge::setAccountExpertized(const QDate &newAccountExpertized)
+{
+    if (accountExpertized == newAccountExpertized)
+        return;
+    accountExpertized = newAccountExpertized;
+    emit accountExpertizedChanged();
+}
+
+const QDate &bridge::getAccountNotarized() const
+{
+    return accountNotarized;
+}
+
+void bridge::setAccountNotarized(const QDate &newAccountNotarized)
+{
+    if (accountNotarized == newAccountNotarized)
+        return;
+    accountNotarized = newAccountNotarized;
+    emit accountNotarizedChanged();
+}
+
+const QDate &bridge::getAccountPaid() const
+{
+    return accountPaid;
+}
+
+void bridge::setAccountPaid(const QDate &newAccountPaid)
+{
+    if (accountPaid == newAccountPaid)
+        return;
+    accountPaid = newAccountPaid;
+    emit accountPaidChanged();
 }
 
 int bridge::getUserId() const

@@ -16,11 +16,11 @@ ScrollView {
                 Layout.minimumWidth: 200
                 Layout.margins: 12
 
-                ColumnLayout {
+                GridLayout {
                     id: stateColumn
+                    columns: 2
                     Layout.minimumWidth: 200
                     Layout.margins: 12
-                    Layout.fillWidth: true
 
                     Label {
                         Layout.leftMargin: -6
@@ -32,6 +32,12 @@ ScrollView {
                         id: recieivedCheck
                         text: stateNames[7]
                         checkable: bridge.clearance === 4
+                        onCheckStateChanged: {}
+                    }
+
+                    Label {
+                        text: Qt.formatDate(bridge.accountReceived, "dd.MM.yy")
+                        visible: recieivedCheck.checked && text !== ""
                     }
 
                     CheckBox {
@@ -40,10 +46,20 @@ ScrollView {
                         checkable: bridge.clearance === 4
                     }
 
+                    Label {
+                        text: Qt.formatDate(bridge.accountExpertized, "dd.MM.yy")
+                        visible: expertCheck.checked && text !== ""
+                    }
+
                     CheckBox {
                         id: decisionCheck
                         text: stateNames[9]
                         checkable: bridge.clearance === 4
+                    }
+
+                    Label {
+//                        text: Qt.formatDate(bridge.accountNotarized, "dd.MM.yy")
+                        visible: decisionCheck.checked && text !== ""
                     }
 
                     CheckBox {
@@ -52,10 +68,20 @@ ScrollView {
                         checkable: bridge.clearance === 4
                     }
 
+                    Label {
+                        text: Qt.formatDate(bridge.accountNotarized, "dd.MM.yy")
+                        visible: notaryCheck.checked && text !== ""
+                    }
+
                     CheckBox {
                         id: payedCheck
                         text: stateNames[11]
                         checkable: bridge.clearance === 4
+                    }
+
+                    Label {
+                        text: Qt.formatDate(bridge.accountPaid, "dd.MM.yy")
+                        visible: payedCheck.checked && text !== ""
                     }
 
                     function checkStates() {

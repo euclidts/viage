@@ -46,6 +46,7 @@ ColumnLayout {
                 regularExpression: /\S+@\S+\.\S+$/
             }
             placeHolder: qsTr("* Champ Nécessaire")
+            capitalization: Font.Font.MixedCase
         }
     }
 }

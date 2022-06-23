@@ -68,8 +68,6 @@ ApplicationWindow {
                              logginDialog.open()
     }
 
-    BusyDialog { id: busyDialog }
-
     MessageDialog {
         id: messageDialog
 //        onOpen: busyDialog.close()
@@ -84,6 +82,13 @@ ApplicationWindow {
     UrlProvider { id: urlProvider }
 
     SettingsDrawer { id: settingsDrawer }
+
+    BusyDialog { id: busyDialog }
+
+    Connections {
+        target: bridge
+        function onLoaded() { busyDialog.close() }
+    }
 
     StackLayout {
         id: rootStack

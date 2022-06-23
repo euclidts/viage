@@ -70,7 +70,7 @@ QVariant account_item::data(int role) const
     case NotarizedRole:
         return QVariant(notarizedDate);
     case PaidRole:
-        return QVariant(paidDateDate);
+        return QVariant(paidDate);
     case CreatedRole:
         return QVariant(created);
     case ModifiedRole:
@@ -264,7 +264,7 @@ void account_item::read(const QJsonObject& json)
         notarizedDate = QDate::fromString(json["notarizedDate"].toString(), "dd.MM.yyyy");
 
     if (json.contains("paidDateDate") && json["paidDateDate"].isString())
-        paidDateDate = QDate::fromString(json["paidDateDate"].toString(), "dd.MM.yyyy");
+        paidDate = QDate::fromString(json["paidDate"].toString(), "dd.MM.yyyy");
 }
 
 void account_item::write(QJsonObject& json) const
@@ -278,7 +278,7 @@ void account_item::write(QJsonObject& json) const
     json["receivedDate"] = receivedDate.toString("dd.MM.yyyy");
     json["expertizedDate"] = expertizedDate.toString("dd.MM.yyyy");
     json["notarizedDate"] = notarizedDate.toString("dd.MM.yyyy");
-    json["paidDateDate"] = paidDateDate.toString("dd.MM.yyyy");
+    json["paidDateDate"] = paidDate.toString("dd.MM.yyyy");
     json["created"] = created.toString("dd.MM.yyyy");
     json["modified"] = modified.toString("dd.MM.yyyy");
     json["advisorFirstName"] = advisorFirstName;

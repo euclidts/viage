@@ -66,7 +66,10 @@ Drawer {
                     highlighted: newPwd.text !== "" && confirmPwd.text !== ""
                     icon.source: "qrc:/icons/checked-square.svg"
                     onClicked: if (newPwd.text === confirmPwd.text && newPwd.text !== "")
-                                   bridge.updatePwd(newPwd.test, model.id)
+                               {
+                                   bridge.updatePwd(newPwd.test)
+                                   busyDialog.open()
+                               }
                 }
             }
         }

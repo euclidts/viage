@@ -26,15 +26,7 @@ RowLayout {
                  && rootStack.currentIndex === 0
         text: qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"
-        onClicked: {
-            enabled = false
-            bridge.requestReport()
-        }
-
-        Connections {
-            target: bridge
-            function onLoaded() { reportButton.enabled = true }
-        }
+        onClicked: bridge.requestReport()
     }
 
     MaterialButton {

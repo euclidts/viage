@@ -54,6 +54,10 @@ ItemDelegate {
                 icon.source: "qrc:/icons/door-open.svg"
                 ToolTip.visible: hovered
                 ToolTip.text: "Renvoyer de nouveaux identifiants"
+                onClicked: {
+                    bridge.resetPwd(model.id)
+                    busyDialog.open()
+                }
             }
 
             RoundButton {

@@ -13,6 +13,7 @@ ColumnLayout {
     required property string textOf
     required property var onEdit
     property int inputHint: Qt.ImhNone
+    property int capitalization: Font.Capitalize
 
     Label {
         id: label
@@ -27,7 +28,7 @@ ColumnLayout {
         inputMethodHints: inputHint
         placeholderText: placeHolder
         Layout.fillWidth: true
-        font.capitalization: Font.Capitalize
+        font.capitalization: capitalization
         onAccepted: focus = false
         onTextChanged: acceptableInput ? color = Material.foreground
                                        : color = "red"

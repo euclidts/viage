@@ -52,8 +52,11 @@ public:
     void requestReport() const;
     W_INVOKABLE(requestReport)
 
-    void updatePwd(const QString& newPwd, int id) const;
+    void updatePwd(const QString& newPwd) const;
     W_INVOKABLE(updatePwd)
+
+    void resetPwd(int id) const;
+    W_INVOKABLE(resetPwd)
 
     QUrl getPictureName(QString& name, int index) const;
     W_INVOKABLE(getPictureName, (QString&, int))
@@ -84,6 +87,26 @@ public:
     void accountStateChanged()
     W_SIGNAL(accountStateChanged)
 
+    const QDate &getAccountReceived() const;
+    void setAccountReceived(const QDate &newAccountReceived);
+    void accountReceivedChanged()
+    W_SIGNAL(accountReceivedChanged)
+
+    const QDate &getAccountExpertized() const;
+    void setAccountExpertized(const QDate &newAccountExpertized);
+    void accountExpertizedChanged()
+    W_SIGNAL(accountExpertizedChanged)
+
+    const QDate &getAccountNotarized() const;
+    void setAccountNotarized(const QDate &newAccountNotarized);
+    void accountNotarizedChanged()
+    W_SIGNAL(accountNotarizedChanged)
+
+    const QDate &getAccountPaid() const;
+    void setAccountPaid(const QDate &newAccountPaid);
+    void accountPaidChanged()
+    W_SIGNAL(accountPaidChanged)
+
     bool getDocumentsCompleted() const;
     void setDocumentsCompleted(bool newDocumentsCompleted);
     void documentsCompletedChanged()
@@ -99,11 +122,15 @@ public:
     void userIdChanged()
     W_SIGNAL(userIdChanged)
 
-    W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
-    W_PROPERTY(int, accountId READ getAccountId WRITE setAccoountId NOTIFY accountIdChanged)
     W_PROPERTY(Data::People::user_item::clearances, clearance READ getClearance NOTIFY clearanceChanged)
     W_PROPERTY(int, userId READ getUserId NOTIFY userIdChanged)
+    W_PROPERTY(int, accountId READ getAccountId WRITE setAccoountId NOTIFY accountIdChanged)
+    W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
+    W_PROPERTY(QDate, accountReceived READ getAccountReceived NOTIFY accountReceivedChanged)
+    W_PROPERTY(QDate, accountExpertized READ getAccountExpertized NOTIFY accountExpertizedChanged)
+    W_PROPERTY(QDate, accountNotarized READ getAccountNotarized NOTIFY accountNotarizedChanged)
+    W_PROPERTY(QDate, accountPaid READ getAccountPaid NOTIFY accountPaidChanged)
 
 private:
     QObject* qmlObject;
@@ -126,12 +153,18 @@ private:
     Data::item_list<Data::account_item>* acnts;
     int accountId{0};
     int accountState{0};
+    QDate accountReceived{};
+    QDate accountExpertized{};
+    QDate accountNotarized{};
+    QDate accountPaid{};
 
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;
 
     void getLastUser() noexcept;
     void getLastAccount() noexcept;
+
+    void changePwd(const char* key, const QJsonObject& json) const;
 };
 
 }
