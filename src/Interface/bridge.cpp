@@ -106,14 +106,14 @@ void bridge::requestReport() const
 
 void bridge::updatePwd(const QString &newPwd) const
 {
-    QJsonObject json{{"password", newPwd}};
+    const QJsonObject json{{"password", newPwd}};
 
     changePwd("changePassword", json);
 }
 
 void bridge::resetPwd(int id) const
 {
-    QJsonObject json{{ "id", id }};
+    const QJsonObject json{{ "id", id }};
 
     changePwd("resetPassword", json);
 }
@@ -121,6 +121,20 @@ void bridge::resetPwd(int id) const
 void bridge::changePwd(const char *key, const QJsonObject &json) const
 {
     mng->putToKey(key,
+                  QJsonDocument(json).toJson(),
+                  [this] (const QByteArray& rep)
+    {
+        qDebug() << rep;
+        emit loaded();
+    });
+}
+
+void bridge::updateState(int newState) const
+{
+    const QJsonObject json{{ "id", accountId },
+                           {"state", accountState + newState }};
+
+    mng->putToKey("accountState",
                   QJsonDocument(json).toJson(),
                   [this] (const QByteArray& rep)
     {
@@ -259,6 +273,19 @@ void bridge::uplaod_docs(int index)
             }
         }
     }
+}
+
+const QDate &bridge::getAccountDecided() const
+{
+    return accountDecided;
+}
+
+void bridge::setAccountDecided(const QDate &newAccountDecided)
+{
+    if (accountDecided == newAccountDecided)
+        return;
+    accountDecided = newAccountDecided;
+    emit accountDecidedChanged();
 }
 
 const QDate &bridge::getAccountReceived() const

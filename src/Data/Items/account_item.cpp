@@ -34,6 +34,7 @@ QHash<int, QByteArray> account_item::roleNames()
     names[StateRole] = "state";
     names[ReceivedRole] = "receivedDate";
     names[ExpertizedRole] = "expertiedDate";
+    names[DecidedRole] = "decidedDate";
     names[NotarizedRole] = "notarizedDate";
     names[PaidRole] = "paidDate";
     names[CreatedRole] = "created";
@@ -67,6 +68,8 @@ QVariant account_item::data(int role) const
         return QVariant(receivedDate);
     case ExpertizedRole:
         return QVariant(expertizedDate);
+    case DecidedRole:
+        return QVariant(decidedDate);
     case NotarizedRole:
         return QVariant(notarizedDate);
     case PaidRole:
@@ -260,6 +263,9 @@ void account_item::read(const QJsonObject& json)
     if (json.contains("expertizedDate") && json["expertizedDate"].isString())
         expertizedDate = QDate::fromString(json["expertizedDate"].toString(), "dd.MM.yyyy");
 
+    if (json.contains("decidedDate") && json["decidedDate"].isString())
+        decidedDate = QDate::fromString(json["decidedDate"].toString(), "dd.MM.yyyy");
+
     if (json.contains("notarizedDate") && json["notarizedDate"].isString())
         notarizedDate = QDate::fromString(json["notarizedDate"].toString(), "dd.MM.yyyy");
 
@@ -277,6 +283,7 @@ void account_item::write(QJsonObject& json) const
     json["state"] = state;
     json["receivedDate"] = receivedDate.toString("dd.MM.yyyy");
     json["expertizedDate"] = expertizedDate.toString("dd.MM.yyyy");
+    json["decidedDate"] = decidedDate.toString("dd.MM.yyyy");
     json["notarizedDate"] = notarizedDate.toString("dd.MM.yyyy");
     json["paidDateDate"] = paidDate.toString("dd.MM.yyyy");
     json["created"] = created.toString("dd.MM.yyyy");

@@ -33,6 +33,7 @@
         <file alias="InfantDelegate.qml">ui/InfantDelegate.qml</file>
         <file alias="UserFullDelegate.qml">ui/UserFullDelegate.qml</file>
         <file alias="PwdField.qml">ui/PwdField.qml</file>
+        <file alias="StateLayout.qml">ui/StateLayout.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="ViageLogo.svg">images/ViageLogo.svg</file>
@@ -59,10 +60,11 @@
         <file alias="camera.svg">icons/camera.svg</file>
         <file alias="moon.svg">icons/moon.svg</file>
         <file alias="sun.svg">icons/sun.svg</file>
-        <file alias="checked-square.svg">icons/check-square.svg</file>
+        <file alias="check-square.svg">icons/check-square.svg</file>
         <file alias="door-open.svg">icons/door-open.svg</file>
         <file alias="lock-open.svg">icons/lock-open.svg</file>
         <file alias="lock.svg">icons/lock.svg</file>
+        <file alias="square.svg">icons/square.svg</file>
     </qresource>
     <qresource prefix="/data">
         <file alias="ofs.csv">ofs.csv</file>

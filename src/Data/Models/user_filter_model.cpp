@@ -15,6 +15,15 @@ user_filter_model::user_filter_model(QAbstractItemModel *model,
 {
 }
 
+// Workarond to always emit filterRoleChanged
+void user_filter_model::forceFilterRole(int role)
+{
+    if (filterRole() == role)
+        emit this->filterRoleChanged(role);
+    else
+        this->setFilterRole(role);
+}
+
 bool user_filter_model::filterAcceptsRow(int sourceRow,
                                          const QModelIndex &sourceParent) const
 {

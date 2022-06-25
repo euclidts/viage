@@ -55,6 +55,9 @@ public:
     void updatePwd(const QString& newPwd) const;
     W_INVOKABLE(updatePwd)
 
+    void updateState(int newState) const;
+    W_INVOKABLE(updateState)
+
     void resetPwd(int id) const;
     W_INVOKABLE(resetPwd)
 
@@ -87,6 +90,21 @@ public:
     void accountStateChanged()
     W_SIGNAL(accountStateChanged)
 
+    bool getDocumentsCompleted() const;
+    void setDocumentsCompleted(bool newDocumentsCompleted);
+    void documentsCompletedChanged()
+    W_SIGNAL(documentsCompletedChanged)
+
+    Data::People::user_item::clearances getClearance() const;
+    void setClearance(int newClearance);
+    void clearanceChanged()
+    W_SIGNAL(clearanceChanged)
+
+    int getUserId() const;
+    void setUserId(int newUserId);
+    void userIdChanged()
+    W_SIGNAL(userIdChanged)
+
     const QDate &getAccountReceived() const;
     void setAccountReceived(const QDate &newAccountReceived);
     void accountReceivedChanged()
@@ -107,20 +125,10 @@ public:
     void accountPaidChanged()
     W_SIGNAL(accountPaidChanged)
 
-    bool getDocumentsCompleted() const;
-    void setDocumentsCompleted(bool newDocumentsCompleted);
-    void documentsCompletedChanged()
-    W_SIGNAL(documentsCompletedChanged)
-
-    Data::People::user_item::clearances getClearance() const;
-    void setClearance(int newClearance);
-    void clearanceChanged()
-    W_SIGNAL(clearanceChanged)
-
-    int getUserId() const;
-    void setUserId(int newUserId);
-    void userIdChanged()
-    W_SIGNAL(userIdChanged)
+    const QDate &getAccountDecided() const;
+    void setAccountDecided(const QDate &newAccountDecided);
+    void accountDecidedChanged()
+    W_SIGNAL(accountDecidedChanged)
 
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(Data::People::user_item::clearances, clearance READ getClearance NOTIFY clearanceChanged)
@@ -131,6 +139,7 @@ public:
     W_PROPERTY(QDate, accountExpertized READ getAccountExpertized NOTIFY accountExpertizedChanged)
     W_PROPERTY(QDate, accountNotarized READ getAccountNotarized NOTIFY accountNotarizedChanged)
     W_PROPERTY(QDate, accountPaid READ getAccountPaid NOTIFY accountPaidChanged)
+    W_PROPERTY(QDate, accountDecided READ getAccountDecided NOTIFY accountDecidedChanged)
 
 private:
     QObject* qmlObject;
@@ -155,6 +164,7 @@ private:
     int accountState{0};
     QDate accountReceived{};
     QDate accountExpertized{};
+    QDate accountDecided{};
     QDate accountNotarized{};
     QDate accountPaid{};
 
@@ -163,7 +173,6 @@ private:
 
     void getLastUser() noexcept;
     void getLastAccount() noexcept;
-
     void changePwd(const char* key, const QJsonObject& json) const;
 };
 

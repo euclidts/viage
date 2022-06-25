@@ -73,7 +73,10 @@ ScrollView {
 
                                 GridLayout {
                                     id: parkingTypeColumn
-                                    columns: window.width <  400 ? 2 : 3
+                                    columns: window.width < 400 ? 2 : 3
+                                    rows: 2
+                                    flow: window.width < 400 ? GridLayout.LeftToRight
+                                                             : GridLayout.TopToBottom
 
                                     CheckBox {
                                         id: bikeCheck

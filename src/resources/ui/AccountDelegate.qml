@@ -16,12 +16,24 @@ ItemDelegate {
 
     contentItem: RowLayout {
 
-        ColumnLayout {
+        GridLayout {
+            columns: 2
             Layout.preferredWidth: parent.width / 3
 
             Label {
                 text: Qt.formatDateTime(created, "dd.MM.yy")
-                      + " - " + acronym
+                wrapMode: Text.Wrap
+            }
+
+            Label {
+                text: acronym
+                font.bold: true
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+            }
+
+            Label {
+                text: Qt.formatDateTime(modified, "dd.MM.yy")
                 wrapMode: Text.Wrap
             }
 
@@ -44,7 +56,7 @@ ItemDelegate {
                     }
                 }
 
-                text: Qt.formatDateTime(modified, "dd.MM.yy") + " - " + accountState;
+                text: accountState;
                 wrapMode: Text.Wrap
             }
 

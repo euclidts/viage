@@ -131,7 +131,7 @@ if(ANDROID)
     # Define target properties for Android with Qt 6 as:
     set_property(TARGET viage APPEND PROPERTY
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+    # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
 endif()
 
@@ -163,11 +163,27 @@ if (NOT ANDROID AND NOT IOS)
     set(COMPONENT_NAME_MAIN "Viage")
     set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
+    include(GNUInstallDirs)
     install(TARGETS viage DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${COMPONENT_NAME_MAIN})
 
-    include(InstallRequiredSystemLibraries)
-    set(CPACK_GENERATOR "IFW")
+    if(MINGW)
+        message(STATUS "Installing system-libraries: MinGW DLLs.")
+        get_target_property(QMAKE_EXECUTABLE Qt::qmake IMPORTED_LOCATION)
+        get_filename_component(QT_BINARY_DIR "${QMAKE_EXECUTABLE}" DIRECTORY)
+#        find_file(LIBGCC libgcc_s_seh-1.dll REGISTRY_VIEW TARGET)
+#        find_file(LIBSTD libstdc++-6.dll REGISTRY_VIEW TARGET)
+#        find_file(LIBPTH libwinpthread-1.dll REGISTRY_VIEW TARGET)
+#        set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${LIBGCC} ${LIBSTD} ${LIBPTH})
+        set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS
+            ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
+            ${QT_BINARY_DIR}/libstdc++-6.dll
+            ${QT_BINARY_DIR}/libwinpthread-1.dll)
+    endif()
 
+    set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
+    include(InstallRequiredSystemLibraries)
+
+    set(CPACK_GENERATOR "IFW")
     set(CPACK_IFW_PACKAGE_NAME "Viage")
     set(CPACK_IFW_PACKAGE_TITLE "Viage")
     set(CPACK_IFW_PACKAGE_PUBLISHER "Viage")
@@ -181,6 +197,12 @@ if (NOT ANDROID AND NOT IOS)
         configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in"
             "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
 
+        if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
+            install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
+                DESTINATION ${CMAKE_INSTALL_BINDIR}
+                COMPONENT ${COMPONENT_NAME_MAIN})
+        endif()
+
         set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/ViageLogo.ico")
         set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/ViageLogo.ico")
         set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake)
@@ -191,6 +213,7 @@ if (NOT ANDROID AND NOT IOS)
 
     CPACK_ADD_COMPONENT(${COMPONENT_NAME_MAIN})
 
+    cpack_ifw_configure_component(${COMPONENT_NAME_DEPENDENCIES} VIRTUAL FORCED_INSTALLATION)
     cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} ESSENTIAL FORCED_INSTALLATION)
     cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES
         "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})

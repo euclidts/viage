@@ -3,6 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 
+import People
+
 ItemDelegate {
     width: parent.width
     leftInset: 6
@@ -69,9 +71,7 @@ ItemDelegate {
         }
     }
 
-    onClicked: {
-        selectedUser.filterRole = model.id
-    }
+    onClicked: { selectedUser.forceFilterRole(model.id) }
 
     background: Rectangle {
         implicitHeight: Material.delegateHeight - 4

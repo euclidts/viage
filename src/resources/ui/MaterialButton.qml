@@ -6,7 +6,11 @@ import QtQuick.Controls.Material.impl
 
 Button {
     id: rooot
-    Layout.fillWidth: true
+
+    property bool fillWidth: true
+
+    flat: true
+    Layout.fillWidth: fillWidth
     display: AbstractButton.TextBesideIcon
     background: Rectangle {
         implicitHeight: Material.buttonHeight

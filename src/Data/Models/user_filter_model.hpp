@@ -16,6 +16,10 @@ public:
                                const bool& exclusif,
                                QObject* parent = nullptr);
 
+    // Workarond to always emit filterRoleChanged
+    void forceFilterRole(int role);
+    W_INVOKABLE(forceFilterRole, (int))
+
 private:
     bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const override;
     bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;

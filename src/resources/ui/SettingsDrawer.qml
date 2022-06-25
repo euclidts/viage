@@ -17,12 +17,12 @@ Drawer {
 
         MaterialButton {
             id: invisibleSwitch
+            visible: rootStack.currentIndex == 0 && accountsPages.currentIndex == 0
             checkable: true
             icon.source: checked ? "qrc:/icons/eye-slash.svg"
                                  : "qrc:/icons/eye.svg"
             text: checked ? qsTr("Mode invisible")
                           : qsTr("Mode visible")
-            background.opacity: .0
         }
 
         MaterialButton {
@@ -32,7 +32,6 @@ Drawer {
                                  : "qrc:/icons/sun.svg"
             text: checked ? qsTr("Thème sombre")
                           : qsTr("Thème clair")
-            background.opacity: .0
         }
 
         GroupBox {
@@ -77,7 +76,7 @@ Drawer {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("Valider")
                     highlighted: newPwd.text !== "" && confirmPwd.text !== ""
-                    icon.source: "qrc:/icons/checked-square.svg"
+                    icon.source: "qrc:/icons/check-square.svg"
                     onClicked: newPwdLayout.validate()
                 }
             }
@@ -86,7 +85,6 @@ Drawer {
         MaterialButton {
             icon.source: "qrc:/icons/door-open.svg"
             text: qsTr("Déconnection")
-            background.opacity: .0
             onClicked: {
                 documents.clear()
                 exterior.clear()
@@ -95,6 +93,8 @@ Drawer {
                 owners.clear()
                 accounts.clear()
                 users.clear()
+                topBar.visible = false
+                bottomBar.visible = false
                 settingsDrawer.close()
                 rootStack.currentIndex = 0
                 logginDialog.open()

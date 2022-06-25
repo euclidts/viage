@@ -4,4 +4,18 @@ set(WINDEPLOYQT "@WINDEPLOYQT@")
 set(COMPONENT_NAME_MAIN "@COMPONENT_NAME_MAIN@")
 set(CMAKE_CURRENT_SOURCE_DIR "@CMAKE_CURRENT_SOURCE_DIR@")
 
-execute_process(COMMAND ${WINDEPLOYQT} --qmldir ${CMAKE_CURRENT_SOURCE_DIR} ${COMPONENT_NAME_MAIN}/data/bin WORKING_DIRECTORY ${CPACK_TEMPORARY_INSTALL_DIRECTORY}/packages)
+#if (MINGW)
+#    file(COPY
+#        ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
+#        ${QT_BINARY_DIR}/libstdc++-6.dll
+#        ${QT_BINARY_DIR}/libwinpthread-1.dll
+#        DESTINATION
+#        ${CPACK_TEMPORARY_INSTALL_DIRECTORY}/packages)
+#endif()
+
+execute_process(COMMAND ${WINDEPLOYQT} --qmldir ${CMAKE_CURRENT_SOURCE_DIR}
+                ${COMPONENT_NAME_MAIN}/data/bin
+#               --libdir ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
+#               ${QT_BINARY_DIR}/libstdc++-6.dll
+#               ${QT_BINARY_DIR}/libwinpthread-1.dll
+                WORKING_DIRECTORY ${CPACK_TEMPORARY_INSTALL_DIRECTORY}/packages)

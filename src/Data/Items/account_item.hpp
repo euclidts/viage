@@ -49,18 +49,20 @@ struct account_item
         HabitatCompleted = 4,
         ExteriorCompleted = 8,
         DocumentsCompleted = 16,
-        Onboarded = 32,
-        Received = 64,
-        Expertized = 128,
+        Onboarded = 31,
+        Received = 32,
+        Expertized = 64,
+        Decided = 128,
         Notarized = 256,
-        Payed = 512
+        Paid = 512
     };
 
     states state{Initialized};
     QDate receivedDate{};
     QDate expertizedDate{};
+    QDate decidedDate{};
     QDate notarizedDate{};
-    QDate paidDateDate{};
+    QDate paidDate{};
 
     QDateTime created;
     QDateTime modified;
@@ -84,6 +86,7 @@ struct account_item
         StateRole,
         ReceivedRole,
         ExpertizedRole,
+        DecidedRole,
         NotarizedRole,
         PaidRole,
         CreatedRole,
