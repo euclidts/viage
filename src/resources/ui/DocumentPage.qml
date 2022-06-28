@@ -55,13 +55,6 @@ ScrollView {
                 }
 
                 DocumentListView {
-                    id: building
-                    name: qsTr("Détails concernant l'immeuble")
-                    documentCategory: 32
-                    documentsFrom: documents
-                }
-
-                DocumentListView {
                     id: insurance
                     name: qsTr("Assurance du bâtiment")
                     documentCategory: 64
@@ -69,9 +62,9 @@ ScrollView {
                 }
 
                 DocumentListView {
-                    id: beb
-                    name: qsTr("Cas échéant / police détaillée de l’établissement ou le BEB")
-                    documentCategory: 128
+                    id: building
+                    name: qsTr("Détails concernant l'immeuble")
+                    documentCategory: 32
                     documentsFrom: documents
                 }
 
@@ -86,6 +79,13 @@ ScrollView {
                     id: futurs
                     name: qsTr("Descriptif des travaux à prévoir / devis")
                     documentCategory: 512
+                    documentsFrom: documents
+                }
+
+                DocumentListView {
+                    id: beb
+                    name: qsTr("Cas échéant / police détaillée de l’établissement ou le BEB")
+                    documentCategory: 128
                     documentsFrom: documents
                 }
             }

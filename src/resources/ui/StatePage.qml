@@ -24,40 +24,44 @@ ScrollView {
 
                 StateLayout {
                     id: recieivedCheck
-                    nameIndex: 7
-                    date: bridge.accountReceived
+                    nameIndex: 6
                 }
 
                 StateLayout {
                     id: expertCheck
-                    nameIndex: 8
-                    date: bridge.accountExpertized
+                    nameIndex: 7
                 }
 
                 StateLayout {
                     id: decidedCheck
-                    nameIndex: 9
-                    date: bridge.accountDecided
+                    nameIndex: 8
                 }
 
                 StateLayout {
                     id: notaryCheck
-                    nameIndex: 10
-                    date: bridge.accountNotarized
+                    nameIndex: 9
                 }
 
                 StateLayout {
-                    id: payedCheck
-                    nameIndex: 11
-                    date: bridge.accountPaid
+                    id: paidCheck
+                    nameIndex: 10
                 }
 
                 function checkStates() {
                     recieivedCheck.flagged = bridge.accountHasFlag(32)
+                    recieivedCheck.validation = bridge.accountReceived
+
                     expertCheck.flagged = bridge.accountHasFlag(64)
+                    expertCheck.validation = bridge.accountExpertized
+
                     decidedCheck.flagged = bridge.accountHasFlag(128)
+                    decidedCheck.validation = bridge.accountDecided
+
                     notaryCheck.flagged = bridge.accountHasFlag(256)
-                    payedCheck.flagged = bridge.accountHasFlag(512)
+                    notaryCheck.validation = bridge.accountNotarized
+
+                    paidCheck.flagged = bridge.accountHasFlag(512)
+                    paidCheck.validation = bridge.accountPaid
                 }
 
                 Connections {

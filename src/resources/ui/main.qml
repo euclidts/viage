@@ -29,7 +29,6 @@ ApplicationWindow {
         qsTr("Habitat completés"),
         qsTr("Exterieur completés"),
         qsTr("Documents completés"),
-        qsTr("Complet"),
         qsTr("Réception du dossier par Viage SA"),
         qsTr("Expert immobilier"),
         qsTr("Décision du CA de Viager Swiss SA"),
@@ -119,7 +118,7 @@ ApplicationWindow {
                 } else if (!bridge.accountHasFlag(16)) {
                     documents.loadFrom(bridge.accountId);
                     return
-                } else if (!bridge.accountHasFlag(32)) {
+                } else {
                     accountsPages.currentIndex = 6;
                     busyDialog.close()
                     return

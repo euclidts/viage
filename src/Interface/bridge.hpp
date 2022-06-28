@@ -152,7 +152,7 @@ private:
 
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};
-    void check_doc_completion(int index);
+    void check_doc_completion();
     void uplaod_docs(int index);
 
     int userId{0};

@@ -3,20 +3,21 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Material
 
+import Interface
+
 RowLayout {
     property bool flagged
     required property int nameIndex
-    required property var date
+    property date validation
 
     MaterialButton {
         fillWidth: false
         text: stateNames[nameIndex]
-        icon.source: flagged ? "qrc:/icons/square-check.svg"
+        icon.source: flagged ? "qrc:/icons/check-square.svg"
                              : "qrc:/icons/square.svg"
-        icon.color: flagged ? Material.highlightedButtonColor
-                            : Material.primaryTextColor
         onClicked: if (bridge.clearance === 4) {
-                       let tag = Math.pow(2, nameIndex - 2)
+                       busyDialog.open()
+                       let tag = Math.pow(2, nameIndex - 1)
 
                        flagged ? bridge.updateState(-tag)
                                : bridge.updateState(tag)
@@ -24,7 +25,7 @@ RowLayout {
     }
 
     Label {
-        text: flagged ? Qt.formatDate(date, "dd.MM.yy")
-                                     : ""
+        text: flagged ? Qt.formatDate(validation, "dd.MM.yyy")
+                      : ""
     }
 }

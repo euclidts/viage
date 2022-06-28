@@ -43,10 +43,13 @@ ItemDelegate {
                 property string accountState: setAccountState()
 
                 function setAccountState() {
-                    for (var i = 0; i < 11; i++) {
-                        if (!bridge.hasFlag(model.state, Math.pow(2, i)))
-                            return stateNames[i]
-                    }
+                    if (model.state === 31)
+                        return qsTr("Complet")
+                    else
+                        for (var i = 0; i < 11; i++) {
+                            if (!bridge.hasFlag(model.state, Math.pow(2, i)))
+                                return stateNames[i]
+                        }
                 }
 
                 Connections {

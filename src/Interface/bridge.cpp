@@ -49,8 +49,12 @@ bridge::bridge(Interface::netManager* manager,
         setAccountReceived(item.receivedDate);
         setAccountExpertized(item.expertizedDate);
         setAccountNotarized(item.notarizedDate);
+        setAccountDecided(item.decidedDate);
         setAccountPaid(item.paidDate);
     });
+
+    connect(docs, &item_list<document_item>::loaded,
+            this, &bridge::check_doc_completion);
 
     connect(docs, &item_list<document_item>::dataChangedAt,
             this, &bridge::check_doc_completion);
@@ -132,13 +136,25 @@ void bridge::changePwd(const char *key, const QJsonObject &json) const
 void bridge::updateState(int newState) const
 {
     const QJsonObject json{{ "id", accountId },
-                           {"state", accountState + newState }};
+                           { "state", accountState + newState }};
 
     mng->putToKey("accountState",
                   QJsonDocument(json).toJson(),
                   [this] (const QByteArray& rep)
     {
-        qDebug() << rep;
+        const auto json = QJsonDocument::fromJson(rep).object();
+        if (json.contains("success") && json["success"].isBool())
+        {
+            if (json["success"].toBool())
+            {
+                auto account{acnts->item_at_id(accountId)};
+                account.read(json);
+                acnts->setItemAtId(accountId, account);
+            }
+            else
+                qDebug() << "validate error :" << json["errorMessage"].toString();
+        }
+
         emit loaded();
     });
 }
@@ -207,7 +223,7 @@ void bridge::setDocumentsCompleted(bool newDocumentsCompleted)
     emit documentsCompletedChanged();
 }
 
-void bridge::check_doc_completion(int index)
+void bridge::check_doc_completion()
 {
     using namespace Data;
 
@@ -298,6 +314,7 @@ void bridge::setAccountReceived(const QDate &newAccountReceived)
     if (accountReceived == newAccountReceived)
         return;
     accountReceived = newAccountReceived;
+    qDebug() << "account recevied" << accountReceived;
     emit accountReceivedChanged();
 }
 

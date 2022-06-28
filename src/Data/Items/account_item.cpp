@@ -269,7 +269,7 @@ void account_item::read(const QJsonObject& json)
     if (json.contains("notarizedDate") && json["notarizedDate"].isString())
         notarizedDate = QDate::fromString(json["notarizedDate"].toString(), "dd.MM.yyyy");
 
-    if (json.contains("paidDateDate") && json["paidDateDate"].isString())
+    if (json.contains("paidDate") && json["paidDate"].isString())
         paidDate = QDate::fromString(json["paidDate"].toString(), "dd.MM.yyyy");
 }
 
@@ -297,10 +297,7 @@ void account_item::write(QJsonObject& json) const
 
 bool account_item::is_completed() const
 {
-    if (state > 16)
-        return true;
-
-    return false;
+    return (state & Onboarded) == Onboarded;
 }
 
 }
