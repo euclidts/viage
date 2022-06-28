@@ -170,10 +170,6 @@ if (NOT ANDROID AND NOT IOS)
         message(STATUS "Installing system-libraries: MinGW DLLs.")
         get_target_property(QMAKE_EXECUTABLE Qt::qmake IMPORTED_LOCATION)
         get_filename_component(QT_BINARY_DIR "${QMAKE_EXECUTABLE}" DIRECTORY)
-#        find_file(LIBGCC libgcc_s_seh-1.dll REGISTRY_VIEW TARGET)
-#        find_file(LIBSTD libstdc++-6.dll REGISTRY_VIEW TARGET)
-#        find_file(LIBPTH libwinpthread-1.dll REGISTRY_VIEW TARGET)
-#        set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${LIBGCC} ${LIBSTD} ${LIBPTH})
         set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS
             ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
             ${QT_BINARY_DIR}/libstdc++-6.dll
