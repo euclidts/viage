@@ -12,5 +12,4 @@ InfantDelegate {
         checked: model.isInfant
         onCheckStateChanged: model.isInfant = checked
     }
-
 }

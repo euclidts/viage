@@ -78,7 +78,7 @@ void habitat_item::clear()
     emit streetChanged();
     address.city = QString{""};
     emit cityChanged();
-    address.zip = 1000;
+    address.zip = 9000;
     emit zipChanged();
     address.canton = QString{"Appenzell"};
     emit cantonChanged();

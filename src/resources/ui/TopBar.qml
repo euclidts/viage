@@ -40,6 +40,10 @@ RowLayout {
             icon.color: Material.foreground
         }
 
+        currentIndex: rootStack.currentIndex === 0 ?
+                          accountModel.sortRole
+                        : userModel.sortRole
+
         onActivated: {
             rootStack.currentIndex === 0 ?
                         accountModel.sortRole = currentIndex

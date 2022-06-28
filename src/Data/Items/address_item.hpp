@@ -13,7 +13,7 @@ struct address_item
 
     QString street{""};
     QString city{""};
-    int zip{1000};
+    int zip{9000};
     QString canton{"Appenzell"};
 
     enum roles

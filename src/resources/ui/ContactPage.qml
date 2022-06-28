@@ -27,15 +27,18 @@ ListView {
         required property int index
 
         ContactDelegate {
+            id: root
             title: qsTr("Contact")
             width: parent.width
             model: contact.model
 
-//            Button {
-//                id: deleteButton
-//                icon.source: "qrc:/icons/trash-alt.svg"
-//                onClicked: infants.removeItems(model.index, model.index)
-//            }
+            RoundButton {
+                icon.source: "qrc:/icons/trash-alt.svg"
+                text: qsTr("Suprimer le ") + root.title
+                onClicked: {
+                    contacts.remove(model.id)
+                }
+            }
         }
     }
 }

@@ -104,7 +104,7 @@ private:
     int surface{50};
     int m2Constructed{25};
     int m2Available{25};
-    int m3s{1000};
+    int m3s{9000};
 
     void checkCompleted() override;
 };

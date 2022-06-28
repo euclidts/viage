@@ -111,6 +111,8 @@ RowLayout {
                 accountsPages.currentIndex = 0
             } else {
                 accountsPages.validateItem()
+                accountModel.sortRole = 0
+                topBar.searchBar.text = ""
                 accountsPages.loadItemAt(accountsPages.currentIndex + 1)
             }
         }

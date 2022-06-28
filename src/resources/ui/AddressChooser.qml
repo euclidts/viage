@@ -40,19 +40,33 @@ GroupBox {
             Layout.fillWidth: true
 
             Label {
+                text: qsTr("Canton")
+                font.italic: true
+            }
+
+            Label {
                 text: qsTr("NPA")
                 font.italic: true
                 Layout.alignment: Qt.AlignHCenter
             }
 
-            Label {
-                text: qsTr("Canton")
-                font.italic: true
+            ComboBox {
+                id: cantonField
+                textRole: "text"
+                valueRole: "npa"
+                model: SwissCantons {}
+                Layout.minimumWidth: 164
+                onActivated: {
+                    addressOf.canton = currentText
+                    addressOf.zip = currentValue
+                }
+                displayText: addressOf.canton
+                currentIndex: -1
             }
 
             SpinBox {
                 from: 1000
-                to: 4000
+                to: 9999
                 editable: true
                 value: addressOf.zip
                 onValueModified: addressOf.zip = value
@@ -61,14 +75,6 @@ GroupBox {
                 textFromValue: function(value, locale) {
                     return Number(value).toString();
                 }
-            }
-
-            ComboBox {
-                id: cantonField
-                model: SwissCantons {}
-                Layout.minimumWidth: 164
-                onActivated: addressOf.canton = currentValue
-                Component.onCompleted: currentIndex = indexOfValue(addressOf.canton)
             }
         }
     }

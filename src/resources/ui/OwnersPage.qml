@@ -27,9 +27,9 @@ ListView {
         required property int index
 
         InfantDelegate {
+            id: root
             title: qsTr("Partenaire")
             model: owner.model
-            minIndex: 1
 
             ColumnLayout {
                 spacing: 0
@@ -110,6 +110,15 @@ ListView {
                             checked: model.civilStatus === index
                         }
                     }
+                }
+            }
+
+            RoundButton {
+                icon.source: "qrc:/icons/trash-alt.svg"
+                text: qsTr("Suprimer le ") + root.title
+                visible: model.index >= 1
+                onClicked: {
+                    owners.remove(model.id)
                 }
             }
         }
