@@ -55,6 +55,9 @@ public:
     void updatePwd(const QString& newPwd) const;
     W_INVOKABLE(updatePwd)
 
+    void lockUser(int id, const bool& locked) const;
+    W_INVOKABLE(lockUser)
+
     void updateState(int newState) const;
     W_INVOKABLE(updateState)
 

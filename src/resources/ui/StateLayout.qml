@@ -25,7 +25,7 @@ RowLayout {
     }
 
     Label {
-        text: flagged ? Qt.formatDate(validation, "dd.MM.yyy")
-                      : ""
+        text: Qt.formatDate(validation, "dd.MM.yy")
+        visible: flagged
     }
 }

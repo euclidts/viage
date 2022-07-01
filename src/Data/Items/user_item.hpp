@@ -31,6 +31,7 @@ struct user_item : public person_item
     QString beneficiary{""};
     QString iban{""};
     QString bic{""};
+    bool isLocked{false};
 
     enum roles
     {
@@ -41,7 +42,8 @@ struct user_item : public person_item
         BeneficiaryRole,
         // gap left for address_item roles
         IbanRole = Qt::UserRole + 13,
-        BicRole = Qt::UserRole + 14
+        BicRole = Qt::UserRole + 14,
+        LockedRole = Qt::UserRole + 15
     };
 
     static QHash<int, QByteArray> roleNames();

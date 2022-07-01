@@ -133,6 +133,22 @@ void bridge::changePwd(const char *key, const QJsonObject &json) const
     });
 }
 
+void bridge::lockUser(int id, const bool &locked) const
+{
+    const QJsonObject json{
+        { "id", id },
+        { "lock", locked }
+    };
+
+    mng->putToKey("lock",
+                  QJsonDocument(json).toJson(),
+                  [this] (const QByteArray& rep)
+    {
+        qDebug() << rep;
+        emit loaded();
+    });
+}
+
 void bridge::updateState(int newState) const
 {
     const QJsonObject json{{ "id", accountId },
@@ -314,7 +330,6 @@ void bridge::setAccountReceived(const QDate &newAccountReceived)
     if (accountReceived == newAccountReceived)
         return;
     accountReceived = newAccountReceived;
-    qDebug() << "account recevied" << accountReceived;
     emit accountReceivedChanged();
 }
 

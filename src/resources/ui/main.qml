@@ -119,8 +119,8 @@ ApplicationWindow {
                     documents.loadFrom(bridge.accountId);
                     return
                 } else {
+                    bridge.updateState(0)
                     accountsPages.currentIndex = 6;
-                    busyDialog.close()
                     return
                 }
             }

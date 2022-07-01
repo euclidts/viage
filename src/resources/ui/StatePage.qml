@@ -49,25 +49,51 @@ ScrollView {
 
                 function checkStates() {
                     recieivedCheck.flagged = bridge.accountHasFlag(32)
-                    recieivedCheck.validation = bridge.accountReceived
-
                     expertCheck.flagged = bridge.accountHasFlag(64)
-                    expertCheck.validation = bridge.accountExpertized
-
                     decidedCheck.flagged = bridge.accountHasFlag(128)
-                    decidedCheck.validation = bridge.accountDecided
-
                     notaryCheck.flagged = bridge.accountHasFlag(256)
-                    notaryCheck.validation = bridge.accountNotarized
-
                     paidCheck.flagged = bridge.accountHasFlag(512)
-                    paidCheck.validation = bridge.accountPaid
                 }
 
                 Connections {
                     target: bridge
                     function onAccountStateChanged() {
                         stateColumn.checkStates()
+                    }
+                }
+
+                Connections {
+                    target: bridge
+                    function onAccountReceivedChanged() {
+                        recieivedCheck.validation = bridge.accountReceived
+                    }
+                }
+
+                Connections {
+                    target: bridge
+                    function onAccountExpertizedChanged() {
+                        expertCheck.validation = bridge.accountExpertized
+                    }
+                }
+
+                Connections {
+                    target: bridge
+                    function onAccountNotarizedChanged() {
+                        notaryCheck.validation = bridge.accountNotarized
+                    }
+                }
+
+                Connections {
+                    target: bridge
+                    function onAccountDecidedChanged() {
+                        decidedCheck.validation = bridge.accountDecided
+                    }
+                }
+
+                Connections {
+                    target: bridge
+                    function onAccountPaidChanged() {
+                        paidCheck.validation = bridge.accountPaid
                     }
                 }
 

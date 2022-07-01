@@ -258,19 +258,19 @@ void account_item::read(const QJsonObject& json)
         state = states(json["accountState"].toInt());
 
     if (json.contains("receivedDate") && json["receivedDate"].isString())
-        receivedDate = QDate::fromString(json["receivedDate"].toString(), "dd.MM.yyyy");
+        receivedDate = QDateTime::fromString(json["receivedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
 
     if (json.contains("expertizedDate") && json["expertizedDate"].isString())
-        expertizedDate = QDate::fromString(json["expertizedDate"].toString(), "dd.MM.yyyy");
+        expertizedDate = QDateTime::fromString(json["expertizedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
 
     if (json.contains("decidedDate") && json["decidedDate"].isString())
-        decidedDate = QDate::fromString(json["decidedDate"].toString(), "dd.MM.yyyy");
+        decidedDate = QDateTime::fromString(json["decidedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
 
     if (json.contains("notarizedDate") && json["notarizedDate"].isString())
-        notarizedDate = QDate::fromString(json["notarizedDate"].toString(), "dd.MM.yyyy");
+        notarizedDate = QDateTime::fromString(json["notarizedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
 
     if (json.contains("paidDate") && json["paidDate"].isString())
-        paidDate = QDate::fromString(json["paidDate"].toString(), "dd.MM.yyyy");
+        paidDate = QDateTime::fromString(json["paidDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
 }
 
 void account_item::write(QJsonObject& json) const

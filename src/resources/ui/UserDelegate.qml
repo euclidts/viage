@@ -55,7 +55,7 @@ ItemDelegate {
             RoundButton {
                 icon.source: "qrc:/icons/door-open.svg"
                 ToolTip.visible: hovered
-                ToolTip.text: "Renvoyer de nouveaux identifiants"
+                ToolTip.text: qsTr("Renvoyer de nouveaux identifiants")
                 onClicked: {
                     bridge.resetPwd(model.id)
                     busyDialog.open()
@@ -64,9 +64,15 @@ ItemDelegate {
 
             RoundButton {
                 Layout.rightMargin: 24
-                icon.source: "qrc:/icons/lock.svg"
+                icon.source: model.isLocked ? "qrc:/icons/lock-open.svg"
+                                            : "qrc:/icons/lock.svg"
                 ToolTip.visible: hovered
-                ToolTip.text: "Suspendre l'activité"
+                ToolTip.text: model.isLocked ? qsTr("Rependre l'activité")
+                                             : qsTr("Suspendre l'activité")
+                onClicked: {
+                    model.isLocked = !model.isLocked
+                    users.validate(model.id)
+                }
             }
         }
     }
@@ -76,7 +82,7 @@ ItemDelegate {
     background: Rectangle {
         implicitHeight: Material.delegateHeight - 4
         radius: 4
-        color: Material.background
+        color: model.isLocked ? Material.color(Material.Amber) : Material.background
         opacity: .8
     }
 }

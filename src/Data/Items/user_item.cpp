@@ -23,6 +23,7 @@ QHash<int, QByteArray> user_item::roleNames()
 
     names[IbanRole] = "iban";
     names[BicRole] = "bic";
+    names[LockedRole] = "isLocked";
 
     return names;
 }
@@ -48,7 +49,9 @@ QVariant user_item::data(int role) const
         return QVariant(iban);
     case BicRole:
         return QVariant(bic);
-    }
+    case LockedRole:
+        return QVariant(isLocked);
+}
 
     extra_data = address_item::data(role);
 
@@ -82,6 +85,9 @@ void user_item::setData(const QVariant &value, int role)
     case BicRole:
         bic = value.toString();
         break;
+    case LockedRole:
+        isLocked = value.toBool();
+        break;
     }
 
     address_item::setData(value, role);
@@ -111,6 +117,9 @@ void user_item::read(const QJsonObject &json)
 
     if (json.contains("bic") && json["bic"].isString())
         bic = json["bic"].toString();
+
+    if (json.contains("isLocked") && json["isLocked"].isBool())
+        isLocked = json["isLocked"].toBool();
 }
 
 void user_item::write(QJsonObject& json) const
@@ -128,6 +137,7 @@ void user_item::write(QJsonObject& json) const
     json["address"] = jsonAddress;
     json["iban"] = iban;
     json["bic"] = bic;
+    json["isLocked"] = isLocked;
 }
 
 bool user_item::is_completed() const
