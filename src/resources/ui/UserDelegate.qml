@@ -59,9 +59,9 @@ ItemDelegate {
                 onClicked: onErrorAction(ToolTip.text,
                                          "Le mot de passe actuelle de l'utilisateur séléctioné sera perdu",
                                          () => {
-                    bridge.resetPwd(model.id)
-                    busyDialog.open()
-                })
+                                             bridge.resetPwd(model.id)
+                                             busyDialog.open()
+                                         }, true)
             }
 
             RoundButton {
@@ -75,9 +75,9 @@ ItemDelegate {
                                          model.isLocked ? qsTr("L'utilisatuer séléctioné pourra de nouveau se connecter")
                                                         : qsTr("L'utilisatuer séléctioné ne pourra plus se connecter"),
                                          () => {
-                    model.isLocked = !model.isLocked
-                    users.validate(model.id)
-                })
+                                             model.isLocked = !model.isLocked
+                                             users.validate(model.id)
+                                         }, true)
             }
         }
     }
