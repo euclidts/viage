@@ -55,8 +55,9 @@ Dialog {
             Layout.fillWidth: true
             font.capitalization: Font.MixedCase
             font.bold: true
-            highlighted: true
-            onClicked: validate()
+            highlighted: passwordField.text !== "" && usernNameField.text !== ""
+            onClicked: if (passwordField.text !== "" && usernNameField.text !== "")
+                           validate()
         }
     }
 }

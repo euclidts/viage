@@ -62,13 +62,6 @@ GroupBox {
                     }
                 }
 
-                TextField {
-                    id: flieName
-                    text: model.fileName + '.' + model.extension
-                    readOnly: true
-                    Layout.fillWidth: true
-                }
-
                 FolderButton {
                     onClicked: {
                         urlProvider.func = updateFunc
@@ -80,8 +73,7 @@ GroupBox {
                     icon.source: "qrc:/icons/camera.svg"
                     onClicked: {
                         urlProvider.func = updateFunc
-                        urlProvider.path = bridge.getPictureName(name,
-                                                                 index)
+                        urlProvider.path = bridge.getPictureName(name, index)
                         urlProvider.loader.active = true
                     }
                 }
@@ -92,10 +84,23 @@ GroupBox {
                         documentsFrom.remove(model.id)
                     }
                 }
+
+                FileDropRect {
+                    func: updateFunc
+
+                    TextField {
+                        id: flieName
+                        text: model.fileName + '.' + model.extension
+                        readOnly: true
+                        anchors.fill: parent
+                    }
+                }
             }
         }
 
         RowLayout {
+            spacing: 0
+
             FolderButton {
                 onClicked: {
                     urlProvider.jsonMetadata = jsonMetadata
@@ -109,11 +114,12 @@ GroupBox {
                 onClicked: {
                     urlProvider.jsonMetadata = jsonMetadata
                     urlProvider.func = aquireFunc
-                    urlProvider.path = bridge.getPictureName(name,
-                                                             root.count)
+                    urlProvider.path = bridge.getPictureName(name, root.count)
                     urlProvider.loader.active = true
                 }
             }
+
+            FileDropRect { func: aquireFunc }
         }
 
         Component.onCompleted: {

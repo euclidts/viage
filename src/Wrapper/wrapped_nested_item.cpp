@@ -70,8 +70,6 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
         this->mng->getFromKey(makeKey(parentList, id).c_str(),
                               [this](const QByteArray& rep)
         {
-            qDebug() << rep;
-
             if(rep.isEmpty())
                 this->inner->clear();
             else

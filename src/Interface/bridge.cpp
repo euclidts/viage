@@ -24,7 +24,7 @@ bridge::bridge(Interface::netManager* manager,
     if (tempDir.isValid())
         rootPath = tempDir.path();
     else
-        qDebug() << "temp directory error :" << tempDir.errorString();
+        onError("temp directory error", tempDir.errorString());
 
     connect(mng, &netManager::loggedIn,
             this, &bridge::onLogin);
@@ -96,9 +96,9 @@ void bridge::downloadFile(const QString &key, const QUrl &directory, const QStri
 {
     mng->downloadFile(key.toStdString().c_str(),
                       filePath(directory, fileName),
-                      [] (bool success, const QString& string)
+                      [this] (bool success, const QString& string)
     {
-        if (!success) qDebug() << "file error :" << string;
+        if (!success) onError("downloadFile error", string);
     });
 }
 
@@ -111,12 +111,12 @@ void bridge::requestReport() const
         if (success)
         {
             if (!QDesktopServices::openUrl(rootPath + "/Viage.xlsx"))
-                qDebug() << "Desktop services : could not open excel";
+                onError("requestReport error", "QDesktopervices : could not open excel");
+            else
+                emit loaded();
         }
         else
-            qDebug() << "file error :" << error;
-
-        emit loaded();
+            onError("requestReport error", error);
     });
 }
 
@@ -170,10 +170,10 @@ void bridge::updateState(int newState) const
                   QJsonDocument(json).toJson(),
                   [this] (const QJsonObject& rep)
     {
-                auto account{acnts->item_at_id(accountId)};
-                account.read(rep);
-                acnts->setItemAtId(accountId, account);
-                emit loaded();
+        auto account{acnts->item_at_id(accountId)};
+        account.read(rep);
+        acnts->setItemAtId(accountId, account);
+        emit loaded();
     },
     "updateState error");
 }
@@ -286,7 +286,7 @@ void bridge::uplaod_docs(int index)
             {
                 if (!file.open(QIODevice::ReadOnly))
                 {
-                    qDebug() << "couldn't open the file";
+                    onError("upload_docs error", file.errorString());
                     return;
                 }
 
