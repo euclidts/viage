@@ -56,10 +56,12 @@ ItemDelegate {
                 icon.source: "qrc:/icons/door-open.svg"
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Renvoyer de nouveaux identifiants")
-                onClicked: {
-                    bridge.resetPwd(model.id)
-                    busyDialog.open()
-                }
+                onClicked: onErrorAction(ToolTip.text,
+                                         "Le mot de passe actuelle de l'utilisateur séléctioné sera perdu",
+                                         () => {
+                                             bridge.resetPwd(model.id)
+                                             busyDialog.open()
+                                         }, true)
             }
 
             RoundButton {
@@ -69,10 +71,13 @@ ItemDelegate {
                 ToolTip.visible: hovered
                 ToolTip.text: model.isLocked ? qsTr("Rependre l'activité")
                                              : qsTr("Suspendre l'activité")
-                onClicked: {
-                    model.isLocked = !model.isLocked
-                    users.validate(model.id)
-                }
+                onClicked: onErrorAction(ToolTip.text,
+                                         model.isLocked ? qsTr("L'utilisatuer séléctioné pourra de nouveau se connecter")
+                                                        : qsTr("L'utilisatuer séléctioné ne pourra plus se connecter"),
+                                         () => {
+                                             model.isLocked = !model.isLocked
+                                             users.validate(model.id)
+                                         }, true)
             }
         }
     }
