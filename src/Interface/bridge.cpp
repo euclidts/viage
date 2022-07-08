@@ -29,6 +29,9 @@ bridge::bridge(Interface::netManager* manager,
     connect(mng, &netManager::loggedIn,
             this, &bridge::onLogin);
 
+    connect(mng, &netManager::replyError,
+            this, &bridge::onError);
+
     connect(mng, &netManager::userChanged,
             this, &bridge::setUserId);
 
@@ -68,11 +71,20 @@ bridge::bridge(Interface::netManager* manager,
             this, &bridge::getLastUser);
 }
 
-void bridge::onLogin(const bool& success) const
+void bridge::onLogin(const bool& success, const QString &errorString) const
 {
     QMetaObject::invokeMethod(qmlObject,
                               "onLogin",
-                              Q_ARG(bool, success));
+                              Q_ARG(bool, success),
+                              Q_ARG(QString, errorString));
+}
+
+void bridge::onError(const QString &prefix, const QString &errorString) const
+{
+    QMetaObject::invokeMethod(qmlObject,
+                              "onError",
+                              Q_ARG(QString, prefix),
+                              Q_ARG(QString, errorString));
 }
 
 void bridge::authenticate(const QString &username, const QString &password) const
@@ -126,11 +138,11 @@ void bridge::changePwd(const char *key, const QJsonObject &json) const
 {
     mng->putToKey(key,
                   QJsonDocument(json).toJson(),
-                  [this] (const QByteArray& rep)
+                  [this] (const QJsonObject& rep)
     {
-        qDebug() << rep;
         emit loaded();
-    });
+    },
+    "changePwd error");
 }
 
 void bridge::lockUser(int id, const bool &locked) const
@@ -142,11 +154,11 @@ void bridge::lockUser(int id, const bool &locked) const
 
     mng->putToKey("lock",
                   QJsonDocument(json).toJson(),
-                  [this] (const QByteArray& rep)
+                  [this] (const QJsonObject& rep)
     {
-        qDebug() << rep;
         emit loaded();
-    });
+    },
+    "loackUser error");
 }
 
 void bridge::updateState(int newState) const
@@ -156,23 +168,14 @@ void bridge::updateState(int newState) const
 
     mng->putToKey("accountState",
                   QJsonDocument(json).toJson(),
-                  [this] (const QByteArray& rep)
+                  [this] (const QJsonObject& rep)
     {
-        const auto json = QJsonDocument::fromJson(rep).object();
-        if (json.contains("success") && json["success"].isBool())
-        {
-            if (json["success"].toBool())
-            {
                 auto account{acnts->item_at_id(accountId)};
-                account.read(json);
+                account.read(rep);
                 acnts->setItemAtId(accountId, account);
-            }
-            else
-                qDebug() << "validate error :" << json["errorMessage"].toString();
-        }
-
-        emit loaded();
-    });
+                emit loaded();
+    },
+    "updateState error");
 }
 
 QUrl bridge::getPictureName(QString& name, int index) const
@@ -273,8 +276,8 @@ void bridge::uplaod_docs(int index)
 
             mng->deleteToKey(docs->key(),
                              data.toJson(),
-                             [](const QByteArray& rep)
-            { qDebug() << "delete reply :" << rep; });
+                             [](const QJsonObject& rep) {},
+            "upload_docs error when deleting orphans");
         }
         else if (!doc.isUploaded)
         {
@@ -300,8 +303,8 @@ void bridge::uplaod_docs(int index)
 
                 mng->putToKey(docs->key(),
                               data.toJson(),
-                              [](const QByteArray& rep)
-                { qDebug() << "upload reply :" << rep; });
+                              [](const QJsonObject& rep) {},
+                "upload_docs error");
             }
         }
     }

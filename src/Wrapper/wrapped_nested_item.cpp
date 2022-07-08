@@ -41,28 +41,25 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
                   this,
                   [this, parentList] (int id)
     {
-        Outer* outer = new Outer{parentList->item_at_id(id)};
-        outer->set(this->inner);
-        parentList->setItemAtId(id, *outer);
+        //        Outer* outer = new Outer{parentList->item_at_id(id)};
+        Outer outer = parentList->item_at_id(id);
+        outer.set(this->inner);
+        parentList->setItemAtId(id, outer);
 
         this->mng->putToKey(makeKey(parentList).c_str(),
-                                this->inner->toData(id),
-                                [=](const QByteArray& rep)
+                            this->inner->toData(id),
+                            [=](const QJsonObject& rep)
         {
-            const auto json = QJsonDocument::fromJson(rep).object();
-            if (json.contains("success") && json["success"].isBool())
-            {
-                if (json["success"].toBool())
-                {
-                    outer->read(json);
-                    parentList->setItemAtId(id, *outer);
-                }
-                else
-                    qDebug() << "validate error :" << json["errorMessage"].toString();
-            };
+            QJsonObject json{};
+            Outer updated{};
+            outer.write(json);
+            updated.read(json);
+            updated.read(rep);
+            parentList->setItemAtId(id, updated);
 
-            delete outer;
-        });
+            //            delete outer;
+        },
+        "Validate error");
     });
 
     this->connect(this->inner,
@@ -71,8 +68,10 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
                   [this, parentList] (int id)
     {
         this->mng->getFromKey(makeKey(parentList, id).c_str(),
-                                  [this](const QByteArray& rep)
+                              [this](const QByteArray& rep)
         {
+            qDebug() << rep;
+
             if(rep.isEmpty())
                 this->inner->clear();
             else

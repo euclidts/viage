@@ -19,10 +19,10 @@ public:
     explicit wrapped_nested_item(Interface::netManager* manager,
                                  QQmlContext* context = nullptr);
 
-    void makeConnections(Data::item_list<Outer> *parentList);
+    void makeConnections(Data::item_list<Outer>* parentList);
 
   protected:
-    std::string makeKey(Data::item_list<Outer> *parentList);
+    std::string makeKey(Data::item_list<Outer>* parentList);
     std::string makeKey(Data::item_list<Outer>* parentList, int id);
 };
 

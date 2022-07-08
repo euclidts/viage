@@ -27,8 +27,13 @@ public:
 
     void authenticate(const QString& username, const QString& password);
 
-    void loggedIn(const bool& success)
-    W_SIGNAL(loggedIn, success);
+    void loggedIn(const bool& success,
+                  const QString& errorString = "")
+    W_SIGNAL(loggedIn, success, errorString);
+
+    void replyError(const QString& prefix = "",
+                    const QString& errorString = "")
+    W_SIGNAL(replyError, prefix, errorString);
 
     void downloadFile(const char* key,
                       const QString& path,
@@ -37,13 +42,16 @@ public:
                     const std::function<void (const QByteArray &)> &callback);
     void putToKey(const char* key,
                   const QByteArray& data,
-                  const std::function<void (const QByteArray &)> &callback);
+                  const std::function<void (const QJsonObject &)> &callback,
+                  const QString& errorPrefix = "");
     void postToKey(const char* key,
                    const QByteArray& data,
-                   const std::function<void (const QByteArray &)> &callback);
+                   const std::function<void (const QJsonObject &)> &callback,
+                   const QString& errorPrefix = "");
     void deleteToKey(const char* key,
                      const QByteArray& data,
-                     const std::function<void (const QByteArray &)> &callback);
+                     const std::function<void (const QJsonObject &)> &callback,
+                     const QString& errorPrefix = "");
 
     void userChanged(int newId)
     W_SIGNAL(userChanged, newId)
@@ -59,6 +67,9 @@ private:
 
     void setCallback(QNetworkReply* reply,
                      const std::function<void (const QByteArray &)> &callback);
+    void setCallback(QNetworkReply* reply,
+                     const std::function<void (const QJsonObject &)> &callback,
+                     const QString& errorPrefix);
     void setRequest(const char* key);
 
     bool authenticating{false};

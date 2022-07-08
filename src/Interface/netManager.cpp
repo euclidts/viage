@@ -51,10 +51,8 @@ void netManager::authenticate(const QString& username,
             if (authenticating)
             {
                 authenticating = false;
-                emit loggedIn(false);
+                emit loggedIn(false, reply->errorString());
             }
-
-            qDebug() << reply->errorString();
         }
         else
         {
@@ -113,7 +111,7 @@ void netManager::downloadFile(const char* key,
 }
 
 void netManager::getFromKey(const char* key,
-                            const std::function<void(const QByteArray&)>& callback)
+                            const std::function<void (const QByteArray &)> &callback)
 {
     setRequest(key);
     auto* reply = get(rqst);
@@ -122,29 +120,55 @@ void netManager::getFromKey(const char* key,
 
 void netManager::putToKey(const char* key,
                           const QByteArray &data,
-                          const std::function<void (const QByteArray &)> &callback)
+                          const std::function<void (const QJsonObject &)> &callback,
+                          const QString& errorPrefix)
 {
     setRequest(key);
     auto* reply = put(rqst, data);
-    setCallback(reply, callback);
+    setCallback(reply, callback, errorPrefix);
 }
 
 void netManager::postToKey(const char* key,
                            const QByteArray &data,
-                           const std::function<void (const QByteArray &)> &callback)
+                           const std::function<void (const QJsonObject &)> &callback,
+                           const QString& errorPrefix)
 {
     setRequest(key);
     auto* reply = post(rqst, data);
-    setCallback(reply, callback);
+    setCallback(reply, callback, errorPrefix);
 }
 
 void netManager::deleteToKey(const char *key,
                              const QByteArray &data,
-                             const std::function<void (const QByteArray &)> &callback)
+                             const std::function<void (const QJsonObject &)> &callback,
+                             const QString& errorPrefix)
 {
     setRequest(key);
     auto* reply = sendCustomRequest(rqst, "DELETE", data);
-    setCallback(reply, callback);
+    setCallback(reply, callback, errorPrefix);
+}
+
+void netManager::setCallback(QNetworkReply* reply,
+                             const std::function<void (const QJsonObject &)> &callback,
+                             const QString& errorPrefix)
+{
+    connect(reply, &QNetworkReply::finished,
+            this,
+            [reply, callback, errorPrefix, this]()
+    {
+        const auto json{QJsonDocument::fromJson(reply->readAll()).object()};
+        if (json.contains("success"))
+        {
+            if (json["success"].toBool())
+                callback(json);
+            else
+                emit replyError(errorPrefix, json["errorMessage"].toString());
+        }
+        else
+            emit replyError(errorPrefix);
+
+        reply->deleteLater();
+    });
 }
 
 void netManager::setCallback(QNetworkReply* reply,

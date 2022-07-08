@@ -19,7 +19,7 @@ template<typename Inner>
 void wrapped_list<Inner>::get() const
 {
     this->mng->getFromKey(this->inner->key(),
-                              [this](const QByteArray& bytes)
+                          [this](const QByteArray& bytes)
     { this->inner->read(bytes); });
 }
 
@@ -39,15 +39,9 @@ void wrapped_list<Inner>::makeConnections() const
 
         this->mng->putToKey(this->inner->key(),
                             QJsonDocument{json}.toJson(),
-                            [this](const QByteArray& rep)
-        {
-            auto json = QJsonDocument::fromJson(rep).object();
-
-            if (json.contains("success") && json["success"].isBool())
-                if (!json["success"].toBool())
-                    qDebug() << "Validate error :" << json["errorMessage"].toString();
-
-        });
+                            [this](const QJsonObject& rep)
+        {},
+        "Validate error");
     });
 
     this->connect(this->inner,
@@ -56,19 +50,10 @@ void wrapped_list<Inner>::makeConnections() const
                   [this] ()
     {
         this->mng->postToKey(this->inner->key(),
-                                 QByteArray{},
-                                 [this](const QByteArray& rep)
-        {
-            auto json = QJsonDocument::fromJson(rep).object();
-
-            if (json.contains("success") && json["success"].isBool())
-            {
-                if (json["success"].toBool())
-                    this->inner->appendWith(json);
-                else
-                    qDebug() << "Add error :" << json["errorMessage"].toString();
-            }
-        });
+                             QByteArray{},
+                             [this](const QJsonObject& rep)
+        { this->inner->appendWith(rep); },
+        "Add error");
     });
 
     connectRemove();
@@ -86,18 +71,9 @@ void wrapped_list<Inner>::connectRemove() const
 
         this->mng->deleteToKey(this->inner->key(),
                                QJsonDocument{json}.toJson(),
-                               [this, id](const QByteArray& rep)
-        {
-            auto json = QJsonDocument::fromJson(rep).object();
-
-            if (json.contains("success") && json["success"].isBool())
-            {
-                if (json["success"].toBool())
-                    this->inner->erase(id);
-                else
-                    qDebug() << "Remove error :" << json["errorMessage"].toString();
-            }
-        });
+                               [this, id](const QJsonObject& rep)
+        { this->inner->erase(id); },
+        "Remove Error");
     });
 }
 }

@@ -25,17 +25,9 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
 
         this->mng->postToKey(this->inner->key(),
                                  data.toJson(),
-                                 [this](const QByteArray& res)
-        {
-            const auto json = QJsonDocument::fromJson(res).object();
-            if (json.contains("success") && json["success"].isBool())
-            {
-                if (json["success"].toBool())
-                    this->inner->appendWith(json["id"].toInt());
-                else
-                    qDebug() << "addIn error :" << json["errorMessage"].toString();
-            };
-        });
+                                 [this](const QJsonObject& res)
+        { this->inner->appendWith(res["id"].toInt()); },
+        "addIn error");
     });
 
     this->connect(this->inner,
@@ -49,23 +41,15 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
 
         this->mng->postToKey(this->makeKey(parentList).c_str(),
                                  data.toJson(),
-                                 [this, obj](const QByteArray& res)
+                                 [this, obj](const QJsonObject& res)
         {
-            auto json = QJsonDocument::fromJson(res).object();
-            auto map{json.toVariantMap()};
-
+            auto map{res.toVariantMap()};
             map.insert(obj.toVariantMap());
 
-            json = QJsonObject::fromVariantMap(map);
-
-            if (json.contains("success") && json["success"].isBool())
-            {
-                if (json["success"].toBool())
-                    this->inner->appendWith(json);
-                else
-                    qDebug() << "addInWith error :" << json["errorMessage"].toString();
-            };
-        });
+            const auto json{QJsonObject::fromVariantMap(map)};
+            this->inner->appendWith(json);
+        },
+        "addInWith error");
     });
 }
 

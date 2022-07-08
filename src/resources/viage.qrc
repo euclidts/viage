@@ -34,6 +34,7 @@
         <file alias="UserFullDelegate.qml">ui/UserFullDelegate.qml</file>
         <file alias="PwdField.qml">ui/PwdField.qml</file>
         <file alias="StateLayout.qml">ui/StateLayout.qml</file>
+        <file alias="ErrorDialog.qml">ui/ErrorDialog.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="ViageLogo.svg">images/ViageLogo.svg</file>

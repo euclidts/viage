@@ -32,7 +32,10 @@ public:
            Data::item_list<Data::account_item>* accounts,
            Data::item_list<Data::document_item>* documents);
 
-    void onLogin(const bool& success) const;
+    void onLogin(const bool& success, const QString& errorString) const;
+
+    void onError(const QString& prefix,
+                 const QString& errorString) const;
 
     void authenticate(const QString& username, const QString& password) const;
     W_INVOKABLE(authenticate, (const QString&, const QString&))

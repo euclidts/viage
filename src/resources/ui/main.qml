@@ -45,16 +45,35 @@ ApplicationWindow {
                                              qsTr("Manager"),
                                              qsTr("Directeur")]
 
-    function onLogin (success: bool) {
+    function onLogin (success: bool, error: string) {
         if (success) {
             topBar.visible = true
             bottomBar.visible = true
             logginDialog.clear()
+            busyDialog.close()
         }
-        else
-            logginDialog.open()
+        else {
+            onErrorAction(qsTr("Erreur d'authentification"),
+                    error === "Host requires authentication" ?
+                        qsTr("Mot de passe ou identifiant incorrect, essyez de nouveau ou contactez Viage pour recevoir un nouveu mot de passe")
+                      : error,
+                    function() { logginDialog.open() })
+        }
+    }
 
+    function onError (prefix: string, error: string) {
         busyDialog.close()
+        errorDialog.title = prefix
+        errorDialog.text = error
+        errorDialog.open()
+    }
+
+    function onErrorAction (prefix: string, error: string, func, bool: cancelable) {
+        if (typeof(func) !== 'undefined')
+            errorDialog.func = func
+        if (typeof(cancelable) !== 'undefined')
+            errorDialog.cancelable = cancelable
+        onError(prefix, error)
     }
 
     Image {
@@ -68,14 +87,7 @@ ApplicationWindow {
                              logginDialog.open()
     }
 
-    MessageDialog {
-        id: messageDialog
-//        onOpen: busyDialog.close()
-
-//        property var func: function () {}
-
-//        onAccepted: func()
-    }
+    ErrorDialog { id: errorDialog }
 
     LoggInDialog { id: logginDialog }
 
