@@ -68,11 +68,11 @@ ApplicationWindow {
         errorDialog.open()
     }
 
-    function onErrorAction (prefix: string, error: string, func, bool: cancelable) {
-        if (typeof(func) !== 'undefined')
+    function onErrorAction (prefix: string, error: string, func) {
+        if (typeof(func) !== 'undefined') {
             errorDialog.func = func
-        if (typeof(cancelable) !== 'undefined')
-            errorDialog.cancelable = cancelable
+            errorDialog.cancelable = true
+        }
         onError(prefix, error)
     }
 
