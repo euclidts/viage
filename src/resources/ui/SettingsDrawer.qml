@@ -93,10 +93,10 @@ Drawer {
                 owners.clear()
                 accounts.clear()
                 users.clear()
-                topBar.visible = false
-                bottomBar.visible = false
+                rootStack.currentIndex = 3
+                accountsPages.currentIndex = 0
+                usersPages.currentIndex = 0
                 settingsDrawer.close()
-                rootStack.currentIndex = 0
                 logginDialog.open()
             }
         }

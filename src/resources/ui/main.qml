@@ -47,8 +47,7 @@ ApplicationWindow {
 
     function onLogin (success: bool, error: string) {
         if (success) {
-            topBar.visible = true
-            bottomBar.visible = true
+            rootStack.currentIndex = 0
             logginDialog.clear()
             busyDialog.close()
         }
@@ -81,6 +80,7 @@ ApplicationWindow {
         source: "qrc:/images/vue_du_lac.jpg"
         anchors.centerIn: parent
         anchors.fill: parent
+        clip: true
         fillMode: Image.PreserveAspectCrop
 
         onStatusChanged: if (status === Image.Ready)
@@ -105,12 +105,12 @@ ApplicationWindow {
     StackLayout {
         id: rootStack
         anchors.fill: parent
+        currentIndex: 3
 
         onCurrentIndexChanged: topBar.searchBar.text = ""
 
         StackLayout {
             id: accountsPages
-            currentIndex: 0
 
             function loadItem() {
                 busyDialog.open()
