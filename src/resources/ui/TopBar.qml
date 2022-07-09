@@ -7,8 +7,12 @@ import QtQuick.Controls.Material.impl
 import Interface
 
 RowLayout {
-    visible: false
     spacing: 0
+    height: visibleChildren.length !== 0 ? 48 : 0
+
+    Behavior on height {
+        NumberAnimation { duration: 200 }
+    }
 
     property alias searchBar: search
 
@@ -272,11 +276,12 @@ RowLayout {
 
     Item {
         Layout.fillWidth: true
-        visible: rootStack.currentIndex > 0
+        visible: rootStack.currentIndex > 0 && rootStack.currentIndex < 3
     }
 
     Image {
         id: settings
+        visible: rootStack.currentIndex < 3
         Layout.margins: 2
         Layout.fillHeight: true
         source: "qrc:/images/ViageLogo.svg"

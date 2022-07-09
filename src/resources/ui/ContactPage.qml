@@ -35,9 +35,7 @@ ListView {
             RoundButton {
                 icon.source: "qrc:/icons/trash-alt.svg"
                 text: qsTr("Suprimer le ") + root.title
-                onClicked: {
-                    contacts.remove(model.id)
-                }
+                onClicked: contacts.remove(model.id)
             }
         }
     }

@@ -6,11 +6,15 @@ import QtQuick.Controls.Material.impl
 import QtQuick.Dialogs
 
 RowLayout {
-    visible: false
     spacing: 0
+    height: visibleChildren.length !== 0 ? 48 : 0
+
+    Behavior on height {
+        NumberAnimation { duration: 200 }
+    }
 
     MaterialButton {
-        visible: accountsPages.currentIndex < 1
+        visible: accountsPages.currentIndex === 0
                  && rootStack.currentIndex === 0
                  && bridge.clearance === 4
         text: qsTr("Conseillers")
@@ -22,7 +26,7 @@ RowLayout {
 
     MaterialButton {
         id: reportButton
-        visible: accountsPages.currentIndex < 1
+        visible: accountsPages.currentIndex === 0
                  && rootStack.currentIndex === 0
         text: qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"

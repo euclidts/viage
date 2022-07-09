@@ -125,6 +125,9 @@ ItemDelegate {
                 icon.source: "qrc:/icons/trash-alt.svg"
                 ToolTip.visible: hovered
                 ToolTip.text: "Suprimer le dossier"
+                onClicked: onErrorAction(ToolTip.text,
+                                         "Le dossier selectioné serra suprimé définitivement",
+                                         () => { accounts.remove(model.id) }, true)
             }
         }
     }
