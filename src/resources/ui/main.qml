@@ -131,7 +131,7 @@ ApplicationWindow {
                     documents.loadFrom(bridge.accountId);
                     return
                 } else {
-                    bridge.updateState(0)
+                    bridge.getAccountDates()
                     accountsPages.currentIndex = 6;
                     return
                 }

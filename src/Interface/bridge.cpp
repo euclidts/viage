@@ -161,6 +161,31 @@ void bridge::lockUser(int id, const bool &locked) const
     "loackUser error");
 }
 
+void bridge::getAccountDates() const
+{
+    std::string key{"accountState/"};
+    key.append(std::to_string(accountId));
+
+    mng->getFromKey(key.c_str(),
+                  [this] (const QByteArray& rep)
+    {
+        const auto json{QJsonDocument::fromJson(rep).object()};
+        if (json.contains("success"))
+        {
+            if (json["success"].toBool())
+            {
+                auto account{acnts->item_at_id(accountId)};
+                account.read(json);
+                acnts->setItemAtId(accountId, account);
+                emit loaded();
+                return;
+            }
+        }
+
+        emit mng->replyError("getAccountDates error");
+    });
+}
+
 void bridge::updateState(int newState) const
 {
     const QJsonObject json{{ "id", accountId },

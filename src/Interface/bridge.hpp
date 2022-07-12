@@ -61,6 +61,9 @@ public:
     void lockUser(int id, const bool& locked) const;
     W_INVOKABLE(lockUser)
 
+    void getAccountDates() const;
+    W_INVOKABLE(getAccountDates)
+
     void updateState(int newState) const;
     W_INVOKABLE(updateState)
 

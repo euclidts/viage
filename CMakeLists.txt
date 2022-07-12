@@ -135,7 +135,7 @@ if(ANDROID)
 
 endif()
 
-qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+qt_add_translations(viage TS_FILES ${TS_FILES})
 
 target_compile_definitions(viage
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
