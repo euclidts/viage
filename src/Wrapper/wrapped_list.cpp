@@ -67,12 +67,12 @@ void wrapped_list<Inner>::connectRemove() const
                   this,
                   [this] (int id)
     {
-        const QJsonObject json{{"id", id}};
+        this->inner->erase(id);
 
+        const QJsonObject json{{"id", id}};
         this->mng->deleteToKey(this->inner->key(),
                                QJsonDocument{json}.toJson(),
-                               [this, id](const QJsonObject& rep)
-        { this->inner->erase(id); },
+                               [this, id](const QJsonObject& rep) {},
         "Remove Error");
     });
 }

@@ -87,7 +87,7 @@ ItemDelegate {
     background: Rectangle {
         implicitHeight: Material.delegateHeight - 4
         radius: 4
-        color: model.isLocked ? Material.color(Material.Amber) : Material.background
+        color: model.isLocked ? Material.color(Material.purle) : Material.background
         opacity: .8
     }
 }

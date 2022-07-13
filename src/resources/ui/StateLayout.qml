@@ -16,11 +16,21 @@ RowLayout {
         icon.source: flagged ? "qrc:/icons/check-square.svg"
                              : "qrc:/icons/square.svg"
         onClicked: if (bridge.clearance === 4) {
-                       busyDialog.open()
                        let tag = Math.pow(2, nameIndex - 1)
 
-                       flagged ? bridge.updateState(-tag)
-                               : bridge.updateState(tag)
+                       if (flagged) {
+                           if (!bridge.accountHasFlag(Math.pow(2, nameIndex)))
+                               bridge.updateState(-tag)
+                           else
+                               return
+                       } else {
+                           if (bridge.accountHasFlag(Math.pow(2, nameIndex - 2)))
+                               bridge.updateState(tag)
+                           else
+                               return
+                       }
+
+                       busyDialog.open()
                    }
     }
 

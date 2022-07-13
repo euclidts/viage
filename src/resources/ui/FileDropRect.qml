@@ -4,8 +4,7 @@ import QtQuick.Controls.Material
 
 Rectangle {
     id: root
-    Layout.fillWidth: true
-    Layout.fillHeight: true
+    height: childrenRect.height
     color: "transparent"
 
     required property var func

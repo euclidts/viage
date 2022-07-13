@@ -44,8 +44,8 @@ GroupBox {
                 category: documentCategory
             }
 
-            delegate: RowLayout {
-                spacing: 0
+            delegate: FileDropRect {
+                func: updateFunc
                 width: root.width
 
                 required property var model
@@ -62,9 +62,54 @@ GroupBox {
                     }
                 }
 
+                RowLayout {
+                    spacing: 0
+                    width: parent.width
+
+                    FolderButton {
+                        onClicked: {
+                            urlProvider.func = updateFunc
+                            urlProvider.fileDialog.open()
+                        }
+                    }
+
+                    RoundButton {
+                        icon.source: "qrc:/icons/camera.svg"
+                        onClicked: {
+                            urlProvider.func = updateFunc
+                            urlProvider.path = bridge.getPictureName(name, index)
+                            urlProvider.loader.active = true
+                        }
+                    }
+
+                    TextField {
+                        id: flieName
+                        text: model.fileName + '.' + model.extension
+                        readOnly: true
+                        Layout.fillWidth: true
+                    }
+
+                    RoundButton {
+                        icon.source: "qrc:/icons/trash-alt.svg"
+                        onClicked: {
+                            documentsFrom.remove(model.id)
+                        }
+                    }
+                }
+            }
+        }
+
+        FileDropRect {
+            func: aquireFunc
+            width: root.width
+
+            RowLayout {
+                spacing: 0
+
                 FolderButton {
                     onClicked: {
-                        urlProvider.func = updateFunc
+                        urlProvider.jsonMetadata = jsonMetadata
+                        urlProvider.func = aquireFunc
                         urlProvider.fileDialog.open()
                     }
                 }
@@ -72,54 +117,13 @@ GroupBox {
                 RoundButton {
                     icon.source: "qrc:/icons/camera.svg"
                     onClicked: {
-                        urlProvider.func = updateFunc
-                        urlProvider.path = bridge.getPictureName(name, index)
+                        urlProvider.jsonMetadata = jsonMetadata
+                        urlProvider.func = aquireFunc
+                        urlProvider.path = bridge.getPictureName(name, root.count)
                         urlProvider.loader.active = true
                     }
                 }
-
-                RoundButton {
-                    icon.source: "qrc:/icons/trash-alt.svg"
-                    onClicked: {
-                        documentsFrom.remove(model.id)
-                    }
-                }
-
-                FileDropRect {
-                    func: updateFunc
-
-                    TextField {
-                        id: flieName
-                        text: model.fileName + '.' + model.extension
-                        readOnly: true
-                        anchors.fill: parent
-                    }
-                }
             }
-        }
-
-        RowLayout {
-            spacing: 0
-
-            FolderButton {
-                onClicked: {
-                    urlProvider.jsonMetadata = jsonMetadata
-                    urlProvider.func = aquireFunc
-                    urlProvider.fileDialog.open()
-                }
-            }
-
-            RoundButton {
-                icon.source: "qrc:/icons/camera.svg"
-                onClicked: {
-                    urlProvider.jsonMetadata = jsonMetadata
-                    urlProvider.func = aquireFunc
-                    urlProvider.path = bridge.getPictureName(name, root.count)
-                    urlProvider.loader.active = true
-                }
-            }
-
-            FileDropRect { func: aquireFunc }
         }
 
         Component.onCompleted: {

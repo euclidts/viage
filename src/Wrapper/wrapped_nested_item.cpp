@@ -41,7 +41,6 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
                   this,
                   [this, parentList] (int id)
     {
-        //        Outer* outer = new Outer{parentList->item_at_id(id)};
         Outer outer = parentList->item_at_id(id);
         outer.set(this->inner);
         parentList->setItemAtId(id, outer);
@@ -56,8 +55,6 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
             updated.read(json);
             updated.read(rep);
             parentList->setItemAtId(id, updated);
-
-            //            delete outer;
         },
         "Validate error");
     });

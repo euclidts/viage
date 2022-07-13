@@ -21,12 +21,23 @@ netManager::netManager(const QString& url,
 {
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);
-    rqst.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    rqst.setHeader(QNetworkRequest::ContentTypeHeader,
+                   "application/json");
+
+    setTransferTimeout();
 
     connect(this, &QNetworkAccessManager::sslErrors,
             this, [](QNetworkReply* reply,
             const QList<QSslError>& errors)
     { reply->ignoreSslErrors(errors); });
+
+    connect(this, &QNetworkAccessManager::finished,
+            this, [this](QNetworkReply* reply)
+    {
+        if (reply->error() != QNetworkReply::NoError)
+            emit replyError("netManager reply error",
+                            reply->errorString());
+    });
 }
 
 void netManager::authenticate(const QString& username,

@@ -6,6 +6,13 @@
 
 ## TODO
 
+* timeout for connection (3h)
+* chagne state consectuively in state page
+* position Title in error header
+* hide paid Accounts in listview (but find with search)
+* drop zone encompass buttons
+* basic text for new credentials
+
 * NPA in relation to Canton
 * Drag and drop Documents
 * Don't re-scale wallpaper
@@ -28,5 +35,3 @@
 * Repport: inclusive filter (equivalent to the "contain" option)
 
 * Delete Infants
-
-
