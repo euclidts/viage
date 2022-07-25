@@ -44,7 +44,7 @@ ListView {
                         id: clearanceCombo
                         model: clearanceNames
                         Layout.minimumWidth: 180
-                        onActivated: root.model.clearance = currentIndex
+                        onActivated: root.model.clearance = currentIndex + 1
                         currentIndex: root.model.clearance - 1
                     }
                 }

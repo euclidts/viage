@@ -150,7 +150,7 @@ int main(int argc, char* argv[])
     QObject::connect(&bridge,
                      &bridge::requestUser,
                      &selectedUser,
-                     &user_filter_model::setFilterRole);
+                     &user_filter_model::forceFilterRole);
 
     // qml engine
     const QUrl url(QStringLiteral("qrc:/ui/main.qml"));

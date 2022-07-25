@@ -26,7 +26,7 @@ struct user_item : public person_item
     };
 
     QString company{""};
-    clearances clearance{None};
+    clearances clearance{Vendor};
     int team{1};
     QString beneficiary{""};
     QString iban{""};

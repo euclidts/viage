@@ -16,8 +16,8 @@ class exterior_item : public base_item
 {
     W_OBJECT(exterior_item)
 
-    public:
-        explicit exterior_item(QObject* parent = nullptr);
+public:
+    explicit exterior_item(QObject* parent = nullptr);
 
     const constexpr char* key() override { return "exterior"; };
     static const constexpr auto qmlName{"ExteriorItem"};

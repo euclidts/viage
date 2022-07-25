@@ -65,7 +65,7 @@ RowLayout {
 
         onClicked: {
             busyDialog.open()
-            bridge.onboard()
+            bridge.hire()
         }
     }
 

@@ -41,7 +41,16 @@ bridge::bridge(Interface::netManager* manager,
     using namespace Data;
 
     connect(acnts, &item_list<account_item>::postItemsAppended,
-            this, &bridge::getLastAccount);
+            this, [this]()
+    {
+        if (onboarding)
+        {
+            onboarding = false;
+            setAccoountId(acnts->items().constLast().id);
+            setAccountState(0);
+            emit requestOwners(accountId);
+        }
+    });
 
     connect(acnts, &item_list<account_item>::dataChangedAt,
             this, [this] (int index)
@@ -68,7 +77,15 @@ bridge::bridge(Interface::netManager* manager,
     using namespace People;
 
     connect(usrs, &item_list<user_item>::postItemsAppended,
-            this, &bridge::getLastUser);
+            this, [this]()
+    {
+        if (hiring)
+        {
+            hiring = false;
+            emit requestUser(usrs->items().constLast().id);
+            emit loaded();
+        }
+    });
 }
 
 void bridge::onLogin(const bool& success, const QString &errorString) const
@@ -444,27 +461,6 @@ void bridge::hire()
 {
     hiring = true;
     usrs->add();
-}
-
-void bridge::getLastAccount() noexcept
-{
-    if (onboarding)
-    {
-        onboarding = false;
-        setAccoountId(acnts->items().constLast().id);
-        setAccountState(0);
-        emit requestOwners(accountId);
-    }
-}
-
-void bridge::getLastUser() noexcept
-{
-    if (hiring)
-    {
-        hiring = false;
-        setUserId(usrs->items().constLast().id);
-        emit requestUser(userId);
-    }
 }
 
 }

@@ -180,8 +180,6 @@ private:
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;
 
-    void getLastUser() noexcept;
-    void getLastAccount() noexcept;
     void changePwd(const char* key, const QJsonObject& json) const;
 };
 
