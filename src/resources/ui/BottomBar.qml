@@ -63,10 +63,12 @@ RowLayout {
                  && usersPages.currentIndex === 0
         icon.source: "qrc:/icons/plus.svg"
 
-        onClicked: {
-            busyDialog.open()
-            bridge.hire()
-        }
+        onClicked: onErrorAction(text,
+                                 "Êtes-vous sûr de vouloir ajouter un nouveau conseiller",
+                                 () => {
+                                     busyDialog.open()
+                                     bridge.hire()
+                                 }, true)
     }
 
     MaterialButton {
@@ -82,10 +84,10 @@ RowLayout {
         text: accountsPages.currentIndex === 1 ? qsTr("Ajouter un partenaire")
                                                : qsTr("Ajouter un contact")
         visible: (accountsPages.currentIndex === 1
-                 && owners.completed
-                 && ownersPage.count < 2)
+                  && owners.completed
+                  && ownersPage.count < 2)
                  || (accountsPages.currentIndex === 2
-                 && (contacts.completed || contactPage.count === 0))
+                     && (contacts.completed || contactPage.count === 0))
         // exception for potentially empty contact list
         icon.source: "qrc:/icons/plus.svg"
 
