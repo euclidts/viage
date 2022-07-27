@@ -28,14 +28,8 @@ ColumnLayout {
             onEdit: function(txt) { model.firstName = txt }
         }
 
-        LabeledTextField {
-            name: qsTr("Téléphone")
-            textOf: model.phone
-            onEdit: function(txt) { model.phone = txt }
-            inputHint: Qt.ImhFormattedNumbersOnly
-            validator: RegularExpressionValidator {
-                regularExpression: /\d{10,14}?$/
-            }
+        PhoneChooser {
+            phoneOf: model
         }
 
         LabeledTextField {

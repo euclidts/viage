@@ -14,7 +14,7 @@ struct person_item
     int id{0};
     QString firstName{""};
     QString lastName{""};
-    QString phone{""};
+    QString phone{"+41"};
     QString eMail{""};
 
     enum roles

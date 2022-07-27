@@ -36,6 +36,7 @@
         <file alias="StateLayout.qml">ui/StateLayout.qml</file>
         <file alias="ErrorDialog.qml">ui/ErrorDialog.qml</file>
         <file alias="FileDropRect.qml">ui/FileDropRect.qml</file>
+        <file alias="PhoneChooser.qml">ui/PhoneChooser.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="ViageLogo.svg">images/ViageLogo.svg</file>
