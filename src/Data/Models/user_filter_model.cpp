@@ -38,10 +38,6 @@ bool user_filter_model::filterAcceptsRow(int sourceRow,
         else
             return false;
     }
-    else
-        if (filterRole() == id)
-            return false;
-
 
     const auto& userName{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),

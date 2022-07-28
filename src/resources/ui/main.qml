@@ -257,13 +257,6 @@ ApplicationWindow {
             }
 
             Connections {
-                target: bridge
-                function onUserIdChanged() {
-                    userModel.filterRole = bridge.userId
-                }
-            }
-
-            Connections {
                 target: selectedUser
                 function onFilterRoleChanged() {
                     usersPages.currentIndex = 1

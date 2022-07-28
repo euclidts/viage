@@ -13,7 +13,7 @@ class user_filter_model : public base_filter_model
 
 public:
     explicit user_filter_model(QAbstractItemModel* model,
-                               const bool& exclusif,
+                               const bool& exclusif = false,
                                QObject* parent = nullptr);
 
     // Workarond to always emit filterRoleChanged

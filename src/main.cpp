@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
     list_model<user_item> userModel{};
     userModel.setList(wrapped_users.get_inner());
 
-    user_filter_model userFilter{&userModel, false};
+    user_filter_model userFilter{&userModel};
     user_filter_model selectedUser{&userModel, true};
     qmlRegisterUncreatableType<user_filter_model>("People", 1, 0, "UserModel", "");
     context->setContextProperty("userModel", &userFilter);
