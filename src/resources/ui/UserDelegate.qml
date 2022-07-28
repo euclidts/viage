@@ -6,7 +6,7 @@ import QtQuick.Controls.Material
 import People
 
 ItemDelegate {
-    width: parent.width
+    width: window.width
     leftInset: 6
     rightInset: 6
     topInset: 3

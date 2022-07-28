@@ -15,13 +15,10 @@ ColumnLayout {
     required property var model
     required property string title
 
-    RowLayout {
-
-        Label {
-            Layout.margins: 6
-            text: title + ' ' + (model.index + 1)
-            font.bold: true
-        }
+    Label {
+        Layout.margins: 6
+        text: title + ' ' + (model.index + 1)
+        font.bold: true
     }
 
     SexChooser {
@@ -29,7 +26,6 @@ ColumnLayout {
     }
 
     PersonDelegate {
-        Layout.fillWidth: true
         model: root.model
     }
 }
