@@ -10,6 +10,14 @@ account_filter_model::account_filter_model(QAbstractItemModel* model, QObject* p
 
 bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
+    const auto& state{sourceModel()->data(
+                    sourceModel()->index(sourceRow, 0, sourceParent),
+                    account_item::StateRole).toInt()};
+
+    if (filterRegularExpression().match("").hasMatch() &&
+        ((state & account_item::Paid) == account_item::Paid))
+        return false;
+
     const auto& owners{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     account_item::OwnersRole).toJsonArray()};
