@@ -26,11 +26,13 @@ RowLayout {
 
     MaterialButton {
         id: reportButton
-        visible: accountsPages.currentIndex === 0
-                 && rootStack.currentIndex === 0
-        text: qsTr("Rapport")
+        visible: (accountsPages.currentIndex === 0
+                  && rootStack.currentIndex === 0)
+                 || rootStack.currentIndex === 2
+        text: rootStack.currentIndex === 2 ? qsTr("Télécharger le document")
+                                           : qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"
-        onClicked: bridge.requestReport()
+        onClicked: if (rootStack.currentIndex !== 2) bridge.requestReport()
     }
 
     MaterialButton {
@@ -72,8 +74,9 @@ RowLayout {
     }
 
     MaterialButton {
-        visible: rootStack.currentIndex === 1
-                 && usersPages.currentIndex === 0
+        visible: (rootStack.currentIndex === 1
+                  && usersPages.currentIndex === 0)
+                 || rootStack.currentIndex === 2
         text: qsTr("Accueil")
         icon.source: "qrc:/icons/home.svg"
 

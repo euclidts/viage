@@ -122,7 +122,6 @@ RowLayout {
         id: backButton
         visible: accountsPages.currentIndex > 0
                  || usersPages.currentIndex > 0
-                 || rootStack.currentIndex === 2
         icon.source: "qrc:/icons/arrow-left.svg"
         font.bold: true
         onClicked: if (rootStack.currentIndex === 0) {
@@ -131,12 +130,19 @@ RowLayout {
                    } else if (rootStack.currentIndex === 1) {
                        users.validate(selectedUser.filterRole)
                        usersPages.currentIndex = 0
-                   } else { rootStack.currentIndex = 0 }
+                   }
         background: Rectangle {
             implicitHeight: Material.buttonHeight
             radius: 2
             color: Material.backgroundColor
         }
+    }
+
+    Label {
+        text: qsTr("Calcul")
+        font.bold: true
+        visible: rootStack.currentIndex === 2
+        Layout.leftMargin: 12
     }
 
     ScrollView {

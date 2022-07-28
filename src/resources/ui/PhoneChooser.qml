@@ -16,17 +16,12 @@ ColumnLayout {
     }
 
     RowLayout {
-        Layout.fillWidth: true
 
         ComboBox {
             id: codeBox
-            Layout.maximumWidth: 90
+            Layout.maximumWidth: 80
 
             model: ListModel {
-                ListElement {
-                    text: ""
-                    code: "+??"
-                }
                 ListElement {
                     text: "SUI"
                     code: "+41"
@@ -53,7 +48,7 @@ ColumnLayout {
         TextField {
             id: codeField
             Layout.maximumWidth: 40
-            readOnly: codeBox.currentIndex > 0
+            readOnly: true
             text: phoneOf.phone.slice(0, 3)
         }
 
@@ -62,8 +57,8 @@ ColumnLayout {
             text: phoneOf.phone.slice(3, phoneOf.phone.length)
             onEditingFinished: phoneOf.phone = codeField.text + text
             inputMethodHints: Qt.ImhFormattedNumbersOnly
-            placeholderText: qsTr("* Champ Obligatoire")
             Layout.fillWidth: true
+            placeholderText: qsTr("* Champ Obligatoire")
             onAccepted: focus = false
             validator: RegularExpressionValidator {
                 regularExpression: /\d{9,13}?$/

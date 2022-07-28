@@ -20,6 +20,8 @@ ColumnLayout {
             name: qsTr("Nom")
             textOf: model.lastName
             onEdit: function(txt) { model.lastName = txt }
+            Layout.maximumWidth: window.width <  400 ? parent.width
+                                                     : parent.width / 2
         }
 
         LabeledTextField {
@@ -30,9 +32,12 @@ ColumnLayout {
 
         PhoneChooser {
             phoneOf: model
+            Layout.maximumWidth: window.width <  400 ? parent.width
+                                                     : parent.width / 2
         }
 
         LabeledTextField {
+            id: mailField
             name: qsTr("Courriel")
             textOf: model.eMail
             onEdit: function(txt) { model.eMail = txt }
