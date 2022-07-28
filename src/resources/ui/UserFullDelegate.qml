@@ -27,6 +27,8 @@ ColumnLayout {
                 name: qsTr("Bénéficiaire du compte")
                 textOf: model.beneficiary
                 onEdit: function(txt) { model.beneficiary = txt }
+                Layout.maximumWidth: window.width <  400 ? parent.width
+                                                         : parent.width / 2
             }
 
             LabeledTextField {
