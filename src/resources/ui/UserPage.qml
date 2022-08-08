@@ -14,6 +14,9 @@ ListView {
     clip: true
     boundsBehavior: Flickable.StopAtBounds
     model : selectedUser
+
+    property bool completed: false
+
     delegate: BackgroundRect {
         id: root
 

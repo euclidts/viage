@@ -43,7 +43,8 @@ struct user_item : public person_item
         // gap left for address_item roles
         IbanRole = Qt::UserRole + 13,
         BicRole = Qt::UserRole + 14,
-        LockedRole = Qt::UserRole + 15
+        LockedRole = Qt::UserRole + 15,
+        CompletedRole = Qt::UserRole + 16
     };
 
     static QHash<int, QByteArray> roleNames();

@@ -47,5 +47,14 @@ ColumnLayout {
         AddressChooser {
             addressOf: model
         }
+
+        Connections {
+            target: model
+            function onCompletedChanged() {
+                userPage.completed = model.completed
+            }
+        }
+
+        Component.onCompleted: userPage.completed = model.completed
     }
 }

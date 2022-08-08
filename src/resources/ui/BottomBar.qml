@@ -103,27 +103,35 @@ RowLayout {
 
     MaterialButton {
         id: continueButton
-        text: accountsPages.currentIndex === 5 ? qsTr("Terminer")
-                                               : qsTr("Continuer")
+        text: qsTr("Continuer")
 
-        visible: ( accountsPages.currentIndex > 0
-                  && accountsPages.itemAt(accountsPages.currentIndex).completed )
+        visible: (accountsPages.currentIndex > 0
+                  && accountsPages.currentIndex < 5
+                  && accountsPages.itemAt(accountsPages.currentIndex).completed)
                  || ( accountsPages.currentIndex === 2 &&
-                     accountsPages.itemAt(accountsPages.currentIndex).count === 0 )
+                     accountsPages.itemAt(accountsPages.currentIndex).count === 0)
         // exception for potentially empty children list
-        icon.source: accountsPages.currentIndex === 5 ? "qrc:/icons/arrow-left.svg"
-                                                      : "qrc:/icons/arrow-right.svg"
+        icon.source: "qrc:/icons/arrow-right.svg"
 
         onClicked: {
-            if (accountsPages.currentIndex === 5) {
-                accountsPages.validateItem()
-                accountsPages.currentIndex = 0
-            } else {
-                accountsPages.validateItem()
-                accountModel.sortRole = 0
-                topBar.searchBar.text = ""
-                accountsPages.loadItemAt(accountsPages.currentIndex + 1)
-            }
+            accountsPages.validateItem()
+            accountModel.sortRole = 0
+            topBar.searchBar.text = ""
+            accountsPages.loadItemAt(accountsPages.currentIndex + 1)
+        }
+    }
+
+    MaterialButton {
+        id: finishButton
+        text: qsTr("Terminer")
+
+        visible: accountsPages.currentIndex === 5 && accountsPages.itemAt(5).completed
+                 || usersPages.currentIndex === 1 && userPage.completed
+        icon.source: "qrc:/icons/arrow-left.svg"
+
+        onClicked: {
+            accountsPages.validateItem()
+            accountsPages.currentIndex = 0
         }
     }
 }

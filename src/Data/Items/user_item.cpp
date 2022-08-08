@@ -24,6 +24,7 @@ QHash<int, QByteArray> user_item::roleNames()
     names[IbanRole] = "iban";
     names[BicRole] = "bic";
     names[LockedRole] = "isLocked";
+    names[CompletedRole] = "completed";
 
     return names;
 }
@@ -51,6 +52,8 @@ QVariant user_item::data(int role) const
         return QVariant(bic);
     case LockedRole:
         return QVariant(isLocked);
+    case CompletedRole:
+        return QVariant(is_completed());
 }
 
     extra_data = address_item::data(role);
