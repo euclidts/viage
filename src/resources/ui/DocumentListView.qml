@@ -22,6 +22,7 @@ GroupBox {
     property var jsonMetadata
     property var aquireFunc: function() {
         root.aquiring = true
+        urlProvider.jsonMetadata = jsonMetadata
         documentsFrom.addInWith(bridge.accountId, urlProvider.jsonMetadata)
         busyDialog.open()
     }
@@ -101,14 +102,13 @@ GroupBox {
 
         FileDropRect {
             func: aquireFunc
-            width: root.width
+            Layout.fillWidth: true
 
             RowLayout {
                 spacing: 0
 
                 FolderButton {
                     onClicked: {
-                        urlProvider.jsonMetadata = jsonMetadata
                         urlProvider.func = aquireFunc
                         urlProvider.fileDialog.open()
                     }
@@ -117,7 +117,6 @@ GroupBox {
                 RoundButton {
                     icon.source: "qrc:/icons/camera.svg"
                     onClicked: {
-                        urlProvider.jsonMetadata = jsonMetadata
                         urlProvider.func = aquireFunc
                         urlProvider.path = bridge.getPictureName(name, root.count)
                         urlProvider.loader.active = true
