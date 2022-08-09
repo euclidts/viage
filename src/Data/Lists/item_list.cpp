@@ -149,7 +149,7 @@ void item_list<T>::clear()
 template<typename T>
 void item_list<T>::checkCompleted()
 {
-    if(this->m_items.empty())
+    if (this->m_items.empty())
     {
         this->setCompleted(false);
         return;

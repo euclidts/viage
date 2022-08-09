@@ -56,9 +56,9 @@ RowLayout {
 
         model: rootStack.currentIndex < 1
                ? sort.accountFilters
-               : [qsTr("Nom"),
-                  qsTr("Sosciete"),
-                 qsTr("Role")]
+               : [qsTr("Société"),
+                  qsTr("Nom"),
+                  qsTr("Role")]
 
         popup.width: 200
 
@@ -139,9 +139,11 @@ RowLayout {
     }
 
     Label {
-        text: qsTr("Calcul")
+        text: rootStack.currentIndex === 2 ? qsTr("Calcul") : qsTr("Conseiller")
         font.bold: true
         visible: rootStack.currentIndex === 2
+                 || (rootStack.currentIndex === 1
+                     && usersPages.currentIndex === 1)
         Layout.leftMargin: 12
     }
 
