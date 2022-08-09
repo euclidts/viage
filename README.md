@@ -34,4 +34,10 @@
 * Repport: follow interface field order 
 * Repport: inclusive filter (equivalent to the "contain" option)
 
-* Delete Infants
+remettre conseiller actuel dans la liste
+archiver les dossiers payé
+alignements boutons conseillés, téléphone 
+Titre Calcul en haut de la page, Icon acceuille a doite
+Calcul: bouton télécharger en bas  
+
+++ Document excel pour les conseillers 

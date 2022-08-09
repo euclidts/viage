@@ -129,9 +129,12 @@ RowLayout {
                  || usersPages.currentIndex === 1 && userPage.completed
         icon.source: "qrc:/icons/arrow-left.svg"
 
-        onClicked: {
-            accountsPages.validateItem()
-            accountsPages.currentIndex = 0
-        }
+        onClicked: if (rootStack.currentIndex === 0) {
+                       accountsPages.validateItem()
+                       accountsPages.currentIndex = 0
+                   } else if (rootStack.currentIndex === 1) {
+                       users.validate(selectedUser.filterRole)
+                       usersPages.currentIndex = 0
+                   }
     }
 }
