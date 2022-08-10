@@ -7,10 +7,7 @@
 ## TODO
 
 * timeout for connection (3h)
-* chagne state consectuively in state page
 * position Title in error header
-* hide paid Accounts in listview (but find with search)
-* drop zone encompass buttons
 * basic text for new credentials
 
 * NPA in relation to Canton
@@ -33,11 +30,5 @@
 * Filter invert order of filtered item in report
 * Repport: follow interface field order 
 * Repport: inclusive filter (equivalent to the "contain" option)
-
-remettre conseiller actuel dans la liste
-archiver les dossiers payé
-alignements boutons conseillés, téléphone 
-Titre Calcul en haut de la page, Icon acceuille a doite
-Calcul: bouton télécharger en bas  
 
 ++ Document excel pour les conseillers 

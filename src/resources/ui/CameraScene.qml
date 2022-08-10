@@ -43,6 +43,7 @@ ColumnLayout {
         Layout.fillHeight: true
         Layout.fillWidth: true
         fillMode: Image.PreserveAspectFit
+        visible: false
         source: imageCapture.preview
     }
 
@@ -61,8 +62,8 @@ ColumnLayout {
             id: scanButton
             text: qsTr("Scanner")
             icon.source: "qrc:/icons/camera.svg"
+            visible: videoOutput.visible
             onClicked: {
-                visible = false
                 imageCapture.capture()
                 videoOutput.visible = false
                 preview.visible = true
@@ -73,16 +74,18 @@ ColumnLayout {
             id: rescanButton
             text: qsTr("Scanner de nouveau")
             icon.source: "qrc:/icons/camera.svg"
-            visible: false
+            visible: preview.visible
             onClicked: {
-                previewColumn.visible = false
-                captureColumn.visible = true
+                videoOutput.visible = true
+                preview.visible = false
             }
         }
 
         MaterialButton {
+            id: validateButton
             text: qsTr("Valider")
             icon.source: "qrc:/icons/arrow-right.svg"
+            visible: preview.visible
             onClicked: {
                 imageCapture.saveToFile(path)
                 onValidate()

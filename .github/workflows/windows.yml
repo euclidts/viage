@@ -27,14 +27,13 @@ jobs:
     - uses: BSFishy/pip-action@v1
       with:
         packages: aqtinstall
-    - run: aqt list-qt windows desktop
-    - run: aqt install-qt windows desktop 6.2.2 win64_mingw -m qtmultimedia
+    - run: aqt install-qt windows desktop 6.4.0 win64_mingw -m qtmultimedia
     - run: aqt install-tool windows desktop tools_ifw
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH=${{github.workspace}}/6.2.2/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
+      run: cmake -B ${{github.workspace}}/build -G Ninja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH=${{github.workspace}}/6.4.0/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
 
     - name: Build
       # Build your program with the given configuration
