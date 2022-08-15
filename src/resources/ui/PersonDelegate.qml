@@ -20,6 +20,8 @@ ColumnLayout {
             name: qsTr("Nom")
             textOf: model.lastName
             onEdit: function(txt) { model.lastName = txt }
+            Layout.maximumWidth: portrait ? window.width
+                                          : window.width / 2
         }
 
         LabeledTextField {
@@ -28,7 +30,11 @@ ColumnLayout {
             onEdit: function(txt) { model.firstName = txt }
         }
 
-        PhoneChooser { phoneOf: model }
+        PhoneChooser {
+            phoneOf: model
+            Layout.maximumWidth: portrait ? window.width
+                                          : window.width / 2
+        }
 
         LabeledTextField {
             id: mailField

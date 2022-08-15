@@ -22,7 +22,7 @@ ApplicationWindow {
 
     font.pixelSize: 16
 
-    readonly property bool portrait: width < 400
+    readonly property bool portrait: width < 500
 
     readonly property var stateNames: [
         qsTr("Initialisé"),

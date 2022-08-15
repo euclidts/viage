@@ -341,8 +341,6 @@ void bridge::uplaod_docs(int index)
 
                 QJsonDocument data{obj};
 
-                qDebug() << "uploading " << file.fileName();
-
                 mng->putToKey(docs->key(),
                               data.toJson(),
                               [](const QJsonObject& rep) {},

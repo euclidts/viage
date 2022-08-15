@@ -23,7 +23,6 @@ Dialog {
     }
 
     contentItem: ColumnLayout {
-        implicitWidth: parent.width
         spacing: 15
 
         Label {
@@ -33,6 +32,7 @@ Dialog {
         }
 
         RowLayout {
+            Layout.fillWidth: true
 
             RoundButton {
                 text: qsTr("Valider")

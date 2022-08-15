@@ -23,7 +23,7 @@ ItemDelegate {
             }
 
             Label {
-                text: qsTr("Equipe ") + model.team
+                text: qsTr("Équipe ") + model.team
                 font.italic: true
             }
         }
@@ -34,6 +34,7 @@ ItemDelegate {
             Label {
                 text: model.firstName + ' ' + model.lastName
                 font.bold: true
+                font.capitalization: Font.Capitalize
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
             }
