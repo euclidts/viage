@@ -114,7 +114,7 @@ ItemDelegate {
                 }
 
                 Label {
-                    text: qsTr("Sosciete ") + model.company
+                    text: model.company
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignRight
                     wrapMode: Text.Wrap

@@ -81,7 +81,7 @@ ScrollView {
                         contentHeight: contentItem.childrenRect.height
 
                         GridLayout {
-                            columns: window.width <  400 ? 2 : 4
+                            columns: portrait ? 2 : 4
 
                             IntChooser {
                                 name: qsTr("brut (m2)")

@@ -31,4 +31,8 @@
 * Repport: follow interface field order 
 * Repport: inclusive filter (equivalent to the "contain" option)
 
+* Capital letters in delegates
+* flow layout phones !!
+* Pop up buttons
+
 ++ Document excel pour les conseillers 

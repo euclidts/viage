@@ -22,6 +22,8 @@ ApplicationWindow {
 
     font.pixelSize: 16
 
+    readonly property bool portrait: width < 400
+
     readonly property var stateNames: [
         qsTr("Initialisé"),
         qsTr("Partenaires completés"),
@@ -245,7 +247,6 @@ ApplicationWindow {
 
         StackLayout {
             id: usersPages
-            clip: true
 
             ListView {
                 Layout.fillWidth: true

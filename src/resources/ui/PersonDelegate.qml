@@ -13,15 +13,13 @@ ColumnLayout {
     required property var model
 
     GridLayout {
-        columns: window.width <  400 ? 1 : 2
+        columns: portrait ? 1 : 2
 
         LabeledTextField {
             id: nameField
             name: qsTr("Nom")
             textOf: model.lastName
             onEdit: function(txt) { model.lastName = txt }
-            Layout.maximumWidth: window.width <  400 ? parent.width
-                                                     : parent.width / 2
         }
 
         LabeledTextField {
@@ -30,11 +28,7 @@ ColumnLayout {
             onEdit: function(txt) { model.firstName = txt }
         }
 
-        PhoneChooser {
-            phoneOf: model
-            Layout.maximumWidth: window.width <  400 ? parent.width
-                                                     : parent.width / 2
-        }
+        PhoneChooser { phoneOf: model }
 
         LabeledTextField {
             id: mailField

@@ -72,7 +72,7 @@ ListView {
                     GridLayout {
                         id: civilStateColumn
                         width: parent.width
-                        columns: width <  400 ? 1 : 2
+                        columns: portrait ? 1 : 2
 
                         RadioButton {
                             text: qsTr("Célibataire")

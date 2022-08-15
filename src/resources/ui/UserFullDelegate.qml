@@ -21,14 +21,12 @@ ColumnLayout {
         model: root.model
 
         GridLayout {
-            columns: window.width <  400 ? 1 : 2
+            columns: portrait ? 1 : 2
 
             LabeledTextField {
                 name: qsTr("Bénéficiaire du compte")
                 textOf: model.beneficiary
                 onEdit: function(txt) { model.beneficiary = txt }
-                Layout.maximumWidth: window.width <  400 ? parent.width
-                                                         : parent.width / 2
             }
 
             LabeledTextField {

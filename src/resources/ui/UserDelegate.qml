@@ -13,10 +13,9 @@ ItemDelegate {
     bottomInset: 3
 
     contentItem: RowLayout {
-        width: parent.width
 
         ColumnLayout {
-            Layout.preferredWidth: parent.width / 3
+            Layout.preferredWidth: window.width / 3
 
             Label {
                 text: model.company
@@ -30,7 +29,7 @@ ItemDelegate {
         }
 
         ColumnLayout {
-            Layout.preferredWidth: parent.width / 3
+            Layout.preferredWidth: window.width / 3
 
             Label {
                 text: model.firstName + ' ' + model.lastName
@@ -48,7 +47,7 @@ ItemDelegate {
         }
 
         RowLayout {
-            Layout.preferredWidth: parent.width / 3
+            Layout.preferredWidth: window.width / 3
 
             Item { Layout.fillWidth: true }
 
@@ -65,7 +64,6 @@ ItemDelegate {
             }
 
             RoundButton {
-                Layout.rightMargin: 24
                 icon.source: model.isLocked ? "qrc:/icons/lock-open.svg"
                                             : "qrc:/icons/lock.svg"
                 ToolTip.visible: hovered

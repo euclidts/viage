@@ -16,7 +16,7 @@ GroupBox {
     }
 
     GridLayout {
-        columns: window.width < 400 ? 2 : 3
+        columns: portrait ? 2 : 3
 
         IntChooser {
             name: qsTr("Jour")
