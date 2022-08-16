@@ -54,6 +54,7 @@ void address_item::setData(const QVariant &value, int role)
         break;
     case CityRole:
         city = value.toString();
+        break;
     }
 }
 

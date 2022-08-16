@@ -151,6 +151,7 @@ void habitat_item::setCity(const QString &newCity)
         return;
     address.city = newCity;
     emit cityChanged();
+    checkCompleted();
 }
 
 const habitat_item::habitatTypes& habitat_item::getHabitatType() const
