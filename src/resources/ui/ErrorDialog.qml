@@ -35,8 +35,8 @@ Dialog {
             Layout.fillWidth: true
 
             RoundButton {
+                id: validateButton
                 text: qsTr("Valider")
-                Layout.fillWidth: true
                 font.capitalization: Font.MixedCase
                 font.bold: true
                 highlighted: true
@@ -47,15 +47,24 @@ Dialog {
             }
 
             RoundButton {
+                id: cancelButton
                 text: qsTr("Annuler")
                 visible: cancelable
-                Layout.fillWidth: true
                 font.capitalization: Font.MixedCase
                 font.bold: true
                 highlighted: true
                 onClicked: onClose()
             }
         }
+
+        onVisibleChanged: if (visible) {
+                              cancelable ? cancelButton.focus = true
+                                         : validateButton.focus = true
+
+                          } else {
+                              validateButton.focus = false
+                              cancelButton.focus = false
+                          }
     }
 }
 
