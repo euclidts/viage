@@ -212,7 +212,7 @@ ScrollView {
                             }
                             CheckBox {
                                 id: shopsCheck
-                                text: qsTr("Comerces")
+                                text: qsTr("Commerces")
                                 onCheckStateChanged: equipementColumn.setTypes()
                             }
                             CheckBox {

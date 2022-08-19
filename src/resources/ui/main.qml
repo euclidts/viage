@@ -26,11 +26,11 @@ ApplicationWindow {
 
     readonly property var stateNames: [
         qsTr("Initialisé"),
-        qsTr("Partenaires completés"),
-        qsTr("Contactes completés"),
-        qsTr("Habitat completés"),
-        qsTr("Exterieur completés"),
-        qsTr("Documents completés"),
+        qsTr("Partenaires complétés"),
+        qsTr("Contacts complétés"),
+        qsTr("Habitat complété"),
+        qsTr("Exterieur complété"),
+        qsTr("Documents complétés"),
         qsTr("Réception du dossier par Viage SA"),
         qsTr("Expert immobilier"),
         qsTr("Décision du CA de Viager Swiss SA"),
