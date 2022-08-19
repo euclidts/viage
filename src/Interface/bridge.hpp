@@ -162,7 +162,8 @@ private:
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};
     void check_doc_completion();
-    void uplaod_docs(int index);
+    void uplaod_docs(int ai);
+    int docs_to_upload{0};
 
     int userId{0};
     Data::People::user_item::clearances clearance{Data::People::user_item::None};

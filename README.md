@@ -19,4 +19,7 @@
 * Repport: inclusive filter (equivalent to the "contain" option)
 * Pop up buttons
 
+* sort accounts by minutes not just dates
+* keep same order in repport
+
 ++ Excel documents for advisors 

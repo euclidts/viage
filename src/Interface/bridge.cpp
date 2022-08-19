@@ -71,6 +71,9 @@ bridge::bridge(Interface::netManager* manager,
     connect(docs, &item_list<document_item>::dataChangedAt,
             this, &bridge::check_doc_completion);
 
+    connect(docs, &item_list<document_item>::postItemsRemoved,
+            this, &bridge::check_doc_completion);
+
     connect(docs, &item_list<document_item>::validate,
             this, &bridge::uplaod_docs);
 
@@ -184,7 +187,7 @@ void bridge::getAccountDates() const
     key.append(std::to_string(accountId));
 
     mng->getFromKey(key.c_str(),
-                  [this] (const QByteArray& rep)
+                    [this] (const QByteArray& rep)
     {
         const auto json{QJsonDocument::fromJson(rep).object()};
         if (json.contains("success"))
@@ -226,7 +229,7 @@ QUrl bridge::getPictureName(QString& name, int index) const
                                + '/'
                                + QString::number(accountId)
                                + '_'
-                               + name.replace(' ', '_')
+                               + name.replace(' ', '_').replace('/', '-')
                                + '_'
                                + QString::number(index + 1)
                                + ".jpeg");
@@ -304,8 +307,10 @@ void bridge::check_doc_completion()
                           );
 }
 
-void bridge::uplaod_docs(int index)
+void bridge::uplaod_docs(int ai)
 {
+    docs_to_upload = 0; // reinit
+
     for (const auto& doc : docs->items())
     {
         if (doc.category == Data::document_item::None)
@@ -327,26 +332,50 @@ void bridge::uplaod_docs(int index)
             if (file.exists())
             {
                 if (!file.open(QIODevice::ReadOnly))
-                {
                     onError("upload_docs error", file.errorString());
-                    return;
+                else
+                {
+                    const auto bytes{file.readAll()};
+                    const auto body{QString(bytes.toBase64())};
+
+                    QJsonObject obj{};
+                    doc.write(obj);
+                    obj["body"] = body;
+
+                    QJsonDocument data{obj};
+
+                    docs_to_upload++;
+
+                    mng->putToKey(docs->key(),
+                                  data.toJson(),
+                                  [this, ai, doc]
+                                  (const QJsonObject& rep)
+                    {
+                        if (rep.contains("accountState") && rep["accountState"].isDouble())
+                        {
+                            auto updated{acnts->item_at_id(ai)};
+                            updated.state = Data::account_item::states(rep["accountState"].toInt());
+                            acnts->setItemAtId(ai, updated);
+                        }
+
+                        if (rep.contains("document") && rep["document"].isObject())
+                        {
+                            auto updated{doc};
+                            updated.read(rep["document"].toObject());
+                            docs->setItemAtId(updated.id, updated);
+                        }
+
+                        docs_to_upload--;
+                        if (docs_to_upload == 0)
+                            emit loaded();
+                    },
+                    "upload_docs error");
                 }
-
-                const auto bytes{file.readAll()};
-                const auto body{QString(bytes.toBase64())};
-
-                QJsonObject obj{};
-                doc.write(obj);
-                obj["body"] = body;
-
-                QJsonDocument data{obj};
-
-                mng->putToKey(docs->key(),
-                              data.toJson(),
-                              [](const QJsonObject& rep) {},
-                "upload_docs error");
             }
         }
+
+        if (docs_to_upload == 0)
+            emit loaded();
     }
 }
 
