@@ -92,6 +92,10 @@ set(PROJECT_SOURCES
     src/Data/Items/account_item.cpp
     src/Data/Items/rent_item.hpp
     src/Data/Items/rent_item.cpp
+    src/Data/Items/company_item.hpp
+    src/Data/Items/company_item.cpp
+    src/Data/Items/team_item.hpp
+    src/Data/Items/team_item.cpp
     src/Data/Lists/base_list.hpp
     src/Data/Lists/simple_item_list.hpp
     src/Data/Lists/item_list.hpp

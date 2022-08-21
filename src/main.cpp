@@ -15,6 +15,8 @@
 #include <Models/user_filter_model.hpp>
 #include <Models/document_filter_model.hpp>
 #include <Items/user_item.hpp>
+#include <Items/company_item.hpp>
+#include <Items/team_item.hpp>
 #include <Items/account_item.hpp>
 #include <Items/owner_item.hpp>
 #include <Items/contact_item.hpp>
@@ -121,6 +123,16 @@ int main(int argc, char* argv[])
     context->setContextProperty("userModel", &userFilter);
     context->setContextProperty("selectedUser", &selectedUser);
 
+    // companies
+    wrapped_list<item_list<company_item>>
+            wrapped_companies{&manager, context};
+    wrapped_companies.makeConnections();
+
+    // teams
+    wrapped_nested_list<item_list<team_item>, company_item>
+            wrapped_teams{&manager, wrapped_companies.get_inner(), context};
+
+    // bridge
     bridge bridge{&manager,
                 wrapped_users.get_inner(),
                 wrapped_accounts.get_inner(),

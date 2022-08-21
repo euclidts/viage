@@ -1,12 +1,12 @@
 #include <QJsonDocument>
 
-#include "Items/owner_item.hpp"
-#include "Items/contact_item.hpp"
-#include "Items/habitat_item.hpp"
-#include "Items/exterior_item.hpp"
-#include "Items/document_item.hpp"
+#include <Items/owner_item.hpp>
+#include <Items/contact_item.hpp>
+#include <Items/habitat_item.hpp>
+#include <Items/exterior_item.hpp>
+#include <Items/document_item.hpp>
 
-#include "Lists/item_list.hpp"
+#include <Lists/item_list.hpp>
 
 #include "account_item.hpp"
 

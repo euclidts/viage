@@ -116,7 +116,7 @@ struct account_item
     QJsonArray get(item_list<document_item>* ds) const;
 
     void read(const QJsonObject& json);
-    void write(QJsonObject &json) const;
+    void write(QJsonObject& json) const;
 
     bool is_completed() const;
 };
