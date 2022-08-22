@@ -33,6 +33,17 @@ Dialog {
 
         RowLayout {
             Layout.fillWidth: true
+            layoutDirection: Qt.RightToLeft
+
+            RoundButton {
+                id: cancelButton
+                text: qsTr("Annuler")
+                visible: cancelable
+                font.capitalization: Font.MixedCase
+                font.bold: true
+                highlighted: true
+                onClicked: onClose()
+            }
 
             RoundButton {
                 id: validateButton
@@ -44,16 +55,6 @@ Dialog {
                     func()
                     onClose()
                 }
-            }
-
-            RoundButton {
-                id: cancelButton
-                text: qsTr("Annuler")
-                visible: cancelable
-                font.capitalization: Font.MixedCase
-                font.bold: true
-                highlighted: true
-                onClicked: onClose()
             }
         }
 

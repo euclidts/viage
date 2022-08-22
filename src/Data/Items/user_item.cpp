@@ -16,13 +16,15 @@ QHash<int, QByteArray> user_item::roleNames()
 
     names[CompanyRole] = "company";
     names[ClearanceRole] = "clearance";
-    names[TeamNumberRole] = "team";
+    names[TeamNameRole] = "team";
     names[BeneficiaryRole] = "beneficiary";
 
     names.insert(address_item::roleNames());
 
     names[IbanRole] = "iban";
     names[BicRole] = "bic";
+    names[CompanyIdRole] = "companyId";
+    names[TeamIdRole] = "teamId";
     names[LockedRole] = "isLocked";
     names[CompletedRole] = "completed";
 
@@ -42,7 +44,7 @@ QVariant user_item::data(int role) const
         return QVariant(company);
     case ClearanceRole:
         return QVariant(clearance);
-    case TeamNumberRole:
+    case TeamNameRole:
         return QVariant(team);
     case BeneficiaryRole:
         return QVariant(beneficiary);
@@ -50,6 +52,10 @@ QVariant user_item::data(int role) const
         return QVariant(iban);
     case BicRole:
         return QVariant(bic);
+    case CompanyIdRole:
+        return QVariant(company_id);
+    case TeamIdRole:
+        return QVariant(team_id);
     case LockedRole:
         return QVariant(isLocked);
     case CompletedRole:
@@ -76,8 +82,8 @@ void user_item::setData(const QVariant &value, int role)
     case ClearanceRole:
         clearance = clearances(value.toInt());
         break;
-    case TeamNumberRole:
-        team = value.toInt();
+    case TeamNameRole:
+        team = value.toString();
         break;
     case BeneficiaryRole:
         beneficiary = value.toString();
@@ -87,6 +93,12 @@ void user_item::setData(const QVariant &value, int role)
         break;
     case BicRole:
         bic = value.toString();
+        break;
+    case CompanyIdRole:
+        company_id = value.toInt();
+        break;
+    case TeamIdRole:
+        team_id = value.toInt();
         break;
     case LockedRole:
         isLocked = value.toBool();
@@ -106,8 +118,8 @@ void user_item::read(const QJsonObject &json)
     if (json.contains("clearance") && json["clearance"].isDouble())
         clearance = clearances(json["clearance"].toInt());
 
-    if (json.contains("team") && json["team"].isDouble())
-        team = json["team"].toInt();
+    if (json.contains("team") && json["team"].isString())
+        team = json["team"].toString();
 
     if (json.contains("beneficiary") && json["beneficiary"].isString())
         beneficiary = json["beneficiary"].toString();
@@ -120,6 +132,12 @@ void user_item::read(const QJsonObject &json)
 
     if (json.contains("bic") && json["bic"].isString())
         bic = json["bic"].toString();
+
+    if (json.contains("companyId") && json["companyId"].isDouble())
+        company_id = json["companyId"].toInt();
+
+    if (json.contains("teamId") && json["teamId"].isDouble())
+        team_id = json["teamId"].toInt();
 
     if (json.contains("isLocked") && json["isLocked"].isBool())
         isLocked = json["isLocked"].toBool();
@@ -140,6 +158,8 @@ void user_item::write(QJsonObject& json) const
     json["address"] = jsonAddress;
     json["iban"] = iban;
     json["bic"] = bic;
+    json["companyId"] = company_id;
+    json["teamId"] = team_id;
     json["isLocked"] = isLocked;
 }
 
@@ -149,6 +169,9 @@ bool user_item::is_completed() const
         return  false;
 
     if(company == "")
+        return false;
+
+    if(team == "")
         return false;
 
     if(clearance == None)

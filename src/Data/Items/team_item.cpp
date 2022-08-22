@@ -13,7 +13,7 @@ QHash<int, QByteArray> Data::team_item::roleNames()
     QHash<int, QByteArray> names;
 
     names[IdRole] = "id";
-    names[NumberRole] = "number";
+    names[NameRole] = "name";
     names[HasUsersRole] = "hasUsers";
 
     return names;
@@ -25,8 +25,8 @@ QVariant team_item::data(int role) const
     {
     case IdRole:
         return QVariant(id);
-    case NumberRole:
-        return QVariant(number);
+    case NameRole:
+        return QVariant(name);
     case HasUsersRole:
         return QVariant(has_users);
     }
@@ -36,8 +36,8 @@ QVariant team_item::data(int role) const
 
 void team_item::setData(const QVariant& value, int role)
 {
-    if (role == NumberRole)
-        number = value.toInt();
+    if (role == NameRole)
+        name = value.toString();
 
     if (role == HasUsersRole)
         has_users = value.toBool();
@@ -48,8 +48,8 @@ void team_item::read(const QJsonObject& json)
     if (json.contains("id") && json["id"].isDouble())
         id = json["id"].toInt();
 
-    if (json.contains("number") && json["number"].isString())
-        number = json["number"].toInt();
+    if (json.contains("name") && json["name"].isString())
+        name = json["name"].toString();
 
     if (json.contains("hasUsers") && json["hasUsers"].isBool())
         has_users = json["hasUsers"].toBool();
@@ -58,12 +58,12 @@ void team_item::read(const QJsonObject& json)
 void team_item::write(QJsonObject& json) const
 {
     json["id"] = id;
-    json["number"] = number;
+    json["name"] = name;
 }
 
 bool team_item::is_completed() const
 {
-    if (number == 0)
+    if (name == "")
         return false;
 
     return true;

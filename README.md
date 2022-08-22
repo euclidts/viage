@@ -23,3 +23,7 @@
 * keep same order in repport
 
 ++ Excel documents for advisors 
+
+## Start the service
+cd Euclid/Viage5
+dotnet euclid.dll --urls "http://*:6000;https://*:6001"

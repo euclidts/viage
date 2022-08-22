@@ -26,8 +26,10 @@ struct user_item : public person_item
     };
 
     QString company{""};
+    int company_id{0};
     clearances clearance{Vendor};
-    int team{1};
+    QString team{""};
+    int team_id{0};
     QString beneficiary{""};
     QString iban{""};
     QString bic{""};
@@ -38,13 +40,15 @@ struct user_item : public person_item
         // following person_items roles
         CompanyRole = Qt::UserRole + 5,
         ClearanceRole,
-        TeamNumberRole,
+        TeamNameRole,
         BeneficiaryRole,
         // gap left for address_item roles
         IbanRole = Qt::UserRole + 13,
-        BicRole = Qt::UserRole + 14,
-        LockedRole = Qt::UserRole + 15,
-        CompletedRole = Qt::UserRole + 16
+        BicRole,
+        CompanyIdRole,
+        TeamIdRole,
+        LockedRole,
+        CompletedRole
     };
 
     static QHash<int, QByteArray> roleNames();
