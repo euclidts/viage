@@ -46,11 +46,20 @@ void company_item::setData(const QVariant& value, int role)
         teams = value.toJsonArray();
 }
 
-void company_item::set(item_list<team_item>* ti)
+bool company_item::update(item_list<team_item>* ti)
 {
     QJsonArray arr{};
     ti->write(arr);
+    if (teams == arr)
+        return false;
 
+    teams = arr;
+    return true;
+}
+
+QJsonArray company_item::get(item_list<team_item> *ti) const
+{
+    return teams;
 }
 
 void company_item::read(const QJsonObject& json)

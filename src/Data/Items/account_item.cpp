@@ -115,62 +115,77 @@ void account_item::setData(const QVariant &value, int role)
     }
 }
 
-void account_item::set(item_list<People::owner_item>* ol)
+bool account_item::update(item_list<People::owner_item>* ol)
 {
     QJsonArray arr{};
     ol->write(arr);
-    owners = arr;
+    if (owners == arr)
+        return false;
 
+    owners = arr;
     modified = QDateTime::currentDateTime();
+    return true;
 }
 
-void account_item::set(item_list<People::contact_item>* cl)
+bool account_item::update(item_list<People::contact_item>* cl)
 {
     QJsonArray arr{};
     cl->write(arr);
-    contacts = arr;
+    if (contacts == arr)
+        return false;
 
+    contacts = arr;
     modified = QDateTime::currentDateTime();
+    return true;
 }
 
-void account_item::set(Places::habitat_item* ht)
+bool account_item::update(Places::habitat_item* ht)
 {
     QJsonObject obj{};
     ht->write(obj);
-    habitat = obj;
+    if (habitat == obj)
+        return false;
 
+    habitat = obj;
     modified = QDateTime::currentDateTime();
+    return true;
 }
 
-void account_item::set(Places::exterior_item* er)
+bool account_item::update(Places::exterior_item* er)
 {
     QJsonObject obj{};
     er->write(obj);
-    exterior = obj;
+    if (exterior == obj)
+        return false;
 
+    exterior = obj;
     modified = QDateTime::currentDateTime();
+    return true;
 }
 
-void account_item::set(item_list<document_item>* ds)
+bool account_item::update(item_list<document_item>* ds)
 {
     QJsonArray arr{};
     ds->write(arr);
-    documents = arr;
+    if (documents == arr)
+        return false;
 
+    documents = arr;
     modified = QDateTime::currentDateTime();
+    return true;
 }
 
 QJsonArray account_item::get(item_list<People::owner_item> *ol)
 {
-    if (owners.isEmpty())
-    {
-        item_list<People::owner_item> newOwners{};
-        newOwners.appendItems(); // at least one owner
+//    if (owners.isEmpty())
+//    {
+//        item_list<People::owner_item> newOwners{};
+//        newOwners.appendItems(); // at least one owner
 
-        QJsonArray arr{};
-        newOwners.write(arr);
-        owners = arr;
-    }
+//        QJsonArray arr{};
+//        newOwners.write(arr);
+//        owners = arr;
+//    }
 
     return owners;
 }
@@ -182,28 +197,28 @@ QJsonArray account_item::get(item_list<People::contact_item> *cl) const
 
 QJsonObject account_item::get(Places::habitat_item* ht)
 {
-    if (habitat.isEmpty())
-    {
-        QJsonObject obj{};
+//    if (habitat.isEmpty())
+//    {
+//        QJsonObject obj{};
 
-        Places::habitat_item newHabitat{};
-        newHabitat.write(obj);
-        habitat = obj;
-    }
+//        Places::habitat_item newHabitat{};
+//        newHabitat.write(obj);
+//        habitat = obj;
+//    }
 
     return habitat;
 }
 
 QJsonObject account_item::get(Places::exterior_item* er)
 {
-    if (exterior.isEmpty())
-    {
-        QJsonObject obj{};
+//    if (exterior.isEmpty())
+//    {
+//        QJsonObject obj{};
 
-        Places::exterior_item newExterior{};
-        newExterior.write(obj);
-        exterior = obj;
-    }
+//        Places::exterior_item newExterior{};
+//        newExterior.write(obj);
+//        exterior = obj;
+//    }
 
     return exterior;
 }

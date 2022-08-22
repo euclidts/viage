@@ -35,7 +35,7 @@ struct company_item
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    void set(item_list<team_item>* ti);
+    bool update(item_list<team_item>* ti);
     QJsonArray get(item_list<team_item>* ti) const;
 
     void read(const QJsonObject& json);

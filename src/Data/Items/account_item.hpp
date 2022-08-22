@@ -32,7 +32,7 @@ struct account_item
     static const constexpr auto qmlName{"Account"};
     static const constexpr auto uri{"Data"};
 
-    QJsonArray owners;
+    QJsonArray owners{};
     QJsonArray contacts{};
     // --- Habitat ---
     QJsonObject habitat{};
@@ -103,11 +103,11 @@ struct account_item
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    void set(item_list<People::owner_item>* ol);
-    void set(item_list<People::contact_item>* cl);
-    void set(Places::habitat_item* ht);
-    void set(Places::exterior_item* er);
-    void set(item_list<document_item>* ds);
+    bool update(item_list<People::owner_item>* ol);
+    bool update(item_list<People::contact_item>* cl);
+    bool update(Places::habitat_item* ht);
+    bool update(Places::exterior_item* er);
+    bool update(item_list<document_item>* ds);
 
     QJsonArray get(item_list<People::owner_item>* ol);
     QJsonArray get(item_list<People::contact_item>* cl) const;

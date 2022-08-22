@@ -41,22 +41,24 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
                   this,
                   [this, parentList] (int id)
     {
-        Outer outer = parentList->item_at_id(id);
-        outer.set(this->inner);
-        parentList->setItemAtId(id, outer);
+        Outer outer{parentList->item_at_id(id)};
 
-        this->mng->putToKey(makeKey(parentList).c_str(),
-                            this->inner->toData(id),
-                            [=](const QJsonObject& rep)
+        if (outer.update(this->inner))
         {
-            QJsonObject json{};
-            Outer updated{};
-            outer.write(json);
-            updated.read(json);
-            updated.read(rep);
-            parentList->setItemAtId(id, updated);
-        },
-        "Validate error");
+            this->mng->putToKey(makeKey(parentList).c_str(),
+                                this->inner->toData(id),
+                                [=](const QJsonObject& rep)
+            {
+                QJsonObject json{};
+                Outer updated{};
+                outer.write(json);
+                updated.read(json);
+                updated.read(rep);
+                parentList->setItemAtId(id, updated);
+            },
+            "Validate error",
+            [=]() { parentList->setItemAtId(id, outer); });
+        }
     });
 
     this->connect(this->inner,
@@ -64,14 +66,22 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
                   this,
                   [this, parentList] (int id)
     {
-        this->mng->getFromKey(makeKey(parentList, id).c_str(),
-                              [this](const QByteArray& rep)
+        Outer outer{parentList->item_at_id(id)};
+        auto json{outer.get(this->inner)};
+
+        if (json.isEmpty())
         {
-            if(rep.isEmpty())
-                this->inner->clear();
-            else
-                this->inner->read(rep);
-        });
+            this->mng->getFromKey(makeKey(parentList, id).c_str(),
+                                  [this](const QByteArray& rep)
+            {
+                if(rep.isEmpty())
+                    this->inner->clear();
+                else
+                    this->inner->read(rep);
+            });
+        }
+        else
+            this->inner->read(json);
     });
 
 }
