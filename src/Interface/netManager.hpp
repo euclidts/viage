@@ -43,7 +43,8 @@ public:
     void putToKey(const char* key,
                   const QByteArray& data,
                   const std::function<void (const QJsonObject &)> &callback,
-                  const QString& errorPrefix = "");
+                  const QString& errorPrefix = "",
+                  const std::function<void ()>& errorCallback = [](){});
     void postToKey(const char* key,
                    const QByteArray& data,
                    const std::function<void (const QJsonObject &)> &callback,
@@ -69,7 +70,9 @@ private:
                      const std::function<void (const QByteArray &)> &callback);
     void setCallback(QNetworkReply* reply,
                      const std::function<void (const QJsonObject &)> &callback,
-                     const QString& errorPrefix);
+                     const QString& errorPrefix,
+                     const std::function<void ()>& errorCallback = [](){});
+
     void setRequest(const char* key);
 
     bool authenticating{false};

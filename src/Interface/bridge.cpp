@@ -328,7 +328,7 @@ void bridge::uplaod_docs(int ai)
         }
         else if (!doc.isUploaded)
         {
-            QFile file{doc.relativePath.path()};
+            QFile file{doc.relativePath.toLocalFile()};
             if (file.exists())
             {
                 if (!file.open(QIODevice::ReadOnly))
@@ -369,7 +369,13 @@ void bridge::uplaod_docs(int ai)
                         if (docs_to_upload == 0)
                             emit loaded();
                     },
-                    "upload_docs error");
+                    "upload_docs error",
+                    [this]()
+                    {
+                        docs_to_upload--;
+                        if (docs_to_upload == 0)
+                            emit loaded();
+                    });
                 }
             }
         }

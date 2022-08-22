@@ -98,10 +98,7 @@ void document_item::write(QJsonObject& json) const
 {
     json["category"] = category;
     json["isUploaded"] = isUploaded;
-
-    if (!isUploaded)
-        json["relativePath"] = relativePath.toString();
-
+    json["relativePath"] = relativePath.toString();
     json["fileName"] = fileName;
     json["extension"] = extension;
     json["id"] = id;
