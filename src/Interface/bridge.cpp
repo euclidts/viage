@@ -350,7 +350,7 @@ void bridge::uplaod_docs(int ai)
                                   data.toJson(),
                                   [this, ai, doc]
                                   (const QJsonObject& rep)
-                    {
+                    {   
                         if (rep.contains("accountState") && rep["accountState"].isDouble())
                         {
                             auto updated{acnts->item_at_id(ai)};
@@ -373,10 +373,10 @@ void bridge::uplaod_docs(int ai)
                 }
             }
         }
-
-        if (docs_to_upload == 0)
-            emit loaded();
     }
+
+    if (docs_to_upload == 0)
+        emit loaded();
 }
 
 const QDate &bridge::getAccountDecided() const
