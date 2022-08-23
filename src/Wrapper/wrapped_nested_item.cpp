@@ -45,6 +45,8 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
 
         if (outer.update(this->inner))
         {
+            parentList->setItemAtId(id, outer);
+
             this->mng->putToKey(makeKey(parentList).c_str(),
                                 this->inner->toData(id),
                                 [=](const QJsonObject& rep)
@@ -56,8 +58,7 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
                 updated.read(rep);
                 parentList->setItemAtId(id, updated);
             },
-            "Validate error",
-            [=]() { parentList->setItemAtId(id, outer); });
+            "Validate error");
         }
     });
 

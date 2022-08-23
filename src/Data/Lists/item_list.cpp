@@ -49,6 +49,9 @@ void item_list<T>::read(const QJsonArray& array)
 
     for (const auto& json : array)
     {
+        // d'ont insert null values like "empty" contacts
+        if (json.isNull()) break;
+
         T item{};
         item.read(json.toObject());
         vec.push_back(item);

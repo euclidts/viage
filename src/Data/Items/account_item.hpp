@@ -109,10 +109,10 @@ struct account_item
     bool update(Places::exterior_item* er);
     bool update(item_list<document_item>* ds);
 
-    QJsonArray get(item_list<People::owner_item>* ol);
+    QJsonArray get(item_list<People::owner_item>* ol) const;
     QJsonArray get(item_list<People::contact_item>* cl) const;
-    QJsonObject get(Places::habitat_item* ht);
-    QJsonObject get(Places::exterior_item* er);
+    QJsonObject get(Places::habitat_item* ht) const;
+    QJsonObject get(Places::exterior_item* er) const;
     QJsonArray get(item_list<document_item>* ds) const;
 
     void read(const QJsonObject& json);

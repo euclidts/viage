@@ -131,7 +131,10 @@ bool account_item::update(item_list<People::contact_item>* cl)
 {
     QJsonArray arr{};
     cl->write(arr);
-    if (contacts == arr)
+    // exception for first updating empty contacts
+    if (contacts.isEmpty() && arr.isEmpty())
+        return true;
+    else if (contacts == arr)
         return false;
 
     contacts = arr;
@@ -175,57 +178,54 @@ bool account_item::update(item_list<document_item>* ds)
     return true;
 }
 
-QJsonArray account_item::get(item_list<People::owner_item> *ol)
+QJsonArray account_item::get(item_list<People::owner_item> *ol) const
 {
-//    if (owners.isEmpty())
-//    {
-//        item_list<People::owner_item> newOwners{};
-//        newOwners.appendItems(); // at least one owner
-
-//        QJsonArray arr{};
-//        newOwners.write(arr);
-//        owners = arr;
-//    }
-
-    return owners;
+    if (owners.isEmpty())
+        return owners;
+    else
+    {
+        if (owners[0].toObject().contains("id"))
+            return owners;
+        else
+            return {};
+    }
 }
 
 QJsonArray account_item::get(item_list<People::contact_item> *cl) const
 {
-    return contacts;
+    if (contacts.isEmpty() && ((state & ContactsCompleted) == ContactsCompleted))
+        return QJsonArray{QJsonValue{}}; // insert null value to avoid a request
+    else
+        return contacts;
 }
 
-QJsonObject account_item::get(Places::habitat_item* ht)
+QJsonObject account_item::get(Places::habitat_item* ht) const
 {
-//    if (habitat.isEmpty())
-//    {
-//        QJsonObject obj{};
-
-//        Places::habitat_item newHabitat{};
-//        newHabitat.write(obj);
-//        habitat = obj;
-//    }
-
-    return habitat;
+    if (habitat.contains("id"))
+        return habitat;
+    else
+        return {};
 }
 
-QJsonObject account_item::get(Places::exterior_item* er)
+QJsonObject account_item::get(Places::exterior_item* er) const
 {
-//    if (exterior.isEmpty())
-//    {
-//        QJsonObject obj{};
-
-//        Places::exterior_item newExterior{};
-//        newExterior.write(obj);
-//        exterior = obj;
-//    }
-
-    return exterior;
+    if (exterior.contains("id"))
+        return exterior;
+    else
+        return {};
 }
 
 QJsonArray account_item::get(item_list<document_item>* ds) const
 {
-    return documents;
+    if (documents.isEmpty())
+        return documents;
+    else
+    {
+        if (documents[0].toObject().contains("id"))
+            return documents;
+        else
+            return {};
+    }
 }
 
 void account_item::read(const QJsonObject& json)

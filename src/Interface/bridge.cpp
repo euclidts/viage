@@ -159,9 +159,7 @@ void bridge::changePwd(const char *key, const QJsonObject &json) const
     mng->putToKey(key,
                   QJsonDocument(json).toJson(),
                   [this] (const QJsonObject& rep)
-    {
-        emit loaded();
-    },
+    { emit loaded(); },
     "changePwd error");
 }
 
