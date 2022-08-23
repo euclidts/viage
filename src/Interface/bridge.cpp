@@ -223,6 +223,16 @@ void bridge::updateState(int newState) const
     "updateState error");
 }
 
+void bridge::sendOnboardedEmail() const
+{
+    std::string str{"accounts/"};
+    str.append(std::to_string(accountId));
+    str.append("/email");
+    mng->getFromKey(str.c_str(),
+                    [this](const QByteArray& rep)
+    { emit loaded(); });
+}
+
 QUrl bridge::getPictureName(QString& name, int index) const
 {
     return QUrl::fromLocalFile(rootPath

@@ -67,6 +67,9 @@ public:
     void updateState(int newState) const;
     W_INVOKABLE(updateState)
 
+    void sendOnboardedEmail() const;
+    W_INVOKABLE(sendOnboardedEmail)
+
     void resetPwd(int id) const;
     W_INVOKABLE(resetPwd)
 

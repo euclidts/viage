@@ -101,6 +101,10 @@ ScrollView {
                     text: qsTr("Télécharger le document")
                     icon.source: "qrc:/icons/download.svg"
                     highlighted: true
+                    onClicked: {
+                        busyDialog.open()
+                        bridge.sendOnboardedEmail()
+                    }
                 }
             }
         }
