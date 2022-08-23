@@ -223,7 +223,6 @@ ApplicationWindow {
             Connections {
                 target: habitat
                 function onLoaded() {
-                    habitatPage.y = 0
                     accountsPages.currentIndex = 3
                     busyDialog.close()
                 }
@@ -231,7 +230,6 @@ ApplicationWindow {
             Connections {
                 target: exterior
                 function onLoaded() {
-                    exteriorPage.y = 0
                     accountsPages.currentIndex = 4
                     busyDialog.close()
                 }
@@ -239,7 +237,6 @@ ApplicationWindow {
             Connections {
                 target: documents
                 function onLoaded() {
-                    documentPage.y = 0
                     accountsPages.currentIndex = 5
                     busyDialog.close()
                 }

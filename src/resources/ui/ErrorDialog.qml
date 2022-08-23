@@ -47,7 +47,7 @@ Dialog {
 
             RoundButton {
                 id: validateButton
-                text: qsTr("Valider")
+                text: qsTr("Ok")
                 font.capitalization: Font.MixedCase
                 font.bold: true
                 highlighted: true

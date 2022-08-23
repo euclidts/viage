@@ -231,10 +231,10 @@ void account_item::read(const QJsonObject& json)
         documents = json["documents"].toArray();
 
     if (json.contains("created") && json["created"].isString())
-        created = QDateTime::fromString(json["created"].toString(), "dd.MM.yyyy");
+        created = QDateTime::fromString(json["created"].toString(), "yyyy-MM-dd hh:mm:ss");
 
     if (json.contains("modified") && json["modified"].isString())
-        modified = QDateTime::fromString(json["modified"].toString(), "dd.MM.yyyy");
+        modified = QDateTime::fromString(json["modified"].toString(), "yyyy-MM-dd hh:mm:ss");
 
     if (json.contains("acronym") && json["acronym"].isString())
         acronym = json["acronym"].toString();
@@ -286,8 +286,8 @@ void account_item::write(QJsonObject& json) const
     json["decidedDate"] = decidedDate.toString("dd.MM.yyyy");
     json["notarizedDate"] = notarizedDate.toString("dd.MM.yyyy");
     json["paidDateDate"] = paidDate.toString("dd.MM.yyyy");
-    json["created"] = created.toString("dd.MM.yyyy");
-    json["modified"] = modified.toString("dd.MM.yyyy");
+    json["created"] = created.toString("yyyy-MM-dd hh:mm:ss");
+    json["modified"] = modified.toString("yyyy-MM-dd hh:mm:ss");
     json["advisorFirstName"] = advisorFirstName;
     json["advisorLastName"] = advisorLastName;
     json["company"] = company;
