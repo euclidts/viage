@@ -70,14 +70,14 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
         Outer outer{parentList->item_at_id(id)};
         const auto json = outer.get(this->inner);
 
+        this->inner->clear(); // clean previous load
+
         if (json.isEmpty())
         {
             this->mng->getFromKey(makeKey(parentList, id).c_str(),
                                   [this](const QByteArray& rep)
             {
-                if(rep.isEmpty())
-                    this->inner->clear();
-                else
+                if(!rep.isEmpty())
                     this->inner->read(rep);
             });
         }
