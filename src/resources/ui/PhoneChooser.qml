@@ -55,7 +55,6 @@ ColumnLayout {
         TextField {
             id: field
             text: phoneOf.phone.slice(3, phoneOf.phone.length)
-            onEditingFinished: phoneOf.phone = codeField.text + text
             inputMethodHints: Qt.ImhFormattedNumbersOnly
             Layout.fillWidth: true
             placeholderText: qsTr("* Champ Obligatoire")
@@ -63,8 +62,10 @@ ColumnLayout {
             validator: RegularExpressionValidator {
                 regularExpression: /\d{9,13}?$/
             }
-            onTextChanged: acceptableInput ? color = Material.foreground
-                                           : color = "red"
+            onTextChanged: if (acceptableInput) {
+                               color = Material.foreground
+                               phoneOf.phone = codeField.text + text
+                           } else color = "red"
         }
     }
 }

@@ -24,13 +24,14 @@ ColumnLayout {
     TextField {
         id: field
         text: textOf
-        onEditingFinished: onEdit(text)
         inputMethodHints: inputHint
         placeholderText: placeHolder
         Layout.fillWidth: true
         font.capitalization: capitalization
         onAccepted: focus = false
-        onTextChanged: acceptableInput ? color = Material.foreground
-                                       : color = "red"
+        onTextChanged: if (acceptableInput) {
+                           color = Material.foreground
+                           onEdit(text)
+                       } else color = "red"
     }
 }
