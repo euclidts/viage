@@ -163,7 +163,7 @@ qt_finalize_executable(viage)
 # Installer setup copyed from
 # https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeLists.txt
 
-if (NOT ANDROID AND NOT IOS)
+if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
     set(COMPONENT_NAME_MAIN "Viage")
     set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 

@@ -68,7 +68,7 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
                   [this, parentList] (int id)
     {
         Outer outer{parentList->item_at_id(id)};
-        auto json{outer.get(this->inner)};
+        const auto json = outer.get(this->inner);
 
         if (json.isEmpty())
         {

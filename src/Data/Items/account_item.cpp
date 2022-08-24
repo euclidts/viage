@@ -188,15 +188,14 @@ QJsonArray account_item::get(item_list<People::owner_item> *ol) const
             return owners;
         else
             return {};
+        // no need to retreive initial "names only" array
     }
 }
 
 QJsonArray account_item::get(item_list<People::contact_item> *cl) const
 {
-    if (contacts.isEmpty() && ((state & ContactsCompleted) == ContactsCompleted))
-        return QJsonArray{QJsonValue{}}; // insert null value to avoid a request
-    else
-        return contacts;
+    // TODO : differentiate between "unfetched" and empty contacts
+    return contacts;
 }
 
 QJsonObject account_item::get(Places::habitat_item* ht) const
