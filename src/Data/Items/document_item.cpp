@@ -83,8 +83,20 @@ void document_item::read(const QJsonObject& json)
             extension = json["extension"].toString();
     }
     else
-        category = None; // prepare for deleting
+    {
+        if (json.contains("relativePath") && json["relativePath"].isString())
+        {
+            QUrl url{json["relativePath"].toString()};
 
+            if (url.isLocalFile())
+            {
+                relativePath = json["relativePath"].toString();
+                setFileInfo();
+            }
+            else
+                category = None; // prepare for deletion
+        }
+    }
 
     if (json.contains("id") && json["id"].isDouble())
         id = json["id"].toInt();
