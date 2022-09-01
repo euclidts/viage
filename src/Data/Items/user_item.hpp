@@ -43,7 +43,7 @@ struct user_item : public person_item
         TeamNameRole,
         BeneficiaryRole,
         // gap left for address_item roles
-        IbanRole = Qt::UserRole + 13,
+        IbanRole = Qt::UserRole + 14,
         BicRole,
         CompanyIdRole,
         TeamIdRole,
