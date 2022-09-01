@@ -39,7 +39,7 @@ struct owner_item : public infant_item
     enum roles
     {
         // following infant_items roles
-        BirthDayRole = Qt::UserRole + 6,
+        BirthDayRole = Qt::UserRole + 7,
         CivilStatusRole,
         AVSRole
     };

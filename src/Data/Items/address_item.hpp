@@ -19,7 +19,7 @@ struct address_item
     enum roles
     {
         // following after owner_item roles
-        StreetRole = Qt::UserRole + 9,
+        StreetRole = Qt::UserRole + 10,
         ZipRole,
         CantonRole,
         CityRole

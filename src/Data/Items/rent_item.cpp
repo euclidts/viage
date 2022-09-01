@@ -5,7 +5,7 @@
 namespace Data
 {
 
-#define INTEREST 0.04
+#define INTEREST 0.0425
 #define I -0.0225
 #define V 1/(1 + I)
 

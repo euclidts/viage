@@ -1,7 +1,7 @@
 #ifndef DOCUMENT_ITEM_H
 #define DOCUMENT_ITEM_H
 
-#define CATEGOIES_SUMED 1023
+#define CATEGOIES_SUMED 2047
 
 #include <QJsonObject>
 
@@ -27,7 +27,8 @@ struct document_item
         Insurance = 64,
         Beb = 128,
         Jobs = 256,
-        FutureJobs = 512
+        FutureJobs = 512,
+        Calculation = 1024
     };
 
     categories category{categories::None};
