@@ -48,8 +48,15 @@ Drawer {
 
                 function validate () {
                     if (validateButton.highlighted) {
-                        bridge.updatePwd(newPwd.text)
-                        busyDialog.open()
+                        onExceptionAction("Modification du mot de passe",
+                                          "Êtes-vous sûr de vouloir changer votre mot de passe ?",
+                                          () => {
+                                              busyDialog.open()
+                                              bridge.updatePwd(newPwd.text)
+                                              settingsDrawer.close()
+                                              newPwd.text = ""
+                                              confirmPwd.text = ""
+                                          }, true)
                     }
                 }
 

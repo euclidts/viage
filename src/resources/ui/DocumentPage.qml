@@ -76,6 +76,13 @@ ScrollView {
                 }
 
                 DocumentListView {
+                    id: calculation
+                    name: qsTr("Cacul du droit d'habitation")
+                    documentCategory: 1024
+                    documentsFrom: documents
+                }
+
+                DocumentListView {
                     id: futurs
                     name: qsTr("Descriptif des travaux à prévoir / devis")
                     documentCategory: 512

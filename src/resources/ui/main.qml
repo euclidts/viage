@@ -54,7 +54,7 @@ ApplicationWindow {
             busyDialog.close()
         }
         else {
-            onErrorAction(qsTr("Erreur d'authentification"),
+            onExceptionAction(qsTr("Erreur d'authentification"),
                     error === "Host requires authentication" ?
                         qsTr("Mot de passe ou identifiant incorrect, essyez de nouveau ou contactez Viage pour recevoir un nouveu mot de passe")
                       : error,
@@ -62,19 +62,19 @@ ApplicationWindow {
         }
     }
 
-    function onError (prefix: string, error: string) {
+    function onException (prefix: string, error: string) {
         busyDialog.close()
-        errorDialog.title = prefix
-        errorDialog.text = error
-        errorDialog.open()
+        exceptionDialog.title = prefix
+        exceptionDialog.text = error
+        exceptionDialog.open()
     }
 
-    function onErrorAction (prefix: string, error: string, func, cancelable: bool) {
+    function onExceptionAction (prefix: string, error: string, func, cancelable: bool) {
         if (typeof(func) !== 'undefined')
-            errorDialog.func = func
+            exceptionDialog.func = func
         if (typeof(cancelable) !== 'undefined')
-            errorDialog.cancelable = cancelable
-        onError(prefix, error)
+            exceptionDialog.cancelable = cancelable
+        onException(prefix, error)
     }
 
     Image {
@@ -89,7 +89,7 @@ ApplicationWindow {
                              logginDialog.open()
     }
 
-    ErrorDialog { id: errorDialog }
+    ExceptionDialog { id: exceptionDialog }
 
     LoggInDialog { id: logginDialog }
 

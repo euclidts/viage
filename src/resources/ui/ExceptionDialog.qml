@@ -19,7 +19,7 @@ Dialog {
     function onClose() {
         func = function () {}
         cancelable = false
-        errorDialog.close()
+        exceptionDialog.close()
     }
 
     contentItem: ColumnLayout {

@@ -25,8 +25,8 @@ Rectangle {
                            urlProvider.path = drop.urls[0]
                            func()
                        } else {
-                           onError(qsTr("Chemin de fichier incorrect"),
-                                   qsTr("Assurez vous que le fichier selectioné possède l'extension pdf, png, jpg, jpeg, raw ou tiff"))
+                           onException(qsTr("Chemin de fichier incorrect"),
+                                       qsTr("Assurez vous que le fichier selectioné possède l'extension pdf, png, jpg, jpeg, raw ou tiff"))
                        }
                    }
 

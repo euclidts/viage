@@ -67,7 +67,7 @@ RowLayout {
                  && usersPages.currentIndex === 0
         icon.source: "qrc:/icons/plus.svg"
 
-        onClicked: onErrorAction(text,
+        onClicked: onExceptionAction(text,
                                  "Êtes-vous sûr de vouloir ajouter un nouveau conseiller",
                                  () => {
                                      busyDialog.open()

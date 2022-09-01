@@ -24,13 +24,13 @@ bridge::bridge(Interface::netManager* manager,
     if (tempDir.isValid())
         rootPath = tempDir.path();
     else
-        onError("temp directory error", tempDir.errorString());
+        onException("temp directory error", tempDir.errorString());
 
     connect(mng, &netManager::loggedIn,
             this, &bridge::onLogin);
 
     connect(mng, &netManager::replyError,
-            this, &bridge::onError);
+            this, &bridge::onException);
 
     connect(mng, &netManager::userChanged,
             this, &bridge::setUserId);
@@ -99,10 +99,10 @@ void bridge::onLogin(const bool& success, const QString &errorString) const
                               Q_ARG(QString, errorString));
 }
 
-void bridge::onError(const QString &prefix, const QString &errorString) const
+void bridge::onException(const QString &prefix, const QString &errorString) const
 {
     QMetaObject::invokeMethod(qmlObject,
-                              "onError",
+                              "onException",
                               Q_ARG(QString, prefix),
                               Q_ARG(QString, errorString));
 }
@@ -118,7 +118,7 @@ void bridge::downloadFile(const QString &key, const QUrl &directory, const QStri
                       filePath(directory, fileName),
                       [this] (bool success, const QString& string)
     {
-        if (!success) onError("downloadFile error", string);
+        if (!success) onException("downloadFile error", string);
     });
 }
 
@@ -131,12 +131,12 @@ void bridge::requestReport() const
         if (success)
         {
             if (!QDesktopServices::openUrl(rootPath + "/Viage.xlsx"))
-                onError("requestReport error", "QDesktopervices : could not open excel");
+                onException("requestReport error", "QDesktopervices : could not open excel");
             else
                 emit loaded();
         }
         else
-            onError("requestReport error", error);
+            onException("requestReport error", error);
     });
 }
 
@@ -340,7 +340,7 @@ void bridge::uplaod_docs(int ai)
             if (file.exists())
             {
                 if (!file.open(QIODevice::ReadOnly))
-                    onError("upload_docs error", file.errorString());
+                    onException("upload_docs error", file.errorString());
                 else
                 {
                     const auto bytes{file.readAll()};

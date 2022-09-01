@@ -56,7 +56,7 @@ ItemDelegate {
                 icon.source: "qrc:/icons/door-open.svg"
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Renvoyer de nouveaux identifiants")
-                onClicked: onErrorAction(ToolTip.text,
+                onClicked: onExceptionAction(ToolTip.text,
                                          "Le mot de passe actuelle de l'utilisateur séléctioné sera perdu",
                                          () => {
                                              bridge.resetPwd(model.id)
@@ -70,7 +70,7 @@ ItemDelegate {
                 ToolTip.visible: hovered
                 ToolTip.text: model.isLocked ? qsTr("Rependre l'activité")
                                              : qsTr("Suspendre l'activité")
-                onClicked: onErrorAction(ToolTip.text,
+                onClicked: onExceptionAction(ToolTip.text,
                                          model.isLocked ? qsTr("L'utilisatuer séléctioné pourra de nouveau se connecter")
                                                         : qsTr("L'utilisatuer séléctioné ne pourra plus se connecter"),
                                          () => {

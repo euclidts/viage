@@ -4,25 +4,29 @@
 * cpp 20 compiler
 * qt6 Multimedia
 
+## Changelog
+* change paseword in settings, popup + close settings pane
+* email, never necescary
+
 ## TODO
 
-* timeout for connection (3h)
-* position Title in error header
-* resend credentials by email
-* Company in Bold
+# Client side
+
+* rent, change interest from 4% to 4.25%
 * Habitat completed
+* User management
 
-## Server side
+++ timeout for connection (3h)
+++ position Title in error header
 
-* Filter invert order of filtered item in report
-* Repport: follow interface field order 
-* Repport: inclusive filter (equivalent to the "contain" option)
-* Pop up buttons
+# Server side
 
-* sort accounts by minutes not just dates
-* keep same order in repport
+* mail, les space between body and signature
+* new password mail: change subject, remove the second "equipe viage"
 
 ++ Excel documents for advisors 
+++ Filter invert order of filtered item in report
+++ Repport: inclusive filter (equivalent to the "contain" option)
 
 ## Start the service
 cd Euclid/Viage5

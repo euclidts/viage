@@ -34,8 +34,8 @@ public:
 
     void onLogin(const bool& success, const QString& errorString) const;
 
-    void onError(const QString& prefix,
-                 const QString& errorString) const;
+    void onException(const QString& prefix,
+                     const QString& errorString) const;
 
     void authenticate(const QString& username, const QString& password) const;
     W_INVOKABLE(authenticate, (const QString&, const QString&))
