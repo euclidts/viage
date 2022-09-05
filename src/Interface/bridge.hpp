@@ -10,10 +10,10 @@
 #include "netManager.hpp"
 
 #include <Items/user_item.hpp>
+#include <Items/document_item.hpp>
 
 namespace Data
 {
-struct document_item;
 struct account_item;
 
 template <typename T>
@@ -165,8 +165,9 @@ private:
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};
     void check_doc_completion();
-    void uplaod_docs(int ai);
-    int docs_to_upload{0};
+    void handle_docs(int ai);
+    void upload_doc();
+    std::vector<std::pair<int, Data::document_item>> docs_to_upload{};
 
     int userId{0};
     Data::People::user_item::clearances clearance{Data::People::user_item::None};
