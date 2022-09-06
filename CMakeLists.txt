@@ -122,7 +122,12 @@ include_directories(SYSTEM
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"
     "${CALCULATOR_FOLDER}"
-    "${3RDPARTY_FOLDER}/verdigris/src")
+    "${3RDPARTY_FOLDER}/verdigris/src"
+    "${3RDPARTY_FOLDER}/DuckX/include"
+    "${3RDPARTY_FOLDER}/DuckX/thirdparty/zip"
+    "${3RDPARTY_FOLDER}/DuckX/thirdparty/pugixml")
+
+add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
 
 set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/appicon.rc")
 
@@ -136,7 +141,6 @@ if(ANDROID)
     set_property(TARGET viage APPEND PROPERTY
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
     # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-
 endif()
 
 qt_add_translations(viage TS_FILES ${TS_FILES})
@@ -149,6 +153,12 @@ target_link_libraries(viage PRIVATE
     Qt6::Quick
     Qt6::Svg
     Qt6::Multimedia)
+
+if(UNIX)
+    target_link_libraries(viage PRIVATE ${CMAKE_BINARY_DIR}/3rdparty/DuckX/libduckx.a)
+elseif()
+    target_link_libraries(viage PRIVATE ${CMAKE_BINARY_DIR}/3rdparty/DuckX/libduckx.lib)
+endif()
 
 #set_target_properties(viage PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

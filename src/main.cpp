@@ -29,6 +29,16 @@ int main(int argc, char* argv[])
 {
     QGuiApplication app(argc, argv);
 
+    QString tempPath{};
+    QTemporaryDir tempDir{};
+    if (tempDir.isValid())
+        tempPath = tempDir.path();
+    else
+    {
+        qDebug() << "temp directory error :" << tempDir.errorString();
+        return 4;
+    }
+
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
     QTranslator translator;
@@ -67,7 +77,7 @@ int main(int argc, char* argv[])
     using namespace Wrapper;
 
     // calculator
-    Calculator::wrapped_calculator calculator{&manager, context};
+    Calculator::wrapped_calculator calculator{&manager, context, tempPath};
     qmlRegisterType<list_model<senior_citizen_item>>("People", 1, 0, "SeniorCitizenModel");
 
     // accounts
@@ -137,17 +147,18 @@ int main(int argc, char* argv[])
     bridge bridge{&manager,
                 wrapped_users.get_inner(),
                 wrapped_accounts.get_inner(),
-                wrapped_documents.get_inner()};
+                wrapped_documents.get_inner(),
+                tempPath};
 
     qmlRegisterUncreatableType<Interface::bridge>("Interface", 1, 0, "Bridge", "");
     context->setContextProperty("bridge", &bridge);
 
     QObject::connect(&manager, &Interface::netManager::loggedIn,
                      [
-                        &wrapped_accounts,
-                        &bridge,
-                        &wrapped_users,
-                        &wrapped_companies
+                     &wrapped_accounts,
+                     &bridge,
+                     &wrapped_users,
+                     &wrapped_companies
                      ]
                      (const bool& success)
     {
@@ -157,7 +168,7 @@ int main(int argc, char* argv[])
             if (bridge.getClearance() == user_item::Administrator)
             {
                 wrapped_users.get();
-//                wrapped_companies.get();
+                //                wrapped_companies.get();
             }
         }
     });

@@ -14,18 +14,14 @@ W_OBJECT_IMPL(bridge)
 bridge::bridge(Interface::netManager* manager,
                Data::item_list<Data::People::user_item>* users,
                Data::item_list<Data::account_item>* accounts,
-               Data::item_list<Data::document_item>* documents)
+               Data::item_list<Data::document_item>* documents,
+               const QString& tempPath)
     : mng{manager}
     , usrs{users}
     , acnts{accounts}
     , docs{documents}
-    , tempDir{}
+    , rootPath{tempPath}
 {
-    if (tempDir.isValid())
-        rootPath = tempDir.path();
-    else
-        onException("temp directory error", tempDir.errorString());
-
     connect(mng, &netManager::loggedIn,
             this, &bridge::onLogin);
 

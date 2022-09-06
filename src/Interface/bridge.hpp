@@ -30,7 +30,8 @@ public:
     bridge(Interface::netManager* manager,
            Data::item_list<Data::People::user_item>* users,
            Data::item_list<Data::account_item>* accounts,
-           Data::item_list<Data::document_item>* documents);
+           Data::item_list<Data::document_item>* documents,
+           const QString& path);
 
     void onLogin(const bool& success, const QString& errorString) const;
 
@@ -156,7 +157,6 @@ public:
 private:
     QObject* qmlObject;
     netManager* mng;
-    QTemporaryDir tempDir;
     QString rootPath;
 
     bool onboarding{false};

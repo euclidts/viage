@@ -20,12 +20,16 @@ class wrapped_calculator final
 {
 public:
     wrapped_calculator(Interface::netManager* manager,
-                       QQmlContext* context);
+                       QQmlContext* context,
+                       const QString& tempPath);
 
 private:
     life_expectency exp;
-
     rent_item* rent;
+    std::string docx_path{};
+
+    void calculate_rent();
+    void writeToFile(QString& path);
 };
 }
 

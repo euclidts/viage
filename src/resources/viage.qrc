@@ -71,5 +71,6 @@
     </qresource>
     <qresource prefix="/data">
         <file alias="ofs.csv">ofs.csv</file>
+        <file alias="calcul.docx">calcul.docx</file>
     </qresource>
 </RCC>
