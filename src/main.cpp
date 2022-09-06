@@ -127,6 +127,7 @@ int main(int argc, char* argv[])
     wrapped_list<item_list<company_item>>
             wrapped_companies{&manager, context};
     wrapped_companies.makeConnections();
+    qmlRegisterType<list_model<company_item>>("Data", 1, 0, "CompaniesModel");
 
     // teams
     wrapped_nested_list<item_list<team_item>, company_item>
@@ -142,13 +143,22 @@ int main(int argc, char* argv[])
     context->setContextProperty("bridge", &bridge);
 
     QObject::connect(&manager, &Interface::netManager::loggedIn,
-                     [&wrapped_accounts, &bridge, &wrapped_users](const bool& success)
+                     [
+                        &wrapped_accounts,
+                        &bridge,
+                        &wrapped_users,
+                        &wrapped_companies
+                     ]
+                     (const bool& success)
     {
         if (success)
         {
             wrapped_accounts.get();
             if (bridge.getClearance() == user_item::Administrator)
+            {
                 wrapped_users.get();
+//                wrapped_companies.get();
+            }
         }
     });
 

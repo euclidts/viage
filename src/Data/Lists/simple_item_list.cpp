@@ -11,6 +11,13 @@ simple_item_list<T>::simple_item_list(QObject* parent)
     : base_list<T>{parent}
 {
     std::string str{T().key()};
+
+    if (str.back() == 'y')
+    {
+        str.pop_back();
+        str += "ie";
+    }
+
     str += 's';
 
     auto key_str = new char[str.length() + 1];

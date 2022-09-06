@@ -56,6 +56,26 @@ void wrapped_list<Inner>::makeConnections() const
         "Add error");
     });
 
+    this->connect(this->inner,
+                  &Inner::addWith,
+                  this,
+                  [this] (const QJsonObject& obj)
+    {
+        QJsonDocument data{obj};
+
+        this->mng->postToKey(this->inner->key(),
+                                 data.toJson(),
+                                 [this, obj](const QJsonObject& res)
+        {
+            auto map{res.toVariantMap()};
+            map.insert(obj.toVariantMap());
+
+            const auto json{QJsonObject::fromVariantMap(map)};
+            this->inner->appendWith(json);
+        },
+        "addWith error");
+    });
+
     connectRemove();
 }
 

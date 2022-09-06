@@ -23,6 +23,8 @@ public:
 
     void add()
     W_SIGNAL(add)
+    void addWith(const QJsonObject& obj)
+    W_SIGNAL(addWith, obj)
     void addIn(int parentId)
     W_SIGNAL(addIn, parentId)
     void addInWith(int parentId, const QJsonObject& obj)

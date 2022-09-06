@@ -4,6 +4,7 @@ import QtQuick.Controls
 import QtQuick.Controls.Material
 
 import People
+import Data
 
 ListView {
     leftMargin: 6
@@ -27,20 +28,31 @@ ListView {
             model: root.model
             index: root.index
 
-            LabeledTextField {
-                Layout.margins: 12
-                name: qsTr("Société")
-                textOf: model.company
-                onEdit: function(txt) { model.company = txt }
-            }
-
             RowLayout {
                 Layout.margins: 12
 
-                ColumnLayout {
+                GridLayout {
+                    columns: 2
+
+                    Label {
+                        text: qsTr("Société")
+                        font.italic: true
+                    }
+
                     Label {
                         text: qsTr("Rôle")
                         font.italic: true
+                    }
+
+                    ComboBox {
+                        editable: true
+                        textRole: "name"
+                        valueRole: "id"
+                        model: CompaniesModel { list: companies }
+                        onAccepted: {
+                            if (find(editText) === -1)
+                                companies.addWith()
+                        }
                     }
 
                     ComboBox {
@@ -52,13 +64,13 @@ ListView {
                     }
                 }
 
-                IntChooser {
-                    minimum: 1
-                    maximum: 100
-                    name: qsTr("Numéro d'équipe")
-                    numberOf: model.team
-                    onEdit: function(val) { model.team = val }
-                }
+//                IntChooser {
+//                    minimum: 1
+//                    maximum: 100
+//                    name: qsTr("Numéro d'équipe")
+//                    numberOf: model.team
+//                    onEdit: function(val) { model.team = val }
+//                }
             }
         }
     }
