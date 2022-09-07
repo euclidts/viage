@@ -1,8 +1,6 @@
 #ifndef WRAPPED_CALCULATOR_HPP
 #define WRAPPED_CALCULATOR_HPP
 
-#include <wobjectdefs.h>
-
 #include <base_wrapper.hpp>
 #include <Lists/simple_item_list.hpp>
 #include <Items/senior_citizen_item.hpp>
