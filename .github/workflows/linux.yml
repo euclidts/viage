@@ -2,9 +2,9 @@ name: Linux
 
 on:
 #  push
-  push:
-    tags:
-      - '*'
+#  push:
+#    tags:
+#      - '*'
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
