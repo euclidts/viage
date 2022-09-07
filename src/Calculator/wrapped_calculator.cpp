@@ -41,14 +41,21 @@ void wrapped_calculator::calculate_rent()
 
 void wrapped_calculator::write_to_file()
 {
-    QFile file{":/data/calcul.docx"};
-
     QString newPath{docxPath + "/calcul.docx"};
 
-    if (!file.copy(newPath))
-        mng->replyError("Calculation Document copy error", file.errorString());
-    // report error throug the net manager as it is connected to the bridge
+    QFile file{newPath};
+    if (!file.exists())
+    {
+        file.setFileName(":/data/calcul.docx");
 
+        if (!file.copy(newPath))
+            mng->replyError("Calculation Document copy error", file.errorString());
+        // report error throug the net manager as it is connected to the bridge
+
+        file.setFileName(newPath);
+    }
+
+    file.setPermissions(QFileDevice::WriteOther);
     duckx::Document doc{newPath.toStdString()};
     doc.open();
     auto p = doc.paragraphs();
@@ -121,6 +128,7 @@ void wrapped_calculator::write_to_file()
     r.set_text(str);
 
     doc.save();
+    file.setPermissions(QFileDevice::ReadOwner);
     if(!QDesktopServices::openUrl(newPath))
         mng->replyError("Calculation Document error", "QDesktopervices : could not open .docx file");
 }
