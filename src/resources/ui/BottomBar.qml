@@ -29,10 +29,11 @@ RowLayout {
         visible: (accountsPages.currentIndex === 0
                   && rootStack.currentIndex === 0)
                  || rootStack.currentIndex === 2
-        text: rootStack.currentIndex === 2 ? qsTr("Télécharger le document")
+        text: rootStack.currentIndex === 2 ? qsTr("Document")
                                            : qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"
-        onClicked: if (rootStack.currentIndex !== 2) bridge.requestReport()
+        onClicked: rootStack.currentIndex !== 2 ? bridge.requestReport()
+                                                : rent.writeToFile()
     }
 
     MaterialButton {

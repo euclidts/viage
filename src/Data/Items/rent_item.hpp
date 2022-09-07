@@ -26,6 +26,9 @@ public:
     void calculate()
     W_SIGNAL(calculate)
 
+    void writeToFile()
+    W_SIGNAL(writeToFile)
+
     void clear() override;
     W_SLOT(clear)
 

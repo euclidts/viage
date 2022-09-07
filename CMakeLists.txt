@@ -154,7 +154,7 @@ target_link_libraries(viage PRIVATE
     Qt6::Svg
     Qt6::Multimedia)
 
-if(UNIX)
+if(UNIX OR MINGW)
     target_link_libraries(viage PRIVATE ${CMAKE_BINARY_DIR}/3rdparty/DuckX/libduckx.a)
 elseif()
     target_link_libraries(viage PRIVATE ${CMAKE_BINARY_DIR}/3rdparty/DuckX/libduckx.lib)

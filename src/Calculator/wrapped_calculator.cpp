@@ -2,6 +2,7 @@
 
 #include <QQmlEngine>
 #include <QFile>
+#include <QDesktopServices>
 
 #include <duckx.hpp>
 
@@ -16,6 +17,7 @@ wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
     : base_wrapper<simple_item_list<senior_citizen_item>>{manager, context}
     , exp{inner}
     , rent{new rent_item{}}
+    , docxPath{tempPath}
 {
     inner->appendItems(); // at least one senior for the calculation
 
@@ -24,22 +26,12 @@ wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
                   this,
                   &wrapped_calculator::calculate_rent);
 
+    this->connect(rent,
+                  &rent_item::writeToFile,
+                  this,
+                  &wrapped_calculator::write_to_file);
+
     context->setContextProperty("rent", rent);
-
-    QFile file{":/data/calcul.docx"};
-    file.copy(tempPath + "/calcul.docx");
-
-    duckx::Document doc{QString{tempPath + "/calcul.docx"}.toStdString()};
-
-    doc.open();
-
-    for (auto p = doc.paragraphs(); p.has_next(); p.next())
-    {
-        for (auto r = p.runs(); r.has_next(); r.next())
-        {
-            std::cout << r.get_text() << std::endl;
-        }
-    }
 }
 
 void wrapped_calculator::calculate_rent()
@@ -47,15 +39,90 @@ void wrapped_calculator::calculate_rent()
     rent->from_expectency(exp.get_expectency(rent->getBirthDay()));
 }
 
-void wrapped_calculator::writeToFile(QString &path)
+void wrapped_calculator::write_to_file()
 {
-    duckx::Document doc{":/data/calcul.docx"};
+    QFile file{":/data/calcul.docx"};
 
+    QString newPath{docxPath + "/calcul.docx"};
+
+    if (!file.copy(newPath))
+        mng->replyError("Calculation Document copy error", file.errorString());
+    // report error throug the net manager as it is connected to the bridge
+
+    duckx::Document doc{newPath.toStdString()};
     doc.open();
+    auto p = doc.paragraphs();
 
-    for (auto p : doc.paragraphs())
-        for (auto r : p.runs())
-            std::cout << r.get_text() << std::endl;
+    using namespace std;
+    string txt{};
+
+    // skip to pargraphs of interests
+    for(int i{0}; i < 8; i++)
+        p.next();
+
+    auto r = p.runs();
+
+    string str{"Date estimée de la transaction : "};
+    str.append(rent->getBirthDay()
+               .toString("dd/MM/yyyy")
+               .toStdString());
+
+    r.set_text(str);
+
+    p.next();
+
+    int i{0};
+    for (const auto item : inner->items())
+    {
+        r = p.runs();
+
+        auto partner{inner->item_at(i)};
+        char sex = partner.sex == senior_citizen_item::M ? 'M' : 'F';
+
+        str = "Partenaire ";
+        str.append(to_string(i + 1));
+        str.append(" : Madame / Monsieur, Date de naissance : ");
+        str += sex;
+        str.append(" , ");
+        str.append(partner.birthDay.toString("dd/MM/yyyy").toStdString());
+
+        r.set_text(str);
+
+        p.next();
+        i++;
+    }
+
+    // skip second partner paragraph
+    if (i == 1) p.next();
+    // skip address paragraph
+    p.next();
+    r = p.runs();
+
+    str = ("Valeur estimée du bien : ");
+    str.append(to_string(rent->getEstimation()));
+    str.append(" Source : …………………………….");
+
+    r.set_text(str);
+
+    p.next();
+    r = p.runs();
+
+    str = ("Droit d’habitation : ");
+    str.append(to_string(rent->getDab()));
+
+    r.set_text(str);
+
+    p.next();
+    r = p.runs();
+
+    str = ("Bouquet : ");
+    str.append(to_string(rent->getBou()));
+
+    r.set_text(str);
+
+    doc.save();
+    if(!QDesktopServices::openUrl(newPath))
+        mng->replyError("Calculation Document error", "QDesktopervices : could not open .docx file");
 }
 
 }
