@@ -15,13 +15,13 @@ struct team_item
     static const constexpr auto uri{"Data"};
 
     int id{0};
-    QString name{""};
+    QString caption{""};
     bool has_users{false};
 
     enum roles
     {
         IdRole = Qt::UserRole,
-        NameRole,
+        CaptionRole,
         HasUsersRole
     };
 

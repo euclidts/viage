@@ -54,7 +54,8 @@ ColumnLayout {
 
         TextField {
             id: field
-            text: phoneOf.phone.slice(3, phoneOf.phone.length)
+            readonly property string number: phoneOf.phone
+            text: number.slice(3, number.length)
             inputMethodHints: Qt.ImhFormattedNumbersOnly
             Layout.fillWidth: true
             placeholderText: qsTr("* Champ Obligatoire")

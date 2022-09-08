@@ -11,7 +11,7 @@ user_filter_model::user_filter_model(QAbstractItemModel *model,
                                      const bool &exclusif,
                                      QObject *parent)
     : base_filter_model{model, parent}
-    , isExclif{exclusif}
+    , isExclusif{exclusif}
 {
 }
 
@@ -31,7 +31,7 @@ bool user_filter_model::filterAcceptsRow(int sourceRow,
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     People::user_item::IdRole)};
 
-    if (isExclif)
+    if (isExclusif)
     {
         if (filterRole() == id)
             return true;

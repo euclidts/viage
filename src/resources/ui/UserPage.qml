@@ -32,7 +32,7 @@ ListView {
                 Layout.margins: 12
 
                 GridLayout {
-                    columns: 2
+                    columns: 3
 
                     Label {
                         text: qsTr("Société")
@@ -44,33 +44,79 @@ ListView {
                         font.italic: true
                     }
 
+                    Label {
+                        text: qsTr("Équipe")
+                        font.italic: true
+                    }
+
                     ComboBox {
-                        editable: true
+                        id: companyCombo
+                        //                        editable: true
+                        function setCompany(cid : int) {
+                            currentIndex = indexOfValue(cid)
+                            teams.loadFrom(currentValue)
+                        }
                         textRole: "name"
                         valueRole: "id"
+                        Layout.minimumWidth: 160
                         model: CompaniesModel { list: companies }
-                        onAccepted: {
-                            if (find(editText) === -1)
-                                companies.addWith()
+                        //                        onAccepted: {
+                        //                            if (find(editText) === -1)
+                        //                                companies.addWith()
+                        //                        }
+                        onActivated: {
+                            root.model.company = currentText
+                            root.model.companyId = currentValue
+                            busyDialog.open()
+                            teams.loadFrom(currentValue)
                         }
                     }
 
                     ComboBox {
                         id: clearanceCombo
                         model: clearanceNames
-                        Layout.minimumWidth: 180
+                        Layout.minimumWidth: 160
                         onActivated: root.model.clearance = currentIndex + 1
                         currentIndex: root.model.clearance - 1
                     }
-                }
 
-//                IntChooser {
-//                    minimum: 1
-//                    maximum: 100
-//                    name: qsTr("Numéro d'équipe")
-//                    numberOf: model.team
-//                    onEdit: function(val) { model.team = val }
-//                }
+                    ComboBox {
+                        id: teamCombo
+//                        editable: true
+                        function setTeam(tid : int) {
+                            currentIndex = indexOfValue(tid)
+                        }
+                        textRole: "caption"
+                        valueRole: "id"
+                        model: TeamsModel { list: teams }
+                        Layout.minimumWidth: 160
+                        onAccepted: {
+                            if (find(editText) === -1) {
+                                busyDialog.open()
+                                var txt = '{ "caption" : '
+                                        + '"'
+                                        + editText
+                                        + '"'
+                                        + ' }'
+                                teams.addInWith(root.model.companyId, JSON.parse(txt))
+                            }
+                        }
+                        onActivated: {
+                            root.model.team = currentText
+                            root.model.teamId = currentValue
+                        }
+                    }
+
+                    Connections {
+                        target: teams
+                        function onLoaded() {
+                            teamCombo.setTeam(root.model.teamId)
+                            busyDialog.close()
+                        }
+                    }
+
+                    Component.onCompleted: companyCombo.setCompany(root.model.companyId)
+                }
             }
         }
     }

@@ -142,6 +142,7 @@ int main(int argc, char* argv[])
     // teams
     wrapped_nested_list<item_list<team_item>, company_item>
             wrapped_teams{&manager, wrapped_companies.get_inner(), context};
+    qmlRegisterType<list_model<team_item>>("Data", 1, 0, "TeamsModel");
 
     // bridge
     bridge bridge{&manager,
@@ -168,7 +169,7 @@ int main(int argc, char* argv[])
             if (bridge.getClearance() == user_item::Administrator)
             {
                 wrapped_users.get();
-                //                wrapped_companies.get();
+                wrapped_companies.get();
             }
         }
     });

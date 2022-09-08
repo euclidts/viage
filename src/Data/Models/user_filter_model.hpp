@@ -24,7 +24,7 @@ private:
     bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const override;
     bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
 
-    bool isExclif;
+    bool isExclusif;
 };
 }
 
