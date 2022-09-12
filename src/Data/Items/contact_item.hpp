@@ -13,7 +13,7 @@ struct contact_item : public infant_item
 {   
     contact_item();
 
-    const constexpr char* key() { return "contact"; };
+    static const constexpr char* key() { return "contact"; };
     static const constexpr auto qmlName{"Contact"};
 
     bool isInfant{false};

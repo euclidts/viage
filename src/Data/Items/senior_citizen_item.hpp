@@ -15,7 +15,7 @@ struct senior_citizen_item
 {
     senior_citizen_item();
 
-    const constexpr char* key() { return "seniorCitizen"; };
+    static const constexpr char* key() { return "seniorCitizen"; };
     static const constexpr auto qmlName{"SeniorCitizen"};
     static const constexpr auto uri{"People"};
 

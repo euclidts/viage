@@ -15,7 +15,7 @@ struct company_item
 {
     company_item();
 
-    const constexpr char* key() { return "company"; };
+    static const constexpr char* key() { return "company"; };
     static const constexpr auto qmlName{"Company"};
     static const constexpr auto uri{"Data"};
 

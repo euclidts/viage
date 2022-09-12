@@ -10,7 +10,7 @@ struct team_item
 {
     team_item();
 
-    const constexpr char* key() { return "team"; };
+    static const constexpr char* key() { return "team"; };
     static const constexpr auto qmlName{"Team"};
     static const constexpr auto uri{"Data"};
 

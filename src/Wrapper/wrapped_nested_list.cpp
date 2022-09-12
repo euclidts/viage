@@ -9,6 +9,8 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
                                                        Data::item_list<Outer>* parentList,
                                                        QQmlContext* context)
     : wrapped_nested_item<Inner, Outer>{manager, context}
+    , key{this->makeKey(parentList)}
+    , parent_key_id{QString(Outer::key()).append("Id")}
 {
     this->inner->complitionChecks();
 
@@ -18,39 +20,33 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
     this->connect(this->inner,
                   &Inner::addIn,
                   this,
-                  [=] (int id)
-    {
-        QJsonObject json{ {"id", id} };
-        QJsonDocument data{json};
-
-        this->mng->postToKey(this->inner->key(),
-                                 data.toJson(),
-                                 [this](const QJsonObject& res)
-        { this->inner->appendWith(res["id"].toInt()); },
-        "addIn error");
-    });
+                  [this] (int id)
+    { add_in_with(id); });
 
     this->connect(this->inner,
                   &Inner::addInWith,
                   this,
-                  [=] (int id, const QJsonObject& obj)
+                  &wrapped_nested_list::add_in_with);
+}
+
+template<typename Inner, typename Outer>
+void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const QJsonObject& obj)
+{
+    auto json{obj};
+    json[parent_key_id] = id;
+    QJsonDocument data{json};
+
+    this->mng->postToKey(key.c_str(),
+                         data.toJson(),
+                         [this, obj](const QJsonObject& res)
     {
-        QJsonObject json{obj};
-        json["id"] = id;
-        QJsonDocument data{json};
+        auto map{res.toVariantMap()};
+        map.insert(obj.toVariantMap());
 
-        this->mng->postToKey(this->makeKey(parentList).c_str(),
-                                 data.toJson(),
-                                 [this, obj](const QJsonObject& res)
-        {
-            auto map{res.toVariantMap()};
-            map.insert(obj.toVariantMap());
-
-            const auto json{QJsonObject::fromVariantMap(map)};
-            this->inner->appendWith(json);
-        },
-        "addInWith error");
-    });
+        const auto json{QJsonObject::fromVariantMap(map)};
+        this->inner->appendWith(json);
+    },
+    "addInWith error");
 }
 
 }

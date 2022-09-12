@@ -7,14 +7,17 @@
 ## Changelog
 * change paseword in settings, popup + close settings pane
 * email, never necescary
+* page 6 out
+* Vertical allignement in calaulation document 
+* reinit calculation evry time
+* User management
+* rent, change interest from 4% to 4.25%
 
 ## TODO
 
 # Client side
 
-* rent, change interest from 4% to 4.25%
 * Habitat completed
-* User management
 
 ++ timeout for connection (3h)
 ++ position Title in error header

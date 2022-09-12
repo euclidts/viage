@@ -13,7 +13,7 @@ struct user_item : public person_item
 {
     user_item();
 
-    const constexpr char* key() { return "user"; };
+    static const constexpr char* key() { return "user"; };
     static const constexpr auto qmlName{"User"};
 
     enum clearances

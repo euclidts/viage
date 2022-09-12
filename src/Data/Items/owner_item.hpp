@@ -16,7 +16,7 @@ struct owner_item : public infant_item
 {
     owner_item();
 
-    const constexpr char* key() { return "owner"; };
+    static  const constexpr char* key() { return "owner"; };
     static const constexpr auto qmlName{"Owner"};
 
     QDate birthDay;

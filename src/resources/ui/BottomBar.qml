@@ -42,7 +42,10 @@ RowLayout {
         text: qsTr("Calcul")
         icon.source: "qrc:/icons/calculator.svg"
         icon.width: height * 0.35
-        onClicked: rootStack.currentIndex = 2
+        onClicked: {
+            rent.clear()
+            rootStack.currentIndex = 2
+        }
     }
 
     MaterialButton {

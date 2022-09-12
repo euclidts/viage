@@ -11,7 +11,7 @@ struct document_item
 {
     document_item();
 
-    const constexpr char* key() { return "document"; };
+    static const constexpr char* key() { return "document"; };
     static const constexpr auto qmlName{"Document"};
     static const constexpr auto uri{"Data"};
 

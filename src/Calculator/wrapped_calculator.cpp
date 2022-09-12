@@ -151,7 +151,7 @@ void wrapped_calculator::write_to_file()
         str.append(QString::number(i + 1));
         str.append(" : ");
         str.append(sex);
-        str.append(" ………………………………………………………… ");
+        str.append(" ……………………………………………………………… ");
         str.append(partner.birthDay.toString("dd/MM/yyyy"));
 
         ru.set_text(str.toStdString());
@@ -175,7 +175,7 @@ void wrapped_calculator::write_to_file()
     str.append(tr("CHF "));
     str.append(QLocale().toString(rent->getEstimation()));
     str.append(".-");
-    str.append(tr("    Source : ……………………………."));
+    str.append(tr("    Source : ……………………………"));
 
     ru.set_text(str.toStdString());
 

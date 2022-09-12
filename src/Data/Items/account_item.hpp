@@ -28,7 +28,7 @@ struct account_item
 {
     account_item();
 
-    const constexpr char* key() { return "account"; };
+    static const constexpr char* key() { return "account"; };
     static const constexpr auto qmlName{"Account"};
     static const constexpr auto uri{"Data"};
 
