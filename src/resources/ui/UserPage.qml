@@ -53,16 +53,31 @@ ListView {
                         id: companyCombo
                         editable: true
                         property string newText: ""
-                        function setCompany(cid : int) {
-                            currentIndex = indexOfValue(cid)
+                        function setCompany(i : int) {
+                            currentIndex = indexOfValue(i)
                             teams.loadFrom(currentValue)
                         }
+                        function validateFunc() {
+                            root.model.company = currentText
+                            root.model.companyId = currentValue
+                            busyDialog.open()
+                            teams.loadFrom(currentValue)
+                        }
+
                         textRole: "name"
                         valueRole: "id"
                         Layout.minimumWidth: 160
                         model: CompaniesModel { list: companies }
                         onAccepted: {
-                            if (editText !== "" && find(editText) === -1) {
+                            if (editText === "") {
+                                root.model.company = ""
+                                root.model.companyId = 0
+                                return
+                            }
+
+                            var i = find(editText)
+
+                            if (i === -1) {
                                 newText = editText
                                 onExceptionAction(qsTr("Ajouter une Société"),
                                                   "Êtes-vous sûr de vouloir ajouter la nouvelle société "
@@ -77,22 +92,18 @@ ListView {
                                                       + ' }'
                                                       companies.addWith(JSON.parse(txt))
                                                   }, true)
+                            } else {
+                                currentIndex = i
+                                validateFunc()
                             }
                         }
-                        onActivated: {
-                            root.model.company = currentText
-                            root.model.companyId = currentValue
-                            busyDialog.open()
-                            teams.loadFrom(currentValue)
-                        }
+                        onActivated: validateFunc()
                         onCountChanged: {
                             var i = find(newText)
 
                             if (i !== -1) {
                                 currentIndex = i
-                                root.model.company = currentText
-                                root.model.companyId = currentValue
-                                teams.loadFrom(currentValue)
+                                validateFunc()
                             }
                         }
                     }
@@ -101,15 +112,28 @@ ListView {
                         id: teamCombo
                         editable: true
                         property string newText: ""
-                        function setTeam(tid : int) {
-                            currentIndex = indexOfValue(tid)
+                        function setTeam(i : int) {
+                            currentIndex = indexOfValue(i)
+                            validateFunc()
+                        }
+                        function validateFunc() {
+                            root.model.team = currentText
+                            root.model.teamId = currentValue
                         }
                         textRole: "caption"
                         valueRole: "id"
                         model: TeamsModel { list: teams }
                         Layout.minimumWidth: 160
                         onAccepted: {
-                            if (editText !== "" && find(editText) === -1) {
+                            if (editText === "" ) {
+                                root.model.team = ""
+                                root.model.teamId = 0
+                                return
+                            }
+
+                            var i = find(editText)
+
+                            if (i === -1) {
                                 newText = editText
                                 onExceptionAction(qsTr("Ajouter une Équipe"),
                                                   "Êtes-vous sûr de vouloir ajouter l'équipe "
@@ -126,19 +150,18 @@ ListView {
                                                       + ' }'
                                                       teams.addInWith(root.model.companyId, JSON.parse(txt))
                                                   }, true)
+                            } else {
+                                currentIndex = i
+                                validateFunc()
                             }
                         }
-                        onActivated: {
-                            root.model.team = currentText
-                            root.model.teamId = currentValue
-                        }
+                        onActivated: validateFunc()
                         onCountChanged: {
                             var i = find(newText)
 
                             if (i !== -1) {
                                 currentIndex = i
-                                root.model.team = currentText
-                                root.model.teamId = currentValue
+                                validateFunc()
                             }
 
                             busyDialog.close()
