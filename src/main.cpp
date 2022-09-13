@@ -180,6 +180,36 @@ int main(int argc, char* argv[])
                      wrapped_owners.get_inner(),
                      &item_list<owner_item>::loadFrom);
 
+    // Update Owner
+    QObject::connect(wrapped_owners.get_inner(),
+                     &item_list<owner_item>::postItemsAppended,
+                     [owners = wrapped_owners.get_inner()] ()
+    {
+        const auto items{owners->items()};
+        qsizetype s{items.size()};
+
+        if (s < 2)
+            return;
+
+        const auto previous{items.at(s - 2)};
+        if (previous.civilStatus == owner_item::Maried)
+        {
+            auto item{items.at(s - 1)};
+
+            item.sex = previous.sex == senior_citizen_item::M
+                    ? senior_citizen_item::F
+                    : senior_citizen_item::M;
+
+            item.street = previous.street;
+            item.city = previous.city;
+            item.zip = previous.zip;
+            item.canton = previous.canton;
+            item.civilStatus = previous.civilStatus;
+
+            owners->setItemAt(s - 1, item);
+        }
+    });
+
     // Hiering
     QObject::connect(&bridge,
                      &bridge::requestUser,
