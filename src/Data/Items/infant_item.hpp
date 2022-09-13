@@ -14,7 +14,7 @@ struct infant_item : public person_item
 {   
     infant_item();
 
-    senior_citizen_item::sexes sex{senior_citizen_item::sexes::M};
+    senior_citizen_item::sexes sex{senior_citizen_item::M};
 
     enum roles
     {

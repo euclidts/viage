@@ -26,12 +26,14 @@ GroupBox {
                 name: qsTr("Rue")
                 textOf: addressOf.street
                 onEdit: function(txt) { addressOf.street = txt }
+                capitalization: Font.MixedCase
             }
 
             LabeledTextField {
                 name: qsTr("Ville")
                 textOf: addressOf.city
                 onEdit: function(txt) { addressOf.city = txt }
+                capitalization: Font.MixedCase
             }
         }
 
