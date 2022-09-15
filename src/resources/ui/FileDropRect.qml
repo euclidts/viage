@@ -20,13 +20,13 @@ Rectangle {
         onDropped: (drop) => {
                        root.color = "transparent"
                        // Check valid extension as porposed in
-                       var regExp = "[?:[a-zA-Z0-9-_\.]+(?:.pdf|.png|.jpg|.jpeg|.raw|.tiff)"
+                       var regExp = "[?:[a-zA-Z0-9-_\.]+(?:.pdf|.PDF|.png|.PNG|.jpg|.JPG|.jpeg|.JPEG|.raw|.tiff)"
                        if (drop.urls[0].toString().match(regExp)) {
                            urlProvider.path = drop.urls[0]
                            func()
                        } else {
                            onException(qsTr("Chemin de fichier incorrect"),
-                                       qsTr("Assurez vous que le fichier selectioné possède l'extension pdf, png, jpg, jpeg, raw ou tiff"))
+                                       qsTr("Assurez vous que le fichier selectioné possède l'extension pdf, PDF, png, PNG, jpg, JPG, jpeg, JPEG, raw ou tiff"))
                        }
                    }
 

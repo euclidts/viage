@@ -23,7 +23,9 @@ GroupBox {
             minimum: 1
             maximum: 31
             numberOf: dateOf.birthDay.getDate()
-            onEdit: function(val) {
+            // bypass Qt.locale()
+            spin.textFromValue: (value, locale) => { return Number(value).toString() }
+            onEdit: (val) => {
                 let date = dateOf.birthDay
                 date.setDate(val)
                 dateOf.birthDay = date
@@ -66,7 +68,9 @@ GroupBox {
             maximum: new Date().getFullYear() + maxYear
             name: qsTr("Année")
             numberOf: dateOf.birthDay.getFullYear()
-            onEdit: function(val) {
+            // bypass Qt.locale()
+            spin.textFromValue: (value, locale) => { return Number(value).toString() }
+            onEdit: (val) => {
                 let date = dateOf.birthDay
                 date.setFullYear(val)
                 dateOf.birthDay = date

@@ -12,6 +12,9 @@ ColumnLayout {
     property var onEdit
     property int minimum: 0
     property int maximum
+    property int step: 1
+    property int maxSize: 130
+    property alias spin: spin
 
     Label {
         text: name
@@ -20,15 +23,16 @@ ColumnLayout {
     }
 
     SpinBox {
+        id: spin
         from: minimum
         to: maximum
         editable: true
+        stepSize: step
         value: numberOf
+        locale: Qt.locale()
+        onFocusChanged: if (focus) contentItem.selectAll()
         onValueModified: onEdit(value)
         inputMethodHints: Qt.ImhFormattedNumbersOnly
-        Layout.maximumWidth: 130
-        textFromValue: function(value, locale) {
-            return Number(value).toString();
-        }
+        Layout.maximumWidth: maxSize
     }
 }

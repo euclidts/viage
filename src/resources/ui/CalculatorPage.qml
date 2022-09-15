@@ -76,47 +76,15 @@ ScrollView {
                     rowSpacing: 6
                     columns: 2
 
-                    ColumnLayout {
-                        spacing: 0
-
-                        Label {
-                            text: qsTr("Valeur estimée du bien")
-                            font.italic: true
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-
-                        SpinBox {
-                            from: 50000
-                            to: 15000000
-                            stepSize: 1000
-                            editable: true
-                            value: rent.marketPrice
-                            locale: Qt.locale()
-                            onValueModified: rent.marketPrice = value
-                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        }
+                    IntChooser {
+                        name: qsTr("Valeur estimée du bien")
+                        maxSize: 200
+                        minimum: 50000
+                        maximum: 15000000
+                        step: 1000
+                        numberOf: rent.marketPrice
+                        onEdit: (val) => { rent.marketPrice = val }
                     }
-
-//                    ColumnLayout {
-//                        spacing: 0
-
-//                        Label {
-//                            text: qsTr("Rente mensuelle")
-//                            font.italic: true
-//                            Layout.alignment: Qt.AlignHCenter
-//                        }
-
-//                        SpinBox {
-//                            from: 0
-//                            to: 10000
-//                            stepSize: 1000
-//                            editable: true
-//                            value: rent.monthly
-//                            locale: Qt.locale()
-//                            onValueModified: rent.monthly = value
-//                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-//                        }
-//                    }
 
                     RoundButton {
                         text: qsTr("Calculer")
