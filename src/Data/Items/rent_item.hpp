@@ -44,8 +44,8 @@ public:
     W_SIGNAL(bouChanged)
     void dabChanged()
     W_SIGNAL(dabChanged)
-    void estimationChanged()
-    W_SIGNAL(estimationChanged)
+    void pvaChanged()
+    W_SIGNAL(pvaChanged)
 //    void damChanged()
 //    W_SIGNAL(damChanged)
 
@@ -61,8 +61,8 @@ public:
     void setBou(int newBou);
     int getDab() const;
     void setDab(int newDab);
-    int getEstimation() const;
-    void setEstimation(int newEstimation);
+    int getPva() const;
+    void setPva(int newpva);
 //    int getDam() const;
 //    void setDam(int newDam);
 
@@ -72,7 +72,7 @@ public:
     W_PROPERTY(int, rva READ getRva NOTIFY rvaChanged)
     W_PROPERTY(int, bou READ getBou NOTIFY bouChanged)
     W_PROPERTY(int, dab READ getDab NOTIFY dabChanged)
-    W_PROPERTY(int, estimation READ getEstimation NOTIFY estimationChanged)
+    W_PROPERTY(int, pva READ getPva NOTIFY pvaChanged)
 //    W_PROPERTY(int, dam READ getDam WRITE setDam NOTIFY damChanged)
 
 private:
@@ -83,7 +83,7 @@ private:
     int rva{0};
     int bou{0};
     int dab{0};
-    int estimation{0};
+    int pva{0};
     //    int dam{0};
 
     int floor_to(double number, int multiple) const;

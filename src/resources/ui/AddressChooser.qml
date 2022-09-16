@@ -37,47 +37,55 @@ GroupBox {
             }
         }
 
-        GridLayout {
-            columns: 2
+        RowLayout {
             Layout.fillWidth: true
 
-            Label {
-                text: qsTr("Canton")
-                font.italic: true
-            }
+            ColumnLayout {
 
-            Label {
-                text: qsTr("NPA")
-                font.italic: true
-                Layout.alignment: Qt.AlignHCenter
-            }
-
-            ComboBox {
-                id: cantonField
-                textRole: "text"
-                valueRole: "npa"
-                model: SwissCantons {}
-                Layout.minimumWidth: 164
-                onActivated: {
-                    addressOf.canton = currentText
-                    addressOf.zip = currentValue
+                Label {
+                    text: qsTr("Canton")
+                    font.italic: true
                 }
-                displayText: addressOf.canton
-                currentIndex: -1
+
+
+                ComboBox {
+                    id: cantonField
+                    textRole: "text"
+                    valueRole: "npa"
+                    model: SwissCantons {}
+                    Layout.minimumWidth: 164
+                    onActivated: {
+                        addressOf.canton = currentText
+                        addressOf.zip = currentValue
+                    }
+                    displayText: addressOf.canton
+                    currentIndex: -1
+                }
             }
 
-            SpinBox {
-                from: 1000
-                to: 9999
-                editable: true
-                value: addressOf.zip
-                onValueModified: addressOf.zip = value
-                inputMethodHints: Qt.ImhFormattedNumbersOnly
-                Layout.maximumWidth: 130
-                textFromValue: function(value, locale) {
+            IntChooser {
+                name: qsTr("NPA")
+                minimum: 1000
+                maximum: 9999
+                numberOf: addressOf.zip
+                onEdit: (val) => { addressOf.zip = val }
+                spin.textFromValue: (value, locale) => {
                     return Number(value).toString();
                 }
             }
+
+//            SpinBox {
+//                from: 1000
+//                to: 9999
+//                editable: true
+//                value: addressOf.zip
+//                onValueModified: addressOf.zip = value
+//                inputMethodHints: Qt.ImhFormattedNumbersOnly
+//                Layout.maximumWidth: 130
+//                textFromValue: function(value, locale) {
+//                    return Number(value).toString();
+//                }
+//            }
         }
     }
 }

@@ -30,6 +30,7 @@
 ++ Excel documents for advisors 
 ++ Filter invert order of filtered item in report
 ++ Repport: inclusive filter (equivalent to the "contain" option)
+++ get email from all users
 
 ## Start the service
 cd Euclid/Viage5

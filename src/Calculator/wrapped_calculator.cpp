@@ -173,7 +173,7 @@ void wrapped_calculator::write_to_file()
 
     str = tr("Valeur estimée du bien : ");
     str.append(tr("CHF "));
-    str.append(QLocale().toString(rent->getEstimation()));
+    str.append(QLocale().toString(rent->getmarketPrice()));
     str.append(".-");
     str.append(tr("    Source : ……………………………"));
 

@@ -27,7 +27,7 @@ Rectangle {
     FileDialog {
         id: fileDialog
         currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
-        nameFilters: ["(*.pdf *.png *.jpg *.jpeg *.raw *.tiff)", "(*)"]
+        nameFilters: ["(*.pdf *.PDF *.png *.PNG *.jpg *.JPG *.jpeg *.JPEG *.raw *.tiff)", "(*)"]
         onAccepted: {
             path = currentFile
             func()

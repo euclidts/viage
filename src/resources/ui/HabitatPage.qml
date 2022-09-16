@@ -67,7 +67,7 @@ ScrollView {
                             minimum: 1
                             maximum: 50
                             numberOf: habitat.rooms
-                            onEdit: function(val) { habitat.rooms = val }
+                            onEdit: (val) => { habitat.rooms = val }
                         }
                     }
 

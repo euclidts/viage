@@ -23,7 +23,7 @@ void rent_item::clear()
     emit birthDayChanged();
     marketPrice = 1500000;
     emit marketPriceChanged();
-    monthly = 1000;
+    monthly = 0;
     emit monthlyChanged();
     bou = 0;
     emit bouChanged();
@@ -31,8 +31,8 @@ void rent_item::clear()
     emit rvaChanged();
     dab = 0;
     emit dabChanged();
-    estimation = 0;
-    emit estimationChanged();
+    pva = 0;
+    emit pvaChanged();
 //    int dam{0};
 //    emit damChanged();
 }
@@ -60,7 +60,7 @@ void rent_item::from_expectency(double expectency)
 
     setRva(12 * monthly * ae);
     setBou(marketPrice - dab - rva);
-    setEstimation(dab + bou);
+    setPva(dab + bou);
 }
 
 int rent_item::getmarketPrice() const
@@ -127,17 +127,17 @@ void rent_item::setDab(int newDab)
     emit dabChanged();
 }
 
-int rent_item::getEstimation() const
+int rent_item::getPva() const
 {
-    return estimation;
+    return pva;
 }
 
-void rent_item::setEstimation(int newEstimation)
+void rent_item::setPva(int newpva)
 {
-    if (estimation == newEstimation)
+    if (pva == newpva)
         return;
-    estimation = newEstimation;
-    emit estimationChanged();
+    pva = newpva;
+    emit pvaChanged();
 }
 
 const QDate &rent_item::getBirthDay() const

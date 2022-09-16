@@ -99,13 +99,13 @@ ScrollView {
 //                    }
 
                     Label {
-                        text: qsTr("Valeur estimée du bien :")
+                        text: qsTr("Valeur escompté du bien :")
                         font.bold: true
                         Layout.alignment: Qt.AlignRight
                     }
 
                     Label {
-                        text: rent.estimation === 0 ? "" : rent.estimation.toLocaleString(Qt.locale())
+                        text: rent.pva === 0 ? "" : rent.pva.toLocaleString(Qt.locale())
                         Layout.alignment: Qt.AlignRight
                     }
 

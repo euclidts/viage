@@ -13,7 +13,7 @@ ColumnLayout {
     required property string textOf
     required property var onEdit
     property int inputHint: Qt.ImhNone
-    property int capitalization: Font.Capitalize
+    property int capitalization: Font.MixedCase
 
     Label {
         id: label
