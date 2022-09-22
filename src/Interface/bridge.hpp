@@ -165,9 +165,8 @@ private:
     Data::item_list<Data::document_item>* docs;
     bool documentsCompleted{false};
     void check_doc_completion();
-    void handle_docs(int ai);
-    void upload_doc();
-    std::vector<std::pair<int, Data::document_item>> docs_to_upload{};
+    void cleanup_docs(int ai);
+    void upload_doc(int index);
 
     int userId{0};
     Data::People::user_item::clearances clearance{Data::People::user_item::None};

@@ -136,7 +136,7 @@ RowLayout {
         icon.source: "qrc:/icons/arrow-left.svg"
 
         onClicked: if (rootStack.currentIndex === 0) {
-                       accountsPages.validateItem()
+                       documents.validate(bridge.accountId)
                        accountsPages.currentIndex = 0
                    } else if (rootStack.currentIndex === 1) {
                        users.validate(selectedUser.filterRole)

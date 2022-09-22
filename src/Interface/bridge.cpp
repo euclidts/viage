@@ -65,13 +65,13 @@ bridge::bridge(Interface::netManager* manager,
             this, &bridge::check_doc_completion);
 
     connect(docs, &item_list<document_item>::dataChangedAt,
-            this, &bridge::check_doc_completion);
+            this, &bridge::upload_doc);
 
     connect(docs, &item_list<document_item>::postItemsRemoved,
             this, &bridge::check_doc_completion);
 
     connect(docs, &item_list<document_item>::validate,
-            this, &bridge::handle_docs);
+            this, &bridge::cleanup_docs);
 
     using namespace People;
 
@@ -295,23 +295,35 @@ void bridge::check_doc_completion()
 {
     using namespace Data;
 
+    bool uploaded{true};
     int flags{document_item::None};
 
     for (const auto& doc : docs->items())
     {
+        if (!doc.isUploaded)
+        {
+            uploaded = false;
+            break;
+        }
+
         if (!hasFlag(flags, doc.category))
             flags += doc.category;
     }
 
-    setDocumentsCompleted(flags == CATEGOIES_SUMED
-                          || flags == (CATEGOIES_SUMED - document_item::Beb)
-                          || flags == (CATEGOIES_SUMED - document_item::FutureJobs)
-                          || flags == (CATEGOIES_SUMED - document_item::Beb
-                                       - document_item::FutureJobs)
-                          );
+    if (uploaded)
+    {
+        setDocumentsCompleted(flags == CATEGOIES_SUMED
+                              || flags == (CATEGOIES_SUMED - document_item::Beb)
+                              || flags == (CATEGOIES_SUMED - document_item::FutureJobs)
+                              || flags == (CATEGOIES_SUMED - document_item::Beb
+                                           - document_item::FutureJobs)
+                              );
+    }
+    else
+        setDocumentsCompleted(false);
 }
 
-void bridge::handle_docs(int ai)
+void bridge::cleanup_docs(int ai)
 {
     bool update_parent{false};
 
@@ -323,8 +335,6 @@ void bridge::handle_docs(int ai)
             docs->remove(doc.id);
             update_parent = true;
         }
-        else if (!doc.isUploaded)
-            docs_to_upload.push_back(std::make_pair(ai, doc));
     }
 
     if (update_parent)
@@ -335,18 +345,15 @@ void bridge::handle_docs(int ai)
             acnts->setItemAtId(ai, account);
     }
 
-    upload_doc();
-
     emit loaded();
 }
 
-void bridge::upload_doc()
+void bridge::upload_doc(int index)
 {
-    if (docs_to_upload.empty())
-        return;
+    auto doc{docs->item_at(index)};
 
-    const auto ai{docs_to_upload.back().first};
-    const auto doc{docs_to_upload.back().second};
+    if (doc.isUploaded || doc.relativePath.isEmpty())
+        return;
 
     QFile file{doc.relativePath.toLocalFile()};
     if (file.exists())
@@ -363,15 +370,14 @@ void bridge::upload_doc()
             obj["body"] = body;
 
             QJsonDocument data{obj};
+            int parent_account{accountId};
 
             mng->putToKey(docs->key(),
                           data.toJson(),
-                          [this, ai, doc]
+                          [this, parent_account, doc]
                           (const QJsonObject& rep)
             {
-                docs_to_upload.pop_back();
-
-                auto updated_account{acnts->item_at_id(ai)};
+                auto updated_account{acnts->item_at_id(parent_account)};
                 auto updated_doc{doc};
 
                 Data::item_list<Data::document_item> updated_list{};
@@ -387,20 +393,18 @@ void bridge::upload_doc()
                 {
                     updated_account.state = Data::account_item::states(rep["accountState"].toInt());
                     updated_account.update(&updated_list);
-                    acnts->setItemAtId(ai, updated_account);
+                    acnts->setItemAtId(parent_account, updated_account);
                 }
 
-                upload_doc();
+                qDebug() << "uploaded !";
+                check_doc_completion();
             },
             "upload_doc error",
-            [this](){ docs_to_upload.pop_back(); });
+            [this](){});
         }
     }
     else
-    {
-        onException("upload_doc error", "Fichier introuvable");
-        docs_to_upload.pop_back();
-    }
+    { onException("upload_doc error", "Fichier introuvable"); }
 }
 
 const QDate &bridge::getAccountDecided() const
