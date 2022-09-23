@@ -52,7 +52,7 @@ GroupBox {
                 required property var model
                 required property int index
                 property var updateFunc: function() {
-                    model.relativePath = urlProvider.path
+                    model.localPath = urlProvider.path
                 }
 
                 Component.onCompleted: {
@@ -63,8 +63,8 @@ GroupBox {
                     }
                 }
 
-                RowLayout {
-                    spacing: 0
+                GridLayout {
+                    columns: 4
                     width: parent.width
 
                     FolderButton {
@@ -95,6 +95,13 @@ GroupBox {
                         onClicked: {
                             documentsFrom.remove(model.id)
                         }
+                    }
+
+                    ProgressBar {
+                        Layout.columnSpan: 4
+                        Layout.fillWidth: true
+                        value: model.uploadProgress
+                        visible: model.uploading
                     }
                 }
             }

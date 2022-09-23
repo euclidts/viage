@@ -14,9 +14,12 @@ QHash<int, QByteArray> document_item::roleNames()
 
     names[CategoryRole] = "category";
     names[RelativePathRole] = "relativePath";
+    names[LocalPathRole] = "localPath";
     names[FileNameRole] = "fileName";
     names[ExtensionRole] = "extension";
     names[IsUploadedRole] = "isUploaded";
+    names[UploadingRole] = "uploading";
+    names[UploadProgressRole] = "uploadProgress";
     names[UploadDateRole] = "uploadDate";
     names[IdRole] = "id";
 
@@ -31,12 +34,18 @@ QVariant document_item::data(int role) const
         return QVariant(category);
     case RelativePathRole:
         return QVariant(relativePath);
+    case LocalPathRole:
+        return QVariant(localPath);
     case FileNameRole:
         return QVariant(fileName);
     case ExtensionRole:
         return QVariant(extension);
     case IsUploadedRole:
         return QVariant(isUploaded);
+    case UploadingRole:
+        return QVariant(uploading);
+    case UploadProgressRole:
+        return QVariant(uploadProgress);
     case UploadDateRole:
         return QVariant(uploadDate);
     case IdRole:
@@ -53,9 +62,9 @@ void document_item::setData(const QVariant &value, int role)
     case CategoryRole:
         category = categories(value.toInt());
         break;
-    case RelativePathRole:
+    case LocalPathRole:
     {
-        relativePath = value.toUrl();
+        localPath = value.toUrl();
         setFileInfo();
         isUploaded = false;
         break;
@@ -75,28 +84,15 @@ void document_item::read(const QJsonObject& json)
     {
         if (json.contains("uploadDate") && json["uplaodDate"].isString())
             uploadDate = QDate::fromString(json["uploadDate"].toString(), "jj.MM.yyyy");
-
-        if (json.contains("fileName") && json["fileName"].isString())
-            fileName = json["fileName"].toString();
-
-        if (json.contains("extension") && json["extension"].isString())
-            extension = json["extension"].toString();
     }
-    else
-    {
-        if (json.contains("relativePath") && json["relativePath"].isString())
-        {
-            QUrl url{json["relativePath"].toString()};
 
-            if (url.isLocalFile())
-            {
-                relativePath = json["relativePath"].toString();
-                setFileInfo();
-            }
-            else
-                category = None; // prepare for deletion
-        }
-    }
+    if (json.contains("localPath") && json["localPath"].isString())
+        QUrl url{json["relativePath"].toString()};
+
+    if (json.contains("relativePath") && json["relativePath"].isString())
+        relativePath = json["relativePath"].toString();
+
+    setFileInfo();
 
     if (json.contains("id") && json["id"].isDouble())
         id = json["id"].toInt();
@@ -106,7 +102,6 @@ void document_item::write(QJsonObject& json) const
 {
     json["category"] = category;
     json["isUploaded"] = isUploaded;
-    json["relativePath"] = relativePath.toString();
     json["fileName"] = fileName;
     json["extension"] = extension;
     json["id"] = id;
@@ -117,24 +112,27 @@ bool document_item::is_completed() const
     if (fileName == "")
         return false;
 
-    return true;
+    return isUploaded;
 }
 
 void document_item::setFileInfo()
 {
-    auto fullPath{relativePath.toLocalFile()};
-
-    if (!relativePath.isLocalFile())
-    {
-        relativePath = "";
-        extension = "";
+    if (localPath.isEmpty() && relativePath.isEmpty())
         return;
-    }
 
-    auto withExtension{fullPath.split(QLatin1Char('/')).last()};
+    QString fullPath{};
+
+    if (!localPath.isEmpty())
+        fullPath = localPath.toLocalFile();
+    else
+        fullPath = relativePath.toLocalFile();
+
+    auto withExtension{fullPath.split(QLatin1Char('/')).back()};
     auto splitedFile{withExtension.split(QLatin1Char('.'))};
-    fileName = splitedFile[0];
-    extension = splitedFile[1];
+
+    extension = splitedFile.back();
+    splitedFile.pop_back();
+    fileName = splitedFile.join(QLatin1Char('.'));
 }
 
 }

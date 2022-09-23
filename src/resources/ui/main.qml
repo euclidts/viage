@@ -177,6 +177,9 @@ ApplicationWindow {
                 case 4:
                     exterior.validate(bridge.accountId)
                     break;
+                case 5:
+                    documents.validate(bridge.accountId)
+                    break;
                 }
             }
 

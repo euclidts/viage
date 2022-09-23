@@ -352,10 +352,10 @@ void bridge::upload_doc(int index)
 {
     auto doc{docs->item_at(index)};
 
-    if (doc.isUploaded || doc.relativePath.isEmpty())
+    if (doc.isUploaded || doc.localPath.isEmpty() || doc.uploading)
         return;
 
-    QFile file{doc.relativePath.toLocalFile()};
+    QFile file{doc.localPath.path()};
     if (file.exists())
     {
         if (!file.open(QIODevice::ReadOnly))
@@ -376,31 +376,36 @@ void bridge::upload_doc(int index)
                           data.toJson(),
                           [this, parent_account, doc]
                           (const QJsonObject& rep)
-            {
+                          mutable {
                 auto updated_account{acnts->item_at_id(parent_account)};
-                auto updated_doc{doc};
-
-                Data::item_list<Data::document_item> updated_list{};
-                updated_list.read(updated_account.get(&updated_list));
 
                 if (rep.contains("document") && rep["document"].isObject())
                 {
-                    updated_doc.read(rep["document"].toObject());
-                    updated_list.setItemAtId(updated_doc.id, updated_doc);
+                    doc.read(rep["document"].toObject());
+                    doc.uploading = false;
+                    docs->setItemAtId(doc.id, doc);
                 }
 
                 if (rep.contains("accountState") && rep["accountState"].isDouble())
                 {
                     updated_account.state = Data::account_item::states(rep["accountState"].toInt());
-                    updated_account.update(&updated_list);
+                    updated_account.update(docs);
                     acnts->setItemAtId(parent_account, updated_account);
                 }
 
-                qDebug() << "uploaded !";
                 check_doc_completion();
             },
             "upload_doc error",
-            [this](){});
+            [this](){},
+            [this, doc](qint64 byteSent, qint64 totalbytes)
+            mutable {
+                if (byteSent == 0)
+                    return;
+
+                doc.uploading = true;
+                doc.uploadProgress = (byteSent / 1024.) / (totalbytes / 1024.);
+                docs->setItemAtId(doc.id, doc);
+            });
         }
     }
     else

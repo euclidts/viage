@@ -33,9 +33,12 @@ struct document_item
 
     categories category{categories::None};
     QUrl relativePath{};
+    QUrl localPath{};
     QString fileName{""};
     QString extension{""};
     bool isUploaded{false};
+    bool uploading{false};
+    float uploadProgress{0.f};
     QDate uploadDate{};
     int id{0};
 
@@ -43,9 +46,12 @@ struct document_item
     {
         CategoryRole = Qt::UserRole,
         RelativePathRole,
+        LocalPathRole,
         FileNameRole,
         ExtensionRole,
         IsUploadedRole,
+        UploadingRole,
+        UploadProgressRole,
         UploadDateRole,
         IdRole
     };

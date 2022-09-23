@@ -130,13 +130,19 @@ void netManager::getFromKey(const char* key,
 }
 
 void netManager::putToKey(const char* key,
-                          const QByteArray &data,
-                          const std::function<void (const QJsonObject &)> &callback,
-                          const QString& errorPrefix, const std::function<void ()> &errorCallback)
+                          const QByteArray& data,
+                          const std::function<void (const QJsonObject &)>& callback,
+                          const QString& errorPrefix,
+                          const std::function<void ()>& errorCallback,
+                          const std::function<void (qint64, qint64)>& onProgress)
 {
     setRequest(key);
     auto* reply = put(rqst, data);
     setCallback(reply, callback, errorPrefix, errorCallback);
+
+    connect(reply,
+            &QNetworkReply::uploadProgress,
+            onProgress);
 }
 
 void netManager::postToKey(const char* key,

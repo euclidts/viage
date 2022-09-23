@@ -25,8 +25,8 @@ T base_list<T>::item_at(int index) const
 {
     return this->m_items[index];
 }
-template <typename T>
 
+template <typename T>
 bool base_list<T>::setItemAt(int index, const T& item)
 {
     if (index < 0 || index >= m_items.size())
