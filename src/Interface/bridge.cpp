@@ -300,7 +300,7 @@ void bridge::check_doc_completion()
 
     for (const auto& doc : docs->items())
     {
-        if (!doc.isUploaded)
+        if (doc.state == Data::document_item::NotUploded)
         {
             uploaded = false;
             break;
@@ -352,7 +352,7 @@ void bridge::upload_doc(int index)
 {
     auto doc{docs->item_at(index)};
 
-    if (doc.isUploaded || doc.localPath.isEmpty() || doc.uploading)
+    if (doc.state != Data::document_item::NotUploded || doc.localPath.isEmpty())
         return;
 
     QFile file{doc.localPath.path()};
@@ -382,7 +382,6 @@ void bridge::upload_doc(int index)
                 if (rep.contains("document") && rep["document"].isObject())
                 {
                     doc.read(rep["document"].toObject());
-                    doc.uploading = false;
                     docs->setItemAtId(doc.id, doc);
                 }
 
@@ -402,7 +401,9 @@ void bridge::upload_doc(int index)
                 if (byteSent == 0)
                     return;
 
-                doc.uploading = true;
+                if (doc.state != Data::document_item::Uploading)
+                    doc.state = Data::document_item::Uploading;
+
                 doc.uploadProgress = (byteSent / 1024.) / (totalbytes / 1024.);
                 docs->setItemAtId(doc.id, doc);
             });

@@ -17,8 +17,7 @@ QHash<int, QByteArray> document_item::roleNames()
     names[LocalPathRole] = "localPath";
     names[FileNameRole] = "fileName";
     names[ExtensionRole] = "extension";
-    names[IsUploadedRole] = "isUploaded";
-    names[UploadingRole] = "uploading";
+    names[StateRole] = "state";
     names[UploadProgressRole] = "uploadProgress";
     names[UploadDateRole] = "uploadDate";
     names[IdRole] = "id";
@@ -40,10 +39,8 @@ QVariant document_item::data(int role) const
         return QVariant(fileName);
     case ExtensionRole:
         return QVariant(extension);
-    case IsUploadedRole:
-        return QVariant(isUploaded);
-    case UploadingRole:
-        return QVariant(uploading);
+    case StateRole:
+        return QVariant(state);
     case UploadProgressRole:
         return QVariant(uploadProgress);
     case UploadDateRole:
@@ -66,7 +63,7 @@ void document_item::setData(const QVariant &value, int role)
     {
         localPath = value.toUrl();
         setFileInfo();
-        isUploaded = false;
+        state = NotUploded;
         break;
     }
     }
@@ -78,9 +75,9 @@ void document_item::read(const QJsonObject& json)
         category = categories(json["category"].toInt());
 
     if (json.contains("isUploaded") && json["isUploaded"].isBool())
-        isUploaded = json["isUploaded"].toBool();
+        json["isUploaded"].toBool() ? state = Uploaded : state = NotUploded;
 
-    if(isUploaded)
+    if(state == Uploaded)
     {
         if (json.contains("uploadDate") && json["uplaodDate"].isString())
             uploadDate = QDate::fromString(json["uploadDate"].toString(), "jj.MM.yyyy");
@@ -101,7 +98,7 @@ void document_item::read(const QJsonObject& json)
 void document_item::write(QJsonObject& json) const
 {
     json["category"] = category;
-    json["isUploaded"] = isUploaded;
+    json["isUploaded"] = state == Uploaded;
     json["fileName"] = fileName;
     json["extension"] = extension;
     json["id"] = id;
@@ -112,7 +109,7 @@ bool document_item::is_completed() const
     if (fileName == "")
         return false;
 
-    return isUploaded;
+    return state == Uploaded;
 }
 
 void document_item::setFileInfo()

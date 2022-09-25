@@ -36,8 +36,15 @@ struct document_item
     QUrl localPath{};
     QString fileName{""};
     QString extension{""};
-    bool isUploaded{false};
-    bool uploading{false};
+
+    enum states
+    {
+        NotUploded,
+        Uploading,
+        Uploaded
+    };
+
+    states state{NotUploded};
     float uploadProgress{0.f};
     QDate uploadDate{};
     int id{0};
@@ -49,8 +56,7 @@ struct document_item
         LocalPathRole,
         FileNameRole,
         ExtensionRole,
-        IsUploadedRole,
-        UploadingRole,
+        StateRole,
         UploadProgressRole,
         UploadDateRole,
         IdRole

@@ -20,7 +20,7 @@ Rectangle {
         onDropped: (drop) => {
                        root.color = "transparent"
                        // Check valid extension as porposed in
-                       var regExp = "[?:[a-zA-Z0-9-_\.]+(?:.pdf|.PDF|.png|.PNG|.jpg|.JPG|.jpeg|.JPEG|.raw|.tiff)"
+                       var regExp = "^.*\.(pdf|PDF|png|PNG|jpg|JPG|jpeg|JPEG|raw|tiff)(?:$|[#?])"
                        if (drop.urls[0].toString().match(regExp)) {
                            urlProvider.path = drop.urls[0]
                            func()

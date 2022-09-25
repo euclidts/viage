@@ -63,6 +63,8 @@ GroupBox {
                     }
                 }
 
+                enabled: model.state !== 1 // Uploading
+
                 GridLayout {
                     columns: 4
                     width: parent.width
@@ -101,7 +103,7 @@ GroupBox {
                         Layout.columnSpan: 4
                         Layout.fillWidth: true
                         value: model.uploadProgress
-                        visible: model.uploading
+                        visible: model.state === 1 // Uploading
                     }
                 }
             }
