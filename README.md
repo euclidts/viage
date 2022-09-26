@@ -12,6 +12,8 @@
 * reinit calculation evry time
 * User management
 * rent, change interest from 4% to 4.25%
+* choose camera input
+* better regexp handling files
 
 ## TODO
 

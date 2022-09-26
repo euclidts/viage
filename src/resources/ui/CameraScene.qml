@@ -58,6 +58,16 @@ ColumnLayout {
             }
         }
 
+        ComboBox {
+            Layout.fillWidth: true
+            visible: videoOutput.visible
+            textRole: "description"
+            model: mediaDevices.videoInputs
+
+            MediaDevices { id: mediaDevices }
+            onCurrentIndexChanged: camera.cameraDevice = mediaDevices.videoInputs[currentIndex]
+        }
+
         MaterialButton {
             id: scanButton
             text: qsTr("Scanner")
