@@ -68,6 +68,7 @@
         <file alias="lock-open.svg">icons/lock-open.svg</file>
         <file alias="lock.svg">icons/lock.svg</file>
         <file alias="square.svg">icons/square.svg</file>
+        <file alias="arrows-rotate.svg">icons/arrows-rotate.svg</file>
     </qresource>
     <qresource prefix="/data">
         <file alias="ofs.csv">ofs.csv</file>
