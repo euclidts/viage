@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
     using namespace Data;
     using namespace People;
 
-    QString host{"https://viagetestrive.euclidtradingsystems.com"};
+    QString host{"https://viage.euclidtradingsystems.com"};
 
     for (int i = 0; i < argc; i++)
         if (QString::compare(argv[i], "--host") == 0)

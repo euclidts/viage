@@ -136,6 +136,33 @@ void bridge::requestReport() const
     });
 }
 
+void bridge::requestDocument() const
+{
+    std::string str{"accounts/"};
+    str.append(std::to_string(accountId));
+    str.append("/pdf");
+
+    QString path{rootPath};
+    path.append('/');
+    path.append(QString::number(accountId));
+    path.append(".pdf");
+
+    mng->downloadFile(str.c_str(),
+                      path,
+                      [this, path] (bool success, const QString& error)
+    {
+        if (success)
+        {
+            if (!QDesktopServices::openUrl(path))
+                onException("requestDocument error", "QDesktopervices : could not open pdf");
+            else
+                emit loaded();
+        }
+        else
+            onException("requestDocument error", error);
+    });
+}
+
 void bridge::updatePwd(const QString &newPwd) const
 {
     const QJsonObject json{{"password", newPwd}};

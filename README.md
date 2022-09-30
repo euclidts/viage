@@ -20,6 +20,12 @@
 # Client side
 
 * Habitat completed
+* onboarding document: _ Espace entre contacts et partenaires
+                       _ date de naissance avec heure pas necessaire
+                       _ inversement de contact et parteniare
+                       _ Exterieur : types de places
+                       _ Equipement de proximite dans Exterieur
+                       _ Bordure bien net des carres
 
 ++ timeout for connection (3h)
 ++ position Title in error header
