@@ -132,10 +132,18 @@ void wrapped_calculator::write_to_file()
 
     ru = p.runs();
 
-    str = tr("Date estimée de la transaction : ");
+    // skip to run of interests
+    for(int i{0}; i < 3; i++)
+        ru.next();
+
+    str = tr(" : ");
     str.append(rent->getBirthDay().toString("dd/MM/yyyy"));
 
     ru.set_text(str.toStdString());
+    ru.next();
+
+    for (; ru.has_next(); ru.next())
+        ru.set_text("");
 
     p.next();
 
@@ -145,16 +153,20 @@ void wrapped_calculator::write_to_file()
         ru = p.runs();
 
         auto partner{inner->item_at(i)};
-        QString sex{partner.sex == senior_citizen_item::M ? tr("M") : tr("Mme")};
+        QString sex{partner.sex == senior_citizen_item::M ? tr("M  …") : tr("Mme")};
 
         str = tr("Partenaire ");
         str.append(QString::number(i + 1));
         str.append(" : ");
         str.append(sex);
-        str.append(" ……………………………………………………………… ");
+        str.append(" ………………………………………………………… ");
         str.append(partner.birthDay.toString("dd/MM/yyyy"));
 
         ru.set_text(str.toStdString());
+        ru.next();
+
+        for (; ru.has_next(); ru.next())
+            ru.set_text("");
 
         p.next();
         i++;
@@ -164,7 +176,9 @@ void wrapped_calculator::write_to_file()
     if (i == 1)
     {
         ru = p.runs();
-        ru.set_text("");
+        for (; ru.has_next(); ru.next())
+            ru.set_text("");
+
         p.next();
     }
     // skip address paragraph
@@ -174,8 +188,7 @@ void wrapped_calculator::write_to_file()
     str = tr("Valeur estimée du bien : ");
     str.append(tr("CHF "));
     str.append(QLocale().toString(rent->getmarketPrice()));
-    str.append(".-");
-    str.append(tr("    Source : ……………………………"));
+    str.append(".-  .");
 
     ru.set_text(str.toStdString());
 
@@ -188,6 +201,10 @@ void wrapped_calculator::write_to_file()
     str.append(".-");
 
     ru.set_text(str.toStdString());
+    ru.next();
+
+    for (; ru.has_next(); ru.next())
+        ru.set_text("");
 
     p.next();
     ru = p.runs();
@@ -198,6 +215,10 @@ void wrapped_calculator::write_to_file()
     str.append(".-");
 
     ru.set_text(str.toStdString());
+    ru.next();
+
+    for (; ru.has_next(); ru.next())
+        ru.set_text("");
 
     doc.save();
     file.setPermissions(QFileDevice::ReadOwner);
