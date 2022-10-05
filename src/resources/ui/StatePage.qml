@@ -96,13 +96,6 @@ ScrollView {
                         paidCheck.validation = bridge.accountPaid
                     }
                 }
-
-                RoundButton {
-                    text: qsTr("Télécharger le document")
-                    icon.source: "qrc:/icons/download.svg"
-                    highlighted: true
-                    onClicked: bridge.requestDocument()
-                }
             }
         }
     }

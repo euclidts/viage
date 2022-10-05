@@ -100,7 +100,8 @@ void netManager::authenticate(const QString& username,
 
 void netManager::downloadFile(const char* key,
                               const QString &path,
-                              const std::function<void (bool, const QString &)> &callback)
+                              const std::function<void (bool, const QString &)> &callback,
+                              const std::function<void (qint64, qint64)>& onProgress)
 {
     setRequest(key);
     auto* reply = get(rqst);
@@ -119,6 +120,10 @@ void netManager::downloadFile(const char* key,
         else
             callback(false, file.errorString());
     });
+
+    connect(reply,
+            &QNetworkReply::uploadProgress,
+            onProgress);
 }
 
 void netManager::getFromKey(const char* key,

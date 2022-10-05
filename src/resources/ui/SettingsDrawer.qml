@@ -91,7 +91,7 @@ Drawer {
 
         MaterialButton {
             icon.source: "qrc:/icons/door-open.svg"
-            text: qsTr("Déconnection")
+            text: qsTr("Déconnexion")
             onClicked: {
                 documents.clear()
                 exterior.clear()

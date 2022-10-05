@@ -53,10 +53,10 @@ public:
                                const QUrl&,
                                const QString&))
 
-    void requestReport() const;
+    void requestReport();
     W_INVOKABLE(requestReport)
 
-    void requestDocument() const;
+    void requestDocument();
     W_INVOKABLE(requestDocument)
 
     void updatePwd(const QString& newPwd) const;
@@ -146,6 +146,11 @@ public:
     void accountDecidedChanged()
     W_SIGNAL(accountDecidedChanged)
 
+    float getDownloadProgress() const;
+    void setDownloadProgress(float newDownloadProgress);
+    void downloadProgressChanged()
+    W_SIGNAL(downloadProgressChanged);
+
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(Data::People::user_item::clearances, clearance READ getClearance NOTIFY clearanceChanged)
     W_PROPERTY(int, userId READ getUserId NOTIFY userIdChanged)
@@ -156,6 +161,7 @@ public:
     W_PROPERTY(QDate, accountNotarized READ getAccountNotarized NOTIFY accountNotarizedChanged)
     W_PROPERTY(QDate, accountPaid READ getAccountPaid NOTIFY accountPaidChanged)
     W_PROPERTY(QDate, accountDecided READ getAccountDecided NOTIFY accountDecidedChanged)
+    W_PROPERTY(float, downloadProgress READ getDownloadProgress WRITE setDownloadProgress NOTIFY downloadProgressChanged)
 
 private:
     QObject* qmlObject;
@@ -183,6 +189,7 @@ private:
     QDate accountDecided{};
     QDate accountNotarized{};
     QDate accountPaid{};
+    float downloadProgress{-1.f};
 
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;

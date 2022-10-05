@@ -26,14 +26,21 @@ RowLayout {
 
     MaterialButton {
         id: reportButton
-        visible: (accountsPages.currentIndex === 0
-                  && rootStack.currentIndex === 0)
+        visible: (rootStack.currentIndex === 0 &&
+                  (accountsPages.currentIndex === 0
+                   || accountsPages.currentIndex === 6))
                  || rootStack.currentIndex === 2
-        text: rootStack.currentIndex === 2 ? qsTr("Document")
-                                           : qsTr("Rapport")
+        text: if (rootStack.currentIndex === 2 || accountsPages.currentIndex === 6)
+                  qsTr("Document")
+              else
+                  qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"
-        onClicked: rootStack.currentIndex !== 2 ? bridge.requestReport()
-                                                : rent.writeToFile()
+        onClicked: if (accountsPages.currentIndex === 6)
+                       bridge.requestDocument()
+                   else if (rootStack.currentIndex === 2)
+                       rent.writeToFile()
+                   else
+                       bridge.requestReport()
     }
 
     MaterialButton {
@@ -72,11 +79,11 @@ RowLayout {
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: onExceptionAction(text,
-                                 "Êtes-vous sûr de vouloir ajouter un nouveau conseiller",
-                                 () => {
-                                     busyDialog.open()
-                                     bridge.hire()
-                                 }, true)
+                                     "Êtes-vous sûr de vouloir ajouter un nouveau conseiller",
+                                     () => {
+                                         busyDialog.open()
+                                         bridge.hire()
+                                     }, true)
     }
 
     MaterialButton {

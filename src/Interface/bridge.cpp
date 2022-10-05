@@ -118,7 +118,7 @@ void bridge::downloadFile(const QString &key, const QUrl &directory, const QStri
     });
 }
 
-void bridge::requestReport() const
+void bridge::requestReport()
 {
     mng->downloadFile("export/accounts",
                       rootPath + "/Viage.xlsx",
@@ -133,10 +133,17 @@ void bridge::requestReport() const
         }
         else
             onException("requestReport error", error);
+
+        setDownloadProgress(-1.f);
+    },
+    [this](qint64 byteSent, qint64 totalbytes)
+    {
+        setDownloadProgress((byteSent / 1024.) / (totalbytes / 1024.));
+        qDebug() << (byteSent / 1024.) / (totalbytes / 1024.);
     });
 }
 
-void bridge::requestDocument() const
+void bridge::requestDocument()
 {
     std::string str{"accounts/"};
     str.append(std::to_string(accountId));
@@ -160,6 +167,13 @@ void bridge::requestDocument() const
         }
         else
             onException("requestDocument error", error);
+
+    setDownloadProgress(-1.f);
+    },
+    [this](qint64 byteSent, qint64 totalbytes)
+    {
+        setDownloadProgress((byteSent / 1024.) / (totalbytes / 1024.));
+        qDebug() << (byteSent / 1024.) / (totalbytes / 1024.);
     });
 }
 
@@ -438,6 +452,17 @@ void bridge::upload_doc(int index)
     }
     else
     { onException("upload_doc error", "Fichier introuvable"); }
+}
+
+void bridge::setDownloadProgress(float newDownloadProgress)
+{
+    downloadProgress = newDownloadProgress;
+    emit downloadProgressChanged();
+}
+
+float bridge::getDownloadProgress() const
+{
+    return downloadProgress;
 }
 
 const QDate &bridge::getAccountDecided() const
