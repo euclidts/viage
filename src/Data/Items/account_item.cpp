@@ -170,8 +170,7 @@ bool account_item::update(item_list<document_item>* ds)
 {
     QJsonArray arr{};
     ds->write(arr);
-    if (documents == arr)
-        return false;
+    // exception
 
     documents = arr;
     modified = QDateTime::currentDateTime();

@@ -132,11 +132,7 @@ void wrapped_calculator::write_to_file()
 
     ru = p.runs();
 
-    // skip to run of interests
-    for(int i{0}; i < 3; i++)
-        ru.next();
-
-    str = tr(" : ");
+    str = tr("Date estimée de la transaction : ");
     str.append(rent->getBirthDay().toString("dd/MM/yyyy"));
 
     ru.set_text(str.toStdString());
@@ -188,7 +184,7 @@ void wrapped_calculator::write_to_file()
     str = tr("Valeur estimée du bien : ");
     str.append(tr("CHF "));
     str.append(QLocale().toString(rent->getmarketPrice()));
-    str.append(".-  .");
+    str.append(".-   Source : ……………………………");
 
     ru.set_text(str.toStdString());
 
