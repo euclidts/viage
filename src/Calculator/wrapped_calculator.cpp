@@ -127,7 +127,7 @@ void wrapped_calculator::write_to_file()
     p = doc.paragraphs();
 
     // skip to pargraphs of interests
-    for(int i{0}; i < 8; i++)
+    for(int i{0}; i < 6; i++)
         p.next();
 
     ru = p.runs();
@@ -177,8 +177,11 @@ void wrapped_calculator::write_to_file()
 
         p.next();
     }
-    // skip address paragraph
-    p.next();
+
+    // skip to pargraphs of interests
+    for(int i{0}; i < 4; i++)
+        p.next();
+
     ru = p.runs();
 
     str = tr("Valeur estimée du bien : ");
@@ -187,6 +190,10 @@ void wrapped_calculator::write_to_file()
     str.append(".-   Source : ……………………………");
 
     ru.set_text(str.toStdString());
+    ru.next();
+
+    for (; ru.has_next(); ru.next())
+        ru.set_text("");
 
     p.next();
     ru = p.runs();
