@@ -268,7 +268,7 @@ void bridge::sendOnboardedEmail() const
     { emit loaded(); });
 }
 
-QUrl bridge::getPictureName(QString& name, int index) const
+QUrl bridge::getPictureName(QString name, int index) const
 {
     return QUrl::fromLocalFile(rootPath
                                + '/'

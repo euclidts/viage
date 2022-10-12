@@ -77,8 +77,8 @@ public:
     void resetPwd(int id) const;
     W_INVOKABLE(resetPwd)
 
-    QUrl getPictureName(QString& name, int index) const;
-    W_INVOKABLE(getPictureName, (QString&, int))
+    QUrl getPictureName(QString name, int index) const;
+    W_INVOKABLE(getPictureName, (QString, int))
 
     void setQmlObject(QObject* obj) noexcept { qmlObject = obj; }
 
