@@ -28,31 +28,37 @@ ScrollView {
                 }
 
                 StateLayout {
-                    id: expertCheck
+                    id: transmitedCheck
                     nameIndex: 7
                 }
 
                 StateLayout {
-                    id: decidedCheck
+                    id: expertCheck
                     nameIndex: 8
                 }
 
                 StateLayout {
-                    id: notaryCheck
+                    id: decidedCheck
                     nameIndex: 9
                 }
 
                 StateLayout {
-                    id: paidCheck
+                    id: notaryCheck
                     nameIndex: 10
+                }
+
+                StateLayout {
+                    id: paidCheck
+                    nameIndex: 11
                 }
 
                 function checkStates() {
                     recieivedCheck.flagged = bridge.accountHasFlag(32)
-                    expertCheck.flagged = bridge.accountHasFlag(64)
-                    decidedCheck.flagged = bridge.accountHasFlag(128)
-                    notaryCheck.flagged = bridge.accountHasFlag(256)
-                    paidCheck.flagged = bridge.accountHasFlag(512)
+                    transmitedCheck.flagged = bridge.accountHasFlag(64)
+                    expertCheck.flagged = bridge.accountHasFlag(128)
+                    decidedCheck.flagged = bridge.accountHasFlag(256)
+                    notaryCheck.flagged = bridge.accountHasFlag(512)
+                    paidCheck.flagged = bridge.accountHasFlag(1024)
                 }
 
                 Connections {
@@ -66,6 +72,13 @@ ScrollView {
                     target: bridge
                     function onAccountReceivedChanged() {
                         recieivedCheck.validation = bridge.accountReceived
+                    }
+                }
+
+                Connections {
+                    target: bridge
+                    function onAccountTransmitedChanged() {
+                        transmitedCheck.validation = bridge.accountReceived
                     }
                 }
 

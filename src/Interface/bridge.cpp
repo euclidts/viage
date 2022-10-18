@@ -55,6 +55,7 @@ bridge::bridge(Interface::netManager* manager,
 
         setAccountState(item.state);
         setAccountReceived(item.receivedDate);
+        setAccountTransmited(item.transmitedDate);
         setAccountExpertized(item.expertizedDate);
         setAccountNotarized(item.notarizedDate);
         setAccountDecided(item.decidedDate);
@@ -120,6 +121,8 @@ void bridge::downloadFile(const QString &key, const QUrl &directory, const QStri
 
 void bridge::requestReport()
 {
+    setDownloadProgress(0.f);
+
     mng->downloadFile("export/accounts",
                       rootPath + "/Viage.xlsx",
                       [this] (bool success, const QString& error)
@@ -153,6 +156,8 @@ void bridge::requestDocument()
     path.append('/');
     path.append(QString::number(accountId));
     path.append(".pdf");
+
+    setDownloadProgress(0.f);
 
     mng->downloadFile(str.c_str(),
                       path,
@@ -489,6 +494,19 @@ void bridge::setAccountReceived(const QDate &newAccountReceived)
         return;
     accountReceived = newAccountReceived;
     emit accountReceivedChanged();
+}
+
+const QDate &bridge::getAccountTransmited() const
+{
+    return accountTransmited;
+}
+
+void bridge::setAccountTransmited(const QDate &newAccountTransmited)
+{
+    if (accountTransmited == newAccountTransmited)
+        return;
+    accountTransmited = newAccountTransmited;
+    emit accountTransmitedChanged();
 }
 
 const QDate &bridge::getAccountExpertized() const

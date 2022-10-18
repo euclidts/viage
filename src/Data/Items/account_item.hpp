@@ -51,14 +51,16 @@ struct account_item
         DocumentsCompleted = 16,
         Onboarded = 31,
         Received = 32,
-        Expertized = 64,
-        Decided = 128,
-        Notarized = 256,
-        Paid = 512
+        Transmited = 64,
+        Expertized = 128,
+        Decided = 256,
+        Notarized = 512,
+        Paid = 1024
     };
 
     states state{Initialized};
     QDate receivedDate{};
+    QDate transmitedDate{};
     QDate expertizedDate{};
     QDate decidedDate{};
     QDate notarizedDate{};
@@ -85,6 +87,7 @@ struct account_item
         // Account status
         StateRole,
         ReceivedRole,
+        TransmitedRole,
         ExpertizedRole,
         DecidedRole,
         NotarizedRole,

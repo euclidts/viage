@@ -26,6 +26,7 @@ RowLayout {
 
     MaterialButton {
         id: reportButton
+        enabled: bridge.downloadProgress === -1.
         visible: (rootStack.currentIndex === 0 &&
                   (accountsPages.currentIndex === 0
                    || accountsPages.currentIndex === 6))

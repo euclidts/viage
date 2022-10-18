@@ -32,6 +32,7 @@ ApplicationWindow {
         qsTr("Exterieur complété"),
         qsTr("Documents complétés"),
         qsTr("Réception du dossier par Viage SA"),
+        qsTr("Transmission du dossier au CA de Viager Swiss SA"),
         qsTr("Expert immobilier"),
         qsTr("Décision du CA de Viager Swiss SA"),
         qsTr("Rendez-vous chez le notaire"),

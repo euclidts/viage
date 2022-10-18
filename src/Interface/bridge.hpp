@@ -126,6 +126,11 @@ public:
     void accountReceivedChanged()
     W_SIGNAL(accountReceivedChanged)
 
+    const QDate &getAccountTransmited() const;
+    void setAccountTransmited(const QDate &newAccountTransmited);
+    void accountTransmitedChanged()
+    W_SIGNAL(accountTransmitedChanged)
+
     const QDate &getAccountExpertized() const;
     void setAccountExpertized(const QDate &newAccountExpertized);
     void accountExpertizedChanged()
@@ -157,6 +162,7 @@ public:
     W_PROPERTY(int, accountId READ getAccountId WRITE setAccoountId NOTIFY accountIdChanged)
     W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
     W_PROPERTY(QDate, accountReceived READ getAccountReceived NOTIFY accountReceivedChanged)
+    W_PROPERTY(QDate, accountTransmited READ getAccountTransmited NOTIFY accountTransmitedChanged)
     W_PROPERTY(QDate, accountExpertized READ getAccountExpertized NOTIFY accountExpertizedChanged)
     W_PROPERTY(QDate, accountNotarized READ getAccountNotarized NOTIFY accountNotarizedChanged)
     W_PROPERTY(QDate, accountPaid READ getAccountPaid NOTIFY accountPaidChanged)
@@ -185,6 +191,7 @@ private:
     int accountId{0};
     int accountState{0};
     QDate accountReceived{};
+    QDate accountTransmited{};
     QDate accountExpertized{};
     QDate accountDecided{};
     QDate accountNotarized{};

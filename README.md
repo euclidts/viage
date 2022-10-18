@@ -14,25 +14,30 @@
 * rent, change interest from 4% to 4.25%
 * choose camera input
 * better regexp handling files
-
-## TODO
-
-# Client side
-
-* Habitat completed
 * onboarding document: _ Espace entre contacts et partenaires
                        _ date de naissance avec heure pas necessaire
                        _ inversement de contact et parteniare
                        _ Exterieur : types de places
                        _ Equipement de proximite dans Exterieur
                        _ Bordure bien net des carres
+* mail, les space between body and signature
+* block download document button
+
+## TODO
+
+# Client side
+
+* transmission du dossier au CA de Viager Swiss SA (en 2eme)
+* scroll inertia
+* login popup when changing screen
+* Habitat completed
+* corect text input color
 
 ++ timeout for connection (3h)
 ++ position Title in error header
 
 # Server side
 
-* mail, les space between body and signature
 * new password mail: change subject, remove the second "equipe viage"
 
 ++ Excel documents for advisors 
