@@ -86,8 +86,7 @@ ApplicationWindow {
         clip: true
         fillMode: Image.PreserveAspectCrop
 
-        onStatusChanged: if (status === Image.Ready)
-                             logginDialog.open()
+        Component.onCompleted: logginDialog.open()
     }
 
     ExceptionDialog { id: exceptionDialog }

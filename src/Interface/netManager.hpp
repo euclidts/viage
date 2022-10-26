@@ -40,7 +40,8 @@ class netManager final : public QNetworkAccessManager
                       const std::function<void (bool, const QString &)> &callback,
                       const std::function<void (qint64, qint64)>& onProgress = [](qint64 byteSent, qint64 totalBytes){});
     void getFromKey(const char* key,
-                    const std::function<void (const QByteArray &)> &callback);
+                    const std::function<void (const QByteArray &)> &callback,
+                    const char* params = "");
     void putToKey(const char* key,
                   const QByteArray& data,
                   const std::function<void (const QJsonObject &)> &callback,
@@ -75,7 +76,7 @@ class netManager final : public QNetworkAccessManager
                      const QString& errorPrefix,
                      const std::function<void ()>& errorCallback = [](){});
 
-    void setRequest(const char* key);
+    void setRequest(const char* key, const char* params = "");
 
     bool authenticating{false};
 };

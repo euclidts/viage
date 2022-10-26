@@ -146,7 +146,7 @@ void bridge::requestReport()
     });
 }
 
-void bridge::requestDocument()
+void bridge::requestAccount()
 {
     std::string str{"accounts/"};
     str.append(std::to_string(accountId));
@@ -166,12 +166,12 @@ void bridge::requestDocument()
         if (success)
         {
             if (!QDesktopServices::openUrl(path))
-                onException("requestDocument error", "QDesktopervices : could not open pdf");
+                onException("requestAccount error", "QDesktopervices : could not open pdf");
             else
                 emit loaded();
         }
         else
-            onException("requestDocument error", error);
+            onException("requestAccount error", error);
 
     setDownloadProgress(-1.f);
     },
@@ -180,6 +180,25 @@ void bridge::requestDocument()
         setDownloadProgress((byteSent / 1024.) / (totalbytes / 1024.));
         qDebug() << (byteSent / 1024.) / (totalbytes / 1024.);
     });
+}
+
+void bridge::requestEmail()
+{
+    std::string str{"accounts/"};
+    str.append(std::to_string(accountId));
+    str.append("/email");
+
+    std::string params{"&forceRefreshPdf=True"};
+
+    mng->getFromKey(str.c_str(),
+                    [this] (const QByteArray& rep)
+    {
+        const auto json{QJsonDocument::fromJson(rep).object()};
+        if (json.contains("success"))
+            if (!json["success"].toBool())
+                onException("requestAccount error", json["errorString"].toString());
+    },
+    params.c_str());
 }
 
 void bridge::updatePwd(const QString &newPwd) const

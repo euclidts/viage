@@ -134,7 +134,7 @@ void netManager::downloadFile(const char* key,
 }
 
 void netManager::getFromKey(const char* key,
-                            const std::function<void (const QByteArray &)> &callback)
+                            const std::function<void (const QByteArray &)> &callback, const char *params)
 {
     setRequest(key);
     auto* reply = get(rqst);
@@ -218,9 +218,9 @@ void netManager::setCallback(QNetworkReply* reply,
     });
 }
 
-void netManager::setRequest(const char* key)
+void netManager::setRequest(const char* key, const char * params)
 {
-    QUrl url{prefix + key + '?' + suffix};
+    QUrl url{prefix + key + '?' + suffix + params};
     rqst.setUrl(url);
 }
 

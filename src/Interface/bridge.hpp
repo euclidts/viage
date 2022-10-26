@@ -56,8 +56,11 @@ public:
     void requestReport();
     W_INVOKABLE(requestReport)
 
-    void requestDocument();
-    W_INVOKABLE(requestDocument)
+    void requestAccount();
+    W_INVOKABLE(requestAccount)
+
+    void requestEmail();
+    W_INVOKABLE(requestEmail)
 
     void updatePwd(const QString& newPwd) const;
     W_INVOKABLE(updatePwd)

@@ -37,7 +37,7 @@ RowLayout {
                   qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"
         onClicked: if (accountsPages.currentIndex === 6)
-                       bridge.requestDocument()
+                       bridge.requestAccount()
                    else if (rootStack.currentIndex === 2)
                        rent.writeToFile()
                    else
@@ -78,7 +78,6 @@ RowLayout {
         visible: rootStack.currentIndex === 1
                  && usersPages.currentIndex === 0
         icon.source: "qrc:/icons/plus.svg"
-
         onClicked: onExceptionAction(text,
                                      "Êtes-vous sûr de vouloir ajouter un nouveau conseiller",
                                      () => {
@@ -150,5 +149,18 @@ RowLayout {
                        users.validate(selectedUser.filterRole)
                        usersPages.currentIndex = 0
                    }
+    }
+
+    MaterialButton {
+        id: emailButton
+        visible: (rootStack.currentIndex === 0
+                  && accountsPages.currentIndex === 6)
+                 && bridge.clearance === 4
+        text: qsTr("eMail")
+        icon.source: "qrc:/icons/arrow-right.svg"
+        onClicked: onExceptionAction(text,
+                                     "Êtes-vous sûr de vouloir régénérer le document d'ouverture de dossier, et de le renvoyer par eMial ?",
+                                     () => { bridge.requestEmail() }
+                                     , true)
     }
 }

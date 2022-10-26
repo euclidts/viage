@@ -46,7 +46,7 @@ ItemDelegate {
                     if (model.state === 31)
                         return qsTr("Complet")
                     else
-                        for (var i = 0; i < 11; i++) {
+                        for (var i = 0; i < 12; i++) {
                             if (!bridge.hasFlag(model.state, Math.pow(2, i)))
                                 return stateNames[i]
                         }
