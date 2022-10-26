@@ -72,16 +72,16 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
 {
     if (sortRole() == 0)
     {
-        const auto leftData{sourceModel()->data(left, account_item::CreatedRole)};
-        const auto rightData{sourceModel()->data(right, account_item::CreatedRole)};
+        const auto leftData{sourceModel()->data(left, account_item::ModifiedRole)};
+        const auto rightData{sourceModel()->data(right, account_item::ModifiedRole)};
 
         return leftData.toDateTime() > rightData.toDateTime(); // invert order when sorting by date
     }
 
     if (sortRole() == 1)
     {
-        const auto leftData{sourceModel()->data(left, account_item::ModifiedRole)};
-        const auto rightData{sourceModel()->data(right, account_item::ModifiedRole)};
+        const auto leftData{sourceModel()->data(left, account_item::CreatedRole)};
+        const auto rightData{sourceModel()->data(right, account_item::CreatedRole)};
 
         return leftData.toDateTime() > rightData.toDateTime(); // invert order when sorting by date
     }

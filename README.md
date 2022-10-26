@@ -22,21 +22,28 @@
                        _ Bordure bien net des carres
 * mail, les space between body and signature
 * block download document button
+* transmission du dossier au CA de Viager Swiss SA (en 2eme)
+* last modification on top of the filter list
+* corect text input color
 
 ## TODO
 
 # Client side
 
-* transmission du dossier au CA de Viager Swiss SA (en 2eme)
 * scroll inertia
 * login popup when changing screen
 * Habitat completed
-* corect text input color
 
 ++ timeout for connection (3h)
 ++ position Title in error header
 
 # Server side
+
+* notify unique download in the onboarding mail
+* last modification on top of the filter list
+* order of items in exterior on the onboarding document
+* enfants on the onboarding document 
+* equiment de proximite stacked verticaly on the onborading document
 
 * new password mail: change subject, remove the second "equipe viage"
 

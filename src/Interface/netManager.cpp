@@ -108,6 +108,13 @@ void netManager::downloadFile(const char* key,
     setCallback(reply,
                 [path, callback](const QByteArray& bytes)
     {
+        if (bytes.isValidUtf8())
+        {
+            qDebug() << QString(bytes);
+            callback(false, QString(bytes));
+            return;
+        }
+
         QSaveFile file(path);
         if (file.open(QIODevice::WriteOnly))
         {

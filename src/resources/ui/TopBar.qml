@@ -21,14 +21,14 @@ RowLayout {
         Layout.rightMargin: -12
 
         property var accountFilters: bridge.clearance === 4
-                                     ? [qsTr("Création"),
-                                        qsTr("Dernière modification"),
+                                     ? [qsTr("Dernière modification"),
+                                        qsTr("Création"),
                                         qsTr("Acronyme"),
                                         qsTr("Partenaire"),
                                         qsTr("Conseiller"),
                                         qsTr("Société")]
-                                     : [qsTr("Création"),
-                                        qsTr("Dernière modification"),
+                                     : [qsTr("Dernière modification"),
+                                        qsTr("Création"),
                                         qsTr("Acronyme"),
                                         qsTr("Partenaire")]
 
