@@ -142,7 +142,13 @@ DuckX: github.com/amiremohamadi/DuckX
 MIT License
 
 CMake: cmake.org
-BSD 3-clause License"
+BSD 3-clause License
+
+Font Awsome (free): fontawesome.com
+MIT License
+
+Backdrop Image by Gustave Deghilage: gdeghilage.photo
+Creative Commons"
                     }
                 }
             }

@@ -157,9 +157,9 @@ RowLayout {
                   && accountsPages.currentIndex === 6)
                  && bridge.clearance === 4
         text: qsTr("eMail")
-        icon.source: "qrc:/icons/arrow-right.svg"
+        icon.source: "qrc:/icons/arrows-rotate.svg"
         onClicked: onExceptionAction(text,
-                                     "Êtes-vous sûr de vouloir régénérer le document d'ouverture de dossier, et de le renvoyer par eMial ?",
+                                     "Êtes-vous sûr de vouloir régénérer le document d'ouverture de dossier, et de le renvoyer par eMail ?",
                                      () => { bridge.requestEmail() }
                                      , true)
     }

@@ -248,13 +248,13 @@ void habitat_item::setM3s(int newM3s)
 
 void habitat_item::checkCompleted()
 {
-    if (!address.is_completed())
+    if (habitatType == habitatTypes::None)
     {
         setCompleted(false);
         return;
     }
 
-    if (habitatType == None)
+    if (!address.is_completed())
     {
         setCompleted(false);
         return;

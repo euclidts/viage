@@ -25,13 +25,13 @@
 * transmission du dossier au CA de Viager Swiss SA (en 2eme)
 * last modification on top of the filter list
 * corect text input color
+* login popup when changing screen
 
 ## TODO
 
 # Client side
 
 * scroll inertia
-* login popup when changing screen
 * Habitat completed
 
 ++ timeout for connection (3h)
