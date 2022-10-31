@@ -71,28 +71,35 @@ ScrollView {
                 DocumentListView {
                     id: jobs
                     name: qsTr("Descriptif / justificatifs des travaux des 5 dernières années")
-                    documentCategory: 256
+                    documentCategory: 512
                     documentsFrom: documents
                 }
 
                 DocumentListView {
                     id: calculation
                     name: qsTr("Cacul du droit d'habitation")
-                    documentCategory: 1024
+                    documentCategory: 2048
+                    documentsFrom: documents
+                }
+
+                DocumentListView {
+                    id: lucidity
+                    name: qsTr("Certificat médical de lucidité")
+                    documentCategory: 128
                     documentsFrom: documents
                 }
 
                 DocumentListView {
                     id: futurs
                     name: qsTr("Descriptif des travaux à prévoir / devis")
-                    documentCategory: 512
+                    documentCategory: 1024
                     documentsFrom: documents
                 }
 
                 DocumentListView {
                     id: beb
                     name: qsTr("Cas échéant / police détaillée de l’établissement ou le BEB")
-                    documentCategory: 128
+                    documentCategory: 256
                     documentsFrom: documents
                 }
             }

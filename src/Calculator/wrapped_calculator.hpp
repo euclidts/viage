@@ -1,6 +1,8 @@
 #ifndef WRAPPED_CALCULATOR_HPP
 #define WRAPPED_CALCULATOR_HPP
 
+#include <duckx.hpp>
+
 #include <base_wrapper.hpp>
 #include <Lists/simple_item_list.hpp>
 #include <Items/senior_citizen_item.hpp>
@@ -30,6 +32,12 @@ private:
 
     void calculate_rent();
     void write_to_file();
+
+    void end_runs(duckx::Run& run);
+    void skip_paragraphs(duckx::Paragraph& paragraphs, int n_skiped);
+    void skip_runs(duckx::Run& runs, int n_skiped);
+    void print_runs(duckx::Run& runs);
+    void print_duckx();
 };
 }
 
