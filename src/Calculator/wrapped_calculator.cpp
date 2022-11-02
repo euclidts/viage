@@ -99,7 +99,7 @@ void wrapped_calculator::write_to_file()
         ru.set_text(sex.toStdString());
         skip_runs(ru, 2);
 
-        ru.set_text("………………………………………………………");
+        ru.set_text("……………………………………………………………");
         ru.next();
 
         str = partner.birthDay.toString("dd/MM/yyyy");

@@ -173,7 +173,7 @@ void bridge::requestAccount()
         else
             onException("requestAccount error", error);
 
-    setDownloadProgress(-1.f);
+        setDownloadProgress(-1.f);
     },
     [this](qint64 byteSent, qint64 totalbytes)
     {
@@ -365,7 +365,7 @@ void bridge::check_doc_completion()
 
     for (const auto& doc : docs->items())
     {
-        if (doc.state == Data::document_item::NotUploded)
+        if (doc.state != document_item::Uploaded)
         {
             uploaded = false;
             break;
