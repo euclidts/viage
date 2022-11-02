@@ -248,6 +248,18 @@ RowLayout {
 
                 Connections {
                     target: bridge
+                    function onAccountIdChanged () {
+
+                        if (bridge.accountState == 0)
+                            if (bridge.clearance < 4)
+                                stateButton.visible = false
+                            else
+                                stateButton.visible = true
+                    }
+                }
+
+                Connections {
+                    target: bridge
                     function onAccountStateChanged () {
 
                         if (bridge.accountHasFlag(16) && bridge.clearance < 4) {
