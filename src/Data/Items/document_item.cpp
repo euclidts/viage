@@ -70,7 +70,7 @@ void document_item::setData(const QVariant &value, int role)
 }
 
 void document_item::read(const QJsonObject& json)
-{
+{    
     if (json.contains("category") && json["category"].isDouble())
         category = categories(json["category"].toInt());
 
@@ -83,13 +83,28 @@ void document_item::read(const QJsonObject& json)
             uploadDate = QDate::fromString(json["uploadDate"].toString(), "jj.MM.yyyy");
     }
 
+    bool name_and_extension{false};
+
+    if (json.contains("fileName") && json["fileName"].isString())
+    {
+        fileName = json["fileName"].toString();
+        name_and_extension = true;
+    }
+
+    if (json.contains("extension") && json["extension"].isString())
+    {
+        extension = json["extension"].toString();
+        name_and_extension = name_and_extension && true;
+    }
+
     if (json.contains("localPath") && json["localPath"].isString())
         QUrl url{json["relativePath"].toString()};
 
     if (json.contains("relativePath") && json["relativePath"].isString())
         relativePath = json["relativePath"].toString();
 
-    setFileInfo();
+    if (!name_and_extension)
+        setFileInfo();
 
     if (json.contains("id") && json["id"].isDouble())
         id = json["id"].toInt();
