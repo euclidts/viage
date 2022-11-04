@@ -109,7 +109,7 @@ ScrollView {
 
                             IntChooser {
                                 name: qsTr("M2 Disponibles")
-                                minimum: 1
+                                minimum: 0
                                 maximum: 1000
                                 numberOf: habitat.m2Available
                                 onEdit: function(val) { habitat.m2Available = val }

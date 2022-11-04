@@ -41,8 +41,8 @@ void habitat_item::read(const QJsonObject& json)
     if (json.contains("m2Constructed") && json["m2Constructed"].isDouble())
         setM2Constructed(json["m2Constructed"].toInt());
 
-    if (json.contains("m2available") && json["m2available"].isDouble())
-        setM2Available(json["m2available"].toInt());
+    if (json.contains("m2Available") && json["m2Available"].isDouble())
+        setM2Available(json["m2Available"].toInt());
 
     if (json.contains("m3s") && json["m3s"].isDouble())
         setM3s(json["m3s"].toInt());

@@ -163,7 +163,7 @@ ScrollView {
                             IntChooser {
                                 name: qsTr("Surface (m2)")
                                 minimum: 1
-                                maximum: 2000
+                                maximum: 20000
                                 numberOf: exterior.terrainSurface
                                 onEdit: function(val) { exterior.terrainSurface = val }
                             }
