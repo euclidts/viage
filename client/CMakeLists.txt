@@ -49,12 +49,30 @@ set(PROJECT_SOURCES
     Interface/bridge.cpp
     Interface/netManager.cpp
     Interface/netManager.hpp
-    ../src/Data/base_data.hpp
-    ../src/Data/base_data.cpp
     Wrapper/base_wrapper.hpp
     Wrapper/wrapped_list.hpp
     Wrapper/wrapped_nested_item.hpp
     Wrapper/wrapped_nested_list.hpp
+    Model/base_model.hpp
+    Model/list_model.hpp
+    Model/base_filter_model.hpp
+    Model/base_filter_model.cpp
+    Model/account_filter_model.hpp
+    Model/account_filter_model.cpp
+    Model/document_filter_model.hpp
+    Model/document_filter_model.cpp
+    Model/user_filter_model.hpp
+    Model/user_filter_model.cpp
+    resources/viage.qrc
+    ${ALT_QRC}
+    ${TS_FILES}
+    # yet to be compiled seperaly as a library
+    ../src/Data/base_data.hpp
+    ../src/Data/base_data.cpp
+    ../src/Calculator/life_expectency.hpp
+    ../src/Calculator/life_expectency.cpp
+    ../src/Calculator/wrapped_calculator.hpp
+    ../src/Calculator/wrapped_calculator.cpp
     ../src/Data/Item/base_item.hpp
     ../src/Data/Item/base_item.cpp
     ../src/Data/Item/address_item.hpp
@@ -88,24 +106,7 @@ set(PROJECT_SOURCES
     ../src/Data/Item/team_item.cpp
     ../src/Data/List/base_list.hpp
     ../src/Data/List/simple_item_list.hpp
-    ../src/Data/List/item_list.hpp
-    Model/base_model.hpp
-    Model/list_model.hpp
-    Model/base_filter_model.hpp
-    Model/base_filter_model.cpp
-    Model/account_filter_model.hpp
-    Model/account_filter_model.cpp
-    Model/document_filter_model.hpp
-    Model/document_filter_model.cpp
-    Model/user_filter_model.hpp
-    Model/user_filter_model.cpp
-    ../src/Calculator/life_expectency.hpp
-    ../src/Calculator/life_expectency.cpp
-    ../src/Calculator/wrapped_calculator.hpp
-    ../src/Calculator/wrapped_calculator.cpp
-    resources/viage.qrc
-    ${ALT_QRC}
-    ${TS_FILES})
+    ../src/Data/List/item_list.hpp)
 
 include_directories(SYSTEM
     "${DATA_FOLDER}"
@@ -122,54 +123,55 @@ add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
 
 set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.rc")
 
-qt_add_executable(client
+qt_add_executable(viage
     WIN32 ${app_icon_resource_windows}
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES})
 
 if(ANDROID)
     # Define target properties for Android with Qt 6 as:
-    set_property(TARGET client APPEND PROPERTY
+    set_property(TARGET viage APPEND PROPERTY
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
     # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 endif()
 
-qt_add_translations(client TS_FILES ${TS_FILES})
+qt_add_translations(viage TS_FILES ${TS_FILES})
 
-target_compile_definitions(client
+target_compile_definitions(viage
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries(client PRIVATE
+target_link_libraries(viage PRIVATE
     Qt6::Core
     Qt6::Quick
     Qt6::Svg
-    Qt6::Multimedia)
+    Qt6::Multimedia
+    ${JSONCPP_LIBRARIES})
 
 if(UNIX OR MINGW)
-    target_link_libraries(client PRIVATE ${CMAKE_BINARY_DIR}/3rdparty/DuckX/libduckx.a)
+    target_link_libraries(viage PRIVATE ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.a)
 elseif()
-    target_link_libraries(client PRIVATE ${CMAKE_BINARY_DIR}/3rdparty/DuckX/libduckx.lib)
+    target_link_libraries(viage PRIVATE ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.lib)
 endif()
 
-#set_target_properties(client PROPERTIES
+#set_target_properties(viage PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
 #    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
 #    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 #    )
 
-qt_import_qml_plugins(client)
+qt_import_qml_plugins(viage)
 
-qt_finalize_executable(client)
+qt_finalize_executable(viage)
 
 # Installer setup copyed from
 # https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeList.txt
 
 if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(COMPONENT_NAME_MAIN "client")
+    set(COMPONENT_NAME_MAIN "viage")
     set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
     include(GNUInstallDirs)
-    install(TARGETS client DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${COMPONENT_NAME_MAIN})
+    install(TARGETS viage DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${COMPONENT_NAME_MAIN})
 
     if(MINGW)
         message(STATUS "Installing system-libraries: MinGW DLLs.")
@@ -185,9 +187,9 @@ if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
     include(InstallRequiredSystemLibraries)
 
     set(CPACK_GENERATOR "IFW")
-    set(CPACK_IFW_PACKAGE_NAME "client")
-    set(CPACK_IFW_PACKAGE_TITLE "client")
-    set(CPACK_IFW_PACKAGE_PUBLISHER "client")
+    set(CPACK_IFW_PACKAGE_NAME "viage")
+    set(CPACK_IFW_PACKAGE_TITLE "viage")
+    set(CPACK_IFW_PACKAGE_PUBLISHER "viage")
     set(CPACK_IFW_PACKAGE_WIZARD_STYLE "Classic")
     set(CPACK_IFW_PACKAGE_WIZARD_SHOW_PAGE_LIST OFF)
 
@@ -204,8 +206,8 @@ if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
                 COMPONENT ${COMPONENT_NAME_MAIN})
         endif()
 
-        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/clientLogo.ico")
-        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/clientLogo.ico")
+        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/viageLogo.ico")
+        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/viageLogo.ico")
         set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake)
     endif()
 

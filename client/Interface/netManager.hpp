@@ -1,6 +1,8 @@
 #ifndef NETMANAGER_HPP
 #define NETMANAGER_HPP
 
+#include <json/json.h>
+
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QSslConfiguration>

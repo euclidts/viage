@@ -68,26 +68,28 @@ void netManager::authenticate(const QString& username,
         else
         {
             const auto res = reply->readAll();
-            const auto json = QJsonDocument::fromJson(res).object();
+            Json::Value json;
+            Json::Reader reader;
+            reader.parse(res.toStdString(), json);
 
-            if (json.contains("sessionId"))
+            if (json.isMember("sessionId"))
             {
                 if (authenticating)
                 {
                     authenticating = false;
 
-                    if (json.contains("sessionId") && json["sessionId"].isString())
+                    if (json.isMember("sessionId") && json["sessionId"].isString())
                     {
-                        const auto str{json["sessionId"].toString()};
+                        const auto str{json["sessionId"].asString()};
                         rqst.setRawHeader("sessionId",
-                                          QByteArray::fromStdString(str.toStdString()));
+                                          QByteArray::fromStdString(str));
                     }
 
-                    if (json.contains("id") && json["id"].isDouble())
-                        emit userChanged(json["id"].toInt());
+                    if (json.isMember("id") && json["id"].isDouble())
+                        emit userChanged(json["id"].asInt());
 
-                    if (json.contains("clearance") && json["clearance"].isDouble())
-                        emit clearanceChanged(json["clearance"].toInt());
+                    if (json.isMember("clearance") && json["clearance"].isDouble())
+                        emit clearanceChanged(json["clearance"].asInt());
 
                     emit loggedIn(true);
                 }
