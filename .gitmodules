@@ -1,0 +1,9 @@
+[submodule "client/3rdparty/verdigris"]
+	path = client/3rdparty/verdigris
+	url = https://github.com/woboq/verdigris.git
+[submodule "client/3rdparty/DuckX"]
+	path = client/3rdparty/DuckX
+	url = https://github.com/amiremohamadi/DuckX.git
+[submodule "client/3rdparty/android_openssl"]
+	path = client/3rdparty/android_openssl
+	url = https://github.com/KDAB/android_openssl.git

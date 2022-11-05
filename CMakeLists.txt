@@ -8,6 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(DATA_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Data")
 set(CALCULATOR_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Calculator")
 
-#target_include_directories(src)
+#add_library(src)
 
 add_subdirectory(client)

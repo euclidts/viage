@@ -5,6 +5,7 @@ set(CMAKE_AUTORCC ON)
 set(3RDPARTY_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty")
 set(WRAPPER_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Wrapper")
 set(INTERFACE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Interface")
+set(MODEL_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Model")
 
 if(ANDROID)
     file(COPY
@@ -54,50 +55,50 @@ set(PROJECT_SOURCES
     Wrapper/wrapped_list.hpp
     Wrapper/wrapped_nested_item.hpp
     Wrapper/wrapped_nested_list.hpp
-    ../src/Data/Items/base_item.hpp
-    ../src/Data/Items/base_item.cpp
-    ../src/Data/Items/address_item.hpp
-    ../src/Data/Items/address_item.cpp
-    ../src/Data/Items/person_item.hpp
-    ../src/Data/Items/person_item.cpp
-    ../src/Data/Items/senior_citizen_item.hpp
-    ../src/Data/Items/senior_citizen_item.cpp
-    ../src/Data/Items/user_item.hpp
-    ../src/Data/Items/user_item.cpp
-    ../src/Data/Items/infant_item.hpp
-    ../src/Data/Items/infant_item.cpp
-    ../src/Data/Items/contact_item.hpp
-    ../src/Data/Items/contact_item.cpp
-    ../src/Data/Items/person_item.cpp
-    ../src/Data/Items/owner_item.hpp
-    ../src/Data/Items/owner_item.cpp
-    ../src/Data/Items/habitat_item.hpp
-    ../src/Data/Items/habitat_item.cpp
-    ../src/Data/Items/exterior_item.hpp
-    ../src/Data/Items/exterior_item.cpp
-    ../src/Data/Items/document_item.hpp
-    ../src/Data/Items/document_item.cpp
-    ../src/Data/Items/account_item.hpp
-    ../src/Data/Items/account_item.cpp
-    ../src/Data/Items/rent_item.hpp
-    ../src/Data/Items/rent_item.cpp
-    ../src/Data/Items/company_item.hpp
-    ../src/Data/Items/company_item.cpp
-    ../src/Data/Items/team_item.hpp
-    ../src/Data/Items/team_item.cpp
-    ../src/Data/Lists/base_list.hpp
-    ../src/Data/Lists/simple_item_list.hpp
-    ../src/Data/Lists/item_list.hpp
-    ../src/Data/Models/base_model.hpp
-    ../src/Data/Models/list_model.hpp
-    ../src/Data/Models/base_filter_model.hpp
-    ../src/Data/Models/base_filter_model.cpp
-    ../src/Data/Models/account_filter_model.hpp
-    ../src/Data/Models/account_filter_model.cpp
-    ../src/Data/Models/document_filter_model.hpp
-    ../src/Data/Models/document_filter_model.cpp
-    ../src/Data/Models/user_filter_model.hpp
-    ../src/Data/Models/user_filter_model.cpp
+    ../src/Data/Item/base_item.hpp
+    ../src/Data/Item/base_item.cpp
+    ../src/Data/Item/address_item.hpp
+    ../src/Data/Item/address_item.cpp
+    ../src/Data/Item/person_item.hpp
+    ../src/Data/Item/person_item.cpp
+    ../src/Data/Item/senior_citizen_item.hpp
+    ../src/Data/Item/senior_citizen_item.cpp
+    ../src/Data/Item/user_item.hpp
+    ../src/Data/Item/user_item.cpp
+    ../src/Data/Item/infant_item.hpp
+    ../src/Data/Item/infant_item.cpp
+    ../src/Data/Item/contact_item.hpp
+    ../src/Data/Item/contact_item.cpp
+    ../src/Data/Item/person_item.cpp
+    ../src/Data/Item/owner_item.hpp
+    ../src/Data/Item/owner_item.cpp
+    ../src/Data/Item/habitat_item.hpp
+    ../src/Data/Item/habitat_item.cpp
+    ../src/Data/Item/exterior_item.hpp
+    ../src/Data/Item/exterior_item.cpp
+    ../src/Data/Item/document_item.hpp
+    ../src/Data/Item/document_item.cpp
+    ../src/Data/Item/account_item.hpp
+    ../src/Data/Item/account_item.cpp
+    ../src/Data/Item/rent_item.hpp
+    ../src/Data/Item/rent_item.cpp
+    ../src/Data/Item/company_item.hpp
+    ../src/Data/Item/company_item.cpp
+    ../src/Data/Item/team_item.hpp
+    ../src/Data/Item/team_item.cpp
+    ../src/Data/List/base_list.hpp
+    ../src/Data/List/simple_item_list.hpp
+    ../src/Data/List/item_list.hpp
+    Model/base_model.hpp
+    Model/list_model.hpp
+    Model/base_filter_model.hpp
+    Model/base_filter_model.cpp
+    Model/account_filter_model.hpp
+    Model/account_filter_model.cpp
+    Model/document_filter_model.hpp
+    Model/document_filter_model.cpp
+    Model/user_filter_model.hpp
+    Model/user_filter_model.cpp
     ../src/Calculator/life_expectency.hpp
     ../src/Calculator/life_expectency.cpp
     ../src/Calculator/wrapped_calculator.hpp
@@ -108,6 +109,7 @@ set(PROJECT_SOURCES
 
 include_directories(SYSTEM
     "${DATA_FOLDER}"
+    "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"
     "${CALCULATOR_FOLDER}"
@@ -160,7 +162,7 @@ qt_import_qml_plugins(client)
 qt_finalize_executable(client)
 
 # Installer setup copyed from
-# https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeLists.txt
+# https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeList.txt
 
 if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
     set(COMPONENT_NAME_MAIN "client")

@@ -10,19 +10,19 @@
 #include <netManager.hpp>
 #include <bridge.hpp>
 #include <wrapped_nested_list.hpp>
-#include <Models/list_model.hpp>
-#include <Models/account_filter_model.hpp>
-#include <Models/user_filter_model.hpp>
-#include <Models/document_filter_model.hpp>
-#include <Items/user_item.hpp>
-#include <Items/company_item.hpp>
-#include <Items/team_item.hpp>
-#include <Items/account_item.hpp>
-#include <Items/owner_item.hpp>
-#include <Items/contact_item.hpp>
-#include <Items/habitat_item.hpp>
-#include <Items/exterior_item.hpp>
-#include <Items/document_item.hpp>
+#include <list_model.hpp>
+#include <account_filter_model.hpp>
+#include <user_filter_model.hpp>
+#include <document_filter_model.hpp>
+#include <Item/user_item.hpp>
+#include <Item/company_item.hpp>
+#include <Item/team_item.hpp>
+#include <Item/account_item.hpp>
+#include <Item/owner_item.hpp>
+#include <Item/contact_item.hpp>
+#include <Item/habitat_item.hpp>
+#include <Item/exterior_item.hpp>
+#include <Item/document_item.hpp>
 #include <wrapped_calculator.hpp>
 
 int main(int argc, char* argv[])

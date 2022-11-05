@@ -3,9 +3,9 @@
 #include <wobjectimpl.h>
 
 #include "bridge.hpp"
-#include <Items/document_item.hpp>
-#include <Items/account_item.hpp>
-#include <Lists/item_list.hpp>
+#include <Item/document_item.hpp>
+#include <Item/account_item.hpp>
+#include <List/item_list.hpp>
 
 namespace Interface
 {

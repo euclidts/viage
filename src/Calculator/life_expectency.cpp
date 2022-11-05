@@ -2,8 +2,8 @@
 #include <QFile>
 
 #include "life_expectency.hpp"
-#include <Lists/simple_item_list.hpp>
-#include <Items/senior_citizen_item.hpp>
+#include <List/simple_item_list.hpp>
+#include <Item/senior_citizen_item.hpp>
 
 #define OMEGA 125
 

@@ -9,8 +9,8 @@
 
 #include "netManager.hpp"
 
-#include <Items/user_item.hpp>
-#include <Items/document_item.hpp>
+#include <Item/user_item.hpp>
+#include <Item/document_item.hpp>
 
 namespace Data
 {

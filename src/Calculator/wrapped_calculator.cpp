@@ -6,7 +6,7 @@
 #include <QFile>
 
 #include "wrapped_calculator.hpp"
-#include <Items/rent_item.hpp>
+#include <Item/rent_item.hpp>
 
 namespace Calculator
 {

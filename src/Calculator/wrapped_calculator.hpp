@@ -4,8 +4,8 @@
 #include <duckx.hpp>
 
 #include <base_wrapper.hpp>
-#include <Lists/simple_item_list.hpp>
-#include <Items/senior_citizen_item.hpp>
+#include <List/simple_item_list.hpp>
+#include <Item/senior_citizen_item.hpp>
 #include "life_expectency.hpp"
 
 namespace Data
