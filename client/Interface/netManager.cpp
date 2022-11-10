@@ -1,7 +1,5 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include <QJsonDocument>
-#include <QJsonObject>
 
 #include <wobjectimpl.h>
 
@@ -40,6 +38,8 @@ netManager::netManager(const QString& url,
     });
 }
 
+using namespace Json;
+
 void netManager::authenticate(const QString& username,
                               const QString& password)
 {
@@ -68,8 +68,8 @@ void netManager::authenticate(const QString& username,
         else
         {
             const auto res = reply->readAll();
-            Json::Value json;
-            Json::Reader reader;
+            Value json;
+            Reader reader;
             reader.parse(res.toStdString(), json);
 
             if (json.isMember("sessionId"))
@@ -145,7 +145,7 @@ void netManager::getFromKey(const char* key,
 
 void netManager::putToKey(const char* key,
                           const QByteArray& data,
-                          const std::function<void (const QJsonObject &)>& callback,
+                          const std::function<void (const Value &)>& callback,
                           const QString& errorPrefix,
                           const std::function<void ()>& errorCallback,
                           const std::function<void (qint64, qint64)>& onProgress)
@@ -161,7 +161,7 @@ void netManager::putToKey(const char* key,
 
 void netManager::postToKey(const char* key,
                            const QByteArray &data,
-                           const std::function<void (const QJsonObject &)> &callback,
+                           const std::function<void (const Value &)> &callback,
                            const QString& errorPrefix)
 {
     setRequest(key);
@@ -171,7 +171,7 @@ void netManager::postToKey(const char* key,
 
 void netManager::deleteToKey(const char *key,
                              const QByteArray &data,
-                             const std::function<void (const QJsonObject &)> &callback,
+                             const std::function<void (const Value &)> &callback,
                              const QString& errorPrefix)
 {
     setRequest(key);
@@ -180,7 +180,7 @@ void netManager::deleteToKey(const char *key,
 }
 
 void netManager::setCallback(QNetworkReply* reply,
-                             const std::function<void (const QJsonObject &)> &callback,
+                             const std::function<void (const Value &)> &callback,
                              const QString& errorPrefix,
                              const std::function<void ()>& errorCallback)
 {
@@ -188,14 +188,18 @@ void netManager::setCallback(QNetworkReply* reply,
             this,
             [reply, callback, errorPrefix, errorCallback, this]()
     {
-        const auto json{QJsonDocument::fromJson(reply->readAll()).object()};
-        if (json.contains("success"))
+        const auto res = reply->readAll();
+        Value json;
+        Reader reader;
+        reader.parse(res.toStdString(), json);
+
+        if (json.isMember("success"))
         {
-            if (json["success"].toBool())
+            if (json["success"].asBool())
                 callback(json);
             else
             {
-                emit replyError(errorPrefix, json["errorMessage"].toString());
+                emit replyError(errorPrefix, QString::fromStdString(json["errorMessage"].asString()));
                 errorCallback();
             }
         }

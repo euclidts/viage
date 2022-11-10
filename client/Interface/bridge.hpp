@@ -204,7 +204,7 @@ private:
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;
 
-    void changePwd(const char* key, const QJsonObject& json) const;
+    void changePwd(const char* key, const Json::Value& json) const;
 };
 
 }

@@ -6,6 +6,7 @@ set(3RDPARTY_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty")
 set(WRAPPER_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Wrapper")
 set(INTERFACE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Interface")
 set(MODEL_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Model")
+set(CDATA_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/CData")
 
 if(ANDROID)
     file(COPY
@@ -29,91 +30,91 @@ if(ANDROID)
         DESTINATION
         ${CMAKE_BINARY_DIR}/android-build/libs/x86_64)
 
+    find_package(Qt6 REQUIRED COMPONENTS Svg)
+
     set(ALT_QRC "resources/empty.qrc")
 else()
     set(ALT_QRC "resources/complete.qrc")
 endif()
 
 find_package(Qt6 REQUIRED COMPONENTS
-    Core
+#    Core
     Quick
     LinguistTools
-    Multimedia
-    Svg)
+    Multimedia)
 
 set(TS_FILES resources/ts_files/viage_fr_FR.ts)
 
 set(PROJECT_SOURCES
     main.cpp
-    Interface/bridge.hpp
     Interface/bridge.cpp
     Interface/netManager.cpp
-    Interface/netManager.hpp
     Wrapper/base_wrapper.hpp
     Wrapper/wrapped_list.hpp
     Wrapper/wrapped_nested_item.hpp
     Wrapper/wrapped_nested_list.hpp
+    Wrapper/life_expectency.cpp
+    Wrapper/wrapped_calculator.cpp
     Model/base_model.hpp
     Model/list_model.hpp
-    Model/base_filter_model.hpp
     Model/base_filter_model.cpp
-    Model/account_filter_model.hpp
     Model/account_filter_model.cpp
-    Model/document_filter_model.hpp
     Model/document_filter_model.cpp
-    Model/user_filter_model.hpp
     Model/user_filter_model.cpp
+    CData/c_base_data.cpp
+    CData/CList/c_base_list.hpp
+    CData/CList/c_base_list.cpp
+    CData/CList/c_simple_list.hpp
+    CData/CList/c_simple_list.cpp
+    CData/CList/c_list.hpp
+    CData/CList/c_list.cpp
+    CData/CItem/c_address.cpp
+    CData/CItem/c_person.cpp
+    CData/CItem/c_senior_citizen.cpp
+    CData/CItem/c_user.cpp
+    CData/CItem/c_infant.hpp
+    CData/CItem/c_infant.cpp
+    CData/CItem/c_contact.hpp
+    CData/CItem/c_contact.cpp
+    CData/CItem/c_person.cpp
+    CData/CItem/c_owner.hpp
+    CData/CItem/c_owner.cpp
+    CData/CItem/c_habitat.cpp
+    CData/CItem/c_exterior.cpp
+    CData/CItem/c_document.cpp
+    CData/CItem/c_account.cpp
+    CData/CItem/c_rent.cpp
+    CData/CItem/c_company.cpp
+    CData/CItem/c_team.cpp
     resources/viage.qrc
     ${ALT_QRC}
     ${TS_FILES}
+    #${ITEM_SRC}
     # yet to be compiled seperaly as a library
-    ../src/Data/base_data.hpp
-    ../src/Data/base_data.cpp
-    ../src/Calculator/life_expectency.hpp
-    ../src/Calculator/life_expectency.cpp
-    ../src/Calculator/wrapped_calculator.hpp
-    ../src/Calculator/wrapped_calculator.cpp
-    ../src/Data/Item/base_item.hpp
-    ../src/Data/Item/base_item.cpp
-    ../src/Data/Item/address_item.hpp
-    ../src/Data/Item/address_item.cpp
-    ../src/Data/Item/person_item.hpp
-    ../src/Data/Item/person_item.cpp
-    ../src/Data/Item/senior_citizen_item.hpp
-    ../src/Data/Item/senior_citizen_item.cpp
-    ../src/Data/Item/user_item.hpp
-    ../src/Data/Item/user_item.cpp
-    ../src/Data/Item/infant_item.hpp
-    ../src/Data/Item/infant_item.cpp
-    ../src/Data/Item/contact_item.hpp
-    ../src/Data/Item/contact_item.cpp
-    ../src/Data/Item/person_item.cpp
-    ../src/Data/Item/owner_item.hpp
-    ../src/Data/Item/owner_item.cpp
-    ../src/Data/Item/habitat_item.hpp
-    ../src/Data/Item/habitat_item.cpp
-    ../src/Data/Item/exterior_item.hpp
-    ../src/Data/Item/exterior_item.cpp
-    ../src/Data/Item/document_item.hpp
-    ../src/Data/Item/document_item.cpp
-    ../src/Data/Item/account_item.hpp
-    ../src/Data/Item/account_item.cpp
-    ../src/Data/Item/rent_item.hpp
-    ../src/Data/Item/rent_item.cpp
-    ../src/Data/Item/company_item.hpp
-    ../src/Data/Item/company_item.cpp
-    ../src/Data/Item/team_item.hpp
-    ../src/Data/Item/team_item.cpp
-    ../src/Data/List/base_list.hpp
-    ../src/Data/List/simple_item_list.hpp
-    ../src/Data/List/item_list.hpp)
+    ../lib/Data/base_data.cpp
+    ../lib/Data/List/item_list.hpp
+    ../lib/Data/Item/address_item.cpp
+    ../lib/Data/Item/person_item.cpp
+    ../lib/Data/Item/senior_citizen_item.cpp
+    ../lib/Data/Item/user_item.cpp
+    ../lib/Data/Item/infant_item.cpp
+    ../lib/Data/Item/contact_item.cpp
+    ../lib/Data/Item/person_item.cpp
+    ../lib/Data/Item/owner_item.cpp
+    ../lib/Data/Item/habitat_item.cpp
+    ../lib/Data/Item/exterior_item.cpp
+    ../lib/Data/Item/document_item.cpp
+    ../lib/Data/Item/account_item.cpp
+    ../lib/Data/Item/rent_item.cpp
+    ../lib/Data/Item/company_item.cpp
+    ../lib/Data/Item/team_item.cpp)
 
 include_directories(SYSTEM
     "${DATA_FOLDER}"
+    "${CDATA_FOLDER}"
     "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"
-    "${CALCULATOR_FOLDER}"
     "${3RDPARTY_FOLDER}/verdigris/src"
     "${3RDPARTY_FOLDER}/DuckX/include"
     "${3RDPARTY_FOLDER}/DuckX/thirdparty/zip"
@@ -133,6 +134,8 @@ if(ANDROID)
     set_property(TARGET viage APPEND PROPERTY
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
     # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+
+    target_link_libraries(viage PRIVATE Qt6::Svg)
 endif()
 
 qt_add_translations(viage TS_FILES ${TS_FILES})
@@ -141,9 +144,8 @@ target_compile_definitions(viage
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 target_link_libraries(viage PRIVATE
-    Qt6::Core
+#    Qt6::Core
     Qt6::Quick
-    Qt6::Svg
     Qt6::Multimedia
     ${JSONCPP_LIBRARIES})
 

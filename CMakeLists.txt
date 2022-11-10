@@ -10,9 +10,8 @@ pkg_check_modules(JSONCPP jsoncpp)
 link_libraries(${JSONCPP_LIBRARIES})
 include_directories(${JSON_INC_PATH})
 
-set(DATA_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Data")
-set(CALCULATOR_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/src/Calculator")
-
-#add_library(src)
+set(DATA_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/lib/Data")
+#aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/lib/Data/Item" ITEM_CRS)
+#add_library(VIAGE_LIB lib/Data/Item/adress_item.cpp)
 
 add_subdirectory(client)

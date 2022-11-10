@@ -1,0 +1,46 @@
+#ifndef USER_ITEM_HPP
+#define USER_ITEM_HPP
+
+#include "person_item.hpp"
+#include "address_item.hpp"
+
+namespace Data
+{
+namespace People
+{
+struct user_item : virtual public person_item
+{
+    user_item();
+
+    virtual const char* key() const override { return "user"; };
+
+    enum clearances
+    {
+        None,
+        Vendor,
+        Manager,
+        Director,
+        Administrator
+    };
+
+    Places::address_item address;
+    std::string company{""};
+    int company_id{0};
+    clearances clearance{Vendor};
+    std::string team{""};
+    int team_id{0};
+    std::string beneficiary{""};
+    std::string iban{""};
+    std::string bic{""};
+    bool isLocked{false};
+
+    void read(const Json::Value& json);
+    void write(Json::Value& json) const;
+
+    bool is_completed() const;
+};
+
+}
+}
+
+#endif // USER_ITEM_HPP

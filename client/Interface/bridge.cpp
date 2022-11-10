@@ -182,6 +182,8 @@ void bridge::requestAccount()
     });
 }
 
+using namespace Json;
+
 void bridge::requestEmail()
 {
     std::string str{"accounts/"};
@@ -193,50 +195,57 @@ void bridge::requestEmail()
     mng->getFromKey(str.c_str(),
                     [this] (const QByteArray& rep)
     {
-        const auto json{QJsonDocument::fromJson(rep).object()};
-        if (json.contains("success"))
-            if (!json["success"].toBool())
-                onException("requestAccount error", json["errorString"].toString());
+        Value json;
+        Reader reader;
+        reader.parse(rep.toStdString(), json);
+
+        if (json.isMember("success"))
+            if (!json["success"].asBool())
+                onException("requestAccount error",
+                            QString::fromStdString(json["errorString"].asString()));
     },
     params.c_str());
 }
 
-void bridge::updatePwd(const QString &newPwd) const
+void bridge::updatePwd(const QString& newPwd) const
 {
-    const QJsonObject json{{"password", newPwd}};
+    Value json;
+    json["password"] = newPwd.toStdString();
 
     changePwd("changePassword", json);
 }
 
 void bridge::resetPwd(int id) const
 {
-    const QJsonObject json{{ "id", id }};
+    Value json;
+    json["id"] = id;
 
     changePwd("resetPassword", json);
 }
 
-void bridge::changePwd(const char *key, const QJsonObject &json) const
+void bridge::changePwd(const char *key, const Value& json) const
 {
+    Json::StreamWriterBuilder builder;
+
     mng->putToKey(key,
-                  QJsonDocument(json).toJson(),
-                  [this] (const QJsonObject& rep)
+                  QByteArray::fromStdString(writeString(builder, json)),
+                  [this] (const Value& rep)
     { emit loaded(); },
     "changePwd error");
 }
 
 void bridge::lockUser(int id, const bool &locked) const
 {
-    const QJsonObject json{
-        { "id", id },
-        { "lock", locked }
-    };
+    Value json;
+    json["id"] = id;
+    json["lock"] = locked;
+
+    StreamWriterBuilder builder;
 
     mng->putToKey("lock",
-                  QJsonDocument(json).toJson(),
-                  [this] (const QJsonObject& rep)
-    {
-        emit loaded();
-    },
+                  QByteArray::fromStdString(writeString(builder, json)),
+                  [this] (const Value& rep)
+    { emit loaded(); },
     "loackUser error");
 }
 
@@ -248,10 +257,13 @@ void bridge::getAccountDates() const
     mng->getFromKey(key.c_str(),
                     [this] (const QByteArray& rep)
     {
-        const auto json{QJsonDocument::fromJson(rep).object()};
-        if (json.contains("success"))
+        Value json;
+        Reader reader;
+        reader.parse(rep.toStdString(), json);
+
+        if (json.isMember("success"))
         {
-            if (json["success"].toBool())
+            if (json["success"].asBool())
             {
                 auto account{acnts->item_at_id(accountId)};
                 account.read(json);
@@ -267,12 +279,15 @@ void bridge::getAccountDates() const
 
 void bridge::updateState(int newState) const
 {
-    const QJsonObject json{{ "id", accountId },
-                           { "state", accountState + newState }};
+    Json::Value json;
+    json["id"] = accountId;
+    json["state"] = accountState + newState;
+
+    StreamWriterBuilder builder;
 
     mng->putToKey("accountState",
-                  QJsonDocument(json).toJson(),
-                  [this] (const QJsonObject& rep)
+                  QByteArray::fromStdString(writeString(builder, json)),
+                  [this] (const Value& rep)
     {
         auto account{acnts->item_at_id(accountId)};
         account.read(rep);
@@ -430,29 +445,29 @@ void bridge::upload_doc(int index)
             const auto bytes{file.readAll()};
             const auto body{QString(bytes.toBase64())};
 
-            QJsonObject obj{};
-            doc.write(obj);
-            obj["body"] = body;
+            Value json;
+            doc.write(json);
+            json["body"] = body.toStdString();
 
-            QJsonDocument data{obj};
+            StreamWriterBuilder builder;
             int parent_account{accountId};
 
             mng->putToKey(docs->key(),
-                          data.toJson(),
+                          QByteArray::fromStdString(writeString(builder, json)),
                           [this, parent_account, doc]
-                          (const QJsonObject& rep)
+                          (const Value& rep)
                           mutable {
                 auto updated_account{acnts->item_at_id(parent_account)};
 
-                if (rep.contains("document") && rep["document"].isObject())
+                if (rep.isMember("document") && rep["document"].isObject())
                 {
-                    doc.read(rep["document"].toObject());
+                    doc.read(rep["document"]);
                     docs->setItemAtId(doc.id, doc);
                 }
 
-                if (rep.contains("accountState") && rep["accountState"].isDouble())
+                if (rep.isMember("accountState") && rep["accountState"].isInt())
                 {
-                    updated_account.state = Data::account_item::states(rep["accountState"].toInt());
+                    updated_account.state = Data::account_item::states(rep["accountState"].asInt());
                     updated_account.update(docs);
                     acnts->setItemAtId(parent_account, updated_account);
                 }
