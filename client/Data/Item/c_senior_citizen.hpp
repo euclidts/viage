@@ -3,6 +3,7 @@
 
 #include "qnamespace.h"
 #include <Item/senior_citizen_item.hpp>
+#include "c_base_item.hpp"
 
 namespace Data
 {
@@ -13,6 +14,7 @@ namespace People
 #define AGE_MAX 120
 
 struct c_senior_citizen : public senior_citizen_item
+                        , public c_base_item
 {
     c_senior_citizen();
 

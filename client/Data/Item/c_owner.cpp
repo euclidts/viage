@@ -42,14 +42,11 @@ QVariant c_owner::data(int role) const
     switch (role)
     {
     case BirthDayRole:
-    {
-        const auto date{QString::fromStdString(birthDay)};
-        return QDate::fromString(date, "yyyy-MM-dd");
-    }
+        return to_QDate(birthDay, "yyyy-MM-dd");
     case CivilStatusRole:
         return QVariant(civilStatus);
     case AVSRole:
-        return QString::fromStdString(avs);
+        return to_QString(avs);
     }
 
     extra_data = ca.data(role);
@@ -67,16 +64,13 @@ void c_owner::setData(const QVariant &value, int role)
     switch (role)
     {
     case BirthDayRole:
-    {
-        const auto date{value.toDate()};
-        birthDay = date.toString("dd.MM.yyyy").toStdString();
+        birthDay = to_date(value.toDate(), "dd.MM.yyyy");
         break;
-    }
     case CivilStatusRole:
         civilStatus = civilStates(value.toInt());
         break;
     case AVSRole:
-        avs = value.toString().toStdString();
+        avs = to_string(value.toString());
         break;
     }
 

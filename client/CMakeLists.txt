@@ -6,7 +6,7 @@ set(3RDPARTY_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty")
 set(WRAPPER_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Wrapper")
 set(INTERFACE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Interface")
 set(MODEL_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Model")
-set(CDATA_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/CData")
+set(Data_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Data")
 
 if(ANDROID)
     file(COPY
@@ -38,7 +38,7 @@ else()
 endif()
 
 find_package(Qt6 REQUIRED COMPONENTS
-#    Core
+    Core
     Quick
     LinguistTools
     Multimedia)
@@ -61,31 +61,35 @@ set(PROJECT_SOURCES
     Model/account_filter_model.cpp
     Model/document_filter_model.cpp
     Model/user_filter_model.cpp
-    CData/c_base_data.cpp
-    CData/CList/c_base_list.hpp
-    CData/CList/c_base_list.cpp
-    CData/CList/c_simple_list.hpp
-    CData/CList/c_simple_list.cpp
-    CData/CList/c_list.hpp
-    CData/CList/c_list.cpp
-    CData/CItem/c_address.cpp
-    CData/CItem/c_person.cpp
-    CData/CItem/c_senior_citizen.cpp
-    CData/CItem/c_user.cpp
-    CData/CItem/c_infant.hpp
-    CData/CItem/c_infant.cpp
-    CData/CItem/c_contact.hpp
-    CData/CItem/c_contact.cpp
-    CData/CItem/c_person.cpp
-    CData/CItem/c_owner.hpp
-    CData/CItem/c_owner.cpp
-    CData/CItem/c_habitat.cpp
-    CData/CItem/c_exterior.cpp
-    CData/CItem/c_document.cpp
-    CData/CItem/c_account.cpp
-    CData/CItem/c_rent.cpp
-    CData/CItem/c_company.cpp
-    CData/CItem/c_team.cpp
+    Data/c_base_data.cpp
+    Data/List/c_base_list.hpp
+    Data/List/c_base_list.cpp
+    Data/List/c_simple_list.hpp
+    Data/List/c_simple_list.cpp
+    Data/List/c_list.hpp
+    Data/List/c_list.cpp
+    Data/Item/c_base_item.cpp
+    Data/Item/c_address.cpp
+    Data/Item/c_person.cpp
+    Data/Item/c_senior_citizen.cpp
+    Data/Item/c_user.cpp
+    Data/Item/c_infant.hpp
+    Data/Item/c_infant.cpp
+    Data/Item/c_contact.hpp
+    Data/Item/c_contact.cpp
+    Data/Item/c_person.cpp
+    Data/Item/c_owner.hpp
+    Data/Item/c_owner.cpp
+    Data/Item/c_habitat.cpp
+    Data/Item/c_exterior.cpp
+    Data/Item/c_document.hpp
+    Data/Item/c_document.cpp
+    Data/Item/c_account.cpp
+    Data/Item/c_rent.hpp
+    Data/Item/c_rent.cpp
+    Data/Item/c_company.cpp
+    Data/Item/c_team.hpp
+    Data/Item/c_team.cpp
     resources/viage.qrc
     ${ALT_QRC}
     ${TS_FILES}
@@ -111,7 +115,7 @@ set(PROJECT_SOURCES
 
 include_directories(SYSTEM
     "${DATA_FOLDER}"
-    "${CDATA_FOLDER}"
+    "${Data_FOLDER}"
     "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"
@@ -144,7 +148,7 @@ target_compile_definitions(viage
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 target_link_libraries(viage PRIVATE
-#    Qt6::Core
+    Qt6::Core
     Qt6::Quick
     Qt6::Multimedia
     ${JSONCPP_LIBRARIES})

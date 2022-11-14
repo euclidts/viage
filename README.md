@@ -31,8 +31,11 @@
 
 # Client side
 
+* credits -> Mention Legal (smaller police)
 * scroll inertia
 * Habitat completed
+
+* ASFDE52 FERDGR52
 
 ++ timeout for connection (3h)
 ++ position Title in error header

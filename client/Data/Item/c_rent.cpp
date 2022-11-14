@@ -1,6 +1,7 @@
 #include <wobjectimpl.h>
 
-#include "rent_item.hpp"
+#include "c_rent.hpp"
+#include "qdatetime.h"
 
 namespace Data
 {
@@ -9,17 +10,19 @@ namespace Data
 #define I -0.0225
 #define V 1/(1 + I)
 
-W_OBJECT_IMPL(rent_item)
+W_OBJECT_IMPL(c_rent)
 
-rent_item::rent_item(QObject *parent)
-    : base_item{parent}
-    , birthDay{QDate::currentDate()}
+c_rent::c_rent(QObject *parent)
+    : c_base_data{parent}
+    , c_base_item{}
+    , rent_item{}
 {
+    birthDay = to_date(QDate::currentDate());
 }
 
-void rent_item::clear()
+void c_rent::clear()
 {
-    birthDay = QDate::currentDate();
+    birthDay = to_date(QDate::currentDate());
     emit birthDayChanged();
     marketPrice = 1500000;
     emit marketPriceChanged();
@@ -37,12 +40,12 @@ void rent_item::clear()
 //    emit damChanged();
 }
 
-int rent_item::floor_to(double number, int multiple) const
+int c_rent::floor_to(double number, int multiple) const
 {
     return std::floor((number + multiple / 2) / multiple) * multiple;
 }
 
-void rent_item::from_expectency(double expectency)
+void c_rent::from_expectency(double expectency)
 {
     using namespace std;
 
@@ -63,12 +66,12 @@ void rent_item::from_expectency(double expectency)
     setPva(dab + bou);
 }
 
-int rent_item::getmarketPrice() const
+int c_rent::getmarketPrice() const
 {
     return marketPrice;
 }
 
-void rent_item::setmarketPrice(int newmarketPrice)
+void c_rent::setmarketPrice(int newmarketPrice)
 {
     if (marketPrice == newmarketPrice)
         return;
@@ -76,12 +79,12 @@ void rent_item::setmarketPrice(int newmarketPrice)
     emit marketPriceChanged();
 }
 
-int rent_item::getMonthly() const
+int c_rent::getMonthly() const
 {
     return monthly;
 }
 
-void rent_item::setMonthly(int newMonthly)
+void c_rent::setMonthly(int newMonthly)
 {
     if (monthly == newMonthly)
         return;
@@ -89,12 +92,12 @@ void rent_item::setMonthly(int newMonthly)
     emit monthlyChanged();
 }
 
-int rent_item::getRva() const
+int c_rent::getRva() const
 {
     return rva;
 }
 
-void rent_item::setRva(int newRva)
+void c_rent::setRva(int newRva)
 {
     if (rva == newRva)
         return;
@@ -102,24 +105,24 @@ void rent_item::setRva(int newRva)
     emit rvaChanged();
 }
 
-int rent_item::getBou() const
+int c_rent::getBou() const
 {
     return bou;
 }
 
-void rent_item::setBou(int newBou)
+void c_rent::setBou(int newBou)
 {
     if (bou == newBou)
         return;
     bou = newBou;
     emit bouChanged();}
 
-int rent_item::getDab() const
+int c_rent::getDab() const
 {
     return dab;
 }
 
-void rent_item::setDab(int newDab)
+void c_rent::setDab(int newDab)
 {
     if (dab == newDab)
         return;
@@ -127,38 +130,38 @@ void rent_item::setDab(int newDab)
     emit dabChanged();
 }
 
-int rent_item::getPva() const
+int c_rent::getPva() const
 {
     return pva;
 }
 
-void rent_item::setPva(int newpva)
+void c_rent::setPva(int newPva)
 {
-    if (pva == newpva)
+    if (pva == newPva)
         return;
-    pva = newpva;
+    pva = newPva;
     emit pvaChanged();
 }
 
-const QDate &rent_item::getBirthDay() const
+const QDate c_rent::getBirthDay() const
 {
-    return birthDay;
+    return to_QDate(birthDay);
 }
 
-void rent_item::setBirthDay(const QDate &newBirthDay)
+void c_rent::setBirthDay(const QDate& newBirthDay)
 {
-    if (birthDay == newBirthDay)
+    if (to_QDate(birthDay) == newBirthDay)
         return;
-    birthDay = newBirthDay;
+    birthDay = to_date(newBirthDay);
     emit birthDayChanged();
 }
 
-//int rent_item::getDam() const
+//int c_rent::getDam() const
 //{
 //    return dam;
 //}
 
-//void rent_item::setDam(int newDam)
+//void c_rent::setDam(int newDam)
 //{
 //    if (dam == newDam)
 //        return;

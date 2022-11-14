@@ -1,23 +1,22 @@
-#ifndef RENT_ITEM_H
-#define RENT_ITEM_H
-
-#include <QJsonArray>
-#include <QJsonObject>
+#ifndef C_RENT_HPP
+#define C_RENT_HPP
 
 #include <wobjectdefs.h>
-
-#include "base_item.hpp"
+#include "c_base_data.hpp"
+#include "c_base_item.hpp"
+#include <Item/rent_item.hpp>
 
 namespace Data
 {
-class rent_item : public base_item
+class c_rent : private rent_item
+             , public c_base_data
+             , private c_base_item
 {
-W_OBJECT(rent_item)
+W_OBJECT(c_rent)
 
 public:
-    explicit rent_item(QObject* parent = nullptr);
+    explicit c_rent(QObject* parent = nullptr);
 
-    const constexpr char* key() override { return "rent"; };
     static const constexpr auto qmlName{"RentItem"};
     static const constexpr auto uri{"Data"};
 
@@ -49,7 +48,7 @@ public:
 //    void damChanged()
 //    W_SIGNAL(damChanged)
 
-    const QDate &getBirthDay() const;
+    const QDate getBirthDay() const;
     void setBirthDay(const QDate &newBirthDay);
     int getmarketPrice() const;
     void setmarketPrice(int newmarketPrice);
@@ -62,7 +61,7 @@ public:
     int getDab() const;
     void setDab(int newDab);
     int getPva() const;
-    void setPva(int newpva);
+    void setPva(int newPva);
 //    int getDam() const;
 //    void setDam(int newDam);
 
@@ -74,17 +73,6 @@ public:
     W_PROPERTY(int, dab READ getDab NOTIFY dabChanged)
     W_PROPERTY(int, pva READ getPva NOTIFY pvaChanged)
 //    W_PROPERTY(int, dam READ getDam WRITE setDam NOTIFY damChanged)
-
-private:
-    QDate birthDay;
-    int marketPrice{1500000};
-    int monthly{0};
-
-    int rva{0};
-    int bou{0};
-    int dab{0};
-    int pva{0};
-    //    int dam{0};
 
     int floor_to(double number, int multiple) const;
 };

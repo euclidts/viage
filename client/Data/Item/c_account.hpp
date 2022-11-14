@@ -1,9 +1,6 @@
 #ifndef ACCOUNT_ITEM_HPP
 #define ACCOUNT_ITEM_HPP
 
-#include <QJsonArray>
-#include <QJsonObject>
-
 namespace Data
 {
 

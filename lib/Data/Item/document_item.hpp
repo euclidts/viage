@@ -33,7 +33,7 @@ struct document_item : virtual public base_data
     };
 
     categories category{categories::None};
-    std::filesystem::path local_path{};
+    std::filesystem::path localPath{};
     std::string fileName{""};
     std::string extension{""};
 
@@ -53,6 +53,9 @@ struct document_item : virtual public base_data
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    void set_file_info();
 };
 
 }

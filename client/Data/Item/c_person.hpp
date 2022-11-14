@@ -1,14 +1,15 @@
 #ifndef C_PERSON_HPP
 #define C_PERSON_HPP
 
-#include "qnamespace.h"
 #include <Item/person_item.hpp>
+#include "c_base_item.hpp"
 
 namespace Data
 {
 namespace People
 {
 struct c_person : public person_item
+                , protected c_base_item
 {
     static const constexpr auto uri{"People"};
 

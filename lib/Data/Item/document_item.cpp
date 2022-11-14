@@ -36,13 +36,10 @@ void document_item::read(const Json::Value &json)
 
     if (json.isMember("localPath") && json["localPath"].isString())
     {
-        local_path = json["localPath"].asString();
+        localPath = json["localPath"].asString();
 
         if (!name_and_extension)
-        {
-            extension = local_path.extension();
-            fileName = local_path.filename();
-        }
+            set_file_info();
     }
 
     if (json.isMember("id") && json["id"].isInt())
@@ -64,6 +61,15 @@ bool document_item::is_completed() const
         return false;
 
     return state == Uploaded;
+}
+
+void document_item::set_file_info()
+{
+    if (localPath.empty())
+        return;
+
+    extension = localPath.extension();
+    fileName = localPath.stem();
 }
 
 }

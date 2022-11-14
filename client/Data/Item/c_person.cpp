@@ -8,6 +8,7 @@ namespace People
 {
 c_person::c_person()
     : person_item{}
+    , c_base_item{}
 {
 }
 
@@ -31,13 +32,13 @@ QVariant c_person::data(int role) const
     case IdRole:
         return QVariant(id);
     case FirstNameRole:
-        return QVariant(QString::fromStdString(firstName));
+        return to_QString(firstName);
     case LastNameRole:
-        return QVariant(QString::fromStdString(lastName));
+        return to_QString(lastName);
     case PhoneRole:
-        return QVariant(QString::fromStdString(phone));
+        return to_QString(phone);
     case EmailRole:
-        return QVariant(QString::fromStdString(eMail));
+        return to_QString(eMail);
     }
 
     return QVariant();

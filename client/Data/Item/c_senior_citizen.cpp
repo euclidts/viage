@@ -8,6 +8,8 @@ namespace Data
 namespace People
 {
 c_senior_citizen::c_senior_citizen()
+    : senior_citizen_item{}
+    , c_base_item{}
 {
     const auto minAge{QDate::currentDate().addYears(-AGE_MIN)};
     this->birthDay = minAge.toString("dd.MM.yyyy").toStdString();
@@ -26,10 +28,7 @@ QHash<int, QByteArray> c_senior_citizen::roleNames()
 QVariant c_senior_citizen::data(int role) const
 {
     if (role == BirthDayRole)
-    {
-        const auto value{QString::fromStdString(birthDay)};
-        return QDate::fromString(value, "dd.MM.yyyy");
-    }
+        return to_QDate(birthDay, "dd.MM.yyyy");
     else
         return QVariant(sex);
 

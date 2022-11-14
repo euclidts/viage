@@ -97,15 +97,6 @@ public:
     W_PROPERTY(int, m3s READ getM3s WRITE setM3s NOTIFY m3sChanged)
 
 private:
-    Places::address_item address;
-    habitatTypes habitatType{None};
-    int rooms{2};
-    int rawSurface{50};
-    int surface{50};
-    int m2Constructed{25};
-    int m2Available{25};
-    int m3s{9000};
-
     void checkCompleted() override;
 };
 
