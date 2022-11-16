@@ -3,20 +3,20 @@
 #include <wobjectimpl.h>
 
 #include "bridge.hpp"
-#include <Item/document_item.hpp>
-#include <Item/account_item.hpp>
-#include <List/item_list.hpp>
+#include <Item/c_account.hpp>
+#include <List/c_list.hpp>
 
 namespace Interface
 {
 W_OBJECT_IMPL(bridge)
 
 bridge::bridge(Interface::netManager* manager,
-               Data::item_list<Data::People::user_item>* users,
-               Data::item_list<Data::account_item>* accounts,
-               Data::item_list<Data::document_item>* documents,
+               Data::c_list<Data::People::c_user>* users,
+               Data::c_list<Data::c_account>* accounts,
+               Data::c_list<Data::c_document>* documents,
                const QString& tempPath)
-    : mng{manager}
+    : Data::c_base_item{}
+    ,  mng{manager}
     , usrs{users}
     , acnts{accounts}
     , docs{documents}
@@ -36,7 +36,7 @@ bridge::bridge(Interface::netManager* manager,
 
     using namespace Data;
 
-    connect(acnts, &item_list<account_item>::postItemsAppended,
+    connect(acnts, &c_list<c_account>::postItemsAppended,
             this, [this]()
     {
         if (onboarding)
@@ -48,35 +48,35 @@ bridge::bridge(Interface::netManager* manager,
         }
     });
 
-    connect(acnts, &item_list<account_item>::dataChangedAt,
+    connect(acnts, &c_list<c_account>::dataChangedAt,
             this, [this] (int index)
     {
         const auto item{acnts->item_at_id(accountId)};
 
         setAccountState(item.state);
-        setAccountReceived(item.receivedDate);
-        setAccountTransmited(item.transmitedDate);
-        setAccountExpertized(item.expertizedDate);
-        setAccountNotarized(item.notarizedDate);
-        setAccountDecided(item.decidedDate);
-        setAccountPaid(item.paidDate);
+        setAccountReceived(to_QDate(item.receivedDate));
+        setAccountTransmited(to_QDate(item.transmitedDate));
+        setAccountExpertized(to_QDate(item.expertizedDate));
+        setAccountNotarized(to_QDate(item.notarizedDate));
+        setAccountDecided(to_QDate(item.decidedDate));
+        setAccountPaid(to_QDate(item.paidDate));
     });
 
-    connect(docs, &item_list<document_item>::loaded,
+    connect(docs, &c_list<c_document>::loaded,
             this, &bridge::check_doc_completion);
 
-    connect(docs, &item_list<document_item>::dataChangedAt,
+    connect(docs, &c_list<c_document>::dataChangedAt,
             this, &bridge::upload_doc);
 
-    connect(docs, &item_list<document_item>::postItemsRemoved,
+    connect(docs, &c_list<c_document>::postItemsRemoved,
             this, &bridge::check_doc_completion);
 
-    connect(docs, &item_list<document_item>::validate,
+    connect(docs, &c_list<c_document>::validate,
             this, &bridge::cleanup_docs);
 
     using namespace People;
 
-    connect(usrs, &item_list<user_item>::postItemsAppended,
+    connect(usrs, &c_list<c_user>::postItemsAppended,
             this, [this]()
     {
         if (hiring)

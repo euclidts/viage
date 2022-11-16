@@ -1,6 +1,6 @@
 #include <wobjectimpl.h>
 
-#include <Item/user_item.hpp>
+#include <Item/c_user.hpp>
 #include "user_filter_model.hpp"
 
 namespace Data
@@ -29,7 +29,7 @@ bool user_filter_model::filterAcceptsRow(int sourceRow,
 {
     const auto& id{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    People::user_item::IdRole)};
+                    People::c_user::IdRole)};
 
     if (isExclusif)
     {
@@ -41,11 +41,11 @@ bool user_filter_model::filterAcceptsRow(int sourceRow,
 
     const auto& userName{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    People::user_item::LastNameRole)};
+                    People::c_user::LastNameRole)};
 
     const auto& company{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    People::user_item::CompanyRole)};
+                    People::c_user::CompanyRole)};
 
     if(userName.toString().contains(filterRegularExpression())
             || company.toString().contains(filterRegularExpression()))
@@ -59,24 +59,24 @@ bool user_filter_model::lessThan(const QModelIndex& left, const QModelIndex& rig
 
     if (sortRole() == 0)
     {
-        const auto leftData{sourceModel()->data(left, People::user_item::CompanyRole)};
-        const auto rightData{sourceModel()->data(right, People::user_item::CompanyRole)};
+        const auto leftData{sourceModel()->data(left, People::c_user::CompanyRole)};
+        const auto rightData{sourceModel()->data(right, People::c_user::CompanyRole)};
 
         return leftData.toString() < rightData.toString();
     }
 
     if (sortRole() == 1)
     {
-        const auto leftData{sourceModel()->data(left, People::user_item::LastNameRole)};
-        const auto rightData{sourceModel()->data(right, People::user_item::LastNameRole)};
+        const auto leftData{sourceModel()->data(left, People::c_user::LastNameRole)};
+        const auto rightData{sourceModel()->data(right, People::c_user::LastNameRole)};
 
         return leftData.toString() < rightData.toString();
     }
 
     if (sortRole() == 2)
     {
-        const auto leftData{sourceModel()->data(left, People::user_item::ClearanceRole)};
-        const auto rightData{sourceModel()->data(right, People::user_item::ClearanceRole)};
+        const auto leftData{sourceModel()->data(left, People::c_user::ClearanceRole)};
+        const auto rightData{sourceModel()->data(right, People::c_user::ClearanceRole)};
 
         return leftData.toString() > rightData.toString();
     }

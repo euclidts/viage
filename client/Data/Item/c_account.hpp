@@ -11,20 +11,20 @@ namespace Data
 {
 namespace People
 {
-struct owner_item;
-struct contact_item;
+struct c_owner;
+struct c_contact;
 }
 
 namespace Places
 {
-struct habitat_item;
-struct exterior_item;
+struct c_habitat;
+struct c_exterior;
 }
 
-struct document_item;
+struct c_document;
 
 template <typename T>
-struct item_list;
+struct c_list;
 
 using namespace Json;
 
@@ -39,9 +39,9 @@ struct c_account : public account_item
     enum roles
     {
         OwnersRole = Qt::UserRole,
-        ContactsRole,
+//        ContactsRole,
         HabitatRole,
-        ExteriorRole,
+//        ExteriorRole,
         DocumentsRole,
         StateRole,
         ReceivedRole,
@@ -64,17 +64,17 @@ struct c_account : public account_item
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    bool update(item_list<People::owner_item>* ol);
-    bool update(item_list<People::contact_item>* cl);
-    bool update(Places::habitat_item* ht);
-    bool update(Places::exterior_item* er);
-    bool update(item_list<document_item>* ds);
+    bool update(c_list<People::c_owner>* ol);
+    bool update(c_list<People::c_contact>* cl);
+    bool update(Places::c_habitat* ht);
+    bool update(Places::c_exterior* er);
+    bool update(c_list<c_document>* ds);
 
-    Json::Value get(item_list<People::owner_item>* ol) const;
-    Json::Value get(item_list<People::contact_item>* cl) const;
-    Json::Value get(Places::habitat_item* ht) const;
-    Json::Value get(Places::exterior_item* er) const;
-    Json::Value get(item_list<document_item>* ds) const;
+    Json::Value get(c_list<People::c_owner>* ol) const { return account_item::get(ol); };
+    Json::Value get(c_list<People::c_contact>* cl) const { return account_item::get(cl); };
+    Json::Value get(Places::c_habitat* ht) const { return account_item::get(ht); };
+    Json::Value get(Places::c_exterior* er) const { return account_item::get(er); };
+    Json::Value get(c_list<c_document>* ds) const { return account_item::get(ds); };
 
     void read(const Json::Value & json) { account_item::read(json); };
     void write(Json::Value & json) const { account_item::write(json); };
@@ -84,7 +84,6 @@ struct c_account : public account_item
 private:
     QDateTime to_QDateTime(const std::string& date, const QString& format = "yyyy-MM-dd hh:mm:ss") const;
     std::string to_date_time(const QDateTime& date, const QString& format = "yyyy-MM-dd hh:mm:ss") const;
-    QVariantList to_QVariantList(const Json::Value& json) const;
 };
 
 }

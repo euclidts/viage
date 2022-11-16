@@ -15,7 +15,7 @@ bool document_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &s
 {
     const auto& cat{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    document_item::CategoryRole)};
+                    c_document::CategoryRole)};
 
     return cat.toInt() == category;
 }

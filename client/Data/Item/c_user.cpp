@@ -80,22 +80,22 @@ void c_user::setData(const QVariant &value, int role)
     switch (role)
     {
     case CompanyRole:
-        company = value.toString().toStdString();
+        company = to_string(value);
         break;
     case ClearanceRole:
         clearance = clearances(value.toInt());
         break;
     case TeamNameRole:
-        team = value.toString().toStdString();
+        team = to_string(value);
         break;
     case BeneficiaryRole:
-        beneficiary = value.toString();
+        beneficiary = to_string(value);
         break;
     case IbanRole:
-        iban = value.toString();
+        iban = to_string(value);
         break;
     case BicRole:
-        bic = value.toString();
+        bic = to_string(value);
         break;
     case CompanyIdRole:
         company_id = value.toInt();
@@ -108,7 +108,7 @@ void c_user::setData(const QVariant &value, int role)
         break;
     }
 
-    address_item::setData(value, role);
+    ca.setData(value, role);
 }
 
 }

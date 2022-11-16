@@ -12,7 +12,7 @@ template <typename T>
 class c_base_list : public item_list<T>
                   , public c_base_data
 {
-    W_OBJECT(c_base_list<T>)
+    W_OBJECT(c_base_list)
 
 public:
     QVector<T> items() const;

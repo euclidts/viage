@@ -7,26 +7,27 @@
 
 #include "wrapped_calculator.hpp"
 #include <Item/rent_item.hpp>
+#include <Item/c_rent.hpp>
 
 namespace Calculator
 {
 wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
                                        QQmlContext* context,
                                        const QString& tempPath)
-    : base_wrapper<simple_item_list<senior_citizen_item>>{manager, context}
+    : base_wrapper<c_simple_list<c_senior_citizen>>{manager, context}
     , exp{inner}
-    , rent{new rent_item{}}
+    , rent{new c_rent{}}
     , docxPath{tempPath + "/calcul.docx"}
 {
     inner->appendItems(); // at least one senior for the calculation
 
     this->connect(rent,
-                  &rent_item::calculate,
+                  &c_rent::calculate,
                   this,
                   &wrapped_calculator::calculate_rent);
 
     this->connect(rent,
-                  &rent_item::writeToFile,
+                  &c_rent::writeToFile,
                   this,
                   &wrapped_calculator::write_to_file);
 
@@ -102,7 +103,8 @@ void wrapped_calculator::write_to_file()
         ru.set_text("……………………………………………………………");
         ru.next();
 
-        str = partner.birthDay.toString("dd/MM/yyyy");
+//        str = partner.birthDay.toString("dd/MM/yyyy");
+        str = QString::fromStdString(partner.birthDay);
         ru.set_text(str.toStdString());
         end_runs(ru);
 

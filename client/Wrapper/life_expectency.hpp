@@ -2,8 +2,9 @@
 #define EXPECTENCY
 
 #include <QDate>
-
-#include <Item/senior_citizen_item.hpp>
+#include <Item/c_senior_citizen.hpp>
+#include <Item/c_base_item.hpp>
+#include <List/c_simple_list.hpp>
 
 namespace Data
 {
@@ -19,20 +20,20 @@ using namespace People;
 class life_expectency
 {
 public:
-    explicit life_expectency(simple_item_list<senior_citizen_item>* senior_citizens);
+    explicit life_expectency(c_simple_list<c_senior_citizen> *senior_citizens);
 
     double get_expectency(const QDate& date);
 
 private:
-    simple_item_list<senior_citizen_item>* seniors;
+    c_simple_list<c_senior_citizen>* seniors;
 
-    struct dto
+    struct dto : private c_base_item
     {
         dto() {};
         dto(const senior_citizen_item& senior, const QDate& date)
             : sex{senior.sex}
-            , thousand_bDAy{senior.birthDay.year() * 1000}
-            , age{senior.birthDay.daysTo(date) / 365.25}
+            , thousand_bDAy{to_QDate(senior.birthDay).year() * 1000}
+            , age{to_QDate(senior.birthDay).daysTo(date) / 365.25}
             , age_trunc{std::trunc(age)}
             , age_diff{age - age_trunc}
         {}

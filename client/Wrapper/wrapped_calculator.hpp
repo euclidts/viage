@@ -4,13 +4,13 @@
 #include <duckx.hpp>
 
 #include <base_wrapper.hpp>
-#include <List/simple_item_list.hpp>
-#include <Item/senior_citizen_item.hpp>
+#include <List/c_simple_list.hpp>
+#include <Item/c_senior_citizen.hpp>
 #include "life_expectency.hpp"
 
 namespace Data
 {
-class rent_item;
+class c_rent;
 }
 
 namespace Calculator
@@ -18,7 +18,7 @@ namespace Calculator
 using namespace Wrapper;
 
 class wrapped_calculator final
-        : public base_wrapper<simple_item_list<senior_citizen_item>>
+        : public base_wrapper<c_simple_list<c_senior_citizen>>
 {
 public:
     wrapped_calculator(Interface::netManager* manager,
@@ -27,7 +27,7 @@ public:
 
 private:
     life_expectency exp;
-    rent_item* rent;
+    c_rent* rent;
     QString docxPath{};
 
     void calculate_rent();

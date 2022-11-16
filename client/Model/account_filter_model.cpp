@@ -1,5 +1,7 @@
-#include <Item/account_item.hpp>
+#include <Item/c_account.hpp>
 #include "account_filter_model.hpp"
+#include "qjsonarray.h"
+#include "qjsonobject.h"
 
 namespace Data
 {
@@ -12,15 +14,15 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
 {
     const auto& state{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    account_item::StateRole).toInt()};
+                    c_account::StateRole).toInt()};
 
     if (filterRegularExpression().match("").hasMatch() &&
-        ((state & account_item::Paid) == account_item::Paid))
+        ((state & c_account::Paid) == c_account::Paid))
         return false;
 
     const auto& owners{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    account_item::OwnersRole).toJsonArray()};
+                    c_account::OwnersRole).toJsonArray()};
 
     const auto& owner_1{owners[0].toObject()};
     const auto& owner_2{owners[1].toObject()};
@@ -33,7 +35,7 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
 
     const auto& habitat{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    account_item::HabitatRole).toJsonObject()};
+                    c_account::HabitatRole).toJsonObject()};
 
     const auto& address{habitat["address"]};
 
@@ -49,10 +51,10 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
 
     const auto& userName{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    account_item::AdvisorLastNameRole)};
+                    c_account::AdvisorLastNameRole)};
     const auto& company{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    account_item::CompanyRole)};
+                    c_account::CompanyRole)};
 
     if (userName.toString().contains(filterRegularExpression())
             || company.toString().contains(filterRegularExpression()))
@@ -60,7 +62,7 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
 
     const auto& acronym{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
-                    account_item::AcronymRole)};
+                    c_account::AcronymRole)};
 
     if (acronym.toString().contains(filterRegularExpression()))
         return true;
@@ -72,32 +74,32 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
 {
     if (sortRole() == 0)
     {
-        const auto leftData{sourceModel()->data(left, account_item::ModifiedRole)};
-        const auto rightData{sourceModel()->data(right, account_item::ModifiedRole)};
+        const auto leftData{sourceModel()->data(left, c_account::ModifiedRole)};
+        const auto rightData{sourceModel()->data(right, c_account::ModifiedRole)};
 
         return leftData.toDateTime() > rightData.toDateTime(); // invert order when sorting by date
     }
 
     if (sortRole() == 1)
     {
-        const auto leftData{sourceModel()->data(left, account_item::CreatedRole)};
-        const auto rightData{sourceModel()->data(right, account_item::CreatedRole)};
+        const auto leftData{sourceModel()->data(left, c_account::CreatedRole)};
+        const auto rightData{sourceModel()->data(right, c_account::CreatedRole)};
 
         return leftData.toDateTime() > rightData.toDateTime(); // invert order when sorting by date
     }
 
     if (sortRole() == 2)
     {
-        const auto leftData{sourceModel()->data(left, account_item::AcronymRole)};
-        const auto rightData{sourceModel()->data(right, account_item::AcronymRole)};
+        const auto leftData{sourceModel()->data(left, c_account::AcronymRole)};
+        const auto rightData{sourceModel()->data(right, c_account::AcronymRole)};
 
         return leftData.toString() < rightData.toString();
     }
 
     if (sortRole() == 3)
     {
-        const auto leftData{sourceModel()->data(left, account_item::OwnersRole)};
-        const auto rightData{sourceModel()->data(right, account_item::OwnersRole)};
+        const auto leftData{sourceModel()->data(left, c_account::OwnersRole)};
+        const auto rightData{sourceModel()->data(right, c_account::OwnersRole)};
 
         return leftData.toJsonArray()[0].toObject()["lastName"].toString()
                 < rightData.toJsonArray()[0].toObject()["lastName"].toString();
@@ -105,16 +107,16 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
 
     if (sortRole() == 4)
     {
-        const auto leftData{sourceModel()->data(left, account_item::AdvisorLastNameRole)};
-        const auto rightData{sourceModel()->data(right, account_item::AdvisorLastNameRole)};
+        const auto leftData{sourceModel()->data(left, c_account::AdvisorLastNameRole)};
+        const auto rightData{sourceModel()->data(right, c_account::AdvisorLastNameRole)};
 
         return leftData.toString() < rightData.toString();
     }
 
     if (sortRole() == 5)
     {
-        const auto leftData{sourceModel()->data(left, account_item::CompanyRole)};
-        const auto rightData{sourceModel()->data(right, account_item::CompanyRole)};
+        const auto leftData{sourceModel()->data(left, c_account::CompanyRole)};
+        const auto rightData{sourceModel()->data(right, c_account::CompanyRole)};
 
         return leftData.toString() < rightData.toString();
     }

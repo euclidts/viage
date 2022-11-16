@@ -8,10 +8,11 @@
 namespace Data
 {
 template <typename T>
-class item_list : virtual public base_data
+class item_list : public virtual base_data
 {
 public:
     item_list();
+    void set_list(const std::vector<T>& list);
     T item_at_id(int id) const;
 
     void read(const Json::Value& json) override;
@@ -19,7 +20,7 @@ public:
 
     bool is_completed() const override;
 
-private:
+protected:
     void writeWithKey(Json::Value& json) const override;
     int index_at_id(int id) const noexcept;
 

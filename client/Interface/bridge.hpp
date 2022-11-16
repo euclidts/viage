@@ -8,29 +8,29 @@
 #include <wobjectdefs.h>
 
 #include "netManager.hpp"
-
-#include <Item/user_item.hpp>
-#include <Item/document_item.hpp>
+#include <Item/c_user.hpp>
+#include <Item/c_document.hpp>
 
 namespace Data
 {
-struct account_item;
+struct c_account;
 
 template <typename T>
-class item_list;
+class c_list;
 }
 
 namespace Interface
 {
 class bridge final : public QObject
+                   , public Data::c_base_item
 {
     W_OBJECT(bridge)
 
 public:
     bridge(Interface::netManager* manager,
-           Data::item_list<Data::People::user_item>* users,
-           Data::item_list<Data::account_item>* accounts,
-           Data::item_list<Data::document_item>* documents,
+           Data::c_list<Data::People::c_user>* users,
+           Data::c_list<Data::c_account>* accounts,
+           Data::c_list<Data::c_document>* documents,
            const QString& path);
 
     void onLogin(const bool& success, const QString& errorString) const;
@@ -180,7 +180,7 @@ private:
     bool onboarding{false};
     bool hiring{false};
 
-    Data::item_list<Data::document_item>* docs;
+    Data::c_list<Data::c_document>* docs;
     bool documentsCompleted{false};
     void check_doc_completion();
     void cleanup_docs(int ai);
@@ -189,8 +189,8 @@ private:
     int userId{0};
     Data::People::user_item::clearances clearance{Data::People::user_item::None};
 
-    Data::item_list<Data::People::user_item>* usrs;
-    Data::item_list<Data::account_item>* acnts;
+    Data::c_list<Data::People::c_user>* usrs;
+    Data::c_list<Data::c_account>* acnts;
     int accountId{0};
     int accountState{0};
     QDate accountReceived{};

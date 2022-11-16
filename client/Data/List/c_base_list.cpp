@@ -1,8 +1,6 @@
 #pragma once
-#include <QVector>
-#include <wobjectimpl.h>
-
 #include "c_base_list.hpp"
+#include <wobjectimpl.h>
 
 namespace Data
 {
@@ -11,7 +9,7 @@ W_OBJECT_IMPL(c_base_list<T>, template <typename T>)
 template <typename T>
 c_base_list<T>::c_base_list(QObject* parent)
     : c_base_data{parent}
-    , item_list<T>()
+    , item_list<T>{}
 {
 }
 

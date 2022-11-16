@@ -11,6 +11,12 @@ item_list<T>::item_list()
 }
 
 template<typename T>
+void item_list<T>::set_list(const std::vector<T> &list)
+{
+    m_items = list;
+}
+
+template<typename T>
 T item_list<T>::item_at_id(int id) const
 {
     int index{index_at_id(id)};

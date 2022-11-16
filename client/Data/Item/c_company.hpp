@@ -3,6 +3,7 @@
 
 #include "qnamespace.h"
 #include <Item/company_item.hpp>
+#include "c_base_item.hpp"
 
 namespace Data
 {
@@ -13,6 +14,7 @@ struct item_list;
 struct team_item;
 
 struct c_company : public company_item
+                 , public c_base_item
 {
     c_company();
 
@@ -31,8 +33,10 @@ struct c_company : public company_item
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    bool update(item_list<team_item>* ti);
-    QJsonArray get(item_list<team_item>* ti) const;
+    void read(const Json::Value & json) { company_item::read(json); };
+    void write(Json::Value & json) const { company_item::write(json); };
+
+    bool is_completed() const { return company_item::is_completed(); };
 };
 
 }

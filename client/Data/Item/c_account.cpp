@@ -5,6 +5,9 @@
 #include <Item/document_item.hpp>
 #include <List/item_list.hpp>
 #include "c_account.hpp"
+#include "qjsonarray.h"
+#include "qjsondocument.h"
+#include "qjsonobject.h"
 
 namespace Data
 {
@@ -21,9 +24,9 @@ QHash<int, QByteArray> c_account::roleNames()
     QHash<int, QByteArray> names;
 
     names[OwnersRole] = "owners";
-    names[ContactsRole] = "contacts";
+//    names[ContactsRole] = "contacts";
     names[HabitatRole] = "habitat";
-    names[ExteriorRole] = "exterior";
+//    names[ExteriorRole] = "exterior";
     names[DocumentsRole] = "documents";
     names[StateRole] = "state";
     names[ReceivedRole] = "receivedDate";
@@ -48,41 +51,41 @@ QVariant c_account::data(int role) const
     switch (role)
     {
     case OwnersRole:
-        return owners.toVariantList();
-    case ContactsRole:
-        return contacts.toVariantList();
+        return to_QJsonArray(owners);
+//    case ContactsRole:
+//        return to_QJson(contacts);
     case HabitatRole:
-        return habitat;
-    case ExteriorRole:
-        return exterior;
+        return to_QJsonObject(habitat);
+//    case ExteriorRole:
+//        return to_QJson(exterior);
     case DocumentsRole:
-        return documents.toVariantList();
+        return to_QJsonArray(documents);
     case StateRole:
         return QVariant(state);
     case ReceivedRole:
-        return QVariant(receivedDate);
+        return to_QDate(receivedDate);
     case TransmitedRole:
-        return QVariant(transmitedDate);
+        return to_QDate(transmitedDate);
     case ExpertizedRole:
-        return QVariant(expertizedDate);
+        return to_QDate(expertizedDate);
     case DecidedRole:
-        return QVariant(decidedDate);
+        return to_QDate(decidedDate);
     case NotarizedRole:
-        return QVariant(notarizedDate);
+        return to_QDate(notarizedDate);
     case PaidRole:
-        return QVariant(paidDate);
+        return to_QDate(paidDate);
     case CreatedRole:
-        return QVariant(created);
+        return to_QDate(created);
     case ModifiedRole:
-        return QVariant(modified);
+        return to_QDate(modified);
     case AdvisorFirstNameRole:
-        return QVariant(advisorFirstName);
+        return to_QString(advisorFirstName);
     case AdvisorLastNameRole:
-        return QVariant(advisorLastName);
+        return to_QString(advisorLastName);
     case CompanyRole:
-        return QVariant(company);
+        return to_QString(company);
     case AcronymRole:
-        return QVariant(acronym);
+        return to_QString(acronym);
     case IdRole:
         return QVariant(id);
     }
@@ -92,135 +95,76 @@ QVariant c_account::data(int role) const
 
 void c_account::setData(const QVariant &value, int role)
 {
-    switch (role)
-    {
-    case OwnersRole:
-        owners = value.toJsonArray();
-        break;
-    case ContactsRole:
-        contacts = value.toJsonArray();
-        break;
-    case HabitatRole:
-        habitat = value.toJsonObject();
-        break;
-    case ExteriorRole:
-        exterior = value.toJsonObject();
-        break;
-    case DocumentsRole:
-        documents = value.toJsonArray();
-        break;
-    }
+//    switch (role)
+//    {
+//    case OwnersRole:
+//        owners = value.toJsonArray();
+//        break;
+//    case ContactsRole:
+//        contacts = value.toJsonArray();
+//        break;
+//    case HabitatRole:
+//        habitat = value.toJsonObject();
+//        break;
+//    case ExteriorRole:
+//        exterior = value.toJsonObject();
+//        break;
+//    case DocumentsRole:
+//        documents = value.toJsonArray();
+//        break;
+//    }
 }
 
 bool c_account::update(item_list<People::owner_item>* ol)
 {
-    Json::Value arr{};
-    ol->write(arr);
-    if (owners == arr)
+    bool up{account_item::update(ol)};
+    if (!up)
         return false;
 
-    owners = arr;
-    modified = QDateTime::currentDateTime();
+    modified = to_date_time(QDateTime::currentDateTime());
     return true;
 }
 
 bool c_account::update(item_list<People::contact_item>* cl)
 {
-    Json::Value arr{};
-    cl->write(arr);
-    // exception for first updating empty contacts
-    if (contacts.empty() && arr.empty())
+    bool up{account_item::update(cl)};
+    if (contacts.empty())
         return true;
-    else if (contacts == arr)
+    else if (!up)
         return false;
 
-    contacts = arr;
-    modified = QDateTime::currentDateTime();
+    modified = to_date_time(QDateTime::currentDateTime());
     return true;
 }
 
 bool c_account::update(Places::habitat_item* ht)
 {
-    Json::Value obj{};
-    ht->write(obj);
-    if (habitat == obj)
+    bool up{account_item::update(ht)};
+    if (!up)
         return false;
 
-    habitat = obj;
-    modified = QDateTime::currentDateTime();
+    modified = to_date_time(QDateTime::currentDateTime());
     return true;
 }
 
 bool c_account::update(Places::exterior_item* er)
 {
-    Json::Value obj{};
-    er->write(obj);
-    if (exterior == obj)
+    bool up{account_item::update(er)};
+    if (!up)
         return false;
 
-    exterior = obj;
-    modified = QDateTime::currentDateTime();
+    modified = to_date_time(QDateTime::currentDateTime());
     return true;
 }
 
 bool c_account::update(item_list<document_item>* ds)
 {
-    Json::Value arr{};
-    ds->write(arr);
-    // exception
+    bool up{account_item::update(ds)};
+    if (!up)
+        return false;
 
-    documents = arr;
-    modified = QDateTime::currentDateTime();
+    modified = to_date_time(QDateTime::currentDateTime());
     return true;
-}
-
-Json::Value c_account::get(item_list<People::owner_item> *ol) const
-{
-    if (owners.empty())
-        return owners;
-    else
-    {
-        if (owners[0].isMember("id"))
-            return owners;
-        else
-            return {};
-        // no need to retreive initial "names only" array
-    }
-}
-
-Json::Value c_account::get(item_list<People::contact_item> *cl) const
-{
-    // TODO : differentiate between "unfetched" and empty contacts
-    return contacts;
-}
-
-Json::Value c_account::get(Places::habitat_item* ht) const
-{
-    if (habitat.isMember("id"))
-        return habitat;
-    else
-        return {};
-}
-
-Json::Value c_account::get(Places::exterior_item* er) const
-{
-    if (exterior.isMember("id"))
-        return exterior;
-    else
-        return {};
-}
-
-Json::Value c_account::get(item_list<document_item>* ds) const
-{
-    if (documents.empty())
-        return documents;
-    else
-    {
-        if (documents[0].isMember("id"))
-            return documents;
-        else
-            return {};
-    }
 }
 
 QDateTime c_account::to_QDateTime(const std::string& date, const QString& format) const
@@ -231,11 +175,6 @@ QDateTime c_account::to_QDateTime(const std::string& date, const QString& format
 std::string c_account::to_date_time(const QDateTime& date, const QString& format) const
 {
     return date.toString(format).toStdString();
-}
-
-QVariantList c_account::to_QVariantList(const Value &json) const
-{
-
 }
 
 }

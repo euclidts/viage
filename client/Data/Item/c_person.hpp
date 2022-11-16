@@ -8,7 +8,7 @@ namespace Data
 {
 namespace People
 {
-struct c_person : public person_item
+struct c_person : virtual public person_item
                 , protected c_base_item
 {
     static const constexpr auto uri{"People"};

@@ -2,14 +2,13 @@
 #include <QFile>
 
 #include "life_expectency.hpp"
-#include <List/simple_item_list.hpp>
-#include <Item/senior_citizen_item.hpp>
+#include <List/c_simple_list.hpp>
 
 #define OMEGA 125
 
 namespace Calculator
 {
-life_expectency::life_expectency(simple_item_list<senior_citizen_item>* senior_citizens)
+life_expectency::life_expectency(c_simple_list<c_senior_citizen>* senior_citizens)
     : seniors{senior_citizens}
 {
     readMortality(":/data/ofs.csv");

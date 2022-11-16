@@ -63,11 +63,8 @@ set(PROJECT_SOURCES
     Model/user_filter_model.cpp
     Data/c_base_data.cpp
     Data/List/c_base_list.hpp
-    Data/List/c_base_list.cpp
     Data/List/c_simple_list.hpp
-    Data/List/c_simple_list.cpp
     Data/List/c_list.hpp
-    Data/List/c_list.cpp
     Data/Item/c_base_item.cpp
     Data/Item/c_address.cpp
     Data/Item/c_person.cpp
