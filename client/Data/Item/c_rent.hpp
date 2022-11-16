@@ -20,6 +20,12 @@ public:
     static const constexpr auto qmlName{"RentItem"};
     static const constexpr auto uri{"Data"};
 
+    void read(const Json::Value& json) override;
+    void write(Json::Value& json) const override;
+
+    void clear() override;
+    W_SLOT(clear)
+
     void from_expectency(double expectency);
 
     void calculate()
@@ -27,9 +33,6 @@ public:
 
     void writeToFile()
     W_SIGNAL(writeToFile)
-
-    void clear() override;
-    W_SLOT(clear)
 
     void birthDayChanged()
     W_SIGNAL(birthDayChanged)

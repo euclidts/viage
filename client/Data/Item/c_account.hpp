@@ -1,9 +1,14 @@
-#ifndef ACCOUNT_ITEM_HPP
-#define ACCOUNT_ITEM_HPP
+#ifndef C_ACCOUNT_HPP
+#define C_ACCOUNT_HPP
+
+#include "qdatetime.h"
+#include "qnamespace.h"
+#include <json/json.h>
+#include <Item/account_item.hpp>
+#include "c_base_item.hpp"
 
 namespace Data
 {
-
 namespace People
 {
 struct owner_item;
@@ -21,67 +26,23 @@ struct document_item;
 template <typename T>
 struct item_list;
 
-struct account_item
-{
-    account_item();
+using namespace Json;
 
-    static const constexpr char* key() { return "account"; };
+struct c_account : public account_item
+                 , public c_base_item
+{
+    c_account();
+
     static const constexpr auto qmlName{"Account"};
     static const constexpr auto uri{"Data"};
-
-    QJsonArray owners{};
-    QJsonArray contacts{};
-    // --- Habitat ---
-    QJsonObject habitat{};
-    // --- Exterior ---
-    QJsonObject exterior{};
-    // --- Documents ---
-    QJsonArray documents{};
-
-    enum states
-    {
-        Initialized = 0,
-        OwnersCompleted = 1,
-        ContactsCompleted = 2,
-        HabitatCompleted = 4,
-        ExteriorCompleted = 8,
-        DocumentsCompleted = 16,
-        Onboarded = 31,
-        Received = 32,
-        Transmited = 64,
-        Expertized = 128,
-        Decided = 256,
-        Notarized = 512,
-        Paid = 1024
-    };
-
-    states state{Initialized};
-    QDate receivedDate{};
-    QDate transmitedDate{};
-    QDate expertizedDate{};
-    QDate decidedDate{};
-    QDate notarizedDate{};
-    QDate paidDate{};
-
-    QDateTime created;
-    QDateTime modified;
-    QString advisorFirstName{""};
-    QString advisorLastName{""};
-    QString company{""};
-
-    QString acronym{""};
-    int id{0};
 
     enum roles
     {
         OwnersRole = Qt::UserRole,
         ContactsRole,
         HabitatRole,
-        // --- Exterior ---
         ExteriorRole,
-        // --- Documents ---
         DocumentsRole,
-        // Account status
         StateRole,
         ReceivedRole,
         TransmitedRole,
@@ -109,18 +70,23 @@ struct account_item
     bool update(Places::exterior_item* er);
     bool update(item_list<document_item>* ds);
 
-    QJsonArray get(item_list<People::owner_item>* ol) const;
-    QJsonArray get(item_list<People::contact_item>* cl) const;
-    QJsonObject get(Places::habitat_item* ht) const;
-    QJsonObject get(Places::exterior_item* er) const;
-    QJsonArray get(item_list<document_item>* ds) const;
+    Json::Value get(item_list<People::owner_item>* ol) const;
+    Json::Value get(item_list<People::contact_item>* cl) const;
+    Json::Value get(Places::habitat_item* ht) const;
+    Json::Value get(Places::exterior_item* er) const;
+    Json::Value get(item_list<document_item>* ds) const;
 
-    void read(const QJsonObject& json);
-    void write(QJsonObject& json) const;
+    void read(const Json::Value & json) { account_item::read(json); };
+    void write(Json::Value & json) const { account_item::write(json); };
 
-    bool is_completed() const;
+    bool is_completed() const { return account_item::is_completed(); };
+
+private:
+    QDateTime to_QDateTime(const std::string& date, const QString& format = "yyyy-MM-dd hh:mm:ss") const;
+    std::string to_date_time(const QDateTime& date, const QString& format = "yyyy-MM-dd hh:mm:ss") const;
+    QVariantList to_QVariantList(const Json::Value& json) const;
 };
 
 }
 
-#endif // ACCOUNT_ITEM_HPP
+#endif // C_ACCOUNT_HPP

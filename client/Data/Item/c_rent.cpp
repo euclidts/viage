@@ -20,6 +20,17 @@ c_rent::c_rent(QObject *parent)
     birthDay = to_date(QDate::currentDate());
 }
 
+void c_rent::read(const Json::Value &json)
+{
+    rent_item::read(json);
+    emit loaded();
+}
+
+void c_rent::write(Json::Value &json) const
+{
+    rent_item::write(json);
+}
+
 void c_rent::clear()
 {
     birthDay = to_date(QDate::currentDate());

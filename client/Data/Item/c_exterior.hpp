@@ -1,55 +1,32 @@
-#ifndef EXTERIOR_ITEM_HPP
-#define EXTERIOR_ITEM_HPP
-
-#include <QJsonArray>
-#include <QJsonObject>
+#ifndef C_EXTERIOR_HPP
+#define C_EXTERIOR_HPP
 
 #include <wobjectdefs.h>
-
-#include "base_item.hpp"
+#include <c_base_data.hpp>
+#include "c_base_item.hpp"
+#include <Item/exterior_item.hpp>
 
 namespace Data
 {
 namespace Places
 {
-class exterior_item : public base_item
+class c_exterior : private exterior_item
+                 , public c_base_data
+                 , public c_base_item
 {
-    W_OBJECT(exterior_item)
+    W_OBJECT(c_exterior)
 
 public:
-    explicit exterior_item(QObject* parent = nullptr);
+    explicit c_exterior(QObject* parent = nullptr);
 
-    const constexpr char* key() override { return "exterior"; };
     static const constexpr auto qmlName{"ExteriorItem"};
     static const constexpr auto uri{"Places"};
 
-    void read(const QJsonObject& json);
-    void read(const QByteArray& bytes);
-    void write(QJsonObject& json) const override;
+    void read(const Json::Value& json) override;
+    void write(Json::Value& json) const override;
+
     void clear() override;
     W_SLOT(clear)
-
-    enum parkingTypes
-    {
-        NoParking = 0,
-        Bike = 1,
-        Car = 2,
-        Indoor = 4,
-        Outdoor = 8,
-        individual = 16,
-        Colective = 32
-    };
-
-    enum equipements
-    {
-        None = 0,
-        Health = 1,
-        Food = 2,
-        Education = 4,
-        Leasure = 8,
-        Shops = 16,
-        Transports = 32
-    };
 
     bool getHasParking() const;
     void setHasParking(bool newHasParking);
@@ -59,7 +36,7 @@ public:
     void setParkingType(const parkingTypes &newParkingType);
     int getParkingSurface() const;
     void setParkingSurface(int newParkingSurface);
-    const QString &getTerrainDescription() const;
+    const QString getTerrainDescription() const;
     void setTerrainDescription(const QString &newTerrainDescription);
     int getTerrainSurface() const;
     void setTerrainSurface(int newTerrainSurface);
@@ -95,18 +72,6 @@ public:
     W_PROPERTY(int, rating READ getRating WRITE setRating NOTIFY ratingChanged)
 
 private:
-    // --- Exterior ---
-    // Parking
-    bool hasParking{false};
-    int parkingSpots{0};
-    parkingTypes parkingType{NoParking};
-    int parkingSurface{0};
-    // Terrain
-    QString terrainDescription{""};
-    int terrainSurface{50};
-    equipements equipement{None};
-    int rating{0};
-
     void checkCompleted() override;
 };
 

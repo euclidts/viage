@@ -1,36 +1,30 @@
-#include <QJsonDocument>
-
 #include <Item/owner_item.hpp>
 #include <Item/contact_item.hpp>
 #include <Item/habitat_item.hpp>
 #include <Item/exterior_item.hpp>
 #include <Item/document_item.hpp>
-
 #include <List/item_list.hpp>
-
-#include "account_item.hpp"
+#include "c_account.hpp"
 
 namespace Data
 {
-account_item::account_item()
-    : created{QDateTime::currentDateTime()}
-    , modified{QDateTime::currentDateTime()}
+c_account::c_account()
+    : account_item{}
+    , c_base_item{}
 {
+    created = to_date_time(QDateTime::currentDateTime());
+    modified = to_date_time(QDateTime::currentDateTime());
 }
 
-QHash<int, QByteArray> account_item::roleNames()
+QHash<int, QByteArray> c_account::roleNames()
 {
     QHash<int, QByteArray> names;
 
     names[OwnersRole] = "owners";
     names[ContactsRole] = "contacts";
-    // --- Habitat ---
     names[HabitatRole] = "habitat";
-    // --- Exterior ---
     names[ExteriorRole] = "exterior";
-    // --- Documents ---
     names[DocumentsRole] = "documents";
-    // Account status
     names[StateRole] = "state";
     names[ReceivedRole] = "receivedDate";
     names[TransmitedRole] = "transmitedDate";
@@ -49,8 +43,8 @@ QHash<int, QByteArray> account_item::roleNames()
     return names;
 }
 
-QVariant account_item::data(int role) const
-{
+QVariant c_account::data(int role) const
+{   
     switch (role)
     {
     case OwnersRole:
@@ -96,7 +90,7 @@ QVariant account_item::data(int role) const
     return QVariant();
 }
 
-void account_item::setData(const QVariant &value, int role)
+void c_account::setData(const QVariant &value, int role)
 {
     switch (role)
     {
@@ -118,9 +112,9 @@ void account_item::setData(const QVariant &value, int role)
     }
 }
 
-bool account_item::update(item_list<People::owner_item>* ol)
+bool c_account::update(item_list<People::owner_item>* ol)
 {
-    QJsonArray arr{};
+    Json::Value arr{};
     ol->write(arr);
     if (owners == arr)
         return false;
@@ -130,12 +124,12 @@ bool account_item::update(item_list<People::owner_item>* ol)
     return true;
 }
 
-bool account_item::update(item_list<People::contact_item>* cl)
+bool c_account::update(item_list<People::contact_item>* cl)
 {
-    QJsonArray arr{};
+    Json::Value arr{};
     cl->write(arr);
     // exception for first updating empty contacts
-    if (contacts.isEmpty() && arr.isEmpty())
+    if (contacts.empty() && arr.empty())
         return true;
     else if (contacts == arr)
         return false;
@@ -145,9 +139,9 @@ bool account_item::update(item_list<People::contact_item>* cl)
     return true;
 }
 
-bool account_item::update(Places::habitat_item* ht)
+bool c_account::update(Places::habitat_item* ht)
 {
-    QJsonObject obj{};
+    Json::Value obj{};
     ht->write(obj);
     if (habitat == obj)
         return false;
@@ -157,9 +151,9 @@ bool account_item::update(Places::habitat_item* ht)
     return true;
 }
 
-bool account_item::update(Places::exterior_item* er)
+bool c_account::update(Places::exterior_item* er)
 {
-    QJsonObject obj{};
+    Json::Value obj{};
     er->write(obj);
     if (exterior == obj)
         return false;
@@ -169,9 +163,9 @@ bool account_item::update(Places::exterior_item* er)
     return true;
 }
 
-bool account_item::update(item_list<document_item>* ds)
+bool c_account::update(item_list<document_item>* ds)
 {
-    QJsonArray arr{};
+    Json::Value arr{};
     ds->write(arr);
     // exception
 
@@ -180,13 +174,13 @@ bool account_item::update(item_list<document_item>* ds)
     return true;
 }
 
-QJsonArray account_item::get(item_list<People::owner_item> *ol) const
+Json::Value c_account::get(item_list<People::owner_item> *ol) const
 {
-    if (owners.isEmpty())
+    if (owners.empty())
         return owners;
     else
     {
-        if (owners[0].toObject().contains("id"))
+        if (owners[0].isMember("id"))
             return owners;
         else
             return {};
@@ -194,130 +188,54 @@ QJsonArray account_item::get(item_list<People::owner_item> *ol) const
     }
 }
 
-QJsonArray account_item::get(item_list<People::contact_item> *cl) const
+Json::Value c_account::get(item_list<People::contact_item> *cl) const
 {
     // TODO : differentiate between "unfetched" and empty contacts
     return contacts;
 }
 
-QJsonObject account_item::get(Places::habitat_item* ht) const
+Json::Value c_account::get(Places::habitat_item* ht) const
 {
-    if (habitat.contains("id"))
+    if (habitat.isMember("id"))
         return habitat;
     else
         return {};
 }
 
-QJsonObject account_item::get(Places::exterior_item* er) const
+Json::Value c_account::get(Places::exterior_item* er) const
 {
-    if (exterior.contains("id"))
+    if (exterior.isMember("id"))
         return exterior;
     else
         return {};
 }
 
-QJsonArray account_item::get(item_list<document_item>* ds) const
+Json::Value c_account::get(item_list<document_item>* ds) const
 {
-    if (documents.isEmpty())
+    if (documents.empty())
         return documents;
     else
     {
-        if (documents[0].toObject().contains("id"))
+        if (documents[0].isMember("id"))
             return documents;
         else
             return {};
     }
 }
 
-void account_item::read(const QJsonObject& json)
+QDateTime c_account::to_QDateTime(const std::string& date, const QString& format) const
 {
-    if (json.contains("owners") && json["owners"].isArray())
-        owners = json["owners"].toArray();
-
-    if (json.contains("contacts") && json["contacts"].isArray())
-        contacts = json["contacts"].toArray();
-
-    if (json.contains("habitat") && json["habitat"].isObject())
-        habitat = json["habitat"].toObject();
-
-    if (json.contains("exterior") && json["exterior"].isObject())
-        exterior = json["exterior"].toObject();
-
-    if (json.contains("documents") && json["documents"].isArray())
-        documents = json["documents"].toArray();
-
-    if (json.contains("created") && json["created"].isString())
-        created = QDateTime::fromString(json["created"].toString(), "yyyy-MM-dd hh:mm:ss");
-
-    if (json.contains("modified") && json["modified"].isString())
-        modified = QDateTime::fromString(json["modified"].toString(), "yyyy-MM-dd hh:mm:ss");
-
-    if (json.contains("acronym") && json["acronym"].isString())
-        acronym = json["acronym"].toString();
-
-    if (json.contains("advisorFirstName") && json["advisorFirstName"].isString())
-        advisorFirstName = json["advisorFirstName"].toString();
-
-    if (json.contains("advisorLastName") && json["advisorLastName"].isString())
-        advisorLastName = json["advisorLastName"].toString();
-
-    if (json.contains("company") && json["company"].isString())
-        company = json["company"].toString();
-
-    if (json.contains("id") && json["id"].isDouble())
-        id = json["id"].toInt();
-
-    if (json.contains("state") && json["state"].isDouble())
-        state = states(json["state"].toInt());
-
-    if (json.contains("accountState") && json["accountState"].isDouble())
-        state = states(json["accountState"].toInt());
-
-    if (json.contains("receivedDate") && json["receivedDate"].isString())
-        receivedDate = QDateTime::fromString(json["receivedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
-
-    if (json.contains("transmitedDate") && json["transmitedDate"].isString())
-        transmitedDate = QDateTime::fromString(json["transmitedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
-
-    if (json.contains("expertizedDate") && json["expertizedDate"].isString())
-        expertizedDate = QDateTime::fromString(json["expertizedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
-
-    if (json.contains("decidedDate") && json["decidedDate"].isString())
-        decidedDate = QDateTime::fromString(json["decidedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
-
-    if (json.contains("notarizedDate") && json["notarizedDate"].isString())
-        notarizedDate = QDateTime::fromString(json["notarizedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
-
-    if (json.contains("paidDate") && json["paidDate"].isString())
-        paidDate = QDateTime::fromString(json["paidDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
+    return QDateTime::fromString(QString::fromStdString(date), format);
 }
 
-void account_item::write(QJsonObject& json) const
+std::string c_account::to_date_time(const QDateTime& date, const QString& format) const
 {
-    json["owners"] = owners;
-    json["contacts"] = contacts;
-    json["habitat"] = habitat;
-    json["exterior"] = exterior;
-    json["documents"] = documents;
-    json["state"] = state;
-    json["receivedDate"] = receivedDate.toString("dd.MM.yyyy");
-    json["transmitedDate"] = transmitedDate.toString("dd.MM.yyyy");
-    json["expertizedDate"] = expertizedDate.toString("dd.MM.yyyy");
-    json["decidedDate"] = decidedDate.toString("dd.MM.yyyy");
-    json["notarizedDate"] = notarizedDate.toString("dd.MM.yyyy");
-    json["paidDateDate"] = paidDate.toString("dd.MM.yyyy");
-    json["created"] = created.toString("yyyy-MM-dd hh:mm:ss");
-    json["modified"] = modified.toString("yyyy-MM-dd hh:mm:ss");
-    json["advisorFirstName"] = advisorFirstName;
-    json["advisorLastName"] = advisorLastName;
-    json["company"] = company;
-    json["acronym"] = acronym;
-    json["id"] = id;
+    return date.toString(format).toStdString();
 }
 
-bool account_item::is_completed() const
+QVariantList c_account::to_QVariantList(const Value &json) const
 {
-    return (state & Onboarded) == Onboarded;
+
 }
 
 }

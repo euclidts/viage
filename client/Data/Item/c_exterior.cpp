@@ -1,71 +1,44 @@
 #include <QJsonDocument>
 #include <wobjectimpl.h>
 
-#include "exterior_item.hpp"
+#include "c_exterior.hpp"
 
 namespace Data
 {
 namespace Places
 {
-W_OBJECT_IMPL(exterior_item)
+W_OBJECT_IMPL(c_exterior)
 
-exterior_item::exterior_item(QObject *parent)
-    : base_item{parent}
+c_exterior::c_exterior(QObject *parent)
+    : c_base_data{parent}
+    , c_base_item{}
+    , exterior_item{}
 {
 }
 
-void exterior_item::read(const QJsonObject& json)
+void c_exterior::read(const Json::Value& json)
 {
-    if (json.contains("hasParking") && json["hasParking"].isBool())
-        setHasParking(json["hasParking"].toBool());
+    exterior_item::read(json);
 
-    if (json.contains("parkingSpots") && json["parkingSpots"].isDouble())
-        setParkingSpots(json["parkingSpots"].toInt());
-
-    if (json.contains("parkingType") && json["parkingType"].isDouble())
-        setParkingType(parkingTypes(json["parkingType"].toInt()));
-
-    if (json.contains("parkingSurface") && json["parkingSurface"].isDouble())
-        setParkingSurface(json["parkingSurface"].toInt());
-
-    if (json.contains("terrainDescription") && json["terrainDescription"].isString())
-        setTerrainDescription(json["terrainDescription"].toString());
-
-    if (json.contains("terrainSurface") && json["terrainSurface"].isDouble())
-        setTerrainSurface(json["terrainSurface"].toInt());
-
-    if (json.contains("rating") && json["rating"].isDouble())
-        setRating(json["rating"].toInt());
-
-    if (json.contains("equipements") && json["equipements"].isDouble())
-        setEquipements(equipements(json["equipements"].toInt()));
+    emit hasParkingChanged();
+    emit parkingSpotsChanged();
+    emit parkingTypeChanged();
+    emit parkingSurfaceChanged();
+    emit terrainDescriptionChanged();
+    emit terrainSurfaceChanged();
+    emit equipementsChanged();
+    emit ratingChanged();
 
     emit loaded();
     checkCompleted();
 }
 
-void exterior_item::read(const QByteArray &bytes)
+void c_exterior::write(Json::Value& json) const
 {
-    const auto json = QJsonDocument::fromJson(bytes).object();
-    read(json);
+    exterior_item::write(json);
 }
 
-void exterior_item::write(QJsonObject& json) const
-{
-    json["hasParking"] = hasParking;
-    if (hasParking)
-    {
-        json["parkingSpots"] = parkingSpots;
-        json["parkingType"] = parkingType;
-        json["parkingSurface"] = parkingSurface;
-    }
-    json["terrainDescription"] = terrainDescription;
-    json["terrainSurface"] = terrainSurface;
-    json["equipements"] = equipement;
-    json["rating"] = rating;
-}
-
-void exterior_item::clear()
+void c_exterior::clear()
 {
     hasParking = false;
     emit hasParkingChanged();
@@ -87,12 +60,12 @@ void exterior_item::clear()
     emit completedChanged();
 }
 
-int exterior_item::getParkingSpots() const
+int c_exterior::getParkingSpots() const
 {
     return parkingSpots;
 }
 
-void exterior_item::setParkingSpots(int newParkingSpots)
+void c_exterior::setParkingSpots(int newParkingSpots)
 {
     if (parkingSpots == newParkingSpots)
         return;
@@ -100,12 +73,12 @@ void exterior_item::setParkingSpots(int newParkingSpots)
     emit parkingSpotsChanged();
 }
 
-const exterior_item::parkingTypes &exterior_item::getParkingType() const
+const c_exterior::parkingTypes &c_exterior::getParkingType() const
 {
     return parkingType;
 }
 
-void exterior_item::setParkingType(const parkingTypes &newParkingType)
+void c_exterior::setParkingType(const parkingTypes &newParkingType)
 {
     if (parkingType == newParkingType)
         return;
@@ -113,12 +86,12 @@ void exterior_item::setParkingType(const parkingTypes &newParkingType)
     emit parkingTypeChanged();
 }
 
-int exterior_item::getParkingSurface() const
+int c_exterior::getParkingSurface() const
 {
     return parkingSurface;
 }
 
-void exterior_item::setParkingSurface(int newParkingSurface)
+void c_exterior::setParkingSurface(int newParkingSurface)
 {
     if (parkingSurface == newParkingSurface)
         return;
@@ -126,25 +99,27 @@ void exterior_item::setParkingSurface(int newParkingSurface)
     emit parkingSurfaceChanged();
 }
 
-const QString &exterior_item::getTerrainDescription() const
+const QString c_exterior::getTerrainDescription() const
 {
-    return terrainDescription;
+    return to_QString(terrainDescription);
 }
 
-void exterior_item::setTerrainDescription(const QString &newTerrainDescription)
+void c_exterior::setTerrainDescription(const QString& newTerrainDescription)
 {
-    if (terrainDescription == newTerrainDescription)
+    const std::string str{to_string(newTerrainDescription)};
+
+    if (terrainDescription == str)
         return;
-    terrainDescription = newTerrainDescription;
+    terrainDescription = str;
     emit terrainDescriptionChanged();
 }
 
-int exterior_item::getTerrainSurface() const
+int c_exterior::getTerrainSurface() const
 {
     return terrainSurface;
 }
 
-void exterior_item::setTerrainSurface(int newTerrainSurface)
+void c_exterior::setTerrainSurface(int newTerrainSurface)
 {
     if (terrainSurface == newTerrainSurface)
         return;
@@ -152,12 +127,12 @@ void exterior_item::setTerrainSurface(int newTerrainSurface)
     emit terrainSurfaceChanged();
 }
 
-bool exterior_item::getHasParking() const
+bool c_exterior::getHasParking() const
 {
     return hasParking;
 }
 
-void exterior_item::setHasParking(bool newHasParking)
+void c_exterior::setHasParking(bool newHasParking)
 {
     if (hasParking == newHasParking)
         return;
@@ -165,12 +140,12 @@ void exterior_item::setHasParking(bool newHasParking)
     emit hasParkingChanged();
 }
 
-const exterior_item::equipements& exterior_item::getEquipements() const
+const c_exterior::equipements& c_exterior::getEquipements() const
 {
     return equipement;
 }
 
-void exterior_item::setEquipements(const equipements& newEquipement)
+void c_exterior::setEquipements(const equipements& newEquipement)
 {
     if (equipement == newEquipement)
         return;
@@ -178,12 +153,12 @@ void exterior_item::setEquipements(const equipements& newEquipement)
     emit equipementsChanged();
 }
 
-int exterior_item::getRating() const
+int c_exterior::getRating() const
 {
     return rating;
 }
 
-void exterior_item::setRating(int newRating)
+void c_exterior::setRating(int newRating)
 {
     if (rating == newRating)
         return;
@@ -192,15 +167,9 @@ void exterior_item::setRating(int newRating)
     checkCompleted();
 }
 
-void exterior_item::checkCompleted()
+void c_exterior::checkCompleted()
 {
-    if(rating == 0)
-    {
-        setCompleted(false);
-        return;
-    }
-
-    setCompleted(true);
+    setCompleted(exterior_item::is_completed());
 }
 
 }

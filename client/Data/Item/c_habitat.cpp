@@ -1,86 +1,54 @@
-#include <QJsonDocument>
-#include <wobjectimpl.h>
-
-#include "habitat_item.hpp"
+#include "c_habitat.hpp"
+#include "wobjectimpl.h"
 
 namespace Data
 {
 namespace Places
 {
-W_OBJECT_IMPL(habitat_item)
+W_OBJECT_IMPL(c_habitat)
 
-habitat_item::habitat_item(QObject *parent)
-    : base_item{parent}
-    , address{}
+c_habitat::c_habitat(QObject* parent)
+    : c_base_data{parent}
+    , c_base_item{}
+    , habitat_item{}
 {
 }
 
-void habitat_item::read(const QJsonObject& json)
+void c_habitat::read(const Json::Value& json)
 {
-    if (json.contains("address") && json["address"].isObject())
-    {
-        address.read(json["address"].toObject());
-        emit streetChanged();
-        emit cityChanged();
-        emit zipChanged();
-        emit cantonChanged();
-    }
+    habitat_item::read(json);
 
-    if (json.contains("habitatType") && json["habitatType"].isDouble())
-        setHabitatType(habitatTypes(json["habitatType"].toInt()));
+    emit streetChanged();
+    emit cityChanged();
+    emit zipChanged();
+    emit cantonChanged();
 
-    if (json.contains("rooms") && json["rooms"].isDouble())
-        setRooms(json["rooms"].toInt());
-
-    if (json.contains("rawSurface") && json["rawSurface"].isDouble())
-        setRawSurface(json["rawSurface"].toInt());
-
-    if (json.contains("surface") && json["surface"].isDouble())
-        setSurface(json["surface"].toInt());
-
-    if (json.contains("m2Constructed") && json["m2Constructed"].isDouble())
-        setM2Constructed(json["m2Constructed"].toInt());
-
-    if (json.contains("m2Available") && json["m2Available"].isDouble())
-        setM2Available(json["m2Available"].toInt());
-
-    if (json.contains("m3s") && json["m3s"].isDouble())
-        setM3s(json["m3s"].toInt());
+    emit habitatTypeChanged();
+    emit roomsChanged();
+    emit rawSurfaceChanged();
+    emit surfaceChanged();
+    emit m2ConstructedChanged();
+    emit m2AvailableChanged();
+    emit m3sChanged();
 
     emit loaded();
     checkCompleted();
 }
 
-void habitat_item::read(const QByteArray &bytes)
+void c_habitat::write(Json::Value& json) const
 {
-    const auto json = QJsonDocument::fromJson(bytes).object();
-    read(json);
+    habitat_item::write(json);
 }
 
-void habitat_item::write(QJsonObject& json) const
+void c_habitat::clear()
 {
-    QJsonObject jsonAddress{};
-    address.write(jsonAddress);
-
-    json["address"] = jsonAddress;
-    json["habitatType"] = habitatType;
-    json["rooms"] = rooms;
-    json["rawSurface"] = rawSurface;
-    json["surface"] = surface;
-    json["m2Constructed"] = m2Constructed;
-    json["m2Available"] = m2Available;
-    json["m3s"] = m3s;
-}
-
-void habitat_item::clear()
-{
-    address.street = QString{""};
+    address.street = "";
     emit streetChanged();
-    address.city = QString{""};
+    address.city = "";
     emit cityChanged();
     address.zip = 9000;
     emit zipChanged();
-    address.canton = QString{"Appenzell"};
+    address.canton = "Appenzell";
     emit cantonChanged();
     habitatType = None;
     emit habitatTypeChanged();
@@ -100,26 +68,28 @@ void habitat_item::clear()
     emit completedChanged();
 }
 
-const QString &habitat_item::getStreet() const
+const QString c_habitat::getStreet() const
 {
-    return address.street;
+    return to_QString(address.street);
 }
 
-void habitat_item::setStreet(const QString &newStreet)
+void c_habitat::setStreet(const QString& newStreet)
 {
-    if (address.street == newStreet)
+    const std::string str{to_string(newStreet)};
+
+    if (address.street == str)
         return;
-    address.street = newStreet;
+    address.street = str;
     emit streetChanged();
     checkCompleted();
 }
 
-int habitat_item::getZip() const
+int c_habitat::getZip() const
 {
     return address.zip;
 }
 
-void habitat_item::setZip(int newZip)
+void c_habitat::setZip(int newZip)
 {
     if (address.zip == newZip)
         return;
@@ -127,39 +97,43 @@ void habitat_item::setZip(int newZip)
     emit zipChanged();
 }
 
-const QString &habitat_item::getCanton() const
+const QString c_habitat::getCanton() const
 {
-    return address.canton;
+    return to_QString(address.canton);
 }
 
-void habitat_item::setCanton(const QString &newCanton)
+void c_habitat::setCanton(const QString& newCanton)
 {
-    if (address.canton == newCanton)
+    const std::string str{to_string(newCanton)};
+
+    if (address.canton == str)
         return;
-    address.canton = newCanton;
+    address.canton = str;
     emit cantonChanged();
 }
 
-const QString &habitat_item::getCity() const
+const QString c_habitat::getCity() const
 {
-    return address.city;
+    return to_QString(address.city);
 }
 
-void habitat_item::setCity(const QString &newCity)
+void c_habitat::setCity(const QString &newCity)
 {
-    if (address.city == newCity)
+    const std::string str{to_string(newCity)};
+
+    if (address.city == str)
         return;
-    address.city = newCity;
+    address.city = str;
     emit cityChanged();
     checkCompleted();
 }
 
-const habitat_item::habitatTypes& habitat_item::getHabitatType() const
+const c_habitat::habitatTypes& c_habitat::getHabitatType() const
 {
     return habitatType;
 }
 
-void habitat_item::setHabitatType(const habitatTypes& newHabitatType)
+void c_habitat::setHabitatType(const habitatTypes& newHabitatType)
 {
     if (habitatType == newHabitatType)
         return;
@@ -168,12 +142,12 @@ void habitat_item::setHabitatType(const habitatTypes& newHabitatType)
     checkCompleted();
 }
 
-int habitat_item::getRooms() const
+int c_habitat::getRooms() const
 {
     return rooms;
 }
 
-void habitat_item::setRooms(int newRooms)
+void c_habitat::setRooms(int newRooms)
 {
     if (rooms == newRooms)
         return;
@@ -181,12 +155,12 @@ void habitat_item::setRooms(int newRooms)
     emit roomsChanged();
 }
 
-int habitat_item::getRawSurface() const
+int c_habitat::getRawSurface() const
 {
     return rawSurface;
 }
 
-void habitat_item::setRawSurface(int newRawSurface)
+void c_habitat::setRawSurface(int newRawSurface)
 {
     if (rawSurface == newRawSurface)
         return;
@@ -194,12 +168,12 @@ void habitat_item::setRawSurface(int newRawSurface)
     emit rawSurfaceChanged();
 }
 
-int habitat_item::getSurface() const
+int c_habitat::getSurface() const
 {
     return surface;
 }
 
-void habitat_item::setSurface(int newSurface)
+void c_habitat::setSurface(int newSurface)
 {
     if (surface == newSurface)
         return;
@@ -207,12 +181,12 @@ void habitat_item::setSurface(int newSurface)
     emit surfaceChanged();
 }
 
-int habitat_item::getM2Constructed() const
+int c_habitat::getM2Constructed() const
 {
     return m2Constructed;
 }
 
-void habitat_item::setM2Constructed(int newM2Constructed)
+void c_habitat::setM2Constructed(int newM2Constructed)
 {
     if (m2Constructed == newM2Constructed)
         return;
@@ -220,12 +194,12 @@ void habitat_item::setM2Constructed(int newM2Constructed)
     emit m2ConstructedChanged();
 }
 
-int habitat_item::getM2Available() const
+int c_habitat::getM2Available() const
 {
     return m2Available;
 }
 
-void habitat_item::setM2Available(int newM2Available)
+void c_habitat::setM2Available(int newM2Available)
 {
     if (m2Available == newM2Available)
         return;
@@ -233,12 +207,12 @@ void habitat_item::setM2Available(int newM2Available)
     emit m2AvailableChanged();
 }
 
-int habitat_item::getM3s() const
+int c_habitat::getM3s() const
 {
     return m3s;
 }
 
-void habitat_item::setM3s(int newM3s)
+void c_habitat::setM3s(int newM3s)
 {
     if (m3s == newM3s)
         return;
@@ -246,21 +220,9 @@ void habitat_item::setM3s(int newM3s)
     emit m3sChanged();
 }
 
-void habitat_item::checkCompleted()
+void c_habitat::checkCompleted()
 {
-    if (habitatType == habitatTypes::None)
-    {
-        setCompleted(false);
-        return;
-    }
-
-    if (!address.is_completed())
-    {
-        setCompleted(false);
-        return;
-    }
-
-    setCompleted(true);
+    setCompleted(habitat_item::is_completed());
 }
 
 }

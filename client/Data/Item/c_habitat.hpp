@@ -1,50 +1,40 @@
-#ifndef HABITAT_ITEM_HPP
-#define HABITAT_ITEM_HPP
-
-#include <QJsonDocument>
-#include <QJsonObject>
+#ifndef C_HABITAT_HPP
+#define C_HABITAT_HPP
 
 #include <wobjectdefs.h>
-
-#include "base_item.hpp"
-#include "address_item.hpp"
+#include <c_base_data.hpp>
+#include "c_base_item.hpp"
+#include <Item/habitat_item.hpp>
 
 namespace Data
 {
 namespace Places
 {
-class habitat_item : public base_item
+class c_habitat : private habitat_item
+                , public c_base_data
+                , private c_base_item
 {
-    W_OBJECT(habitat_item)
+    W_OBJECT(c_habitat)
 
 public:
-    explicit habitat_item(QObject* parent = nullptr);
+    explicit c_habitat(QObject* parent = nullptr);
 
-    const constexpr char* key() override { return "habitat"; };
     static const constexpr auto qmlName{"HabitatItem"};
     static const constexpr auto uri{"Places"};
 
-    void read(const QJsonObject& json);
-    void read(const QByteArray& bytes);
-    void write(QJsonObject &json) const override;
+    void read(const Json::Value& json) override;
+    void write(Json::Value& json) const override;
+
     void clear() override;
     W_SLOT(clear)
 
-    enum habitatTypes
-    {
-        None = 0,
-        DetachedHouse,
-        AdjacentHouse,
-        Appartement
-    };
-
-    const QString &getStreet() const;
+    const QString getStreet() const;
     void setStreet(const QString &newStreet);
     int getZip() const;
     void setZip(int newZip);
-    const QString &getCanton() const;
+    const QString getCanton() const;
     void setCanton(const QString &newCanton);
-    const QString &getCity() const;
+    const QString getCity() const;
     void setCity(const QString& newCity);
     const habitatTypes& getHabitatType() const;
     void setHabitatType(const habitatTypes& newHabitatType);
