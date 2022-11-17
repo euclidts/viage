@@ -31,15 +31,16 @@ void wrapped_list<Inner>::makeConnections() const
                   this,
                   [this] (int id)
     {
-        QJsonObject obj{};
+        Json::Value obj;
         auto item{this->inner->item_at_id(id)};
         item.write(obj);
 
-        QJsonObject json{{ item.key(), obj }};
+        Json::Value json;
+        json[item.key()] = obj;
 
         this->mng->putToKey(this->inner->key(),
-                            QJsonDocument{json}.toJson(),
-                            [this](const QJsonObject& rep)
+                            json,
+                            [this](const Json::Value& rep)
         {},
         "Validate error");
     });
@@ -51,7 +52,7 @@ void wrapped_list<Inner>::makeConnections() const
     {
         this->mng->postToKey(this->inner->key(),
                              QByteArray{},
-                             [this](const QJsonObject& rep)
+                             [this](const Json::Value& rep)
         { this->inner->appendWith(rep); },
         "Add error");
     });
@@ -59,19 +60,13 @@ void wrapped_list<Inner>::makeConnections() const
     this->connect(this->inner,
                   &Inner::addWith,
                   this,
-                  [this] (const QJsonObject& obj)
+                  [this] (const Json::Value& obj)
     {
-        QJsonDocument data{obj};
-
         this->mng->postToKey(this->inner->key(),
-                                 data.toJson(),
-                                 [this, obj](const QJsonObject& res)
+                                 obj,
+                                 [this, obj](const Json::Value& res)
         {
-            auto map{res.toVariantMap()};
-            map.insert(obj.toVariantMap());
-
-            const auto json{QJsonObject::fromVariantMap(map)};
-            this->inner->appendWith(json);
+            this->inner->appendWith(Json::Value::append(res, obj));
         },
         "addWith error");
     });
@@ -89,9 +84,11 @@ void wrapped_list<Inner>::connectRemove() const
     {
         this->inner->erase(id);
 
-        const QJsonObject json{{"id", id}};
+        Json::Value json;
+        json["id"] = id;
+
         this->mng->deleteToKey(this->inner->key(),
-                               QJsonDocument{json}.toJson(),
+                               json,
                                [this, id](const QJsonObject& rep) {},
         "Remove Error");
     });

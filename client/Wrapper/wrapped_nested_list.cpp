@@ -6,12 +6,13 @@ namespace Wrapper
 {
 template <typename Inner, typename Outer>
 wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* manager,
-                                                       Data::item_list<Outer>* parentList,
+                                                       Data::c_list<Outer>* parentList,
                                                        QQmlContext* context)
     : wrapped_nested_item<Inner, Outer>{manager, context}
     , key{this->makeKey(parentList)}
-    , parent_key_id{QString(Outer::key()).append("Id")}
 {
+    parent_key_id{Outer::key().append("Id")};
+
     this->inner->complitionChecks();
 
     this->makeConnections(parentList);
@@ -30,14 +31,13 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
 }
 
 template<typename Inner, typename Outer>
-void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const QJsonObject& obj)
+void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const Json::Value& obj)
 {
     auto json{obj};
     json[parent_key_id] = id;
-    QJsonDocument data{json};
 
     this->mng->postToKey(key.c_str(),
-                         data.toJson(),
+                         json,
                          [this, obj](const QJsonObject& res)
     {
         auto map{res.toVariantMap()};

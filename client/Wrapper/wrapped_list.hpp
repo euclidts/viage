@@ -15,7 +15,7 @@ class netManager;
 namespace Data
 {
 template <typename Outer>
-class item_list;
+class c_list;
 }
 
 namespace Wrapper

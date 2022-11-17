@@ -16,10 +16,10 @@ struct infant_item : virtual public person_item
 
     senior_citizen_item::sexes sex{senior_citizen_item::M};
 
-    void read(const Json::Value& json);
-    void write(Json::Value& json) const;
+    void read(const Json::Value& json) override;
+    void write(Json::Value& json) const override;
 
-    bool is_completed() const;
+    bool is_completed() const override;
 };
 
 }

@@ -6,11 +6,13 @@
 
 #include "c_simple_list.hpp"
 
+W_REGISTER_ARGTYPE(Json::Value)
+
 namespace Data
 {
 template <typename T>
 class c_list final : public c_simple_list<T>
-{
+{    
     W_OBJECT(c_list)
 
 public:
@@ -19,7 +21,6 @@ public:
     bool setItemAtId(int id, const T& item);
     void set_list(const std::vector<T>& list);
     void clear() override;
-    W_SLOT(clear)
 
     void add()
     W_SIGNAL(add)
@@ -35,7 +36,6 @@ public:
 
     void appendWith(int id);
     void appendWith(const Json::Value& json);
-    W_SLOT(appendWith, (const Json::Value&))
 
     void erase(int id);
 

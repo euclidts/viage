@@ -1,7 +1,6 @@
 #pragma once
 #include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
+#include "qjsonarray.h"
 
 #include <wobjectimpl.h>
 

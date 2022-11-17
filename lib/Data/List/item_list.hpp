@@ -12,6 +12,9 @@ class item_list : public virtual base_data
 {
 public:
     item_list();
+
+    const char* key() const override { return items_key; };
+
     void set_list(const std::vector<T>& list);
     T item_at_id(int id) const;
 
@@ -25,6 +28,7 @@ protected:
     int index_at_id(int id) const noexcept;
 
     std::vector<T> m_items;
+    const char* items_key;
 };
 }
 

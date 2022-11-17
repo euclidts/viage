@@ -17,9 +17,6 @@ public:
 
     const char* key() const override { return "habitat"; };
 
-    void read(const Json::Value& json) override;
-    void write(Json::Value& json) const override;
-
     enum habitatTypes
     {
         None,
@@ -36,6 +33,9 @@ public:
     int m2Constructed{25};
     int m2Available{25};
     int m3s{9000};
+
+    void read(const Json::Value& json) override;
+    void write(Json::Value& json) const override;
 
     bool is_completed() const override;
 };

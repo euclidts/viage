@@ -15,7 +15,7 @@ struct owner_item : virtual public infant_item
 {
     owner_item();
 
-    const char* key() const { return "owner"; };
+    const char* key() const override { return "owner"; };
 
     Places::address_item address;
     std::string birthDay{""};
@@ -35,10 +35,10 @@ struct owner_item : virtual public infant_item
     civilStates civilStatus{None};
     std::string avs{""};
 
-    void read(const Json::Value& json);
-    void write(Json::Value& json) const;
+    void read(const Json::Value& json) override;
+    void write(Json::Value& json) const override;
 
-    bool is_completed() const;
+    bool is_completed() const override;
 };
 
 }

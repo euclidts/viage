@@ -16,7 +16,7 @@ bridge::bridge(Interface::netManager* manager,
                Data::c_list<Data::c_document>* documents,
                const QString& tempPath)
     : Data::c_base_item{}
-    ,  mng{manager}
+    , mng{manager}
     , usrs{users}
     , acnts{accounts}
     , docs{documents}

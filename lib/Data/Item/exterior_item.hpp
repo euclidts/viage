@@ -15,9 +15,6 @@ public:
 
     const char* key() const override { return "exterior"; };
 
-    void read(const Json::Value& json) override;
-    void write(Json::Value& json) const override;
-
     enum parkingTypes
     {
         NoParking = 0,
@@ -48,6 +45,9 @@ public:
     int terrainSurface{50};
     equipements equipement{None};
     int rating{0};
+
+    void read(const Json::Value& json) override;
+    void write(Json::Value& json) const override;
 
     bool is_completed() const override;
 };

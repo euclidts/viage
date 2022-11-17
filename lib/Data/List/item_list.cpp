@@ -8,6 +8,19 @@ template <typename T>
 item_list<T>::item_list()
     : base_data{}
 {
+    std::string str{T().key()};
+
+    if (str.back() == 'y')
+    {
+        str.pop_back();
+        str += "ie";
+    }
+
+    str += 's';
+
+    auto key_str = new char[str.length() + 1];
+    strcpy(key_str, str.c_str());
+    items_key = key_str;
 }
 
 template<typename T>

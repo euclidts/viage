@@ -12,7 +12,7 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Interface::netManager* ma
 }
 
 template<typename Inner, typename Outer>
-std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::item_list<Outer>* parentList)
+std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::c_list<Outer>* parentList)
 {
     std::string newkey = parentList->key();
     newkey.append("/");
@@ -22,7 +22,7 @@ std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::item_list<Outer>* p
 }
 
 template<typename Inner, typename Outer>
-std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::item_list<Outer>* parentList, int id)
+std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::c_list<Outer>* parentList, int id)
 {
     std::string newkey = parentList->key();
     newkey.append("/");
@@ -34,7 +34,7 @@ std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::item_list<Outer>* p
 }
 
 template<typename Inner, typename Outer>
-void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* parentList)
+void wrapped_nested_item<Inner, Outer>::makeConnections(Data::c_list<Outer>* parentList)
 {
     this->connect(this->inner,
                   &Inner::validate,
@@ -49,9 +49,9 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::item_list<Outer>* 
 
             this->mng->putToKey(makeKey(parentList).c_str(),
                                 this->inner->toData(id),
-                                [=](const QJsonObject& rep)
+                                [=](const Json::Value& rep)
             {
-                QJsonObject json{};
+                Json::Value json;
                 Outer updated{};
                 outer.write(json);
                 updated.read(json);

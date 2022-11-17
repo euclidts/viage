@@ -17,13 +17,13 @@ class wrapped_nested_list : public wrapped_nested_item<Inner, Outer>
 {
 public:
     explicit wrapped_nested_list(Interface::netManager *manager,
-                Data::item_list<Outer>* parentList,
+                Data::c_list<Outer>* parentList,
                 QQmlContext* context = nullptr);
 
 private:
     const std::string key;
-    const QString parent_key_id;
-    void add_in_with(int id, const QJsonObject& obj = {});
+    const std::string parent_key_id;
+    void add_in_with(int id, const Json::Value& obj = {});
 };
 
 }
