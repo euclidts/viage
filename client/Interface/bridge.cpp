@@ -432,10 +432,10 @@ void bridge::upload_doc(int index)
 {
     auto doc{docs->item_at(index)};
 
-    if (doc.state != Data::document_item::NotUploded || doc.localPath.isEmpty())
+    if (doc.state != Data::document_item::NotUploded || doc.localPath.empty())
         return;
 
-    QFile file{doc.localPath.toLocalFile()};
+    QFile file{doc.localPath};
     if (file.exists())
     {
         if (!file.open(QIODevice::ReadOnly))

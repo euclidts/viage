@@ -70,11 +70,11 @@ struct c_account : public account_item
     bool update(Places::c_exterior* er);
     bool update(c_list<c_document>* ds);
 
-    Json::Value get(c_list<People::c_owner>* ol) const { return account_item::get(ol); };
-    Json::Value get(c_list<People::c_contact>* cl) const { return account_item::get(cl); };
-    Json::Value get(Places::c_habitat* ht) const { return account_item::get(ht); };
-    Json::Value get(Places::c_exterior* er) const { return account_item::get(er); };
-    Json::Value get(c_list<c_document>* ds) const { return account_item::get(ds); };
+    Json::Value get(c_list<People::c_owner>* ol) const;
+    Json::Value get(c_list<People::c_contact>* cl) const;
+    Json::Value get(Places::c_habitat* ht) const;
+    Json::Value get(Places::c_exterior* er) const;
+    Json::Value get(c_list<c_document>* ds) const;
 
     void read(const Json::Value & json) { account_item::read(json); };
     void write(Json::Value & json) const { account_item::write(json); };

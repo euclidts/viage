@@ -73,18 +73,6 @@ struct account_item : virtual public base_data
     string acronym{""};
     int id{0};
 
-    bool update(item_list<People::owner_item>* ol);
-    bool update(item_list<People::contact_item>* cl);
-    bool update(Places::habitat_item* ht);
-    bool update(Places::exterior_item* er);
-    bool update(item_list<document_item>* ds);
-
-    Value get(item_list<People::owner_item>* ol) const;
-    Value get(item_list<People::contact_item>* cl) const;
-    Value get(Places::habitat_item* ht) const;
-    Value get(Places::exterior_item* er) const;
-    Value get(item_list<document_item>* ds) const;
-
     void read(const Value& json) override;
     void write(Value& json) const override;
 

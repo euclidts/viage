@@ -1,13 +1,13 @@
-#include <Item/owner_item.hpp>
-#include <Item/contact_item.hpp>
-#include <Item/habitat_item.hpp>
-#include <Item/exterior_item.hpp>
-#include <Item/document_item.hpp>
-#include <List/item_list.hpp>
-#include "c_account.hpp"
 #include "qjsonarray.h"
-#include "qjsondocument.h"
 #include "qjsonobject.h"
+
+#include <List/c_list.hpp>
+#include "Item/c_contact.hpp"
+#include "Item/c_document.hpp"
+#include "Item/c_exterior.hpp"
+#include "Item/c_habitat.hpp"
+#include "Item/c_owner.hpp"
+#include "c_account.hpp"
 
 namespace Data
 {
@@ -115,56 +115,115 @@ void c_account::setData(const QVariant &value, int role)
 //    }
 }
 
-bool c_account::update(item_list<People::owner_item>* ol)
+bool c_account::update(c_list<People::c_owner>* ol)
 {
-    bool up{account_item::update(ol)};
-    if (!up)
+    Value arr{};
+    ol->write(arr);
+    if (owners == arr)
         return false;
 
+    owners = arr;
     modified = to_date_time(QDateTime::currentDateTime());
     return true;
 }
 
-bool c_account::update(item_list<People::contact_item>* cl)
+bool c_account::update(c_list<People::c_contact>* cl)
 {
-    bool up{account_item::update(cl)};
-    if (contacts.empty())
+    Value arr{};
+    cl->write(arr);
+    // exception for first updating empty contacts
+    if (contacts.empty() && arr.empty())
         return true;
-    else if (!up)
+    else if (contacts == arr)
         return false;
 
+    contacts = arr;
     modified = to_date_time(QDateTime::currentDateTime());
     return true;
 }
 
-bool c_account::update(Places::habitat_item* ht)
+bool c_account::update(Places::c_habitat* ht)
 {
-    bool up{account_item::update(ht)};
-    if (!up)
+    Value obj{};
+    ht->write(obj);
+    if (habitat == obj)
         return false;
 
+    habitat = obj;
     modified = to_date_time(QDateTime::currentDateTime());
     return true;
 }
 
-bool c_account::update(Places::exterior_item* er)
+bool c_account::update(Places::c_exterior* er)
 {
-    bool up{account_item::update(er)};
-    if (!up)
+    Value obj{};
+    er->write(obj);
+    if (exterior == obj)
         return false;
 
+    exterior = obj;
     modified = to_date_time(QDateTime::currentDateTime());
     return true;
 }
 
-bool c_account::update(item_list<document_item>* ds)
+bool c_account::update(c_list<c_document>* ds)
 {
-    bool up{account_item::update(ds)};
-    if (!up)
-        return false;
+    Value arr{};
+    ds->write(arr);
+    // exception
 
+    documents = arr;
     modified = to_date_time(QDateTime::currentDateTime());
     return true;
+}
+
+Value c_account::get(c_list<People::c_owner> *ol) const
+{
+    if (owners.empty())
+        return owners;
+    else
+    {
+        if (owners[0].isMember("id"))
+            return owners;
+        else
+            return {};
+        // no need to retreive initial "names only" array
+    }
+}
+
+Value c_account::get(c_list<People::c_contact> *cl) const
+{
+    // TODO : differentiate between "unfetched" and empty contacts
+    return contacts;
+}
+
+Value c_account::get(Places::c_habitat *ht) const
+{
+    if (habitat.isMember("id"))
+        return habitat;
+    else
+        return {};
+}
+
+Value c_account::get(Places::c_exterior *er) const
+{
+    if (exterior.isMember("id"))
+        return exterior;
+    else
+        return {};
+}
+
+Value c_account::get(c_list<c_document> *ds) const
+{
+    if (documents.empty())
+        return documents;
+    else
+    {
+        if (documents[0].isMember("id"))
+            return documents;
+        else
+            return {};
+    }
 }
 
 QDateTime c_account::to_QDateTime(const std::string& date, const QString& format) const
