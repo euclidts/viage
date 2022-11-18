@@ -72,7 +72,7 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::c_list<Outer>* par
 
         this->inner->clear(); // clean previous load
 
-        if (json.isEmpty())
+        if (json.empty())
         {
             this->mng->getFromKey(makeKey(parentList, id).c_str(),
                                   [this](const QByteArray& rep)

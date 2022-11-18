@@ -10,9 +10,8 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
                                                        QQmlContext* context)
     : wrapped_nested_item<Inner, Outer>{manager, context}
     , key{this->makeKey(parentList)}
+    , parent_key_id{std::string{Outer::key()}.append("Id")}
 {
-    parent_key_id{Outer::key().append("Id")};
-
     this->inner->complitionChecks();
 
     this->makeConnections(parentList);
@@ -36,16 +35,16 @@ void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const Json::Value& o
     auto json{obj};
     json[parent_key_id] = id;
 
-    this->mng->postToKey(key.c_str(),
-                         json,
-                         [this, obj](const QJsonObject& res)
-    {
-        auto map{res.toVariantMap()};
-        map.insert(obj.toVariantMap());
+    Json::StreamWriterBuilder builder;
+    const std::string str = Json::writeString(builder, json);
 
-        const auto json{QJsonObject::fromVariantMap(map)};
-        this->inner->appendWith(json);
-    },
+    this->mng->postToKey(key.c_str(),
+                         QByteArray::fromStdString(str),
+                         [this, obj](const Json::Value& res)
+    {
+        Json::Value concat{obj};
+        concat[obj.size()] = res;
+        this->inner->appendWith(concat); },
     "addInWith error");
 }
 

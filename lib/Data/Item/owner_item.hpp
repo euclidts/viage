@@ -15,7 +15,7 @@ struct owner_item : virtual public infant_item
 {
     owner_item();
 
-    const char* key() const override { return "owner"; };
+    static const constexpr char* key() { return "owner"; };
 
     Places::address_item address;
     std::string birthDay{""};

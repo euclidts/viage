@@ -11,7 +11,7 @@ struct contact_item : virtual public infant_item
 {   
     contact_item();
 
-    const char* key() const override { return "contact"; };
+    static const constexpr char* key() { return "contact"; };
 
     bool isInfant{false};
 

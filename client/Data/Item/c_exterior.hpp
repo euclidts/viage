@@ -10,7 +10,7 @@ namespace Data
 {
 namespace Places
 {
-class c_exterior : private exterior_item
+class c_exterior : public exterior_item
                  , public c_base_data
                  , public c_base_item
 {

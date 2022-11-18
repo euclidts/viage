@@ -31,7 +31,7 @@ struct account_item : virtual public base_data
 {
     explicit account_item();
 
-    const char* key() const override { return "account"; };
+    static const constexpr char* key() { return "account"; };
 
     Value owners{};
     Value contacts{};

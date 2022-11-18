@@ -10,10 +10,6 @@
 
 #include <wobjectdefs.h>
 
-namespace Data
-{
-}
-
 namespace Interface
 {
 class smtp;
@@ -22,10 +18,10 @@ class netManager final : public QNetworkAccessManager
 {
     W_OBJECT(netManager)
 
-    public:
-        netManager(const QString& url,
-                   const QString& authentication_arguments,
-                   const QString& extra_arguments);
+public:
+    netManager(const QString& url,
+               const QString& authentication_arguments,
+               const QString& extra_arguments);
 
     void authenticate(const QString& username, const QString& password);
 
@@ -65,8 +61,8 @@ class netManager final : public QNetworkAccessManager
     void clearanceChanged(int newClearance)
     W_SIGNAL(clearanceChanged, newClearance)
 
-    private:
-        QNetworkRequest rqst;
+private:
+    QNetworkRequest rqst;
     const QString prefix;
     QString auth_args;
     QString suffix;

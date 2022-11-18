@@ -9,7 +9,7 @@ namespace Data
 {
 namespace People
 {
-struct c_infant : public infant_item
+struct c_infant : public virtual infant_item
                 , public c_person
 {   
     c_infant();

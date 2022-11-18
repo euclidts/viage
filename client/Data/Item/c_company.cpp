@@ -1,9 +1,10 @@
-#include "c_company.hpp"
 #include "qjsonarray.h"
 #include "qvariant.h"
-#include <Item/team_item.hpp>
 
-#include <List/item_list.hpp>
+#include "c_company.hpp"
+#include <Item/team_item.hpp>
+#include <List/c_list.hpp>
+#include "c_team.hpp"
 
 namespace Data
 {
@@ -43,6 +44,23 @@ void c_company::setData(const QVariant& value, int role)
 {
     if (role == NameRole)
         name = to_string(value);
+}
+
+
+bool c_company::update(c_list<c_team>* ti)
+{
+    Json::Value arr{};
+    ti->write(arr);
+    if (teams == arr)
+        return false;
+
+    teams = arr;
+    return true;
+}
+
+Json::Value c_company::get(c_list<c_team> *ti) const
+{
+    return teams;
 }
 
 }

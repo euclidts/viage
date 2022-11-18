@@ -16,14 +16,11 @@ struct company_item : virtual public base_data
 {
     company_item();
 
-    const char* key() const override { return "company"; };
+    static const constexpr char* key() { return "company"; };
 
     int id{0};
     std::string name{};
     Json::Value teams{};
-
-    bool update(item_list<team_item>* ti);
-    Json::Value get(item_list<team_item>* ti) const;
 
     void read(const Json::Value& json) override;
     void write(Json::Value& json) const override;

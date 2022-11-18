@@ -11,7 +11,7 @@ class rent_item : virtual public base_data
 public:
     explicit rent_item();
 
-    const char* key() const override { return "rent"; };
+    static const constexpr char* key() { return "rent"; };
 
     void from_expectency(double expectency);
     int floor_to(double number, int multiple) const;

@@ -36,13 +36,6 @@ void c_list<T>::read(const Json::Value& array)
     emit c_base_data::loaded();
 }
 
-template <typename T>
-void c_list<T>::read(const QByteArray& bytes)
-{
-    const auto json = QJsonDocument::fromJson(bytes).array();
-    read(json);
-}
-
 template<typename T>
 void c_list<T>::appendWith(const Json::Value& json)
 {

@@ -13,7 +13,7 @@ struct document_item : virtual public base_data
 {
     document_item();
 
-    const char* key() const override { return "document"; };
+    static const constexpr char* key() { return "document"; };
 
     enum categories
     {

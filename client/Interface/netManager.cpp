@@ -10,8 +10,8 @@ namespace Interface
 W_OBJECT_IMPL(netManager)
 
 netManager::netManager(const QString& url,
-                       const QString &authentication_arguments,
-                       const QString &extra_arguments)
+                       const QString& authentication_arguments,
+                       const QString& extra_arguments)
     : prefix{url + '/'}
     , auth_args{authentication_arguments}
     , suffix{extra_arguments}

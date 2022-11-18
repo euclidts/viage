@@ -16,7 +16,7 @@ struct senior_citizen_item : virtual public base_data
 {
     senior_citizen_item();
 
-    const char* key() const override { return "seniorCitizen"; };
+    static const constexpr char* key() { return "seniorCitizen"; };
 
     std::string birthDay{""};
 

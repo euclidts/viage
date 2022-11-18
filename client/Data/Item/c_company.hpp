@@ -9,9 +9,9 @@ namespace Data
 {
 
 template <typename T>
-struct item_list;
+struct c_list;
 
-struct team_item;
+struct c_team;
 
 struct c_company : public company_item
                  , public c_base_item
@@ -32,6 +32,9 @@ struct c_company : public company_item
 
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
+
+    bool update(c_list<c_team>* ti);
+    Json::Value get(c_list<c_team>* ti) const;
 
     void read(const Json::Value & json) { company_item::read(json); };
     void write(Json::Value & json) const { company_item::write(json); };

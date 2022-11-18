@@ -12,14 +12,15 @@ namespace People
 {
 struct infant_item : virtual public person_item
 {   
-    infant_item();
-
     senior_citizen_item::sexes sex{senior_citizen_item::M};
 
     void read(const Json::Value& json) override;
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    infant_item();
 };
 
 }

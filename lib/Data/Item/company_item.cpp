@@ -10,22 +10,6 @@ company_item::company_item()
 {
 }
 
-bool company_item::update(item_list<team_item>* ti)
-{
-    Json::Value arr{};
-    ti->write(arr);
-    if (teams == arr)
-        return false;
-
-    teams = arr;
-    return true;
-}
-
-Json::Value company_item::get(item_list<team_item> *ti) const
-{
-    return teams;
-}
-
 void company_item::read(const Json::Value &json)
 {
     if (json.isMember("id") && json["id"].isInt())

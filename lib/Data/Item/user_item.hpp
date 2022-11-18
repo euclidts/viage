@@ -12,7 +12,7 @@ struct user_item : virtual public person_item
 {
     user_item();
 
-    const char* key() const override { return "user"; };
+    static const constexpr char* key() { return "user"; };
 
     enum clearances
     {

@@ -15,7 +15,7 @@ class habitat_item : virtual public base_data
 public:
     explicit habitat_item();
 
-    const char* key() const override { return "habitat"; };
+    static const constexpr char* key() { return "habitat"; };
 
     enum habitatTypes
     {

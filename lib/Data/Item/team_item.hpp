@@ -11,7 +11,7 @@ struct team_item : virtual public base_data
 {
     team_item();
 
-    const char* key() const override { return "team"; };
+    static const constexpr char* key() { return "team"; };
 
     int id{0};
     std::string caption{""};

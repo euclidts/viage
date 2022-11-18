@@ -38,8 +38,11 @@ void wrapped_list<Inner>::makeConnections() const
         Json::Value json;
         json[item.key()] = obj;
 
+        Json::StreamWriterBuilder builder;
+        const std::string str = Json::writeString(builder, json);
+
         this->mng->putToKey(this->inner->key(),
-                            json,
+                            QByteArray::fromStdString(str),
                             [this](const Json::Value& rep)
         {},
         "Validate error");
@@ -62,11 +65,16 @@ void wrapped_list<Inner>::makeConnections() const
                   this,
                   [this] (const Json::Value& obj)
     {
+        Json::StreamWriterBuilder builder;
+        const std::string str = Json::writeString(builder, obj);
+
         this->mng->postToKey(this->inner->key(),
-                                 obj,
-                                 [this, obj](const Json::Value& res)
+                             QByteArray::fromStdString(str),
+                             [this, obj](const Json::Value& res)
         {
-            this->inner->appendWith(Json::Value::append(res, obj));
+            Json::Value concat{obj};
+            concat[obj.size()] = res;
+            this->inner->appendWith(concat);
         },
         "addWith error");
     });
@@ -87,9 +95,12 @@ void wrapped_list<Inner>::connectRemove() const
         Json::Value json;
         json["id"] = id;
 
+        Json::StreamWriterBuilder builder;
+        const std::string str = Json::writeString(builder, json);
+
         this->mng->deleteToKey(this->inner->key(),
-                               json,
-                               [this, id](const QJsonObject& rep) {},
+                               QByteArray::fromStdString(str),
+                               [this, id](const Json::Value& rep) {},
         "Remove Error");
     });
 }

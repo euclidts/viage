@@ -26,6 +26,8 @@ public:
     const QByteArray toData(const char* parentKey, int parnetId);
     const QByteArray toData(int parnetId);
 
+    void read(const QByteArray& bytes);
+
     bool getCompleted() const;
     void setCompleted(bool newCompleted);
 

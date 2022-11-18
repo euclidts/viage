@@ -11,7 +11,7 @@ W_REGISTER_ARGTYPE(Json::Value)
 namespace Data
 {
 template <typename T>
-class c_list final : public c_simple_list<T>
+class c_list : public c_simple_list<T>
 {    
     W_OBJECT(c_list)
 
@@ -40,7 +40,6 @@ public:
     void erase(int id);
 
     void read(const Json::Value& json) override;
-    void read(const QByteArray& bytes);
 
     void complitionChecks() const;
 

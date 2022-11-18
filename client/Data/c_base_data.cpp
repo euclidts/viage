@@ -39,6 +39,15 @@ const QByteArray c_base_data::toData(int parentId)
     return QByteArray::fromStdString(bytes);
 }
 
+void c_base_data::read(const QByteArray& bytes)
+{
+    Json::Value json;
+    Json::Reader reader;
+    reader.parse(bytes.toStdString(), json);
+    base_data::read(json);
+}
+
+
 bool c_base_data::getCompleted() const
 {
     return completed;

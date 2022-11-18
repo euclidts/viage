@@ -13,7 +13,7 @@ class exterior_item : virtual public base_data
 public:
     explicit exterior_item();
 
-    const char* key() const override { return "exterior"; };
+    static const constexpr char* key() { return "exterior"; };
 
     enum parkingTypes
     {
