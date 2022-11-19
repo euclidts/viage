@@ -4,12 +4,11 @@
 #include <QDate>
 #include <Item/c_senior_citizen.hpp>
 #include <Item/c_base_item.hpp>
-#include <List/c_simple_list.hpp>
 
 namespace Data
 {
 template <typename T>
-class simple_item_list;
+class c_list;
 }
 
 namespace Calculator
@@ -20,12 +19,12 @@ using namespace People;
 class life_expectency
 {
 public:
-    explicit life_expectency(c_simple_list<c_senior_citizen> *senior_citizens);
+    explicit life_expectency(c_list<c_senior_citizen>* senior_citizens);
 
     double get_expectency(const QDate& date);
 
 private:
-    c_simple_list<c_senior_citizen>* seniors;
+    c_list<c_senior_citizen>* seniors;
 
     struct dto : private c_base_item
     {

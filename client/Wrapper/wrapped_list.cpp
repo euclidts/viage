@@ -1,6 +1,7 @@
 #pragma once
 #include <QQmlContext>
 
+#include "qjsondocument.h"
 #include "wrapped_list.hpp"
 
 #include <netManager.hpp>
@@ -63,17 +64,21 @@ void wrapped_list<Inner>::makeConnections() const
     this->connect(this->inner,
                   &Inner::addWith,
                   this,
-                  [this] (const Json::Value& obj)
+                  [this] (const QJsonObject& obj)
     {
-        Json::StreamWriterBuilder builder;
-        const std::string str = Json::writeString(builder, obj);
+        QJsonDocument doc{obj};
+        QByteArray data{doc.toJson()};
+
+        Json::Value val;
+        Json::Reader reader;
+        reader.parse(data.toStdString(), val);
 
         this->mng->postToKey(this->inner->key(),
-                             QByteArray::fromStdString(str),
-                             [this, obj](const Json::Value& res)
+                             data,
+                             [this, val](const Json::Value& res)
         {
-            Json::Value concat{obj};
-            concat[obj.size()] = res;
+            Json::Value concat{val};
+            concat[val.size()] = res;
             this->inner->appendWith(concat);
         },
         "addWith error");

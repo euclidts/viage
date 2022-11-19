@@ -14,7 +14,7 @@ namespace Calculator
 wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
                                        QQmlContext* context,
                                        const QString& tempPath)
-    : base_wrapper<c_simple_list<c_senior_citizen>>{manager, context}
+    : base_wrapper<c_list<c_senior_citizen>>{manager, context}
     , exp{inner}
     , rent{new c_rent{}}
     , docxPath{tempPath + "/calcul.docx"}

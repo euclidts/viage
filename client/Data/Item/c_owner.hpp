@@ -8,8 +8,6 @@
 
 namespace Data
 {
-struct url_list;
-
 namespace People
 {
 struct c_owner : public owner_item,

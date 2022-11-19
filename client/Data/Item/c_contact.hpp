@@ -1,5 +1,5 @@
-#ifndef C_CONTACT_H
-#define C_CONTACT_H
+#ifndef C_CONTACT_HPP
+#define C_CONTACT_HPP
 
 #include "qnamespace.h"
 #include "c_infant.hpp"

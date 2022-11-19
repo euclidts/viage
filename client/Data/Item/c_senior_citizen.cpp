@@ -38,10 +38,8 @@ QVariant c_senior_citizen::data(int role) const
 void c_senior_citizen::setData(const QVariant &value, int role)
 {
     if (role == BirthDayRole)
-    {
-        const auto date{value.toDate()};
-        birthDay = date.toString("dd.MM.yyyy").toStdString();
-    } else
+        birthDay = to_date(value.toDate(), "dd.MM.yyyy");
+    else if (role == SexRole)
         sex = sexes(value.toInt());
 }
 

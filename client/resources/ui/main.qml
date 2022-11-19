@@ -193,7 +193,7 @@ ApplicationWindow {
             }
 
             OwnersPage { id: ownersPage }
-            ContactPage { id: contactPage }
+//            ContactPage { id: contactPage }
             HabitatPage { id: habitatPage }
             ExteriorPage { id: exteriorPage }
             DocumentPage { id: documentPage }
@@ -264,7 +264,7 @@ ApplicationWindow {
             UserPage { id: userPage }
         }
 
-        CalculatorPage { id: calculatorPage }
+//        CalculatorPage { id: calculatorPage }
     }
 
     header: TopBar { id: topBar }

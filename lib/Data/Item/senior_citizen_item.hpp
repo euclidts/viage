@@ -23,6 +23,8 @@ struct senior_citizen_item : virtual public base_data
     enum sexes{ M, F };
 
     sexes sex{sexes(M)};
+
+    bool is_completed() const override;
 };
 
 }

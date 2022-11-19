@@ -55,37 +55,28 @@ set(PROJECT_SOURCES
     Wrapper/wrapped_nested_list.hpp
     Wrapper/life_expectency.cpp
     Wrapper/wrapped_calculator.cpp
-    Model/base_model.hpp
     Model/list_model.hpp
     Model/base_filter_model.cpp
     Model/account_filter_model.cpp
     Model/document_filter_model.cpp
     Model/user_filter_model.cpp
     Data/c_base_data.cpp
-    Data/List/c_base_list.hpp
-    Data/List/c_simple_list.hpp
     Data/List/c_list.hpp
     Data/Item/c_base_item.cpp
     Data/Item/c_address.cpp
     Data/Item/c_person.cpp
     Data/Item/c_senior_citizen.cpp
     Data/Item/c_user.cpp
-    Data/Item/c_infant.hpp
     Data/Item/c_infant.cpp
-    Data/Item/c_contact.hpp
     Data/Item/c_contact.cpp
     Data/Item/c_person.cpp
-    Data/Item/c_owner.hpp
     Data/Item/c_owner.cpp
     Data/Item/c_habitat.cpp
     Data/Item/c_exterior.cpp
-    Data/Item/c_document.hpp
     Data/Item/c_document.cpp
     Data/Item/c_account.cpp
-    Data/Item/c_rent.hpp
     Data/Item/c_rent.cpp
     Data/Item/c_company.cpp
-    Data/Item/c_team.hpp
     Data/Item/c_team.cpp
     resources/viage.qrc
     ${ALT_QRC}

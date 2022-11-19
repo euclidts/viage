@@ -9,5 +9,10 @@ senior_citizen_item::senior_citizen_item()
 {
 }
 
+bool senior_citizen_item::is_completed() const
+{
+    return birthDay != "";
+}
+
 }
 }

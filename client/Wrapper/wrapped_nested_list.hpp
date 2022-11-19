@@ -2,6 +2,7 @@
 #define WRAPPED_NESTED_LIST_HPP
 
 #include "wrapped_nested_item.hpp"
+#include "qjsonobject.h"
 
 class QQmlContext;
 
@@ -23,7 +24,7 @@ public:
 private:
     const std::string key;
     const std::string parent_key_id;
-    void add_in_with(int id, const Json::Value& obj = {});
+    void add_in_with(int id, const QJsonObject &obj = {});
 };
 
 }

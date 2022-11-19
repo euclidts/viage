@@ -1,5 +1,3 @@
-#include <vector>
-
 #include <QGuiApplication>
 
 #include <QQmlApplicationEngine>
@@ -137,7 +135,7 @@ int main(int argc, char* argv[])
     wrapped_list<c_list<c_company>>
             wrapped_companies{&manager, context};
     wrapped_companies.makeConnections();
-    qmlRegisterType<c_list<c_company>>("Data", 1, 0, "CompaniesModel");
+    qmlRegisterType<list_model<c_company>>("Data", 1, 0, "CompaniesModel");
 
     // teams
     wrapped_nested_list<c_list<c_team>, c_company>

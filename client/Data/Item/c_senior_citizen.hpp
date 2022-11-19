@@ -31,6 +31,8 @@ struct c_senior_citizen : public senior_citizen_item
 
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
+
+    bool is_completed() const { return senior_citizen_item::is_completed(); };
 };
 
 }

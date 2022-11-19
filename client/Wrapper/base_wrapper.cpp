@@ -4,7 +4,6 @@
 #include <wobjectimpl.h>
 
 #include "base_wrapper.hpp"
-
 #include <netManager.hpp>
 
 namespace Wrapper
