@@ -40,6 +40,7 @@ public:
     void erase(int id);
 
     void read(const Json::Value& json) override;
+    void read(const QByteArray& bytes) override;
 
     void complitionChecks() const;
 
@@ -50,4 +51,4 @@ private:
 }
 
 #include "c_list.cpp"
-#endif // ITEM_LIST_HPP
+#endif // C_LIST_HPP

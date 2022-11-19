@@ -35,6 +35,11 @@ void c_habitat::read(const Json::Value& json)
     checkCompleted();
 }
 
+void c_habitat::read(const QByteArray &bytes)
+{
+    c_base_data::read(bytes);
+}
+
 void c_habitat::write(Json::Value& json) const
 {
     habitat_item::write(json);

@@ -130,4 +130,10 @@ void c_list<T>::erase(int id)
     emit this->postItemsRemoved();
 }
 
+template<typename T>
+void c_list<T>::read(const QByteArray &bytes)
+{
+    c_base_data::read(bytes);
+}
+
 }

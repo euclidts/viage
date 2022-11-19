@@ -33,6 +33,11 @@ void c_exterior::read(const Json::Value& json)
     checkCompleted();
 }
 
+void c_exterior::read(const QByteArray &bytes)
+{
+    c_base_data::read(bytes);
+}
+
 void c_exterior::write(Json::Value& json) const
 {
     exterior_item::write(json);

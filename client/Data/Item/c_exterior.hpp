@@ -12,7 +12,7 @@ namespace Places
 {
 class c_exterior : public exterior_item
                  , public c_base_data
-                 , public c_base_item
+                 , private c_base_item
 {
     W_OBJECT(c_exterior)
 
@@ -23,6 +23,7 @@ public:
     static const constexpr auto uri{"Places"};
 
     void read(const Json::Value& json) override;
+    void read(const QByteArray& bytes) override;
     void write(Json::Value& json) const override;
 
     void clear() override;

@@ -24,7 +24,7 @@ public:
     bool is_completed() const override;
 
 protected:
-    void writeWithKey(Json::Value& json) const;
+    void writeWithKey(Json::Value& json) const override;
     int index_at_id(int id) const noexcept;
 
     std::vector<T> m_items;
