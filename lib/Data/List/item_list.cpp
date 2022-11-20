@@ -35,7 +35,7 @@ T item_list<T>::item_at_id(int id) const
     int index{index_at_id(id)};
 
     if (index != -1)
-        return this->m_items[index];
+        return m_items[index];
 
     return {};
 }
@@ -61,7 +61,7 @@ void item_list<T>::read(const Json::Value& array)
 template <typename T>
 void item_list<T>::write(Json::Value& json) const
 {
-    for (const auto& item : this->m_items)
+    for (const auto& item : m_items)
     {
         Json::Value obj;
         item.write(obj);
@@ -81,10 +81,10 @@ void item_list<T>::writeWithKey(Json::Value& json) const
 template<typename T>
 bool item_list<T>::is_completed() const
 {
-    if (this->m_items.empty())
+    if (m_items.empty())
         return false;
 
-    for (const auto& item : this->m_items)
+    for (const auto& item : m_items)
         if (!item.is_completed())
             return false;
 
@@ -96,8 +96,8 @@ int item_list<T>::index_at_id(int id) const noexcept
 {
     int index{-1};
 
-    for (int i = 0; i < this->m_items.size(); i++)
-        if (this->m_items[i].id == id)
+    for (int i = 0; i < m_items.size(); i++)
+        if (m_items[i].id == id)
         {
             index = i;
             break;

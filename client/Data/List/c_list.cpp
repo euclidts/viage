@@ -9,7 +9,8 @@ W_OBJECT_IMPL(c_list<T>, template <typename T>)
 
 template <typename T>
 c_list<T>::c_list(QObject* parent)
-    : c_base_data{parent}
+    : item_list<T>{}
+    , c_base_data{parent}
 {
     std::string str{T::qmlName};
     str += "List";
@@ -22,7 +23,7 @@ c_list<T>::c_list(QObject* parent)
 template <typename T>
 QVector<T> c_list<T>::items() const
 {
-    return QVector<T>(this->m_items.begin(), this->m_items.end());
+    return QVector<T>(std::begin(this->m_items), std::end(this->m_items));
 }
 
 template<typename T>
