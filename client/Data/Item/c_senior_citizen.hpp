@@ -1,5 +1,5 @@
-#ifndef C_SENIOR_CITIZEN_H
-#define C_SENIOR_CITIZEN_H
+#ifndef C_SENIOR_CITIZEN_HPP
+#define C_SENIOR_CITIZEN_HPP
 
 #include "qnamespace.h"
 #include <Item/senior_citizen_item.hpp>
@@ -38,4 +38,4 @@ struct c_senior_citizen : public senior_citizen_item
 }
 }
 
-#endif // SENIOR_CITIZEN_ITEM_H
+#endif // SENIOR_CITIZEN_ITEM_HPP

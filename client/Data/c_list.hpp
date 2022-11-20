@@ -5,18 +5,18 @@
 #include <wobjectdefs.h>
 
 #include <c_base_data.hpp>
-#include <List/item_list.hpp>
+#include <item_list.hpp>
 
 namespace Data
 {
 template <typename T>
-class c_list : public item_list<T>
-             , public c_base_data
+class c_list : public c_base_data
+             , public item_list<T>
 {    
     W_OBJECT(c_list)
 
 public:
-    explicit c_list(QObject* parent = nullptr);
+    c_list(QObject* parent = nullptr);
 
     const char* qmlName;
     static const constexpr auto uri{T::uri};

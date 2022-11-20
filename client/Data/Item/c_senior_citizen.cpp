@@ -12,7 +12,7 @@ c_senior_citizen::c_senior_citizen()
     , c_base_item{}
 {
     const auto minAge{QDate::currentDate().addYears(-AGE_MIN)};
-    this->birthDay = minAge.toString("dd.MM.yyyy").toStdString();
+    birthDay = to_date(minAge, "dd.MM.yyyy");
 }
 
 QHash<int, QByteArray> c_senior_citizen::roleNames()
@@ -29,7 +29,7 @@ QVariant c_senior_citizen::data(int role) const
 {
     if (role == BirthDayRole)
         return to_QDate(birthDay, "dd.MM.yyyy");
-    else
+    else if (role == SexRole)
         return QVariant(sex);
 
     return QVariant();

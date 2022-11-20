@@ -6,7 +6,7 @@ set(3RDPARTY_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty")
 set(WRAPPER_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Wrapper")
 set(INTERFACE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Interface")
 set(MODEL_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Model")
-set(Data_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Data")
+set(CLIENT_DATA "${CMAKE_CURRENT_SOURCE_DIR}/Data")
 
 if(ANDROID)
     file(COPY
@@ -61,7 +61,7 @@ set(PROJECT_SOURCES
     Model/document_filter_model.cpp
     Model/user_filter_model.cpp
     Data/c_base_data.cpp
-    Data/List/c_list.hpp
+    Data/c_list.hpp
     Data/Item/c_base_item.cpp
     Data/Item/c_address.cpp
     Data/Item/c_person.cpp
@@ -84,7 +84,7 @@ set(PROJECT_SOURCES
     #${ITEM_SRC}
     # yet to be compiled seperaly as a library
     ../lib/Data/base_data.cpp
-    ../lib/Data/List/item_list.hpp
+    ../lib/Data/item_list.hpp
     ../lib/Data/Item/address_item.cpp
     ../lib/Data/Item/person_item.cpp
     ../lib/Data/Item/senior_citizen_item.cpp
@@ -103,7 +103,7 @@ set(PROJECT_SOURCES
 
 include_directories(SYSTEM
     "${DATA_FOLDER}"
-    "${Data_FOLDER}"
+    "${CLIENT_DATA}"
     "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"

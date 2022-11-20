@@ -1,5 +1,5 @@
-#ifndef SENIOR_CITIZEN_ITEM_H
-#define SENIOR_CITIZEN_ITEM_H
+#ifndef SENIOR_CITIZEN_ITEM_HPP
+#define SENIOR_CITIZEN_ITEM_HPP
 
 #include <json/json.h>
 #include <base_data.hpp>
@@ -18,11 +18,10 @@ struct senior_citizen_item : virtual public base_data
 
     static const constexpr char* key() { return "seniorCitizen"; };
 
-    std::string birthDay{""};
-
     enum sexes{ M, F };
 
     sexes sex{sexes(M)};
+    std::string birthDay{""};
 
     bool is_completed() const override;
 };
@@ -30,4 +29,4 @@ struct senior_citizen_item : virtual public base_data
 }
 }
 
-#endif // SENIOR_CITIZEN_ITEM_H
+#endif // SENIOR_CITIZEN_ITEM_HPP

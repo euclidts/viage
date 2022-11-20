@@ -5,7 +5,6 @@
 
 namespace Data
 {
-
 QString c_base_item::to_QString(const std::string& str) const
 {
     return QString::fromStdString(str);

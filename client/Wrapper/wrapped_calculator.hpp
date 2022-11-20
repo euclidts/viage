@@ -4,7 +4,7 @@
 #include <duckx.hpp>
 
 #include <base_wrapper.hpp>
-#include <List/c_list.hpp>
+#include <c_list.hpp>
 #include <Item/c_senior_citizen.hpp>
 #include "life_expectency.hpp"
 
@@ -17,8 +17,7 @@ namespace Calculator
 {
 using namespace Wrapper;
 
-class wrapped_calculator final
-        : public base_wrapper<c_list<c_senior_citizen>>
+class wrapped_calculator : public base_wrapper<c_list<c_senior_citizen>>
 {
 public:
     wrapped_calculator(Interface::netManager* manager,

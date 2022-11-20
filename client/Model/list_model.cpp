@@ -2,15 +2,15 @@
 #include <wobjectimpl.h>
 
 #include "list_model.hpp"
-#include <List/c_list.hpp>
+#include <c_list.hpp>
 
 namespace Data
 {
 W_OBJECT_IMPL(list_model<T>, template <typename T>)
 
 template <typename T>
-list_model<T>::list_model(QObject *parent)
-    : QAbstractListModel(parent)
+list_model<T>::list_model(QObject* parent)
+    : QAbstractListModel{parent}
 {
 }
 
@@ -105,7 +105,7 @@ void list_model<T>::setList(c_list<T>* newList)
 }
 
 template<typename T>
-c_list<T>* list_model<T>::list() const
+c_list<T>* list_model<T>::getList() const
 {
     return m_list;
 }

@@ -1,7 +1,7 @@
 #include "qjsonarray.h"
 #include "qjsonobject.h"
 
-#include <List/c_list.hpp>
+#include <c_list.hpp>
 #include "Item/c_contact.hpp"
 #include "Item/c_document.hpp"
 #include "Item/c_exterior.hpp"

@@ -10,8 +10,8 @@ W_OBJECT_IMPL(c_list<T>, template <typename T>)
 
 template <typename T>
 c_list<T>::c_list(QObject* parent)
-    : item_list<T>{}
-    , c_base_data{parent}
+    : c_base_data{parent}
+    , item_list<T>{}
 {
     std::string str{T::qmlName};
     str += "List";

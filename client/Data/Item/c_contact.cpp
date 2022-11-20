@@ -7,7 +7,8 @@ namespace Data
 namespace People
 {
 c_contact::c_contact()
-    : c_infant()
+    : c_infant{}
+    , contact_item{}
 {
 }
 

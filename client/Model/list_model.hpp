@@ -27,12 +27,12 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
-    virtual QHash<int, QByteArray> roleNames() const override;
+    QHash<int, QByteArray> roleNames() const override;
 
-    c_list<T>* list() const;
+    c_list<T>* getList() const;
     void setList(c_list<T>* newList);
 
-    W_PROPERTY(c_list<T>*, list READ list WRITE setList)
+    W_PROPERTY(c_list<T>*, list READ getList WRITE setList)
 
 protected:
     c_list<T>* m_list{nullptr};

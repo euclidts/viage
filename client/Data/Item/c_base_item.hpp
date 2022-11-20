@@ -10,7 +10,6 @@ namespace Data
 struct c_base_item
 {
 protected:
-
     QString to_QString(const std::string& str) const;
     std::string to_string(const QString &str) const;
     std::string to_string(const QVariant &var) const;

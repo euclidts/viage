@@ -50,13 +50,8 @@ ScrollView {
                             font.bold: true
                         }
 
-                        SexChooser {
-                            sexOf: model
-                        }
-
-                        DateChooser {
-                            dateOf: model
-                        }
+                        SexChooser { sexOf: model }
+                        DateChooser { dateOf: model }
                     }
                 }
 

@@ -2,7 +2,7 @@
 #include <QFile>
 
 #include "life_expectency.hpp"
-#include <List/c_list.hpp>
+#include <c_list.hpp>
 
 #define OMEGA 125
 

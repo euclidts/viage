@@ -5,7 +5,7 @@
 #include "wrapped_list.hpp"
 
 #include <netManager.hpp>
-#include <List/item_list.hpp>
+#include <item_list.hpp>
 
 namespace Wrapper
 {

@@ -217,8 +217,11 @@ int main(int argc, char* argv[])
 
     // qml engine
     const QUrl url(QStringLiteral("qrc:/ui/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [&bridge, url](QObject* obj, const QUrl &objUrl) {
+    QObject::connect(&engine,
+                     &QQmlApplicationEngine::objectCreated,
+                     &app,
+                     [&bridge, url](QObject* obj, const QUrl &objUrl)
+    {
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
         else
