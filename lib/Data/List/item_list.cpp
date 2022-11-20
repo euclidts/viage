@@ -24,7 +24,13 @@ item_list<T>::item_list()
 }
 
 template<typename T>
-void item_list<T>::set_list(const std::vector<T> &list)
+int item_list<T>::size() const
+{
+    return m_items.size();
+}
+
+template<typename T>
+void item_list<T>::set_list(const std::vector<T>& list)
 {
     m_items = list;
 }

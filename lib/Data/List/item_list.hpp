@@ -13,6 +13,8 @@ class item_list : public virtual base_data
 public:
     item_list();
 
+    int size() const;
+
     const char* key() const { return items_key; };
 
     void set_list(const std::vector<T>& list);
@@ -27,7 +29,7 @@ protected:
     void writeWithKey(Json::Value& json) const override;
     int index_at_id(int id) const noexcept;
 
-    std::vector<T> m_items;
+    std::vector<T> m_items{};
     const char* items_key;
 };
 }

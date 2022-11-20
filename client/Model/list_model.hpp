@@ -1,14 +1,13 @@
 #ifndef LIST_MODEL_H
 #define LIST_MODEL_H
 
-#include "List/c_list.hpp"
 #include <QAbstractListModel>
 #include <wobjectdefs.h>
 
 namespace Data
 {
-//template <typename T>
-//class c_list;
+template <typename T>
+class c_list;
 
 template <typename T>
 class list_model : public QAbstractListModel

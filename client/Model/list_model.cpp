@@ -2,7 +2,7 @@
 #include <wobjectimpl.h>
 
 #include "list_model.hpp"
-//#include <List/c_list.hpp>
+#include <List/c_list.hpp>
 
 namespace Data
 {
@@ -20,7 +20,7 @@ int list_model<T>::rowCount(const QModelIndex &parent) const
     if (parent.isValid() || !m_list)
         return 0;
 
-    return m_list->items().size();
+    return m_list->size();
 }
 
 template <typename T>
@@ -77,28 +77,28 @@ void list_model<T>::setList(c_list<T>* newList)
 
     if (m_list)
     {
-//        connect(m_list, &c_list<T>::preItemsAppended,
-//                this, [=](int number)
-//        {
-//            const int index = m_list->items().size();
-//            beginInsertRows(QModelIndex(), index, index + number - 1);
-//        });
+        connect(m_list, &c_list<T>::preItemsAppended,
+                this, [=](int number)
+        {
+            const int index = m_list->size();
+            beginInsertRows(QModelIndex(), index, index + number - 1);
+        });
 
-//        connect(m_list, &c_list<T>::postItemsAppended,
-//                this, [=]()
-//        { endInsertRows(); });
+        connect(m_list, &c_list<T>::postItemsAppended,
+                this, [=]()
+        { endInsertRows(); });
 
-//        connect(m_list, &c_list<T>::preItemsRemoved,
-//                this, [=](int first, int last)
-//        { beginRemoveRows(QModelIndex(), first, last); });
+        connect(m_list, &c_list<T>::preItemsRemoved,
+                this, [=](int first, int last)
+        { beginRemoveRows(QModelIndex(), first, last); });
 
-//        connect(m_list, &c_list<T>::postItemsRemoved,
-//                this, [=]()
-//        { endRemoveRows(); });
+        connect(m_list, &c_list<T>::postItemsRemoved,
+                this, [=]()
+        { endRemoveRows(); });
 
-//        connect(m_list, &c_list<T>::dataChangedAt,
-//                this, [this](int row)
-//        { emit dataChanged(index(row), index(row)); });
+        connect(m_list, &c_list<T>::dataChangedAt,
+                this, [this](int row)
+        { emit dataChanged(index(row), index(row)); });
     }
 
     endResetModel();

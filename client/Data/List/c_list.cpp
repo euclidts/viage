@@ -1,4 +1,5 @@
 #pragma once
+
 #include <wobjectimpl.h>
 
 #include "c_list.hpp"
@@ -23,7 +24,7 @@ c_list<T>::c_list(QObject* parent)
 template <typename T>
 QVector<T> c_list<T>::items() const
 {
-    return QVector<T>(std::begin(this->m_items), std::end(this->m_items));
+    return QVector<T>(this->m_items.begin(), this->m_items.end());
 }
 
 template<typename T>
@@ -35,7 +36,7 @@ T c_list<T>::item_at(int index) const
 template <typename T>
 bool c_list<T>::setItemAt(int index, const T& item)
 {
-    if (index < 0 || index >= this->m_items.size())
+    if (index < 0 || index >= this->size())
         return false;
 
     this->m_items[index] = item;
@@ -70,7 +71,7 @@ void c_list<T>::removeItems(int first, int last)
 template<typename T>
 void c_list<T>::removeItems(int number)
 {
-    const auto count = this->m_items.size();
+    const auto count = this->size();
 
     removeItems(count - number, count - 1);
 }
@@ -146,7 +147,7 @@ void c_list<T>::set_list(const std::vector<T>& list)
 template<typename T>
 void c_list<T>::clear()
 {
-    emit preItemsRemoved(0, this->m_items.size() - 1);
+    emit preItemsRemoved(0, this->size() - 1);
 
     this->m_items.clear();
 

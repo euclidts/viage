@@ -1,8 +1,6 @@
 #ifndef C_LIST_HPP
 #define C_LIST_HPP
 
-#include "qvector.h"
-
 #include <json/value.h>
 #include <wobjectdefs.h>
 
