@@ -91,8 +91,13 @@ void c_list<T>::complitionChecks() const
 template <typename T>
 void c_list<T>::read(const Json::Value& array)
 {
+    clear();
+    emit preItemsAppended(array.size());
+
     item_list<T>::read(array);
-    emit c_base_data::loaded();
+
+    emit postItemsAppended();
+    emit loaded();
 }
 
 template<typename T>
@@ -136,7 +141,6 @@ template<typename T>
 void c_list<T>::set_list(const std::vector<T>& list)
 {
     clear();
-
     emit preItemsAppended(list.size());
 
     this->m_items = list;
@@ -186,12 +190,6 @@ void c_list<T>::erase(int id)
     this->m_items.erase(this->m_items.begin() + index);
 
     emit postItemsRemoved();
-}
-
-template<typename T>
-void c_list<T>::read(const QByteArray& bytes)
-{
-    c_base_data::read(bytes);
 }
 
 }

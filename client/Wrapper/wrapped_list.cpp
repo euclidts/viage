@@ -6,6 +6,9 @@
 
 #include <netManager.hpp>
 #include <item_list.hpp>
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Wrapper
 {
@@ -21,7 +24,7 @@ void wrapped_list<Inner>::get() const
 {
     this->mng->getFromKey(this->inner->key(),
                           [this](const QByteArray& bytes)
-    { this->inner->read(bytes); });
+    { this->inner->read(to_Json(bytes)); });
 }
 
 template<typename Inner>
@@ -39,11 +42,8 @@ void wrapped_list<Inner>::makeConnections() const
         Json::Value json;
         json[item.key()] = obj;
 
-        Json::StreamWriterBuilder builder;
-        const std::string str = Json::writeString(builder, json);
-
         this->mng->putToKey(this->inner->key(),
-                            QByteArray::fromStdString(str),
+                            to_QByteArray(json),
                             [this](const Json::Value& rep)
         {},
         "Validate error");
@@ -100,11 +100,8 @@ void wrapped_list<Inner>::connectRemove() const
         Json::Value json;
         json["id"] = id;
 
-        Json::StreamWriterBuilder builder;
-        const std::string str = Json::writeString(builder, json);
-
         this->mng->deleteToKey(this->inner->key(),
-                               QByteArray::fromStdString(str),
+                               to_QByteArray(json),
                                [this, id](const Json::Value& rep) {},
         "Remove Error");
     });

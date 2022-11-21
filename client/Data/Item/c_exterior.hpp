@@ -21,7 +21,6 @@ public:
     static const constexpr auto uri{"Places"};
 
     void read(const Json::Value& json) override;
-    void read(const QByteArray& bytes) override;
     void write(Json::Value& json) const override;
 
     void clear() override;

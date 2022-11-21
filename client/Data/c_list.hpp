@@ -70,7 +70,6 @@ public:
     void erase(int id);
 
     void read(const Json::Value& json) override;
-    void read(const QByteArray& bytes) override;
 
     void complitionChecks() const;
 

@@ -1,7 +1,8 @@
-#include <Item/c_account.hpp>
-#include "account_filter_model.hpp"
 #include "qjsonarray.h"
 #include "qjsonobject.h"
+
+#include <Item/c_account.hpp>
+#include "account_filter_model.hpp"
 
 namespace Data
 {
@@ -120,6 +121,8 @@ bool account_filter_model::lessThan(const QModelIndex &left, const QModelIndex &
 
         return leftData.toString() < rightData.toString();
     }
+
+    qDebug() << "row not accepted";
 
     return false;
 }
