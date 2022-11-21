@@ -8,12 +8,14 @@
 #include "Item/c_habitat.hpp"
 #include "Item/c_owner.hpp"
 #include "c_account.hpp"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
 c_account::c_account()
     : account_item{}
-    , c_base_item{}
 {
     created = to_date_time(QDateTime::currentDateTime());
     modified = to_date_time(QDateTime::currentDateTime());

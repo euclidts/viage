@@ -1,13 +1,15 @@
 #include <QVariant>
+#include "qurl.h"
 
 #include "c_document.hpp"
-#include "qurl.h"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
 c_document::c_document()
     : document_item{}
-    , c_base_item{}
 {
 }
 

@@ -3,14 +3,12 @@
 
 #include <wobjectdefs.h>
 #include "c_base_data.hpp"
-#include "c_base_item.hpp"
 #include <Item/rent_item.hpp>
 
 namespace Data
 {
 class c_rent : private rent_item
              , public c_base_data
-             , private c_base_item
 {
 W_OBJECT(c_rent)
 

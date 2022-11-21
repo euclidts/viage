@@ -1,11 +1,15 @@
+#include "qvariant.h"
+
 #include "c_team.hpp"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
 
 c_team::c_team()
     : team_item{}
-    , c_base_item{}
 {
 }
 

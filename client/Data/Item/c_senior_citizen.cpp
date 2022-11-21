@@ -2,6 +2,9 @@
 #include <QDate>
 
 #include "c_senior_citizen.hpp"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
@@ -9,7 +12,6 @@ namespace People
 {
 c_senior_citizen::c_senior_citizen()
     : senior_citizen_item{}
-    , c_base_item{}
 {
     const auto minAge{QDate::currentDate().addYears(-AGE_MIN)};
     birthDay = to_date(minAge, "dd.MM.yyyy");

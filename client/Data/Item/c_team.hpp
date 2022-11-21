@@ -1,13 +1,12 @@
 #ifndef C_TEAM_HPP
 #define C_TEAM_HPP
 
+#include "qnamespace.h"
 #include <Item/team_item.hpp>
-#include "c_base_item.hpp"
 
 namespace Data
 {
 struct c_team : public team_item
-              , protected c_base_item
 {
     c_team();
 

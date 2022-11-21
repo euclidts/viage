@@ -47,6 +47,7 @@ set(TS_FILES resources/ts_files/viage_fr_FR.ts)
 
 set(PROJECT_SOURCES
     main.cpp
+    Interface/client.cpp
     Interface/bridge.cpp
     Interface/netManager.cpp
     Wrapper/base_wrapper.hpp
@@ -62,7 +63,6 @@ set(PROJECT_SOURCES
     Model/user_filter_model.cpp
     Data/c_base_data.cpp
     Data/c_list.hpp
-    Data/Item/c_base_item.cpp
     Data/Item/c_address.cpp
     Data/Item/c_person.cpp
     Data/Item/c_senior_citizen.cpp

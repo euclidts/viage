@@ -1,6 +1,9 @@
 #include <QVariant>
 
 #include "c_user.hpp"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {

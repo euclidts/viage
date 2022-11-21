@@ -3,8 +3,11 @@
 #include <wobjectimpl.h>
 
 #include "bridge.hpp"
+#include "client.hpp"
 #include <Item/c_account.hpp>
 #include <c_list.hpp>
+
+using namespace Client;
 
 namespace Interface
 {
@@ -15,8 +18,7 @@ bridge::bridge(Interface::netManager* manager,
                Data::c_list<Data::c_account>* accounts,
                Data::c_list<Data::c_document>* documents,
                const QString& tempPath)
-    : Data::c_base_item{}
-    , mng{manager}
+    : mng{manager}
     , usrs{users}
     , acnts{accounts}
     , docs{documents}

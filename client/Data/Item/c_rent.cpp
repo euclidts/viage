@@ -1,7 +1,11 @@
+#include "qdatetime.h"
+
 #include <wobjectimpl.h>
 
 #include "c_rent.hpp"
-#include "qdatetime.h"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
@@ -14,7 +18,6 @@ W_OBJECT_IMPL(c_rent)
 
 c_rent::c_rent(QObject *parent)
     : c_base_data{parent}
-    , c_base_item{}
     , rent_item{}
 {
     birthDay = to_date(QDate::currentDate());

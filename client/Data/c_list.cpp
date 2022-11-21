@@ -189,7 +189,7 @@ void c_list<T>::erase(int id)
 }
 
 template<typename T>
-void c_list<T>::read(const QByteArray &bytes)
+void c_list<T>::read(const QByteArray& bytes)
 {
     c_base_data::read(bytes);
 }

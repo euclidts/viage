@@ -22,7 +22,6 @@ class c_list;
 namespace Interface
 {
 class bridge final : public QObject
-                   , public Data::c_base_item
 {
     W_OBJECT(bridge)
 

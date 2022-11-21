@@ -2,6 +2,9 @@
 #include <wobjectimpl.h>
 
 #include "c_exterior.hpp"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
@@ -11,7 +14,6 @@ W_OBJECT_IMPL(c_exterior)
 
 c_exterior::c_exterior(QObject *parent)
     : c_base_data{parent}
-    , c_base_item{}
     , exterior_item{}
 {
 }

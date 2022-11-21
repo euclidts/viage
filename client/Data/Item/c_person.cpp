@@ -1,6 +1,9 @@
 #include <QVariant>
 
 #include "c_person.hpp"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
@@ -8,7 +11,6 @@ namespace People
 {
 c_person::c_person()
     : person_item{}
-    , c_base_item{}
 {
 }
 

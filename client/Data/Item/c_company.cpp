@@ -5,12 +5,14 @@
 #include <Item/team_item.hpp>
 #include <c_list.hpp>
 #include "c_team.hpp"
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
 c_company::c_company()
-    : c_base_item{}
-    , company_item{}
+    : company_item{}
 {
 }
 

@@ -3,7 +3,6 @@
 
 #include <wobjectdefs.h>
 #include <c_base_data.hpp>
-#include "c_base_item.hpp"
 #include <Item/exterior_item.hpp>
 
 namespace Data
@@ -12,7 +11,6 @@ namespace Places
 {
 class c_exterior : public exterior_item
                  , public c_base_data
-                 , private c_base_item
 {
     W_OBJECT(c_exterior)
 

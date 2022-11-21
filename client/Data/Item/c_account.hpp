@@ -5,7 +5,6 @@
 #include "qnamespace.h"
 #include <json/json.h>
 #include <Item/account_item.hpp>
-#include "c_base_item.hpp"
 
 namespace Data
 {
@@ -29,7 +28,6 @@ struct c_list;
 using namespace Json;
 
 struct c_account : public account_item
-                 , public c_base_item
 {
     c_account();
 

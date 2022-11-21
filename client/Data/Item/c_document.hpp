@@ -1,15 +1,12 @@
 #ifndef C_DOCUMENT_HPP
 #define C_DOCUMENT_HPP
 
-#define CATEGOIES_SUMED 4095
-
+#include "qnamespace.h"
 #include <Item/document_item.hpp>
-#include "c_base_item.hpp"
 
 namespace Data
 {
 struct c_document : public document_item
-                  , public c_base_item
 {
     c_document();
 

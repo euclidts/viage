@@ -3,18 +3,15 @@
 
 #include "qnamespace.h"
 #include <Item/company_item.hpp>
-#include "c_base_item.hpp"
 
 namespace Data
 {
-
 template <typename T>
 struct c_list;
 
 struct c_team;
 
 struct c_company : public company_item
-                 , public c_base_item
 {
     c_company();
 

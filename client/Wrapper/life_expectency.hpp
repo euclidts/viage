@@ -3,7 +3,9 @@
 
 #include <QDate>
 #include <Item/c_senior_citizen.hpp>
-#include <Item/c_base_item.hpp>
+#include <client.hpp>
+
+using namespace Client;
 
 namespace Data
 {
@@ -26,7 +28,7 @@ public:
 private:
     c_list<c_senior_citizen>* seniors;
 
-    struct dto : private c_base_item
+    struct dto
     {
         dto() {};
         dto(const senior_citizen_item& senior, const QDate& date)

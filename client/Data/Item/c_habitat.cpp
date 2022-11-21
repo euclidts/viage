@@ -1,6 +1,10 @@
 #include "c_habitat.hpp"
 #include "wobjectimpl.h"
 
+#include <client.hpp>
+
+using namespace Client;
+
 namespace Data
 {
 namespace Places
@@ -9,7 +13,6 @@ W_OBJECT_IMPL(c_habitat)
 
 c_habitat::c_habitat(QObject* parent)
     : c_base_data{parent}
-    , c_base_item{}
     , habitat_item{}
 {
 }
