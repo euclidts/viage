@@ -15,7 +15,7 @@ public:
 
     int size() const;
 
-    const char* key() const { return items_key; };
+    const char* key() const noexcept override { return items_key; };
 
     void set_list(const std::vector<T>& list);
     T item_at_id(int id) const;

@@ -8,7 +8,7 @@ namespace Data
 class base_data
 {
 public:
-    static const constexpr char* key() { return {}; };
+    virtual const char* key() const noexcept { return {}; };
 
     virtual void read(const Json::Value& json) {};
     virtual void write(Json::Value& json) const {};

@@ -2,6 +2,10 @@
 
 #include "c_address.hpp"
 #include <Item/address_item.hpp>
+#include <iostream>
+#include "client.hpp"
+
+using namespace Client;
 
 namespace Data
 {
@@ -29,13 +33,13 @@ QVariant c_address::data(int role) const
     switch (role)
     {
     case StreetRole:
-        return QVariant(QString::fromStdString(address->street));
+        return to_QString(address->street);
     case ZipRole:
         return QVariant(address->zip);
     case CantonRole:
-        return QVariant(QString::fromStdString(address->canton));
+        return to_QString(address->canton);
     case CityRole:
-        return QVariant(QString::fromStdString(address->city));
+        return to_QString(address->city);
     }
 
     return QVariant();
@@ -46,16 +50,16 @@ void c_address::setData(const QVariant &value, int role)
     switch (role)
     {
     case StreetRole:
-        address->street = value.toString().toStdString();
+        address->street = to_string(value);
         break;
     case ZipRole:
         address->zip = value.toInt();
         break;
     case CantonRole:
-        address->canton = value.toString().toStdString();
+        address->canton = to_string(value);
         break;
     case CityRole:
-        address->city = value.toString().toStdString();
+        address->city = to_string(value);
         break;
     }
 }

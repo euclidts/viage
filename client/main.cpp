@@ -199,10 +199,10 @@ int main(int argc, char* argv[])
                     ? senior_citizen_item::F
                     : senior_citizen_item::M;
 
-            item.address.street = previous.address.street;
-            item.address.city = previous.address.city;
-            item.address.zip = previous.address.zip;
-            item.address.canton = previous.address.canton;
+            item.address->street = previous.address->street;
+            item.address->city = previous.address->city;
+            item.address->zip = previous.address->zip;
+            item.address->canton = previous.address->canton;
             item.civilStatus = previous.civilStatus;
 
             owners->setItemAt(s - 1, item);

@@ -14,7 +14,7 @@ namespace People {
 c_owner::c_owner()
     : owner_item{}
     , c_infant{}
-    , ca{&address}
+    , ca{address}
 {
     const auto yearsAgo{QDate::currentDate().addYears(-AGE_MIN)};
 

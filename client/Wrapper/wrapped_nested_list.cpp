@@ -11,7 +11,7 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
                                                        QQmlContext* context)
     : wrapped_nested_item<Inner, Outer>{manager, context}
     , key{this->makeKey(parentList)}
-    , parent_key_id{std::string{Outer::key()}.append("Id")}
+    , parent_key_id{std::string{Outer{}.key()}.append("Id")}
 {
     this->inner->complitionChecks();
 

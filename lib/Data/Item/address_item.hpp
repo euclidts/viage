@@ -12,7 +12,7 @@ struct address_item : public base_data
 {
     address_item();
 
-    static const constexpr char* key() { return "address"; };
+    const constexpr char* key() const noexcept override { return "address"; };
 
     std::string street{""};
     std::string city{""};

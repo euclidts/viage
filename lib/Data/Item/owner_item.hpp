@@ -2,11 +2,15 @@
 #define OWNER_ITEM_HPP
 
 #include "infant_item.hpp"
-#include "address_item.hpp"
 
 namespace Data
 {
 struct url_list;
+
+namespace Places
+{
+struct address_item;
+}
 
 namespace People
 {
@@ -15,9 +19,9 @@ struct owner_item : virtual public infant_item
 {
     owner_item();
 
-    static const constexpr char* key() { return "owner"; };
+    const char* key() const noexcept override { return "owner"; };
 
-    Places::address_item address;
+    Places::address_item* address;
     std::string birthDay{""};
 
     enum civilStates

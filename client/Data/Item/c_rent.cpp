@@ -36,22 +36,14 @@ void c_rent::write(Json::Value &json) const
 
 void c_rent::clear()
 {
-    birthDay = to_date(QDate::currentDate());
-    emit birthDayChanged();
-    marketPrice = 1500000;
-    emit marketPriceChanged();
-    monthly = 0;
-    emit monthlyChanged();
-    bou = 0;
-    emit bouChanged();
-    rva = 0;
-    emit rvaChanged();
-    dab = 0;
-    emit dabChanged();
-    pva = 0;
-    emit pvaChanged();
-//    int dam{0};
-//    emit damChanged();
+    setBirthDay(QDate::currentDate());
+    setmarketPrice(1500000);
+    setMonthly(0);
+    setBou(0);
+    setRva(0);
+    setDab(0);
+    setPva(0);
+//    setDam{0};
 }
 
 int c_rent::floor_to(double number, int multiple) const

@@ -12,7 +12,7 @@ QString to_QString(const std::string& str);
 std::string to_string(const QString &str);
 std::string to_string(const QVariant &var);
 
-QDate to_QDate(const std::string& date, const QString& format = "yyyy-MM-dd");
+QDate to_QDate(const std::string& date, const QString& format = "dd.MM.yyyy");
 std::string to_date(const QDate& date, const QString& format = "dd.MM.yyyy");
 
 QJsonArray to_QJsonArray(const Json::Value& json);

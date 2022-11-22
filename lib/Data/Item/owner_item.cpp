@@ -1,4 +1,5 @@
 #include "owner_item.hpp"
+#include "address_item.hpp"
 
 namespace Data
 {
@@ -6,8 +7,8 @@ namespace People {
 
 owner_item::owner_item()
     : infant_item()
-    , address{}
-{   
+    , address{new Places::address_item{}}
+{
 }
 
 void owner_item::read(const Json::Value &json)
@@ -25,7 +26,7 @@ void owner_item::read(const Json::Value &json)
         avs = json["avs"].asString();
 
     if (json.isMember("address") && json["address"].isObject())
-        address.read(json["address"]);
+        address->read(json["address"]);
 }
 
 void owner_item::write(Json::Value &json) const
@@ -37,7 +38,7 @@ void owner_item::write(Json::Value &json) const
     json["avs"] = avs;
 
     Json::Value jsonAddress;
-    address.write(jsonAddress);
+    address->write(jsonAddress);
 
     json["address"] = jsonAddress;
 }
@@ -53,7 +54,7 @@ bool owner_item::is_completed() const
     if (avs == "")
         return false;
 
-    if (!address.is_completed())
+    if (!address->is_completed())
         return false;
 
     return true;

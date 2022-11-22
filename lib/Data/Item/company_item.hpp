@@ -16,7 +16,7 @@ struct company_item : virtual public base_data
 {
     company_item();
 
-    static const constexpr char* key() { return "company"; };
+    const char* key() const noexcept override { return "company"; };
 
     int id{0};
     std::string name{};
