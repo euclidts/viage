@@ -77,9 +77,9 @@ QVariant c_account::data(int role) const
     case PaidRole:
         return to_QDate(paidDate);
     case CreatedRole:
-        return to_QDate(created);
+        return to_QDateTime(created);
     case ModifiedRole:
-        return to_QDate(modified);
+        return to_QDateTime(modified);
     case AdvisorFirstNameRole:
         return to_QString(advisorFirstName);
     case AdvisorLastNameRole:
@@ -226,16 +226,6 @@ Value c_account::get(c_list<c_document> *ds) const
         else
             return {};
     }
-}
-
-QDateTime c_account::to_QDateTime(const std::string& date, const QString& format) const
-{
-    return QDateTime::fromString(QString::fromStdString(date), format);
-}
-
-std::string c_account::to_date_time(const QDateTime& date, const QString& format) const
-{
-    return date.toString(format).toStdString();
 }
 
 }

@@ -68,7 +68,9 @@ void document_item::set_file_info()
     if (localPath.empty())
         return;
 
-    extension = localPath.extension();
+    std::string str{localPath.extension()};
+    str.erase(0, 1);
+    extension = str;
     fileName = localPath.stem();
 }
 

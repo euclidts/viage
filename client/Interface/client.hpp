@@ -13,6 +13,8 @@ std::string to_string(const QVariant &var);
 
 QDate to_QDate(const std::string& date, const QString& format = "dd.MM.yyyy");
 std::string to_date(const QDate& date, const QString& format = "dd.MM.yyyy");
+QDateTime to_QDateTime(const std::string& date, const QString& format = "yyyy-MM-dd hh:mm:ss");
+std::string to_date_time(const QDateTime& date, const QString& format = "yyyy-MM-dd hh:mm:ss");
 
 QJsonArray to_QJsonArray(const Json::Value& json);
 QJsonObject to_QJsonObject(const Json::Value& json);

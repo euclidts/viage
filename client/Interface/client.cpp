@@ -31,6 +31,16 @@ std::string to_date(const QDate& date, const QString& format)
     return date.toString(format).toStdString();
 }
 
+QDateTime to_QDateTime(const std::string& date, const QString& format)
+{
+    return QDateTime::fromString(QString::fromStdString(date), format);
+}
+
+std::string to_date_time(const QDateTime& date, const QString& format)
+{
+    return date.toString(format).toStdString();
+}
+
 QJsonArray to_QJsonArray(const Json::Value &json)
 {
     return to_QJsonDoc(json).array();

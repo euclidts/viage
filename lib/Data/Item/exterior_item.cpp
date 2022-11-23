@@ -12,7 +12,7 @@ exterior_item::exterior_item()
 void exterior_item::read(const Json::Value &json)
 {
     if (json.isMember("hasParking") && json["hasParking"].isBool())
-        hasParking = json["hasParking"].isBool();
+        hasParking = json["hasParking"].asBool();
 
     if (json.isMember("parkingSpots") && json["parkingSpots"].isInt())
         parkingSpots = json["parkingSpots"].asInt();

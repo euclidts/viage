@@ -56,12 +56,12 @@ bridge::bridge(Interface::netManager* manager,
         const auto item{acnts->item_at_id(accountId)};
 
         setAccountState(item.state);
-        setAccountReceived(to_QDate(item.receivedDate));
-        setAccountTransmited(to_QDate(item.transmitedDate));
-        setAccountExpertized(to_QDate(item.expertizedDate));
-        setAccountNotarized(to_QDate(item.notarizedDate));
-        setAccountDecided(to_QDate(item.decidedDate));
-        setAccountPaid(to_QDate(item.paidDate));
+        setAccountReceived(to_QDateTime(item.receivedDate).date());
+        setAccountTransmited(to_QDateTime(item.transmitedDate).date());
+        setAccountExpertized(to_QDateTime(item.expertizedDate).date());
+        setAccountNotarized(to_QDateTime(item.notarizedDate).date());
+        setAccountDecided(to_QDateTime(item.decidedDate).date());
+        setAccountPaid(to_QDateTime(item.paidDate).date());
     });
 
     connect(docs, &c_list<c_document>::loaded,

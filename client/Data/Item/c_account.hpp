@@ -78,10 +78,6 @@ struct c_account : public account_item
     void write(Json::Value & json) const { account_item::write(json); };
 
     bool is_completed() const { return account_item::is_completed(); };
-
-private:
-    QDateTime to_QDateTime(const std::string& date, const QString& format = "yyyy-MM-dd hh:mm:ss") const;
-    std::string to_date_time(const QDateTime& date, const QString& format = "yyyy-MM-dd hh:mm:ss") const;
 };
 
 }
