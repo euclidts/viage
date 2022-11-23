@@ -11,7 +11,7 @@ namespace Places
 class exterior_item : virtual public base_data
 {
 public:
-    explicit exterior_item();
+    exterior_item();
 
     const char* key() const noexcept override { return "exterior"; };
 

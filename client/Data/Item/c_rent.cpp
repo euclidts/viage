@@ -25,7 +25,17 @@ c_rent::c_rent(QObject *parent)
 
 void c_rent::read(const Json::Value &json)
 {
+    int prev_bou{bou};
+    int prev_dab{dab};
+
     rent_item::read(json);
+
+    if (prev_bou != bou)
+        emit bouChanged();
+
+    if (prev_dab != dab)
+        emit dabChanged();
+
     emit loaded();
 }
 

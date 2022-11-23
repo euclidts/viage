@@ -19,20 +19,53 @@ c_habitat::c_habitat(QObject* parent)
 
 void c_habitat::read(const Json::Value& json)
 {
+    std::string prev_street{address.street};
+    std::string prev_city{address.city};
+    int prev_zip{address.zip};
+    std::string prev_canton{address.canton};
+
+    habitatTypes prev_habitatType{habitatType};
+    int prev_rooms{rooms};
+    int prev_rawSurface{rawSurface};
+    int prev_surface{surface};
+    int prev_m2Constructed{m2Constructed};
+    int prev_m2Available{m2Available};
+    int prev_m3s{m3s};
+
     habitat_item::read(json);
 
-    emit streetChanged();
-    emit cityChanged();
-    emit zipChanged();
-    emit cantonChanged();
+    if (prev_street != address.street)
+        emit streetChanged();
 
-    emit habitatTypeChanged();
-    emit roomsChanged();
-    emit rawSurfaceChanged();
-    emit surfaceChanged();
-    emit m2ConstructedChanged();
-    emit m2AvailableChanged();
-    emit m3sChanged();
+    if (prev_city != address.city)
+        emit cityChanged();
+
+    if (prev_zip != address.zip)
+        emit zipChanged();
+
+    if (prev_canton != address.canton)
+        emit cantonChanged();
+
+    if (prev_habitatType != habitatType)
+        emit habitatTypeChanged();
+
+    if (prev_rooms != rooms)
+        emit roomsChanged();
+
+    if (prev_rawSurface != rawSurface)
+        emit rawSurfaceChanged();
+
+    if (prev_surface != surface)
+        emit surfaceChanged();
+
+    if (prev_m2Constructed != m2Constructed)
+        emit m2ConstructedChanged();
+
+    if (prev_m2Available != m2Available)
+        emit m2AvailableChanged();
+
+    if (prev_m3s != m3s)
+        emit m3sChanged();
 
     emit loaded();
     checkCompleted();

@@ -47,7 +47,7 @@ void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const QJsonObject& o
                          [this, val](const Json::Value& res)
     {
         Json::Value concat{val};
-        concat[val.size()] = res;
+        concat[res.size()] = val;
         this->inner->appendWith(concat); },
     "addInWith error");
 }

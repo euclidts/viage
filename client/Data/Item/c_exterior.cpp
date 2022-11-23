@@ -20,16 +20,40 @@ c_exterior::c_exterior(QObject *parent)
 
 void c_exterior::read(const Json::Value& json)
 {
+    bool prev_hasParking{hasParking};
+    int prev_parkingSpots{parkingSpots};
+    parkingTypes prev_parkingType{parkingType};
+    int prev_parkingSurface{parkingSurface};
+    std::string prev_terrainDescription{terrainDescription};
+    int prev_terrainSurface{terrainSurface};
+    equipements prev_equipement{equipement};
+    int prev_rating{rating};
+
     exterior_item::read(json);
 
-    emit hasParkingChanged();
-    emit parkingSpotsChanged();
-    emit parkingTypeChanged();
-    emit parkingSurfaceChanged();
-    emit terrainDescriptionChanged();
-    emit terrainSurfaceChanged();
-    emit equipementsChanged();
-    emit ratingChanged();
+    if (prev_hasParking != hasParking)
+        emit hasParkingChanged();
+
+    if (prev_parkingSpots != parkingSpots)
+        emit parkingSpotsChanged();
+
+    if (prev_parkingType != parkingType)
+        emit parkingTypeChanged();
+
+    if (prev_parkingSurface != parkingSurface)
+        emit parkingSurfaceChanged();
+
+    if (prev_terrainDescription != terrainDescription)
+        emit terrainDescriptionChanged();
+
+    if (prev_terrainSurface != terrainSurface)
+        emit terrainSurfaceChanged();
+
+    if (prev_equipement != equipement)
+        emit equipementsChanged();
+
+    if (prev_rating != rating)
+        emit ratingChanged();
 
     emit loaded();
     checkCompleted();
