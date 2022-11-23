@@ -1,6 +1,7 @@
 #include <wobjectimpl.h>
 
 #include "c_base_data.hpp"
+#include "client.hpp"
 
 namespace Data
 {
@@ -18,13 +19,11 @@ const QByteArray c_base_data::toData(const char* parentKey, int parentId)
     str.append("Id");
 
     Json::Value data;
-    data[str] =  parentId;
+    data[str] = parentId;
 
     writeWithKey(data);
 
-    Json::StreamWriterBuilder builder;
-    const std::string bytes{Json::writeString(builder, data)};
-    return QByteArray::fromStdString(bytes);
+    return Client::to_QByteArray(data);
 }
 
 const QByteArray c_base_data::toData(int parentId)
@@ -34,9 +33,7 @@ const QByteArray c_base_data::toData(int parentId)
 
     writeWithKey(data);
 
-    Json::StreamWriterBuilder builder;
-    const std::string bytes{Json::writeString(builder, data)};
-    return QByteArray::fromStdString(bytes);
+    return Client::to_QByteArray(data);
 }
 
 bool c_base_data::getCompleted() const

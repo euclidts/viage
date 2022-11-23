@@ -1,7 +1,6 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include "qstring.h"
 #include "qdatetime.h"
 
 #include <json/json.h>
