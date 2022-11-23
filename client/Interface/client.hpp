@@ -20,6 +20,7 @@ QJsonObject to_QJsonObject(const Json::Value& json);
 QJsonDocument to_QJsonDoc(const Json::Value& json);
 Json::Value to_Json(const std::string& str);
 Json::Value to_Json(const QByteArray& bytes);
+Json::Value to_Json(const QJsonObject& obj);
 
 QByteArray to_QByteArray(const Json::Value& json);
 }

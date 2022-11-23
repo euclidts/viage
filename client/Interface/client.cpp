@@ -57,9 +57,16 @@ Json::Value to_Json(const std::string& str)
     return json;
 }
 
-Json::Value to_Json(const QByteArray &bytes)
+Json::Value to_Json(const QByteArray& bytes)
 {
     return to_Json(bytes.toStdString());
+}
+
+Json::Value to_Json(const QJsonObject& obj)
+{
+    QJsonDocument doc{obj};
+    QByteArray bytes{doc.toJson(QJsonDocument::Compact)};
+    return to_Json(bytes);
 }
 
 QByteArray to_QByteArray(const Json::Value &json)
