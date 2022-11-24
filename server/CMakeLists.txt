@@ -1,4 +1,3 @@
-cmake_minimum_required(VERSION 3.5)
 project(viage_server CXX)
 
 include(CheckIncludeFileCXX)
@@ -9,15 +8,16 @@ include(CheckIncludeFileCXX)
 #if (NOT "${CMAKE_CXX_STANDARD}" STREQUAL "")
 #    # Do nothing
 #elseif (HAS_ANY AND HAS_STRING_VIEW AND HAS_COROUTINE)
-    set(CMAKE_CXX_STANDARD 20)
+#    set(CMAKE_CXX_STANDARD 20)
 #elseif (HAS_ANY AND HAS_STRING_VIEW)
 #    set(CMAKE_CXX_STANDARD 17)
 #else ()
 #    set(CMAKE_CXX_STANDARD 14)
 #endif ()
 
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+include_directories(SYSTEM "${LIB_INCLUDES}")
 
 add_executable(${PROJECT_NAME} main.cpp)
 
@@ -28,7 +28,7 @@ add_executable(${PROJECT_NAME} main.cpp)
 # target_link_libraries(${PROJECT_NAME} PRIVATE drogon)
 #
 # and comment out the following lines
-find_package(Drogon CONFIG REQUIRED)
+#find_package(Drogon CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
 
 # ##############################################################################

@@ -57,12 +57,12 @@ struct account_item : virtual public base_data
     };
 
     states state{Initialized};
-    string receivedDate{};
-    string transmitedDate{};
-    string expertizedDate{};
-    string decidedDate{};
-    string notarizedDate{};
-    string paidDate{};
+    string receivedDate{""};
+    string transmitedDate{""};
+    string expertizedDate{""};
+    string decidedDate{""};
+    string notarizedDate{""};
+    string paidDate{""};
 
     string created{""};
     string modified{""};

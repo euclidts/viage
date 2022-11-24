@@ -80,24 +80,58 @@ void account_item::read(const Value& json)
 
 void account_item::write(Value &json) const
 {
-    json["owners"] = owners;
-    json["contacts"] = contacts;
-    json["habitat"] = habitat;
-    json["exterior"] = exterior;
-    json["documents"] = documents;
+    if (!owners.empty())
+        json["owners"] = owners;
+
+    if (!contacts.empty())
+        json["contacts"] = contacts;
+
+    if (!habitat.empty())
+        json["habitat"] = habitat;
+
+    if (!exterior.empty())
+        json["exterior"] = exterior;
+
+    if (!documents.empty())
+        json["documents"] = documents;
+
     json["state"] = state;
-    json["receivedDate"] = receivedDate;
-    json["transmitedDate"] = transmitedDate;
-    json["expertizedDate"] = expertizedDate;
-    json["decidedDate"] = decidedDate;
-    json["notarizedDate"] = notarizedDate;
-    json["paidDateDate"] = paidDate;
+
+    if (receivedDate != "")
+        json["receivedDate"] = receivedDate;
+
+    if (transmitedDate != "")
+        json["transmitedDate"] = transmitedDate;
+
+    if (expertizedDate != "")
+        json["expertizedDate"] = expertizedDate;
+
+    if (decidedDate != "")
+        json["decidedDate"] = decidedDate;
+
+    if (notarizedDate != notarizedDate)
+        json["notarizedDate"] = notarizedDate;
+
+    if (paidDate != "")
+        json["paidDateDate"] = paidDate;
+
     json["created"] = created;
-    json["modified"] = modified;
-    json["advisorFirstName"] = advisorFirstName;
-    json["advisorLastName"] = advisorLastName;
-    json["company"] = company;
-    json["acronym"] = acronym;
+
+    if (modified != "")
+        json["modified"] = modified;
+
+    if (advisorFirstName != "")
+        json["advisorFirstName"] = advisorFirstName;
+
+    if (advisorLastName != "")
+        json["advisorLastName"] = advisorLastName;
+
+    if (company != "")
+        json["company"] = company;
+
+    if (acronym != "")
+        json["acronym"] = acronym;
+
     json["id"] = id;
 }
 

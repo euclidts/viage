@@ -1,3 +1,5 @@
+project(viage_client CXX)
+
 set(CMAKE_AUTOUIC OFF)
 set(CMAKE_AUTOMOC OFF)
 set(CMAKE_AUTORCC ON)
@@ -83,7 +85,7 @@ set(PROJECT_SOURCES
     ${TS_FILES})
 
 include_directories(SYSTEM
-    "../lib/include"
+    "${LIB_INCLUDES}"
     "${DATA_FOLDER}"
     "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"
@@ -119,17 +121,16 @@ target_compile_definitions(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Quick
-    Qt6::Multimedia
-    ${JSONCPP_LIBRARIES})
+    Qt6::Multimedia)
 
 if(UNIX OR MINGW)
     target_link_libraries(${PROJECT_NAME} PRIVATE
         ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.a
-        ${CMAKE_BINARY_DIR}/lib/libData.a)
+        ${CMAKE_BINARY_DIR}/lib/libviage.a)
 elseif()
     target_link_libraries(${PROJECT_NAME} PRIVATE
         ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.lib
-        ${CMAKE_BINARY_DIR}/lib/libData.lib)
+        ${CMAKE_BINARY_DIR}/lib/libviage.lib)
 endif()
 
 #set_target_properties(${PROJECT_NAME} PROPERTIES

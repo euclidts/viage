@@ -187,8 +187,7 @@ int main(int argc, char* argv[])
         const auto items{owners->items()};
         qsizetype s{items.size()};
 
-        if (s < 2)
-            return;
+        if (s < 2) return;
 
         const auto previous{items.at(s - 2)};
         if (previous.civilStatus == owner_item::Maried)
@@ -204,6 +203,7 @@ int main(int argc, char* argv[])
             item.address->zip = previous.address->zip;
             item.address->canton = previous.address->canton;
             item.civilStatus = previous.civilStatus;
+            item.lastName = previous.lastName;
 
             owners->setItemAt(s - 1, item);
         }
