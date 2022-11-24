@@ -6,7 +6,7 @@ set(3RDPARTY_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty")
 set(WRAPPER_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Wrapper")
 set(INTERFACE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Interface")
 set(MODEL_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Model")
-set(CLIENT_DATA "${CMAKE_CURRENT_SOURCE_DIR}/Data")
+set(DATA_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/Data")
 
 if(ANDROID)
     file(COPY
@@ -80,30 +80,11 @@ set(PROJECT_SOURCES
     Data/Item/c_team.cpp
     resources/viage.qrc
     ${ALT_QRC}
-    ${TS_FILES}
-    #${ITEM_SRC}
-    # yet to be compiled seperaly as a library
-    ../lib/Data/base_data.cpp
-    ../lib/Data/item_list.hpp
-    ../lib/Data/Item/address_item.cpp
-    ../lib/Data/Item/person_item.cpp
-    ../lib/Data/Item/senior_citizen_item.cpp
-    ../lib/Data/Item/user_item.cpp
-    ../lib/Data/Item/infant_item.cpp
-    ../lib/Data/Item/contact_item.cpp
-    ../lib/Data/Item/person_item.cpp
-    ../lib/Data/Item/owner_item.cpp
-    ../lib/Data/Item/habitat_item.cpp
-    ../lib/Data/Item/exterior_item.cpp
-    ../lib/Data/Item/document_item.cpp
-    ../lib/Data/Item/account_item.cpp
-    ../lib/Data/Item/rent_item.cpp
-    ../lib/Data/Item/company_item.cpp
-    ../lib/Data/Item/team_item.cpp)
+    ${TS_FILES})
 
 include_directories(SYSTEM
+    "../lib/include"
     "${DATA_FOLDER}"
-    "${CLIENT_DATA}"
     "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"
@@ -116,56 +97,60 @@ add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
 
 set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.rc")
 
-qt_add_executable(viage
+qt_add_executable(${PROJECT_NAME}
     WIN32 ${app_icon_resource_windows}
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES})
 
 if(ANDROID)
     # Define target properties for Android with Qt 6 as:
-    set_property(TARGET viage APPEND PROPERTY
+    set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
     # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
-    target_link_libraries(viage PRIVATE Qt6::Svg)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Svg)
 endif()
 
-qt_add_translations(viage TS_FILES ${TS_FILES})
+qt_add_translations(${PROJECT_NAME} TS_FILES ${TS_FILES})
 
-target_compile_definitions(viage
+target_compile_definitions(${PROJECT_NAME}
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries(viage PRIVATE
+target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Quick
     Qt6::Multimedia
     ${JSONCPP_LIBRARIES})
 
 if(UNIX OR MINGW)
-    target_link_libraries(viage PRIVATE ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.a)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.a
+        ${CMAKE_BINARY_DIR}/lib/libData.a)
 elseif()
-    target_link_libraries(viage PRIVATE ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.lib)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.lib
+        ${CMAKE_BINARY_DIR}/lib/libData.lib)
 endif()
 
-#set_target_properties(viage PROPERTIES
+#set_target_properties(${PROJECT_NAME} PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
 #    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
 #    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 #    )
 
-qt_import_qml_plugins(viage)
+qt_import_qml_plugins(${PROJECT_NAME})
 
-qt_finalize_executable(viage)
+qt_finalize_executable(${PROJECT_NAME})
 
 # Installer setup copyed from
 # https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeList.txt
 
 if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(COMPONENT_NAME_MAIN "viage")
+    set(COMPONENT_NAME_MAIN "${PROJECT_NAME}")
     set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
     include(GNUInstallDirs)
-    install(TARGETS viage DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${COMPONENT_NAME_MAIN})
+    install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${COMPONENT_NAME_MAIN})
 
     if(MINGW)
         message(STATUS "Installing system-libraries: MinGW DLLs.")
@@ -181,9 +166,9 @@ if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
     include(InstallRequiredSystemLibraries)
 
     set(CPACK_GENERATOR "IFW")
-    set(CPACK_IFW_PACKAGE_NAME "viage")
-    set(CPACK_IFW_PACKAGE_TITLE "viage")
-    set(CPACK_IFW_PACKAGE_PUBLISHER "viage")
+    set(CPACK_IFW_PACKAGE_NAME "${PROJECT_NAME}")
+    set(CPACK_IFW_PACKAGE_TITLE "${PROJECT_NAME}")
+    set(CPACK_IFW_PACKAGE_PUBLISHER "${PROJECT_NAME}")
     set(CPACK_IFW_PACKAGE_WIZARD_STYLE "Classic")
     set(CPACK_IFW_PACKAGE_WIZARD_SHOW_PAGE_LIST OFF)
 

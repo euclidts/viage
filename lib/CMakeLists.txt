@@ -1,59 +1,31 @@
-set(PROJECT_SOURCES
-    Interface/bridge.hpp
-    Interface/bridge.cpp
-    Interface/netManager.cpp
-    Interface/netManager.hpp
-    Data/base_data.hpp
-    Data/base_data.cpp
-    Wrapper/base_wrapper.hpp
-    Wrapper/wrapped_list.hpp
-    Wrapper/wrapped_nested_item.hpp
-    Wrapper/wrapped_nested_list.hpp
-    Data/Items/base_item.hpp
-    Data/Items/base_item.cpp
-    Data/Items/address_item.hpp
-    Data/Items/address_item.cpp
-    Data/Items/person_item.hpp
-    Data/Items/person_item.cpp
-    Data/Items/senior_citizen_item.hpp
-    Data/Items/senior_citizen_item.cpp
-    Data/Items/user_item.hpp
-    Data/Items/user_item.cpp
-    Data/Items/infant_item.hpp
-    Data/Items/infant_item.cpp
-    Data/Items/contact_item.hpp
-    Data/Items/contact_item.cpp
-    Data/Items/person_item.cpp
-    Data/Items/owner_item.hpp
-    Data/Items/owner_item.cpp
-    Data/Items/habitat_item.hpp
-    Data/Items/habitat_item.cpp
-    Data/Items/exterior_item.hpp
-    Data/Items/exterior_item.cpp
-    Data/Items/document_item.hpp
-    Data/Items/document_item.cpp
-    Data/Items/account_item.hpp
-    Data/Items/account_item.cpp
-    Data/Items/rent_item.hpp
-    Data/Items/rent_item.cpp
-    Data/Items/company_item.hpp
-    Data/Items/company_item.cpp
-    Data/Items/team_item.hpp
-    Data/Items/team_item.cpp
-    Data/Lists/base_list.hpp
-    Data/Lists/simple_item_list.hpp
-    Data/Lists/item_list.hpp
-    Data/Models/base_model.hpp
-    Data/Models/list_model.hpp
-    Data/Models/base_filter_model.hpp
-    Data/Models/base_filter_model.cpp
-    Data/Models/account_filter_model.hpp
-    Data/Models/account_filter_model.cpp
-    Data/Models/document_filter_model.hpp
-    Data/Models/document_filter_model.cpp
-    Data/Models/user_filter_model.hpp
-    Data/Models/user_filter_model.cpp
-    Calculator/life_expectency.hpp
-    Calculator/life_expectency.cpp
-    Calculator/wrapped_calculator.hpp
-    Calculator/wrapped_calculator.cpp)
+project(Data)
+
+add_library(${PROJECT_NAME} STATIC)
+
+target_sources(${PROJECT_NAME}
+    PRIVATE
+    src/base_data.cpp
+    include/item_list.hpp
+    src/Item/address_item.cpp
+    src/Item/person_item.cpp
+    src/Item/senior_citizen_item.cpp
+    src/Item/user_item.cpp
+    src/Item/infant_item.cpp
+    src/Item/contact_item.cpp
+    src/Item/person_item.cpp
+    src/Item/owner_item.cpp
+    src/Item/habitat_item.cpp
+    src/Item/exterior_item.cpp
+    src/Item/document_item.cpp
+    src/Item/account_item.cpp
+    src/Item/rent_item.cpp
+    src/Item/company_item.cpp
+    src/Item/team_item.cpp
+)
+
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+)
