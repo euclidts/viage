@@ -10,11 +10,11 @@ namespace People
 {
 class login_flt : public HttpFilter<login_flt>
 {
-  public:
+public:
     login_flt() {}
-    void doFilter(const HttpRequestPtr &req,
-                  FilterCallback &&fcb,
-                  FilterChainCallback &&fccb) override;
+    virtual void doFilter(const HttpRequestPtr &req,
+                          FilterCallback &&fcb,
+                          FilterChainCallback &&fccb) override;
 };
 }
 }

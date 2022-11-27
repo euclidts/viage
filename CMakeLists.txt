@@ -9,11 +9,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Drogon CONFIG REQUIRED)
 
 link_libraries(Jsoncpp_lib)
-include_directories(${JSONCPP_INCLUDE_DIRS})
+include_directories(${JSONCPP_INCLUDE_DIRS}
+                    "${CMAKE_CURRENT_SOURCE_DIR}/lib/include")
 
-set(LIB_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/lib/include")
 add_subdirectory(lib)
-
 add_subdirectory(client)
-
 add_subdirectory(server)

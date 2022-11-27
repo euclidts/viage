@@ -14,7 +14,7 @@ void user_ctl::auth(const HttpRequestPtr &req,
 
     Json::Value ret;
     ret["result"] = "ok";
-    ret["token"] = drogon::utils::getUuid();
+    ret["token"] = utils::getUuid();
     auto resp{HttpResponse::newHttpJsonResponse(ret)};
     callback(resp);
 }
