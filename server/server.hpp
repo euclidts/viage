@@ -9,9 +9,17 @@ namespace server
 class server
 {
 public:
-    server(const Json::Value& json_config);
+    static server& get();
+    void init(const Json::Value& json_config);
 
-    static nanodbc::connection connection;
+    server(server const&) = delete;
+    void operator = (server const&) = delete;
+
+    nanodbc::connection connection;
+
+private:
+    server() {};
 };
+
 }
 #endif // SERVER_HPP

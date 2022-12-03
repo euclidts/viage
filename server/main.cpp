@@ -22,7 +22,7 @@ int main()
         return EXIT_FAILURE;
     }
 
-    server::server{json};
+    server::server::get().init(json);
 
     return 0;
 }
