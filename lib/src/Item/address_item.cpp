@@ -5,6 +5,7 @@ namespace Data
 namespace Places
 {
 address_item::address_item()
+    : base_data()
 {
 }
 

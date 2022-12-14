@@ -2,8 +2,6 @@
 
 #include "server.hpp"
 
-using namespace std;
-
 namespace server
 {
 server& server::get()
@@ -27,8 +25,8 @@ void server::init(const Json::Value& json_config)
             db["user"].asString(),
             db["passwd"].asString()};
 
-//    cout << "Connected with driver " << connection.driver_name() << endl
-//         << "to database named " << connection.database_name() << endl;
+    LOG_DEBUG << "Connected with driver " << connection.driver_name()
+              << " to database named " << connection.database_name();
 
     drogon::app().loadConfigJson(json_config);
     drogon::app().run();

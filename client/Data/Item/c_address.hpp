@@ -1,5 +1,5 @@
-#ifndef C_ADDRESS_H
-#define C_ADDRESS_H
+#ifndef C_ADDRESS_HPP
+#define C_ADDRESS_HPP
 
 #include "qnamespace.h"
 
@@ -28,11 +28,10 @@ struct c_address
     void setData(const QVariant& value, int role);
 
 protected:
-
     address_item* address;
 };
 
 }
 }
 
-#endif // C_ADDRESS_H
+#endif // C_ADDRESS_HPP
