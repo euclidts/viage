@@ -1,4 +1,5 @@
 #include "user_ctl.hpp"
+#include <Data/Item/s_user.hpp>
 #include <server.hpp>
 
 namespace Data
@@ -12,58 +13,76 @@ void user_ctl::auth(const HttpRequestPtr &req,
 {
     LOG_DEBUG << "User " << userName << " login";
 
-    auto users{nanodbc::execute(server::server::get().connection,
-                                "SELECT "
-                                "Id, "
-                                "FirstName, "
-                                "LastName, "
-                                "Login, "
-                                "EMail, "
-                                "Phone, "
-                                "Clearance, "
-                                "Beneficiary, "
-                                "Bic, "
-                                "Iban, "
-                                "Street, "
-                                "City, "
-                                "Canton, "
-                                "Zip, "
-                                "CompanyId, "
-                                "TeamId, "
-                                "IsLocked, "
-                                "Password "
-                                "FROM [User]")};
-
     HttpResponsePtr resp;
+    auto uuid{req->session()->sessionId()};
 
-    using namespace utils;
-
-    while (users.next())
+    if (server::server::get().user_connected(uuid))
     {
-        if (users.get<std::string>("Login") == userName)
+        const auto usr{server::server::get().connected_user(uuid)->second};
+
+        Json::Value json;
+        json["sessionId"] = uuid;
+        json["id"] = usr.id;
+        json["clearance"] = usr.clearance;
+
+        resp = HttpResponse::newHttpJsonResponse(json);
+    }
+    else
+    {
+        auto users{nanodbc::execute(server::server::get().connection,
+                                    "SELECT "
+                                    "Id, "
+                                    "FirstName, "
+                                    "LastName, "
+                                    "Login, "
+                                    "EMail, "
+                                    "Phone, "
+                                    "Clearance, "
+                                    "Beneficiary, "
+                                    "Bic, "
+                                    "Iban, "
+                                    "Street, "
+                                    "City, "
+                                    "Canton, "
+                                    "Zip, "
+                                    "CompanyId, "
+                                    "TeamId, "
+                                    "IsLocked, "
+                                    "Password "
+                                    "FROM [User]")};
+
+        using namespace utils;
+
+        while (users.next())
         {
-            const auto pwd{users.get<std::string>("Password")};
-
-            if (binaryStringToHex(reinterpret_cast<const unsigned char*>(pwd.c_str()), pwd.length())
-                    == getMd5(password))
+            if (users.get<std::string>("Login") == userName)
             {
-                const auto uuid{utils::getUuid()};
+                const auto pwd{users.get<std::string>("Password")};
 
-                Json::Value json;
-                json["sessionId"] = uuid;
-                json["id"] = users.get<int>("Id");
-                json["clearance"] = users.get<std::string>("Clearance");
+                if (binaryStringToHex(reinterpret_cast<const unsigned char*>(pwd.c_str()), pwd.length())
+                        == getMd5(password))
+                {
+                    Data::People::s_user usr{};
+                    usr.read(users);
 
-                resp = HttpResponse::newHttpJsonResponse(json);
-                break;
+                    server::server::get().add_connected_user(usr, uuid);
+
+                    Json::Value json;
+                    json["sessionId"] = uuid;
+                    json["id"] = usr.id;
+                    json["clearance"] = usr.clearance;
+
+                    resp = HttpResponse::newHttpJsonResponse(json);
+                    break;
+                }
             }
         }
-    }
 
-    if (!resp)
-    {
-        resp = HttpResponse::newHttpResponse();
-        resp->setStatusCode(drogon::k401Unauthorized);
+        if (!resp)
+        {
+            resp = HttpResponse::newHttpResponse();
+            resp->setStatusCode(drogon::k401Unauthorized);
+        }
     }
 
     callback(resp);

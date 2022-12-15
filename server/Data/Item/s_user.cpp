@@ -8,6 +8,7 @@ s_user::s_user()
     : user_item{}
     , s_person{}
     , sa{&address}
+    , last_access{trantor::Date::date()}
 {
 }
 

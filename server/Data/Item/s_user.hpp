@@ -5,6 +5,7 @@
 #include "s_person.hpp"
 #include "s_address.hpp"
 #include <Item/user_item.hpp>
+#include <trantor/utils/Date.h>
 
 namespace Data
 {
@@ -14,6 +15,8 @@ struct s_user : public user_item
               , public s_person
 {
     s_user();
+
+    trantor::Date last_access;
 
     void read(const nanodbc::result& res);
 //    void write(nanodbc::result& res);
