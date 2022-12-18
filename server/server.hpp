@@ -20,8 +20,8 @@ public:
 
     nanodbc::connection connection;
 
-    bool user_connected(const std::string& uuid) const;
-    std::map<std::string, Data::People::s_user>::iterator connected_user(const std::string& uuid);
+    bool user_connected(const std::string& uuid);
+    Data::People::s_user& connected_user(const std::string& uuid) noexcept;
     void add_connected_user(const Data::People::s_user& usr, const std::string& uuid);
     void remove_connected_user(const std::string& uuid);
 

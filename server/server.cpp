@@ -1,3 +1,5 @@
+#include <utility>
+
 #include <drogon/drogon.h>
 
 #include "server.hpp"
@@ -48,24 +50,37 @@ void server::init(const Json::Value& json_config)
     drogon::app().run();
 }
 
-bool server::user_connected(const std::string &uuid) const
+bool server::user_connected(const std::string& uuid)
 {
-    return connected_users.contains(uuid);
+    if (const auto it{connected_users.find(uuid)}; it != connected_users.end())
+    {
+        const auto then{trantor::Date::date().after(- DEFAULT_TIMEOUT)};
+
+        if (it->second.last_access < then)
+        {
+            remove_connected_user(uuid);
+            return false;
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
-std::map<std::string, Data::People::s_user>::iterator server::connected_user(const std::string &uuid)
+Data::People::s_user& server::connected_user(const std::string& uuid) noexcept
 {
-    return connected_users.find(uuid);
+    return std::get<Data::People::s_user>(*connected_users.find(uuid));
 }
 
-void server::add_connected_user(const Data::People::s_user &usr, const std::string &uuid)
+void server::add_connected_user(const Data::People::s_user& usr, const std::string& uuid)
 {
     if (user_connected(uuid)) return;
 
     connected_users[uuid] = usr;
 }
 
-void server::remove_connected_user(const std::string &uuid)
+void server::remove_connected_user(const std::string& uuid)
 {
     if (!user_connected(uuid)) return;
 

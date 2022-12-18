@@ -6,10 +6,13 @@ namespace Data
 {
 namespace People
 {
-void user_ctl::auth(const HttpRequestPtr &req,
-                    std::function<void (const HttpResponsePtr &)> &&callback,
-                    std::string &&userName,
-                    const std::string &password)
+void user_ctl::auth(const HttpRequestPtr& req,
+                    std::function<void (const HttpResponsePtr &)>&& callback,
+                    std::string&& userName,
+                    const std::string& password,
+                    const std::string& format,
+                    const std::string& jsonconfig,
+                    bool remeberMe)
 {
     LOG_DEBUG << "User " << userName << " login";
 
@@ -18,7 +21,7 @@ void user_ctl::auth(const HttpRequestPtr &req,
 
     if (server::server::get().user_connected(uuid))
     {
-        const auto usr{server::server::get().connected_user(uuid)->second};
+        const auto usr{server::server::get().connected_user(uuid)};
 
         Json::Value json;
         json["sessionId"] = uuid;
@@ -49,7 +52,9 @@ void user_ctl::auth(const HttpRequestPtr &req,
                                     "TeamId, "
                                     "IsLocked, "
                                     "Password "
-                                    "FROM [User]")};
+                                    "FROM [User]"
+                                    "WHERE Login = "
+                                    "'" + userName + "'")};
 
         using namespace utils;
 
@@ -64,6 +69,7 @@ void user_ctl::auth(const HttpRequestPtr &req,
                 {
                     Data::People::s_user usr{};
                     usr.read(users);
+                    usr.last_access = trantor::Date::date();
 
                     server::server::get().add_connected_user(usr, uuid);
 
@@ -87,5 +93,6 @@ void user_ctl::auth(const HttpRequestPtr &req,
 
     callback(resp);
 }
+
 }
 }
