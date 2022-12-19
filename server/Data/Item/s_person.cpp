@@ -14,7 +14,7 @@ void s_person::read(const nanodbc::result& res)
     try
     {
         if (!res.is_null("Id"))
-            id = res.get<int>("id");
+            id = res.get<int>("Id");
     }
     catch (nanodbc::index_range_error) {}
 

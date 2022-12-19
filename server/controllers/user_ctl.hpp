@@ -14,6 +14,7 @@ public:
     METHOD_LIST_BEGIN
     ADD_METHOD_TO(user_ctl::auth, "/auth?userName={}&password={}", Get);
     ADD_METHOD_TO(user_ctl::auth, "/auth?userName={}&password={}&format={}&jsconfig={}&rememberMe={}", Get);
+    ADD_METHOD_TO(user_ctl::get_users, "/Users", Get);
     METHOD_LIST_END
 
     void auth(const HttpRequestPtr& req,
@@ -23,6 +24,9 @@ public:
               const std::string& format = "",
               const std::string& jsonconfig = "",
               bool remeberMe = false);
+
+    void get_users(const HttpRequestPtr& req,
+                   std::function<void (const HttpResponsePtr &)>&& callback);
 };
 }
 }

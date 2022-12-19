@@ -164,12 +164,12 @@ int main(int argc, char* argv[])
     {
         if (success)
         {
-            wrapped_accounts.get();
+//            wrapped_accounts.get();
 
             if (bridge.getClearance() == user_item::Administrator)
             {
                 wrapped_users.get();
-                wrapped_companies.get();
+//                wrapped_companies.get();
             }
         }
     });

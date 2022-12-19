@@ -14,6 +14,8 @@ s_user::s_user()
 
 void s_user::read(const nanodbc::result& res)
 {
+    s_person::read(res);
+
     try
     {
         if (!res.is_null("Company"))
