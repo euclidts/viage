@@ -1,6 +1,7 @@
 #include "user_ctl.hpp"
-#include <Data/s_list.hpp>
-#include <Data/Item/s_user.hpp>
+#include <s_list.hpp>
+#include <s_user.hpp>
+#include <s_company.hpp>
 #include <server.hpp>
 
 namespace Data
@@ -36,19 +37,9 @@ void user_ctl::auth(const HttpRequestPtr& req,
         auto users{nanodbc::execute(server::server::get().connection,
                                     "SELECT "
                                     "Id, "
-//                                    "FirstName, "
-//                                    "LastName, "
                                     "Login, "
                                     "EMail, "
-//                                    "Phone, "
                                     "Clearance, "
-//                                    "Beneficiary, "
-//                                    "Bic, "
-//                                    "Iban, "
-//                                    "Street, "
-//                                    "City, "
-//                                    "Canton, "
-//                                    "Zip, "
                                     "CompanyId, "
                                     "TeamId, "
                                     "IsLocked, "
@@ -62,7 +53,7 @@ void user_ctl::auth(const HttpRequestPtr& req,
         while (users.next())
         {
             if (users.get<std::string>("Login") == userName
-                && !users.get<int>("IsLocked"))
+                    && !users.get<int>("IsLocked"))
             {
                 const auto pwd{users.get<std::string>("Password")};
 
@@ -149,7 +140,48 @@ void user_ctl::get_users(const HttpRequestPtr& req,
             Json::Value json;
             list.write(json);
 
-            std::cout << json;
+//            std::cout << json;
+
+            resp = HttpResponse::newHttpJsonResponse(json);
+        }
+    }
+    else
+    {
+        resp = HttpResponse::newHttpResponse();
+        resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
+    }
+
+    callback(resp);
+}
+
+void user_ctl::get_companies(const HttpRequestPtr& req,
+                             std::function<void (const HttpResponsePtr&)>&& callback)
+{
+    LOG_DEBUG << "get_companies";
+
+    HttpResponsePtr resp;
+    auto uuid{req->session()->sessionId()};
+
+    if (server::server::get().user_connected(uuid))
+    {
+        const auto usr{server::server::get().connected_user(uuid)};
+
+        if (usr.clearance < s_user::Administrator)
+        {
+            resp = HttpResponse::newHttpResponse();
+            resp->setStatusCode(drogon::k401Unauthorized);
+        }
+        else
+        {
+            auto companies{nanodbc::execute(server::server::get().connection,
+                                        "SELECT * "
+                                        "FROM Company")};
+
+            s_list<s_comapny> list{};
+            list.read(companies);
+
+            Json::Value json;
+            list.write(json);
 
             resp = HttpResponse::newHttpJsonResponse(json);
         }

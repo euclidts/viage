@@ -14,29 +14,29 @@ void s_address::read(const nanodbc::result &res)
 {
     try
     {
-        if (!res.is_null("street"))
-            address->street = res.get<std::string>("street");
+        if (!res.is_null("Street"))
+            address->street = res.get<std::string>("Street");
     }
     catch (nanodbc::index_range_error) {}
 
     try
     {
-        if (!res.is_null("zip"))
-            address->street = res.get<int>("zip");
+        if (!res.is_null("Zip"))
+            address->zip = res.get<int>("Zip");
     }
     catch (nanodbc::index_range_error) {}
 
     try
     {
-        if (!res.is_null("canton"))
-            address->street = res.get<std::string>("canton");
+        if (!res.is_null("Canton"))
+            address->canton = res.get<std::string>("Canton");
     }
     catch (nanodbc::index_range_error) {}
 
     try
     {
-        if (!res.is_null("city"))
-            address->street = res.get<std::string>("city");
+        if (!res.is_null("City"))
+            address->city = res.get<std::string>("City");
     }
     catch (nanodbc::index_range_error) {}
 }

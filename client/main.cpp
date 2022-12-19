@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
             if (bridge.getClearance() == user_item::Administrator)
             {
                 wrapped_users.get();
-//                wrapped_companies.get();
+                wrapped_companies.get();
             }
         }
     });

@@ -19,7 +19,7 @@ struct s_user : public user_item
     trantor::Date last_access;
 
     void read(const nanodbc::result& res);
-    void read(const Json::Value& json) { user_item::read(json); };
+    void read(const Json::Value& json) { user_item::read(json); }
 //    void write(nanodbc::result& res);
 
 protected:

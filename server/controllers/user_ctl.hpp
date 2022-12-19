@@ -15,6 +15,7 @@ public:
     ADD_METHOD_TO(user_ctl::auth, "/auth?userName={}&password={}", Get);
     ADD_METHOD_TO(user_ctl::auth, "/auth?userName={}&password={}&format={}&jsconfig={}&rememberMe={}", Get);
     ADD_METHOD_TO(user_ctl::get_users, "/Users", Get);
+    ADD_METHOD_TO(user_ctl::get_companies, "/Companies", Get);
     METHOD_LIST_END
 
     void auth(const HttpRequestPtr& req,
@@ -27,6 +28,9 @@ public:
 
     void get_users(const HttpRequestPtr& req,
                    std::function<void (const HttpResponsePtr &)>&& callback);
+
+    void get_companies(const HttpRequestPtr& req,
+                       std::function<void (const HttpResponsePtr &)>&& callback);
 };
 }
 }
