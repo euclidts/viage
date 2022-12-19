@@ -69,8 +69,22 @@ void s_user::read(const nanodbc::result& res)
 
     try
     {
+        if (!res.is_null("Name"))
+            company = res.get<std::string>("Name");
+    }
+    catch (nanodbc::index_range_error) {}
+
+    try
+    {
         if (!res.is_null("TeamId"))
             team_id = res.get<int>("TeamId");
+    }
+    catch (nanodbc::index_range_error) {}
+
+    try
+    {
+        if (!res.is_null("Caption"))
+            team = res.get<std::string>("Caption");
     }
     catch (nanodbc::index_range_error) {}
 

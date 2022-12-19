@@ -117,7 +117,7 @@ void user_ctl::get_users(const HttpRequestPtr& req,
         {
             auto users{nanodbc::execute(server::server::get().connection,
                                         "SELECT "
-                                        "Id, "
+                                        "a.[Id], "
                                         "FirstName, "
                                         "LastName, "
                                         "Login, "
@@ -131,10 +131,16 @@ void user_ctl::get_users(const HttpRequestPtr& req,
                                         "City, "
                                         "Canton, "
                                         "Zip, "
-                                        "CompanyId, "
+                                        "a.[CompanyId], "
                                         "TeamId, "
-                                        "IsLocked "
-                                        "FROM [User]")};
+                                        "IsLocked, "
+                                        "b.[Name],"
+                                        "c.[Caption] "
+                                        "FROM (([User] a "
+                                        "LEFT JOIN Company b "
+                                        "ON a.[CompanyId] = b.[Id]) "
+                                        "LEFT JOIN Team c "
+                                        "ON a.[TeamId] = c.[Id])")};
 
 
             s_list<s_user> list{};
