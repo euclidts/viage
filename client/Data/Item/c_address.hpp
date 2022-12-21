@@ -11,7 +11,7 @@ struct address_item;
 
 struct c_address
 {
-    explicit c_address(address_item* ai);
+    explicit c_address(address_item *ai);
 
     enum roles
     {

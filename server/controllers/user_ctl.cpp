@@ -1,7 +1,7 @@
 #include "user_ctl.hpp"
-#include <s_list.hpp>
 #include <s_user.hpp>
 #include <s_company.hpp>
+#include <s_team.hpp>
 #include <server.hpp>
 
 namespace Data
@@ -92,66 +92,34 @@ void user_ctl::get_users(const HttpRequestPtr& req,
 {
     LOG_DEBUG << "get_users";
 
-    HttpResponsePtr resp;
-    auto uuid{req->session()->sessionId()};
-
-    if (server::server::get().user_connected(uuid))
-    {
-        const auto usr{server::server::get().connected_user(uuid)};
-
-        if (usr.clearance < s_user::Administrator)
-        {
-            resp = HttpResponse::newHttpResponse();
-            resp->setStatusCode(drogon::k401Unauthorized);
-        }
-        else
-        {
-            auto users{nanodbc::execute(server::server::get().connection,
-                                        "SELECT "
-                                        "a.[Id], "
-                                        "FirstName, "
-                                        "LastName, "
-                                        "Login, "
-                                        "EMail, "
-                                        "Phone, "
-                                        "Clearance, "
-                                        "Beneficiary, "
-                                        "Bic, "
-                                        "Iban, "
-                                        "Street, "
-                                        "City, "
-                                        "Canton, "
-                                        "Zip, "
-                                        "a.[CompanyId], "
-                                        "TeamId, "
-                                        "IsLocked, "
-                                        "b.[Name],"
-                                        "c.[Caption] "
-                                        "FROM (([User] a "
-                                        "LEFT JOIN Company b "
-                                        "ON a.[CompanyId] = b.[Id]) "
-                                        "LEFT JOIN Team c "
-                                        "ON a.[TeamId] = c.[Id])")};
-
-
-            s_list<s_user> list{};
-            list.read(users);
-
-            Json::Value json;
-            list.write(json);
-
-//            std::cout << json;
-
-            resp = HttpResponse::newHttpJsonResponse(json);
-        }
-    }
-    else
-    {
-        resp = HttpResponse::newHttpResponse();
-        resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
-    }
-
-    callback(resp);
+    server::server::get().get_list<s_user>(req,
+                                           callback,
+                                           "SELECT "
+                                           "a.[Id], "
+                                           "FirstName, "
+                                           "LastName, "
+                                           "Login, "
+                                           "EMail, "
+                                           "Phone, "
+                                           "Clearance, "
+                                           "Beneficiary, "
+                                           "Bic, "
+                                           "Iban, "
+                                           "Street, "
+                                           "City, "
+                                           "Canton, "
+                                           "Zip, "
+                                           "a.[CompanyId], "
+                                           "TeamId, "
+                                           "IsLocked, "
+                                           "b.[Name], "
+                                           "c.[Caption] "
+                                           "FROM (([User] a "
+                                           "LEFT JOIN Company b "
+                                           "ON a.[CompanyId] = b.[Id]) "
+                                           "LEFT JOIN Team c "
+                                           "ON a.[TeamId] = c.[Id])",
+                                           s_user::Administrator);
 }
 
 void user_ctl::get_companies(const HttpRequestPtr& req,
@@ -159,40 +127,24 @@ void user_ctl::get_companies(const HttpRequestPtr& req,
 {
     LOG_DEBUG << "get_companies";
 
-    HttpResponsePtr resp;
-    auto uuid{req->session()->sessionId()};
+    server::server::get().get_list<s_comapny>(req,
+                                              callback,
+                                              "SELECT * "
+                                              "FROM Company",
+                                              s_user::Administrator);
+}
 
-    if (server::server::get().user_connected(uuid))
-    {
-        const auto usr{server::server::get().connected_user(uuid)};
+void user_ctl::get_teams(const HttpRequestPtr& req,
+                         std::function<void (const HttpResponsePtr &)>&& callback,
+                         int companyId)
+{
+    LOG_DEBUG << "get_teams";
 
-        if (usr.clearance < s_user::Administrator)
-        {
-            resp = HttpResponse::newHttpResponse();
-            resp->setStatusCode(drogon::k401Unauthorized);
-        }
-        else
-        {
-            auto companies{nanodbc::execute(server::server::get().connection,
-                                        "SELECT * "
-                                        "FROM Company")};
-
-            s_list<s_comapny> list{};
-            list.read(companies);
-
-            Json::Value json;
-            list.write(json);
-
-            resp = HttpResponse::newHttpJsonResponse(json);
-        }
-    }
-    else
-    {
-        resp = HttpResponse::newHttpResponse();
-        resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
-    }
-
-    callback(resp);
+    server::server::get().get_list<s_team>(req,
+                                              callback,
+                                              "SELECT * "
+                                              "FROM Team",
+                                              s_user::Administrator);
 }
 
 }

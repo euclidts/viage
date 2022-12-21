@@ -19,10 +19,10 @@ c_habitat::c_habitat(QObject* parent)
 
 void c_habitat::read(const Json::Value& json)
 {
-    std::string prev_street{address.street};
-    std::string prev_city{address.city};
-    int prev_zip{address.zip};
-    std::string prev_canton{address.canton};
+    std::string prev_street{address->street};
+    std::string prev_city{address->city};
+    int prev_zip{address->zip};
+    std::string prev_canton{address->canton};
 
     habitatTypes prev_habitatType{habitatType};
     int prev_rooms{rooms};
@@ -34,16 +34,16 @@ void c_habitat::read(const Json::Value& json)
 
     habitat_item::read(json);
 
-    if (prev_street != address.street)
+    if (prev_street != address->street)
         emit streetChanged();
 
-    if (prev_city != address.city)
+    if (prev_city != address->city)
         emit cityChanged();
 
-    if (prev_zip != address.zip)
+    if (prev_zip != address->zip)
         emit zipChanged();
 
-    if (prev_canton != address.canton)
+    if (prev_canton != address->canton)
         emit cantonChanged();
 
     if (prev_habitatType != habitatType)
@@ -78,13 +78,13 @@ void c_habitat::write(Json::Value& json) const
 
 void c_habitat::clear()
 {
-    address.street = "";
+    address->street = "";
     emit streetChanged();
-    address.city = "";
+    address->city = "";
     emit cityChanged();
-    address.zip = 9000;
+    address->zip = 9000;
     emit zipChanged();
-    address.canton = "Appenzell";
+    address->canton = "Appenzell";
     emit cantonChanged();
     habitatType = None;
     emit habitatTypeChanged();
@@ -106,60 +106,60 @@ void c_habitat::clear()
 
 const QString c_habitat::getStreet() const
 {
-    return to_QString(address.street);
+    return to_QString(address->street);
 }
 
 void c_habitat::setStreet(const QString& newStreet)
 {
     const std::string str{to_string(newStreet)};
 
-    if (address.street == str)
+    if (address->street == str)
         return;
-    address.street = str;
+    address->street = str;
     emit streetChanged();
     checkCompleted();
 }
 
 int c_habitat::getZip() const
 {
-    return address.zip;
+    return address->zip;
 }
 
 void c_habitat::setZip(int newZip)
 {
-    if (address.zip == newZip)
+    if (address->zip == newZip)
         return;
-    address.zip = newZip;
+    address->zip = newZip;
     emit zipChanged();
 }
 
 const QString c_habitat::getCanton() const
 {
-    return to_QString(address.canton);
+    return to_QString(address->canton);
 }
 
 void c_habitat::setCanton(const QString& newCanton)
 {
     const std::string str{to_string(newCanton)};
 
-    if (address.canton == str)
+    if (address->canton == str)
         return;
-    address.canton = str;
+    address->canton = str;
     emit cantonChanged();
 }
 
 const QString c_habitat::getCity() const
 {
-    return to_QString(address.city);
+    return to_QString(address->city);
 }
 
 void c_habitat::setCity(const QString &newCity)
 {
     const std::string str{to_string(newCity)};
 
-    if (address.city == str)
+    if (address->city == str)
         return;
-    address.city = str;
+    address->city = str;
     emit cityChanged();
     checkCompleted();
 }

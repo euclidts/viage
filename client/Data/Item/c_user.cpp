@@ -12,7 +12,7 @@ namespace People
 c_user::c_user()
     : user_item{}
     , c_person{}
-    , ca{&address}
+    , ca{address}
 {
 }
 
@@ -66,7 +66,7 @@ QVariant c_user::data(int role) const
         return QVariant(isLocked);
     case CompletedRole:
         return QVariant(is_completed());
-}
+    }
 
     extra_data = ca.data(role);
 

@@ -41,7 +41,7 @@ struct c_user : public user_item
     void read(const Json::Value& json) { user_item::read(json); }
     void write(Json::Value& json) const { user_item::write(json); }
 
-    bool is_completed() const { return user_item::is_completed(); };
+    bool is_completed() const { return user_item::is_completed(); }
 
 protected:
     Places::c_address ca;

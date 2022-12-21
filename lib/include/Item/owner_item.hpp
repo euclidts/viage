@@ -2,6 +2,7 @@
 #define OWNER_ITEM_HPP
 
 #include "infant_item.hpp"
+#include <Item/address_item.hpp>
 
 namespace Data
 {

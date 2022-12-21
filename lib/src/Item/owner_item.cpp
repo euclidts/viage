@@ -1,13 +1,12 @@
 #include <Item/owner_item.hpp>
-#include <Item/address_item.hpp>
 
 namespace Data
 {
-namespace People {
-
+namespace People
+{
 owner_item::owner_item()
     : infant_item()
-    , address{new Places::address_item{}}
+    , address{new Places::address_item}
 {
 }
 

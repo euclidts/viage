@@ -6,7 +6,7 @@ namespace People
 {
 user_item::user_item()
     : person_item()
-    , address{}
+    , address{new Places::address_item{}}
 {
 }
 
@@ -27,7 +27,7 @@ void user_item::read(const Json::Value &json)
         beneficiary = json["beneficiary"].asString();
 
     if (json.isMember("address") && json["address"].isObject())
-        address.read(json["address"]);
+        address->read(json["address"]);
 
     if (json.isMember("iban") && json["iban"].isString())
         iban = json["iban"].asString();
@@ -55,7 +55,7 @@ void user_item::write(Json::Value &json) const
     json["beneficiary"] = beneficiary;
 
     Json::Value jsonAddress;
-    address.write(jsonAddress);
+    address->write(jsonAddress);
 
     json["address"] = jsonAddress;
     json["iban"] = iban;
@@ -82,7 +82,7 @@ bool user_item::is_completed() const
     if(beneficiary == "")
         return false;
 
-    if(!address.is_completed())
+    if(!address->is_completed())
         return false;
 
     if(iban == "")

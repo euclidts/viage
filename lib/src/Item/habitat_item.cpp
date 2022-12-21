@@ -6,14 +6,14 @@ namespace Places
 {
 habitat_item::habitat_item()
     : base_data{}
-    , address{}
+    , address{new address_item{}}
 {
 }
 
 void habitat_item::read(const Json::Value &json)
 {
     if (json.isMember("address") && json["address"].isObject())
-        address.read(json["address"]);
+        address->read(json["address"]);
 
     if (json.isMember("habitatType") && json["habitatType"].isInt())
         habitatType = habitatTypes(json["habitatType"].asInt());
@@ -40,7 +40,7 @@ void habitat_item::read(const Json::Value &json)
 void habitat_item::write(Json::Value &json) const
 {
     Json::Value jsonAddress;
-    address.write(jsonAddress);
+    address->write(jsonAddress);
 
     json["address"] = jsonAddress;
     json["habitatType"] = habitatType;
@@ -57,7 +57,7 @@ bool habitat_item::is_completed() const
     if (habitatType == habitatTypes::None)
         return false;
 
-    if (!address.is_completed())
+    if (!address->is_completed())
         return false;
 
     return true;

@@ -24,7 +24,9 @@ void wrapped_list<Inner>::get() const
 {
     this->mng->getFromKey(this->inner->key(),
                           [this](const QByteArray& bytes)
-    { this->inner->read(to_Json(bytes)); });
+    {
+        this->inner->read(to_Json(bytes));
+    });
 }
 
 template<typename Inner>

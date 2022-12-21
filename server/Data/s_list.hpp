@@ -12,7 +12,7 @@ struct s_list : public item_list<T>
 {
     s_list();
 
-    void read(nanodbc::result &res);
+    void read(nanodbc::result& res);
 //    void write(const nanodbc::result& res);
 };
 

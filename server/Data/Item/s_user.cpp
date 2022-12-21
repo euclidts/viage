@@ -7,7 +7,7 @@ namespace People
 s_user::s_user()
     : user_item{}
     , s_person{}
-    , sa{&address}
+    , sa{address}
     , last_access{trantor::Date::date()}
 {
 }

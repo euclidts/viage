@@ -23,7 +23,7 @@ struct user_item : virtual public person_item
         Administrator
     };
 
-    Places::address_item address;
+    Places::address_item* address;
     std::string company{""};
     int company_id{0};
     clearances clearance{Vendor};

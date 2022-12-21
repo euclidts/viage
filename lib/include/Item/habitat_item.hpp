@@ -25,7 +25,7 @@ public:
         Appartement
     };
 
-    Places::address_item address;
+    Places::address_item* address;
     habitatTypes habitatType{None};
     int rooms{2};
     int rawSurface{50};

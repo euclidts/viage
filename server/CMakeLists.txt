@@ -5,18 +5,16 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(nanodbc)
 
-add_executable(${PROJECT_NAME}
-    server.cpp
-    main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     nanodbc
     Drogon::Drogon)
 
-include_directories(Data
-                    Data/Item)
+include_directories(Data Data/Item)
 
 set(TEMPLATE_SRC Data/s_list.hpp)
+
 aux_source_directory(Data/Item ITEM_SRC)
 aux_source_directory(controllers CTL_SRC)
 aux_source_directory(filters FILTER_SRC)
@@ -28,6 +26,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/models)
 
 target_sources(${PROJECT_NAME} PRIVATE
+    server.cpp
     ${TEMPLATE_SRC}
     ${ITEM_SRC}
     ${SRC_DIR}

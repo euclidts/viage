@@ -1,13 +1,13 @@
-#include "s_company.hpp"
+#include "s_team.hpp"
 
 namespace Data
 {
-s_comapny::s_comapny()
-    : company_item{}
+s_team::s_team()
+    : team_item{}
 {
 }
 
-void s_comapny::read(const nanodbc::result &res)
+void s_team::read(const nanodbc::result &res)
 {
     try
     {
@@ -18,8 +18,8 @@ void s_comapny::read(const nanodbc::result &res)
 
     try
     {
-        if (!res.is_null("Name"))
-            name = res.get<std::string>("Name");
+        if (!res.is_null("Caption"))
+            caption = res.get<std::string>("Caption");
     }
     catch (nanodbc::index_range_error) {}
 }

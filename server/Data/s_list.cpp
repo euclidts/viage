@@ -10,7 +10,7 @@ s_list<T>::s_list()
 }
 
 template<typename T>
-void s_list<T>::read(nanodbc::result &res)
+void s_list<T>::read(nanodbc::result& res)
 {
     std::vector<T> vec{};
 
