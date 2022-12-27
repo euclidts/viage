@@ -73,7 +73,8 @@ Data::People::s_user& server::connected_user(const std::string& uuid) noexcept
     return std::get<Data::People::s_user>(*connected_users.find(uuid));
 }
 
-void server::add_connected_user(const Data::People::s_user& usr, const std::string& uuid)
+void server::add_connected_user(const Data::People::s_user& usr,
+                                const std::string& uuid)
 {
     if (user_connected(uuid)) return;
 
@@ -85,6 +86,43 @@ void server::remove_connected_user(const std::string& uuid)
     if (!user_connected(uuid)) return;
 
     connected_users.erase(uuid);
+}
+
+void server::create(const drogon::HttpRequestPtr& req,
+                    std::function<void (const drogon::HttpResponsePtr &)>& callback,
+                    const std::string& query,
+                    const Data::People::user_item::clearances& min_clearance)
+{
+    drogon::HttpResponsePtr resp;
+    auto uuid{req->session()->sessionId()};
+
+    if (user_connected(uuid))
+    {
+        const auto usr{connected_user(uuid)};
+
+        if (usr.clearance < min_clearance)
+        {
+            resp = drogon::HttpResponse::newHttpResponse();
+            resp->setStatusCode(drogon::k401Unauthorized);
+        }
+        else
+        {
+            auto table{nanodbc::execute(connection, query)};
+
+            Json::Value json;
+            json["id"] = table.get<std::string>("Id");
+            json["success"] = true;
+
+            resp = drogon::HttpResponse::newHttpJsonResponse(json);
+        }
+    }
+    else
+    {
+        resp = drogon::HttpResponse::newHttpResponse();
+        resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
+    }
+
+    callback(resp);
 }
 
 }

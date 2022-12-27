@@ -6,7 +6,6 @@
 
 namespace Data
 {
-
 template <typename T>
 struct item_list;
 

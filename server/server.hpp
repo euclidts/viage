@@ -69,6 +69,12 @@ public:
         callback(resp);
     }
 
+    void create(const drogon::HttpRequestPtr& req,
+                std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                const std::string& query,
+                const Data::People::s_user::clearances& min_clearance
+                = Data::People::s_user::None);
+
 private:
     server() {}
 

@@ -94,32 +94,18 @@ void user_ctl::get_users(const HttpRequestPtr& req,
 
     server::server::get().get_list<s_user>(req,
                                            callback,
-                                           "SELECT "
-                                           "a.[Id], "
-                                           "FirstName, "
-                                           "LastName, "
-                                           "Login, "
-                                           "EMail, "
-                                           "Phone, "
-                                           "Clearance, "
-                                           "Beneficiary, "
-                                           "Bic, "
-                                           "Iban, "
-                                           "Street, "
-                                           "City, "
-                                           "Canton, "
-                                           "Zip, "
-                                           "a.[CompanyId], "
-                                           "TeamId, "
-                                           "IsLocked, "
-                                           "b.[Name], "
-                                           "c.[Caption] "
-                                           "FROM (([User] a "
-                                           "LEFT JOIN Company b "
-                                           "ON a.[CompanyId] = b.[Id]) "
-                                           "LEFT JOIN Team c "
-                                           "ON a.[TeamId] = c.[Id])",
+                                           s_user::select(),
                                            s_user::Administrator);
+}
+
+void user_ctl::create_user(const HttpRequestPtr &req, std::function<void (const HttpResponsePtr &)> &&callback)
+{
+    LOG_DEBUG << "create_user";
+
+    server::server::get().get_list<s_comapny>(req,
+                                              callback,
+                                              "INSERT INTO [User]",
+                                              s_user::Administrator);
 }
 
 void user_ctl::get_companies(const HttpRequestPtr& req,
@@ -129,8 +115,33 @@ void user_ctl::get_companies(const HttpRequestPtr& req,
 
     server::server::get().get_list<s_comapny>(req,
                                               callback,
-                                              "SELECT * "
-                                              "FROM Company",
+                                              s_comapny::select(),
+                                              s_user::Administrator);
+}
+
+void user_ctl::create_company(const HttpRequestPtr& req,
+                              std::function<void (const HttpResponsePtr &)> &&callback)
+{
+    LOG_DEBUG << "create_company";
+
+    const auto json{*req->jsonObject()};
+
+    if (!json.isMember("name"))
+    {
+        drogon::HttpResponsePtr resp;
+        resp->setStatusCode(drogon::k500InternalServerError);
+        callback(resp);
+
+        return;
+    }
+
+    const auto name{json["name"].asString()};
+
+    server::server::get().get_list<s_comapny>(req,
+                                              callback,
+                                              "INSERT INTO Company (Name) "
+                                              "VALUES ('" + name + "')"
+                                              "SELECT MAX(Id) FROM Company",
                                               s_user::Administrator);
 }
 
@@ -142,8 +153,7 @@ void user_ctl::get_teams(const HttpRequestPtr& req,
 
     server::server::get().get_list<s_team>(req,
                                               callback,
-                                              "SELECT * "
-                                              "FROM Team",
+                                              s_team::select(),
                                               s_user::Administrator);
 }
 

@@ -13,7 +13,13 @@ struct s_comapny : public company_item
 
     void read(const nanodbc::result& res);
     void read(const Json::Value& json) { company_item::read(json); }
-//    void write(nanodbc::result& res);
+    //    void write(nanodbc::result& res);
+
+    static const constexpr auto select()
+    {
+        return "SELECT * "
+               "FROM Company ";
+    }
 };
 
 }
