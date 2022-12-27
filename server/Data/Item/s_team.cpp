@@ -7,6 +7,20 @@ s_team::s_team()
 {
 }
 
+const std::string s_team::insert() const
+{
+    if (caption == "" || companyId <= 0)
+        return "";
+
+    return "INSERT INTO Team "
+           "(Caption, CompanyId) "
+           "VALUES ('"
+            + caption +
+            "', '"
+            + std::to_string(companyId) +
+            "') ";
+}
+
 void s_team::read(const nanodbc::result &res)
 {
     try

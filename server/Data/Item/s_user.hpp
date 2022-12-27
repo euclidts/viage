@@ -12,7 +12,7 @@ namespace Data
 namespace People
 {
 struct s_user : public user_item
-        , public s_person
+              , public s_person
 {
     s_user();
 
@@ -20,8 +20,8 @@ struct s_user : public user_item
 
     void read(const nanodbc::result& res);
     void read(const Json::Value& json) { user_item::read(json); }
-    //    void write(nanodbc::result& res);
 
+    const std::string insert() const;
     static const constexpr auto select()
     {
         return "SELECT "

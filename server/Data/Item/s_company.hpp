@@ -7,14 +7,14 @@
 namespace Data
 {
 
-struct s_comapny : public company_item
+struct s_company : public company_item
 {
-    explicit s_comapny();
+    explicit s_company();
 
     void read(const nanodbc::result& res);
     void read(const Json::Value& json) { company_item::read(json); }
-    //    void write(nanodbc::result& res);
 
+    const std::string insert() const;
     static const constexpr auto select()
     {
         return "SELECT * "

@@ -2,12 +2,24 @@
 
 namespace Data
 {
-s_comapny::s_comapny()
+s_company::s_company()
     : company_item{}
 {
 }
 
-void s_comapny::read(const nanodbc::result &res)
+const std::string s_company::insert() const
+{
+    if (name == "")
+        return "";
+
+    return "INSERT INTO Company "
+           "(Name) "
+           "VALUES ('"
+            + name +
+            "') ";
+}
+
+void s_company::read(const nanodbc::result &res)
 {
     try
     {

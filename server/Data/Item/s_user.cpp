@@ -12,6 +12,17 @@ s_user::s_user()
 {
 }
 
+const std::string s_user::insert() const
+{
+    return "INSERT INTO [User] "
+           "(FirstName, LastName) "
+           "VALUES ('"
+            + firstName +
+            "', '"
+            + lastName +
+            "') ";
+}
+
 void s_user::read(const nanodbc::result& res)
 {
     s_person::read(res);

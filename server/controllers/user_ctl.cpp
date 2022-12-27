@@ -98,13 +98,16 @@ void user_ctl::get_users(const HttpRequestPtr& req,
                                            s_user::Administrator);
 }
 
-void user_ctl::create_user(const HttpRequestPtr &req, std::function<void (const HttpResponsePtr &)> &&callback)
+void user_ctl::create_user(const HttpRequestPtr &req,
+                           std::function<void (const HttpResponsePtr &)>&& callback)
 {
     LOG_DEBUG << "create_user";
 
-    server::server::get().get_list<s_comapny>(req,
+    const s_user usr{};
+
+    server::server::get().get_list<s_company>(req,
                                               callback,
-                                              "INSERT INTO [User]",
+                                              usr.insert(),
                                               s_user::Administrator);
 }
 
@@ -113,20 +116,21 @@ void user_ctl::get_companies(const HttpRequestPtr& req,
 {
     LOG_DEBUG << "get_companies";
 
-    server::server::get().get_list<s_comapny>(req,
+    server::server::get().get_list<s_company>(req,
                                               callback,
-                                              s_comapny::select(),
+                                              s_company::select(),
                                               s_user::Administrator);
 }
 
 void user_ctl::create_company(const HttpRequestPtr& req,
-                              std::function<void (const HttpResponsePtr &)> &&callback)
+                              std::function<void (const HttpResponsePtr &)>&& callback)
 {
     LOG_DEBUG << "create_company";
 
-    const auto json{*req->jsonObject()};
+    s_company cmp;
+    cmp.read(*req->jsonObject());
 
-    if (!json.isMember("name"))
+    if (cmp.insert() == "")
     {
         drogon::HttpResponsePtr resp;
         resp->setStatusCode(drogon::k500InternalServerError);
@@ -135,13 +139,9 @@ void user_ctl::create_company(const HttpRequestPtr& req,
         return;
     }
 
-    const auto name{json["name"].asString()};
-
-    server::server::get().get_list<s_comapny>(req,
+    server::server::get().get_list<s_company>(req,
                                               callback,
-                                              "INSERT INTO Company (Name) "
-                                              "VALUES ('" + name + "')"
-                                              "SELECT MAX(Id) FROM Company",
+                                              cmp.insert(),
                                               s_user::Administrator);
 }
 
