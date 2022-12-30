@@ -11,7 +11,6 @@ namespace People
 struct s_person : virtual public person_item
 {
     void read(const nanodbc::result& res);
-//    void write(nanodbc::result& res);
 
 protected:
     s_person();

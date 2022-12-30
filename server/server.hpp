@@ -46,10 +46,17 @@ public:
                      callback,
                      [this, item](Json::Value& json)
         {
-            auto result{nanodbc::execute(connection, item.insert())};
-
-            json["id"] = result.template get<std::string>("Id");
-            json["success"] = true;
+            try
+            {
+                auto result{nanodbc::execute(connection, item.insert())};
+                result.next();
+                json["id"] = result.template get<int>(0);
+                json["success"] = true;
+            }
+            catch (...)
+            {
+                json["success"] = false;
+            }
         },
         min_clearance);
     }
@@ -57,18 +64,18 @@ public:
     template <typename T>
     void select(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                Data::s_list<T>& list,
+                T& item,
                 const Data::People::s_user::clearances& min_clearance
                 = Data::People::s_user::None)
     {
         handle_query(req,
                      callback,
-                     [this, &list](Json::Value& json)
+                     [this, &item](Json::Value& json)
         {
             auto result{nanodbc::execute(connection, T::select())};
 
-            list.read(result);
-            list.write(json);
+            item.read(result);
+            item.write(json);
         },
         min_clearance);
     }
@@ -85,9 +92,15 @@ public:
                      callback,
                      [this, item](Json::Value& json)
         {
-            auto result{nanodbc::execute(connection, item.update())};
-
-            json["success"] = true;
+            try
+            {
+                const auto result{nanodbc::execute(connection, item.update())};
+                json["success"] = true;
+            }
+            catch (...)
+            {
+                json["success"] = false;
+            }
         },
         min_clearance);
     }

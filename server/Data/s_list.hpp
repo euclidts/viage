@@ -13,7 +13,10 @@ struct s_list : public item_list<T>
     s_list();
 
     void read(nanodbc::result& res);
-//    void write(const nanodbc::result& res);
+    static const constexpr auto select()
+    {
+        return T::select();
+    }
 };
 
 }

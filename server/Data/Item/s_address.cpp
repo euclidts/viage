@@ -17,28 +17,28 @@ void s_address::read(const nanodbc::result &res)
         if (!res.is_null("Street"))
             address->street = res.get<std::string>("Street");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Zip"))
             address->zip = res.get<int>("Zip");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Canton"))
             address->canton = res.get<std::string>("Canton");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("City"))
             address->city = res.get<std::string>("City");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 }
 
 const std::string s_address::fields() const

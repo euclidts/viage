@@ -16,6 +16,7 @@ const std::string s_user::insert() const
 {
     return "INSERT INTO [User] "
            "(FirstName, LastName) "
+           "OUTPUT Inserted.Id "
            "VALUES ('"
             + firstName +
             "', '"
@@ -52,28 +53,28 @@ void s_user::read(const nanodbc::result& res)
         if (!res.is_null("Company"))
             company = res.get<std::string>("Company");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Clearance"))
             clearance = clearances(res.get<int>("Clearance"));
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Team"))
             team = res.get<std::string>("Team");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Beneficiary"))
             beneficiary = res.get<std::string>("Beneficiary");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     sa.read(res);
 
@@ -82,49 +83,49 @@ void s_user::read(const nanodbc::result& res)
         if (!res.is_null("Iban"))
             iban = res.get<std::string>("Iban");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Bic"))
             bic = res.get<std::string>("Bic");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("CompanyId"))
             company_id = res.get<int>("CompanyId");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Name"))
             company = res.get<std::string>("Name");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("TeamId"))
             team_id = res.get<int>("TeamId");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Caption"))
             team = res.get<std::string>("Caption");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("IsLocked"))
             isLocked = res.get<int>("IsLocked");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 }
 
 }

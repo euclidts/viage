@@ -14,6 +14,7 @@ const std::string s_company::insert() const
 
     return "INSERT INTO Company "
            "(Name) "
+           "OUTPUT Inserted.Id "
            "VALUES ('"
             + name +
             "') ";
@@ -26,14 +27,14 @@ void s_company::read(const nanodbc::result &res)
         if (!res.is_null("Id"))
             id = res.get<int>("Id");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Name"))
             name = res.get<std::string>("Name");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 }
 
 }

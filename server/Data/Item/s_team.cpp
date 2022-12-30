@@ -14,6 +14,7 @@ const std::string s_team::insert() const
 
     return "INSERT INTO Team "
            "(Caption, CompanyId) "
+           "OUTPUT Inserted.Id "
            "VALUES ('"
             + caption +
             "', '"
@@ -28,14 +29,14 @@ void s_team::read(const nanodbc::result &res)
         if (!res.is_null("Id"))
             id = res.get<int>("Id");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 
     try
     {
         if (!res.is_null("Caption"))
             caption = res.get<std::string>("Caption");
     }
-    catch (nanodbc::index_range_error) {}
+    catch (...) {}
 }
 
 }
