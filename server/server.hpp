@@ -28,52 +28,69 @@ public:
     void add_connected_user(const Data::People::s_user& usr, const std::string& uuid);
     void remove_connected_user(const std::string& uuid);
 
+
+    void handle_query(const drogon::HttpRequestPtr& req,
+                      std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                      const std::function<void (Json::Value&)>& handler,
+                      const Data::People::s_user::clearances& min_clearance
+                      = Data::People::s_user::None);
+
     template <typename T>
-    void get_list(const drogon::HttpRequestPtr& req,
-                  std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                  const std::string& query,
-                  const Data::People::s_user::clearances& min_clearance
-                  = Data::People::s_user::None)
+    void insert(const drogon::HttpRequestPtr& req,
+                std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                const T& item,
+                const Data::People::s_user::clearances& min_clearance
+                = Data::People::s_user::None)
     {
-        drogon::HttpResponsePtr resp;
-        auto uuid{req->session()->sessionId()};
-
-        if (user_connected(uuid))
+        handle_query(req,
+                     callback,
+                     [this, item](Json::Value& json)
         {
-            const auto usr{connected_user(uuid)};
+            auto result{nanodbc::execute(connection, item.insert())};
 
-            if (usr.clearance < min_clearance)
-            {
-                resp = drogon::HttpResponse::newHttpResponse();
-                resp->setStatusCode(drogon::k401Unauthorized);
-            }
-            else
-            {
-                auto table{nanodbc::execute(connection, query)};
-
-                Data::s_list<T> list{};
-                list.read(table);
-
-                Json::Value json;
-                list.write(json);
-
-                resp = drogon::HttpResponse::newHttpJsonResponse(json);
-            }
-        }
-        else
-        {
-            resp = drogon::HttpResponse::newHttpResponse();
-            resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
-        }
-
-        callback(resp);
+            json["id"] = result.template get<std::string>("Id");
+            json["success"] = true;
+        },
+        min_clearance);
     }
 
-    void create(const drogon::HttpRequestPtr& req,
+    template <typename T>
+    void select(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                const std::string& query,
+                Data::s_list<T>& list,
                 const Data::People::s_user::clearances& min_clearance
-                = Data::People::s_user::None);
+                = Data::People::s_user::None)
+    {
+        handle_query(req,
+                     callback,
+                     [this, &list](Json::Value& json)
+        {
+            auto result{nanodbc::execute(connection, T::select())};
+
+            list.read(result);
+            list.write(json);
+        },
+        min_clearance);
+    }
+
+    template <typename T>
+    void update(const drogon::HttpRequestPtr& req,
+                std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                const T& item,
+                const Data::People::s_user::clearances& min_clearance
+                = Data::People::s_user::None)
+
+    {
+        handle_query(req,
+                     callback,
+                     [this, item](Json::Value& json)
+        {
+            auto result{nanodbc::execute(connection, item.update())};
+
+            json["success"] = true;
+        },
+        min_clearance);
+    }
 
 private:
     server() {}

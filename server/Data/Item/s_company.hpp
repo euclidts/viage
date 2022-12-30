@@ -20,6 +20,9 @@ struct s_company : public company_item
         return "SELECT * "
                "FROM Company ";
     }
+
+    const std::string update() const;
+
 };
 
 }

@@ -41,5 +41,18 @@ void s_address::read(const nanodbc::result &res)
     catch (nanodbc::index_range_error) {}
 }
 
+const std::string s_address::fields() const
+{
+  return "Street = '"
+          + address->street +
+          "', Zip = '"
+          + std::to_string(address->zip) +
+          "', Canton = '"
+          + address->canton +
+          "', City = '"
+          + address->city +
+          "'";
+}
+
 }
 }

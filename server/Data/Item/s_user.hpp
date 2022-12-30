@@ -22,6 +22,7 @@ struct s_user : public user_item
     void read(const Json::Value& json) { user_item::read(json); }
 
     const std::string insert() const;
+    const std::string update() const;
     static const constexpr auto select()
     {
         return "SELECT "

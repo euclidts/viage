@@ -10,7 +10,7 @@ s_company::s_company()
 const std::string s_company::insert() const
 {
     if (name == "")
-        return "";
+        return {};
 
     return "INSERT INTO Company "
            "(Name) "

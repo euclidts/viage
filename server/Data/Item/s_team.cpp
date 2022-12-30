@@ -10,7 +10,7 @@ s_team::s_team()
 const std::string s_team::insert() const
 {
     if (caption == "" || companyId <= 0)
-        return "";
+        return {};
 
     return "INSERT INTO Team "
            "(Caption, CompanyId) "

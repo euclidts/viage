@@ -14,7 +14,7 @@ struct s_address
     explicit s_address(address_item* ai);
 
     void read(const nanodbc::result& res);
-//    void write(nanodbc::result& res);
+    const std::string fields() const;
 
 protected:
     address_item* address;

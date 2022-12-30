@@ -15,6 +15,8 @@ struct s_person : virtual public person_item
 
 protected:
     s_person();
+
+    const std::string fields() const;
 };
 
 }

@@ -23,6 +23,26 @@ const std::string s_user::insert() const
             "') ";
 }
 
+const std::string s_user::update() const
+{
+    return "UPDATE [User] SET "
+            + sa.fields() +
+            ", "
+            + s_person::fields() +
+            ", CompanyId = "
+            + std::to_string(company_id) +
+            ", TeamId = "
+            + std::to_string(team_id) +
+            ", Beneficiary = '"
+            + beneficiary +
+            "', Iban = '"
+            + iban +
+            "', Bic = '"
+            + bic +
+            "' WHERE Id = "
+            + std::to_string(id);
+}
+
 void s_user::read(const nanodbc::result& res)
 {
     s_person::read(res);

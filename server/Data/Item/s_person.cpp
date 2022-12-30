@@ -47,5 +47,18 @@ void s_person::read(const nanodbc::result& res)
     catch (nanodbc::index_range_error) {}
 }
 
+const std::string s_person::fields() const
+{
+  return "FirstName = '"
+          + firstName +
+          "', LastName = '"
+          + lastName +
+          "', Phone = '"
+          + phone +
+          "', EMail = '"
+          + eMail +
+          "'";
+}
+
 }
 }

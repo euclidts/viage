@@ -88,9 +88,9 @@ void server::remove_connected_user(const std::string& uuid)
     connected_users.erase(uuid);
 }
 
-void server::create(const drogon::HttpRequestPtr& req,
+void server::handle_query(const drogon::HttpRequestPtr& req,
                     std::function<void (const drogon::HttpResponsePtr &)>& callback,
-                    const std::string& query,
+                    const std::function<void (Json::Value&)>& handler,
                     const Data::People::user_item::clearances& min_clearance)
 {
     drogon::HttpResponsePtr resp;
@@ -107,11 +107,8 @@ void server::create(const drogon::HttpRequestPtr& req,
         }
         else
         {
-            auto table{nanodbc::execute(connection, query)};
-
             Json::Value json;
-            json["id"] = table.get<std::string>("Id");
-            json["success"] = true;
+            handler(json);
 
             resp = drogon::HttpResponse::newHttpJsonResponse(json);
         }
