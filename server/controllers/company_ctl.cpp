@@ -6,21 +6,8 @@ namespace Data
 {
 namespace People
 {
-void company_ctl::get_companies(const HttpRequestPtr& req,
-                                std::function<void (const HttpResponsePtr&)>&& callback)
-{
-    LOG_DEBUG << "get_companies";
-
-    s_list<s_company> list{};
-
-    server::server::get().select(req,
-                                 callback,
-                                 list,
-                                 s_user::Administrator);
-}
-
 void company_ctl::create_company(const HttpRequestPtr& req,
-                                 std::function<void (const HttpResponsePtr &)>&& callback)
+                                 std::function<void (const HttpResponsePtr&)>&& callback)
 {
     LOG_DEBUG << "create_company";
 
@@ -37,6 +24,34 @@ void company_ctl::create_company(const HttpRequestPtr& req,
     }
 
     server::server::get().insert(req,
+                                 callback,
+                                 cmp,
+                                 s_user::Administrator);
+}
+
+void company_ctl::get_companies(const HttpRequestPtr& req,
+                                std::function<void (const HttpResponsePtr&)>&& callback)
+{
+    LOG_DEBUG << "get_companies";
+
+    s_list<s_company> list{};
+
+    server::server::get().select(req,
+                                 callback,
+                                 list,
+                                 s_user::Administrator);
+}
+
+void company_ctl::update_company(const HttpRequestPtr& req,
+                                 std::function<void (const HttpResponsePtr&)>&& callback)
+{
+    LOG_DEBUG << "update_company";
+
+    Json::Value val{*req->jsonObject()};
+    s_company cmp{};
+    cmp.read(val["company"]);
+
+    server::server::get().update(req,
                                  callback,
                                  cmp,
                                  s_user::Administrator);

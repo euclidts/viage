@@ -39,4 +39,13 @@ void s_team::read(const nanodbc::result &res)
     catch (...) {}
 }
 
+const std::string s_team::update() const
+{
+    return "UPDATE Company SET "
+           "caption = '"
+            + caption +
+            "' WHERE Id = "
+            + std::to_string(id);
+}
+
 }

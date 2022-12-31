@@ -44,7 +44,7 @@ public:
     {
         handle_query(req,
                      callback,
-                     [this, item](Json::Value& json)
+                     [this, &item](Json::Value& json)
         {
             try
             {
@@ -80,6 +80,26 @@ public:
         min_clearance);
     }
 
+    template <typename Item, typename Parent>
+    void select(const drogon::HttpRequestPtr& req,
+                std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                Item& item,
+                const Parent& parent,
+                const Data::People::s_user::clearances& min_clearance
+                = Data::People::s_user::None)
+    {
+        handle_query(req,
+                     callback,
+                     [this, &item, &parent](Json::Value& json)
+        {
+            auto result{nanodbc::execute(connection, Item::select(parent))};
+
+            item.read(result);
+            item.write(json);
+        },
+        min_clearance);
+    }
+
     template <typename T>
     void update(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
@@ -90,7 +110,7 @@ public:
     {
         handle_query(req,
                      callback,
-                     [this, item](Json::Value& json)
+                     [this, &item](Json::Value& json)
         {
             try
             {

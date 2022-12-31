@@ -11,6 +11,8 @@ struct s_team : public team_item
 {
     explicit s_team();
 
+    static const constexpr auto table{"Team"};
+
     int companyId{0};
 
     void read(const nanodbc::result& res);
@@ -19,10 +21,20 @@ struct s_team : public team_item
     const std::string insert() const;
     static const constexpr auto select()
     {
-        return "SELECT * "
-               "FROM Team ";
+        return "SELECT * FROM Team";
     }
 
+    template <typename T>
+    static const constexpr auto select(const T& item)
+    {
+        return std::string(select()) +
+                " WHERE "
+                + T::foreign_key +
+                " = "
+                + std::to_string(item.id);
+    }
+
+    const std::string update() const;
 };
 
 }

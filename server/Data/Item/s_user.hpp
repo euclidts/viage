@@ -16,11 +16,14 @@ struct s_user : public user_item
 {
     s_user();
 
+    static const constexpr auto table{"User"};
+
     trantor::Date last_access;
 
     void read(const nanodbc::result& res);
     void read(const Json::Value& json) { user_item::read(json); }
 
+    const std::string fields() const;
     const std::string insert() const;
     const std::string update() const;
     static const constexpr auto select()

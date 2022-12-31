@@ -11,6 +11,8 @@ struct s_company : public company_item
 {
     explicit s_company();
 
+    static const constexpr auto table{"Company"};
+
     void read(const nanodbc::result& res);
     void read(const Json::Value& json) { company_item::read(json); }
 

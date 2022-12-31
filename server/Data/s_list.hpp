@@ -17,6 +17,12 @@ struct s_list : public item_list<T>
     {
         return T::select();
     }
+
+    template <typename Parent>
+    static const constexpr auto select(Parent p)
+    {
+        return T::select(p);
+    }
 };
 
 }

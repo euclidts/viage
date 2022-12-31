@@ -7,7 +7,7 @@ namespace Data
 namespace People
 {
 void user_ctl::create_user(const HttpRequestPtr &req,
-                           std::function<void (const HttpResponsePtr &)>&& callback)
+                           std::function<void (const HttpResponsePtr&)>&& callback)
 {
     LOG_DEBUG << "create_user";
 
@@ -33,7 +33,7 @@ void user_ctl::get_users(const HttpRequestPtr& req,
 }
 
 void user_ctl::update_user(const HttpRequestPtr& req,
-                           std::function<void (const HttpResponsePtr &)>&& callback)
+                           std::function<void (const HttpResponsePtr&)>&& callback)
 {
     LOG_DEBUG << "update_user";
 
