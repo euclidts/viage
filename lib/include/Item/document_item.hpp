@@ -14,7 +14,6 @@ struct document_item : virtual public base_data
     document_item();
 
     const char* key() const noexcept override { return "document"; };
-    static const constexpr auto table{"Document"};
 
     enum categories
     {

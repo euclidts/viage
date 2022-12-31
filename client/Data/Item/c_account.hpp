@@ -31,6 +31,7 @@ struct c_account : public account_item
 {
     c_account();
 
+    static const constexpr auto qmlName{"Account"};
     static const constexpr auto uri{"Data"};
 
     enum roles

@@ -14,7 +14,6 @@ public:
     exterior_item();
 
     const char* key() const noexcept override { return "exterior"; };
-    static const constexpr auto table{"ExteriorItem"};
 
     enum parkingTypes
     {

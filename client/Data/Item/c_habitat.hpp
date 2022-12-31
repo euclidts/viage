@@ -17,6 +17,7 @@ class c_habitat : public habitat_item
 public:
     explicit c_habitat(QObject* parent = nullptr);
 
+    static const constexpr auto qmlName{"HabitatItem"};
     static const constexpr auto uri{"Places"};
 
     void read(const Json::Value& json) override;

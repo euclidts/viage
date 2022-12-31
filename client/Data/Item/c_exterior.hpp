@@ -17,6 +17,7 @@ class c_exterior : public exterior_item
 public:
     explicit c_exterior(QObject* parent = nullptr);
 
+    static const constexpr auto qmlName{"ExteriorItem"};
     static const constexpr auto uri{"Places"};
 
     void read(const Json::Value& json) override;

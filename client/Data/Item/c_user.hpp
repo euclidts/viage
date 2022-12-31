@@ -15,6 +15,8 @@ struct c_user : public user_item
 {
     c_user();
 
+    static const constexpr auto qmlName{"User"};
+
     enum roles
     {
         // following c_person roles

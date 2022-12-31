@@ -15,6 +15,7 @@ struct c_company : public company_item
 {
     c_company();
 
+    static const constexpr auto qmlName{"Company"};
     static const constexpr auto uri{"Data"};
 
     enum roles

@@ -24,8 +24,7 @@ base_wrapper<Inner>::base_wrapper(Interface::netManager* manager,
 template<typename Inner>
 void base_wrapper<Inner>::registerToQml(QQmlContext* context) const
 {
-    // use table names as qmlName
-    qmlRegisterUncreatableType<Inner>(inner->uri, 1, 0, inner->table, "");
+    qmlRegisterUncreatableType<Inner>(inner->uri, 1, 0, inner->qmlName, "");
     context->setContextProperty(inner->key(), inner);
 }
 

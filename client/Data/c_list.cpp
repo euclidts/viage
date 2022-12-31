@@ -13,12 +13,12 @@ c_list<T>::c_list(QObject* parent)
     : c_base_data{parent}
     , item_list<T>{}
 {
-    std::string str{T::table};
+    std::string str{T::qmlName};
     str += "List";
 
-    auto tbl_str = new char[str.length() + 1];
-    strcpy(tbl_str, str.c_str());
-    table = tbl_str;
+    auto qml_str = new char[str.length() + 1];
+    strcpy(qml_str, str.c_str());
+    qmlName = qml_str;
 }
 
 template <typename T>

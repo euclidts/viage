@@ -10,6 +10,7 @@ struct c_document : public document_item
 {
     c_document();
 
+    static const constexpr auto qmlName{"Document"};
     static const constexpr auto uri{"Data"};
 
     enum roles

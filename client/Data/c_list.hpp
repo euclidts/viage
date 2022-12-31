@@ -18,7 +18,7 @@ class c_list : public c_base_data
 public:
     c_list(QObject* parent = nullptr);
 
-    const char* table;
+    const char* qmlName;
     static const constexpr auto uri{T::uri};
 
     QVector<T> items() const;
