@@ -1,9 +1,9 @@
 #include "c_habitat.hpp"
 #include "wobjectimpl.h"
 
-#include <client.hpp>
+#include <utils.hpp>
 
-using namespace Client;
+using namespace Utils;
 
 namespace Data
 {

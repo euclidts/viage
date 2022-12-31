@@ -1,11 +1,11 @@
-#ifndef CLIENT_HPP
-#define CLIENT_HPP
+#ifndef UTILS_HPP
+#define UTILS_HPP
 
 #include "qdatetime.h"
 
 #include <json/json.h>
 
-namespace Client
+namespace Utils
 {
 QString to_QString(const std::string& str);
 std::string to_string(const QString &str);
@@ -24,6 +24,10 @@ Json::Value to_Json(const QByteArray& bytes);
 Json::Value to_Json(const QJsonObject& obj);
 
 QByteArray to_QByteArray(const Json::Value& json);
+
+// Recursively copy the values of b into a. Both a and b must be objects.
+// as read in https://stackoverflow.com/questions/22512420/is-there-an-elegant-way-to-cascade-merge-two-json-trees-using-jsoncpp
+void concatenate(Json::Value& a, const Json::Value& b);
 }
 
-#endif // CLIENT
+#endif // UTILS_HPP

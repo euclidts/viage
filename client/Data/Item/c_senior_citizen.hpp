@@ -16,7 +16,6 @@ struct c_senior_citizen : public senior_citizen_item
 {
     c_senior_citizen();
 
-    static const constexpr auto qmlName{"SeniorCitizen"};
     static const constexpr auto uri{"People"};
 
     enum roles

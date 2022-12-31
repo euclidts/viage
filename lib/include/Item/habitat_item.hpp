@@ -16,6 +16,7 @@ public:
     explicit habitat_item();
 
     const char* key() const noexcept override { return "habitat"; };
+    static const constexpr auto table{"HabitatItem"};
 
     enum habitatTypes
     {

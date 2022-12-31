@@ -49,7 +49,7 @@ set(TS_FILES resources/ts_files/viage_fr_FR.ts)
 
 set(PROJECT_SOURCES
     main.cpp
-    Interface/client.cpp
+    Interface/utils.cpp
     Interface/bridge.cpp
     Interface/netManager.cpp
     Wrapper/base_wrapper.hpp

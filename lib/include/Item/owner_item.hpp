@@ -21,6 +21,7 @@ struct owner_item : virtual public infant_item
     owner_item();
 
     const char* key() const noexcept override { return "owner"; };
+    static const constexpr auto table{"Owner"};
 
     Places::address_item* address;
     std::string birthDay{""};

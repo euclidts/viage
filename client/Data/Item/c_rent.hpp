@@ -15,7 +15,6 @@ W_OBJECT(c_rent)
 public:
     explicit c_rent(QObject* parent = nullptr);
 
-    static const constexpr auto qmlName{"RentItem"};
     static const constexpr auto uri{"Data"};
 
     void read(const Json::Value& json) override;

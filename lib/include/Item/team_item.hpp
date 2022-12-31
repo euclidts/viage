@@ -12,6 +12,7 @@ struct team_item : virtual public base_data
     team_item();
 
     const char* key() const noexcept override { return "team"; };
+    static const constexpr auto table{"Team"};
 
     int id{0};
     std::string caption{""};

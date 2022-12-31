@@ -12,6 +12,7 @@ struct contact_item : virtual public infant_item
     contact_item();
 
     const char* key() const noexcept override { return "contact"; };
+    static const constexpr auto table{"Contact"};
 
     bool isInfant{false};
 

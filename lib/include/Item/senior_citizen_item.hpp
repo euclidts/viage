@@ -17,6 +17,7 @@ struct senior_citizen_item : virtual public base_data
     senior_citizen_item();
 
     const char* key() const noexcept override { return "seniorCitizen"; };
+    static const constexpr auto table{"SeniorCitizen"};
 
     enum sexes{ M, F };
 

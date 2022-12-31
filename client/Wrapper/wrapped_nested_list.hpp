@@ -23,7 +23,6 @@ public:
 
 private:
     const std::string key;
-    const std::string parent_key_id;
     void add_in_with(int id, const QJsonObject &obj = {});
 };
 

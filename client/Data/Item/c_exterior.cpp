@@ -2,9 +2,9 @@
 #include <wobjectimpl.h>
 
 #include "c_exterior.hpp"
-#include <client.hpp>
+#include <utils.hpp>
 
-using namespace Client;
+using namespace Utils;
 
 namespace Data
 {

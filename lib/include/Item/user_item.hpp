@@ -13,6 +13,7 @@ struct user_item : virtual public person_item
     user_item();
 
     const char* key() const noexcept override { return "user"; };
+    static const constexpr auto table{"User"};
 
     enum clearances
     {

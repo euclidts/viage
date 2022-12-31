@@ -10,7 +10,6 @@ struct c_team : public team_item
 {
     c_team();
 
-    static const constexpr auto qmlName{"Team"};
     static const constexpr auto uri{"Data"};
 
     enum roles

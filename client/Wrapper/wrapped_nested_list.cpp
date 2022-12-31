@@ -1,8 +1,6 @@
 #pragma once
-
 #include "wrapped_nested_list.hpp"
 #include "qjsondocument.h"
-#include <iostream>
 
 namespace Wrapper
 {
@@ -12,7 +10,6 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
                                                        QQmlContext* context)
     : wrapped_nested_item<Inner, Outer>{manager, context}
     , key{this->makeKey(parentList)}
-    , parent_key_id{std::string{Outer{}.key()}.append("Id")}
 {
     this->inner->complitionChecks();
 
@@ -35,9 +32,9 @@ template<typename Inner, typename Outer>
 void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const QJsonObject& obj)
 {
     auto json{obj};
-    Json::Value val{Client::to_Json(obj)};
+    Json::Value val{Utils::to_Json(obj)};
 
-    json[QString::fromStdString(parent_key_id)] = id;
+    json[Outer::foreign_key] = id;
     QJsonDocument doc{json};
     QByteArray data{doc.toJson(QJsonDocument::Compact)};
 
@@ -45,11 +42,8 @@ void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const QJsonObject& o
                          data,
                          [this, val](const Json::Value& res)
     {
-        Json::Value concat{res};
-
-        for (const auto member : val.getMemberNames())
-            concat[member] = val[member];
-
+        Json::Value concat{val};
+        Utils::concatenate(concat, res);
         this->inner->appendWith(concat);
     },
     "addInWith error");

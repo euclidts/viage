@@ -16,6 +16,8 @@ struct company_item : virtual public base_data
     company_item();
 
     const char* key() const noexcept override { return "company"; };
+    static const constexpr auto table{"Company"};
+    static const constexpr auto foreign_key{"CompanyId"};
 
     int id{0};
     std::string name{};

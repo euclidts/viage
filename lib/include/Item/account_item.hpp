@@ -32,6 +32,8 @@ struct account_item : virtual public base_data
     explicit account_item();
 
     const char* key() const noexcept override { return "account"; };
+    static const constexpr auto table{"Account"};
+    static const constexpr auto foreign_key{"AccountId"};
 
     Value owners{};
     Value contacts{};

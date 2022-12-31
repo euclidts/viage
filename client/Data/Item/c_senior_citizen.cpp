@@ -2,9 +2,9 @@
 #include <QDate>
 
 #include "c_senior_citizen.hpp"
-#include <client.hpp>
+#include <utils.hpp>
 
-using namespace Client;
+using namespace Utils;
 
 namespace Data
 {

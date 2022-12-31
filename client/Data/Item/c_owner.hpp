@@ -15,8 +15,6 @@ struct c_owner : public owner_item,
 {
     c_owner();
 
-    static const constexpr auto qmlName{"Owner"};
-
     enum roles
     {
         // following infant_items roles

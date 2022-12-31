@@ -1,9 +1,9 @@
 #include <QVariant>
 
 #include "c_person.hpp"
-#include <client.hpp>
+#include <utils.hpp>
 
-using namespace Client;
+using namespace Utils;
 
 namespace Data
 {

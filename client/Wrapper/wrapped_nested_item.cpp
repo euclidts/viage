@@ -1,7 +1,6 @@
 #pragma once
-
 #include "wrapped_nested_item.hpp"
-#include <client.hpp>
+#include <utils.hpp>
 
 namespace Wrapper
 {
@@ -79,7 +78,7 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::c_list<Outer>* par
                                   [this](const QByteArray& rep)
             {
                 if(!rep.isEmpty())
-                    this->inner->read(Client::to_Json(rep));
+                    this->inner->read(Utils::to_Json(rep));
             });
         }
         else

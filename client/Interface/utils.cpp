@@ -2,9 +2,9 @@
 #include "qjsondocument.h"
 #include "qjsonobject.h"
 
-#include "client.hpp"
+#include "utils.hpp"
 
-namespace Client
+namespace Utils
 {
 QString to_QString(const std::string& str)
 {
@@ -86,5 +86,17 @@ QByteArray to_QByteArray(const Json::Value &json)
     return QByteArray::fromStdString(str);
 }
 
+void concatenate(Json::Value &a, const Json::Value& b)
+{
+    if (!a.isObject() || !b.isObject()) return;
+
+    for (const auto& key : b.getMemberNames())
+    {
+        if (a[key].isObject())
+            concatenate(a[key], b[key]);
+        else
+            a[key] = b[key];
+    }
+}
 
 }

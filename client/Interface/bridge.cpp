@@ -3,11 +3,11 @@
 #include <wobjectimpl.h>
 
 #include "bridge.hpp"
-#include "client.hpp"
+#include <utils.hpp>
 #include <Item/c_account.hpp>
 #include <c_list.hpp>
 
-using namespace Client;
+using namespace Utils;
 
 namespace Interface
 {

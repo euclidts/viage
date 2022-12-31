@@ -12,6 +12,7 @@ public:
     explicit rent_item();
 
     const char* key() const noexcept override { return "rent"; };
+    static const constexpr auto table{"RentItem"};
 
     void from_expectency(double expectency);
     int floor_to(double number, int multiple) const;

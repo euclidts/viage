@@ -14,8 +14,6 @@ struct c_contact : public contact_item
 {   
     c_contact();
 
-    static const constexpr auto qmlName{"Contact"};
-
     enum roles
     {
         // following infant_items roles

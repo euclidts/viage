@@ -2,9 +2,9 @@
 #include "qurl.h"
 
 #include "c_document.hpp"
-#include <client.hpp>
+#include <utils.hpp>
 
-using namespace Client;
+using namespace Utils;
 
 namespace Data
 {
