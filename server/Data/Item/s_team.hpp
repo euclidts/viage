@@ -27,11 +27,11 @@ struct s_team : public team_item
     template <typename T>
     static const constexpr auto select(const T& item)
     {
-        return std::string(select()) +
-                " WHERE "
-                + T::foreign_key +
-                " = "
-                + std::to_string(item.id);
+        return "SELECT * FROM Team "
+               "WHERE "
+               + std::string{T::foreign_key} +
+               " = "
+               + std::to_string(item.id);
     }
 
     const std::string update() const;

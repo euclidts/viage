@@ -1,3 +1,4 @@
+#include <server.hpp>
 #include "login_flt.hpp"
 
 using namespace drogon;
@@ -6,21 +7,22 @@ namespace Data
 {
 namespace People
 {
-void login_flt::doFilter(const HttpRequestPtr &req,
-                         FilterCallback &&fcb,
-                         FilterChainCallback &&fccb)
+void login_flt::doFilter(const HttpRequestPtr& req,
+                         FilterCallback&& fcb,
+                         FilterChainCallback&& fccb)
 {
-    //Edit your logic here
-    if (1)
+    auto uuid{req->session()->sessionId()};
+
+    if (server::server::get().user_connected(uuid))
     {
-        //Passed
         fccb();
         return;
     }
-    //Check failed
+
     auto res = drogon::HttpResponse::newHttpResponse();
-    res->setStatusCode(k500InternalServerError);
+    res->setStatusCode(k511NetworkAuthenticationRequired);
     fcb(res);
 }
+
 }
 }
