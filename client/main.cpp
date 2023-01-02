@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
     {
         if (success)
         {
-//            wrapped_accounts.get();
+            wrapped_accounts.get();
 
             if (bridge.getClearance() == user_item::Administrator)
             {

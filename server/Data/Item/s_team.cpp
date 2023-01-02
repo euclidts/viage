@@ -7,8 +7,11 @@ s_team::s_team()
 {
 }
 
-const std::string s_team::insert() const
+const std::string s_team::insert(const People::s_user& usr) const
 {
+    if (usr.clearance < People::s_user::Administrator)
+        return {};
+
     if (caption == "" || companyId <= 0)
         return {};
 
@@ -39,8 +42,11 @@ void s_team::read(const nanodbc::result &res)
     catch (...) {}
 }
 
-const std::string s_team::update() const
+const std::string s_team::update(const People::s_user& usr) const
 {
+    if (usr.clearance < People::s_user::Administrator)
+        return {};
+
     return "UPDATE Company SET "
            "caption = '"
             + caption +

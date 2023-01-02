@@ -24,10 +24,15 @@ struct s_user : public user_item
     void read(const Json::Value& json) { user_item::read(json); }
 
     const std::string fields() const;
-    const std::string insert() const;
-    const std::string update() const;
-    static const constexpr auto select()
+    const std::string insert(const People::s_user& usr) const;
+    const std::string update(const s_user &usr) const;
+
+    template <typename T = std::nullptr_t>
+    static const constexpr auto select(const People::s_user& usr, T* = nullptr)
     {
+        if (usr.clearance < People::s_user::Administrator)
+            return "";
+
         return "SELECT "
                "a.[Id], "
                "FirstName, "

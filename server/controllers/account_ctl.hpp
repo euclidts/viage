@@ -1,20 +1,16 @@
-#pragma once
-
 #include <drogon/HttpController.h>
 
 using namespace drogon;
 
 namespace Data
 {
-namespace People
-{
-class company_ctl : public HttpController<company_ctl>
+class account_ctl : public HttpController<account_ctl>
 {
 public:
     METHOD_LIST_BEGIN
-    ADD_METHOD_TO(company_ctl::insert, "/Companies", Post);
-    ADD_METHOD_TO(company_ctl::select, "/Companies", Get);
-    ADD_METHOD_TO(company_ctl::update, "/Companies", Put);
+    ADD_METHOD_TO(account_ctl::insert, "/Accounts", Post);
+    ADD_METHOD_TO(account_ctl::select, "/Accounts", Get);
+    ADD_METHOD_TO(account_ctl::update, "/Accounts", Put);
     METHOD_LIST_END
 
     void insert(const HttpRequestPtr& req,
@@ -27,5 +23,4 @@ public:
                 std::function<void (const HttpResponsePtr &)>&& callback);
 };
 
-}
 }

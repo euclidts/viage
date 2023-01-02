@@ -1,6 +1,7 @@
 #ifndef S_COMPANY_HPP
 #define S_COMPANY_HPP
 
+#include <s_user.hpp>
 #include <nanodbc/nanodbc.h>
 #include <Item/company_item.hpp>
 
@@ -16,14 +17,19 @@ struct s_company : public company_item
     void read(const nanodbc::result& res);
     void read(const Json::Value& json) { company_item::read(json); }
 
-    const std::string insert() const;
-    static const constexpr auto select()
+    const std::string insert(const People::s_user& usr) const;
+
+    template <typename T = std::nullptr_t>
+    static const constexpr auto select(const People::s_user& usr, T* = nullptr)
     {
+        if (usr.clearance < People::s_user::Administrator)
+            return "";
+
         return "SELECT * "
                "FROM Company ";
     }
 
-    const std::string update() const;
+    const std::string update(const People::s_user& usr) const;
 
 };
 

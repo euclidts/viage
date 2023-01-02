@@ -1,6 +1,7 @@
 #ifndef S_LIST_HPP
 #define S_LIST_HPP
 
+#include "s_user.hpp"
 #include <nanodbc/nanodbc.h>
 
 #include <item_list.hpp>
@@ -13,15 +14,11 @@ struct s_list : public item_list<T>
     s_list();
 
     void read(nanodbc::result& res);
-    static const constexpr auto select()
-    {
-        return T::select();
-    }
 
-    template <typename Parent>
-    static const constexpr auto select(Parent p)
+    template <typename Foreign = std::nullptr_t>
+    static const constexpr auto select(const People::s_user& usr, Foreign* f = nullptr)
     {
-        return T::select(p);
+        return T::select(usr, f);
     }
 };
 

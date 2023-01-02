@@ -90,8 +90,7 @@ void server::remove_connected_user(const std::string& uuid)
 
 void server::handle_query(const drogon::HttpRequestPtr& req,
                     std::function<void (const drogon::HttpResponsePtr &)>& callback,
-                    const std::function<void (Json::Value&)>& handler,
-                    const Data::People::user_item::clearances& min_clearance)
+                    const std::function<bool (Json::Value&, const Data::People::s_user&)>& handler)
 {
     drogon::HttpResponsePtr resp;
     auto uuid{req->session()->sessionId()};
@@ -100,17 +99,16 @@ void server::handle_query(const drogon::HttpRequestPtr& req,
     {
         const auto usr{connected_user(uuid)};
 
-        if (usr.clearance < min_clearance)
+        Json::Value json;
+
+        if (handler(json, usr))
         {
-            resp = drogon::HttpResponse::newHttpResponse();
-            resp->setStatusCode(drogon::k401Unauthorized);
+            resp = drogon::HttpResponse::newHttpJsonResponse(json);
         }
         else
         {
-            Json::Value json;
-            handler(json);
-
-            resp = drogon::HttpResponse::newHttpJsonResponse(json);
+            resp = drogon::HttpResponse::newHttpResponse();
+            resp->setStatusCode(drogon::k401Unauthorized);
         }
     }
     else

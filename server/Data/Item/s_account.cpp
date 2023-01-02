@@ -26,91 +26,75 @@ const std::string s_account::update() const
 //    return "UPDATE [User] SET "
 //            + fields() +
 //            " WHERE Id = "
-//            + std::to_string(id);
+    //            + std::to_string(id);
 }
 
-void s_account::read(const nanodbc::result& res)
+void s_account::read(nanodbc::result& res)
 {
-//    s_person::read(res);
+    try
+    {
+        if (!res.is_null("Id"))
+            id = res.get<int>("Id");
+    }
+    catch (...) {}
 
-//    try
-//    {
-//        if (!res.is_null("Company"))
-//            company = res.get<std::string>("Company");
-//    }
-//    catch (...) {}
+    try
+    {
+        if (!res.is_null("Acronym"))
+            acronym = res.get<std::string>("Acronym");
+    }
+    catch (...) {}
 
-//    try
-//    {
-//        if (!res.is_null("Clearance"))
-//            clearance = clearances(res.get<int>("Clearance"));
-//    }
-//    catch (...) {}
+    try
+    {
+        if (!res.is_null("CreationDate"))
+            created = res.get<std::string>("CreationDate");
+    }
+    catch (...) {}
 
-//    try
-//    {
-//        if (!res.is_null("Team"))
-//            team = res.get<std::string>("Team");
-//    }
-//    catch (...) {}
+    try
+    {
+        if (!res.is_null("UpdateDate"))
+            modified = res.get<std::string>("UpdateDate");
+    }
+    catch (...) {}
 
-//    try
-//    {
-//        if (!res.is_null("Beneficiary"))
-//            beneficiary = res.get<std::string>("Beneficiary");
-//    }
-//    catch (...) {}
+    try
+    {
+        if (!res.is_null("State"))
+            state = states(res.get<int>("State"));
+    }
+    catch (...) {}
 
-//    sa.read(res);
+    try
+    {
+        if (!res.is_null("Name"))
+            company = res.get<std::string>("Name");
+    }
+    catch (...) {}
 
-//    try
-//    {
-//        if (!res.is_null("Iban"))
-//            iban = res.get<std::string>("Iban");
-//    }
-//    catch (...) {}
+    try
+    {
+        if (!res.is_null("AdvisorFirstName"))
+            advisorFirstName = res.get<std::string>("AdvisorFirstName");
+    }
+    catch (...) {}
 
-//    try
-//    {
-//        if (!res.is_null("Bic"))
-//            bic = res.get<std::string>("Bic");
-//    }
-//    catch (...) {}
+    try
+    {
+        if (!res.is_null("AdvisorLastName"))
+            advisorLastName = res.get<std::string>("AdvisorLastName");
+    }
+    catch (...) {}
 
-//    try
-//    {
-//        if (!res.is_null("CompanyId"))
-//            company_id = res.get<int>("CompanyId");
-//    }
-//    catch (...) {}
+    try
+    {
+        if (!res.is_null("Name"))
+            company = res.get<std::string>("Name");
+    }
+    catch (...) {}
 
-//    try
-//    {
-//        if (!res.is_null("Name"))
-//            company = res.get<std::string>("Name");
-//    }
-//    catch (...) {}
-
-//    try
-//    {
-//        if (!res.is_null("TeamId"))
-//            team_id = res.get<int>("TeamId");
-//    }
-//    catch (...) {}
-
-//    try
-//    {
-//        if (!res.is_null("Caption"))
-//            team = res.get<std::string>("Caption");
-//    }
-//    catch (...) {}
-
-//    try
-//    {
-//        if (!res.is_null("IsLocked"))
-//            isLocked = res.get<int>("IsLocked");
-//    }
-//    catch (...) {}
+//    remove_multiple(res);
 }
 
 const std::string s_account::fields() const
@@ -131,5 +115,19 @@ const std::string s_account::fields() const
 //            + bic +
 //            "'";
 }
+
+
+//void s_account::remove_multiple(nanodbc::result& res)
+//{
+//    int prev_id{res.get<int>("Id")};
+
+//    if (!res.next())
+//        return;
+
+//    if (prev_id == res.get<int>("Id"))
+//        remove_multiple(res);
+//    else
+//        res.prior();
+//}
 
 }

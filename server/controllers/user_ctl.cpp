@@ -6,36 +6,34 @@ namespace Data
 {
 namespace People
 {
-void user_ctl::create_user(const HttpRequestPtr &req,
+void user_ctl::insert(const HttpRequestPtr &req,
                            std::function<void (const HttpResponsePtr&)>&& callback)
 {
-    LOG_DEBUG << "create_user";
+    LOG_DEBUG << "insert user";
 
     s_user usr{};
 
     server::server::get().insert(req,
                                  callback,
-                                 usr,
-                                 s_user::Administrator);
+                                 usr);
 }
 
-void user_ctl::get_users(const HttpRequestPtr& req,
+void user_ctl::select(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr&)>&& callback)
 {
-    LOG_DEBUG << "get_users";
+    LOG_DEBUG << "select user";
 
     s_list<s_user> list{};
 
     server::server::get().select(req,
                                  callback,
-                                 list,
-                                 s_user::Administrator);
+                                 list);
 }
 
-void user_ctl::update_user(const HttpRequestPtr& req,
+void user_ctl::update(const HttpRequestPtr& req,
                            std::function<void (const HttpResponsePtr&)>&& callback)
 {
-    LOG_DEBUG << "update_user";
+    LOG_DEBUG << "update user";
 
     Json::Value val{*req->jsonObject()};
     s_user usr{};
@@ -43,8 +41,7 @@ void user_ctl::update_user(const HttpRequestPtr& req,
 
     server::server::get().update(req,
                                  callback,
-                                 usr,
-                                 s_user::Administrator);
+                                 usr);
 }
 
 }

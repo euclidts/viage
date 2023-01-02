@@ -7,8 +7,11 @@ s_company::s_company()
 {
 }
 
-const std::string s_company::insert() const
+const std::string s_company::insert(const People::s_user& usr) const
 {
+    if (usr.clearance < People::s_user::Administrator)
+        return {};
+
     if (name == "")
         return {};
 
@@ -20,7 +23,7 @@ const std::string s_company::insert() const
             "') ";
 }
 
-void s_company::read(const nanodbc::result &res)
+void s_company::read(const nanodbc::result& res)
 {
     try
     {
@@ -37,8 +40,11 @@ void s_company::read(const nanodbc::result &res)
     catch (...) {}
 }
 
-const std::string s_company::update() const
+const std::string s_company::update(const People::s_user& usr) const
 {
+    if (usr.clearance < People::s_user::Administrator)
+        return {};
+
     return "UPDATE Company SET "
            "Name = '"
             + name +

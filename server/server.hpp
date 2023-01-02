@@ -16,7 +16,7 @@ class server
 {
 public:
     static server& get();
-    void init(const Json::Value& json_config);
+    void init(const Json::Value& usr_config);
 
     server(server const&) = delete;
     void operator = (server const&) = delete;
@@ -31,24 +31,26 @@ public:
 
     void handle_query(const drogon::HttpRequestPtr& req,
                       std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                      const std::function<void (Json::Value&)>& handler,
-                      const Data::People::s_user::clearances& min_clearance
-                      = Data::People::s_user::None);
+                      const std::function<bool (Json::Value &, const Data::People::s_user &)> &handler);
 
     template <typename T>
     void insert(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                const T& item,
-                const Data::People::s_user::clearances& min_clearance
-                = Data::People::s_user::None)
+                const T& item)
     {
         handle_query(req,
                      callback,
-                     [this, &item](Json::Value& json)
+                     [this, &item]
+                     (Json::Value& json, const Data::People::s_user& usr)
         {
+            const auto query{item.insert(usr)};
+
+            if (query.empty())
+                return false;
+
             try
             {
-                auto result{nanodbc::execute(connection, item.insert())};
+                auto result{nanodbc::execute(connection, query)};
                 result.next();
                 json["id"] = result.template get<int>(0);
                 json["success"] = true;
@@ -57,72 +59,64 @@ public:
             {
                 json["success"] = false;
             }
-        },
-        min_clearance);
+
+            return true;
+        });
     }
 
-    template <typename T>
-    void select(const drogon::HttpRequestPtr& req,
-                std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                T& item,
-                const Data::People::s_user::clearances& min_clearance
-                = Data::People::s_user::None)
-    {
-        handle_query(req,
-                     callback,
-                     [this, &item](Json::Value& json)
-        {
-            auto result{nanodbc::execute(connection, T::select())};
-
-            item.read(result);
-            item.write(json);
-        },
-        min_clearance);
-    }
-
-    template <typename Item, typename Parent>
+    template <typename Item, typename Foreign = std::nullptr_t>
     void select(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
                 Item& item,
-                const Parent& parent,
-                const Data::People::s_user::clearances& min_clearance
-                = Data::People::s_user::None)
+                Foreign* foreign = nullptr)
     {
         handle_query(req,
                      callback,
-                     [this, &item, &parent](Json::Value& json)
+                     [this, &item, foreign]
+                     (Json::Value& json, const Data::People::s_user& usr)
         {
-            auto result{nanodbc::execute(connection, Item::select(parent))};
+            const auto query{Item::select(usr, foreign)};
+
+            if (query == "")
+                return false;
+
+            auto result{nanodbc::execute(connection, query)};
 
             item.read(result);
             item.write(json);
-        },
-        min_clearance);
+
+            return true;
+        });
     }
 
     template <typename T>
     void update(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                const T& item,
-                const Data::People::s_user::clearances& min_clearance
-                = Data::People::s_user::None)
+                const T& item)
 
     {
         handle_query(req,
                      callback,
-                     [this, &item](Json::Value& json)
+                     [this, &item]
+                     (Json::Value& json, const Data::People::s_user& usr)
         {
+            const auto query{item.update(usr)};
+
+            if (query.empty())
+                return false;
+
             try
             {
-                const auto result{nanodbc::execute(connection, item.update())};
+                const auto result{nanodbc::execute(connection, query)};
                 json["success"] = true;
             }
             catch (...)
             {
                 json["success"] = false;
             }
-        },
-        min_clearance);
+
+            return true;
+        });
     }
 
 private:

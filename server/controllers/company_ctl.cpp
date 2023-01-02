@@ -6,46 +6,44 @@ namespace Data
 {
 namespace People
 {
-void company_ctl::create_company(const HttpRequestPtr& req,
-                                 std::function<void (const HttpResponsePtr&)>&& callback)
+void company_ctl::insert(const HttpRequestPtr& req,
+                         std::function<void (const HttpResponsePtr&)>&& callback)
 {
-    LOG_DEBUG << "create_company";
+    LOG_DEBUG << "insert company";
 
     s_company cmp;
     cmp.read(*req->jsonObject());
 
-    if (cmp.insert().empty())
-    {
-        drogon::HttpResponsePtr resp;
-        resp->setStatusCode(drogon::k500InternalServerError);
-        callback(resp);
+//    if (cmp.insert().empty())
+//    {
+//        drogon::HttpResponsePtr resp;
+//        resp->setStatusCode(drogon::k500InternalServerError);
+//        callback(resp);
 
-        return;
-    }
+//        return;
+//    }
 
     server::server::get().insert(req,
                                  callback,
-                                 cmp,
-                                 s_user::Administrator);
+                                 cmp);
 }
 
-void company_ctl::get_companies(const HttpRequestPtr& req,
-                                std::function<void (const HttpResponsePtr&)>&& callback)
+void company_ctl::select(const HttpRequestPtr& req,
+                         std::function<void (const HttpResponsePtr&)>&& callback)
 {
-    LOG_DEBUG << "get_companies";
+    LOG_DEBUG << "select company";
 
     s_list<s_company> list{};
 
     server::server::get().select(req,
                                  callback,
-                                 list,
-                                 s_user::Administrator);
+                                 list);
 }
 
-void company_ctl::update_company(const HttpRequestPtr& req,
-                                 std::function<void (const HttpResponsePtr&)>&& callback)
+void company_ctl::update(const HttpRequestPtr& req,
+                         std::function<void (const HttpResponsePtr&)>&& callback)
 {
-    LOG_DEBUG << "update_company";
+    LOG_DEBUG << "update company";
 
     Json::Value val{*req->jsonObject()};
     s_company cmp{};
@@ -53,8 +51,7 @@ void company_ctl::update_company(const HttpRequestPtr& req,
 
     server::server::get().update(req,
                                  callback,
-                                 cmp,
-                                 s_user::Administrator);
+                                 cmp);
 }
 
 }

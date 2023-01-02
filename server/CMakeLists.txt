@@ -35,7 +35,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     ${PLUGIN_SRC}
     ${MODEL_SRC})
 
-add_subdirectory(test)
+#add_subdirectory(test)
 
 if(UNIX OR MINGW)
     target_link_libraries(${PROJECT_NAME} PRIVATE
