@@ -9,8 +9,6 @@ namespace People
 {
 struct contact_item : virtual public infant_item<contact_item>
 {   
-    contact_item();
-
     static const constexpr char* key() noexcept { return "contact"; };
     static const constexpr auto table{"Contact"};
 
@@ -20,6 +18,9 @@ struct contact_item : virtual public infant_item<contact_item>
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    contact_item();
 };
 
 }

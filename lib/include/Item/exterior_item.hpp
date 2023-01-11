@@ -11,8 +11,6 @@ namespace Places
 class exterior_item : virtual public base_data<exterior_item>
 {
 public:
-    exterior_item();
-
     static const constexpr char* key() noexcept { return "exterior"; };
 
     enum parkingTypes
@@ -50,6 +48,9 @@ public:
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    explicit exterior_item();
 };
 
 }

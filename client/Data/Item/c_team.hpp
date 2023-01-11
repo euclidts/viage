@@ -6,7 +6,7 @@
 
 namespace Data
 {
-struct c_team : public team_item
+struct c_team final : public team_item
 {
     c_team();
 

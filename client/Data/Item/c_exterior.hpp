@@ -9,13 +9,13 @@ namespace Data
 {
 namespace Places
 {
-class c_exterior : public exterior_item
-                 , public c_base_data<exterior_item>
+class c_exterior final : public exterior_item
+                       , public c_base_data<exterior_item>
 {
     W_OBJECT(c_exterior)
 
-public:
-    explicit c_exterior(QObject* parent = nullptr);
+    public:
+        explicit c_exterior(QObject* parent = nullptr);
 
     static const constexpr auto qmlName{"ExteriorItem"};
     static const constexpr auto uri{"Places"};
@@ -69,8 +69,8 @@ public:
     W_PROPERTY(equipements, equipement READ getEquipements WRITE setEquipements NOTIFY equipementsChanged)
     W_PROPERTY(int, rating READ getRating WRITE setRating NOTIFY ratingChanged)
 
-private:
-    void checkCompleted() override;
+    private:
+        void checkCompleted() override;
 };
 
 }

@@ -17,8 +17,6 @@ namespace People
 {
 struct owner_item : virtual public infant_item<owner_item>
 {
-    owner_item();
-
     static const constexpr char* key() noexcept { return "owner"; };
 
     Places::address_item* address;
@@ -43,6 +41,9 @@ struct owner_item : virtual public infant_item<owner_item>
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    explicit owner_item();
 };
 
 }

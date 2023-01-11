@@ -9,7 +9,7 @@ namespace Places
 {
 struct address_item;
 
-struct s_address
+struct s_address final
 {
     explicit s_address(address_item* ai);
 

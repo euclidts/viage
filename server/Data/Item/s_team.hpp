@@ -7,7 +7,7 @@
 
 namespace Data
 {
-struct s_team : public team_item
+struct s_team final : public team_item
 {
     explicit s_team();
 

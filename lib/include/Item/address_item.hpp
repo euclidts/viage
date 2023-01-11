@@ -8,7 +8,7 @@ namespace Data
 {
 namespace Places
 {
-struct address_item : public base_data<address_item>
+struct address_item final : public base_data<address_item>
 {
     address_item();
 

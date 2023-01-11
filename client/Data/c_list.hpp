@@ -10,8 +10,8 @@
 namespace Data
 {
 template <typename T>
-class c_list : public c_base_data<item_list<T>>
-             , public item_list<T>
+class c_list final : public c_base_data<item_list<T>>
+                   , public item_list<T>
 {    
     W_OBJECT(c_list)
 

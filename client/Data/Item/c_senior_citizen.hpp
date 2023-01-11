@@ -12,7 +12,7 @@ namespace People
 #define AGE_MIN 70
 #define AGE_MAX 120
 
-struct c_senior_citizen : public senior_citizen_item
+struct c_senior_citizen final : public senior_citizen_item
 {
     c_senior_citizen();
 

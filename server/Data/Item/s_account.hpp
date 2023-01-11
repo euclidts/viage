@@ -7,7 +7,7 @@
 
 namespace Data
 {
-struct s_account : public account_item
+struct s_account final : public account_item
 {
     s_account();
 

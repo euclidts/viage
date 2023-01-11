@@ -6,7 +6,7 @@
 
 namespace Data
 {
-struct c_document : public document_item
+struct c_document final : public document_item
 {
     c_document();
 

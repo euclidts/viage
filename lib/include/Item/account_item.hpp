@@ -29,8 +29,6 @@ using namespace Json;
 
 struct account_item : virtual public base_data<account_item>
 {
-    explicit account_item();
-
     static const constexpr char* key() noexcept { return "account"; };
     static const constexpr auto foreign_key{"AccountId"};
 
@@ -78,6 +76,9 @@ struct account_item : virtual public base_data<account_item>
     void write(Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    explicit account_item();
 };
 
 }

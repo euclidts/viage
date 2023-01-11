@@ -11,8 +11,6 @@ namespace Data
 
 struct document_item : virtual public base_data<document_item>
 {
-    document_item();
-
     static const constexpr char* key() noexcept { return "document"; };
 
     enum categories
@@ -55,6 +53,8 @@ struct document_item : virtual public base_data<document_item>
     bool is_completed() const override;
 
 protected:
+    explicit document_item();
+
     void set_file_info();
 };
 

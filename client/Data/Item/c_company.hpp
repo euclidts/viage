@@ -11,7 +11,7 @@ struct c_list;
 
 struct c_team;
 
-struct c_company : public company_item
+struct c_company final : public company_item
 {
     c_company();
 

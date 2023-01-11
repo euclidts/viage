@@ -11,8 +11,8 @@ namespace Data
 {
 namespace People
 {
-struct s_user : public user_item
-              , public s_person<user_item>
+struct s_user final : public user_item
+                    , public s_person<user_item>
 {
     s_user();
 

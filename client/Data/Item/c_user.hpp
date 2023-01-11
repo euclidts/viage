@@ -10,8 +10,8 @@ namespace Data
 {
 namespace People
 {
-struct c_user : public user_item
-              , public c_person<user_item>
+struct c_user final : public user_item
+                    , public c_person<user_item>
 {
     c_user();
 

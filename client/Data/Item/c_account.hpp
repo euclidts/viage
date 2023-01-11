@@ -27,7 +27,7 @@ struct c_list;
 
 using namespace Json;
 
-struct c_account : public account_item
+struct c_account final : public account_item
 {
     c_account();
 

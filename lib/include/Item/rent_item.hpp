@@ -9,8 +9,6 @@ namespace Data
 class rent_item : virtual public base_data<rent_item>
 {
 public:
-    explicit rent_item();
-
     static const constexpr char* key() noexcept { return "rent"; };
 
     void from_expectency(double expectency);
@@ -27,6 +25,9 @@ public:
     int dab{0};
     int pva{0};
     //    int dam{0};
+
+protected:
+    explicit rent_item();
 };
 
 }

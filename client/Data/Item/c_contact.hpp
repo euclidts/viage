@@ -9,8 +9,8 @@ namespace Data
 {
 namespace People
 {
-struct c_contact : public contact_item
-                 , public c_infant<contact_item>
+struct c_contact final : public contact_item
+                       , public c_infant<contact_item>
 {   
     c_contact();
 

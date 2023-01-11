@@ -10,8 +10,6 @@ namespace People
 {
 struct user_item : virtual public person_item<user_item>
 {
-    user_item();
-
     static const constexpr char* key() noexcept { return "user"; };
 
     enum clearances
@@ -38,6 +36,9 @@ struct user_item : virtual public person_item<user_item>
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    explicit user_item();
 };
 
 }

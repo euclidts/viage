@@ -9,7 +9,7 @@
 namespace Data
 {
 template <typename T>
-struct s_list : public item_list<T>
+struct s_list final : public item_list<T>
 {
     s_list();
 

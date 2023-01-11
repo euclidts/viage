@@ -13,8 +13,6 @@ namespace Places
 class habitat_item : virtual public base_data<habitat_item>
 {
 public:
-    explicit habitat_item();
-
     static const constexpr char* key() noexcept { return "habitat"; };
 
     enum habitatTypes
@@ -38,6 +36,9 @@ public:
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    explicit habitat_item();
 };
 
 }

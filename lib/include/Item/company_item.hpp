@@ -11,8 +11,6 @@ struct item_list;
 
 struct company_item : virtual public base_data<company_item>
 {
-    company_item();
-
     static const constexpr char* key() noexcept { return "company"; };
     static const constexpr auto foreign_key{"CompanyId"};
 
@@ -24,6 +22,9 @@ struct company_item : virtual public base_data<company_item>
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    company_item();
 };
 
 }

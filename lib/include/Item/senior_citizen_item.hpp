@@ -14,8 +14,6 @@ namespace People
 
 struct senior_citizen_item : virtual public base_data<senior_citizen_item>
 {
-    senior_citizen_item();
-
     static const constexpr char* key() noexcept { return "seniorCitizen"; };
 
     enum sexes{ M, F };
@@ -24,6 +22,9 @@ struct senior_citizen_item : virtual public base_data<senior_citizen_item>
     std::string birthDay{""};
 
     bool is_completed() const override;
+
+protected:
+    explicit senior_citizen_item();
 };
 
 }

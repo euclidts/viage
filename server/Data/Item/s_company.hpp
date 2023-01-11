@@ -8,7 +8,7 @@
 namespace Data
 {
 
-struct s_company : public company_item
+struct s_company final : public company_item
 {
     explicit s_company();
 

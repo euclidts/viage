@@ -9,8 +9,6 @@ namespace Data
 
 struct team_item : virtual public base_data<team_item>
 {
-    team_item();
-
     static const constexpr char* key() noexcept { return "team"; };
 
     int id{0};
@@ -21,6 +19,9 @@ struct team_item : virtual public base_data<team_item>
     void write(Json::Value& json) const override;
 
     bool is_completed() const override;
+
+protected:
+    explicit team_item();
 };
 
 }
