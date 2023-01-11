@@ -8,11 +8,11 @@ namespace Data
 {
 namespace Places
 {
-struct address_item : public base_data
+struct address_item : public base_data<address_item>
 {
     address_item();
 
-    const constexpr char* key() const noexcept override { return "address"; };
+    static const constexpr char* key() noexcept { return "address"; };
 
     std::string street{""};
     std::string city{""};

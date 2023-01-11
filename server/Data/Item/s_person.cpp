@@ -1,62 +1,66 @@
+#pragma once
 #include "s_person.hpp"
 
 namespace Data
 {
 namespace People
 {
-s_person::s_person()
-    : person_item{}
+template <typename T>
+s_person<T>::s_person()
+    : person_item<T>{}
 {
 }
 
-void s_person::read(const nanodbc::result& res)
+template <typename T>
+void s_person<T>::read(const nanodbc::result& res)
 {
     try
     {
         if (!res.is_null("Id"))
-            id = res.get<int>("Id");
+            person_item<T>::id = res.get<int>("Id");
     }
     catch (...) {}
 
     try
     {
         if (!res.is_null("FirstName"))
-            firstName = res.get<std::string>("FirstName");
+            person_item<T>::firstName = res.get<std::string>("FirstName");
     }
     catch (...) {}
 
     try
     {
         if (!res.is_null("LastName"))
-            lastName = res.get<std::string>("LastName");
+            person_item<T>::lastName = res.get<std::string>("LastName");
     }
     catch (...) {}
 
     try
     {
         if (!res.is_null("Phone"))
-            phone = res.get<std::string>("Phone");
+            person_item<T>::phone = res.get<std::string>("Phone");
     }
     catch (...) {}
 
     try
     {
         if (!res.is_null("EMail"))
-            eMail = res.get<std::string>("EMail");
+            person_item<T>::eMail = res.get<std::string>("EMail");
     }
     catch (...) {}
 }
 
-const std::string s_person::fields() const
+template <typename T>
+const std::string s_person<T>::fields() const
 {
   return "FirstName = '"
-          + firstName +
+          + person_item<T>::firstName +
           "', LastName = '"
-          + lastName +
+          + person_item<T>::lastName +
           "', Phone = '"
-          + phone +
+          + person_item<T>::phone +
           "', EMail = '"
-          + eMail +
+          + person_item<T>::eMail +
           "'";
 }
 

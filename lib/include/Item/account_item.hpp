@@ -27,11 +27,11 @@ struct item_list;
 using namespace std;
 using namespace Json;
 
-struct account_item : virtual public base_data
+struct account_item : virtual public base_data<account_item>
 {
     explicit account_item();
 
-    const char* key() const noexcept override { return "account"; };
+    static const constexpr char* key() noexcept { return "account"; };
     static const constexpr auto foreign_key{"AccountId"};
 
     Value owners{};

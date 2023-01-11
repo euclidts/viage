@@ -10,12 +10,12 @@ namespace Data
 {
 namespace Places
 {
-class habitat_item : virtual public base_data
+class habitat_item : virtual public base_data<habitat_item>
 {
 public:
     explicit habitat_item();
 
-    const char* key() const noexcept override { return "habitat"; };
+    static const constexpr char* key() noexcept { return "habitat"; };
 
     enum habitatTypes
     {

@@ -10,22 +10,22 @@ s_account::s_account()
 const std::string s_account::insert() const
 {
     return {};
-//    return "INSERT INTO [User] "
-//           "(FirstName, LastName) "
-//           "OUTPUT Inserted.Id "
-//           "VALUES ('"
-//            + firstName +
-//            "', '"
-//            + lastName +
-//            "') ";
+    //    return "INSERT INTO [User] "
+    //           "(FirstName, LastName) "
+    //           "OUTPUT Inserted.Id "
+    //           "VALUES ('"
+    //            + firstName +
+    //            "', '"
+    //            + lastName +
+    //            "') ";
 }
 
 const std::string s_account::update() const
 {
     return {};
-//    return "UPDATE [User] SET "
-//            + fields() +
-//            " WHERE Id = "
+    //    return "UPDATE [User] SET "
+    //            + fields() +
+    //            " WHERE Id = "
     //            + std::to_string(id);
 }
 
@@ -48,14 +48,22 @@ void s_account::read(nanodbc::result& res)
     try
     {
         if (!res.is_null("CreationDate"))
-            created = res.get<std::string>("CreationDate");
+        {
+            auto str = res.get<std::string>("CreationDate");
+            str.erase(str.begin() + str.find_first_of('+') - 1, str.end());
+            created = str;
+        }
     }
     catch (...) {}
 
     try
     {
         if (!res.is_null("UpdateDate"))
-            modified = res.get<std::string>("UpdateDate");
+        {
+            auto str = res.get<std::string>("UpdateDate");
+            str.erase(str.begin() + str.find_first_of('+') - 1, str.end());
+            modified = str;
+        }
     }
     catch (...) {}
 
@@ -94,26 +102,26 @@ void s_account::read(nanodbc::result& res)
     }
     catch (...) {}
 
-//    remove_multiple(res);
+    //    remove_multiple(res);
 }
 
 const std::string s_account::fields() const
 {
     return {};
-//    return sa.fields() +
-//            ", "
-//            + s_person::fields() +
-//            ", CompanyId = "
-//            + std::to_string(company_id) +
-//            ", TeamId = "
-//            + std::to_string(team_id) +
-//            ", Beneficiary = '"
-//            + beneficiary +
-//            "', Iban = '"
-//            + iban +
-//            "', Bic = '"
-//            + bic +
-//            "'";
+    //    return sa.fields() +
+    //            ", "
+    //            + s_person::fields() +
+    //            ", CompanyId = "
+    //            + std::to_string(company_id) +
+    //            ", TeamId = "
+    //            + std::to_string(team_id) +
+    //            ", Beneficiary = '"
+    //            + beneficiary +
+    //            "', Iban = '"
+    //            + iban +
+    //            "', Bic = '"
+    //            + bic +
+    //            "'";
 }
 
 

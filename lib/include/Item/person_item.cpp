@@ -1,14 +1,17 @@
+#pragma once
 #include <Item/person_item.hpp>
 
 namespace Data
 {
 namespace People
 {
-person_item::person_item()
+template <typename T>
+person_item<T>::person_item()
 {
 }
 
-bool person_item::is_completed() const
+template <typename T>
+bool person_item<T>::is_completed() const
 {
     if (firstName == "")
         return false;
@@ -22,7 +25,8 @@ bool person_item::is_completed() const
     return true;
 }
 
-void person_item::read(const Json::Value& json)
+template <typename T>
+void person_item<T>::read(const Json::Value& json)
 {
     if (json.isMember("id") && json["id"].isInt())
         id = json["id"].asInt();
@@ -40,7 +44,8 @@ void person_item::read(const Json::Value& json)
         eMail = json["eMail"].asString();
 }
 
-void person_item::write(Json::Value &json) const
+template <typename T>
+void person_item<T>::write(Json::Value &json) const
 {
     json["id"] = id;
     json["firstName"] = firstName;

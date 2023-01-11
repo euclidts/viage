@@ -13,9 +13,22 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 
 include_directories(Data Data/Item)
 
-set(TEMPLATE_SRC Data/s_list.hpp)
+set(TEMPLATE_SRC
+    Data/s_list.hpp
+    Data/Item/s_person.hpp
+#    controllers/list_ctl.hpp
+)
 
-aux_source_directory(Data/Item ITEM_SRC)
+set(SRC
+    server.cpp
+    Data/Item/s_account.cpp
+    Data/Item/s_address.cpp
+    Data/Item/s_company.cpp
+    Data/Item/s_team.cpp
+    Data/Item/s_user.cpp
+)
+
+#aux_source_directory(Data/Item ITEM_SRC)
 aux_source_directory(controllers CTL_SRC)
 aux_source_directory(filters FILTER_SRC)
 aux_source_directory(plugins PLUGIN_SRC)
@@ -26,7 +39,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/models)
 
 target_sources(${PROJECT_NAME} PRIVATE
-    server.cpp
+    ${SRC}
     ${TEMPLATE_SRC}
     ${ITEM_SRC}
     ${SRC_DIR}

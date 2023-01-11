@@ -8,20 +8,35 @@
 namespace Data
 {
 template <typename T>
-class item_list : public virtual base_data
+class item_list : public virtual base_data<item_list<T>>
 {
 public:
     item_list();
 
     int size() const;
 
-    const char* key() const noexcept override { return items_key; };
+    static const constexpr char* key() noexcept
+    {
+        std::string str{T::key()};
+
+        if (str.back() == 'y')
+        {
+            str.pop_back();
+            str += "ie";
+        }
+
+        str += 's';
+
+        auto key_str = new char[str.length() + 1];
+        strcpy(key_str, str.c_str());
+        return key_str;
+    };
 
     void set_list(const std::vector<T>& list);
     T item_at_id(int id) const;
 
     void read(const Json::Value& json) override;
-    void write(Json::Value& json) const override;
+    virtual void write(Json::Value& json) const override;
 
     bool is_completed() const override;
 
@@ -30,7 +45,6 @@ protected:
     int index_at_id(int id) const noexcept;
 
     std::vector<T> m_items{};
-    const char* items_key;
 };
 }
 

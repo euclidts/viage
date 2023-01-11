@@ -10,7 +10,7 @@ W_OBJECT_IMPL(c_list<T>, template <typename T>)
 
 template <typename T>
 c_list<T>::c_list(QObject* parent)
-    : c_base_data{parent}
+    : c_base_data<item_list<T>>{parent}
     , item_list<T>{}
 {
     std::string str{T::qmlName};
@@ -78,14 +78,14 @@ void c_list<T>::removeItems(int number)
 template<typename T>
 void c_list<T>::complitionChecks() const
 {
-    connect(this, &c_list::postItemsAppended,
-            this, &c_list::checkCompleted);
+    c_base_data<item_list<T>>::connect(this, &c_list::postItemsAppended,
+                                       this, &c_list::checkCompleted);
 
-    connect(this, &c_list::postItemsRemoved,
-            this, &c_list::checkCompleted);
+    c_base_data<item_list<T>>::connect(this, &c_list::postItemsRemoved,
+                                       this, &c_list::checkCompleted);
 
-    connect(this, &c_list::dataChangedAt,
-            this, &c_list::checkCompleted);
+    c_base_data<item_list<T>>::connect(this, &c_list::dataChangedAt,
+                                       this, &c_list::checkCompleted);
 }
 
 template <typename T>
@@ -97,7 +97,7 @@ void c_list<T>::read(const Json::Value& array)
     item_list<T>::read(array);
 
     emit postItemsAppended();
-    emit loaded();
+    emit c_base_data<item_list<T>>::loaded();
 }
 
 template<typename T>

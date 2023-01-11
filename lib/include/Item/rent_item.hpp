@@ -6,12 +6,12 @@
 
 namespace Data
 {
-class rent_item : virtual public base_data
+class rent_item : virtual public base_data<rent_item>
 {
 public:
     explicit rent_item();
 
-    const char* key() const noexcept override { return "rent"; };
+    static const constexpr char* key() noexcept { return "rent"; };
 
     void from_expectency(double expectency);
     int floor_to(double number, int multiple) const;

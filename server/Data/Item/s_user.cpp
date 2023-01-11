@@ -21,9 +21,9 @@ const std::string s_user::insert(const People::s_user& usr) const
            "(FirstName, LastName) "
            "OUTPUT Inserted.Id "
            "VALUES ('"
-            + firstName +
+            + user_item::firstName +
             "', '"
-            + lastName +
+            + user_item::lastName +
             "') ";
 }
 
@@ -35,7 +35,7 @@ const std::string s_user::update(const People::s_user& usr) const
     return "UPDATE [User] SET "
             + fields() +
             " WHERE Id = "
-            + std::to_string(id);
+            + std::to_string(user_item::id);
 }
 
 void s_user::read(const nanodbc::result& res)

@@ -11,7 +11,7 @@ void base_data::writeWithKey(Json::Value &json) const
     Json::Value obj;
     write(obj);
 
-    json[key()] = obj;
+    json[key] = obj;
 }
 
 }

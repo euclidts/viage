@@ -31,10 +31,10 @@ ApplicationWindow {
         qsTr("Habitat complété"),
         qsTr("Exterieur complété"),
         qsTr("Documents complétés"),
-        qsTr("Réception du dossier par Viage SA"),
-        qsTr("Transmission du dossier au CA de Viager Swiss SA"),
+        qsTr("Réception du dossier \n par Viage SA"),
+        qsTr("Transmission du dossier \n au CA de Viager Swiss SA"),
         qsTr("Expert immobilier"),
-        qsTr("Décision du CA de Viager Swiss SA"),
+        qsTr("Décision du CA \n de Viager Swiss SA"),
         qsTr("Rendez-vous chez le notaire"),
         qsTr("Paiement de la commission")
     ]

@@ -8,12 +8,12 @@ namespace Data
 {
 namespace Places
 {
-class exterior_item : virtual public base_data
+class exterior_item : virtual public base_data<exterior_item>
 {
 public:
     exterior_item();
 
-    const char* key() const noexcept override { return "exterior"; };
+    static const constexpr char* key() noexcept { return "exterior"; };
 
     enum parkingTypes
     {

@@ -1,3 +1,4 @@
+#pragma once
 #include <QVariant>
 
 #include "c_infant.hpp"
@@ -6,40 +7,44 @@ namespace Data
 {
 namespace People
 {
-c_infant::c_infant()
-    : infant_item{}
-    , c_person{}
+template <typename T>
+c_infant<T>::c_infant()
+    : infant_item<T>{}
+    , c_person<T>{}
 {
 }
 
-QHash<int, QByteArray> c_infant::roleNames()
+template <typename T>
+QHash<int, QByteArray> c_infant<T>::roleNames()
 {
-    QHash<int, QByteArray> names = c_person::roleNames();
+    QHash<int, QByteArray> names = c_person<T>::roleNames();
 
     names[SexRole] = "sex";
 
     return names;
 }
 
-QVariant c_infant::data(int role) const
+template <typename T>
+QVariant c_infant<T>::data(int role) const
 {
-    QVariant base_data{c_person::data(role)};
+    QVariant base_data{c_person<T>::data(role)};
 
     if (base_data != QVariant())
         return base_data;
 
     if (role == SexRole)
-        return QVariant(sex);
+        return QVariant(infant_item<T>::sex);
 
     return QVariant();
 }
 
-void c_infant::setData(const QVariant &value, int role)
+template <typename T>
+void c_infant<T>::setData(const QVariant &value, int role)
 {
-    c_person::setData(value, role);
+    c_person<T>::setData(value, role);
 
     if (role == SexRole)
-        sex = senior_citizen_item::sexes(value.toInt());
+        infant_item<T>::sex = senior_citizen_item::sexes(value.toInt());
 }
 
 }

@@ -12,9 +12,9 @@ class user_ctl : public HttpController<user_ctl>
 {
 public:
     METHOD_LIST_BEGIN
-    ADD_METHOD_TO(user_ctl::insert, "/Users", Post);
-    ADD_METHOD_TO(user_ctl::select, "/Users", Get);
-    ADD_METHOD_TO(user_ctl::update, "/Users", Put);
+    ADD_METHOD_TO(user_ctl::insert, "/users", Post);
+    ADD_METHOD_TO(user_ctl::select, "/users", Get);
+    ADD_METHOD_TO(user_ctl::update, "/users", Put);
     METHOD_LIST_END
 
     void insert(const HttpRequestPtr& req,

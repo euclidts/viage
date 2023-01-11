@@ -10,7 +10,8 @@ namespace Data
 {
 namespace People
 {
-struct infant_item : virtual public person_item
+template <typename T>
+struct infant_item : virtual public person_item<T>
 {   
     senior_citizen_item::sexes sex{senior_citizen_item::M};
 
@@ -26,4 +27,5 @@ protected:
 }
 }
 
+#include <Item/infant_item.cpp>
 #endif // INFANT_ITEM_HPP

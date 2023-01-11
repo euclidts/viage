@@ -12,7 +12,7 @@ namespace Data
 namespace People
 {
 struct s_user : public user_item
-              , public s_person
+              , public s_person<user_item>
 {
     s_user();
 

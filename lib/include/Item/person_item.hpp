@@ -8,7 +8,8 @@ namespace Data
 {
 namespace People
 {
-struct person_item : virtual public base_data
+template <typename T>
+struct person_item : virtual public base_data<T>
 {
     int id{0};
     std::string firstName{""},
@@ -28,4 +29,5 @@ protected:
 }
 }
 
+#include "person_item.cpp"
 #endif // PERSON_ITEM_HPP

@@ -9,11 +9,11 @@ namespace Data
 {
 #define CATEGOIES_SUMED 4095
 
-struct document_item : virtual public base_data
+struct document_item : virtual public base_data<document_item>
 {
     document_item();
 
-    const char* key() const noexcept override { return "document"; };
+    static const constexpr char* key() noexcept { return "document"; };
 
     enum categories
     {

@@ -8,8 +8,9 @@
 
 namespace Data
 {
+template <typename T>
 class c_base_data : public QObject
-                  , virtual public base_data
+                  , virtual public base_data<T>
 {
     W_OBJECT(c_base_data)
 
@@ -42,4 +43,6 @@ protected:
 };
 
 }
+
+#include "c_base_data.cpp"
 #endif // C_BASE_DATA_HPP

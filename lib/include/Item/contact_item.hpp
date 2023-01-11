@@ -1,5 +1,5 @@
-#ifndef CONTACT_ITEM_H
-#define CONTACT_ITEM_H
+#ifndef CONTACT_ITEM_HPP
+#define CONTACT_ITEM_HPP
 
 #include "infant_item.hpp"
 
@@ -7,11 +7,11 @@ namespace Data
 {
 namespace People
 {
-struct contact_item : virtual public infant_item
+struct contact_item : virtual public infant_item<contact_item>
 {   
     contact_item();
 
-    const char* key() const noexcept override { return "contact"; };
+    static const constexpr char* key() noexcept { return "contact"; };
     static const constexpr auto table{"Contact"};
 
     bool isInfant{false};
@@ -25,4 +25,4 @@ struct contact_item : virtual public infant_item
 }
 }
 
-#endif // CONTACT_ITEM_H
+#endif // CONTACT_ITEM_HPP

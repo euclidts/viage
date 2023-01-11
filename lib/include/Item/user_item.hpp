@@ -8,11 +8,11 @@ namespace Data
 {
 namespace People
 {
-struct user_item : virtual public person_item
+struct user_item : virtual public person_item<user_item>
 {
     user_item();
 
-    const char* key() const noexcept override { return "user"; };
+    static const constexpr char* key() noexcept { return "user"; };
 
     enum clearances
     {

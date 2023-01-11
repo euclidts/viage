@@ -4,15 +4,14 @@ add_library(${PROJECT_NAME} STATIC)
 
 target_sources(${PROJECT_NAME}
     PRIVATE
-    src/base_data.cpp
+    include/base_data.hpp
     include/item_list.hpp
     src/Item/address_item.cpp
-    src/Item/person_item.cpp
     src/Item/senior_citizen_item.cpp
     src/Item/user_item.cpp
-    src/Item/infant_item.cpp
+    include/Item/infant_item.hpp
     src/Item/contact_item.cpp
-    src/Item/person_item.cpp
+    include/Item/person_item.hpp
     src/Item/owner_item.cpp
     src/Item/habitat_item.cpp
     src/Item/exterior_item.cpp

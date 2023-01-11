@@ -63,15 +63,14 @@ set(PROJECT_SOURCES
     Model/account_filter_model.cpp
     Model/document_filter_model.cpp
     Model/user_filter_model.cpp
-    Data/c_base_data.cpp
+    Data/c_base_data.hpp
     Data/c_list.hpp
     Data/Item/c_address.cpp
-    Data/Item/c_person.cpp
+    Data/Item/c_person.hpp
     Data/Item/c_senior_citizen.cpp
     Data/Item/c_user.cpp
-    Data/Item/c_infant.cpp
+    Data/Item/c_infant.hpp
     Data/Item/c_contact.cpp
-    Data/Item/c_person.cpp
     Data/Item/c_owner.cpp
     Data/Item/c_habitat.cpp
     Data/Item/c_exterior.cpp

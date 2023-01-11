@@ -15,12 +15,11 @@ struct address_item;
 
 namespace People
 {
-
-struct owner_item : virtual public infant_item
+struct owner_item : virtual public infant_item<owner_item>
 {
     owner_item();
 
-    const char* key() const noexcept override { return "owner"; };
+    static const constexpr char* key() noexcept { return "owner"; };
 
     Places::address_item* address;
     std::string birthDay{""};

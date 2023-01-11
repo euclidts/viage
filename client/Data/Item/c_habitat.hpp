@@ -10,7 +10,7 @@ namespace Data
 namespace Places
 {
 class c_habitat : public habitat_item
-                , public c_base_data
+                , public c_base_data<habitat_item>
 {
     W_OBJECT(c_habitat)
 

@@ -1,3 +1,4 @@
+#pragma once
 #include <wobjectimpl.h>
 
 #include "c_base_data.hpp"
@@ -5,15 +6,17 @@
 
 namespace Data
 {
-W_OBJECT_IMPL(c_base_data)
+W_OBJECT_IMPL(c_base_data<T>, template <typename T>)
 
-c_base_data::c_base_data(QObject* parent)
+template <typename T>
+c_base_data<T>::c_base_data(QObject* parent)
     : QObject{parent}
-    , base_data{}
+    , base_data<T>{}
 {
 }
 
-const QByteArray c_base_data::toData(const char* parentKey, int parentId)
+template <typename T>
+const QByteArray c_base_data<T>::toData(const char* parentKey, int parentId)
 {
     std::string str{parentKey};
     str.append("Id");
@@ -21,27 +24,30 @@ const QByteArray c_base_data::toData(const char* parentKey, int parentId)
     Json::Value data;
     data[str] = parentId;
 
-    writeWithKey(data);
+    writeWithKey<T>(data);
 
     return Utils::to_QByteArray(data);
 }
 
-const QByteArray c_base_data::toData(int parentId)
+template <typename T>
+const QByteArray c_base_data<T>::toData(int parentId)
 {
     Json::Value data;
     data["Id"] = parentId;
 
-    writeWithKey(data);
+    base_data<T>::writeWithKey(data);
 
     return Utils::to_QByteArray(data);
 }
 
-bool c_base_data::getCompleted() const
+template <typename T>
+bool c_base_data<T>::getCompleted() const
 {
     return completed;
 }
 
-void c_base_data::setCompleted(bool newCompleted)
+template <typename T>
+void c_base_data<T>::setCompleted(bool newCompleted)
 {
     if (completed == newCompleted)
         return;

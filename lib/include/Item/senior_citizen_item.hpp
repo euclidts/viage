@@ -12,11 +12,11 @@ namespace People
 #define AGE_MIN 70
 #define AGE_MAX 120
 
-struct senior_citizen_item : virtual public base_data
+struct senior_citizen_item : virtual public base_data<senior_citizen_item>
 {
     senior_citizen_item();
 
-    const char* key() const noexcept override { return "seniorCitizen"; };
+    static const constexpr char* key() noexcept { return "seniorCitizen"; };
 
     enum sexes{ M, F };
 

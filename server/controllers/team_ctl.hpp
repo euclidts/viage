@@ -12,9 +12,9 @@ class team_ctl : public HttpController<team_ctl>
 {
 public:
     METHOD_LIST_BEGIN
-    ADD_METHOD_TO(team_ctl::insert, "/Companies/{}/Teams", Post);
-    ADD_METHOD_TO(team_ctl::select, "/Companies/{}/Teams", Get);
-    ADD_METHOD_TO(team_ctl::update, "/Companies/{}/Teams", Put);
+    ADD_METHOD_TO(team_ctl::insert, "/companies/{}/teams", Post);
+    ADD_METHOD_TO(team_ctl::select, "/companies/{}/teams", Get);
+    ADD_METHOD_TO(team_ctl::update, "/companies/{}/teams", Put);
     METHOD_LIST_END
 
     void insert(const HttpRequestPtr& req,

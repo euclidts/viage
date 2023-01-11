@@ -14,15 +14,6 @@ void company_ctl::insert(const HttpRequestPtr& req,
     s_company cmp;
     cmp.read(*req->jsonObject());
 
-//    if (cmp.insert().empty())
-//    {
-//        drogon::HttpResponsePtr resp;
-//        resp->setStatusCode(drogon::k500InternalServerError);
-//        callback(resp);
-
-//        return;
-//    }
-
     server::server::get().insert(req,
                                  callback,
                                  cmp);

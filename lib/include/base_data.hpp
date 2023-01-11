@@ -5,11 +5,10 @@
 
 namespace Data
 {
+template <typename T>
 class base_data
 {
 public:
-    virtual const char* key() const noexcept { return {}; };
-
     virtual void read(const Json::Value& json) {};
     virtual void write(Json::Value& json) const {};
 
@@ -17,10 +16,19 @@ public:
     virtual void clear() {};
 
 protected:
-    explicit base_data();
+    explicit base_data() {};
 
-    virtual void writeWithKey(Json::Value& json) const;
+    virtual void writeWithKey(Json::Value& json) const
+    {
+        Json::Value obj;
+        write(obj);
+
+        json[get_key()] = obj;
+    }
+
+private:
+    static const constexpr char* get_key() noexcept { return T::key(); };
 };
-
 }
+
 #endif // BASE_DATA_HPP

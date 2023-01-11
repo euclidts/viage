@@ -8,7 +8,8 @@ namespace Data
 {
 namespace People
 {
-struct s_person : virtual public person_item
+template <typename T>
+struct s_person : virtual public person_item<T>
 {
     void read(const nanodbc::result& res);
 
@@ -21,4 +22,5 @@ protected:
 }
 }
 
+#include "s_person.cpp"
 #endif // S_PERSON_HPP

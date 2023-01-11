@@ -11,7 +11,7 @@ namespace Data
 namespace People
 {
 struct c_owner : public owner_item,
-                 public c_infant
+                 public c_infant<owner_item>
 {
     c_owner();
 

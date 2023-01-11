@@ -8,7 +8,8 @@ namespace Data
 {
 namespace People
 {
-struct c_person : virtual public person_item
+template <typename T>
+struct c_person : virtual public person_item<T>
 {
     static const constexpr auto uri{"People"};
 
@@ -33,4 +34,5 @@ protected:
 }
 }
 
+#include "c_person.cpp"
 #endif // C_PERSON_HPP

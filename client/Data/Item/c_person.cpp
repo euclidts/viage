@@ -1,3 +1,4 @@
+#pragma once
 #include <QVariant>
 
 #include "c_person.hpp"
@@ -9,12 +10,14 @@ namespace Data
 {
 namespace People
 {
-c_person::c_person()
-    : person_item{}
+template <typename T>
+c_person<T>::c_person()
+    : person_item<T>{}
 {
 }
 
-QHash<int, QByteArray> c_person::roleNames()
+template <typename T>
+QHash<int, QByteArray> c_person<T>::roleNames()
 {
     QHash<int, QByteArray> names;
 
@@ -27,40 +30,42 @@ QHash<int, QByteArray> c_person::roleNames()
     return names;
 }
 
-QVariant c_person::data(int role) const
+template <typename T>
+QVariant c_person<T>::data(int role) const
 {
     switch (role)
     {
     case IdRole:
-        return QVariant(id);
+        return QVariant(person_item<T>::id);
     case FirstNameRole:
-        return to_QString(firstName);
+        return to_QString(person_item<T>::firstName);
     case LastNameRole:
-        return to_QString(lastName);
+        return to_QString(person_item<T>::lastName);
     case PhoneRole:
-        return to_QString(phone);
+        return to_QString(person_item<T>::phone);
     case EmailRole:
-        return to_QString(eMail);
+        return to_QString(person_item<T>::eMail);
     }
 
     return QVariant();
 }
 
-void c_person::setData(const QVariant &value, int role)
+template <typename T>
+void c_person<T>::setData(const QVariant &value, int role)
 {
     switch (role)
     {
     case FirstNameRole:
-        firstName = value.toString().toStdString();
+        person_item<T>::firstName = value.toString().toStdString();
         break;
     case LastNameRole:
-        lastName = value.toString().toStdString();
+        person_item<T>::lastName = value.toString().toStdString();
         break;
     case PhoneRole:
-        phone = value.toString().toStdString();
+        person_item<T>::phone = value.toString().toStdString();
         break;
     case EmailRole:
-        eMail = value.toString().toStdString();
+        person_item<T>::eMail = value.toString().toStdString();
         break;
     }
 }

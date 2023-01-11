@@ -7,7 +7,7 @@
 
 namespace Data
 {
-class c_rent : public c_base_data
+class c_rent : public c_base_data<rent_item>
              , public rent_item
 {
 W_OBJECT(c_rent)

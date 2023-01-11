@@ -10,7 +10,7 @@ namespace Data
 namespace People
 {
 struct c_contact : public contact_item
-                 , public c_infant
+                 , public c_infant<contact_item>
 {   
     c_contact();
 

@@ -9,11 +9,10 @@ namespace Data
 {
 namespace People
 {
-struct c_infant : public virtual infant_item
-                , public c_person
+template <typename T>
+struct c_infant : public virtual infant_item<T>
+                , public c_person<T>
 {   
-    c_infant();
-
     enum roles
     {
         // following infant_item roles
@@ -25,13 +24,17 @@ struct c_infant : public virtual infant_item
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    void read(const Json::Value& json) { infant_item::read(json); }
-    void write(Json::Value& json) const { infant_item::write(json); }
+    void read(const Json::Value& json) { infant_item<T>::read(json); }
+    void write(Json::Value& json) const { infant_item<T>::write(json); }
 
-    bool is_completed() const { return infant_item::is_completed(); };
+    bool is_completed() const { return infant_item<T>::is_completed(); };
+
+protected:
+    c_infant();
 };
 
 }
 }
 
+#include "c_infant.cpp"
 #endif // C_INFANT_HPP
