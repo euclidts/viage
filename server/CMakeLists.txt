@@ -9,14 +9,17 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     nanodbc
-    Drogon::Drogon)
+    Drogon::Drogon
+    ${CMAKE_BINARY_DIR}/lib/libviage.a
+    ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.a
+)
 
 include_directories(Data Data/Item)
 
 set(TEMPLATE_SRC
     Data/s_list.hpp
     Data/Item/s_person.hpp
-#    controllers/list_ctl.hpp
+    controllers/list_ctl.hpp
 )
 
 set(SRC
@@ -28,7 +31,6 @@ set(SRC
     Data/Item/s_user.cpp
 )
 
-#aux_source_directory(Data/Item ITEM_SRC)
 aux_source_directory(controllers CTL_SRC)
 aux_source_directory(filters FILTER_SRC)
 aux_source_directory(plugins PLUGIN_SRC)
@@ -41,7 +43,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_sources(${PROJECT_NAME} PRIVATE
     ${SRC}
     ${TEMPLATE_SRC}
-    ${ITEM_SRC}
     ${SRC_DIR}
     ${CTL_SRC}
     ${FILTER_SRC}
@@ -49,13 +50,3 @@ target_sources(${PROJECT_NAME} PRIVATE
     ${MODEL_SRC})
 
 #add_subdirectory(test)
-
-if(UNIX OR MINGW)
-    target_link_libraries(${PROJECT_NAME} PRIVATE
-        ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.a
-        ${CMAKE_BINARY_DIR}/lib/libviage.a)
-elseif()
-    target_link_libraries(${PROJECT_NAME} PRIVATE
-        ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.lib
-        ${CMAKE_BINARY_DIR}/lib/libviage.lib)
-endif()
