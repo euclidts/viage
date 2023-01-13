@@ -7,16 +7,9 @@ namespace Data
 {
 namespace People
 {
-void team_ctl::insert(const HttpRequestPtr& req,
-                      std::function<void (const HttpResponsePtr&)>&& callback,
-                      int parentId)
-{
-
-}
-
 void team_ctl::select(const HttpRequestPtr& req,
                       std::function<void (const HttpResponsePtr&)>&& callback,
-                      int parentId)
+                      int parentId) const
 {
     LOG_DEBUG << "select team";
 
@@ -29,13 +22,6 @@ void team_ctl::select(const HttpRequestPtr& req,
                                  callback,
                                  list,
                                  &parent);
-}
-
-void team_ctl::update(const HttpRequestPtr& req,
-                      std::function<void (const HttpResponsePtr&)>&& callback,
-                      int parentId)
-{
-
 }
 
 }

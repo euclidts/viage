@@ -1,7 +1,8 @@
 #ifndef S_TEAM_HPP
 #define S_TEAM_HPP
 
-#include <s_user.hpp>
+#include "s_user.hpp"
+#include "s_company.hpp"
 #include <nanodbc/nanodbc.h>
 #include <Item/team_item.hpp>
 
@@ -16,11 +17,12 @@ struct s_team final : public team_item
     int companyId{0};
 
     void read(const nanodbc::result& res);
-    void read(const Json::Value& json) { team_item::read(json); }
+    void read(const Json::Value& json);
 
     const std::string insert(const People::s_user& usr) const;
+    const std::string update(const People::s_user& usr) const;
 
-    template <typename T = std::nullptr_t>
+    template <typename T = s_company>
     static const constexpr std::basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr,
             T* foreign = nullptr)
@@ -30,12 +32,10 @@ struct s_team final : public team_item
 
         return "SELECT * FROM Team "
                "WHERE "
-                + std::string{T::foreign_key} +
-        " = "
+                + std::string{T::foreign_key}
+        + " = "
         + std::to_string(foreign->id);
     }
-
-    const std::string update(const People::s_user& usr) const;
 };
 
 }

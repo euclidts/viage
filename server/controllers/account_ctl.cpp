@@ -6,9 +6,9 @@
 namespace Data
 {
 void account_ctl::insert(const HttpRequestPtr &req,
-                         std::function<void (const HttpResponsePtr&)>&& callback)
+                         std::function<void (const HttpResponsePtr&)>&& callback) const
 {
-    //    LOG_DEBUG << "insert user";
+    LOG_DEBUG << "insert account";
 
     //    s_user usr{};
 
@@ -18,15 +18,11 @@ void account_ctl::insert(const HttpRequestPtr &req,
 }
 
 void account_ctl::select(const HttpRequestPtr& req,
-                         std::function<void (const HttpResponsePtr&)>&& callback)
+                         std::function<void (const HttpResponsePtr&)>&& callback) const
 {
     LOG_DEBUG << "select account";
 
     s_list<s_account> list{};
-
-//    server::server::get().select(req,
-//                                 callback,
-//                                 list);
 
     server::server::get().handle_query(req,
                                        callback,
@@ -87,9 +83,9 @@ void account_ctl::select(const HttpRequestPtr& req,
 }
 
 void account_ctl::update(const HttpRequestPtr& req,
-                         std::function<void (const HttpResponsePtr&)>&& callback)
+                         std::function<void (const HttpResponsePtr&)>&& callback) const
 {
-    //    LOG_DEBUG << "update user";
+    LOG_DEBUG << "update account";
 
     //    Json::Value val{*req->jsonObject()};
     //    s_user usr{};

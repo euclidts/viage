@@ -1,10 +1,12 @@
 #include <drogon/HttpController.h>
+#include <s_account.hpp>
+#include "list_ctl.hpp"
 
 using namespace drogon;
 
 namespace Data
 {
-class account_ctl : public HttpController<account_ctl>
+class account_ctl : public list_ctl<account_ctl, s_account>
 {
 public:
     METHOD_LIST_BEGIN
@@ -14,13 +16,13 @@ public:
     METHOD_LIST_END
 
     void insert(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback);
+                std::function<void (const HttpResponsePtr &)>&& callback) const override;
 
     void select(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback);
+                std::function<void (const HttpResponsePtr &)>&& callback) const override;
 
     void update(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback);
+                std::function<void (const HttpResponsePtr &)>&& callback) const override;
 };
 
 }

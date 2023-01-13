@@ -10,14 +10,8 @@ namespace Data
 template <typename T, typename I>
 struct list_ctl : public HttpController<T>
 {
-//    METHOD_LIST_BEGIN
-//    ADD_METHOD_TO(list_ctl::insert, std::string{"/"} + s_list<I>::key(), Post);
-//    ADD_METHOD_TO(list_ctl::select, std::string{"/"} + s_list<I>::key(), Get);
-//    ADD_METHOD_TO(list_ctl::update, std::string{"/"} + s_list<I>::key(), Put);
-//    METHOD_LIST_END
-
     virtual void insert(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback)
+                std::function<void (const HttpResponsePtr &)>&& callback) const
     {
         LOG_DEBUG << "insert " << I::key();
 
@@ -30,7 +24,7 @@ struct list_ctl : public HttpController<T>
     }
 
     virtual void select(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback)
+                std::function<void (const HttpResponsePtr &)>&& callback) const
     {
         LOG_DEBUG << "select " << I::key();
 
@@ -42,7 +36,7 @@ struct list_ctl : public HttpController<T>
     }
 
     virtual void update(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback)
+                std::function<void (const HttpResponsePtr &)>&& callback) const
     {
         LOG_DEBUG << "update " << I::key();
 

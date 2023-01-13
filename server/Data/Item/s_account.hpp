@@ -17,12 +17,13 @@ struct s_account final : public account_item
     void read(const Json::Value& json) { account_item::read(json); }
 
     const std::string fields() const;
-    const std::string insert() const;
-    const std::string update() const;
+    const std::string insert(const People::s_user &usr) const;
+    const std::string update(const People::s_user &usr) const;
 
     template <typename T = nullptr_t>
     static const constexpr basic_string<char, std::char_traits<char>> select(
-            const People::s_user& usr, T* = nullptr)
+            const People::s_user& usr,
+            T* = nullptr)
     {
         std::string str{};
 

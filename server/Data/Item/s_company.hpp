@@ -7,7 +7,6 @@
 
 namespace Data
 {
-
 struct s_company final : public company_item
 {
     explicit s_company();
@@ -18,6 +17,7 @@ struct s_company final : public company_item
     void read(const Json::Value& json) { company_item::read(json); }
 
     const std::string insert(const People::s_user& usr) const;
+    const std::string update(const People::s_user& usr) const;
 
     template <typename T = std::nullptr_t>
     static const constexpr auto select(const People::s_user& usr, T* = nullptr)
@@ -28,9 +28,6 @@ struct s_company final : public company_item
         return "SELECT * "
                "FROM Company ";
     }
-
-    const std::string update(const People::s_user& usr) const;
-
 };
 
 }

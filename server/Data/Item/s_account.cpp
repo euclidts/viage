@@ -7,7 +7,7 @@ s_account::s_account()
 {
 }
 
-const std::string s_account::insert() const
+const std::string s_account::insert(const People::s_user& usr) const
 {
     return {};
     //    return "INSERT INTO [User] "
@@ -20,7 +20,7 @@ const std::string s_account::insert() const
     //            "') ";
 }
 
-const std::string s_account::update() const
+const std::string s_account::update(const People::s_user& usr) const
 {
     return {};
     //    return "UPDATE [User] SET "

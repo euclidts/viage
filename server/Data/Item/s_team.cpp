@@ -42,6 +42,14 @@ void s_team::read(const nanodbc::result &res)
     catch (...) {}
 }
 
+void s_team::read(const Json::Value &json)
+{
+    team_item::read(json);
+
+    if (json.isMember("CompanyId") && json["CompanyId"].isInt())
+        companyId = json["CompanyId"].asInt();
+}
+
 const std::string s_team::update(const People::s_user& usr) const
 {
     if (usr.clearance < People::s_user::Administrator)

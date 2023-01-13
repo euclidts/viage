@@ -31,19 +31,20 @@ public:
 
     void handle_query(const drogon::HttpRequestPtr& req,
                       std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                      const std::function<bool (Json::Value &, const Data::People::s_user &)> &handler);
+                      const std::function<bool (Json::Value&, const Data::People::s_user&)>& handler);
 
-    template <typename T>
+    template <typename T, typename ...Foreign>
     void insert(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                const T& item)
+                const T& item,
+                Foreign*... foreign)
     {
         handle_query(req,
                      callback,
-                     [this, &item]
+                     [this, &item, ... args = foreign]
                      (Json::Value& json, const Data::People::s_user& usr)
         {
-            const auto query{item.insert(usr)};
+            const auto query{item.insert(usr, args...)};
 
             if (query.empty())
                 return false;
@@ -64,18 +65,18 @@ public:
         });
     }
 
-    template <typename Item, typename Foreign = std::nullptr_t>
+    template <typename T, typename ...Foreign>
     void select(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                Item& item,
-                Foreign* foreign = nullptr)
+                T& item,
+                Foreign*... foreign)
     {
         handle_query(req,
                      callback,
-                     [this, &item, foreign]
+                     [this, &item, ... args = foreign]
                      (Json::Value& json, const Data::People::s_user& usr)
         {
-            const auto query{Item::select(usr, foreign)};
+            const auto query{T::select(usr, args...)};
 
             if (query == "")
                 return false;
@@ -89,18 +90,18 @@ public:
         });
     }
 
-    template <typename T>
+    template <typename T, typename ...Foreign>
     void update(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                const T& item)
-
+                const T& item,
+                Foreign*... foreign)
     {
         handle_query(req,
                      callback,
-                     [this, &item]
+                     [this, &item, ... args = foreign]
                      (Json::Value& json, const Data::People::s_user& usr)
         {
-            const auto query{item.update(usr)};
+            const auto query{item.update(usr, args...)};
 
             if (query.empty())
                 return false;

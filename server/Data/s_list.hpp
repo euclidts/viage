@@ -15,10 +15,10 @@ struct s_list final : public item_list<T>
 
     void read(nanodbc::result& res);
 
-    template <typename Foreign = std::nullptr_t>
-    static const constexpr auto select(const People::s_user& usr, Foreign* f = nullptr)
+    template <typename ...Foreign>
+    static const constexpr auto select(const People::s_user& usr, Foreign*... f)
     {
-        return T::select(usr, f);
+        return T::select(usr, f...);
     }
 };
 

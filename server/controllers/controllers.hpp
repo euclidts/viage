@@ -1,9 +1,9 @@
 #pragma once
 
+#include <drogon/HttpController.h>
 #include "list_ctl.hpp"
 #include <s_company.hpp>
 #include <s_user.hpp>
-#include <drogon/HttpController.h>
 
 using namespace drogon;
 
@@ -11,7 +11,7 @@ namespace Data
 {
 namespace People
 {
-struct company_ctl : public list_ctl<company_ctl, s_company>
+struct company_ctl final : public list_ctl<company_ctl, s_company>
 {
     METHOD_LIST_BEGIN
     ADD_METHOD_TO(company_ctl::insert, "/companies", Post);
@@ -20,7 +20,7 @@ struct company_ctl : public list_ctl<company_ctl, s_company>
     METHOD_LIST_END
 };
 
-struct user_ctl : public list_ctl<user_ctl, s_user>
+struct user_ctl final : public list_ctl<user_ctl, s_user>
 {
     METHOD_LIST_BEGIN
     ADD_METHOD_TO(user_ctl::insert, "/users", Post);
