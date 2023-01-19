@@ -8,7 +8,7 @@ namespace Data
 {
 struct team_item : virtual public base_data<team_item>
 {
-    static const constexpr char* key() noexcept { return "team"; };
+    static const constexpr auto key = "team";
 
     int id{0};
     std::string caption{""};

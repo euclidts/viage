@@ -454,7 +454,7 @@ void bridge::upload_doc(int index)
             StreamWriterBuilder builder;
             int parent_account{accountId};
 
-            mng->putToKey(docs->key(),
+            mng->putToKey(docs->key,
                           QByteArray::fromStdString(writeString(builder, json)),
                           [this, parent_account, doc]
                           (const Value& rep)

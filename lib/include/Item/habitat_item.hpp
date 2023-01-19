@@ -13,7 +13,7 @@ namespace Places
 class habitat_item : virtual public base_data<habitat_item>
 {
 public:
-    static const constexpr char* key() noexcept { return "habitat"; };
+    static const constexpr auto key{"habitat"};
 
     enum habitatTypes
     {

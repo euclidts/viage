@@ -11,7 +11,7 @@ struct item_list;
 
 struct company_item : virtual public base_data<company_item>
 {
-    static const constexpr char* key() noexcept { return "company"; };
+    static const constexpr auto key{"company"};
     static const constexpr auto foreign_key{"CompanyId"};
 
     int id{0};

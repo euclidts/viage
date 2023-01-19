@@ -101,7 +101,7 @@ void server::handle_query(const drogon::HttpRequestPtr& req,
 
         Json::Value json;
 
-        if (handler(json, usr))
+        if (handler(json, usr) && usr.clearance > Data::People::user_item::None)
         {
             resp = drogon::HttpResponse::newHttpJsonResponse(json);
         }

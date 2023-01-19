@@ -11,7 +11,7 @@ namespace Data
 
 struct document_item : virtual public base_data<document_item>
 {
-    static const constexpr char* key() noexcept { return "document"; };
+    static const constexpr auto key{"document"};
 
     enum categories
     {

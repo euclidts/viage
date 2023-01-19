@@ -17,7 +17,7 @@ namespace People
 {
 struct owner_item : virtual public infant_item<owner_item>
 {
-    static const constexpr char* key() noexcept { return "owner"; };
+    static const constexpr auto key{"owner"};
 
     Places::address_item* address;
     std::string birthDay{""};

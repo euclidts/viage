@@ -14,7 +14,7 @@ namespace People
 
 struct senior_citizen_item : virtual public base_data<senior_citizen_item>
 {
-    static const constexpr char* key() noexcept { return "seniorCitizen"; };
+    static const constexpr auto key{"seniorCitizen"};
 
     enum sexes{ M, F };
 

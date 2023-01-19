@@ -19,8 +19,7 @@ struct s_company final : public company_item
     const std::string insert(const People::s_user& usr) const;
     const std::string update(const People::s_user& usr) const;
 
-    template <typename T = std::nullptr_t>
-    static const constexpr auto select(const People::s_user& usr, T* = nullptr)
+    static const constexpr auto select(const People::s_user& usr)
     {
         if (usr.clearance < People::s_user::Administrator)
             return "";

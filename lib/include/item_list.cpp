@@ -68,7 +68,7 @@ void item_list<T>::writeWithKey(Json::Value& json) const
     Json::Value array;
     write(array);
 
-    json[this->key()] = array;
+    json[this->key] = array;
 }
 
 template<typename T>

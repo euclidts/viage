@@ -10,27 +10,29 @@ namespace Data
 template <typename T>
 class item_list : public virtual base_data<item_list<T>>
 {
+    static const constexpr auto set_key() noexcept
+    {
+        std::string tmp_str = T::key;
+
+        if (tmp_str.back() == 'y')
+        {
+            tmp_str.pop_back();
+            tmp_str += "ie";
+        }
+
+        tmp_str += 's';
+
+        auto key_str = new char[tmp_str.length() + 1];
+        strcpy(key_str, tmp_str.c_str());
+        return key_str;
+    };
+
 public:
     item_list();
 
     int size() const;
 
-    static const constexpr char* key() noexcept
-    {
-        std::string str{T::key()};
-
-        if (str.back() == 'y')
-        {
-            str.pop_back();
-            str += "ie";
-        }
-
-        str += 's';
-
-        auto key_str = new char[str.length() + 1];
-        strcpy(key_str, str.c_str());
-        return key_str;
-    };
+    static const inline auto key{set_key()};
 
     void set_list(const std::vector<T>& list);
     T item_at_id(int id) const;

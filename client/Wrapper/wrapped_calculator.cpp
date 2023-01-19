@@ -30,7 +30,7 @@ wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
                   this,
                   &wrapped_calculator::write_to_file);
 
-    context->setContextProperty(c_rent::key(), rent);
+    context->setContextProperty(c_rent::key, rent);
 
     QFile rcs(":/data/calcul.docx");
 

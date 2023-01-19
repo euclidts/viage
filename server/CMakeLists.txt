@@ -19,16 +19,21 @@ include_directories(Data Data/Item)
 set(TEMPLATE_SRC
     Data/s_list.hpp
     Data/Item/s_person.hpp
+    Data/Item/s_infant.hpp
     controllers/list_ctl.hpp
+    controllers/nested_item_ctl.hpp
+    controllers/nested_list_ctl.hpp
 )
 
 set(SRC
     server.cpp
+    server_utils.cpp
     Data/Item/s_account.cpp
     Data/Item/s_address.cpp
     Data/Item/s_company.cpp
     Data/Item/s_team.cpp
     Data/Item/s_user.cpp
+    Data/Item/s_contact.cpp
 )
 
 aux_source_directory(controllers CTL_SRC)

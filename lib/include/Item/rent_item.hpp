@@ -9,7 +9,7 @@ namespace Data
 class rent_item : virtual public base_data<rent_item>
 {
 public:
-    static const constexpr char* key() noexcept { return "rent"; };
+    static const constexpr auto key{"rent"};
 
     void from_expectency(double expectency);
     int floor_to(double number, int multiple) const;

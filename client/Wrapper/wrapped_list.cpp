@@ -22,7 +22,7 @@ wrapped_list<Inner>::wrapped_list(Interface::netManager* manager,
 template<typename Inner>
 void wrapped_list<Inner>::get() const
 {
-    this->mng->getFromKey(this->inner->key(),
+    this->mng->getFromKey(this->inner->key,
                           [this](const QByteArray& bytes)
     {
         this->inner->read(to_Json(bytes));
@@ -42,9 +42,9 @@ void wrapped_list<Inner>::makeConnections() const
         item.write(obj);
 
         Json::Value json;
-        json[item.key()] = obj;
+        json[item.key] = obj;
 
-        this->mng->putToKey(this->inner->key(),
+        this->mng->putToKey(this->inner->key,
                             to_QByteArray(json),
                             [this](const Json::Value& rep)
         {},
@@ -56,7 +56,7 @@ void wrapped_list<Inner>::makeConnections() const
                   this,
                   [this] ()
     {
-        this->mng->postToKey(this->inner->key(),
+        this->mng->postToKey(this->inner->key,
                              QByteArray{},
                              [this](const Json::Value& rep)
         { this->inner->appendWith(rep); },
@@ -75,7 +75,7 @@ void wrapped_list<Inner>::makeConnections() const
         Json::Reader reader;
         reader.parse(data.toStdString(), val);
 
-        this->mng->postToKey(this->inner->key(),
+        this->mng->postToKey(this->inner->key,
                              data,
                              [this, val](const Json::Value& res)
         {
@@ -102,7 +102,7 @@ void wrapped_list<Inner>::connectRemove() const
         Json::Value json;
         json["id"] = id;
 
-        this->mng->deleteToKey(this->inner->key(),
+        this->mng->deleteToKey(this->inner->key,
                                to_QByteArray(json),
                                [this, id](const Json::Value& rep) {},
         "Remove Error");

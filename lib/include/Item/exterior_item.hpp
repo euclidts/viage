@@ -11,7 +11,7 @@ namespace Places
 class exterior_item : virtual public base_data<exterior_item>
 {
 public:
-    static const constexpr char* key() noexcept { return "exterior"; };
+    static const constexpr auto key{"exterior"};
 
     enum parkingTypes
     {

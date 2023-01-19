@@ -23,11 +23,8 @@ protected:
         Json::Value obj;
         write(obj);
 
-        json[get_key()] = obj;
+        json[T::key] = obj;
     }
-
-private:
-    static const constexpr char* get_key() noexcept { return T::key(); };
 };
 }
 

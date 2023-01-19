@@ -29,7 +29,7 @@ using namespace Json;
 
 struct account_item : virtual public base_data<account_item>
 {
-    static const constexpr char* key() noexcept { return "account"; };
+    static const constexpr auto key{"account"};
     static const constexpr auto foreign_key{"AccountId"};
 
     Value owners{};

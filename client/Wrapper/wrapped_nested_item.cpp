@@ -14,9 +14,9 @@ wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Interface::netManager* ma
 template<typename Inner, typename Outer>
 std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::c_list<Outer>* parentList)
 {
-    std::string newkey = parentList->key();
+    std::string newkey = parentList->key;
     newkey.append("/");
-    newkey.append(this->inner->key());
+    newkey.append(this->inner->key);
 
     return newkey;
 }
@@ -24,11 +24,11 @@ std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::c_list<Outer>* pare
 template<typename Inner, typename Outer>
 std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::c_list<Outer>* parentList, int id)
 {
-    std::string newkey = parentList->key();
+    std::string newkey = parentList->key;
     newkey.append("/");
     newkey.append(std::to_string(id));
     newkey.append("/");
-    newkey.append(this->inner->key());
+    newkey.append(this->inner->key);
 
     return newkey;
 }

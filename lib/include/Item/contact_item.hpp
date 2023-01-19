@@ -9,7 +9,7 @@ namespace People
 {
 struct contact_item : virtual public infant_item<contact_item>
 {   
-    static const constexpr char* key() noexcept { return "contact"; };
+    static const constexpr auto key{"contact"};
     static const constexpr auto table{"Contact"};
 
     bool isInfant{false};

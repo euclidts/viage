@@ -1,7 +1,6 @@
 #ifndef S_USER_HPP
 #define S_USER_HPP
 
-#include <nanodbc/nanodbc.h>
 #include "s_person.hpp"
 #include "s_address.hpp"
 #include <Item/user_item.hpp>
@@ -27,8 +26,7 @@ struct s_user final : public user_item
     const std::string insert(const People::s_user& usr) const;
     const std::string update(const s_user &usr) const;
 
-    template <typename T = std::nullptr_t>
-    static const constexpr auto select(const People::s_user& usr, T* = nullptr)
+    static const constexpr auto select(const People::s_user& usr)
     {
         if (usr.clearance < People::s_user::Administrator)
             return "";

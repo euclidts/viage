@@ -7,12 +7,12 @@ s_team::s_team()
 {
 }
 
-const std::string s_team::insert(const People::s_user& usr) const
+const std::string s_team::insert(const People::s_user& usr, s_company* foreign) const
 {
     if (usr.clearance < People::s_user::Administrator)
         return {};
 
-    if (caption == "" || companyId <= 0)
+    if (caption == "" || foreign)
         return {};
 
     return "INSERT INTO Team "
@@ -21,8 +21,20 @@ const std::string s_team::insert(const People::s_user& usr) const
            "VALUES ('"
             + caption +
             "', '"
-            + std::to_string(companyId) +
+            + std::to_string(foreign->id) +
             "') ";
+}
+
+const std::string s_team::update(const People::s_user& usr, s_company* foreign) const
+{
+    if (usr.clearance < People::s_user::Administrator)
+        return {};
+
+    return "UPDATE Company SET "
+           "caption = '"
+            + caption +
+            "' WHERE Id = "
+            + std::to_string(id);
 }
 
 void s_team::read(const nanodbc::result &res)
@@ -48,18 +60,6 @@ void s_team::read(const Json::Value &json)
 
     if (json.isMember("CompanyId") && json["CompanyId"].isInt())
         companyId = json["CompanyId"].asInt();
-}
-
-const std::string s_team::update(const People::s_user& usr) const
-{
-    if (usr.clearance < People::s_user::Administrator)
-        return {};
-
-    return "UPDATE Company SET "
-           "caption = '"
-            + caption +
-            "' WHERE Id = "
-            + std::to_string(id);
 }
 
 }

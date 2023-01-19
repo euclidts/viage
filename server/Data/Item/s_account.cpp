@@ -33,10 +33,6 @@ const std::string s_account::insert(const People::s_user& usr) const
 const std::string s_account::update(const People::s_user& usr) const
 {
     return {};
-    //    return "UPDATE [User] SET "
-    //            + fields() +
-    //            " WHERE Id = "
-    //            + std::to_string(id);
 }
 
 void s_account::read(nanodbc::result& res)
@@ -114,26 +110,6 @@ void s_account::read(nanodbc::result& res)
 
     //    remove_multiple(res);
 }
-
-const std::string s_account::fields() const
-{
-    return {};
-    //    return sa.fields() +
-    //            ", "
-    //            + s_person::fields() +
-    //            ", CompanyId = "
-    //            + std::to_string(company_id) +
-    //            ", TeamId = "
-    //            + std::to_string(team_id) +
-    //            ", Beneficiary = '"
-    //            + beneficiary +
-    //            "', Iban = '"
-    //            + iban +
-    //            "', Bic = '"
-    //            + bic +
-    //            "'";
-}
-
 
 //void s_account::remove_multiple(nanodbc::result& res)
 //{

@@ -19,20 +19,21 @@ struct s_team final : public team_item
     void read(const nanodbc::result& res);
     void read(const Json::Value& json);
 
-    const std::string insert(const People::s_user& usr) const;
-    const std::string update(const People::s_user& usr) const;
+    const std::string insert(const People::s_user& usr,
+                             s_company* foreign = nullptr) const;
+    const std::string update(const People::s_user& usr,
+                             s_company* foreign = nullptr) const;
 
-    template <typename T = s_company>
     static const constexpr std::basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr,
-            T* foreign = nullptr)
+            s_company* foreign = nullptr)
     {
         if (usr.clearance < People::s_user::Administrator && !foreign)
             return "";
 
         return "SELECT * FROM Team "
                "WHERE "
-                + std::string{T::foreign_key}
+                + std::string{foreign->foreign_key}
         + " = "
         + std::to_string(foreign->id);
     }

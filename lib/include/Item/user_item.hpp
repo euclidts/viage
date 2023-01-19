@@ -10,7 +10,7 @@ namespace People
 {
 struct user_item : virtual public person_item<user_item>
 {
-    static const constexpr char* key() noexcept { return "user"; };
+    static const constexpr auto key{"user"};
 
     enum clearances
     {
