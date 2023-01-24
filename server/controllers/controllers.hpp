@@ -3,8 +3,8 @@
 #include <drogon/HttpController.h>
 #include "list_ctl.hpp"
 #include "nested_item_ctl.hpp"
-//#include "nested_list_ctl.hpp"
-//#include <s_contact.hpp>
+#include "nested_list_ctl.hpp"
+#include <s_contact.hpp>
 #include <s_team.hpp>
 #include <s_company.hpp>
 #include <s_user.hpp>
@@ -15,15 +15,14 @@ namespace Data
 {
 namespace People
 {
-
-//struct contact_ctl final : public nested_list_ctl<contact_ctl, s_contact, s_account>
-//{
-//    METHOD_LIST_BEGIN
+struct contact_ctl final : public nested_list_ctl<contact_ctl, s_contact, s_account>
+{
+    METHOD_LIST_BEGIN
 //    ADD_METHOD_TO(contact_ctl::insert, "/accounts/contacts", Post);
-//    ADD_METHOD_TO(contact_ctl::select, "/accounts/{}/contacts", Get);
-//    ADD_METHOD_TO(contact_ctl::update, "/accounts/contacts", Put);
-//    METHOD_LIST_END
-//};
+    ADD_METHOD_TO(contact_ctl::select, "/accounts/{}/contacts", Get);
+//    ADD_METHOD_TO(contact_ctl::update_from, "/accounts/contacts", Put);
+    METHOD_LIST_END
+};
 
 struct company_ctl final : public list_ctl<company_ctl, s_company>
 {

@@ -35,7 +35,7 @@ const std::string s_user::update(const People::s_user& usr) const
     return "UPDATE [User] SET "
             + fields() +
             " WHERE Id = "
-            + std::to_string(user_item::id);
+            + std::to_string(id);
 }
 
 void s_user::read(const nanodbc::result& res)

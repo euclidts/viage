@@ -34,6 +34,7 @@ set(SRC
     Data/Item/s_team.cpp
     Data/Item/s_user.cpp
     Data/Item/s_contact.cpp
+    Data/Item/s_owner.cpp
 )
 
 aux_source_directory(controllers CTL_SRC)

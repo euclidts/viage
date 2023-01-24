@@ -14,6 +14,10 @@ struct s_list final : public item_list<T>
     s_list();
 
     void read(nanodbc::result& res);
+    void read(const Json::Value& json) { item_list<T>::read(json); };
+
+    template <typename ...Foreign>
+    const std::string update(const People::s_user& usr, Foreign*... f) const;
 
     template <typename ...Foreign>
     static const constexpr auto select(const People::s_user& usr, Foreign*... f)

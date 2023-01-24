@@ -24,4 +24,16 @@ void s_list<T>::read(nanodbc::result& res)
     this->set_list(vec);
 }
 
+template<typename T>
+template<typename ...Foreign>
+const std::string s_list<T>::update(const People::s_user &usr, Foreign*... f) const
+{
+    std::string str{};
+
+    for (const auto& item : item_list<T>::m_items)
+        str += item.update(usr, f...);
+
+    return str;
+}
+
 }

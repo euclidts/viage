@@ -1,23 +1,22 @@
-#ifndef S_CONTACT_HPP
-#define S_CONTACT_HPP
+#ifndef S_OWNER_HPP
+#define S_OWNER_HPP
 
 #include "s_account.hpp"
 #include "s_infant.hpp"
-#include "s_user.hpp"
 #include <server_utils.hpp>
-#include <Item/contact_item.hpp>
+#include <Item/owner_item.hpp>
 
 namespace Data
 {
 namespace People
 {
-struct s_contact final : public contact_item
-                       , public s_infant<contact_item>
+struct s_owner final : public owner_item
+                     , public s_infant<owner_item>
 {
-    s_contact();
+    s_owner();
 
     void read(const nanodbc::result& res);
-    void read(const Json::Value& json) { contact_item::read(json); }
+    void read(const Json::Value& json) { owner_item::read(json); }
 
     const std::string insert(const s_user& usr, s_account* acnt = nullptr) const;
 
@@ -39,9 +38,12 @@ struct s_contact final : public contact_item
                "[User] u "
                "WHERE b.InfantAccountId = "
                 + std::to_string(acnt->id) +
-               " AND b.OwnerType = 'Contact' "
+               " AND b.OwnerType = 'Owner' "
                 + server::utils::clearance_close(usr);
     };
+
+private:
+    Places::s_address ads;
 };
 
 }
