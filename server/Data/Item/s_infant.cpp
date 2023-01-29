@@ -13,9 +13,9 @@ s_infant<T>::s_infant()
 }
 
 template <typename T>
-void s_infant<T>::read(const nanodbc::result& res)
+void s_infant<T>::set(const nanodbc::result& res)
 {
-    s_person<T>::read(res);
+    s_person<T>::set(res);
 
     try
     {

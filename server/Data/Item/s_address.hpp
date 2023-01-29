@@ -13,7 +13,7 @@ struct s_address final
 {
     explicit s_address(address_item* ai);
 
-    void read(const nanodbc::result& res);
+    void set(const nanodbc::result& res);
     const std::string fields() const;
 
 protected:

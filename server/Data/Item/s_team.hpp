@@ -16,7 +16,7 @@ struct s_team final : public team_item
 
     int companyId{0};
 
-    void read(const nanodbc::result& res);
+    void set(const nanodbc::result& res);
     void read(const Json::Value& json);
 
     const std::string insert(const People::s_user& usr,

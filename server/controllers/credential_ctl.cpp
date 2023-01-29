@@ -59,7 +59,7 @@ void credential_ctl::auth(const HttpRequestPtr& req,
                         == getMd5(password))
                 {
                     s_user usr{};
-                    usr.read(users);
+                    usr.set(users);
                     usr.last_access = trantor::Date::date();
 
                     server::server::get().add_connected_user(usr, uuid);

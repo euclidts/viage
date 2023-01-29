@@ -38,9 +38,9 @@ const std::string s_user::update(const People::s_user& usr) const
             + std::to_string(id);
 }
 
-void s_user::read(const nanodbc::result& res)
+void s_user::set(const nanodbc::result& res)
 {
-    s_person::read(res);
+    s_person::set(res);
 
     try
     {
@@ -70,7 +70,7 @@ void s_user::read(const nanodbc::result& res)
     }
     catch (...) {}
 
-    sa.read(res);
+    sa.set(res);
 
     try
     {

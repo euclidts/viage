@@ -12,7 +12,7 @@ s_person<T>::s_person()
 }
 
 template <typename T>
-void s_person<T>::read(const nanodbc::result& res)
+void s_person<T>::set(const nanodbc::result& res)
 {
     try
     {

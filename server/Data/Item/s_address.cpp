@@ -10,7 +10,7 @@ s_address::s_address(address_item* ai)
 {
 }
 
-void s_address::read(const nanodbc::result &res)
+void s_address::set(const nanodbc::result &res)
 {
     try
     {

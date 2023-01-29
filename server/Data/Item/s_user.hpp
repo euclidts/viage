@@ -19,8 +19,7 @@ struct s_user final : public user_item
 
     trantor::Date last_access;
 
-    void read(const nanodbc::result& res);
-    void read(const Json::Value& json) { user_item::read(json); }
+    void set(const nanodbc::result& res);
 
     const std::string fields() const;
     const std::string insert(const People::s_user& usr) const;

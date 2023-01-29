@@ -11,9 +11,9 @@ s_owner::s_owner()
 {
 }
 
-void s_owner::read(const nanodbc::result& res)
+void s_owner::set(const nanodbc::result& res)
 {
-    s_infant::read(res);
+    s_infant::set(res);
 
     try
     {
@@ -40,62 +40,43 @@ void s_owner::read(const nanodbc::result& res)
     }
     catch (...) {}
 
-    ads.read(res);
+    ads.set(res);
 }
 
 const string s_owner::insert(const s_user& usr, s_account* acnt) const
 {
     const auto date{trantor::Date::date().toDbStringLocal()};
 
-    return "IF EXISTS "
-           "(SELECT "
-           "a.Id "
-           "FROM Account a, "
-           "[User] u, "
-           "Company c "
-           "WHERE a.Id = "
-            + std::to_string(acnt->id) +
-            "AND u.id = a.AdvisorId "
-            "AND c.id = u.CompanyId "
-            "AND u.TeamId = 2 "
-            + server::utils::clearance_close(usr) +
-            ") BEGIN "
-            "INSERT INTO BaseOwner "
-            "(OwnerType, Sex, OwnerAccountId) "
-            "OUTPUT inserted.id "
-            "VALUES('Owner', "
-            + std::to_string(sex) +
-            ", "
-            + std::to_string(acnt->id) +
-            "); UPDATE Account "
-            "SET UpdateDate = '"
-            + date +
-            "' WHERE Id = "
-            + std::to_string(acnt->id) +
-            " END ";
+    std::string str{"INSERT INTO BaseOwner "
+                    "(OwnerType, Sex, OwnerAccountId) "
+                    "OUTPUT inserted.id "
+                    "VALUES('Owner', "
+                    + std::to_string(sex) +
+                ", "
+                + std::to_string(acnt->id) +
+                "); UPDATE Account "
+                "SET UpdateDate = '"
+                + date +
+                "' WHERE Id = "
+                + std::to_string(acnt->id)};
+
+    acnt->enclose_condition(str, usr, acnt);
+
+    return str;
 }
 
 const string s_owner::update(const s_user& usr, s_account* acnt) const
 {
-    return "IF EXISTS "
-           "(SELECT "
-           "a.Id "
-           "FROM Account a, "
-           "[User] u, "
-           "Company c "
-           "WHERE a.Id = "
-            + std::to_string(acnt->id) +
-            "AND u.id = a.AdvisorId "
-            "AND c.id = u.CompanyId "
-            "AND u.TeamId = 2 "
-            + server::utils::clearance_close(usr) +
-            ") INSERT INTO BaseOwner "
-            "(OwnerType, Sex, OwnerAccountId) "
-            "OUTPUT inserted.id "
-            "VALUES('Owner', "
-            + std::to_string(sex) +
-            ", "
-            + std::to_string(acnt->id);
+    return "UPDATE BaseOwner SET "
+            + s_infant::fields() +
+            " , BirthDay = '"
+            + birthDay +
+            "' , CivilStatus = "
+            + std::to_string(civilStatus) +
+            " , AVS = '"
+            + avs +
+            "' WHERE Id = "
+            + std::to_string(id);
 }
 
 }

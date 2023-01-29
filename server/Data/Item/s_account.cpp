@@ -35,7 +35,7 @@ const std::string s_account::update(const People::s_user& usr) const
     return {};
 }
 
-void s_account::read(nanodbc::result& res)
+void s_account::set(nanodbc::result& res)
 {
     try
     {

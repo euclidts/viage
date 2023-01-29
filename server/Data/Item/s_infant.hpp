@@ -13,7 +13,7 @@ template <typename T>
 struct s_infant : virtual public infant_item<T>
                 , public s_person<T>
 {
-    void read(const nanodbc::result& res);
+    void set(const nanodbc::result& res);
 
 protected:
     s_infant();

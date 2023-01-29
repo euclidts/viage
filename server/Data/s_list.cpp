@@ -10,14 +10,14 @@ s_list<T>::s_list()
 }
 
 template<typename T>
-void s_list<T>::read(nanodbc::result& res)
+void s_list<T>::set(nanodbc::result& res)
 {
     std::vector<T> vec{};
 
     while (res.next())
     {
         T item{};
-        item.read(res);
+        item.set(res);
         vec.push_back(item);
     }
 
@@ -26,12 +26,14 @@ void s_list<T>::read(nanodbc::result& res)
 
 template<typename T>
 template<typename ...Foreign>
-const std::string s_list<T>::update(const People::s_user &usr, Foreign*... f) const
+const std::string s_list<T>::update(const People::s_user& usr, Foreign*... f) const
 {
     std::string str{};
 
     for (const auto& item : item_list<T>::m_items)
         str += item.update(usr, f...);
+
+    T::enclose_condition(str, usr, f...);
 
     return str;
 }

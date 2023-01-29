@@ -17,6 +17,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 include_directories(Data Data/Item)
 
 set(TEMPLATE_SRC
+#    Data/s_base_data.hpp
     Data/s_list.hpp
     Data/Item/s_person.hpp
     Data/Item/s_infant.hpp

@@ -10,9 +10,9 @@ s_contact::s_contact()
 {
 }
 
-void s_contact::read(const nanodbc::result& res)
+void s_contact::set(const nanodbc::result& res)
 {
-    s_infant::read(res);
+    s_infant::set(res);
 
     try
     {
@@ -26,49 +26,27 @@ const string s_contact::insert(const s_user& usr, s_account* acnt) const
 {
     const auto date{trantor::Date::date().toDbStringLocal()};
 
-    return "IF EXISTS "
-           "(SELECT "
-           "a.Id "
-           "FROM Account a, "
-           "[User] u, "
-           "Company c "
-           "WHERE a.Id = "
-            + std::to_string(acnt->id) +
-            "AND u.id = a.AdvisorId "
-            "AND c.id = u.CompanyId "
-            "AND u.TeamId = 2 "
-            + server::utils::clearance_close(usr) +
-            ") BEGIN "
-            "INSERT INTO BaseOwner "
-            "(OwnerType, Sex, InfantAccountId) "
-            "OUTPUT inserted.id "
-            "VALUES('Contact', "
-            + std::to_string(sex) +
-            ", "
-            + std::to_string(acnt->id) +
-            "); UPDATE Account "
-            "SET UpdateDate = '"
-            + date +
-            "' WHERE Id = "
-            + std::to_string(acnt->id) +
-            " END ";
+    std::string str{"INSERT INTO BaseOwner "
+                    "(OwnerType, Sex, InfantAccountId) "
+                    "OUTPUT inserted.id "
+                    "VALUES('Contact', "
+                    + std::to_string(sex) +
+                ", "
+                + std::to_string(acnt->id) +
+                "); UPDATE Account "
+                "SET UpdateDate = '"
+                + date +
+                "' WHERE Id = "
+                + std::to_string(acnt->id)};
+
+    acnt->enclose_condition(str, usr, acnt);
+
+    return str;
 }
 
 const string s_contact::update(const s_user& usr, s_account* acnt) const
 {
-    return "IF EXISTS "
-           "(SELECT "
-           "a.Id "
-           "FROM Account a, "
-           "[User] u, "
-           "Company c "
-           "WHERE a.Id = "
-            + std::to_string(acnt->id) +
-            "AND u.id = a.AdvisorId "
-            "AND c.id = u.CompanyId "
-            "AND u.TeamId = 2 "
-            + server::utils::clearance_close(usr) +
-            ") UPDATE BaseOwner SET "
+    return "UPDATE BaseOwner SET "
             + s_infant::fields() +
             " , IsInfant = "
             + std::to_string(isInfant) +

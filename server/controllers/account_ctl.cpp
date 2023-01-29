@@ -30,7 +30,7 @@ void account_ctl::select(const HttpRequestPtr& req,
         int prev_id{result.get<int>("Id")};
 
         s_account account{};
-        account.read(result);
+        account.set(result);
 
         Json::Value owners;
         std::vector<s_account> vec{};
@@ -50,7 +50,7 @@ void account_ctl::select(const HttpRequestPtr& req,
                 account.owners = owners;
                 owners.clear();
                 vec.push_back(account);
-                account.read(result);
+                account.set(result);
             }
 
             tmp["firstName"] = result.get<std::string>("FirstName");

@@ -16,11 +16,9 @@ struct s_contact final : public contact_item
 {
     s_contact();
 
-    void read(const nanodbc::result& res);
-    void read(const Json::Value& json) { contact_item::read(json); }
+    void set(const nanodbc::result& res);
 
     const std::string insert(const s_user& usr, s_account* acnt = nullptr) const;
-
     const std::string update(const s_user& usr, s_account* acnt = nullptr) const;
 
     static const constexpr std::basic_string<char, std::char_traits<char>> select(
@@ -39,9 +37,16 @@ struct s_contact final : public contact_item
                "[User] u "
                "WHERE b.InfantAccountId = "
                 + std::to_string(acnt->id) +
-               " AND b.OwnerType = 'Contact' "
+                " AND b.OwnerType = 'Contact' "
                 + server::utils::clearance_close(usr);
     };
+
+    static void enclose_condition(string &query,
+                           const People::s_user& usr,
+                           s_account* acnt)
+    {
+        acnt->enclose_condition(query, usr, acnt);
+    }
 };
 
 }

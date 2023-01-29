@@ -23,7 +23,7 @@ const std::string s_company::insert(const People::s_user& usr) const
             "') ";
 }
 
-void s_company::read(const nanodbc::result& res)
+void s_company::set(const nanodbc::result& res)
 {
     try
     {

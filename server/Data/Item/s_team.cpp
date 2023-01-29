@@ -37,7 +37,7 @@ const std::string s_team::update(const People::s_user& usr, s_company* foreign) 
             + std::to_string(id);
 }
 
-void s_team::read(const nanodbc::result &res)
+void s_team::set(const nanodbc::result &res)
 {
     try
     {

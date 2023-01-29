@@ -2,23 +2,44 @@
 #define S_ACOUNT_HPP
 
 #include <nanodbc/nanodbc.h>
-#include "s_user.hpp"
+#include <s_base_data.hpp>
 #include <server_utils.hpp>
 #include <Item/account_item.hpp>
 
 namespace Data
 {
 struct s_account final : public account_item
+        //                       , public s_base_data<account_item>
 {
     s_account();
 
     static const constexpr auto table{"Account"};
 
-    void read(nanodbc::result& res);
-    void read(const Json::Value& json) { account_item::read(json); }
+    void set(nanodbc::result& res);
 
     const std::string insert(const People::s_user &usr) const;
     const std::string update(const People::s_user &usr) const;
+
+    static void enclose_condition(std::string& query,
+                           const People::s_user& usr,
+                           s_account* acnt)
+    {
+        query.insert(0,
+                     "IF EXISTS "
+                     "(SELECT "
+                     "a.Id "
+                     "FROM Account a, "
+                     "[User] u, "
+                     "Company c "
+                     "WHERE a.Id = "
+                     + std::to_string(acnt->id) +
+                     "AND u.id = a.AdvisorId "
+                     "AND c.id = u.CompanyId "
+                     + server::utils::clearance_close(usr) +
+                     ") BEGIN ");
+
+        query.append(" END ");
+    }
 
     static const constexpr basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr)
@@ -49,8 +70,8 @@ struct s_account final : public account_item
                 + server::utils::clearance_close(usr);
     };
 
-//private:
-//    void remove_multiple(nanodbc::result& res);
+    //private:
+    //    void remove_multiple(nanodbc::result& res);
 };
 
 }

@@ -13,8 +13,7 @@ struct s_company final : public company_item
 
     static const constexpr auto table{"Company"};
 
-    void read(const nanodbc::result& res);
-    void read(const Json::Value& json) { company_item::read(json); }
+    void set(const nanodbc::result& res);
 
     const std::string insert(const People::s_user& usr) const;
     const std::string update(const People::s_user& usr) const;
