@@ -24,6 +24,10 @@ struct s_team final : public team_item
     const std::string update(const People::s_user& usr,
                              s_company* foreign = nullptr) const;
 
+    static void enclose_condition(std::string& query,
+                                  const People::s_user& usr,
+                                  s_company* foreign = nullptr) {};
+
     static const constexpr std::basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr,
             s_company* foreign = nullptr)

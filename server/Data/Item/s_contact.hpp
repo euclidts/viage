@@ -12,7 +12,7 @@ namespace Data
 namespace People
 {
 struct s_contact final : public contact_item
-                       , public s_infant<contact_item>
+        , public s_infant<contact_item>
 {
     s_contact();
 
@@ -20,6 +20,13 @@ struct s_contact final : public contact_item
 
     const std::string insert(const s_user& usr, s_account* acnt = nullptr) const;
     const std::string update(const s_user& usr, s_account* acnt = nullptr) const;
+
+    static void enclose_condition(string &query,
+                                  const People::s_user& usr,
+                                  s_account* acnt)
+    {
+        acnt->enclose_condition(query, usr, acnt);
+    };
 
     static const constexpr std::basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr, s_account* acnt = nullptr)
@@ -40,13 +47,6 @@ struct s_contact final : public contact_item
                 " AND b.OwnerType = 'Contact' "
                 + server::utils::clearance_close(usr);
     };
-
-    static void enclose_condition(string &query,
-                           const People::s_user& usr,
-                           s_account* acnt)
-    {
-        acnt->enclose_condition(query, usr, acnt);
-    }
 };
 
 }

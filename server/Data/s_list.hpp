@@ -16,7 +16,15 @@ struct s_list final : public item_list<T>
     void set(nanodbc::result& res);
 
     template <typename ...Foreign>
-    const std::string update(const People::s_user& usr, Foreign*... f) const;
+    std::string update(const People::s_user& usr, Foreign*... f) const;
+
+    template <typename ...Foreign>
+    static void enclose_condition(std::string& query,
+                                  const People::s_user& usr,
+                                  Foreign*... f)
+    {
+        T::enclose_condition(query, usr, f...);
+    };
 
     template <typename ...Foreign>
     static const constexpr auto select(const People::s_user& usr, Foreign*... f)

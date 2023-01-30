@@ -101,7 +101,8 @@ public:
                      [this, &item, ... args = foreign]
                      (Json::Value& json, const Data::People::s_user& usr)
         {
-            const auto query{item.update(usr, args...)};
+            auto query{item.update(usr, args...)};
+            T::enclose_condition(query, usr, args...);
 
             if (query.empty())
                 return false;

@@ -25,6 +25,8 @@ struct s_user final : public user_item
     const std::string insert(const People::s_user& usr) const;
     const std::string update(const s_user &usr) const;
 
+    static void enclose_condition(std::string& query, const People::s_user& usr) {};
+
     static const constexpr auto select(const People::s_user& usr)
     {
         if (usr.clearance < People::s_user::Administrator)

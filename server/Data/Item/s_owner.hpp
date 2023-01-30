@@ -11,7 +11,7 @@ namespace Data
 namespace People
 {
 struct s_owner final : public owner_item
-                     , public s_infant<owner_item>
+        , public s_infant<owner_item>
 {
     s_owner();
 
@@ -19,6 +19,13 @@ struct s_owner final : public owner_item
 
     const std::string insert(const s_user& usr, s_account* acnt = nullptr) const;
     const std::string update(const s_user& usr, s_account* acnt = nullptr) const;
+
+    static void enclose_condition(string &query,
+                                  const People::s_user& usr,
+                                  s_account* acnt)
+    {
+        acnt->enclose_condition(query, usr, acnt);
+    };
 
     static const constexpr std::basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr, s_account* acnt = nullptr)
@@ -36,16 +43,9 @@ struct s_owner final : public owner_item
                "[User] u "
                "WHERE b.InfantAccountId = "
                 + std::to_string(acnt->id) +
-               " AND b.OwnerType = 'Owner' "
+                " AND b.OwnerType = 'Owner' "
                 + server::utils::clearance_close(usr);
     };
-
-    static void enclose_condition(string &query,
-                           const People::s_user& usr,
-                           s_account* acnt)
-    {
-        acnt->enclose_condition(query, usr, acnt);
-    }
 
 private:
     Places::s_address ads;

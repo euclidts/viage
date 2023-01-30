@@ -21,8 +21,8 @@ struct s_account final : public account_item
     const std::string update(const People::s_user &usr) const;
 
     static void enclose_condition(std::string& query,
-                           const People::s_user& usr,
-                           s_account* acnt)
+                                  const People::s_user& usr,
+                                  s_account* acnt = nullptr)
     {
         query.insert(0,
                      "IF EXISTS "
@@ -39,7 +39,7 @@ struct s_account final : public account_item
                      ") BEGIN ");
 
         query.append(" END ");
-    }
+    };
 
     static const constexpr basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr)
