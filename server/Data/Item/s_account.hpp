@@ -17,12 +17,28 @@ struct s_account final : public account_item
 
     void set(nanodbc::result& res);
 
-    const std::string insert(const People::s_user &usr) const;
-    const std::string update(const People::s_user &usr) const;
+    const std::string insert(const People::s_user& usr) const;
+    const std::string update(const People::s_user& usr) const;
 
-    static void enclose_condition(std::string& query,
-                                  const People::s_user& usr,
-                                  s_account* acnt = nullptr)
+    static void foreign_update(string& query,
+                               s_account* acnt = nullptr)
+    {
+        if (!acnt) return;
+
+        const auto date{trantor::Date::date().toDbStringLocal()};
+
+        query.insert(0,
+                     "UPDATE Account "
+                     "SET UpdateDate = '"
+                     + date +
+                     "' ");
+
+        query.append("WHERE Id = " + std::to_string(acnt->id));
+    };
+
+    static void condition(std::string& query,
+                          const People::s_user& usr,
+                          s_account* acnt = nullptr)
     {
         query.insert(0,
                      "IF EXISTS "
@@ -70,7 +86,9 @@ struct s_account final : public account_item
                 + server::utils::clearance_close(usr);
     };
 
-    //private:
+private:
+
+
     //    void remove_multiple(nanodbc::result& res);
 };
 

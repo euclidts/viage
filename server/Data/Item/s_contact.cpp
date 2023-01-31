@@ -39,7 +39,7 @@ const string s_contact::insert(const s_user& usr, s_account* acnt) const
                 "' WHERE Id = "
                 + std::to_string(acnt->id)};
 
-    acnt->enclose_condition(str, usr, acnt);
+    acnt->condition(str, usr, acnt);
 
     return str;
 }

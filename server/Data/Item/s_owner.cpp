@@ -1,4 +1,5 @@
 #include "s_owner.hpp"
+#include "s_account.hpp"
 
 namespace Data
 {
@@ -45,8 +46,6 @@ void s_owner::set(const nanodbc::result& res)
 
 const string s_owner::insert(const s_user& usr, s_account* acnt) const
 {
-    const auto date{trantor::Date::date().toDbStringLocal()};
-
     std::string str{"INSERT INTO BaseOwner "
                     "(OwnerType, Sex, OwnerAccountId) "
                     "OUTPUT inserted.id "
@@ -54,13 +53,10 @@ const string s_owner::insert(const s_user& usr, s_account* acnt) const
                     + std::to_string(sex) +
                 ", "
                 + std::to_string(acnt->id) +
-                "); UPDATE Account "
-                "SET UpdateDate = '"
-                + date +
-                "' WHERE Id = "
-                + std::to_string(acnt->id)};
+                "); "};
 
-    acnt->enclose_condition(str, usr, acnt);
+    acnt->foreign_update(str, acnt);
+    acnt->condition(str, usr, acnt);
 
     return str;
 }
@@ -76,7 +72,38 @@ const string s_owner::update(const s_user& usr, s_account* acnt) const
             " , AVS = '"
             + avs +
             "' WHERE Id = "
-            + std::to_string(id);
+            + std::to_string(id) +
+            "; ";
+}
+
+void s_owner::foreign_update(std::string &query, s_list<s_owner> *list, s_account *acnt)
+{
+    acnt->foreign_update(query, acnt);
+}
+
+void s_owner::condition(std::string &query, const s_user &usr, s_account *acnt)
+{
+    acnt->condition(query, usr, acnt);
+}
+
+const constexpr std::basic_string<char, std::char_traits<char> > s_owner::select(
+        const s_user &usr, s_account *acnt)
+{
+    return "SELECT "
+           "b.Id, "
+           "b.FirstName, "
+           "b.LastName, "
+           "b.Sex, "
+           "b.Phone, "
+           "b.EMail, "
+           "b.IsInfant, "
+           "FROM Account a, "
+           "BaseOwner b, "
+           "[User] u "
+           "WHERE b.InfantAccountId = "
+            + std::to_string(acnt->id) +
+            " AND b.OwnerType = 'Owner' "
+            + server::utils::clearance_close(usr);
 }
 
 }

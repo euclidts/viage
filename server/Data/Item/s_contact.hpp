@@ -21,11 +21,29 @@ struct s_contact final : public contact_item
     const std::string insert(const s_user& usr, s_account* acnt = nullptr) const;
     const std::string update(const s_user& usr, s_account* acnt = nullptr) const;
 
-    static void enclose_condition(string &query,
-                                  const People::s_user& usr,
-                                  s_account* acnt)
+    template <typename T>
+    static void foreign_update(string& query,
+                               const T& self,
+                               s_account* acnt = nullptr)
     {
-        acnt->enclose_condition(query, usr, acnt);
+        const auto date{trantor::Date::date().toDbStringLocal()};
+
+        query.append("UPDATE Account "
+                     "SET UpdateDate = '"
+                     + date +
+                     "' ");
+
+        if (self.is_completed() || self.empty())
+            query.append(", State |= " + std::to_string(account_item::ContactsCompleted));
+
+        query.append("WHERE Id = " + std::to_string(acnt->id));
+    };
+
+    static void condition(string &query,
+                          const People::s_user& usr,
+                          s_account* acnt)
+    {
+        acnt->condition(query, usr, acnt);
     };
 
     static const constexpr std::basic_string<char, std::char_traits<char>> select(

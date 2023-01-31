@@ -599,7 +599,7 @@ void bridge::setUserId(int newUserId)
 
 bool bridge::hasFlag(int value, int flag) const noexcept
 {
-    return (value & flag) == flag;
+    return value & flag;
 }
 
 bool bridge::accountHasFlag(int flag) const noexcept

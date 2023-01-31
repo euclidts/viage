@@ -19,11 +19,11 @@ struct s_list final : public item_list<T>
     std::string update(const People::s_user& usr, Foreign*... f) const;
 
     template <typename ...Foreign>
-    static void enclose_condition(std::string& query,
-                                  const People::s_user& usr,
-                                  Foreign*... f)
+    static void condition(std::string& query,
+                          const People::s_user& usr,
+                          Foreign*... f)
     {
-        T::enclose_condition(query, usr, f...);
+        T::condition(query, usr, f...);
     };
 
     template <typename ...Foreign>
