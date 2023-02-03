@@ -69,6 +69,13 @@ ScrollView {
                 }
 
                 DocumentListView {
+                    id: maintenance
+                    name: qsTr("Contrat(s) d'entretien")
+                    documentCategory: 8192
+                    documentsFrom: documents
+                }
+
+                DocumentListView {
                     id: jobs
                     name: qsTr("Descriptif / justificatifs des travaux des 5 dernières années")
                     documentCategory: 512
@@ -101,6 +108,46 @@ ScrollView {
                     name: qsTr("Cas échéant / police détaillée de l’établissement ou le BEB")
                     documentCategory: 256
                     documentsFrom: documents
+                }
+
+                DocumentListView {
+                    id: other
+                    name: qsTr("Autre")
+                    documentCategory: 4096
+                    documentsFrom: documents
+                }
+
+                ColumnLayout {
+                    spacing: 12
+                    Layout.margins: 0
+                    Layout.fillWidth: true
+
+                    Label {
+                        Layout.leftMargin: -6
+                        text: qsTr("En cas de PPE")
+                        font.bold: true
+                    }
+
+                    DocumentListView {
+                        id: constitution
+                        name: qsTr("Acte de constitution")
+                        documentCategory: 16384
+                        documentsFrom: documents
+                    }
+
+                    DocumentListView {
+                        id: ppe
+                        name: qsTr("Cas échéant / police détaillée de l’établissement ou le BEB")
+                        documentCategory: 32768
+                        documentsFrom: documents
+                    }
+
+                    DocumentListView {
+                        id: ppepvs
+                        name: qsTr("3 derniers PV des assemblées générales de la PPE")
+                        documentCategory: 65536
+                        documentsFrom: documents
+                    }
                 }
             }
         }

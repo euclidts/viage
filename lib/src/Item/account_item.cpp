@@ -1,11 +1,3 @@
-#include <Item/owner_item.hpp>
-#include <Item/contact_item.hpp>
-#include <Item/habitat_item.hpp>
-#include <Item/exterior_item.hpp>
-#include <Item/document_item.hpp>
-
-#include <item_list.hpp>
-
 #include <Item/account_item.hpp>
 
 namespace Data
@@ -25,6 +17,9 @@ void account_item::read(const Value& json)
 
     if (json.isMember("habitat") && json["habitat"].isObject())
         habitat = json["habitat"];
+
+    if (json.isMember("ppe") && json["ppe"].isBool())
+        ppe = json["ppe"].asBool();
 
     if (json.isMember("exterior") && json["exterior"].isObject())
         exterior = json["exterior"];

@@ -56,6 +56,7 @@ bridge::bridge(Interface::netManager* manager,
         const auto item{acnts->item_at_id(accountId)};
 
         setAccountState(item.state);
+        setPPE(item.ppe);
         setAccountReceived(to_QDateTime(item.receivedDate).date());
         setAccountTransmited(to_QDateTime(item.transmitedDate).date());
         setAccountExpertized(to_QDateTime(item.expertizedDate).date());
@@ -360,6 +361,19 @@ void bridge::setAccountState(int newAccountState)
     emit accountStateChanged();
 }
 
+bool bridge::getPPE() const
+{
+    return ppe;
+}
+
+void bridge::setPPE(bool newPPE)
+{
+    if (ppe == newPPE)
+        return;
+    ppe = newPPE;
+    emit ppeChanged();
+}
+
 bool bridge::getDocumentsCompleted() const
 {
     return documentsCompleted;
@@ -394,12 +408,7 @@ void bridge::check_doc_completion()
 
     if (uploaded)
     {
-        setDocumentsCompleted(flags == CATEGOIES_SUMED
-                              || flags == (CATEGOIES_SUMED - document_item::Beb)
-                              || flags == (CATEGOIES_SUMED - document_item::FutureJobs)
-                              || flags == (CATEGOIES_SUMED - document_item::Beb
-                                           - document_item::FutureJobs)
-                              );
+        setDocumentsCompleted(document_item::required_flags(flags, ppe));
     }
     else
         setDocumentsCompleted(false);

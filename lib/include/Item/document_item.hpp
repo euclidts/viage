@@ -1,5 +1,5 @@
-#ifndef DOCUMENT_ITEM_COPY_H
-#define DOCUMENT_ITEM_COPY_H
+#ifndef DOCUMENT_ITEM_HPP
+#define DOCUMENT_ITEM_HPP
 
 #include <filesystem>
 #include <json/json.h>
@@ -8,6 +8,7 @@
 namespace Data
 {
 #define CATEGOIES_SUMED 4095
+#define PPE_CATEGOIES_SUMED 131071
 
 struct document_item : virtual public base_data<document_item>
 {
@@ -23,11 +24,16 @@ struct document_item : virtual public base_data<document_item>
         TaxDeclaration = 16,
         BuildingDetails = 32,
         Insurance = 64,
-        Lucidity = 128,
+        Discernement = 128,
         Beb = 256,
         Jobs = 512,
         FutureJobs = 1024,
-        Calculation = 2048
+        Calculation = 2048,
+        Other = 4096,
+        Maintenance = 8192,
+        Constitution = 16384,
+        PPE = 32768,
+        PPEPVS = 65536
     };
 
     categories category{categories::None};
@@ -52,6 +58,8 @@ struct document_item : virtual public base_data<document_item>
 
     bool is_completed() const override;
 
+    static bool required_flags(int flags, bool ppe = false);
+
 protected:
     explicit document_item();
 
@@ -60,4 +68,4 @@ protected:
 
 }
 
-#endif // DOCUMENT_ITEM_COPY_H
+#endif // DOCUMENT_ITEM_HPP

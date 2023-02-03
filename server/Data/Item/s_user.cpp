@@ -38,6 +38,38 @@ const std::string s_user::update(const People::s_user& usr) const
             + std::to_string(id);
 }
 
+const constexpr std::string s_user::select(const s_user& usr)
+{
+    if (usr.clearance < Administrator)
+        return "";
+
+    return "SELECT "
+           "a.[Id], "
+           "FirstName, "
+           "LastName, "
+           "Login, "
+           "EMail, "
+           "Phone, "
+           "Clearance, "
+           "Beneficiary, "
+           "Bic, "
+           "Iban, "
+           "Street, "
+           "City, "
+           "Canton, "
+           "Zip, "
+           "a.[CompanyId], "
+           "TeamId, "
+           "IsLocked, "
+           "b.[Name], "
+           "c.[Caption] "
+           "FROM (([User] a "
+           "LEFT JOIN Company b "
+           "ON a.[CompanyId] = b.[Id]) "
+           "LEFT JOIN Team c "
+           "ON a.[TeamId] = c.[Id]) ";
+}
+
 void s_user::set(const nanodbc::result& res)
 {
     s_person::set(res);

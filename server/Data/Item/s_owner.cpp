@@ -1,5 +1,6 @@
 #include "s_owner.hpp"
 #include "s_account.hpp"
+#include <s_list.hpp>
 
 namespace Data
 {
@@ -76,18 +77,25 @@ const string s_owner::update(const s_user& usr, s_account* acnt) const
             "; ";
 }
 
-void s_owner::foreign_update(std::string &query, s_list<s_owner> *list, s_account *acnt)
+void s_owner::foreign_update(std::string& query, s_list<s_owner>* list, s_account* acnt)
 {
-    acnt->foreign_update(query, acnt);
+    std::string str{};
+
+    if (list->is_completed())
+        str.append(", State |= " + std::to_string(account_item::OwnersCompleted));
+
+    acnt->foreign_update(str, acnt);
+
+    query.append(str);
 }
 
-void s_owner::condition(std::string &query, const s_user &usr, s_account *acnt)
+void s_owner::condition(std::string& query, const s_user& usr, s_account* acnt)
 {
     acnt->condition(query, usr, acnt);
 }
 
-const constexpr std::basic_string<char, std::char_traits<char> > s_owner::select(
-        const s_user &usr, s_account *acnt)
+const constexpr std::string s_owner::select(
+        const s_user& usr, s_account* acnt)
 {
     return "SELECT "
            "b.Id, "

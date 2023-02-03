@@ -108,6 +108,11 @@ public:
     void accountStateChanged()
     W_SIGNAL(accountStateChanged)
 
+    bool getPPE() const;
+    void setPPE(bool newPPE);
+    void ppeChanged()
+    W_SIGNAL(ppeChanged)
+
     bool getDocumentsCompleted() const;
     void setDocumentsCompleted(bool newDocumentsCompleted);
     void documentsCompletedChanged()
@@ -162,6 +167,7 @@ public:
     W_PROPERTY(Data::People::user_item::clearances, clearance READ getClearance NOTIFY clearanceChanged)
     W_PROPERTY(int, userId READ getUserId NOTIFY userIdChanged)
     W_PROPERTY(int, accountId READ getAccountId WRITE setAccoountId NOTIFY accountIdChanged)
+    W_PROPERTY(bool, ppe READ getPPE WRITE setPPE NOTIFY ppeChanged)
     W_PROPERTY(int, accountState READ getAccountState WRITE setAccountState NOTIFY accountStateChanged)
     W_PROPERTY(QDate, accountReceived READ getAccountReceived NOTIFY accountReceivedChanged)
     W_PROPERTY(QDate, accountTransmited READ getAccountTransmited NOTIFY accountTransmitedChanged)
@@ -192,6 +198,7 @@ private:
     Data::c_list<Data::c_account>* acnts;
     int accountId{0};
     int accountState{0};
+    bool ppe{false};
     QDate accountReceived{};
     QDate accountTransmited{};
     QDate accountExpertized{};

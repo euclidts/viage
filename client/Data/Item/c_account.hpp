@@ -1,7 +1,6 @@
 #ifndef C_ACCOUNT_HPP
 #define C_ACCOUNT_HPP
 
-#include "qdatetime.h"
 #include "qnamespace.h"
 #include <json/json.h>
 #include <Item/account_item.hpp>
@@ -37,9 +36,7 @@ struct c_account final : public account_item
     enum roles
     {
         OwnersRole = Qt::UserRole,
-//        ContactsRole,
         HabitatRole,
-//        ExteriorRole,
         DocumentsRole,
         StateRole,
         ReceivedRole,

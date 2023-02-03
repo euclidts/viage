@@ -6,24 +6,6 @@
 
 namespace Data
 {
-
-namespace People
-{
-struct owner_item;
-struct contact_item;
-}
-
-namespace Places
-{
-struct habitat_item;
-struct exterior_item;
-}
-
-struct document_item;
-
-template <typename T>
-struct item_list;
-
 using namespace std;
 using namespace Json;
 
@@ -35,6 +17,7 @@ struct account_item : virtual public base_data<account_item>
     Value owners{};
     Value contacts{};
     Value habitat{};
+    bool ppe{false};
     Value exterior{};
     Value documents{};
 

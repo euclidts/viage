@@ -29,11 +29,11 @@ struct s_owner final : public owner_item
                                s_account* acnt);
 
     static void condition(std::string& query,
-                          const People::s_user& usr,
+                          const s_user& usr,
                           s_account* acnt);;
 
-    static const constexpr std::basic_string<char, std::char_traits<char>> select(
-            const People::s_user& usr, s_account* acnt);
+    static const constexpr std::string select(const s_user& usr,
+                                              s_account* acnt);
 
 private:
     Places::s_address ads;

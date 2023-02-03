@@ -22,42 +22,12 @@ struct s_user final : public user_item
     void set(const nanodbc::result& res);
 
     const std::string fields() const;
-    const std::string insert(const People::s_user& usr) const;
-    const std::string update(const s_user &usr) const;
+    const std::string insert(const s_user& usr) const;
+    const std::string update(const s_user& usr) const;
 
-    static void condition(std::string& query, const People::s_user& usr) {};
+    static void condition(std::string& query, const s_user& usr) {};
 
-    static const constexpr auto select(const People::s_user& usr)
-    {
-        if (usr.clearance < People::s_user::Administrator)
-            return "";
-
-        return "SELECT "
-               "a.[Id], "
-               "FirstName, "
-               "LastName, "
-               "Login, "
-               "EMail, "
-               "Phone, "
-               "Clearance, "
-               "Beneficiary, "
-               "Bic, "
-               "Iban, "
-               "Street, "
-               "City, "
-               "Canton, "
-               "Zip, "
-               "a.[CompanyId], "
-               "TeamId, "
-               "IsLocked, "
-               "b.[Name], "
-               "c.[Caption] "
-               "FROM (([User] a "
-               "LEFT JOIN Company b "
-               "ON a.[CompanyId] = b.[Id]) "
-               "LEFT JOIN Team c "
-               "ON a.[TeamId] = c.[Id]) ";
-    };
+    static const constexpr std::string select(const s_user& usr);;
 
 protected:
     Places::s_address sa;

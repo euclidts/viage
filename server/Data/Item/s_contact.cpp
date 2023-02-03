@@ -1,4 +1,6 @@
 #include "s_contact.hpp"
+#include "s_account.hpp"
+#include <s_list.hpp>
 
 namespace Data
 {
@@ -52,6 +54,42 @@ const string s_contact::update(const s_user& usr, s_account* acnt) const
             + std::to_string(isInfant) +
             " WHERE Id = "
             + std::to_string(id);
+}
+
+void s_contact::foreign_update(std::string& query, s_list<s_contact>* list, s_account* acnt)
+{
+    std::string str{};
+
+    if (list->is_completed() || list->size() == 0)
+        str.append(", State |= " + std::to_string(account_item::ContactsCompleted));
+
+    acnt->foreign_update(str, acnt);
+
+    query.append(str);
+}
+
+void s_contact::condition(std::string &query, const s_user &usr, s_account *acnt)
+{
+    acnt->condition(query, usr, acnt);
+}
+
+const constexpr std::basic_string<char, std::char_traits<char> > s_contact::select(const s_user &usr, s_account *acnt)
+{
+    return "SELECT "
+           "b.Id, "
+           "b.FirstName, "
+           "b.LastName, "
+           "b.Sex, "
+           "b.Phone, "
+           "b.EMail, "
+           "b.IsInfant, "
+           "FROM Account a, "
+           "BaseOwner b, "
+           "[User] u "
+           "WHERE b.InfantAccountId = "
+            + std::to_string(acnt->id) +
+            " AND b.OwnerType = 'Contact' "
+            + server::utils::clearance_close(usr);
 }
 
 }
