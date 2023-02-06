@@ -13,5 +13,14 @@ include_directories(${JSONCPP_INCLUDE_DIRS}
                     "${CMAKE_CURRENT_SOURCE_DIR}/lib/include")
 
 add_subdirectory(lib)
-add_subdirectory(client)
-add_subdirectory(server)
+
+set(CLIENT ON CACHE BOOL "building client")
+set(SERVER ON CACHE BOOL "building server")
+
+if(CLIENT)
+    add_subdirectory(client)
+endif()
+
+if(SERVER)
+    add_subdirectory(server)
+endif()
