@@ -18,8 +18,8 @@ void account_item::read(const Value& json)
     if (json.isMember("habitat") && json["habitat"].isObject())
         habitat = json["habitat"];
 
-    if (json.isMember("ppe") && json["ppe"].isBool())
-        ppe = json["ppe"].asBool();
+    if (json.isMember("isPPE") && json["isPPE"].isBool())
+        ppe = json["isPPE"].asBool();
 
     if (json.isMember("exterior") && json["exterior"].isObject())
         exterior = json["exterior"];

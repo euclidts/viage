@@ -62,12 +62,28 @@ ScrollView {
                             }
                         }
 
-                        IntChooser {
-                            name: qsTr("Nombre de Pièces")
-                            minimum: 1
-                            maximum: 50
-                            numberOf: habitat.rooms
-                            onEdit: (val) => { habitat.rooms = val }
+                        ColumnLayout {
+                            spacing: 0
+                            Layout.rightMargin: 12
+
+                            MaterialButton {
+                                fillWidth: false
+                                text: "PPE"
+                                icon.source: bridge.ppe ? "qrc:/icons/check-square.svg"
+                                                        : "qrc:/icons/square.svg"
+                                onClicked: {
+                                    bridge.updatePPE()
+                                    busyDialog.open()
+                                }
+                            }
+
+                            IntChooser {
+                                name: qsTr("Nombre de Pièces")
+                                minimum: 1
+                                maximum: 50
+                                numberOf: habitat.rooms
+                                onEdit: (val) => { habitat.rooms = val }
+                            }
                         }
                     }
 

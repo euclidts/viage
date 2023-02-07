@@ -228,10 +228,8 @@ void bridge::resetPwd(int id) const
 
 void bridge::changePwd(const char *key, const Value& json) const
 {
-    Json::StreamWriterBuilder builder;
-
     mng->putToKey(key,
-                  QByteArray::fromStdString(writeString(builder, json)),
+                  to_QByteArray(json),
                   [this] (const Value& rep)
     { emit loaded(); },
     "changePwd error");
@@ -243,10 +241,8 @@ void bridge::lockUser(int id, const bool &locked) const
     json["id"] = id;
     json["lock"] = locked;
 
-    StreamWriterBuilder builder;
-
     mng->putToKey("lock",
-                  QByteArray::fromStdString(writeString(builder, json)),
+                  to_QByteArray(json),
                   [this] (const Value& rep)
     { emit loaded(); },
     "loackUser error");
@@ -286,10 +282,8 @@ void bridge::updateState(int newState) const
     json["id"] = accountId;
     json["state"] = accountState + newState;
 
-    StreamWriterBuilder builder;
-
     mng->putToKey("accountState",
-                  QByteArray::fromStdString(writeString(builder, json)),
+                  to_QByteArray(json),
                   [this] (const Value& rep)
     {
         auto account{acnts->item_at_id(accountId)};
@@ -297,7 +291,25 @@ void bridge::updateState(int newState) const
         acnts->setItemAtId(accountId, account);
         emit loaded();
     },
-    "updateState error");
+    "updateSt error");
+}
+
+void bridge::updatePPE() const
+{
+    Json::Value json;
+    json["id"] = accountId;
+    json["isPPE"] = !ppe;
+
+    mng->putToKey("accountPPE",
+                  to_QByteArray(json),
+                  [this] (const Value& rep)
+    {
+        auto account{acnts->item_at_id(accountId)};
+        account.read(rep);
+        acnts->setItemAtId(accountId, account);
+        emit loaded();
+    },
+    "updatePPE error");
 }
 
 void bridge::sendOnboardedEmail() const
@@ -366,7 +378,7 @@ bool bridge::getPPE() const
     return ppe;
 }
 
-void bridge::setPPE(bool newPPE)
+void bridge::setPPE(const bool &newPPE)
 {
     if (ppe == newPPE)
         return;
@@ -460,11 +472,10 @@ void bridge::upload_doc(int index)
             doc.write(json);
             json["body"] = body.toStdString();
 
-            StreamWriterBuilder builder;
             int parent_account{accountId};
 
             mng->putToKey(docs->key,
-                          QByteArray::fromStdString(writeString(builder, json)),
+                          to_QByteArray(json),
                           [this, parent_account, doc]
                           (const Value& rep)
                           mutable {

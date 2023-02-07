@@ -123,7 +123,6 @@ ScrollView {
                     Layout.fillWidth: true
 
                     Label {
-                        Layout.leftMargin: -6
                         text: qsTr("En cas de PPE")
                         font.bold: true
                     }
@@ -137,7 +136,7 @@ ScrollView {
 
                     DocumentListView {
                         id: ppe
-                        name: qsTr("Cas échéant / police détaillée de l’établissement ou le BEB")
+                        name: qsTr("Règlement PPE")
                         documentCategory: 32768
                         documentsFrom: documents
                     }

@@ -73,6 +73,9 @@ public:
     void updateState(int newState) const;
     W_INVOKABLE(updateState)
 
+    void updatePPE() const;
+    W_INVOKABLE(updatePPE)
+
     void sendOnboardedEmail() const;
     W_INVOKABLE(sendOnboardedEmail)
 
@@ -82,7 +85,7 @@ public:
     QUrl getPictureName(QString name, int index) const;
     W_INVOKABLE(getPictureName, (QString, int))
 
-    void setQmlObject(QObject* obj) noexcept { qmlObject = obj; }
+    void setQmlObject(QObject* obj) noexcept { qmlObject = obj; };
 
     bool hasFlag(int value, int flag) const noexcept;
     W_INVOKABLE(hasFlag, (int, int))
@@ -109,7 +112,7 @@ public:
     W_SIGNAL(accountStateChanged)
 
     bool getPPE() const;
-    void setPPE(bool newPPE);
+    void setPPE(const bool& newPPE);
     void ppeChanged()
     W_SIGNAL(ppeChanged)
 
