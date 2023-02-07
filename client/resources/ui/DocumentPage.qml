@@ -121,9 +121,11 @@ ScrollView {
                     spacing: 12
                     Layout.margins: 0
                     Layout.fillWidth: true
+                    visible: bridge.ppe
 
                     Label {
                         text: qsTr("En cas de PPE")
+                        Layout.margins: 6
                         font.bold: true
                     }
 

@@ -1,4 +1,5 @@
 #include <Item/account_item.hpp>
+#include <iostream>
 
 namespace Data
 {
@@ -9,6 +10,8 @@ account_item::account_item()
 
 void account_item::read(const Value& json)
 {
+    std::cout << json << endl;
+
     if (json.isMember("owners") && json["owners"].isArray())
         owners = json["owners"];
 
@@ -83,6 +86,8 @@ void account_item::write(Value &json) const
 
     if (!habitat.empty())
         json["habitat"] = habitat;
+
+    json["isPPE"] = ppe;
 
     if (!exterior.empty())
         json["exterior"] = exterior;
