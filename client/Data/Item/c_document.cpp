@@ -36,7 +36,7 @@ QVariant c_document::data(int role) const
     case CategoryRole:
         return QVariant(category);
     case LocalPathRole:
-        return to_QString(localPath);
+        return to_QString(localPath.string());
     case FileNameRole:
         return to_QString(fileName);
     case ExtensionRole:

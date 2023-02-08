@@ -12,10 +12,11 @@ W_OBJECT_IMPL(netManager)
 netManager::netManager(const QString& url,
                        const QString& authentication_arguments,
                        const QString& extra_arguments)
-    : prefix{url + '/'}
+    : rqst{}
+    , prefix{url + '/'}
     , auth_args{authentication_arguments}
     , suffix{extra_arguments}
-    , rqst{}
+
 {
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);

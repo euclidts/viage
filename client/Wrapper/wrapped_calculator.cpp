@@ -89,7 +89,7 @@ void wrapped_calculator::write_to_file()
     p.next();
 
     int i{0};
-    for (const auto item : inner->items())
+    for (const auto& item : inner->items())
     {
         ru = p.runs();
         skip_runs(ru, 2);
