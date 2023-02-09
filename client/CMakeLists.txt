@@ -122,17 +122,9 @@ target_compile_definitions(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Quick
-    Qt6::Multimedia)
-
-if(UNIX OR MINGW)
-    target_link_libraries(${PROJECT_NAME} PRIVATE
-        ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.a
-        ${CMAKE_BINARY_DIR}/lib/libviage.a)
-elseif()
-    target_link_libraries(${PROJECT_NAME} PRIVATE
-        ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.lib
-        ${CMAKE_BINARY_DIR}/lib/libviage.lib)
-endif()
+    Qt6::Multimedia
+    duckx
+    viage)
 
 #set_target_properties(${PROJECT_NAME} PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

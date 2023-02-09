@@ -22,6 +22,8 @@ target_sources(${PROJECT_NAME}
     src/Item/team_item.cpp
 )
 
+add_library(viage::viage ALIAS viage)
+
 target_include_directories(${PROJECT_NAME}
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src

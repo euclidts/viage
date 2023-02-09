@@ -14,10 +14,10 @@ if(SERVER)
     link_libraries(Jsoncpp_lib)
 else()
     # Only link aqainst jsoncpp
-    find_package(jsoncpp)
-#    find_package(PkgConfig REQUIRED)
-#    pkg_check_modules(JSONCPP jsoncpp)
-    link_libraries(${JSONCPP_LIBRARIES})
+    set(ENV{PKG_CONFIG_PATH} ${CMAKE_CURRENT_SOURCE_DIR})
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(JSONCPP jsoncpp)
+    link_libraries(libjsoncpp)
 endif()
 
 include_directories(${JSONCPP_INCLUDE_DIRS}

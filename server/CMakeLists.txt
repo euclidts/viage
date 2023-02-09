@@ -10,8 +10,8 @@ add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     nanodbc
     Drogon::Drogon
-    ${CMAKE_BINARY_DIR}/lib/libviage.a
-    ${CMAKE_BINARY_DIR}/client/3rdparty/DuckX/libduckx.a
+    duckx
+    viage
 )
 
 include_directories(Data Data/Item)

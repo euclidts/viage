@@ -40,6 +40,7 @@ jobs:
         -s compiler.cppstd=gnu20
         -s compiler.cppstd=20
         --build=missing
+    - run: ls
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -50,7 +51,6 @@ jobs:
         -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64
         -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
         -DSERVER=OFF
-        -DCMAKE_TOOLCHAIN_FILE=conan-official-jsoncpp-targets.cmake
 
     - name: Build
       # Build your program with the given configuration
