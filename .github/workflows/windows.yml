@@ -29,28 +29,29 @@ jobs:
       with:
         packages: |
             aqtinstall
-            conan
+#            conan
     - run: aqt install-qt windows desktop ${{env.QT_VERSION}} win64_mingw -m qtmultimedia
     - run: aqt install-tool windows desktop tools_ifw
-    - run: >
-        conan install .
-        -s compiler=gcc
-        -s compiler.version=11.2
-        -s compiler.libcxx=libstdc++11
-        -s compiler.cppstd=gnu20
-        -s compiler.cppstd=20
-        --build=missing
-    - run: ls
+#    - run: >
+#        conan install .
+#        -s compiler=gcc
+#        -s compiler.version=11.2
+#        -s compiler.libcxx=libstdc++11
+#        -s compiler.cppstd=gnu20
+#        -s compiler.cppstd=20
+#        --build=missing
+#    - run: ls
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: >
-        cmake -GNinja -B ${{github.workspace}}/build
-        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64
-        -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
-        -DSERVER=OFF
+#      run: >
+#        cmake -GNinja -B ${{github.workspace}}/build
+#        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+#        -DSERVER=OFF
+#        -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64
+#        -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
+      run: cmake -GNinja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DSERVER=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
 
     - name: Build
       # Build your program with the given configuration
