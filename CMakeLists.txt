@@ -8,21 +8,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CLIENT ON CACHE BOOL "building client")
 set(SERVER ON CACHE BOOL "building server")
 
-if(SERVER)
-    # Let Drogon do the heavy lifting for configuration
-    find_package(Drogon CONFIG REQUIRED)
-    link_libraries(Jsoncpp_lib)
-else()
-    # Only link aqainst jsoncpp
-    find_package(Jsoncpp REQUIRED)
-    if(Jsoncpp)
-        link_libraries(Jsoncpp_lib)
-    else()
-        find_package(PkgConfig REQUIRED)
-        pkg_check_modules(JSONCPP jsoncpp)
-        link_libraries(${JSONCPP_LIBRARIES})
-    endif()
-endif()
+find_package(Drogon CONFIG REQUIRED)
+link_libraries(Jsoncpp_lib)
+
+#if(SERVER)
+#    # Let Drogon do the heavy lifting for configuration
+#    find_package(Drogon CONFIG REQUIRED)
+#    link_libraries(Jsoncpp_lib)
+#else()
+#    # Only link aqainst jsoncpp
+#    find_package(Jsoncpp)
+#    if(Jsoncpp)
+#        link_libraries(Jsoncpp_lib)
+#    else()
+#        find_package(PkgConfig REQUIRED)
+#        pkg_check_modules(JSONCPP jsoncpp)
+#        link_libraries(${JSONCPP_LIBRARIES})
+#    endif()
+#endif()
 
 include_directories(${JSONCPP_INCLUDE_DIRS}
                     "${CMAKE_CURRENT_SOURCE_DIR}/lib/include")

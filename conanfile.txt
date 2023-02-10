@@ -1,5 +1,5 @@
 [requires]
-jsoncpp/1.9.4
+drogon/1.8.3
 
 [generators]
 cmake_paths
