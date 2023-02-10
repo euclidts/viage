@@ -38,6 +38,12 @@ jobs:
         -s compiler.version=16
         -sbuild_type=${{env.BUILD_TYPE}}
         -g cmake_paths
+#-s compiler=gcc
+#-s compiler.version=11.2
+#-s compiler.libcxx=libstdc++11
+#-s compiler.cppstd=gnu20
+#-s compiler.cppstd=20
+#--build=missing
 
     - name: Configure CMake
       working-directory: ./build
@@ -46,13 +52,12 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DSERVER=OFF
         -DCMAKE_TOOLCHAIN_FILE="conan_paths.cmake"
-        -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64
-        -DCPACK_IFW_ROOT='${{github.workspace}}/Tools/QtInstallerFramework/4.4'
+        -DCMAKE_PREFIX_PATH="${{github.workspace}}/${{env.QT_VERSION}}/mingw_64"
+        -DCPACK_IFW_ROOT="${{github.workspace}}/Tools/QtInstallerFramework/4.4"
 #      run: cmake -GNinja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DSERVER=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
 
     - name: Build
-      working-directory: ./build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target package
+      run: cmake --build build --target package
 
     - uses: actions/upload-artifact@v3
       with:

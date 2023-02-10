@@ -11,10 +11,10 @@ set(SERVER ON CACHE BOOL "building server")
 if(SERVER)
     # Let Drogon do the heavy lifting for configuration
     find_package(Drogon CONFIG REQUIRED)
-    include_directories(${JSONCPP_INCLUDE_DIRS})
+    link_libraries(Jsoncpp_lib)
 else()
     # Only link aqainst jsoncpp
-    find_package(Jsoncpp)
+    find_package(Jsoncpp REQUIRED)
     if(Jsoncpp)
         link_libraries(Jsoncpp_lib)
     else()
@@ -22,11 +22,10 @@ else()
         pkg_check_modules(JSONCPP jsoncpp)
         link_libraries(${JSONCPP_LIBRARIES})
     endif()
-
-    include_directories(${JSONCPP_INCLUDE_DIRS})
 endif()
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/lib/include")
+include_directories(${JSONCPP_INCLUDE_DIRS}
+                    "${CMAKE_CURRENT_SOURCE_DIR}/lib/include")
 add_subdirectory(lib)
 
 if(CLIENT)

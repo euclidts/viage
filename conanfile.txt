@@ -1,5 +1,9 @@
 [requires]
- jsoncpp/1.9.4
+jsoncpp/1.9.4
 
 [generators]
- cmake_paths
+cmake_paths
+
+[options]
+
+[imports]
