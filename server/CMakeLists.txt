@@ -11,7 +11,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     nanodbc
     Drogon::Drogon
     duckx
-    viage
+    mutual
 )
 
 include_directories(Data Data/Item)

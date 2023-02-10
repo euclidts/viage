@@ -1,4 +1,4 @@
-project(viage_client CXX)
+project(viage CXX)
 
 set(CMAKE_AUTOUIC OFF)
 set(CMAKE_AUTOMOC OFF)
@@ -124,7 +124,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::Multimedia
     duckx
-    viage)
+    mutual)
 
 #set_target_properties(${PROJECT_NAME} PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -159,6 +159,7 @@ if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
     include(InstallRequiredSystemLibraries)
 
+    set(CPACK_GENERATOR "IFW")
     set(CPACK_IFW_PACKAGE_NAME "${PROJECT_NAME}")
     set(CPACK_IFW_PACKAGE_TITLE "${PROJECT_NAME}")
     set(CPACK_IFW_PACKAGE_PUBLISHER "${PROJECT_NAME}")

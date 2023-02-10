@@ -1,4 +1,4 @@
-project(viage CXX)
+project(mutual CXX)
 
 add_library(${PROJECT_NAME} STATIC)
 
@@ -22,7 +22,7 @@ target_sources(${PROJECT_NAME}
     src/Item/team_item.cpp
 )
 
-add_library(viage::viage ALIAS viage)
+add_library(mutual::mutual ALIAS mutual)
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE

@@ -10,8 +10,6 @@ account_item::account_item()
 
 void account_item::read(const Value& json)
 {
-    std::cout << json << endl;
-
     if (json.isMember("owners") && json["owners"].isArray())
         owners = json["owners"];
 
