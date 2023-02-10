@@ -24,26 +24,23 @@ jobs:
         submodules: recursive
 
     - uses: seanmiddleditch/gha-setup-ninja@v3
-    - run: pip install aqtinstall conan
+    - run: >
+        pip install
+        aqtinstall
+#        conan
     - run: aqt install-qt windows desktop ${{env.QT_VERSION}} win64_mingw -m qtmultimedia
     - run: aqt install-tool windows desktop tools_ifw
 
     - run: mkdir build
 
-    - name: install connan packages
-      working-directory: ./build
-      run: >
-        conan install ..
-        -s compiler="Visual Studio"
-        -s compiler.version=16
-        -sbuild_type=${{env.BUILD_TYPE}}
-        -g cmake_paths
-#-s compiler=gcc
-#-s compiler.version=11.2
-#-s compiler.libcxx=libstdc++11
-#-s compiler.cppstd=gnu20
-#-s compiler.cppstd=20
-#--build=missing
+#    - name: install connan packages
+#      working-directory: ./build
+#      run: >
+#        conan install ..
+#        -s compiler="Visual Studio"
+#        -s compiler.version=16
+#        -sbuild_type=${{env.BUILD_TYPE}}
+#        -g cmake_paths
 
     - name: Configure CMake
       working-directory: ./build
@@ -51,9 +48,9 @@ jobs:
         cmake .. -GNinja
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DSERVER=OFF
-        -DCMAKE_TOOLCHAIN_FILE="conan_paths.cmake"
         -DCMAKE_PREFIX_PATH="${{github.workspace}}/${{env.QT_VERSION}}/mingw_64"
-        -DCPACK_IFW_ROOT="${{github.workspace}}/Tools/QtInstallerFramework/4.4"
+        -DCPACK_IFW_ROOT="/a/viage/viage/Tools/QtInstallerFramework/4.4"
+#        -DCMAKE_TOOLCHAIN_FILE="conan_paths.cmake"
 #      run: cmake -GNinja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DSERVER=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
 
     - name: Build
