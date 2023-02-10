@@ -9,7 +9,7 @@
 namespace Data
 {
 struct s_account final : public account_item
-        //                       , public s_base_data<account_item>
+//                       , public s_base_data<account_item>
 {
     s_account();
 

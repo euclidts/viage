@@ -73,7 +73,8 @@ void s_contact::condition(std::string &query, const s_user &usr, s_account *acnt
     acnt->condition(query, usr, acnt);
 }
 
-const constexpr std::basic_string<char, std::char_traits<char> > s_contact::select(const s_user &usr, s_account *acnt)
+const constexpr std::basic_string<char, std::char_traits<char>> s_contact::select(
+        const s_user& usr, s_account* acnt)
 {
     return "SELECT "
            "b.Id, "

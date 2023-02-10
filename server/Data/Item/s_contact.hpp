@@ -15,7 +15,7 @@ struct s_list;
 namespace People
 {
 struct s_contact final : public contact_item
-        , public s_infant<contact_item>
+                       , public s_infant<contact_item>
 {
     s_contact();
 

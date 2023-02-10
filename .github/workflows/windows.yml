@@ -42,6 +42,10 @@ jobs:
 #        -sbuild_type=${{env.BUILD_TYPE}}
 #        -g cmake_paths
 
+#    - run: echo "-DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4" >> $GITHUB_PATH
+    - run: echo "C:/Program Files (x86)/Etc" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8 "${{github.workspace}}/Tools/QtInstallerFramework/4.4"
+
+
     - name: Configure CMake
       working-directory: ./build
       run: >
@@ -49,9 +53,10 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DSERVER=OFF
         -DCMAKE_PREFIX_PATH="${{github.workspace}}/${{env.QT_VERSION}}/mingw_64"
-        -DCPACK_IFW_ROOT="/a/viage/viage/Tools/QtInstallerFramework/4.4"
+#        -DCPACK_IFW_ROOT="D:/a/viage/viage/Tools/QtInstallerFramework/4.4"
+#        -DCPACK_IFW_ROOT="D:/a/viage/viage/Tools/QtInstallerFramework/4.4"
 #        -DCMAKE_TOOLCHAIN_FILE="conan_paths.cmake"
-#      run: cmake -GNinja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DSERVER=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
+#      run: cmake .. -GNinja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DSERVER=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
 
     - name: Build
       run: cmake --build build --target package
