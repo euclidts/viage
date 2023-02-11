@@ -27,7 +27,37 @@ struct s_user final : public user_item
 
     static void condition(std::string& query, const s_user& usr) {};
 
-    static const constexpr std::string select(const s_user& usr);;
+    static const constexpr std::string select(const s_user& usr)
+    {
+        if (usr.clearance < Administrator)
+            return "";
+
+        return "SELECT "
+               "a.[Id], "
+               "FirstName, "
+               "LastName, "
+               "Login, "
+               "EMail, "
+               "Phone, "
+               "Clearance, "
+               "Beneficiary, "
+               "Bic, "
+               "Iban, "
+               "Street, "
+               "City, "
+               "Canton, "
+               "Zip, "
+               "a.[CompanyId], "
+               "TeamId, "
+               "IsLocked, "
+               "b.[Name], "
+               "c.[Caption] "
+               "FROM (([User] a "
+               "LEFT JOIN Company b "
+               "ON a.[CompanyId] = b.[Id]) "
+               "LEFT JOIN Team c "
+               "ON a.[TeamId] = c.[Id]) ";
+    };
 
 protected:
     Places::s_address sa;

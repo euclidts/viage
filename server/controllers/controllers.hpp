@@ -8,6 +8,7 @@
 #include <s_team.hpp>
 #include <s_company.hpp>
 #include <s_user.hpp>
+#include <s_account.hpp>
 
 using namespace drogon;
 

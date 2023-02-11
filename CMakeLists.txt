@@ -12,7 +12,7 @@ if(SERVER)
     # Let Drogon do the heavy lifting for configuration
     find_package(Drogon CONFIG REQUIRED)
     include_directories(${JSONCPP_INCLUDE_DIRS})
-    link_libraries(jsoncpp_lib)
+    link_libraries(Jsoncpp_lib)
 else()
     # Only link aqainst jsoncpp
     set(JSONCPP_WITH_TESTS OFF CACHE BOOL "do not buid jsoncpp_tests" FORCE)

@@ -1,5 +1,4 @@
 #include "s_contact.hpp"
-#include "s_account.hpp"
 #include <s_list.hpp>
 
 namespace Data
@@ -71,26 +70,6 @@ void s_contact::foreign_update(std::string& query, s_list<s_contact>* list, s_ac
 void s_contact::condition(std::string &query, const s_user &usr, s_account *acnt)
 {
     acnt->condition(query, usr, acnt);
-}
-
-const constexpr std::basic_string<char, std::char_traits<char>> s_contact::select(
-        const s_user& usr, s_account* acnt)
-{
-    return "SELECT "
-           "b.Id, "
-           "b.FirstName, "
-           "b.LastName, "
-           "b.Sex, "
-           "b.Phone, "
-           "b.EMail, "
-           "b.IsInfant, "
-           "FROM Account a, "
-           "BaseOwner b, "
-           "[User] u "
-           "WHERE b.InfantAccountId = "
-            + std::to_string(acnt->id) +
-            " AND b.OwnerType = 'Contact' "
-            + server::utils::clearance_close(usr);
 }
 
 }
