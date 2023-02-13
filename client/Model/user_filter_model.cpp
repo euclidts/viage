@@ -8,7 +8,7 @@ namespace Data
 W_OBJECT_IMPL(user_filter_model)
 
 user_filter_model::user_filter_model(QAbstractItemModel *model,
-                                     const bool &exclusif,
+                                     bool exclusif,
                                      QObject *parent)
     : base_filter_model{model, parent}
     , isExclusif{exclusif}

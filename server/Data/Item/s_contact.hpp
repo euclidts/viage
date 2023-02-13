@@ -1,18 +1,13 @@
 #ifndef S_CONTACT_HPP
 #define S_CONTACT_HPP
 
-#include "s_account.hpp"
 #include "s_infant.hpp"
+#include "s_account.hpp"
 #include <server_utils.hpp>
 #include <Item/contact_item.hpp>
 
 namespace Data
 {
-struct s_account;
-
-template <typename T>
-struct s_list;
-
 namespace People
 {
 struct s_contact final : public contact_item
@@ -26,16 +21,15 @@ struct s_contact final : public contact_item
     const std::string update(const s_user& usr, s_account* acnt = nullptr) const;
 
     static void foreign_update(std::string& query,
-                               s_list<s_contact>* list,
+                               bool complete,
                                s_account* acnt = nullptr);
 
     static void condition(std::string& query,
                           const s_user& usr,
                           s_account* acnt);
 
-    static const constexpr std::basic_string<char, std::char_traits<char>> select(
-            const People::s_user& usr,
-            s_account* acnt = nullptr)
+    static const constexpr std::string select(const s_user& usr,
+                                              s_account* acnt)
     {
         return "SELECT "
                "b.Id, "

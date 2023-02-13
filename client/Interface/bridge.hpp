@@ -32,7 +32,7 @@ public:
            Data::c_list<Data::c_document>* documents,
            const QString& path);
 
-    void onLogin(const bool& success, const QString& errorString) const;
+    void onLogin(bool success, const QString& errorString) const;
 
     void onException(const QString& prefix,
                      const QString& errorString) const;
@@ -64,7 +64,7 @@ public:
     void updatePwd(const QString& newPwd) const;
     W_INVOKABLE(updatePwd)
 
-    void lockUser(int id, const bool& locked) const;
+    void lockUser(int id, bool locked) const;
     W_INVOKABLE(lockUser)
 
     void getAccountDates() const;
@@ -112,7 +112,7 @@ public:
     W_SIGNAL(accountStateChanged)
 
     bool getPPE() const;
-    void setPPE(const bool& newPPE);
+    void setPPE(bool newPPE);
     void ppeChanged()
     W_SIGNAL(ppeChanged)
 

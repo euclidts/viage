@@ -16,9 +16,7 @@ c_owner::c_owner()
     , c_infant{}
     , ca{address}
 {
-    const auto yearsAgo{QDate::currentDate().addYears(-AGE_MIN)};
-
-    this->birthDay = yearsAgo.toString().toStdString();
+    birthDay = to_date(QDate::currentDate().addYears(-AGE_MIN));
 }
 
 QHash<int, QByteArray> c_owner::roleNames()
@@ -44,7 +42,7 @@ QVariant c_owner::data(int role) const
     switch (role)
     {
     case BirthDayRole:
-        return to_QDate(birthDay, "yyyy-MM-dd");
+        return to_QDate(birthDay);
     case CivilStatusRole:
         return QVariant(civilStatus);
     case AVSRole:
@@ -66,7 +64,7 @@ void c_owner::setData(const QVariant &value, int role)
     switch (role)
     {
     case BirthDayRole:
-        birthDay = to_date(value.toDate(), "dd.MM.yyyy");
+        birthDay = to_date(value.toDate());
         break;
     case CivilStatusRole:
         civilStatus = civilStates(value.toInt());

@@ -91,7 +91,7 @@ ScrollView {
 
                 DocumentListView {
                     id: lucidity
-                    name: qsTr("Certificat médical de lucidité")
+                    name: qsTr("Certificat médical de discernement")
                     documentCategory: 128
                     documentsFrom: documents
                 }

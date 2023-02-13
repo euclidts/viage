@@ -1,6 +1,4 @@
 #include "s_owner.hpp"
-#include "s_account.hpp"
-#include <s_list.hpp>
 
 namespace Data
 {
@@ -77,11 +75,11 @@ const string s_owner::update(const s_user& usr, s_account* acnt) const
             "; ";
 }
 
-void s_owner::foreign_update(std::string& query, s_list<s_owner>* list, s_account* acnt)
+void s_owner::foreign_update(std::string& query, bool complete, s_account* acnt)
 {
     std::string str{};
 
-    if (list->is_completed())
+    if (complete)
         str.append(", State |= " + std::to_string(account_item::OwnersCompleted));
 
     acnt->foreign_update(str, acnt);
@@ -92,26 +90,6 @@ void s_owner::foreign_update(std::string& query, s_list<s_owner>* list, s_accoun
 void s_owner::condition(std::string& query, const s_user& usr, s_account* acnt)
 {
     acnt->condition(query, usr, acnt);
-}
-
-const constexpr std::string s_owner::select(
-        const s_user& usr, s_account* acnt)
-{
-    return "SELECT "
-           "b.Id, "
-           "b.FirstName, "
-           "b.LastName, "
-           "b.Sex, "
-           "b.Phone, "
-           "b.EMail, "
-           "b.IsInfant, "
-           "FROM Account a, "
-           "BaseOwner b, "
-           "[User] u "
-           "WHERE b.InfantAccountId = "
-            + std::to_string(acnt->id) +
-            " AND b.OwnerType = 'Owner' "
-            + server::utils::clearance_close(usr);
 }
 
 }

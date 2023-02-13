@@ -55,11 +55,11 @@ const string s_contact::update(const s_user& usr, s_account* acnt) const
             + std::to_string(id);
 }
 
-void s_contact::foreign_update(std::string& query, s_list<s_contact>* list, s_account* acnt)
+void s_contact::foreign_update(std::string& query, bool complete, s_account* acnt)
 {
     std::string str{};
 
-    if (list->is_completed() || list->size() == 0)
+    if (complete)
         str.append(", State |= " + std::to_string(account_item::ContactsCompleted));
 
     acnt->foreign_update(str, acnt);

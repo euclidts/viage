@@ -1,5 +1,4 @@
 #include <Item/account_item.hpp>
-#include <iostream>
 
 namespace Data
 {

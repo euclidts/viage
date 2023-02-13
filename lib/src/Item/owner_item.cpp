@@ -15,7 +15,7 @@ void owner_item::read(const Json::Value &json)
     infant_item::read(json);
 
     if (json.isMember("birthDay") && json["birthDay"].isString())
-        if (json["birthDay"].asString() != "")
+        if (!json["birthDay"].asString().empty())
             birthDay = json["birthDay"].asString();
 
     if (json.isMember("civilStatus") && json["civilStatus"].isInt())

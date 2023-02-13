@@ -25,7 +25,7 @@ public:
 
     void authenticate(const QString& username, const QString& password);
 
-    void loggedIn(const bool& success,
+    void loggedIn(bool success,
                   const QString& errorString = "")
     W_SIGNAL(loggedIn, success, errorString);
 

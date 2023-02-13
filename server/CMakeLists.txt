@@ -30,6 +30,7 @@ set(SRC
     server.cpp
     server_utils.cpp
     Data/Item/s_account.cpp
+    Data/Item/s_contact.cpp
     Data/Item/s_address.cpp
     Data/Item/s_company.cpp
     Data/Item/s_team.cpp

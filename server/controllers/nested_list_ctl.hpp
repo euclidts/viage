@@ -10,8 +10,8 @@ template <typename T, typename I, typename F>
 struct nested_list_ctl : public nested_item_ctl<T, I, F>
 {
     void update(const HttpRequestPtr& req,
-                        std::function<void (const HttpResponsePtr&)>&& callback,
-                        int foreign_id) const override
+                std::function<void (const HttpResponsePtr&)>&& callback,
+                int foreign_id) const override
     {
         LOG_DEBUG << "update " << I::key;
 
@@ -28,8 +28,8 @@ struct nested_list_ctl : public nested_item_ctl<T, I, F>
                                      &foreign);
     }
 
-    void update_from(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr&)>&& callback) const
+    virtual void update_from(const HttpRequestPtr& req,
+                             std::function<void (const HttpResponsePtr&)>&& callback) const
     {
         LOG_DEBUG << "update " << I::key;
 

@@ -51,6 +51,7 @@ public:
     bool setItemAtId(int id, const T& item);
     void set_list(const std::vector<T>& list);
     void clear() override;
+    W_INVOKABLE(clear)
 
     void add()
     W_SIGNAL(add)

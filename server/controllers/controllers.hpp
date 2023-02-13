@@ -1,14 +1,14 @@
 #pragma once
 
 #include <drogon/HttpController.h>
-#include "list_ctl.hpp"
-#include "nested_item_ctl.hpp"
-#include "nested_list_ctl.hpp"
-#include <s_contact.hpp>
 #include <s_team.hpp>
 #include <s_company.hpp>
 #include <s_user.hpp>
 #include <s_account.hpp>
+#include <s_owner.hpp>
+#include "list_ctl.hpp"
+#include "nested_item_ctl.hpp"
+#include "nested_list_ctl.hpp"
 
 using namespace drogon;
 
@@ -16,12 +16,12 @@ namespace Data
 {
 namespace People
 {
-struct contact_ctl final : public nested_list_ctl<contact_ctl, s_contact, s_account>
+struct owner_ctl final : public nested_list_ctl<owner_ctl, s_owner, s_account>
 {
     METHOD_LIST_BEGIN
-//    ADD_METHOD_TO(contact_ctl::insert, "/accounts/contacts", Post);
-    ADD_METHOD_TO(contact_ctl::select, "/accounts/{}/contacts", Get);
-//    ADD_METHOD_TO(contact_ctl::update_from, "/accounts/contacts", Put);
+    ADD_METHOD_TO(owner_ctl::insert, "/accounts/owners", Post);
+    ADD_METHOD_TO(owner_ctl::select, "/accounts/{}/owners", Get);
+    ADD_METHOD_TO(owner_ctl::update_from, "/accounts/owners", Put);
     METHOD_LIST_END
 };
 

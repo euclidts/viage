@@ -72,16 +72,16 @@ void item_list<T>::writeWithKey(Json::Value& json) const
 }
 
 template<typename T>
-complitions item_list<T>::complition() const
+bool item_list<T>::is_completed() const
 {
     if (m_items.empty())
-        return Empty;
+        return false;
 
     for (const auto& item : m_items)
-        if (item.is_completed() == Incomplete)
-            return Incomplete;
+        if (!item.is_completed())
+            return false;
 
-    return Complete;
+    return true;
 }
 
 template<typename T>

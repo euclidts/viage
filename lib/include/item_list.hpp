@@ -40,7 +40,7 @@ public:
     void read(const Json::Value& json) override;
     virtual void write(Json::Value& json) const override;
 
-    complitions complition() const override;
+    bool is_completed() const override;
 
 protected:
     void writeWithKey(Json::Value& json) const override;

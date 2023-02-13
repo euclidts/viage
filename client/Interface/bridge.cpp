@@ -91,7 +91,7 @@ bridge::bridge(Interface::netManager* manager,
     });
 }
 
-void bridge::onLogin(const bool& success, const QString &errorString) const
+void bridge::onLogin(bool success, const QString &errorString) const
 {
     QMetaObject::invokeMethod(qmlObject,
                               "onLogin",
@@ -235,7 +235,7 @@ void bridge::changePwd(const char *key, const Value& json) const
     "changePwd error");
 }
 
-void bridge::lockUser(int id, const bool &locked) const
+void bridge::lockUser(int id, bool locked) const
 {
     Value json;
     json["id"] = id;
@@ -378,7 +378,7 @@ bool bridge::getPPE() const
     return ppe;
 }
 
-void bridge::setPPE(const bool &newPPE)
+void bridge::setPPE(bool newPPE)
 {
     if (ppe == newPPE)
         return;
