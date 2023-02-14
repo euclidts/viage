@@ -27,6 +27,8 @@ class item_list : public virtual base_data<item_list<T>>
         return key_str;
     };
 
+    bool is_empty_completed() const;
+
 public:
     item_list();
 

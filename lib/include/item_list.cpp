@@ -85,6 +85,19 @@ bool item_list<T>::is_completed() const
 }
 
 template<typename T>
+bool item_list<T>::is_empty_completed() const
+{
+    if(m_items.empty())
+        return true;
+
+    for(const auto& item : m_items)
+        if (!item.is_completed())
+            return false;
+
+    return true;
+};
+
+template<typename T>
 int item_list<T>::index_at_id(int id) const noexcept
 {
     int index{-1};

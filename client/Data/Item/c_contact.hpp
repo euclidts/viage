@@ -4,13 +4,14 @@
 #include "qnamespace.h"
 #include "c_infant.hpp"
 #include <Item/contact_item.hpp>
+#include <item_list.hpp>
 
 namespace Data
 {
 namespace People
 {
 struct c_contact final : public contact_item
-                       , public c_infant<contact_item>
+        , public c_infant<contact_item>
 {   
     c_contact();
 
@@ -32,8 +33,13 @@ struct c_contact final : public contact_item
 
     bool is_completed() const { return contact_item::is_completed(); };
 };
-
-}
 }
 
+template<>
+inline bool item_list<People::c_contact>::is_completed() const
+{
+    return is_empty_completed();
+};
+
+}
 #endif // C_CONTACT_H

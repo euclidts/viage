@@ -22,7 +22,6 @@ struct contact_item : virtual public infant_item<contact_item>
 protected:
     contact_item();
 };
-
 }
 }
 

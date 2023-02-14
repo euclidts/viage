@@ -103,8 +103,7 @@ RowLayout {
                   && owners.completed
                   && ownersPage.count < 2)
                  || (accountsPages.currentIndex === 2
-                     && (contacts.completed || contactPage.count === 0))
-        // exception for potentially empty contact list
+                     && (contacts.completed))
         icon.source: "qrc:/icons/plus.svg"
 
         onClicked: {
@@ -121,9 +120,6 @@ RowLayout {
         visible: (accountsPages.currentIndex > 0
                   && accountsPages.currentIndex < 5
                   && accountsPages.itemAt(accountsPages.currentIndex).completed)
-                 || ( accountsPages.currentIndex === 2 &&
-                     accountsPages.itemAt(accountsPages.currentIndex).count === 0)
-        // exception for potentially empty children list
         icon.source: "qrc:/icons/arrow-right.svg"
 
         onClicked: {

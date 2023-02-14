@@ -161,20 +161,7 @@ void c_list<T>::clear()
 template<typename T>
 void c_list<T>::checkCompleted()
 {
-    if (this->m_items.empty())
-    {
-        this->setCompleted(false);
-        return;
-    }
-
-    for (const auto& item : this->m_items)
-        if (!item.is_completed())
-        {
-            this->setCompleted(false);
-            return;
-        }
-
-    this->setCompleted(true);
+    this->setCompleted(this->is_completed());
 }
 
 template<typename T>
