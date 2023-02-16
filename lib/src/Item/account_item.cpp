@@ -137,4 +137,28 @@ bool account_item::is_completed() const
     return (state & Onboarded) == Onboarded;
 }
 
+void account_item::clear()
+{
+    owners.clear();
+    contacts.clear();
+    habitat.clear();
+    ppe = false;
+    exterior.clear();
+    documents.clear();
+    created = "";
+    modified = "";
+    acronym = "";
+    advisorFirstName = "";
+    advisorLastName = "";
+    company = "";
+    id = 0;
+    state = Initialized;
+    receivedDate = "";
+    transmitedDate = "";
+    expertizedDate = "";
+    decidedDate = "";
+    notarizedDate = "";
+    paidDate = "";
+}
+
 }

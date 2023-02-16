@@ -12,23 +12,24 @@ const std::string s_account::insert(const People::s_user& usr) const
 {
     const auto creation_date{trantor::Date::date().toDbStringLocal()};
 
-    return "DECLARE @table table (id int) "
+    return "SET NOCOUNT ON "
+           "DECLARE @table table (id int) "
            "INSERT INTO Account "
            "(CreationDate, UpdateDate, AdvisorId, State, HabitatType) "
            "OUTPUT inserted.id INTO @table "
            "VALUES ('"
-           + creation_date +
-           "', '"
-           + creation_date +
-           "', "
-           + std::to_string(usr.id) +
-           ", 0, 0) "
-           "DECLARE @id int "
-           "SELECT @id = id FROM @table "
-           "INSERT INTO BaseOwner "
-           "(OwnerType, Sex, OwnerAccountId) "
-           "OUTPUT @id Id"
-           "VALUES ('Owner', 0, @id) ";
+            + creation_date +
+            "', '"
+            + creation_date +
+            "', "
+            + std::to_string(usr.id) +
+            ", 0, 0) "
+            "DECLARE @id int "
+            "SELECT @id = id FROM @table "
+            "INSERT INTO BaseOwner "
+            "(OwnerType, Sex, OwnerAccountId) "
+            "OUTPUT @id Id "
+            "VALUES ('Owner', 0, @id) ";
 }
 
 const std::string s_account::update(const People::s_user& usr) const

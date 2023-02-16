@@ -5,6 +5,18 @@
 
 namespace Data
 {
+void account_ctl::insert(const HttpRequestPtr& req,
+                         std::function<void (const HttpResponsePtr &)>&& callback) const
+{
+    LOG_DEBUG << "insert account";
+
+    s_account item{};
+
+    server::server::get().insert(req,
+                                 callback,
+                                 item);
+}
+
 void account_ctl::select(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
@@ -36,8 +48,8 @@ void account_ctl::select(const HttpRequestPtr& req,
         std::vector<s_account> vec{};
 
         Json::Value tmp;
-        tmp["firstName"] = result.get<std::string>("FirstName");
-        tmp["lastName"] = result.get<std::string>("LastName");
+        tmp["firstName"] = result.get<std::string>("FirstName", "");
+        tmp["lastName"] = result.get<std::string>("LastName", "");
         owners[0] = tmp;
 
         // iterate
@@ -50,11 +62,12 @@ void account_ctl::select(const HttpRequestPtr& req,
                 account.owners = owners;
                 owners.clear();
                 vec.push_back(account);
+                account.clear();
                 account.set(result);
             }
 
-            tmp["firstName"] = result.get<std::string>("FirstName");
-            tmp["lastName"] = result.get<std::string>("LastName");
+            tmp["firstName"] = result.get<std::string>("FirstName", "");
+            tmp["lastName"] = result.get<std::string>("LastName", "");
             owners[owners.size()] = tmp;
 
             prev_id = id;

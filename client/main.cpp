@@ -57,9 +57,9 @@ int main(int argc, char* argv[])
     using namespace Data;
     using namespace People;
 
-    QString host{"https://viage.euclidtradingsystems.com"};
+//    QString host{"https://viage.euclidtradingsystems.com"};
 //    QString host{"https://viagetestrive.euclidtradingsystems.com"};
-//    QString host{"http://127.0.0.0:8080"};
+    QString host{"http://127.0.0.0:8080"};
 
     for (int i = 0; i < argc; i++)
         if (QString::compare(argv[i], "--host") == 0)

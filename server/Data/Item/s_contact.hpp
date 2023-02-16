@@ -32,7 +32,7 @@ struct s_contact final : public contact_item
                                               s_account* acnt)
     {
         return "SELECT "
-               "b.Id, "
+               "DISTINCT(b.Id), "
                "b.FirstName, "
                "b.LastName, "
                "b.Sex, "

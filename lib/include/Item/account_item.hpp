@@ -59,6 +59,7 @@ struct account_item : virtual public base_data<account_item>
     void write(Value& json) const override;
 
     bool is_completed() const override;
+    void clear() override;
 
 protected:
     explicit account_item();

@@ -14,8 +14,10 @@ struct account_ctl : public list_ctl<account_ctl, s_account>
     ADD_METHOD_TO(account_ctl::update, "/accounts", Put);
     METHOD_LIST_END
 
+    void insert(const HttpRequestPtr& req,
+                std::function<void (const HttpResponsePtr &)>&& callback) const override;
+
     void select(const HttpRequestPtr& req,
                 std::function<void (const HttpResponsePtr &)>&& callback) const override;
 };
-
 }

@@ -87,8 +87,6 @@ struct s_account final : public account_item
     };
 
 private:
-
-
     //    void remove_multiple(nanodbc::result& res);
 };
 

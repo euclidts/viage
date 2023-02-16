@@ -34,17 +34,17 @@ struct s_owner final : public owner_item
                                               s_account* acnt)
     {
         return "SELECT "
-               "b.Id, "
+               "DISTINCT(b.Id), "
                "b.FirstName, "
                "b.LastName, "
                "b.Sex, "
                "b.Phone, "
                "b.EMail, "
-               "b.IsInfant, "
+               "b.IsInfant "
                "FROM Account a, "
                "BaseOwner b, "
                "[User] u "
-               "WHERE b.InfantAccountId = "
+               "WHERE b.OwnerAccountId = "
                 + std::to_string(acnt->id) +
                 " AND b.OwnerType = 'Owner' "
                 + server::utils::clearance_close(usr);
