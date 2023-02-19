@@ -56,22 +56,14 @@ void s_account::set(nanodbc::result& res)
     try
     {
         if (!res.is_null("CreationDate"))
-        {
-            auto str = res.get<std::string>("CreationDate");
-            str.erase(str.begin() + str.find_first_of('+') - 1, str.end());
-            created = str;
-        }
+            created = server::utils::from_db_date_time(res.get<std::string>("CreationDate"));
     }
     catch (...) {}
 
     try
     {
         if (!res.is_null("UpdateDate"))
-        {
-            auto str = res.get<std::string>("UpdateDate");
-            str.erase(str.begin() + str.find_first_of('+') - 1, str.end());
-            modified = str;
-        }
+            modified = server::utils::from_db_date_time(res.get<std::string>("UpdateDate"));
     }
     catch (...) {}
 

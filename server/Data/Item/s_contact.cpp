@@ -62,7 +62,7 @@ void s_contact::foreign_update(std::string& query, bool complete, s_account* acn
     if (complete)
         str.append(", State |= " + std::to_string(account_item::ContactsCompleted));
 
-    acnt->foreign_update(str, acnt);
+    acnt->foreign_update(str, complete, acnt);
 
     query.append(str);
 }

@@ -25,6 +25,7 @@ struct s_user final : public user_item
     const std::string insert(const s_user& usr) const;
     const std::string update(const s_user& usr) const;
 
+    static void foreign_update(std::string& query, bool complete) {};
     static void condition(std::string& query, const s_user& usr) {};
 
     static const constexpr std::string select(const s_user& usr)

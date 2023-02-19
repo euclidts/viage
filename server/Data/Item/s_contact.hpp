@@ -31,8 +31,8 @@ struct s_contact final : public contact_item
     static const constexpr std::string select(const s_user& usr,
                                               s_account* acnt)
     {
-        return "SELECT "
-               "DISTINCT(b.Id), "
+        return "SELECT DISTINCT "
+               "b.Id, "
                "b.FirstName, "
                "b.LastName, "
                "b.Sex, "

@@ -6,6 +6,7 @@
 #include <s_user.hpp>
 #include <s_account.hpp>
 #include <s_owner.hpp>
+#include <s_contact.hpp>
 #include "list_ctl.hpp"
 #include "nested_item_ctl.hpp"
 #include "nested_list_ctl.hpp"
@@ -16,6 +17,15 @@ namespace Data
 {
 namespace People
 {
+struct contact_ctl final : public nested_list_ctl<contact_ctl, s_contact, s_account>
+{
+    METHOD_LIST_BEGIN
+    ADD_METHOD_TO(contact_ctl::insert, "/accounts/contacts", Post);
+    ADD_METHOD_TO(contact_ctl::select, "/accounts/{}/contacts", Get);
+    ADD_METHOD_TO(contact_ctl::update_from, "/accounts/contacs", Put);
+    METHOD_LIST_END
+};
+
 struct owner_ctl final : public nested_list_ctl<owner_ctl, s_owner, s_account>
 {
     METHOD_LIST_BEGIN

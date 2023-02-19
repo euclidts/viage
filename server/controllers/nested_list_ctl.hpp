@@ -13,13 +13,14 @@ struct nested_list_ctl : public nested_item_ctl<T, I, F>
                 std::function<void (const HttpResponsePtr&)>&& callback,
                 int foreign_id) const override
     {
-        LOG_DEBUG << "update " << I::key;
+        s_list<I> list{};
+
+        LOG_DEBUG << list.key;
 
         F foreign{};
         foreign.id = foreign_id;
 
         Json::Value val{*req->jsonObject()};
-        s_list<I> list{};
         list.read(val[I::key]);
 
         server::server::get().update(req,
@@ -31,17 +32,18 @@ struct nested_list_ctl : public nested_item_ctl<T, I, F>
     virtual void update_from(const HttpRequestPtr& req,
                              std::function<void (const HttpResponsePtr&)>&& callback) const
     {
-        LOG_DEBUG << "update " << I::key;
+        s_list<I> list{};
+
+        LOG_DEBUG << list.key;
 
         Json::Value val{*req->jsonObject()};
 
         F foreign{};
 
-        if (val.isMember(F::foreign_key) && val[F::foreign_key].isInt())
-            foreign.id = val[F::foreign_key].asInt();
+        if (val.isMember("Id") && val["Id"].isInt())
+            foreign.id = val["Id"].asInt();
 
-        s_list<I> list{};
-        list.read(val[I::key]);
+        list.read(val[list.key]);
 
         server::server::get().update(req,
                                      callback,

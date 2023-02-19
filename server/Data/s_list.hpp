@@ -19,6 +19,14 @@ struct s_list final : public item_list<T>
     std::string update(const People::s_user& usr, Foreign*... f) const;
 
     template <typename ...Foreign>
+    static void foreign_update(std::string& query,
+                               bool complete,
+                               Foreign*... f)
+    {
+        T::foreign_update(query, complete, f...);
+    };
+
+    template <typename ...Foreign>
     static void condition(std::string& query,
                           const People::s_user& usr,
                           Foreign*... f)

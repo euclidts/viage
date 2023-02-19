@@ -21,6 +21,7 @@ struct s_account final : public account_item
     const std::string update(const People::s_user& usr) const;
 
     static void foreign_update(string& query,
+                               bool complete,
                                s_account* acnt = nullptr)
     {
         if (!acnt) return;
@@ -49,7 +50,7 @@ struct s_account final : public account_item
                      "Company c "
                      "WHERE a.Id = "
                      + std::to_string(acnt->id) +
-                     "AND u.id = a.AdvisorId "
+                     " AND u.id = a.AdvisorId "
                      "AND c.id = u.CompanyId "
                      + server::utils::clearance_close(usr) +
                      ") BEGIN ");

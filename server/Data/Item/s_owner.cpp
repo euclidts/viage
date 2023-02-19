@@ -18,11 +18,7 @@ void s_owner::set(const nanodbc::result& res)
     try
     {
         if (!res.is_null("BirthDay"))
-        {
-            auto str = res.get<std::string>("BirthDay");
-            str.erase(str.begin() + str.find_first_of('+') - 1, str.end());
-            birthDay = str;
-        }
+            birthDay = server::utils::from_db_date(res.get<std::string>("BirthDay"));
     }
     catch (...) {}
 
@@ -64,13 +60,15 @@ const string s_owner::update(const s_user& usr, s_account* acnt) const
 {
     return "UPDATE BaseOwner SET "
             + s_infant::fields() +
-            " , BirthDay = '"
-            + birthDay +
-            "' , CivilStatus = "
+            ", BirthDay = '"
+            + server::utils::to_db_date(birthDay) +
+            "', CivilStatus = "
             + std::to_string(civilStatus) +
-            " , AVS = '"
+            ", AVS = '"
             + avs +
-            "' WHERE Id = "
+            "', "
+            + ads.fields() +
+            " WHERE Id = "
             + std::to_string(id) +
             "; ";
 }
@@ -79,10 +77,10 @@ void s_owner::foreign_update(std::string& query, bool complete, s_account* acnt)
 {
     std::string str{};
 
+    acnt->foreign_update(str, complete, acnt);
+
     if (complete)
         str.append(", State |= " + std::to_string(account_item::OwnersCompleted));
-
-    acnt->foreign_update(str, acnt);
 
     query.append(str);
 }

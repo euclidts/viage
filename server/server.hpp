@@ -102,10 +102,14 @@ public:
                      (Json::Value& json, const Data::People::s_user& usr)
         {
             auto query{item.update(usr, args...)};
-            T::condition(query, usr, args...);
 
             if (query.empty())
                 return false;
+
+            T::foreign_update(query,
+                              item.is_completed(),
+                              args...);
+            T::condition(query, usr, args...);
 
             try
             {

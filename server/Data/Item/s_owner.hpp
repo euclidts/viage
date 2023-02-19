@@ -3,6 +3,7 @@
 
 #include "s_account.hpp"
 #include "s_infant.hpp"
+#include "s_list.hpp"
 #include <server_utils.hpp>
 #include <Item/owner_item.hpp>
 
@@ -13,7 +14,7 @@ struct s_account;
 namespace People
 {
 struct s_owner final : public owner_item
-                     , public s_infant<owner_item>
+        , public s_infant<owner_item>
 {
     s_owner();
 
@@ -28,19 +29,26 @@ struct s_owner final : public owner_item
 
     static void condition(std::string& query,
                           const s_user& usr,
-                          s_account* acnt);;
+                          s_account* acnt);
 
     static const constexpr std::string select(const s_user& usr,
                                               s_account* acnt)
     {
-        return "SELECT "
-               "DISTINCT(b.Id), "
+        return "SELECT DISTINCT "
+               "b.Id, "
                "b.FirstName, "
                "b.LastName, "
                "b.Sex, "
                "b.Phone, "
                "b.EMail, "
-               "b.IsInfant "
+               "b.AVS, "
+               "b.BirthDay, "
+               "b.CivilStatus, "
+               "b.CivilStatus, "
+               "b.Street, "
+               "b.City, "
+               "b.Canton, "
+               "b.Zip "
                "FROM Account a, "
                "BaseOwner b, "
                "[User] u "
@@ -53,8 +61,53 @@ struct s_owner final : public owner_item
 private:
     Places::s_address ads;
 };
-
 }
+
+template<>
+template<>
+inline std::string s_list<People::s_owner>::update(const People::s_user& usr, s_account* acnt) const
+{
+    std::string str{};
+
+    if (!m_items.empty())
+    {
+        for (const auto& item : m_items)
+            str += item.update(usr, acnt);
+
+        auto owner{m_items[0]};
+
+        auto first{owner.firstName};
+        auto last{owner.lastName};
+
+        if (first.size() > 3)
+            first.erase(first.begin() + 3, first.end());
+
+        if (last.size() > 3)
+            last.erase(last.begin() + 3, last.end());
+
+        auto concat{last + first};
+        std::transform(concat.begin(), concat.end(), concat.begin(),
+                       [](unsigned char c) { return std::toupper(c); });
+
+        auto year{owner.birthDay};
+
+        if (year.size() > 3)
+        {
+            year.erase(year.begin(), year.end() - 2);
+            concat += year;
+        }
+
+        str += "UPDATE Account "
+               "SET Acronym = '"
+                + concat +
+                "' WHERE Id = "
+                + std::to_string(acnt->id) +
+                "; ";
+    }
+
+    return str;
+}
+
 }
 
 #endif // S_CONTACT_HPP

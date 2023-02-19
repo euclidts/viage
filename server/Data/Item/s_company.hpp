@@ -18,6 +18,7 @@ struct s_company final : public company_item
     const std::string insert(const People::s_user& usr) const;
     const std::string update(const People::s_user& usr) const;
 
+    static void foreign_update(std::string& query, bool complete) {};
     static void condition(std::string& query, const People::s_user& usr) {};
 
     static const constexpr auto select(const People::s_user& usr)

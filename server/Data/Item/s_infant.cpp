@@ -28,9 +28,8 @@ void s_infant<T>::set(const nanodbc::result& res)
 template <typename T>
 const std::string s_infant<T>::fields() const
 {
-  return "Sex = '"
-          + std::to_string(infant_item<T>::sex) +
-          "'";
+    return s_person<T>::fields() +
+            ", Sex = " + std::to_string(infant_item<T>::sex);
 }
 
 }

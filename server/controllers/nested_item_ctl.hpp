@@ -14,7 +14,7 @@ struct nested_item_ctl : public HttpController<T>
     virtual void insert(const HttpRequestPtr& req,
                         std::function<void (const HttpResponsePtr &)>&& callback) const
     {
-        LOG_DEBUG << "insert " << I::key;
+        LOG_DEBUG << I::key;
 
         Json::Value val{*req->jsonObject()};
 
@@ -36,12 +36,12 @@ struct nested_item_ctl : public HttpController<T>
                         std::function<void (const HttpResponsePtr&)>&& callback,
                         int foreign_id) const
     {
-        LOG_DEBUG << "select " << I::key;
+        s_list<I> list{};
+
+        LOG_DEBUG << list.key;
 
         F foreign{};
         foreign.id = foreign_id;
-
-        s_list<I> list{};
 
         server::server::get().select(req,
                                      callback,
@@ -53,7 +53,7 @@ struct nested_item_ctl : public HttpController<T>
                         std::function<void (const HttpResponsePtr &)>&& callback,
                         int foreign_id) const
     {
-        LOG_DEBUG << "update " << I::key;
+        LOG_DEBUG << I::key;
 
         F foreign{};
         foreign.id = foreign_id;

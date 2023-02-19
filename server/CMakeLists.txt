@@ -1,6 +1,8 @@
 project(viage_server CXX)
 
-include(CheckIncludeFileCXX)
+#include(CheckIncludeFileCXX)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(nanodbc)
@@ -40,9 +42,9 @@ set(SRC
 )
 
 aux_source_directory(controllers CTL_SRC)
-aux_source_directory(filters FILTER_SRC)
-aux_source_directory(plugins PLUGIN_SRC)
-aux_source_directory(models MODEL_SRC)
+#aux_source_directory(filters FILTER_SRC)
+#aux_source_directory(plugins PLUGIN_SRC)
+#aux_source_directory(models MODEL_SRC)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}

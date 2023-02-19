@@ -8,6 +8,9 @@ namespace server
 namespace utils
 {
 const std::string clearance_close(const Data::People::s_user& usr);
+const std::string from_db_date(const std::string& db_date);
+const std::string from_db_date_time(const std::string& db_date_time);
+const std::string to_db_date(const std::string& raw_date, const std::string& format = "%d.%m.%Y");
 }
 }
 #endif // UTILS_HPP

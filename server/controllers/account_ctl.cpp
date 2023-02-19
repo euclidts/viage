@@ -8,7 +8,7 @@ namespace Data
 void account_ctl::insert(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr &)>&& callback) const
 {
-    LOG_DEBUG << "insert account";
+    LOG_DEBUG << "account";
 
     s_account item{};
 
@@ -20,7 +20,7 @@ void account_ctl::insert(const HttpRequestPtr& req,
 void account_ctl::select(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
-    LOG_DEBUG << "select account";
+    LOG_DEBUG << "accounts";
 
     s_list<s_account> list{};
 

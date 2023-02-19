@@ -24,6 +24,10 @@ struct s_team final : public team_item
     const std::string update(const People::s_user& usr,
                              s_company* foreign = nullptr) const;
 
+    static void foreign_update(std::string& query,
+                               bool complete,
+                               s_company* foreign = nullptr) {};
+
     static void condition(std::string& query,
                           const People::s_user& usr,
                           s_company* foreign = nullptr) {};
