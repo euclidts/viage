@@ -72,5 +72,10 @@ void s_contact::condition(std::string &query, const s_user &usr, s_account *acnt
     acnt->condition(query, usr, acnt);
 }
 
+void s_contact::update_reply(nanodbc::result& res, Value& json, s_account *acnt)
+{
+    acnt->update_reply(res, json);
+}
+
 }
 }

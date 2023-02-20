@@ -32,6 +32,10 @@ struct s_team final : public team_item
                           const People::s_user& usr,
                           s_company* foreign = nullptr) {};
 
+    static void update_reply(nanodbc::result& res,
+                             Json::Value& json,
+                             s_company* foreign = nullptr) {};
+
     static const constexpr std::basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr,
             s_company* foreign = nullptr)

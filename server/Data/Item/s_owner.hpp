@@ -31,6 +31,10 @@ struct s_owner final : public owner_item
                           const s_user& usr,
                           s_account* acnt);
 
+    static void update_reply(nanodbc::result& res,
+                             Json::Value& json,
+                             s_account* acnt);
+
     static const constexpr std::string select(const s_user& usr,
                                               s_account* acnt)
     {

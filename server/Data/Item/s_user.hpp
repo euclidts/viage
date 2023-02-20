@@ -27,6 +27,7 @@ struct s_user final : public user_item
 
     static void foreign_update(std::string& query, bool complete) {};
     static void condition(std::string& query, const s_user& usr) {};
+    static void update_reply(nanodbc::result& res, Json::Value& json) {};
 
     static const constexpr std::string select(const s_user& usr)
     {

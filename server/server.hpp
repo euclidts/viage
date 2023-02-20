@@ -113,8 +113,10 @@ public:
 
             try
             {
-                const auto result{nanodbc::execute(connection, query)};
+                auto result{nanodbc::execute(connection, query)};
+                result.next();
                 json["success"] = true;
+                T::update_reply(result, json, args...);
             }
             catch (...)
             {

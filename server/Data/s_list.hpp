@@ -35,6 +35,14 @@ struct s_list final : public item_list<T>
     };
 
     template <typename ...Foreign>
+    static void update_reply(nanodbc::result& res,
+                             Json::Value& json,
+                             Foreign*... f)
+    {
+        T::update_reply(res, json, f...);
+    };
+
+    template <typename ...Foreign>
     static const constexpr auto select(const People::s_user& usr, Foreign*... f)
     {
         return T::select(usr, f...);

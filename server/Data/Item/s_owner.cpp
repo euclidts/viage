@@ -75,19 +75,36 @@ const string s_owner::update(const s_user& usr, s_account* acnt) const
 
 void s_owner::foreign_update(std::string& query, bool complete, s_account* acnt)
 {
-    std::string str{};
-
-    acnt->foreign_update(str, complete, acnt);
+    std::string str{" OUTPUT inserted.Acronym "};
 
     if (complete)
-        str.append(", State |= " + std::to_string(account_item::OwnersCompleted));
+    {
+        str.insert(0,
+                   ", State |= "
+                   + std::to_string(account_item::OwnersCompleted));
 
+        str.append(", inserted.State ");
+    }
+
+    acnt->foreign_update(str, complete, acnt);
     query.append(str);
 }
 
 void s_owner::condition(std::string& query, const s_user& usr, s_account* acnt)
 {
     acnt->condition(query, usr, acnt);
+}
+
+void s_owner::update_reply(nanodbc::result& res, Value& json, s_account* acnt)
+{
+    acnt->update_reply(res, json);
+
+    try
+    {
+        if (!res.is_null("Acronym"))
+            json["acronym"] = res.get<std::string>("Acronym");
+    }
+    catch (...) {}
 }
 
 }

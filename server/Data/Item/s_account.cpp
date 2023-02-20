@@ -37,6 +37,51 @@ const std::string s_account::update(const People::s_user& usr) const
     return {};
 }
 
+void s_account::foreign_update(string &query, bool complete, s_account *acnt)
+{
+    if (!acnt) return;
+
+    const auto date{trantor::Date::date().toDbStringLocal()};
+
+    query.insert(0,
+                 "UPDATE Account "
+                 "SET UpdateDate = '"
+                 + date +
+                 "' ");
+
+    query.append(" WHERE Id = " + std::to_string(acnt->id));
+}
+
+void s_account::condition(string &query, const People::s_user &usr, s_account *acnt)
+{
+    query.insert(0,
+                 "SET NOCOUNT ON "
+                 "IF EXISTS "
+                 "(SELECT "
+                 "a.Id "
+                 "FROM Account a, "
+                 "[User] u, "
+                 "Company c "
+                 "WHERE a.Id = "
+                 + std::to_string(acnt->id) +
+                 " AND u.id = a.AdvisorId "
+                 "AND c.id = u.CompanyId "
+                 + server::utils::clearance_close(usr) +
+                 ") BEGIN ");
+
+    query.append(" END ");
+}
+
+void s_account::update_reply(nanodbc::result& res, Value& json)
+{
+    try
+    {
+        if (!res.is_null("State"))
+            json["accountState"] = states(res.get<int>("State"));
+    }
+    catch (...) {}
+}
+
 void s_account::set(nanodbc::result& res)
 {
     try

@@ -22,41 +22,14 @@ struct s_account final : public account_item
 
     static void foreign_update(string& query,
                                bool complete,
-                               s_account* acnt = nullptr)
-    {
-        if (!acnt) return;
-
-        const auto date{trantor::Date::date().toDbStringLocal()};
-
-        query.insert(0,
-                     "UPDATE Account "
-                     "SET UpdateDate = '"
-                     + date +
-                     "' ");
-
-        query.append("WHERE Id = " + std::to_string(acnt->id));
-    };
+                               s_account* acnt = nullptr);
 
     static void condition(std::string& query,
                           const People::s_user& usr,
-                          s_account* acnt = nullptr)
-    {
-        query.insert(0,
-                     "IF EXISTS "
-                     "(SELECT "
-                     "a.Id "
-                     "FROM Account a, "
-                     "[User] u, "
-                     "Company c "
-                     "WHERE a.Id = "
-                     + std::to_string(acnt->id) +
-                     " AND u.id = a.AdvisorId "
-                     "AND c.id = u.CompanyId "
-                     + server::utils::clearance_close(usr) +
-                     ") BEGIN ");
+                          s_account* acnt = nullptr);
 
-        query.append(" END ");
-    };
+    static void update_reply(nanodbc::result& res,
+                             Json::Value& json);
 
     static const constexpr basic_string<char, std::char_traits<char>> select(
             const People::s_user& usr)
