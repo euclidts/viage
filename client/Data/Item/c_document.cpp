@@ -63,7 +63,7 @@ void c_document::setData(const QVariant &value, int role)
         break;
     case LocalPathRole:
     {
-        localPath = value.toUrl().toLocalFile().toStdString();
+        localPath = value.toUrl().toLocalFile().toStdWString();
         set_file_info();
         state = NotUploded;
         break;
