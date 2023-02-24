@@ -14,7 +14,7 @@ struct s_account;
 namespace People
 {
 struct s_owner final : public owner_item
-        , public s_infant<owner_item>
+                     , public s_infant<owner_item>
 {
     s_owner();
 

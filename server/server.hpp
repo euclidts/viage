@@ -83,7 +83,7 @@ public:
 
             auto result{nanodbc::execute(connection, query)};
 
-            item.set(result);
+            item.set_next(result);
             item.write(json);
 
             return true;

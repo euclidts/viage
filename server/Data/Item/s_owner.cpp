@@ -75,17 +75,10 @@ const string s_owner::update(const s_user& usr, s_account* acnt) const
 
 void s_owner::foreign_update(std::string& query, bool complete, s_account* acnt)
 {
-    std::string str{" OUTPUT inserted.Acronym "};
-
-    if (complete)
-    {
-        str.insert(0,
-                   ", State |= "
-                   + std::to_string(account_item::OwnersCompleted));
-
-        str.append(", inserted.State ");
-    }
-
+    std::string str{server::utils::update_flag(
+                    account_item::OwnersCompleted,
+                    "State",
+                    complete)};
     acnt->foreign_update(str, complete, acnt);
     query.append(str);
 }

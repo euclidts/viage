@@ -2,17 +2,21 @@
 #define S_BASE_DATA_HPP
 
 #include <nanodbc/nanodbc.h>
-#include <base_data.hpp>
 
 namespace Data
 {
-template <typename T>
-struct s_base_data : virtual public base_data<T>
+struct s_base_data
 {
-    virtual void set(nanodbc::result& res) = 0;
+    virtual void set(const nanodbc::result& res) {};
+    virtual void set_next(nanodbc::result& res)
+    {
+        if (res.next()) set(res);
+    };
 
 protected:
     s_base_data() {};
+
+    virtual const std::string fields() const { return {}; };
 };
 
 }

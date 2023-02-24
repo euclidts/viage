@@ -3,6 +3,7 @@
 
 #include "s_infant.hpp"
 #include "s_account.hpp"
+#include <s_list.hpp>
 #include <server_utils.hpp>
 #include <Item/contact_item.hpp>
 
@@ -42,7 +43,7 @@ struct s_contact final : public contact_item
                "b.Sex, "
                "b.Phone, "
                "b.EMail, "
-               "b.IsInfant, "
+               "b.IsInfant "
                "FROM Account a, "
                "BaseOwner b, "
                "[User] u "
@@ -52,8 +53,13 @@ struct s_contact final : public contact_item
                 + server::utils::clearance_close(usr);
     }
 };
-
 }
+
+template<>
+inline bool item_list<People::s_contact>::is_completed() const
+{
+    return is_empty_completed();
+};
 }
 
 #endif // S_CONTACT_HPP

@@ -3,7 +3,7 @@
 
 #include <nanodbc/nanodbc.h>
 #include <Item/person_item.hpp>
-//#include <s_base_data.hpp>
+#include <s_base_data.hpp>
 
 namespace Data
 {
@@ -11,14 +11,14 @@ namespace People
 {
 template <typename T>
 struct s_person : virtual public person_item<T>
-//                , virtual public s_base_data<person_item<T>>
+                , public s_base_data
 {
-    void set(const nanodbc::result& res);
+    void set(const nanodbc::result& res) override;
 
 protected:
     s_person();
 
-    const std::string fields() const;
+    const std::string fields() const override;
 };
 
 }

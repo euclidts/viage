@@ -12,7 +12,7 @@ void document_item::read(const Json::Value &json)
         category = categories(json["category"].asInt());
 
     if (json.isMember("isUploaded") && json["isUploaded"].isBool())
-        json["isUploaded"].asBool() ? state = Uploaded : state = NotUploded;
+        state = json["isUploaded"].asBool() ? Uploaded : NotUploded;
 
     if(state == Uploaded)
     {

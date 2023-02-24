@@ -10,7 +10,7 @@ habitat_item::habitat_item()
 {
 }
 
-void habitat_item::read(const Json::Value &json)
+void habitat_item::read(const Json::Value& json)
 {
     if (json.isMember("address") && json["address"].isObject())
         address->read(json["address"]);
@@ -37,7 +37,7 @@ void habitat_item::read(const Json::Value &json)
         m3s = json["m3s"].asInt();
 }
 
-void habitat_item::write(Json::Value &json) const
+void habitat_item::write(Json::Value& json) const
 {
     Json::Value jsonAddress;
     address->write(jsonAddress);

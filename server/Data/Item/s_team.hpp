@@ -9,6 +9,7 @@
 namespace Data
 {
 struct s_team final : public team_item
+                    , public s_base_data
 {
     explicit s_team();
 
@@ -16,11 +17,10 @@ struct s_team final : public team_item
 
     int companyId{0};
 
-    void set(const nanodbc::result& res);
+    void set(const nanodbc::result& res) override;
     void read(const Json::Value& json);
 
-    const std::string insert(const People::s_user& usr,
-                             s_company* foreign = nullptr) const;
+    const std::string insert(const People::s_user& usr, s_company* foreign) const;
     const std::string update(const People::s_user& usr,
                              s_company* foreign = nullptr) const;
 

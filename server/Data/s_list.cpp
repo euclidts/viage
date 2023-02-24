@@ -10,7 +10,7 @@ s_list<T>::s_list()
 }
 
 template<typename T>
-void s_list<T>::set(nanodbc::result& res)
+void s_list<T>::set_next(nanodbc::result& res)
 {
     std::vector<T> vec{};
 
@@ -30,8 +30,11 @@ std::string s_list<T>::update(const People::s_user& usr, Foreign*... f) const
 {
     std::string str{};
 
-    for (const auto& item : item_list<T>::m_items)
-        str += item.update(usr, f...);
+    if (item_list<T>::size() == 0) // handle empty lists
+        str += " "; // prevent from returnoing string;
+    else
+        for (const auto& item : item_list<T>::m_items)
+            str += item.update(usr, f...);
 
     return str;
 }

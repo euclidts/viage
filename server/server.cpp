@@ -89,8 +89,8 @@ void server::remove_connected_user(const std::string& uuid)
 }
 
 void server::handle_query(const drogon::HttpRequestPtr& req,
-                    std::function<void (const drogon::HttpResponsePtr &)>& callback,
-                    const std::function<bool (Json::Value &, const Data::People::s_user &)> &handler)
+                    std::function<void (const drogon::HttpResponsePtr& )>& callback,
+                    const std::function<bool (Json::Value&, const Data::People::s_user& )>& handler)
 {
     drogon::HttpResponsePtr resp;
     auto uuid{req->session()->sessionId()};

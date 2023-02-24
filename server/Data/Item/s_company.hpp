@@ -8,12 +8,11 @@
 namespace Data
 {
 struct s_company final : public company_item
+                       , public s_base_data
 {
     explicit s_company();
 
-    static const constexpr auto table{"Company"};
-
-    void set(const nanodbc::result& res);
+    void set(const nanodbc::result& res) override;
 
     const std::string insert(const People::s_user& usr) const;
     const std::string update(const People::s_user& usr) const;

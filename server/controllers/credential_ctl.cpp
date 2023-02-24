@@ -14,7 +14,7 @@ void credential_ctl::auth(const HttpRequestPtr& req,
                           const std::string& jsonconfig,
                           bool remeberMe)
 {
-    LOG_DEBUG << "User " << userName << " login";
+    LOG_INFO << "User " << userName << " login";
 
     HttpResponsePtr resp;
     auto uuid{req->session()->sessionId()};

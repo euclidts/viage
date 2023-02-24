@@ -19,13 +19,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 include_directories(Data Data/Item)
 
 set(TEMPLATE_SRC
-#    Data/s_base_data.hpp
+    Data/s_base_data.hpp
     Data/s_list.hpp
     Data/Item/s_person.hpp
     Data/Item/s_infant.hpp
     controllers/list_ctl.hpp
-    controllers/nested_item_ctl.hpp
-    controllers/nested_list_ctl.hpp
+    controllers/base_controller.hpp
 )
 
 set(SRC
@@ -37,8 +36,11 @@ set(SRC
     Data/Item/s_company.cpp
     Data/Item/s_team.cpp
     Data/Item/s_user.cpp
+    Data/Item/s_habitat.cpp
+    Data/Item/s_exterior.cpp
     Data/Item/s_contact.cpp
     Data/Item/s_owner.cpp
+    Data/Item/s_document.cpp
 )
 
 aux_source_directory(controllers CTL_SRC)

@@ -47,7 +47,7 @@ void s_account::foreign_update(string &query, bool complete, s_account *acnt)
                  "UPDATE Account "
                  "SET UpdateDate = '"
                  + date +
-                 "' ");
+                 "', ");
 
     query.append(" WHERE Id = " + std::to_string(acnt->id));
 }

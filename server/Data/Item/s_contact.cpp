@@ -1,5 +1,4 @@
 #include "s_contact.hpp"
-#include <s_list.hpp>
 
 namespace Data
 {
@@ -57,13 +56,11 @@ const string s_contact::update(const s_user& usr, s_account* acnt) const
 
 void s_contact::foreign_update(std::string& query, bool complete, s_account* acnt)
 {
-    std::string str{};
-
-    if (complete)
-        str.append(", State |= " + std::to_string(account_item::ContactsCompleted));
-
+    std::string str{server::utils::update_flag(
+                    account_item::ContactsCompleted,
+                    "State",
+                    complete)};
     acnt->foreign_update(str, complete, acnt);
-
     query.append(str);
 }
 

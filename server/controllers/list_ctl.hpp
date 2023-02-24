@@ -11,9 +11,9 @@ template <typename T, typename I>
 struct list_ctl : public HttpController<T>
 {
     virtual void insert(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback) const
+                        std::function<void (const HttpResponsePtr &)>&& callback) const
     {
-        LOG_DEBUG << "insert " << I::key;
+        LOG_INFO << "insert " << I::key;
 
         I item{};
         item.read(*req->jsonObject());
@@ -24,9 +24,9 @@ struct list_ctl : public HttpController<T>
     }
 
     virtual void select(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback) const
+                        std::function<void (const HttpResponsePtr &)>&& callback) const
     {
-        LOG_DEBUG << "select " << I::key;
+        LOG_INFO << "select " << I::key;
 
         s_list<I> list{};
 
@@ -36,9 +36,9 @@ struct list_ctl : public HttpController<T>
     }
 
     virtual void update(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback) const
+                        std::function<void (const HttpResponsePtr &)>&& callback) const
     {
-        LOG_DEBUG << "update " << I::key;
+        LOG_INFO << "updae " << I::key;
 
         Json::Value val{*req->jsonObject()};
         I item{};

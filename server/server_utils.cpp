@@ -45,5 +45,17 @@ const std::string to_db_date(const std::string& raw_date, const std::string& for
     return date::format("%Y-%m-%d", ymd) + " 00:00:00.000000";
 }
 
+const std::string update_flag(int flag, const std::string& flag_name, bool set)
+{
+    std::string str{" "};
+    str += flag_name;
+    str += set ? "|= " : "&= ~";
+    str += std::to_string(flag) +
+            " OUTPUT inserted."
+            + flag_name;
+
+    return str;
+}
+
 }
 }

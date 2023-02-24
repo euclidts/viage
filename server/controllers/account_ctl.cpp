@@ -8,7 +8,7 @@ namespace Data
 void account_ctl::insert(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr &)>&& callback) const
 {
-    LOG_DEBUG << "account";
+    LOG_INFO << "account";
 
     s_account item{};
 
@@ -20,7 +20,7 @@ void account_ctl::insert(const HttpRequestPtr& req,
 void account_ctl::select(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
-    LOG_DEBUG << "accounts";
+    LOG_INFO << "accounts";
 
     s_list<s_account> list{};
 
@@ -36,48 +36,49 @@ void account_ctl::select(const HttpRequestPtr& req,
 
         auto result{nanodbc::execute(server::server::get().connection, query)};
 
-        // initialize
-        result.next();
-
-        int prev_id{result.get<int>("Id")};
-
-        s_account account{};
-        account.set(result);
-
-        Json::Value owners;
-        std::vector<s_account> vec{};
-
-        Json::Value tmp;
-        tmp["firstName"] = result.get<std::string>("FirstName", "");
-        tmp["lastName"] = result.get<std::string>("LastName", "");
-        owners[0] = tmp;
-
-        // iterate
-        while (result.next())
+        if (result.next()) // handle potentialy empty list
         {
-            int id{result.get<int>("Id")};
+            // initialize
+            int prev_id{result.get<int>("Id")};
 
-            if (id != prev_id)
-            {
-                account.owners = owners;
-                owners.clear();
-                vec.push_back(account);
-                account.clear();
-                account.set(result);
-            }
+            s_account account{};
+            account.set(result);
 
+            Json::Value owners;
+            std::vector<s_account> vec{};
+
+            Json::Value tmp;
             tmp["firstName"] = result.get<std::string>("FirstName", "");
             tmp["lastName"] = result.get<std::string>("LastName", "");
-            owners[owners.size()] = tmp;
+            owners[0] = tmp;
 
-            prev_id = id;
+            // iterate
+            while (result.next())
+            {
+                int id{result.get<int>("Id")};
+
+                if (id != prev_id)
+                {
+                    account.owners = owners;
+                    owners.clear();
+                    vec.push_back(account);
+                    account.clear();
+                    account.set(result);
+                }
+
+                tmp["firstName"] = result.get<std::string>("FirstName", "");
+                tmp["lastName"] = result.get<std::string>("LastName", "");
+                owners[owners.size()] = tmp;
+
+                prev_id = id;
+            }
+
+            account.owners = owners;
+            vec.push_back(account);
+
+            list.set_list(vec);
+            list.write(json);
         }
-
-        account.owners = owners;
-        vec.push_back(account);
-
-        list.set_list(vec);
-        list.write(json);
 
         return true;
     });
