@@ -23,11 +23,11 @@ struct s_document final : public document_item
 
     static void condition(std::string& query,
                           const People::s_user& usr,
-                          s_account* acnt);
+                          s_account* acnt = nullptr);
 
     static void update_reply(nanodbc::result& res,
                              Json::Value& json,
-                             s_account* acnt);
+                             s_account* acnt = nullptr);
 
     static const constexpr std::string select(const People::s_user& usr,
                                               s_account* acnt)

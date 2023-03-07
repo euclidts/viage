@@ -47,7 +47,7 @@ const std::string to_db_date(const std::string& raw_date, const std::string& for
 
 const std::string update_flag(int flag, const std::string& flag_name, bool set)
 {
-    std::string str{" "};
+    std::string str{", "};
     str += flag_name;
     str += set ? "|= " : "&= ~";
     str += std::to_string(flag) +

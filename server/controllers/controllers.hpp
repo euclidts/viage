@@ -9,7 +9,6 @@
 #include <s_contact.hpp>
 #include <s_habitat.hpp>
 #include <s_exterior.hpp>
-#include <s_document.hpp>
 #include "list_ctl.hpp"
 #include "base_controller.hpp"
 
@@ -17,16 +16,6 @@ using namespace drogon;
 
 namespace Data
 {
-struct document_ctl final : public base_controller<document_ctl, s_list<s_document>, s_account>
-{
-    METHOD_LIST_BEGIN
-    ADD_METHOD_TO(document_ctl::insert<s_document>, "/accounts/documents", Post);
-    ADD_METHOD_TO(document_ctl::select, "/accounts/{}/documents", Get);
-    ADD_METHOD_TO(document_ctl::update<s_document>, "/accounts/{}/documents", Put);
-    ADD_METHOD_TO(document_ctl::update_from, "/accounts/documents", Put);
-    METHOD_LIST_END
-};
-
 namespace Places
 {
 struct exterior_ctl final : public base_controller<exterior_ctl, s_exterior, s_account>

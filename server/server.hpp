@@ -28,6 +28,7 @@ public:
     void add_connected_user(const Data::People::s_user& usr, const std::string& uuid);
     void remove_connected_user(const std::string& uuid);
 
+    void error_reply(std::function<void (const drogon::HttpResponsePtr& )>& callback);
 
     void handle_query(const drogon::HttpRequestPtr& req,
                       std::function<void (const drogon::HttpResponsePtr&)>& callback,
@@ -113,9 +114,8 @@ public:
 
             try
             {
-                auto result{nanodbc::execute(connection, query)};
-                result.next();
                 json["success"] = true;
+                auto result{nanodbc::execute(connection, query)};
                 T::update_reply(result, json, args...);
             }
             catch (...)

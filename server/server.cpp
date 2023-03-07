@@ -54,7 +54,7 @@ bool server::user_connected(const std::string& uuid)
 {
     if (const auto it{connected_users.find(uuid)}; it != connected_users.end())
     {
-        const auto then{trantor::Date::date().after(- DEFAULT_TIMEOUT)};
+        const auto then{trantor::Date::date().after(-DEFAULT_TIMEOUT)};
 
         if (it->second.last_access < then)
         {
@@ -86,6 +86,13 @@ void server::remove_connected_user(const std::string& uuid)
     if (!user_connected(uuid)) return;
 
     connected_users.erase(uuid);
+}
+
+void server::error_reply(std::function<void (const drogon::HttpResponsePtr &)> &callback)
+{
+    drogon::HttpResponsePtr resp{drogon::HttpResponse::newHttpResponse()};
+    resp->setStatusCode(drogon::k500InternalServerError);
+    callback(resp);
 }
 
 void server::handle_query(const drogon::HttpRequestPtr& req,

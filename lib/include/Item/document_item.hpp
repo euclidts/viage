@@ -36,6 +36,48 @@ struct document_item : virtual public base_data<document_item>
         PPEPVS = 65536
     };
 
+    static const constexpr char* categorie_name(categories c) noexcept
+    {
+        switch (c) {
+        case None:
+            return "None";
+        case Picture:
+            return "Picture";
+        case Passeport:
+            return "Passeport";
+        case RegisteryExcerpt:
+            return "RegisteryExcerpt";
+        case PursuitExcerpt:
+            return "PursuitExcerpt";
+        case TaxDeclaration:
+            return "TaxDeclaration";
+        case BuildingDetails:
+            return "BuildingDetails";
+        case Insurance:
+            return "Insurance";
+        case Discernement:
+            return "Discernement";
+        case Beb:
+            return "Beb";
+        case Jobs:
+            return "Jobs";
+        case FutureJobs:
+            return "FutureJobs";
+        case Calculation:
+            return "Calculation";
+        case Other:
+            return "Other";
+        case Maintenance:
+            return "Maintenance";
+        case Constitution:
+            return "Constitution";
+        case PPE:
+            return "PPE";
+        case PPEPVS:
+            return "PPEPVS";
+        }
+    };
+
     categories category{categories::None};
     std::filesystem::path localPath{};
     std::string fileName{""};

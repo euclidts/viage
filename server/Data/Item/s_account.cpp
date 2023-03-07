@@ -37,17 +37,17 @@ const std::string s_account::update(const People::s_user& usr) const
     return {};
 }
 
-void s_account::foreign_update(string &query, bool complete, s_account *acnt)
+void s_account::foreign_update(string& query, bool complete, s_account* acnt)
 {
     if (!acnt) return;
 
     const auto date{trantor::Date::date().toDbStringLocal()};
 
     query.insert(0,
-                 "UPDATE Account "
+                 " UPDATE Account "
                  "SET UpdateDate = '"
                  + date +
-                 "', ");
+                 "' ");
 
     query.append(" WHERE Id = " + std::to_string(acnt->id));
 }
@@ -74,6 +74,8 @@ void s_account::condition(string &query, const People::s_user &usr, s_account *a
 
 void s_account::update_reply(nanodbc::result& res, Value& json)
 {
+    res.next();
+
     try
     {
         if (!res.is_null("State"))
