@@ -33,20 +33,7 @@ void server::init(const Json::Value& json_config)
               << " to database named " << connection.database_name();
 
     drogon::app().loadConfigJson(json_config);
-
-    if (!json_config.isMember("app"))
-    {
-        const auto conf{json_config["app"]};
-
-        if (conf.isMember("enable_session")) // force enable session
-        {
-            if (!conf["enable_session"])
-                drogon::app().enableSession(DEFAULT_TIMEOUT);
-        }
-        else
-            drogon::app().enableSession(DEFAULT_TIMEOUT);
-    }
-
+    drogon::app().enableSession(DEFAULT_TIMEOUT); // force enable session
     drogon::app().run();
 }
 
@@ -96,8 +83,8 @@ void server::error_reply(std::function<void (const drogon::HttpResponsePtr &)> &
 }
 
 void server::handle_query(const drogon::HttpRequestPtr& req,
-                    std::function<void (const drogon::HttpResponsePtr& )>& callback,
-                    const std::function<bool (Json::Value&, const Data::People::s_user& )>& handler)
+                          std::function<void (const drogon::HttpResponsePtr& )>& callback,
+                          const std::function<bool (Json::Value&, const Data::People::s_user& )>& handler)
 {
     drogon::HttpResponsePtr resp;
     auto uuid{req->session()->sessionId()};

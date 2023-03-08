@@ -9,50 +9,6 @@ namespace Data
 template <typename T, typename I, typename F>
 struct base_controller : public HttpController<T>
 {
-    template <typename C>
-    void insert(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr &)>&& callback) const
-    {
-        C item{};
-
-        LOG_INFO << "insert " << item.key;
-
-        Json::Value val{*req->jsonObject()};
-
-        F foreign{};
-
-        if (val.isMember(F::foreign_key) && val[F::foreign_key].isInt())
-            foreign.id = val[F::foreign_key].asInt();
-
-        item.read(val);
-
-        server::server::get().insert(req,
-                                     callback,
-                                     item,
-                                     &foreign);
-    }
-
-    template <typename C>
-    void update(const HttpRequestPtr& req,
-                std::function<void (const HttpResponsePtr&)>&& callback,
-                int foreign_id) const
-    {
-        C item{};
-
-        LOG_INFO << "update " << item.key;
-
-        F foreign{};
-        foreign.id = foreign_id;
-
-        Json::Value val{*req->jsonObject()};
-        item.read(val[I::key]);
-
-        server::server::get().update(req,
-                                     callback,
-                                     item,
-                                     &foreign);
-    }
-
     virtual void select(const HttpRequestPtr& req,
                         std::function<void (const HttpResponsePtr&)>&& callback,
                         int foreign_id) const
@@ -81,8 +37,8 @@ struct base_controller : public HttpController<T>
 
         F foreign{};
 
-        if (val.isMember("Id") && val["Id"].isInt())
-            foreign.id = val["Id"].asInt();
+        if (val.isMember("id") && val["id"].isInt())
+            foreign.id = val["id"].asInt();
 
         item.read(val[item.key]);
 

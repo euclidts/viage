@@ -22,6 +22,7 @@ struct s_owner final : public owner_item
 
     const std::string insert(const s_user& usr, s_account* acnt) const;
     const std::string update(const s_user& usr, s_account* acnt) const;
+    const std::string remove(const s_user& usr, s_account* acnt) const;
 
     static void foreign_update(std::string& query,
                                bool complete,

@@ -20,6 +20,7 @@ struct s_contact final : public contact_item
 
     const std::string insert(const s_user& usr, s_account* acnt = nullptr) const;
     const std::string update(const s_user& usr, s_account* acnt = nullptr) const;
+    const std::string remove(const s_user& usr, s_account* acnt = nullptr) const;
 
     static void foreign_update(std::string& query,
                                bool complete,

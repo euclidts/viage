@@ -37,6 +37,11 @@ const std::string s_team::update(const People::s_user& usr, s_company* foreign) 
             + std::to_string(id);
 }
 
+const std::string s_team::remove(const People::s_user &usr, s_company *foreign) const
+{
+    return {};
+}
+
 void s_team::set(const nanodbc::result &res)
 {
     try

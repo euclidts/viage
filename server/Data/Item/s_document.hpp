@@ -16,6 +16,7 @@ struct s_document final : public document_item
 
     const std::string insert(const People::s_user& usr, s_account* acnt = nullptr) const;
     const std::string update(const People::s_user& usr, s_account* acnt = nullptr) const;
+    const std::string remove(const People::s_user& usr, s_account* acnt = nullptr) const;
 
     static void foreign_update(std::string& query,
                                bool complete,

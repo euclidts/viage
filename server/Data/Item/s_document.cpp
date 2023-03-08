@@ -84,6 +84,12 @@ const string s_document::update(const People::s_user& usr, s_account* acnt) cons
     return str;
 }
 
+const string s_document::remove(const People::s_user &usr, s_account *acnt) const
+{
+    return "DELETE FROM Document WHERE Id = "
+            + std::to_string(id);
+}
+
 void s_document::foreign_update(std::string& query, bool complete, s_account* acnt)
 {
     if (acnt)

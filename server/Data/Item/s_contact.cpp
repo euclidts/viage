@@ -54,6 +54,12 @@ const string s_contact::update(const s_user& usr, s_account* acnt) const
             + std::to_string(id);
 }
 
+const string s_contact::remove(const s_user &usr, s_account *acnt) const
+{
+    return "DELETE FROM BaseOwner WHERE Id = "
+            + std::to_string(id);
+}
+
 void s_contact::foreign_update(std::string& query, bool complete, s_account* acnt)
 {
     std::string str{server::utils::update_flag(

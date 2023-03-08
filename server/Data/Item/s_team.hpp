@@ -20,9 +20,9 @@ struct s_team final : public team_item
     void set(const nanodbc::result& res) override;
     void read(const Json::Value& json);
 
-    const std::string insert(const People::s_user& usr, s_company* foreign) const;
-    const std::string update(const People::s_user& usr,
-                             s_company* foreign = nullptr) const;
+    const std::string insert(const People::s_user& usr, s_company* foreign = nullptr) const;
+    const std::string update(const People::s_user& usr, s_company* foreign = nullptr) const;
+    const std::string remove(const People::s_user& usr, s_company* foreign = nullptr) const;
 
     static void foreign_update(std::string& query,
                                bool complete,

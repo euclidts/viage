@@ -114,9 +114,41 @@ public:
 
             try
             {
-                json["success"] = true;
                 auto result{nanodbc::execute(connection, query)};
+                json["success"] = true;
                 T::update_reply(result, json, args...);
+            }
+            catch (...)
+            {
+                json["success"] = false;
+            }
+
+            return true;
+        });
+    }
+
+    template <typename T, typename ...Foreign>
+    void remove(const drogon::HttpRequestPtr& req,
+                std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                const T& item,
+                Foreign*... foreign)
+    {
+        handle_query(req,
+                     callback,
+                     [this, &item, ... args = foreign]
+                     (Json::Value& json, const Data::People::s_user& usr)
+        {
+            auto query{item.remove(usr, args...)};
+
+            if (query.empty())
+                return false;
+
+            T::condition(query, usr, args...);
+
+            try
+            {
+                auto result{nanodbc::execute(connection, query)};
+                json["success"] = true;
             }
             catch (...)
             {
