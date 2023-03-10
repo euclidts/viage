@@ -10,13 +10,20 @@
 namespace Data
 {
 void document_ctl::update(const HttpRequestPtr& req,
-                          std::function<void (const HttpResponsePtr&)>&& callback)
+                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
     LOG_INFO << "updae " << s_document::key;
 
     Json::Value val{*req->jsonObject()};
+
+    if (!(val.isMember("id") && val["id"].isInt()))
+    {
+        server::server::get().error_reply(callback);
+        return;
+    }
+
     s_document item{};
-    item.read(val);
+    item.id = val["id"].asInt();
 
     if (val.isMember("body") && val["body"].isString())
     {
@@ -71,5 +78,34 @@ void document_ctl::update(const HttpRequestPtr& req,
         server::server::get().update(req,
                                      callback,
                                      item);
+}
+
+void document_ctl::remove(const HttpRequestPtr &req, std::function<void (const HttpResponsePtr &)> &&callback) const
+{
+    LOG_INFO << "remove " << s_document::key;
+
+    Json::Value val{*req->jsonObject()};
+
+    if (!(val.isMember("id") && val["id"].isInt()))
+    {
+        server::server::get().error_reply(callback);
+        return;
+    }
+
+    s_document item{};
+    item.id = val["id"].asInt();
+
+    auto result{nanodbc::execute(server::server::get().connection,
+                                 "SELECT RelativePath FileName Extension FROM Document "
+                                 "WHERE Id = "
+                                 + to_string(item.id))};
+
+    result.next();
+    item.set(result);
+    filesystem::remove(item.get_path());
+
+    server::server::get().remove(req,
+                                 callback,
+                                 item);
 }
 }

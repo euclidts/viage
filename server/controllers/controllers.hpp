@@ -1,5 +1,3 @@
-#pragma once
-
 #include <drogon/HttpController.h>
 #include <s_team.hpp>
 #include <s_company.hpp>
@@ -44,6 +42,7 @@ struct contact_ctl final :
     ADD_METHOD_TO(contact_ctl::insert, "/accounts/contacts", Post);
     ADD_METHOD_TO(contact_ctl::select, "/accounts/{}/contacts", Get);
     ADD_METHOD_TO(contact_ctl::update_from, "/accounts/contacts", Put);
+    ADD_METHOD_TO(contact_ctl::remove, "/contacts", Delete);
     METHOD_LIST_END
 };
 
@@ -53,6 +52,7 @@ struct owner_ctl final : public full_controller<owner_ctl, s_list<s_owner>, s_ac
     ADD_METHOD_TO(owner_ctl::insert, "/accounts/owners", Post);
     ADD_METHOD_TO(owner_ctl::select, "/accounts/{}/owners", Get);
     ADD_METHOD_TO(owner_ctl::update_from, "/accounts/owners", Put);
+    ADD_METHOD_TO(owner_ctl::remove, "/owners", Delete);
     METHOD_LIST_END
 };
 

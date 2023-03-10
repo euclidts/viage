@@ -22,7 +22,7 @@ struct s_owner final : public owner_item
 
     const std::string insert(const s_user& usr, s_account* acnt) const;
     const std::string update(const s_user& usr, s_account* acnt) const;
-    const std::string remove(const s_user& usr, s_account* acnt) const;
+    const std::string remove(const s_user& usr, s_account* acnt = nullptr) const;
 
     static void foreign_update(std::string& query,
                                bool complete,
@@ -30,7 +30,7 @@ struct s_owner final : public owner_item
 
     static void condition(std::string& query,
                           const s_user& usr,
-                          s_account* acnt);
+                          s_account* acnt = nullptr);
 
     static void update_reply(nanodbc::result& res,
                              Json::Value& json,

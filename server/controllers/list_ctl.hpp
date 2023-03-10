@@ -44,6 +44,12 @@ struct list_ctl : public HttpController<T>
         I item{};
         item.read(val[I::key]);
 
+        if (item.id == 0)
+        {
+            server::server::get().error_reply(callback);
+            return;
+        }
+
         server::server::get().update(req,
                                      callback,
                                      item);

@@ -125,7 +125,10 @@ RowLayout {
         icon.source: "qrc:/icons/arrow-left.svg"
         font.bold: true
         onClicked: if (rootStack.currentIndex === 0) {
-                       accountsPages.validateItem()
+                       if ((accountsPages.currentIndex == 2 // exception for contacts and documents
+                            && contactPage.count == 0)
+                               || accountsPages.currentIndex == 5)
+                       { accountsPages.validateItem() }
                        accountsPages.currentIndex = 0
                    } else if (rootStack.currentIndex === 1) {
                        users.validate(selectedUser.filterRole)

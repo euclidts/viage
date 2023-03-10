@@ -37,6 +37,12 @@ const std::string s_account::update(const People::s_user& usr) const
     return {};
 }
 
+const string s_account::remove(const People::s_user &usr) const
+{
+    return "DELETE FROM Account WHERE Id = "
+            + std::to_string(id);
+}
+
 void s_account::foreign_update(string& query, bool complete, s_account* acnt)
 {
     if (!acnt) return;

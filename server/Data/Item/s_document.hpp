@@ -47,6 +47,8 @@ struct s_document final : public document_item
                 " "
                 + server::utils::clearance_close(usr);
     }
+
+    const filesystem::path get_path() const;
 };
 }
 

@@ -35,11 +35,14 @@ struct base_controller : public HttpController<T>
 
         Json::Value val{*req->jsonObject()};
 
+        if (!(val.isMember("id") && val["id"].isInt()))
+        {
+            server::server::get().error_reply(callback);
+            return;
+        }
+
         F foreign{};
-
-        if (val.isMember("id") && val["id"].isInt())
-            foreign.id = val["id"].asInt();
-
+        foreign.id = val["id"].asInt();
         item.read(val[item.key]);
 
         server::server::get().update(req,

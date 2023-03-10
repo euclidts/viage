@@ -19,6 +19,7 @@ struct s_account final : public account_item
 
     const std::string insert(const People::s_user& usr) const;
     const std::string update(const People::s_user& usr) const;
+    const std::string remove(const People::s_user& usr) const;
 
     static void foreign_update(string& query,
                                bool complete,

@@ -39,6 +39,13 @@ void s_document::set(const nanodbc::result& res)
 
     try
     {
+        if (!res.is_null("RelativePath"))
+            localPath = res.get<std::string>("RelativePath");
+    }
+    catch (...) {}
+
+    try
+    {
         if (!res.is_null("isUploaded"))
             state = res.get<int>("isUploaded") ? Uploaded : NotUploded;
     }
@@ -118,6 +125,13 @@ void s_document::update_reply(nanodbc::result& res, Value& json, s_account *acnt
         }
     }
     catch (...) {}
+}
+
+const filesystem::path s_document::get_path() const
+{
+    filesystem::path path{localPath};
+    path.append(fileName + '.' + extension);
+    return path;
 }
 
 }

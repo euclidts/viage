@@ -12,6 +12,7 @@ struct account_ctl : public list_ctl<account_ctl, s_account>
     ADD_METHOD_TO(account_ctl::insert, "/accounts", Post);
     ADD_METHOD_TO(account_ctl::select, "/accounts", Get);
     ADD_METHOD_TO(account_ctl::update, "/accounts", Put);
+    ADD_METHOD_TO(account_ctl::remove, "/accounts", Delete);
     METHOD_LIST_END
 
     void insert(const HttpRequestPtr& req,
@@ -19,5 +20,8 @@ struct account_ctl : public list_ctl<account_ctl, s_account>
 
     void select(const HttpRequestPtr& req,
                 std::function<void (const HttpResponsePtr &)>&& callback) const override;
+
+    void remove(const HttpRequestPtr& req,
+                std::function<void (const HttpResponsePtr &)>&& callback) const;
 };
 }

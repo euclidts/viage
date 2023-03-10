@@ -28,7 +28,7 @@ struct s_contact final : public contact_item
 
     static void condition(std::string& query,
                           const s_user& usr,
-                          s_account* acnt);
+                          s_account* acnt = nullptr);
 
     static void update_reply(nanodbc::result& res,
                              Json::Value& json,

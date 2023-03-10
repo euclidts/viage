@@ -59,7 +59,8 @@ struct full_controller : public base_controller<T, I, F>
 
         LOG_INFO << "remove " << item.key;
 
-        item.read(*req->jsonObject());
+        Json::Value val{*req->jsonObject()};
+        item.id = val["id"].asInt();
 
         server::server::get().remove(req,
                                      callback,

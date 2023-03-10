@@ -1,6 +1,7 @@
 #include "account_ctl.hpp"
 #include <s_account.hpp>
 #include <s_user.hpp>
+#include <s_document.hpp>
 #include <server.hpp>
 
 namespace Data
@@ -82,5 +83,51 @@ void account_ctl::select(const HttpRequestPtr& req,
 
         return true;
     });
+}
+
+void account_ctl::remove(const HttpRequestPtr &req,
+                         std::function<void (const HttpResponsePtr&)>&& callback) const
+{
+    LOG_INFO << "account";
+
+    Json::Value val{*req->jsonObject()};
+
+    if (!(val.isMember("id") && val["id"].isInt()))
+    {
+        server::server::get().error_reply(callback);
+        return;
+    }
+
+    s_account item{};
+    item.id = val["id"].asInt();
+
+    auto result{nanodbc::execute(server::server::get().connection,
+                                 "SELECT RelativePath FileName Extension FROM Document "
+                                 "WHERE AccountId = "
+                                 + to_string(item.id))};
+
+    s_document doc{};
+
+    while (result.next())
+    {
+        doc.set(result);
+        filesystem::remove(doc.get_path());
+        doc.clear();
+    }
+
+    nanodbc::execute(server::server::get().connection,
+                     "DELETE FROM Document "
+                     "WHERE AccountId = "
+                     + to_string(item.id) +
+                     "; DELETE FROM BaseOwner "
+                     "WHERE InfantAccountId = "
+                     + to_string(item.id) +
+                     " OR WHERE OwnerAccountId = "
+                     + to_string(item.id));
+
+    server::server::get().remove(req,
+                                 callback,
+                                 item);
+
 }
 }

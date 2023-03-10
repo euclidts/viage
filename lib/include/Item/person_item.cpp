@@ -19,7 +19,7 @@ bool person_item<T>::is_completed() const
     if (lastName == "")
         return false;
 
-    if (phone.size() <= 3)
+    if (phone.size() <= 10)
         return false;
 
     return true;
