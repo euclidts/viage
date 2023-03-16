@@ -38,7 +38,7 @@ public:
     void insert(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
                 const T& item,
-                Foreign*... foreign)
+                const Foreign*... foreign)
     {
         handle_query(req,
                      callback,
@@ -47,8 +47,7 @@ public:
         {
             const auto query{item.insert(usr, args...)};
 
-            if (query.empty())
-                return false;
+            if (query.empty()) return false;
 
             try
             {
@@ -70,7 +69,7 @@ public:
     void select(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
                 T& item,
-                Foreign*... foreign)
+                const Foreign*... foreign)
     {
         handle_query(req,
                      callback,
@@ -79,8 +78,7 @@ public:
         {
             const auto query{T::select(usr, args...)};
 
-            if (query == "")
-                return false;
+            if (query.empty()) return false;
 
             auto result{nanodbc::execute(connection, query)};
 
@@ -95,7 +93,7 @@ public:
     void update(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
                 const T& item,
-                Foreign*... foreign)
+                const Foreign*... foreign)
     {
         handle_query(req,
                      callback,
@@ -104,8 +102,7 @@ public:
         {
             auto query{item.update(usr, args...)};
 
-            if (query.empty())
-                return false;
+            if (query.empty()) return false;
 
             T::foreign_update(query,
                               item.is_completed(),
@@ -131,7 +128,7 @@ public:
     void remove(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
                 const T& item,
-                Foreign*... foreign)
+                const Foreign*... foreign)
     {
         handle_query(req,
                      callback,
@@ -140,8 +137,7 @@ public:
         {
             auto query{item.remove(usr, args...)};
 
-            if (query.empty())
-                return false;
+            if (query.empty()) return false;
 
             T::condition(query, usr, args...);
 

@@ -22,7 +22,7 @@ void s_contact::set(const nanodbc::result& res)
     catch (...) {}
 }
 
-const string s_contact::insert(const s_user& usr, s_account* acnt) const
+const string s_contact::insert(const s_user& usr, const s_account* acnt) const
 {
     const auto date{trantor::Date::date().toDbStringLocal()};
 
@@ -44,7 +44,7 @@ const string s_contact::insert(const s_user& usr, s_account* acnt) const
     return str;
 }
 
-const string s_contact::update(const s_user& usr, s_account* acnt) const
+const string s_contact::update(const s_user& usr, const s_account* acnt) const
 {
     return "UPDATE BaseOwner SET "
             + s_infant::fields() +
@@ -54,13 +54,13 @@ const string s_contact::update(const s_user& usr, s_account* acnt) const
             + std::to_string(id);
 }
 
-const string s_contact::remove(const s_user &usr, s_account *acnt) const
+const string s_contact::remove(const s_user &usr, const s_account *acnt) const
 {
     return "DELETE FROM BaseOwner WHERE Id = "
             + std::to_string(id);
 }
 
-void s_contact::foreign_update(std::string& query, bool complete, s_account* acnt)
+void s_contact::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
     std::string str{server::utils::update_flag(
                     account_item::ContactsCompleted,
@@ -70,12 +70,12 @@ void s_contact::foreign_update(std::string& query, bool complete, s_account* acn
     query.append(str);
 }
 
-void s_contact::condition(std::string &query, const s_user &usr, s_account *acnt)
+void s_contact::condition(std::string &query, const s_user &usr, const s_account *acnt)
 {
     acnt->condition(query, usr, acnt);
 }
 
-void s_contact::update_reply(nanodbc::result& res, Value& json, s_account *acnt)
+void s_contact::update_reply(nanodbc::result& res, Value& json, const s_account *acnt)
 {
     acnt->update_reply(res, json);
 }

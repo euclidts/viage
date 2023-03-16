@@ -20,24 +20,24 @@ struct s_owner final : public owner_item
 
     void set(const nanodbc::result& res);
 
-    const std::string insert(const s_user& usr, s_account* acnt) const;
-    const std::string update(const s_user& usr, s_account* acnt) const;
-    const std::string remove(const s_user& usr, s_account* acnt = nullptr) const;
+    const std::string insert(const s_user& usr, const s_account* acnt) const;
+    const std::string update(const s_user& usr, const s_account* acnt) const;
+    const std::string remove(const s_user& usr, const s_account* acnt = nullptr) const;
 
     static void foreign_update(std::string& query,
                                bool complete,
-                               s_account* acnt);
+                               const s_account* acnt);
 
     static void condition(std::string& query,
                           const s_user& usr,
-                          s_account* acnt = nullptr);
+                          const s_account* acnt = nullptr);
 
     static void update_reply(nanodbc::result& res,
                              Json::Value& json,
-                             s_account* acnt);
+                             const s_account* acnt);
 
     static const constexpr std::string select(const s_user& usr,
-                                              s_account* acnt)
+                                              const s_account* acnt)
     {
         return "SELECT DISTINCT "
                "b.Id, "
@@ -70,7 +70,8 @@ private:
 
 template<>
 template<>
-inline std::string s_list<People::s_owner>::update(const People::s_user& usr, s_account* acnt) const
+inline std::string s_list<People::s_owner>::update(const People::s_user& usr,
+                                                   const s_account* acnt) const
 {
     std::string str{};
 

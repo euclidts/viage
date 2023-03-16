@@ -23,11 +23,11 @@ struct s_account final : public account_item
 
     static void foreign_update(string& query,
                                bool complete,
-                               s_account* acnt = nullptr);
+                               const s_account *acnt = nullptr);
 
     static void condition(std::string& query,
                           const People::s_user& usr,
-                          s_account* acnt = nullptr);
+                          const s_account *acnt = nullptr);
 
     static void update_reply(nanodbc::result& res,
                              Json::Value& json);

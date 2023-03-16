@@ -9,7 +9,7 @@ namespace Data
 void account_ctl::insert(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr &)>&& callback) const
 {
-    LOG_INFO << "account";
+    LOG_INFO << "insert account";
 
     s_account item{};
 
@@ -21,7 +21,7 @@ void account_ctl::insert(const HttpRequestPtr& req,
 void account_ctl::select(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
-    LOG_INFO << "accounts";
+    LOG_INFO << "select accounts";
 
     s_list<s_account> list{};
 
@@ -88,7 +88,7 @@ void account_ctl::select(const HttpRequestPtr& req,
 void account_ctl::remove(const HttpRequestPtr &req,
                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
-    LOG_INFO << "account";
+    LOG_INFO << "remove account";
 
     Json::Value val{*req->jsonObject()};
 
@@ -102,7 +102,7 @@ void account_ctl::remove(const HttpRequestPtr &req,
     item.id = val["id"].asInt();
 
     auto result{nanodbc::execute(server::server::get().connection,
-                                 "SELECT RelativePath FileName Extension FROM Document "
+                                 "SELECT RelativePath, FileName, Extension FROM Document "
                                  "WHERE AccountId = "
                                  + to_string(item.id))};
 
@@ -111,7 +111,8 @@ void account_ctl::remove(const HttpRequestPtr &req,
     while (result.next())
     {
         doc.set(result);
-        filesystem::remove(doc.get_path());
+        const auto path{doc.get_path()};
+        if (!path.empty()) filesystem::remove(path);
         doc.clear();
     }
 
@@ -122,7 +123,7 @@ void account_ctl::remove(const HttpRequestPtr &req,
                      "; DELETE FROM BaseOwner "
                      "WHERE InfantAccountId = "
                      + to_string(item.id) +
-                     " OR WHERE OwnerAccountId = "
+                     " OR OwnerAccountId = "
                      + to_string(item.id));
 
     server::server::get().remove(req,

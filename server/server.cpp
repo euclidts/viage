@@ -83,8 +83,8 @@ void server::error_reply(std::function<void (const drogon::HttpResponsePtr &)> &
 }
 
 void server::handle_query(const drogon::HttpRequestPtr& req,
-                          std::function<void (const drogon::HttpResponsePtr& )>& callback,
-                          const std::function<bool (Json::Value&, const Data::People::s_user& )>& handler)
+                          std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                          const std::function<bool (Json::Value&, const Data::People::s_user&)>& handler)
 {
     drogon::HttpResponsePtr resp;
     auto uuid{req->session()->sessionId()};

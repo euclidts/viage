@@ -39,11 +39,15 @@ const std::string s_account::update(const People::s_user& usr) const
 
 const string s_account::remove(const People::s_user &usr) const
 {
-    return "DELETE FROM Account WHERE Id = "
-            + std::to_string(id);
+    std::string str{"DELETE FROM Account WHERE Id = "
+                    + std::to_string(id)};
+
+    condition(str, usr, this); // workarount to condition without foreign object
+
+    return str;
 }
 
-void s_account::foreign_update(string& query, bool complete, s_account* acnt)
+void s_account::foreign_update(string& query, bool complete, const s_account* acnt)
 {
     if (!acnt) return;
 
@@ -58,8 +62,10 @@ void s_account::foreign_update(string& query, bool complete, s_account* acnt)
     query.append(" WHERE Id = " + std::to_string(acnt->id));
 }
 
-void s_account::condition(string &query, const People::s_user &usr, s_account *acnt)
+void s_account::condition(string &query, const People::s_user &usr, const s_account* acnt)
 {
+    if (!acnt) return;
+
     query.insert(0,
                  "SET NOCOUNT ON "
                  "IF EXISTS "

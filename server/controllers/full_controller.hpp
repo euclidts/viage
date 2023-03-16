@@ -18,11 +18,15 @@ struct full_controller : public base_controller<T, I, F>
         LOG_INFO << "insert " << item.key;
 
         Json::Value val{*req->jsonObject()};
-
         F foreign{};
 
-        if (val.isMember(F::foreign_key) && val[F::foreign_key].isInt())
-            foreign.id = val[F::foreign_key].asInt();
+        if (!(val.isMember(F::foreign_key) && val[F::foreign_key].isInt()))
+        {
+            server::server::get().error_reply(callback);
+            return;
+        }
+
+        foreign.id = val[F::foreign_key].asInt();
 
         item.read(val);
 
@@ -44,6 +48,7 @@ struct full_controller : public base_controller<T, I, F>
         foreign.id = foreign_id;
 
         Json::Value val{*req->jsonObject()};
+
         item.read(val[I::key]);
 
         server::server::get().update(req,
@@ -60,6 +65,13 @@ struct full_controller : public base_controller<T, I, F>
         LOG_INFO << "remove " << item.key;
 
         Json::Value val{*req->jsonObject()};
+
+        if (!(val.isMember("Id") && val["Id"].isInt()))
+        {
+            server::server::get().error_reply(callback);
+            return;
+        }
+
         item.id = val["id"].asInt();
 
         server::server::get().remove(req,

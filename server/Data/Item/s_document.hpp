@@ -14,24 +14,24 @@ struct s_document final : public document_item
 
     void set(const nanodbc::result& res) override;
 
-    const std::string insert(const People::s_user& usr, s_account* acnt = nullptr) const;
-    const std::string update(const People::s_user& usr, s_account* acnt = nullptr) const;
-    const std::string remove(const People::s_user& usr, s_account* acnt = nullptr) const;
+    const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
+    const std::string update(const People::s_user& usr, const s_account* acnt = nullptr) const;
+    const std::string remove(const People::s_user& usr, const s_account* acnt = nullptr) const;
 
     static void foreign_update(std::string& query,
                                bool complete,
-                               s_account* acnt = nullptr);
+                               const s_account* acnt = nullptr);
 
     static void condition(std::string& query,
                           const People::s_user& usr,
-                          s_account* acnt = nullptr);
+                          const s_account* acnt = nullptr);
 
     static void update_reply(nanodbc::result& res,
                              Json::Value& json,
-                             s_account* acnt = nullptr);
+                             const s_account* acnt = nullptr);
 
     static const constexpr std::string select(const People::s_user& usr,
-                                              s_account* acnt)
+                                              const s_account* acnt)
     {
         return "SELECT DISTINCT "
                "d.Id, "

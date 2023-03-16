@@ -52,7 +52,7 @@ void s_document::set(const nanodbc::result& res)
     catch (...) {}
 }
 
-const string s_document::insert(const People::s_user& usr, s_account* acnt) const
+const string s_document::insert(const People::s_user& usr, const s_account* acnt) const
 {
     std::string str{"INSERT INTO Document "
                     "(Category, AccountId) "
@@ -68,7 +68,7 @@ const string s_document::insert(const People::s_user& usr, s_account* acnt) cons
 
     return str;}
 
-const string s_document::update(const People::s_user& usr, s_account* acnt) const
+const string s_document::update(const People::s_user& usr, const s_account* acnt) const
 {
     std::string str{"UPDATE Document SET "
                     "Category = "
@@ -91,13 +91,13 @@ const string s_document::update(const People::s_user& usr, s_account* acnt) cons
     return str;
 }
 
-const string s_document::remove(const People::s_user &usr, s_account *acnt) const
+const string s_document::remove(const People::s_user& usr, const s_account* acnt) const
 {
     return "DELETE FROM Document WHERE Id = "
             + std::to_string(id);
 }
 
-void s_document::foreign_update(std::string& query, bool complete, s_account* acnt)
+void s_document::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
     if (acnt)
     {
@@ -107,12 +107,12 @@ void s_document::foreign_update(std::string& query, bool complete, s_account* ac
     }
 }
 
-void s_document::condition(std::string &query, const People::s_user &usr, s_account *acnt)
+void s_document::condition(std::string &query, const People::s_user& usr, const s_account* acnt)
 {
     if (acnt) acnt->condition(query, usr, acnt);
 }
 
-void s_document::update_reply(nanodbc::result& res, Value& json, s_account *acnt)
+void s_document::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
 {
     res.next();
     try
@@ -129,6 +129,9 @@ void s_document::update_reply(nanodbc::result& res, Value& json, s_account *acnt
 
 const filesystem::path s_document::get_path() const
 {
+    if (localPath.empty() || fileName.empty() || extension.empty())
+        return {};
+
     filesystem::path path{localPath};
     path.append(fileName + '.' + extension);
     return path;

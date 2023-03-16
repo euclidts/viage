@@ -23,7 +23,7 @@ void document_ctl::update(const HttpRequestPtr& req,
     }
 
     s_document item{};
-    item.id = val["id"].asInt();
+    item.read(val);
 
     if (val.isMember("body") && val["body"].isString())
     {
@@ -48,10 +48,7 @@ void document_ctl::update(const HttpRequestPtr& req,
                 + document_item::categorie_name(item.category);
         std::filesystem::create_directories(item.localPath);
 
-        std::ofstream file(item.localPath.string()
-                           + '/'
-                           + item.fileName
-                           + item.extension,
+        std::ofstream file(item.get_path(),
                            std::ios::binary);
         if (!file.is_open())
         {
@@ -96,13 +93,15 @@ void document_ctl::remove(const HttpRequestPtr &req, std::function<void (const H
     item.id = val["id"].asInt();
 
     auto result{nanodbc::execute(server::server::get().connection,
-                                 "SELECT RelativePath FileName Extension FROM Document "
+                                 "SELECT RelativePath, FileName, Extension FROM Document "
                                  "WHERE Id = "
                                  + to_string(item.id))};
 
     result.next();
     item.set(result);
-    filesystem::remove(item.get_path());
+
+    const auto path{item.get_path()};
+    if (!path.empty()) filesystem::remove(path);
 
     server::server::get().remove(req,
                                  callback,

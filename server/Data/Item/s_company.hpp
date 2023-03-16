@@ -21,7 +21,8 @@ struct s_company final : public company_item
     static void condition(std::string& query, const People::s_user& usr) {};
     static void update_reply(nanodbc::result& res, Json::Value& json) {};
 
-    static const constexpr auto select(const People::s_user& usr)
+    static const constexpr std::basic_string<char, std::char_traits<char>>
+    select(const People::s_user& usr)
     {
         if (usr.clearance < People::s_user::Administrator)
             return "";

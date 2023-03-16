@@ -68,12 +68,12 @@ void s_exterior::set(const nanodbc::result& res)
     catch (...) {}
 }
 
-const string s_exterior::insert(const People::s_user& usr, s_account* acnt) const
+const string s_exterior::insert(const People::s_user& usr, const s_account* acnt) const
 {
     return "";
 }
 
-const string s_exterior::update(const People::s_user& usr, s_account* acnt) const
+const string s_exterior::update(const People::s_user& usr, const s_account* acnt) const
 {
     return "UPDATE Account SET "
             "HasParking = "
@@ -96,7 +96,7 @@ const string s_exterior::update(const People::s_user& usr, s_account* acnt) cons
             + std::to_string(acnt->id);
 }
 
-void s_exterior::foreign_update(std::string& query, bool complete, s_account* acnt)
+void s_exterior::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
     std::string str{server::utils::update_flag(
                     account_item::ExteriorCompleted,
@@ -106,12 +106,12 @@ void s_exterior::foreign_update(std::string& query, bool complete, s_account* ac
     query.append(str);
 }
 
-void s_exterior::condition(std::string &query, const People::s_user &usr, s_account *acnt)
+void s_exterior::condition(std::string &query, const People::s_user& usr, const s_account* acnt)
 {
     acnt->condition(query, usr, acnt);
 }
 
-void s_exterior::update_reply(nanodbc::result& res, Value& json, s_account *acnt)
+void s_exterior::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);
 }

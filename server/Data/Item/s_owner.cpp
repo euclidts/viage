@@ -39,7 +39,7 @@ void s_owner::set(const nanodbc::result& res)
     ads.set(res);
 }
 
-const string s_owner::insert(const s_user& usr, s_account* acnt) const
+const string s_owner::insert(const s_user& usr, const s_account* acnt) const
 {
     std::string str{"INSERT INTO BaseOwner "
                     "(OwnerType, Sex, OwnerAccountId) "
@@ -56,7 +56,7 @@ const string s_owner::insert(const s_user& usr, s_account* acnt) const
     return str;
 }
 
-const string s_owner::update(const s_user& usr, s_account* acnt) const
+const string s_owner::update(const s_user& usr, const s_account* acnt) const
 {
     return "UPDATE BaseOwner SET "
             + s_infant::fields() +
@@ -73,13 +73,13 @@ const string s_owner::update(const s_user& usr, s_account* acnt) const
             "; ";
 }
 
-const string s_owner::remove(const s_user &usr, s_account *acnt) const
+const string s_owner::remove(const s_user &usr, const s_account *acnt) const
 {
     return "DELETE FROM BaseOwner WHERE Id = "
             + std::to_string(id);
 }
 
-void s_owner::foreign_update(std::string& query, bool complete, s_account* acnt)
+void s_owner::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
     std::string str{server::utils::update_flag(
                     account_item::OwnersCompleted,
@@ -89,12 +89,12 @@ void s_owner::foreign_update(std::string& query, bool complete, s_account* acnt)
     query.append(str);
 }
 
-void s_owner::condition(std::string& query, const s_user& usr, s_account* acnt)
+void s_owner::condition(std::string& query, const s_user& usr, const s_account* acnt)
 {
     acnt->condition(query, usr, acnt);
 }
 
-void s_owner::update_reply(nanodbc::result& res, Value& json, s_account* acnt)
+void s_owner::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);
 

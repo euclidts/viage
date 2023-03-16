@@ -64,12 +64,12 @@ void s_habitat::set(const nanodbc::result& res)
     catch (...) {}
 }
 
-const string s_habitat::insert(const People::s_user& usr, s_account* acnt) const
+const string s_habitat::insert(const People::s_user& usr, const s_account* acnt) const
 {
-    return "";
+    return {};
 }
 
-const string s_habitat::update(const People::s_user& usr, s_account* acnt) const
+const string s_habitat::update(const People::s_user& usr, const s_account* acnt) const
 {
     return "UPDATE Account SET "
             + ads.fields() +
@@ -91,7 +91,7 @@ const string s_habitat::update(const People::s_user& usr, s_account* acnt) const
             + std::to_string(acnt->id);
 }
 
-void s_habitat::foreign_update(std::string& query, bool complete, s_account* acnt)
+void s_habitat::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
     std::string str{server::utils::update_flag(
                     account_item::HabitatCompleted,
@@ -101,12 +101,12 @@ void s_habitat::foreign_update(std::string& query, bool complete, s_account* acn
     query.append(str);
 }
 
-void s_habitat::condition(std::string &query, const People::s_user &usr, s_account *acnt)
+void s_habitat::condition(std::string &query, const People::s_user &usr, const s_account* acnt)
 {
     acnt->condition(query, usr, acnt);
 }
 
-void s_habitat::update_reply(nanodbc::result& res, Value& json, s_account *acnt)
+void s_habitat::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);
 }

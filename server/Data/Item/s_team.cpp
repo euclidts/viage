@@ -7,7 +7,7 @@ s_team::s_team()
 {
 }
 
-const std::string s_team::insert(const People::s_user& usr, s_company* foreign) const
+const std::string s_team::insert(const People::s_user& usr, const s_company* foreign) const
 {
     if (usr.clearance < People::s_user::Administrator)
         return {};
@@ -25,7 +25,7 @@ const std::string s_team::insert(const People::s_user& usr, s_company* foreign) 
             "') ";
 }
 
-const std::string s_team::update(const People::s_user& usr, s_company* foreign) const
+const std::string s_team::update(const People::s_user& usr, const s_company* foreign) const
 {
     if (usr.clearance < People::s_user::Administrator)
         return {};
@@ -37,7 +37,7 @@ const std::string s_team::update(const People::s_user& usr, s_company* foreign) 
             + std::to_string(id);
 }
 
-const std::string s_team::remove(const People::s_user &usr, s_company *foreign) const
+const std::string s_team::remove(const People::s_user &usr, const s_company *foreign) const
 {
     return {};
 }
