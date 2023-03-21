@@ -41,15 +41,10 @@ void document_ctl::update(const HttpRequestPtr& req,
         acnt.id = result.get<int>(0);
 
         using namespace drogon::utils;
-        item.localPath = app().getUploadPath()
-                + '/'
-                + std::to_string(acnt.id)
-                + '/'
-                + document_item::categorie_name(item.category);
-        std::filesystem::create_directories(item.localPath);
+        item.set_directory(acnt.id);
+        filesystem::create_directories(item.localPath);
 
-        std::ofstream file(item.get_path(),
-                           std::ios::binary);
+        ofstream file(item.get_path(), ios::binary);
         if (!file.is_open())
         {
             server::server::get().error_reply(callback);

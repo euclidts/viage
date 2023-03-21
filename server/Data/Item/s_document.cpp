@@ -1,3 +1,5 @@
+#include <drogon/HttpAppFramework.h>
+
 #include "s_document.hpp"
 
 namespace Data
@@ -114,7 +116,8 @@ void s_document::condition(std::string &query, const People::s_user& usr, const 
 
 void s_document::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
 {
-    res.next();
+    acnt->update_reply(res, json);
+
     try
     {
         if (!res.is_null("IsUploaded"))
@@ -127,14 +130,37 @@ void s_document::update_reply(nanodbc::result& res, Value& json, const s_account
     catch (...) {}
 }
 
-const filesystem::path s_document::get_path() const
+const filesystem::path s_document::get_directory(int acnt_id) const
 {
-    if (localPath.empty() || fileName.empty() || extension.empty())
+    return drogon::app().getUploadPath()
+            + '/'
+            + std::to_string(acnt_id)
+            + '/'
+            + document_item::categorie_name(category);
+}
+
+void s_document::set_directory(int acnt_id)
+{
+    localPath = get_directory(acnt_id);
+}
+
+const filesystem::path s_document::get_path(int acnt_id) const
+{
+    if (fileName.empty() || extension.empty())
         return {};
 
-    filesystem::path path{localPath};
+    filesystem::path path{};
+
+    if (!localPath.empty())
+        path = localPath;
+    else
+    {
+        if (acnt_id == 0) return {};
+        else
+            path = get_directory(acnt_id);
+    }
+
     path.append(fileName + '.' + extension);
     return path;
 }
-
 }

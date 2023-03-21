@@ -113,7 +113,6 @@ inline std::string s_list<People::s_owner>::update(const People::s_user& usr,
 
     return str;
 }
-
 }
 
 #endif // S_CONTACT_HPP

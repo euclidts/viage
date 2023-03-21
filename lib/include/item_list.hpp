@@ -37,6 +37,7 @@ public:
     static const inline auto key{set_key()};
 
     void set_list(const std::vector<T>& list);
+    const std::vector<T> get_list() const;
     T item_at_id(int id) const;
 
     void read(const Json::Value& json) override;

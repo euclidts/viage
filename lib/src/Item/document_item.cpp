@@ -63,28 +63,6 @@ bool document_item::is_completed() const
     return state == Uploaded;
 }
 
-bool document_item::required_flags(int flags, bool ppe)
-{
-    bool res{flags & Picture
-                && flags & Passeport
-                && flags & RegisteryExcerpt
-                && flags & PursuitExcerpt
-                && flags & TaxDeclaration
-                && flags & BuildingDetails
-                && flags & Insurance
-                && flags & Discernement
-                && flags & Calculation};
-
-    if (!res) return false;
-
-    if (ppe)
-        res = flags & Constitution
-                && flags & PPE
-                && flags & PPEPVS;
-
-    return res;
-}
-
 void document_item::set_file_info()
 {
     if (localPath.empty())

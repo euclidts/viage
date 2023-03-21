@@ -26,12 +26,12 @@ void s_list<T>::set_next(nanodbc::result& res)
 
 template<typename T>
 template<typename ...Foreign>
-std::string s_list<T>::update(const People::s_user& usr, Foreign*... f) const
+std::string s_list<T>::update(const People::s_user& usr, const Foreign*... f) const
 {
     std::string str{};
 
     if (item_list<T>::size() == 0) // handle empty lists
-        str += " "; // prevent from returnoing string;
+        str += " "; // prevent from returnoig empty string;
     else
         for (const auto& item : item_list<T>::m_items)
             str += item.update(usr, f...);

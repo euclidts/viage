@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <json/json.h>
 #include <base_data.hpp>
+#include "item_list.hpp"
 
 namespace Data
 {
@@ -100,14 +101,53 @@ struct document_item : virtual public base_data<document_item>
 
     bool is_completed() const override;
 
-    static bool required_flags(int flags, bool ppe = false);
+    template <typename T = document_item>
+    static bool documents_completed(const std::vector<T>& docs, bool ppe)
+    {
+        bool uploaded{true};
+        int flags{document_item::None};
+
+        for (const auto& doc : docs)
+        {
+            if (doc.state != document_item::Uploaded)
+            {
+                uploaded = false;
+                break;
+            }
+
+            flags |= doc.category;
+        }
+
+        if (uploaded)
+        {
+            bool res{flags & Picture
+                        && flags & Passeport
+                        && flags & RegisteryExcerpt
+                        && flags & PursuitExcerpt
+                        && flags & TaxDeclaration
+                        && flags & BuildingDetails
+                        && flags & Insurance
+                        && flags & Discernement
+                        && flags & Calculation};
+
+            if (!res) return false;
+
+            if (ppe)
+                res = flags & Constitution
+                        && flags & PPE
+                        && flags & PPEPVS;
+
+            return res;
+        }
+        else
+            return false;
+    };
 
 protected:
     explicit document_item();
 
     void set_file_info();
 };
-
 }
 
 #endif // DOCUMENT_ITEM_HPP

@@ -1,14 +1,17 @@
 #ifndef S_DOCUMENT_HPP
 #define S_DOCUMENT_HPP
 
+#include <server.hpp>
+
 #include "s_account.hpp"
+#include "s_list.hpp"
 #include <server_utils.hpp>
 #include <Item/document_item.hpp>
 
 namespace Data
 {
 struct s_document final : public document_item
-                        , public s_base_data
+        , public s_base_data
 {
     s_document();
 
@@ -48,8 +51,54 @@ struct s_document final : public document_item
                 + server::utils::clearance_close(usr);
     }
 
-    const filesystem::path get_path() const;
+    void set_directory(int acnt_id);
+    const filesystem::path get_path(int acnt_id = 0) const;
+
+private:
+    const filesystem::path get_directory(int acnt_id) const;
 };
+
+template<>
+inline bool item_list<s_document>::is_completed() const
+{
+    if (m_items.empty()) return false;
+
+    // retrieve isPPE value from the fist document's AccountId
+    auto result{nanodbc::execute(server::server::get().connection,
+                                 "SELECT DISTINCT a.isPPE, a.Id "
+                                 "FROM Account a, Document d "
+                                 "WHERE d.id = "
+                                 + std::to_string(m_items[0].id) +
+                                 " AND a.Id = d.AccountId")};
+    result.next();
+
+    if (!document_item::documents_completed<s_document>(m_items,
+                                                        result.get<int>("isPPE")))
+        return false;
+
+    // double check all files are corectly updated
+    for (const auto& doc : m_items)
+    {
+        if (!filesystem::exists(doc.get_path(result.get<int>("Id"))))
+            return false;
+    }
+
+    return true;
+}
+
+template<>
+template<>
+inline void s_list<s_document>::foreign_update(std::string& query,
+                                               bool complete,
+                                               const s_account* acnt)
+{
+    std::string str{server::utils::update_flag(
+                    account_item::DocumentsCompleted,
+                    "State",
+                    complete)};
+    acnt->foreign_update(str, complete, acnt);
+    query.append(str);
+}
 }
 
 #endif // s_document_HPP

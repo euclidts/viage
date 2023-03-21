@@ -17,12 +17,12 @@ struct s_list final : public item_list<T>
     void set_next(nanodbc::result& res) override;
 
     template <typename ...Foreign>
-    std::string update(const People::s_user& usr, Foreign*... f) const;
+    std::string update(const People::s_user& usr, const Foreign*... f) const;
 
     template <typename ...Foreign>
     static void foreign_update(std::string& query,
                                bool complete,
-                               Foreign*... f)
+                               const Foreign*... f)
     {
         T::foreign_update(query, complete, f...);
     };
@@ -30,7 +30,7 @@ struct s_list final : public item_list<T>
     template <typename ...Foreign>
     static void condition(std::string& query,
                           const People::s_user& usr,
-                          Foreign*... f)
+                          const Foreign*... f)
     {
         T::condition(query, usr, f...);
     };
@@ -38,7 +38,7 @@ struct s_list final : public item_list<T>
     template <typename ...Foreign>
     static void update_reply(nanodbc::result& res,
                              Json::Value& json,
-                             Foreign*... f)
+                             const Foreign*... f)
     {
         T::update_reply(res, json, f...);
     };

@@ -402,28 +402,7 @@ void bridge::setDocumentsCompleted(bool newDocumentsCompleted)
 void bridge::check_doc_completion()
 {
     using namespace Data;
-
-    bool uploaded{true};
-    int flags{document_item::None};
-
-    for (const auto& doc : docs->items())
-    {
-        if (doc.state != document_item::Uploaded)
-        {
-            uploaded = false;
-            break;
-        }
-
-        if (!hasFlag(flags, doc.category))
-            flags += doc.category;
-    }
-
-    if (uploaded)
-    {
-        setDocumentsCompleted(document_item::required_flags(flags, ppe));
-    }
-    else
-        setDocumentsCompleted(false);
+    setDocumentsCompleted(document_item::documents_completed(docs->get_list(), ppe));
 }
 
 void bridge::cleanup_docs(int ai)
