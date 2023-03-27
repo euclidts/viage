@@ -260,19 +260,16 @@ void bridge::getAccountDates() const
         Reader reader;
         reader.parse(rep.toStdString(), json);
 
-        if (json.isMember("success"))
+        if (!json.isMember("state") && !json.isMember("accountState"))
         {
-            if (json["success"].asBool())
-            {
-                auto account{acnts->item_at_id(accountId)};
-                account.read(json);
-                acnts->setItemAtId(accountId, account);
-                emit loaded();
-                return;
-            }
+            emit mng->replyError("getAccountDates error");
+            return;
         }
 
-        emit mng->replyError("getAccountDates error");
+        auto account{acnts->item_at_id(accountId)};
+        account.read(json);
+        acnts->setItemAtId(accountId, account);
+        emit loaded();
     });
 }
 
@@ -291,7 +288,7 @@ void bridge::updateState(int newState) const
         acnts->setItemAtId(accountId, account);
         emit loaded();
     },
-    "updateSt error");
+    "updateState error");
 }
 
 void bridge::updatePPE() const

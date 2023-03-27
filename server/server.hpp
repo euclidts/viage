@@ -66,6 +66,30 @@ public:
     }
 
     template <typename T, typename ...Foreign>
+    void search(const drogon::HttpRequestPtr& req,
+                std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                T& item,
+                const Foreign*... foreign)
+    {
+        handle_query(req,
+                     callback,
+                     [this, &item, ... args = foreign]
+                     (Json::Value& json, const Data::People::s_user& usr)
+        {
+            const auto query{T::search(usr, args...)};
+
+            if (query.empty()) return false;
+
+            auto result{nanodbc::execute(connection, query)};
+
+            item.set_next(result);
+            item.write(json);
+
+            return true;
+        });
+    }
+
+    template <typename T, typename ...Foreign>
     void select(const drogon::HttpRequestPtr& req,
                 std::function<void (const drogon::HttpResponsePtr&)>& callback,
                 T& item,
@@ -76,13 +100,14 @@ public:
                      [this, &item, ... args = foreign]
                      (Json::Value& json, const Data::People::s_user& usr)
         {
-            const auto query{T::select(usr, args...)};
+            const auto query{item.select(usr, args...)};
 
             if (query.empty()) return false;
 
             auto result{nanodbc::execute(connection, query)};
 
-            item.set_next(result);
+            result.next();
+            item.set(result);
             item.write(json);
 
             return true;

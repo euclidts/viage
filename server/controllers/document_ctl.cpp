@@ -12,7 +12,7 @@ namespace Data
 void document_ctl::update(const HttpRequestPtr& req,
                           std::function<void (const HttpResponsePtr&)>&& callback) const
 {
-    LOG_INFO << "updae " << s_document::key;
+    LOG_INFO << "update " << s_document::key;
 
     Json::Value val{*req->jsonObject()};
 
@@ -42,9 +42,9 @@ void document_ctl::update(const HttpRequestPtr& req,
 
         using namespace drogon::utils;
         item.set_directory(acnt.id);
-        filesystem::create_directories(item.localPath);
+        std::filesystem::create_directories(item.localPath);
 
-        ofstream file(item.get_path(), ios::binary);
+        std::ofstream file(item.get_path(), std::ios::binary);
         if (!file.is_open())
         {
             server::server::get().error_reply(callback);
@@ -72,7 +72,8 @@ void document_ctl::update(const HttpRequestPtr& req,
                                      item);
 }
 
-void document_ctl::remove(const HttpRequestPtr &req, std::function<void (const HttpResponsePtr &)> &&callback) const
+void document_ctl::remove(const HttpRequestPtr& req,
+                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
     LOG_INFO << "remove " << s_document::key;
 
@@ -90,13 +91,13 @@ void document_ctl::remove(const HttpRequestPtr &req, std::function<void (const H
     auto result{nanodbc::execute(server::server::get().connection,
                                  "SELECT RelativePath, FileName, Extension FROM Document "
                                  "WHERE Id = "
-                                 + to_string(item.id))};
+                                 + std::to_string(item.id))};
 
     result.next();
     item.set(result);
 
     const auto path{item.get_path()};
-    if (!path.empty()) filesystem::remove(path);
+    if (!path.empty()) std::filesystem::remove(path);
 
     server::server::get().remove(req,
                                  callback,

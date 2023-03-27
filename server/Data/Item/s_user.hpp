@@ -23,13 +23,14 @@ struct s_user final : public user_item
 
     const std::string fields() const;
     const std::string insert(const s_user& usr) const;
+    const std::string select(const s_user& usr) const;
     const std::string update(const s_user& usr) const;
 
     static void foreign_update(std::string& query, bool complete) {};
     static void condition(std::string& query, const s_user& usr) {};
     static void update_reply(nanodbc::result& res, Json::Value& json) {};
 
-    static const constexpr std::string select(const s_user& usr)
+    static const constexpr std::string search(const s_user& usr)
     {
         if (usr.clearance < Administrator)
             return "";

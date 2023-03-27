@@ -24,25 +24,31 @@ struct list_ctl : public HttpController<T>
     }
 
     virtual void select(const HttpRequestPtr& req,
-                        std::function<void (const HttpResponsePtr &)>&& callback) const
+                        std::function<void (const HttpResponsePtr &)>&& callback,
+                        int id) const
     {
         LOG_INFO << "select " << I::key;
 
-        s_list<I> list{};
+        I item{};
+        item.id = id;
 
         server::server::get().select(req,
                                      callback,
-                                     list);
+                                     item);
     }
 
     virtual void update(const HttpRequestPtr& req,
                         std::function<void (const HttpResponsePtr &)>&& callback) const
     {
-        LOG_INFO << "updae " << I::key;
+        LOG_INFO << "update " << I::key;
 
         Json::Value val{*req->jsonObject()};
         I item{};
-        item.read(val[I::key]);
+
+        if (val.isMember(I::key))
+            item.read(val[I::key]);
+        else
+            item.read(val);
 
         if (item.id == 0)
         {
@@ -53,6 +59,18 @@ struct list_ctl : public HttpController<T>
         server::server::get().update(req,
                                      callback,
                                      item);
+    }
+
+    virtual void search(const HttpRequestPtr& req,
+                        std::function<void (const HttpResponsePtr &)>&& callback) const
+    {
+        LOG_INFO << "search " << I::key;
+
+        s_list<I> list{};
+
+        server::server::get().search(req,
+                                     callback,
+                                     list);
     }
 };
 

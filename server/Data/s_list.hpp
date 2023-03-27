@@ -44,9 +44,9 @@ struct s_list final : public item_list<T>
     };
 
     template <typename ...Foreign>
-    static const constexpr auto select(const People::s_user& usr, Foreign*... f)
+    static const constexpr auto search(const People::s_user& usr, Foreign*... f)
     {
-        return T::select(usr, f...);
+        return T::search(usr, f...);
     }
 };
 

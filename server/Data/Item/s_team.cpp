@@ -25,6 +25,15 @@ const std::string s_team::insert(const People::s_user& usr, const s_company* for
             "') ";
 }
 
+const std::string s_team::select(const People::s_user& usr, const s_company* foreign) const
+{
+    if (usr.clearance < People::s_user::Administrator && !foreign)
+        return "";
+
+    return "SELECT * FROM Team WHERE Id = "
+            + std::to_string(id);
+}
+
 const std::string s_team::update(const People::s_user& usr, const s_company* foreign) const
 {
     if (usr.clearance < People::s_user::Administrator)

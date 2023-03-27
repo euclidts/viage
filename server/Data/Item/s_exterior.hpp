@@ -17,6 +17,7 @@ struct s_exterior final : public exterior_item
     void set(const nanodbc::result& res) override;
 
     const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
+    const std::string select(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string update(const People::s_user& usr, const s_account* acnt = nullptr) const;
 
     static void foreign_update(std::string& query,
@@ -31,7 +32,7 @@ struct s_exterior final : public exterior_item
                              Json::Value& json,
                              const s_account* acnt);
 
-    static const constexpr std::string select(const People::s_user& usr,
+    static const constexpr std::string search(const People::s_user& usr,
                                               const s_account* acnt)
     {
         return "SELECT DISTINCT "

@@ -18,6 +18,7 @@ struct s_document final : public document_item
     void set(const nanodbc::result& res) override;
 
     const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
+    const std::string select(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string update(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string remove(const People::s_user& usr, const s_account* acnt = nullptr) const;
 
@@ -33,7 +34,7 @@ struct s_document final : public document_item
                              Json::Value& json,
                              const s_account* acnt = nullptr);
 
-    static const constexpr std::string select(const People::s_user& usr,
+    static const constexpr std::string search(const People::s_user& usr,
                                               const s_account* acnt)
     {
         return "SELECT DISTINCT "
@@ -52,10 +53,10 @@ struct s_document final : public document_item
     }
 
     void set_directory(int acnt_id);
-    const filesystem::path get_path(int acnt_id = 0) const;
+    const std::filesystem::path get_path(int acnt_id = 0) const;
 
 private:
-    const filesystem::path get_directory(int acnt_id) const;
+    const std::filesystem::path get_directory(int acnt_id) const;
 };
 
 template<>
@@ -69,17 +70,16 @@ inline bool item_list<s_document>::is_completed() const
                                  "FROM Account a, Document d "
                                  "WHERE d.id = "
                                  + std::to_string(m_items[0].id) +
-                                 " AND a.Id = d.AccountId")};
+                " AND a.Id = d.AccountId")};
     result.next();
 
-    if (!document_item::documents_completed<s_document>(m_items,
-                                                        result.get<int>("isPPE")))
+    if (!document_item::documents_completed<s_document>(m_items, result.get<int>("isPPE")))
         return false;
 
     // double check all files are corectly updated
     for (const auto& doc : m_items)
     {
-        if (!filesystem::exists(doc.get_path(result.get<int>("Id"))))
+        if (!std::filesystem::exists(doc.get_path(result.get<int>("Id"))))
             return false;
     }
 

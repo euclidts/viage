@@ -22,7 +22,7 @@ void s_contact::set(const nanodbc::result& res)
     catch (...) {}
 }
 
-const string s_contact::insert(const s_user& usr, const s_account* acnt) const
+const std::string s_contact::insert(const s_user& usr, const s_account* acnt) const
 {
     const auto date{trantor::Date::date().toDbStringLocal()};
 
@@ -44,7 +44,12 @@ const string s_contact::insert(const s_user& usr, const s_account* acnt) const
     return str;
 }
 
-const string s_contact::update(const s_user& usr, const s_account* acnt) const
+const std::string s_contact::select(const s_user &usr, const s_account *acnt) const
+{
+    return search(usr, acnt) + " AND  b.Id = " + std::to_string(id);
+}
+
+const std::string s_contact::update(const s_user& usr, const s_account* acnt) const
 {
     return "UPDATE BaseOwner SET "
             + s_infant::fields() +
@@ -54,7 +59,7 @@ const string s_contact::update(const s_user& usr, const s_account* acnt) const
             + std::to_string(id);
 }
 
-const string s_contact::remove(const s_user &usr, const s_account *acnt) const
+const std::string s_contact::remove(const s_user &usr, const s_account *acnt) const
 {
     return "DELETE FROM BaseOwner WHERE Id = "
             + std::to_string(id);

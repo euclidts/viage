@@ -12,13 +12,14 @@ namespace Data
 namespace People
 {
 struct s_contact final : public contact_item
-                       , public s_infant<contact_item>
+        , public s_infant<contact_item>
 {
     s_contact();
 
     void set(const nanodbc::result& res);
 
     const std::string insert(const s_user& usr, const s_account* acnt = nullptr) const;
+    const std::string select(const s_user& usr, const s_account* acnt = nullptr) const;
     const std::string update(const s_user& usr, const s_account* acnt = nullptr) const;
     const std::string remove(const s_user& usr, const s_account* acnt = nullptr) const;
 
@@ -34,7 +35,7 @@ struct s_contact final : public contact_item
                              Json::Value& json,
                              const s_account* acnt);
 
-    static const constexpr std::string select(const s_user& usr,
+    static const constexpr std::string search(const s_user& usr,
                                               const s_account* acnt)
     {
         return "SELECT DISTINCT "

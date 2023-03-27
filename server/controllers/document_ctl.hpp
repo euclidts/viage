@@ -13,7 +13,7 @@ struct document_ctl final :
 {
     METHOD_LIST_BEGIN
     ADD_METHOD_TO(document_ctl::insert, "/accounts/documents", Post);
-    ADD_METHOD_TO(document_ctl::select, "/accounts/{}/documents", Get);
+    ADD_METHOD_TO(document_ctl::search, "/accounts/{}/documents", Get);
     ADD_METHOD_TO(document_ctl::update, "/documents", Put);
     ADD_METHOD_TO(document_ctl::update_from, "/accounts/documents", Put);
     ADD_METHOD_TO(document_ctl::remove, "/documents", Delete);

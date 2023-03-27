@@ -6,14 +6,14 @@ using namespace drogon;
 
 namespace Data
 {
-template <typename T, typename I, typename F>
+template <typename T, typename I, typename F, typename C = I>
 struct base_controller : public HttpController<T>
 {
     virtual void select(const HttpRequestPtr& req,
                         std::function<void (const HttpResponsePtr&)>&& callback,
                         int foreign_id) const
     {
-        I item{};
+        C item{};
 
         LOG_INFO << "select " << item.key;
 
@@ -21,6 +21,23 @@ struct base_controller : public HttpController<T>
         foreign.id = foreign_id;
 
         server::server::get().select(req,
+                                     callback,
+                                     item,
+                                     &foreign);
+    }
+
+    virtual void search(const HttpRequestPtr& req,
+                        std::function<void (const HttpResponsePtr&)>&& callback,
+                        int foreign_id) const
+    {
+        I item{};
+
+        LOG_INFO << "search " << item.key;
+
+        F foreign{};
+        foreign.id = foreign_id;
+
+        server::server::get().search(req,
                                      callback,
                                      item,
                                      &foreign);

@@ -54,7 +54,7 @@ void s_document::set(const nanodbc::result& res)
     catch (...) {}
 }
 
-const string s_document::insert(const People::s_user& usr, const s_account* acnt) const
+const std::string s_document::insert(const People::s_user& usr, const s_account* acnt) const
 {
     std::string str{"INSERT INTO Document "
                     "(Category, AccountId) "
@@ -70,7 +70,12 @@ const string s_document::insert(const People::s_user& usr, const s_account* acnt
 
     return str;}
 
-const string s_document::update(const People::s_user& usr, const s_account* acnt) const
+const std::string s_document::select(const People::s_user &usr, const s_account *acnt) const
+{
+    return search(usr, acnt);
+}
+
+const std::string s_document::update(const People::s_user& usr, const s_account* acnt) const
 {
     std::string str{"UPDATE Document SET "
                     "Category = "
@@ -93,7 +98,7 @@ const string s_document::update(const People::s_user& usr, const s_account* acnt
     return str;
 }
 
-const string s_document::remove(const People::s_user& usr, const s_account* acnt) const
+const std::string s_document::remove(const People::s_user& usr, const s_account* acnt) const
 {
     return "DELETE FROM Document WHERE Id = "
             + std::to_string(id);
@@ -130,7 +135,7 @@ void s_document::update_reply(nanodbc::result& res, Value& json, const s_account
     catch (...) {}
 }
 
-const filesystem::path s_document::get_directory(int acnt_id) const
+const std::filesystem::path s_document::get_directory(int acnt_id) const
 {
     return drogon::app().getUploadPath()
             + '/'
@@ -144,12 +149,12 @@ void s_document::set_directory(int acnt_id)
     localPath = get_directory(acnt_id);
 }
 
-const filesystem::path s_document::get_path(int acnt_id) const
+const std::filesystem::path s_document::get_path(int acnt_id) const
 {
     if (fileName.empty() || extension.empty())
         return {};
 
-    filesystem::path path{};
+    std::filesystem::path path{};
 
     if (!localPath.empty())
         path = localPath;

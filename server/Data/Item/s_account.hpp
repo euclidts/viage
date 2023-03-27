@@ -12,27 +12,30 @@ struct s_account final : public account_item
 //                       , public s_base_data<account_item>
 {
     s_account();
+    void read(const Value& json);
 
     static const constexpr auto table{"Account"};
 
     void set(nanodbc::result& res);
 
     const std::string insert(const People::s_user& usr) const;
+    const std::string select(const People::s_user& usr) const;
     const std::string update(const People::s_user& usr) const;
     const std::string remove(const People::s_user& usr) const;
 
-    static void foreign_update(string& query,
+    static void foreign_update(std::string& query,
                                bool complete,
-                               const s_account *acnt = nullptr);
+                               const s_account* acnt = nullptr);
 
     static void condition(std::string& query,
                           const People::s_user& usr,
-                          const s_account *acnt = nullptr);
+                          const s_account* acnt = nullptr);
 
     static void update_reply(nanodbc::result& res,
-                             Json::Value& json);
+                             Value& json_resp,
+                             const s_account* = nullptr);
 
-    static const constexpr basic_string<char, std::char_traits<char>> select(
+    static const constexpr std::basic_string<char, std::char_traits<char>> search(
             const People::s_user& usr)
     {
         return "SELECT "
@@ -41,6 +44,7 @@ struct s_account final : public account_item
                "CreationDate, "
                "UpdateDate, "
                "State, "
+               "IsPPE, "
                "a.Street, "
                "a.City, "
                "a.Canton, "
@@ -62,6 +66,15 @@ struct s_account final : public account_item
     };
 
 private:
+    enum setableFields
+    {
+        None = 0,
+        PpeSet = 1,
+        StateSet = 2
+    };
+
+    int fields_set{None};
+
     //    void remove_multiple(nanodbc::result& res);
 };
 

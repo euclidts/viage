@@ -100,7 +100,7 @@ ScrollView {
                             columns: portrait ? 2 : 4
 
                             IntChooser {
-                                name: qsTr("brut (m2)")
+                                name: qsTr("brut (m²)")
                                 minimum: 1
                                 maximum: 1000
                                 numberOf: habitat.rawSurface
@@ -108,7 +108,7 @@ ScrollView {
                             }
 
                             IntChooser {
-                                name: qsTr("net (m2)")
+                                name: qsTr("net (m²)")
                                 minimum: 1
                                 maximum: 1000
                                 numberOf: habitat.surface
@@ -116,7 +116,7 @@ ScrollView {
                             }
 
                             IntChooser {
-                                name: qsTr("M2 Construits")
+                                name: qsTr("m² Construits")
                                 minimum: 1
                                 maximum: 1000
                                 numberOf: habitat.m2Constructed
@@ -124,7 +124,7 @@ ScrollView {
                             }
 
                             IntChooser {
-                                name: qsTr("M2 Disponibles")
+                                name: qsTr("m² Disponibles")
                                 minimum: 0
                                 maximum: 1000
                                 numberOf: habitat.m2Available
@@ -135,7 +135,7 @@ ScrollView {
                 }
 
                 IntChooser {
-                    name: qsTr("Nombre de M3")
+                    name: qsTr("Nombre de m³")
                     minimum: 0
                     maximum: 100000
                     numberOf: habitat.m3s

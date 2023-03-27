@@ -6,7 +6,6 @@
 
 namespace Data
 {
-using namespace std;
 using namespace Json;
 
 struct account_item : virtual public base_data<account_item>
@@ -39,20 +38,20 @@ struct account_item : virtual public base_data<account_item>
     };
 
     states state{Initialized};
-    string receivedDate{""};
-    string transmitedDate{""};
-    string expertizedDate{""};
-    string decidedDate{""};
-    string notarizedDate{""};
-    string paidDate{""};
+    std::string receivedDate{""};
+    std::string transmitedDate{""};
+    std::string expertizedDate{""};
+    std::string decidedDate{""};
+    std::string notarizedDate{""};
+    std::string paidDate{""};
 
-    string created{""};
-    string modified{""};
-    string advisorFirstName{""};
-    string advisorLastName{""};
-    string company{""};
+    std::string created{""};
+    std::string modified{""};
+    std::string advisorFirstName{""};
+    std::string advisorLastName{""};
+    std::string company{""};
 
-    string acronym{""};
+    std::string acronym{""};
     int id{0};
 
     void read(const Value& json) override;

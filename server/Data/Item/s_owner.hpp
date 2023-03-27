@@ -21,6 +21,7 @@ struct s_owner final : public owner_item
     void set(const nanodbc::result& res);
 
     const std::string insert(const s_user& usr, const s_account* acnt) const;
+    const std::string select(const s_user& usr, const s_account* acnt) const;
     const std::string update(const s_user& usr, const s_account* acnt) const;
     const std::string remove(const s_user& usr, const s_account* acnt = nullptr) const;
 
@@ -36,7 +37,7 @@ struct s_owner final : public owner_item
                              Json::Value& json,
                              const s_account* acnt);
 
-    static const constexpr std::string select(const s_user& usr,
+    static const constexpr std::string search(const s_user& usr,
                                               const s_account* acnt)
     {
         return "SELECT DISTINCT "

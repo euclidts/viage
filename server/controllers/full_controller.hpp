@@ -8,7 +8,7 @@ using namespace drogon;
 namespace Data
 {
 template <typename T, typename I, typename F, typename C = I>
-struct full_controller : public base_controller<T, I, F>
+struct full_controller : public base_controller<T, I, F, C>
 {
     virtual void insert(const HttpRequestPtr& req,
                         std::function<void (const HttpResponsePtr&)>&& callback) const

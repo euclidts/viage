@@ -7,7 +7,7 @@
 namespace Data
 {
 void account_ctl::insert(const HttpRequestPtr& req,
-                         std::function<void (const HttpResponsePtr &)>&& callback) const
+                         std::function<void (const HttpResponsePtr&)>&& callback) const
 {
     LOG_INFO << "insert account";
 
@@ -18,10 +18,10 @@ void account_ctl::insert(const HttpRequestPtr& req,
                                  item);
 }
 
-void account_ctl::select(const HttpRequestPtr& req,
+void account_ctl::search(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
-    LOG_INFO << "select accounts";
+    LOG_INFO << "search accounts";
 
     s_list<s_account> list{};
 
@@ -30,7 +30,7 @@ void account_ctl::select(const HttpRequestPtr& req,
                                        [&list]
                                        (Json::Value& json, const Data::People::s_user& usr)
     {
-        const auto query{s_account::select(usr)};
+        const auto query{s_account::search(usr)};
 
         if (query == "")
             return false;
@@ -85,7 +85,7 @@ void account_ctl::select(const HttpRequestPtr& req,
     });
 }
 
-void account_ctl::remove(const HttpRequestPtr &req,
+void account_ctl::remove(const HttpRequestPtr& req,
                          std::function<void (const HttpResponsePtr&)>&& callback) const
 {
     LOG_INFO << "remove account";
@@ -104,7 +104,7 @@ void account_ctl::remove(const HttpRequestPtr &req,
     auto result{nanodbc::execute(server::server::get().connection,
                                  "SELECT RelativePath, FileName, Extension FROM Document "
                                  "WHERE AccountId = "
-                                 + to_string(item.id))};
+                                 + std::to_string(item.id))};
 
     s_document doc{};
 
@@ -112,19 +112,19 @@ void account_ctl::remove(const HttpRequestPtr &req,
     {
         doc.set(result);
         const auto path{doc.get_path()};
-        if (!path.empty()) filesystem::remove(path);
+        if (!path.empty()) std::filesystem::remove(path);
         doc.clear();
     }
 
     nanodbc::execute(server::server::get().connection,
                      "DELETE FROM Document "
                      "WHERE AccountId = "
-                     + to_string(item.id) +
+                     + std::to_string(item.id) +
                      "; DELETE FROM BaseOwner "
                      "WHERE InfantAccountId = "
-                     + to_string(item.id) +
+                     + std::to_string(item.id) +
                      " OR OwnerAccountId = "
-                     + to_string(item.id));
+                     + std::to_string(item.id));
 
     server::server::get().remove(req,
                                  callback,

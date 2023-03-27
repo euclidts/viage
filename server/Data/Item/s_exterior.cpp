@@ -68,12 +68,17 @@ void s_exterior::set(const nanodbc::result& res)
     catch (...) {}
 }
 
-const string s_exterior::insert(const People::s_user& usr, const s_account* acnt) const
+const std::string s_exterior::insert(const People::s_user& usr, const s_account* acnt) const
 {
     return "";
 }
 
-const string s_exterior::update(const People::s_user& usr, const s_account* acnt) const
+const std::string s_exterior::select(const People::s_user &usr, const s_account *acnt) const
+{
+    return search(usr, acnt);
+}
+
+const std::string s_exterior::update(const People::s_user& usr, const s_account* acnt) const
 {
     return "UPDATE Account SET "
             "HasParking = "

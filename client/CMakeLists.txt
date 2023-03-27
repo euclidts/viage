@@ -84,7 +84,6 @@ set(PROJECT_SOURCES
     ${TS_FILES})
 
 include_directories(SYSTEM
-#    "${LIB_INCLUDES}"
     "${DATA_FOLDER}"
     "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"

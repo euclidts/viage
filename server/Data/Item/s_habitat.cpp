@@ -64,12 +64,17 @@ void s_habitat::set(const nanodbc::result& res)
     catch (...) {}
 }
 
-const string s_habitat::insert(const People::s_user& usr, const s_account* acnt) const
+const std::string s_habitat::insert(const People::s_user& usr, const s_account* acnt) const
 {
     return {};
 }
 
-const string s_habitat::update(const People::s_user& usr, const s_account* acnt) const
+const std::string s_habitat::select(const People::s_user &usr, const s_account *acnt) const
+{
+    return search(usr, acnt);
+}
+
+const std::string s_habitat::update(const People::s_user& usr, const s_account* acnt) const
 {
     return "UPDATE Account SET "
             + ads.fields() +

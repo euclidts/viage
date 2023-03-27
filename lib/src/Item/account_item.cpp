@@ -106,13 +106,14 @@ void account_item::write(Value &json) const
     if (decidedDate != "")
         json["decidedDate"] = decidedDate;
 
-    if (notarizedDate != notarizedDate)
+    if (notarizedDate != "")
         json["notarizedDate"] = notarizedDate;
 
     if (paidDate != "")
-        json["paidDateDate"] = paidDate;
+        json["paidDate"] = paidDate;
 
-    json["created"] = created;
+    if (created != "")
+        json["created"] = created;
 
     if (modified != "")
         json["modified"] = modified;

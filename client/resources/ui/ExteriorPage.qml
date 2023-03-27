@@ -48,7 +48,7 @@ ScrollView {
                                     maximum: 20
                                     numberOf: exterior.parkingSurface
                                     onEdit: function(val) { exterior.parkingSurface = val }
-                                    name: qsTr("Surface (m2)")
+                                    name: qsTr("Surface (m²)")
                                     visible: exterior.hasParking
                                 }
 
@@ -161,7 +161,7 @@ ScrollView {
                             width: parent.width
 
                             IntChooser {
-                                name: qsTr("Surface (m2)")
+                                name: qsTr("Surface (m²)")
                                 minimum: 1
                                 maximum: 20000
                                 numberOf: exterior.terrainSurface

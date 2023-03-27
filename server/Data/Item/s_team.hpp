@@ -21,6 +21,7 @@ struct s_team final : public team_item
     void read(const Json::Value& json);
 
     const std::string insert(const People::s_user& usr, const s_company* foreign = nullptr) const;
+    const std::string select(const People::s_user& usr, const s_company* foreign = nullptr) const;
     const std::string update(const People::s_user& usr, const s_company* foreign = nullptr) const;
     const std::string remove(const People::s_user& usr, const s_company* foreign = nullptr) const;
 
@@ -36,9 +37,8 @@ struct s_team final : public team_item
                              Json::Value& json,
                              const s_company* foreign = nullptr) {};
 
-    static const constexpr std::basic_string<char, std::char_traits<char>> select(
-            const People::s_user& usr,
-            const s_company* foreign = nullptr)
+    static const constexpr std::string search(const People::s_user& usr,
+                                              const s_company* foreign = nullptr)
     {
         if (usr.clearance < People::s_user::Administrator && !foreign)
             return "";
