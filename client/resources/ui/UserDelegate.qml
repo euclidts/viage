@@ -40,7 +40,7 @@ ItemDelegate {
             }
 
             Label {
-                text: clearanceNames[model.clearance - 1]
+                text: typeof model == 'undefined' ? '' : clearanceNames[model.clearance - 1]
                 font.italic: true
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter

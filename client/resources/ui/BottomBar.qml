@@ -66,9 +66,6 @@ RowLayout {
             enabled = false
             busyDialog.open()
             bridge.onboard()
-            contacts.clear()
-            habitat.clear()
-            exterior.clear()
             enabled = true // prevent double click
         }
     }

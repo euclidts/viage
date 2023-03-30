@@ -74,7 +74,7 @@ ItemDelegate {
 
             Label {
                 property var address: habitat["address"]
-                text: address.street === "" || address.city === ""
+                text: typeof address == 'undefined'
                       ? "" : address.street + ' ' + address.city + ' '
                       + address.zip + ' ' + address.canton
                 font.bold: true

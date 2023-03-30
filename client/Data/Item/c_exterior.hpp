@@ -24,7 +24,6 @@ class c_exterior final : public exterior_item
     void write(Json::Value& json) const override;
 
     void clear() override;
-    W_SLOT(clear)
 
     bool getHasParking() const;
     void setHasParking(bool newHasParking);

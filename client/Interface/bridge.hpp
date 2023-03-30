@@ -92,14 +92,17 @@ public:
     bool accountHasFlag(int flag) const noexcept;
     W_INVOKABLE(accountHasFlag, (int))
 
+    void logout() const
+    W_SIGNAL(logout)
+
     void loaded() const
     W_SIGNAL(loaded)
 
     void requestUser(int id)
     W_SIGNAL(requestUser, id)
 
-    void requestOwners(int id)
-    W_SIGNAL(requestOwners, id)
+    void preOnboarding(int id)
+    W_SIGNAL(preOnboarding, id)
 
     int getAccountId() const;
     void setAccoountId(int newAccountId);

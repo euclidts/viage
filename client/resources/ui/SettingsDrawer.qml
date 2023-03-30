@@ -99,13 +99,6 @@ Drawer {
                     icon.source: "qrc:/icons/door-open.svg"
                     text: qsTr("Déconnexion")
                     onClicked: {
-                        documents.clear()
-                        exterior.clear()
-                        habitat.clear()
-                        contacts.clear()
-                        owners.clear()
-                        accounts.clear()
-                        users.clear()
                         rootStack.currentIndex = 3
                         accountsPages.currentIndex = 0
                         usersPages.currentIndex = 0

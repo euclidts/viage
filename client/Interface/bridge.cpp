@@ -46,7 +46,7 @@ bridge::bridge(Interface::netManager* manager,
             onboarding = false;
             setAccoountId(acnts->items().constLast().id);
             setAccountState(0);
-            emit requestOwners(accountId);
+            emit preOnboarding(accountId);
         }
     });
 

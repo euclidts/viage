@@ -24,7 +24,6 @@ public:
     void write(Json::Value& json) const override;
 
     void clear() override;
-    W_SLOT(clear)
 
     const QString getStreet() const;
     void setStreet(const QString &newStreet);

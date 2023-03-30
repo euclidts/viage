@@ -53,9 +53,7 @@ ColumnLayout {
         MaterialButton {
             text: qsTr("Annuler")
             icon.source: "qrc:/icons/arrow-left.svg"
-            onClicked: {
-                root.parent.active = false
-            }
+            onClicked: root.parent.active = false
         }
 
         ComboBox {
