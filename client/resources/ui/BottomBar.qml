@@ -9,9 +9,8 @@ RowLayout {
     spacing: 0
     height: visibleChildren.length !== 0 ? 48 : 0
 
-    Behavior on height {
-        NumberAnimation { duration: 200 }
-    }
+    Behavior on height { NumberAnimation { duration: 200 } }
+
 
     MaterialButton {
         visible: accountsPages.currentIndex === 0

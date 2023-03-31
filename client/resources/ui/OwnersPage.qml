@@ -42,7 +42,7 @@ ListView {
                     onEdit: function(txt) { model.avs = txt }
                     inputHint: Qt.ImhFormattedNumbersOnly
                     validator: RegularExpressionValidator {
-                        regularExpression: /\d{13}?$/
+                        regularExpression: /^$|\d{13}?$/
                     }
                 }
 

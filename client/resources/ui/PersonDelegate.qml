@@ -42,7 +42,7 @@ ColumnLayout {
             textOf: model.eMail
             onEdit: function(txt) { model.eMail = txt }
             validator: RegularExpressionValidator {
-                regularExpression: /\S+@\S+\.\S+$/
+                regularExpression: /^$|\S+@\S+\.\S+$/
             }
             placeHolder: qsTr("* Champ Nécessaire")
             capitalization: Font.MixedCase

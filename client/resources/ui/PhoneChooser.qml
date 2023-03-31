@@ -61,7 +61,7 @@ ColumnLayout {
             placeholderText: qsTr("* Champ Obligatoire")
             onAccepted: focus = false
             validator: RegularExpressionValidator {
-                regularExpression: /\d{9,13}?$/
+                regularExpression: /^$|\d{9,13}?$/
             }
             onTextChanged: if (acceptableInput) {
                                color = Material.foreground

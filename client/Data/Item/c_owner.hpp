@@ -38,7 +38,6 @@ struct c_owner final : public owner_item
 protected:
     Places::c_address ca;
 };
-
 }
 }
 

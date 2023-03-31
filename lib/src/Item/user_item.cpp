@@ -70,6 +70,9 @@ bool user_item::is_completed() const
     if(!person_item::is_completed())
         return  false;
 
+    if(eMail == "")
+        return  false;
+
     if(company == "")
         return false;
 

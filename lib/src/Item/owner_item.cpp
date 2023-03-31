@@ -56,6 +56,9 @@ bool owner_item::is_completed() const
     if (!address->is_completed())
         return false;
 
+    if (birthDay == "")
+        return false;
+
     return true;
 }
 
