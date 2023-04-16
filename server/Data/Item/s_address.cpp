@@ -1,5 +1,6 @@
 #include "s_address.hpp"
 #include <Item/address_item.hpp>
+#include <drogon/orm/Field.h>
 
 namespace Data
 {
@@ -10,33 +11,33 @@ s_address::s_address(address_item* ai)
 {
 }
 
-void s_address::set(const nanodbc::result& res)
+void s_address::set(const Row& row)
 {
     try
     {
-        if (!res.is_null("Street"))
-            address->street = res.get<std::string>("Street");
+        if (!row["Street"].isNull())
+            address->street = row["Street"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Zip"))
-            address->zip = res.get<int>("Zip");
+        if (!row["Zip"].isNull())
+            address->zip = row["Zip"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Canton"))
-            address->canton = res.get<std::string>("Canton");
+        if (!row["Canton"].isNull())
+            address->canton = row["Canton"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("City"))
-            address->city = res.get<std::string>("City");
+        if (!row["City"].isNull())
+            address->city = row["City"].as<std::string>();
     }
     catch (...) {}
 }

@@ -1,6 +1,7 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
+#include <drogon/orm/Result.h>
 #include <json/value.h>
 #include <nanodbc/nanodbc.h>
 #include <drogon/utils/Utilities.h>
@@ -27,6 +28,8 @@ public:
     Data::People::s_user& connected_user(const std::string& uuid) noexcept;
     void add_connected_user(const Data::People::s_user& usr, const std::string& uuid);
     void remove_connected_user(const std::string& uuid);
+
+    drogon::orm::Result execute(const std::string& query);
 
     void error_reply(std::function<void (const drogon::HttpResponsePtr& )>& callback);
 

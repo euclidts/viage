@@ -1,5 +1,6 @@
 #pragma once
 #include "s_infant.hpp"
+#include <drogon/orm/Field.h>
 
 namespace Data
 {
@@ -13,14 +14,14 @@ s_infant<T>::s_infant()
 }
 
 template <typename T>
-void s_infant<T>::set(const nanodbc::result& res)
+void s_infant<T>::set(const Row& row)
 {
-    s_person<T>::set(res);
+    s_person<T>::set(row);
 
     try
     {
-        if (!res.is_null("Sex"))
-            infant_item<T>::sex = senior_citizen_item::sexes(res.get<int>("Sex"));
+        if (!row["Sex"].isNull())
+            infant_item<T>::sex = senior_citizen_item::sexes(row["Sex"].as<int>());
     }
     catch (...) {}
 }

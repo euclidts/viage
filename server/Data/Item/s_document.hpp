@@ -11,11 +11,11 @@
 namespace Data
 {
 struct s_document final : public document_item
-        , public s_base_data
+                        , public s_base_data
 {
     s_document();
 
-    void set(const nanodbc::result& res) override;
+    void set(const Row& row) override;
 
     const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string select(const People::s_user& usr, const s_account* acnt = nullptr) const;
@@ -30,7 +30,7 @@ struct s_document final : public document_item
                           const People::s_user& usr,
                           const s_account* acnt = nullptr);
 
-    static void update_reply(nanodbc::result& res,
+    static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_account* acnt = nullptr);
 
@@ -69,8 +69,8 @@ inline bool item_list<s_document>::is_completed() const
                                  "SELECT DISTINCT a.isPPE, a.Id "
                                  "FROM Account a, Document d "
                                  "WHERE d.id = "
-                                 + std::to_string(m_items[0].id) +
-                " AND a.Id = d.AccountId")};
+                                     + std::to_string(m_items[0].id) +
+                                     " AND a.Id = d.AccountId")};
     result.next();
 
     if (!document_item::documents_completed<s_document>(m_items, result.get<int>("isPPE")))

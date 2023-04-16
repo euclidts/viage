@@ -1,5 +1,6 @@
 #pragma once
 #include "s_list.hpp"
+#include <drogon/orm/ResultIterator.h>
 
 namespace Data
 {
@@ -10,14 +11,14 @@ s_list<T>::s_list()
 }
 
 template<typename T>
-void s_list<T>::set_next(nanodbc::result& res)
+void s_list<T>::set(const Result& res)
 {
     std::vector<T> vec{};
 
-    while (res.next())
+    for (const auto& row : res)
     {
         T item{};
-        item.set(res);
+        item.set(row);
         vec.push_back(item);
     }
 

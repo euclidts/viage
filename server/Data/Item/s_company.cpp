@@ -32,19 +32,19 @@ const std::string s_company::select(const People::s_user& usr) const
             + std::to_string(id);
 }
 
-void s_company::set(const nanodbc::result& res)
+void s_company::set(const Row& row)
 {
     try
     {
-        if (!res.is_null("Id"))
-            id = res.get<int>("Id");
+        if (!row["Id"].isNull())
+            id = row["Id"].isNull();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Name"))
-            name = res.get<std::string>("Name");
+        if (!row["Name"].isNull())
+            name = row["Name"].isNull();
     }
     catch (...) {}
 }

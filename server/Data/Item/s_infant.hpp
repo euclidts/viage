@@ -1,7 +1,7 @@
 #ifndef S_INFANT_HPP
 #define S_INFANT_HPP
 
-#include <nanodbc/nanodbc.h>
+#include <drogon/orm/Row.h>
 #include "s_person.hpp"
 #include <Item/infant_item.hpp>
 
@@ -13,7 +13,7 @@ template <typename T>
 struct s_infant : virtual public infant_item<T>
                 , public s_person<T>
 {
-    void set(const nanodbc::result& res);
+    void set(const Row& row);
 
 protected:
     s_infant();

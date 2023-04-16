@@ -10,56 +10,56 @@ s_habitat::s_habitat()
 {
 }
 
-void s_habitat::set(const nanodbc::result& res)
+void s_habitat::set(const Row &row)
 {
-    ads.set(res);
+    ads.set(row);
 
     try
     {
-        if (!res.is_null("HabitatType"))
-            habitatType = habitatTypes(res.get<int>("HabitatType"));
+        if (!row["HabitatType"].isNull())
+            habitatType = habitatTypes(row["HabitatType"].as<int>());
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Rooms"))
-            rooms = res.get<int>("Rooms");
+        if (!row["Rooms"].isNull())
+            rooms = row["Rooms"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("RawSurface"))
-            rawSurface = res.get<int>("RawSurface");
+        if (!row["RawSurface"].isNull())
+            rawSurface = row["RawSurface"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Surface"))
-            surface = res.get<int>("Surface");
+        if (!row["Surface"].isNull())
+            surface = row["Surface"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("M2Constructed"))
-            m2Constructed = res.get<int>("M2Constructed");
+        if (!row["M2Constructed"].isNull())
+            m2Constructed = row["M2Constructed"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("M2Available"))
-            m2Available = res.get<int>("M2Available");
+        if (!row["M2Available"].isNull())
+            m2Available = row["M2Available"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("M3s"))
-            m3s = res.get<int>("M3s");
+        if (!row["M3s"].isNull())
+            m3s = row["M3s"].as<int>();
     }
     catch (...) {}
 }
@@ -111,7 +111,7 @@ void s_habitat::condition(std::string &query, const People::s_user &usr, const s
     acnt->condition(query, usr, acnt);
 }
 
-void s_habitat::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
+void s_habitat::update_reply(const Result& res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);
 }

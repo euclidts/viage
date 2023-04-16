@@ -1,5 +1,6 @@
 #pragma once
 #include "s_person.hpp"
+#include <drogon/orm/Field.h>
 
 namespace Data
 {
@@ -12,40 +13,40 @@ s_person<T>::s_person()
 }
 
 template <typename T>
-void s_person<T>::set(const nanodbc::result& res)
+void s_person<T>::set(const Row& row)
 {
     try
     {
-        if (!res.is_null("Id"))
-            person_item<T>::id = res.get<int>("Id");
+        if (!row["Id"].isNull())
+            person_item<T>::id = row["Id"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("FirstName"))
-            person_item<T>::firstName = res.get<std::string>("FirstName");
+        if (!row["FirstName"].isNull())
+            person_item<T>::firstName = row["FirstName"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("LastName"))
-            person_item<T>::lastName = res.get<std::string>("LastName");
+        if (!row["LastName"].isNull())
+            person_item<T>::lastName = row["LastName"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Phone"))
-            person_item<T>::phone = res.get<std::string>("Phone");
+        if (!row["Phone"].isNull())
+            person_item<T>::phone = row["Phone"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("EMail"))
-            person_item<T>::eMail = res.get<std::string>("EMail");
+        if (!row["EMail"].isNull())
+            person_item<T>::eMail = row["EMail"].as<std::string>();
     }
     catch (...) {}
 }

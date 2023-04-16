@@ -21,13 +21,13 @@ void server::init(const Json::Value& json_config)
     const auto db{json_config["DB"]};
 
     if (!db.isMember("dbname")
-            && !db.isMember("user")
-            && !db.isMember("passwd"))
+        && !db.isMember("user")
+        && !db.isMember("passwd"))
         return;
 
     connection = nanodbc::connection{db["dbname"].asString(),
-            db["user"].asString(),
-            db["passwd"].asString()};
+                                     db["user"].asString(),
+                                     db["passwd"].asString()};
 
     LOG_DEBUG << "Connected with driver " << connection.driver_name()
               << " to database named " << connection.database_name();
@@ -73,6 +73,11 @@ void server::remove_connected_user(const std::string& uuid)
     if (!user_connected(uuid)) return;
 
     connected_users.erase(uuid);
+}
+
+drogon::orm::Result server::execute(const std::string &query)
+{
+    return drogon::app().getDbClient()->execSqlSync(query);
 }
 
 void server::error_reply(std::function<void (const drogon::HttpResponsePtr &)> &callback)

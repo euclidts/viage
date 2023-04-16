@@ -1,7 +1,6 @@
 #ifndef S_PERSON_HPP
 #define S_PERSON_HPP
 
-#include <nanodbc/nanodbc.h>
 #include <Item/person_item.hpp>
 #include <s_base_data.hpp>
 
@@ -13,7 +12,7 @@ template <typename T>
 struct s_person : virtual public person_item<T>
                 , public s_base_data
 {
-    void set(const nanodbc::result& res) override;
+    void set(const Row& row) override;
 
 protected:
     s_person();

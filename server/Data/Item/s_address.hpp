@@ -2,7 +2,6 @@
 #define S_ADDRESS_HPP
 
 #include <s_base_data.hpp>
-#include <nanodbc/nanodbc.h>
 
 namespace Data
 {
@@ -14,7 +13,7 @@ struct s_address final : public s_base_data
 {
     explicit s_address(address_item* ai);
 
-    void set(const nanodbc::result& res) override;
+    void set(const Row& row) override;
     const std::string fields() const override;
 
 protected:

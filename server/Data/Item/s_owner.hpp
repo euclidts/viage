@@ -18,7 +18,7 @@ struct s_owner final : public owner_item
 {
     s_owner();
 
-    void set(const nanodbc::result& res);
+    void set(const Row& row);
 
     const std::string insert(const s_user& usr, const s_account* acnt) const;
     const std::string select(const s_user& usr, const s_account* acnt) const;
@@ -33,7 +33,7 @@ struct s_owner final : public owner_item
                           const s_user& usr,
                           const s_account* acnt = nullptr);
 
-    static void update_reply(nanodbc::result& res,
+    static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_account* acnt);
 
@@ -57,7 +57,7 @@ struct s_owner final : public owner_item
                "b.Zip "
                "FROM Account a, "
                "BaseOwner b, "
-               "[User] u "
+               "User u "
                "WHERE b.OwnerAccountId = "
                 + std::to_string(acnt->id) +
                 " AND b.OwnerType = 'Owner' "

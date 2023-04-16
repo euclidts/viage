@@ -1,7 +1,6 @@
 #ifndef S_ACOUNT_HPP
 #define S_ACOUNT_HPP
 
-#include <nanodbc/nanodbc.h>
 #include <s_base_data.hpp>
 #include <server_utils.hpp>
 #include <Item/account_item.hpp>
@@ -16,7 +15,7 @@ struct s_account final : public account_item
 
     static const constexpr auto table{"Account"};
 
-    void set(nanodbc::result& res);
+    void set(const Row& row);
 
     const std::string insert(const People::s_user& usr) const;
     const std::string select(const People::s_user& usr) const;
@@ -31,7 +30,7 @@ struct s_account final : public account_item
                           const People::s_user& usr,
                           const s_account* acnt = nullptr);
 
-    static void update_reply(nanodbc::result& res,
+    static void update_reply(const Result& res,
                              Value& json_resp,
                              const s_account* = nullptr);
 

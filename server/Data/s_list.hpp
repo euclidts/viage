@@ -3,7 +3,6 @@
 
 #include <s_user.hpp>
 #include "s_base_data.hpp"
-#include <nanodbc/nanodbc.h>
 #include <item_list.hpp>
 
 namespace Data
@@ -14,7 +13,8 @@ struct s_list final : public item_list<T>
 {
     s_list();
 
-    void set_next(nanodbc::result& res) override;
+    void set(const Result& res) override;
+    void set(const Row& row) override {};
 
     template <typename ...Foreign>
     std::string update(const People::s_user& usr, const Foreign*... f) const;
@@ -36,7 +36,7 @@ struct s_list final : public item_list<T>
     };
 
     template <typename ...Foreign>
-    static void update_reply(nanodbc::result& res,
+    static void update_reply(const Result& res,
                              Json::Value& json,
                              const Foreign*... f)
     {

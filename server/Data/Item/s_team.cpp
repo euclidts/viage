@@ -9,11 +9,9 @@ s_team::s_team()
 
 const std::string s_team::insert(const People::s_user& usr, const s_company* foreign) const
 {
-    if (usr.clearance < People::s_user::Administrator)
-        return {};
-
-    if (caption == "" || foreign)
-        return {};
+    if (usr.clearance < People::s_user::Administrator) return {};
+    if (caption == "" || foreign) return {};
+    if (!foreign) return {};
 
     return "INSERT INTO Team "
            "(Caption, CompanyId) "
@@ -27,17 +25,15 @@ const std::string s_team::insert(const People::s_user& usr, const s_company* for
 
 const std::string s_team::select(const People::s_user& usr, const s_company* foreign) const
 {
-    if (usr.clearance < People::s_user::Administrator && !foreign)
-        return "";
+    if (usr.clearance < People::s_user::Administrator && !foreign) return "";
 
     return "SELECT * FROM Team WHERE Id = "
-            + std::to_string(id);
+           + std::to_string(id);
 }
 
 const std::string s_team::update(const People::s_user& usr, const s_company* foreign) const
 {
-    if (usr.clearance < People::s_user::Administrator)
-        return {};
+    if (usr.clearance < People::s_user::Administrator) return {};
 
     return "UPDATE Company SET "
            "caption = '"
@@ -51,19 +47,19 @@ const std::string s_team::remove(const People::s_user &usr, const s_company *for
     return {};
 }
 
-void s_team::set(const nanodbc::result &res)
+void s_team::set(const Row& row)
 {
     try
     {
-        if (!res.is_null("Id"))
-            id = res.get<int>("Id");
+        if (!row["Id"].isNull())
+            id = row["Id"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Caption"))
-            caption = res.get<std::string>("Caption");
+        if (!row["Caption"].isNull())
+            caption = row["Caption"].as<std::string>();
     }
     catch (...) {}
 }

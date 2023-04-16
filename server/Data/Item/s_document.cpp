@@ -9,47 +9,47 @@ s_document::s_document()
 {
 }
 
-void s_document::set(const nanodbc::result& res)
+void s_document::set(const Row &row)
 {
     try
     {
-        if (!res.is_null("Id"))
-            id = res.get<int>("Id");
+        if (!row["Id"].isNull())
+            id = row["Id");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Category"))
-            category = categories(res.get<int>("Category"));
+        if (!row["Category"].isNull())
+            category = categories(row["Category"));
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Extension"))
-            extension = res.get<std::string>("Extension");
+        if (!row["Extension"].isNull())
+            extension = row["Extension");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("FileName"))
-            fileName = res.get<std::string>("FileName");
+        if (!row["FileName"].isNull())
+            fileName = row["FileName");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("RelativePath"))
-            localPath = res.get<std::string>("RelativePath");
+        if (!row["RelativePath"].isNull())
+            localPath = row["RelativePath");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("isUploaded"))
-            state = res.get<int>("isUploaded") ? Uploaded : NotUploded;
+        if (!row["isUploaded"].isNull())
+            state = row["isUploaded") ? Uploaded : NotUploded;
     }
     catch (...) {}
 }
@@ -119,16 +119,16 @@ void s_document::condition(std::string &query, const People::s_user& usr, const 
     if (acnt) acnt->condition(query, usr, acnt);
 }
 
-void s_document::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
+void s_document::update_reply(const Result &res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);
 
     try
     {
-        if (!res.is_null("IsUploaded"))
+        if (!res["IsUploaded"))
         {
             Value val;
-            val["isUploaded"] = (bool)res.get<int>("IsUploaded");
+            val["isUploaded"] = (bool)res["IsUploaded");
             json[key] = val;
         }
     }

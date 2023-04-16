@@ -107,7 +107,7 @@ const std::string s_account::update(const People::s_user& usr) const
             {
                 if (state & date_flags[i])
                 {
-                    if (result.is_null(date_strings[i]))
+                    if (result[date_strings[i]))
                     {
                         update_str += " , ";
                         update_str += date_strings[i];
@@ -121,7 +121,7 @@ const std::string s_account::update(const People::s_user& usr) const
                 }
                 else
                 {
-                    if (!result.is_null(date_strings[i]))
+                    if (!result[date_strings[i]))
                     {
                         update_str += " , ";
                         update_str += date_strings[i];
@@ -186,173 +186,173 @@ void s_account::condition(std::string& query,
     query.append(" END ");
 }
 
-void s_account::update_reply(nanodbc::result& res,
+void s_account::update_reply(const Result& res,
                              Value& json_resp,
                              const s_account*)
 {
-    res.next();
+    const auto row{res.front()};
 
     try
     {
-        if (!res.is_null("State"))
-            json_resp["accountState"] = states(res.get<int>("State"));
+        if (!row["State"].isNull())
+            json_resp["accountState"] = states(row["State"].as<int>());
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("IsPPE"))
-            json_resp["isPPE"] = (bool)res.get<int>("IsPPE");
+        if (!row["IsPPE"].isNull())
+            json_resp["isPPE"] = (bool)row["IsPPE"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("ReceivedDate"))
-            json_resp["receivedDate"] = server::utils::from_db_date_time(res.get<std::string>("ReceivedDate"));
+        if (!row["ReceivedDate"].isNull())
+            json_resp["receivedDate"] = server::utils::from_db_date_time(row.get<std::string>("ReceivedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("TransmitedDate"))
-            json_resp["transmitedDate"] = server::utils::from_db_date_time(res.get<std::string>("TransmitedDate"));
+        if (!row["TransmitedDate"].isNull())
+            json_resp["transmitedDate"] = server::utils::from_db_date_time(row.get<std::string>("TransmitedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("ExpertizedDate"))
-            json_resp["expertizedDate"] = server::utils::from_db_date_time(res.get<std::string>("ExpertizedDate"));
+        if (!row["ExpertizedDate"].isNull())
+            json_resp["expertizedDate"] = server::utils::from_db_date_time(row.get<std::string>("ExpertizedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("DecidedDate"))
-            json_resp["decidedDate"] = server::utils::from_db_date_time(res.get<std::string>("DecidedDate"));
+        if (!row["DecidedDate"].isNull())
+            json_resp["decidedDate"] = server::utils::from_db_date_time(row.get<std::string>("DecidedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("NotarizedDate"))
-            json_resp["notarizedDate"] = server::utils::from_db_date_time(res.get<std::string>("NotarizedDate"));
+        if (!row["NotarizedDate"].isNull())
+            json_resp["notarizedDate"] = server::utils::from_db_date_time(row.get<std::string>("NotarizedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("PaidDate"))
-            json_resp["paidDate"] = server::utils::from_db_date_time(res.get<std::string>("PaidDate"));
+        if (!row["PaidDate"].isNull())
+            json_resp["paidDate"] = server::utils::from_db_date_time(row.get<std::string>("PaidDate"]);
     }
     catch (...) {}
 }
 
-void s_account::set(nanodbc::result& res)
+void s_account::set(const Row& row)
 {
     try
     {
-        if (!res.is_null("Id"))
-            id = res.get<int>("Id");
+        if (!row["Id"].isNull())
+            id = row.get<int>("Id");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Acronym"))
-            acronym = res.get<std::string>("Acronym");
+        if (!row["Acronym"].isNull())
+            acronym = row.get<std::string>("Acronym");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("CreationDate"))
-            created = server::utils::from_db_date_time(res.get<std::string>("CreationDate"));
+        if (!row["CreationDate"].isNull())
+            created = server::utils::from_db_date_time(row.get<std::string>("CreationDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("UpdateDate"))
-            modified = server::utils::from_db_date_time(res.get<std::string>("UpdateDate"));
+        if (!row["UpdateDate"].isNull())
+            modified = server::utils::from_db_date_time(row.get<std::string>("UpdateDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("State"))
-            state = states(res.get<int>("State"));
+        if (!row["State"].isNull())
+            state = states(row.get<int>("State"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Name"))
-            company = res.get<std::string>("Name");
+        if (!row["Name"].isNull())
+            company = row.get<std::string>("Name");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("AdvisorFirstName"))
-            advisorFirstName = res.get<std::string>("AdvisorFirstName");
+        if (!row["AdvisorFirstName"].isNull())
+            advisorFirstName = row.get<std::string>("AdvisorFirstName");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("AdvisorLastName"))
-            advisorLastName = res.get<std::string>("AdvisorLastName");
+        if (!row["AdvisorLastName"].isNull())
+            advisorLastName = row.get<std::string>("AdvisorLastName");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("IsPPE"))
-            ppe = res.get<int>("IsPPE");
+        if (!row["IsPPE"].isNull())
+            ppe = row.get<int>("IsPPE");
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("ReceivedDate"))
-            receivedDate = server::utils::from_db_date_time(res.get<std::string>("ReceivedDate"));
+        if (!row["ReceivedDate"].isNull())
+            receivedDate = server::utils::from_db_date_time(row.get<std::string>("ReceivedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("TransmitedDate"))
-            transmitedDate = server::utils::from_db_date_time(res.get<std::string>("TransmitedDate"));
+        if (!row["TransmitedDate"].isNull())
+            transmitedDate = server::utils::from_db_date_time(row.get<std::string>("TransmitedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("ExpertizedDate"))
-            expertizedDate = server::utils::from_db_date_time(res.get<std::string>("ExpertizedDate"));
+        if (!row["ExpertizedDate"].isNull())
+            expertizedDate = server::utils::from_db_date_time(row.get<std::string>("ExpertizedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("DecidedDate"))
-            decidedDate = server::utils::from_db_date_time(res.get<std::string>("DecidedDate"));
+        if (!row["DecidedDate"].isNull())
+            decidedDate = server::utils::from_db_date_time(row.get<std::string>("DecidedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("NotarizedDate"))
-            notarizedDate = server::utils::from_db_date_time(res.get<std::string>("NotarizedDate"));
+        if (!row["NotarizedDate"].isNull())
+            notarizedDate = server::utils::from_db_date_time(row.get<std::string>("NotarizedDate"]);
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("PaidDate"))
-            paidDate = server::utils::from_db_date_time(res.get<std::string>("PaidDate"));
+        if (!row["PaidDate"].isNull())
+            paidDate = server::utils::from_db_date_time(row.get<std::string>("PaidDate"]);
     }
     catch (...) {}
 
@@ -366,7 +366,7 @@ void s_account::set(nanodbc::result& res)
 //    if (!res.next())
 //        return;
 
-//    if (prev_id == res.get<int>("Id"))
+//    if (prev_id == res.get<int>("Id"])
 //        remove_multiple(res);
 //    else
 //        res.prior();

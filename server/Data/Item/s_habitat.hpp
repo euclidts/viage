@@ -14,7 +14,7 @@ struct s_habitat final : public habitat_item
 {
     s_habitat();
 
-    void set(const nanodbc::result& res) override;
+    void set(const Row& row) override;
 
     const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string select(const People::s_user& usr, const s_account* acnt = nullptr) const;
@@ -28,7 +28,7 @@ struct s_habitat final : public habitat_item
                           const People::s_user& usr,
                           const s_account* acnt);
 
-    static void update_reply(nanodbc::result& res,
+    static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_account* acnt);
 

@@ -9,61 +9,61 @@ s_exterior::s_exterior()
 {
 }
 
-void s_exterior::set(const nanodbc::result& res)
+void s_exterior::set(const Row &row)
 {
     try
     {
-        if (!res.is_null("HasParking"))
-            hasParking = res.get<int>("HasParking");
+        if (!row["HasParking"].isNull())
+            hasParking = row["HasParking"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("ParkingSpots"))
-            parkingSpots = res.get<int>("ParkingSpots");
+        if (!row["ParkingSpots"].isNull())
+            parkingSpots = row["ParkingSpots"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("ParkingType"))
-            parkingType = parkingTypes(res.get<int>("ParkingType"));
+        if (!row["ParkingType"].isNull())
+            parkingType = parkingTypes(row["ParkingType"].as<int>());
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("ParkingSurface"))
-            parkingSurface = res.get<int>("ParkingSurface");
+        if (!row["ParkingSurface"].isNull())
+            parkingSurface = row["ParkingSurface"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("TerrainDescription"))
-            terrainDescription = res.get<std::string>("TerrainDescription");
+        if (!row["TerrainDescription"].isNull())
+            terrainDescription = row["TerrainDescription"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("TerrainSurface"))
-            terrainSurface = res.get<int>("TerrainSurface");
+        if (!row["TerrainSurface"].isNull())
+            terrainSurface = row["TerrainSurface"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Rating"))
-            rating = res.get<int>("Rating");
+        if (!row["Rating"].isNull())
+            rating = row["Rating"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Equipements"))
-            equipement = equipements(res.get<int>("Equipements"));
+        if (!row["Equipements"].isNull())
+            equipement = equipements(row["Equipements"].as<int>());
     }
     catch (...) {}
 }
@@ -116,7 +116,7 @@ void s_exterior::condition(std::string &query, const People::s_user& usr, const 
     acnt->condition(query, usr, acnt);
 }
 
-void s_exterior::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
+void s_exterior::update_reply(const Result& res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);
 }

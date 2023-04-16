@@ -10,11 +10,11 @@ namespace Data
 namespace Places
 {
 struct s_exterior final : public exterior_item
-                       , public s_base_data
+                        , public s_base_data
 {
     s_exterior();
 
-    void set(const nanodbc::result& res) override;
+    void set(const Row& row) override;
 
     const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string select(const People::s_user& usr, const s_account* acnt = nullptr) const;
@@ -28,7 +28,7 @@ struct s_exterior final : public exterior_item
                           const People::s_user& usr,
                           const s_account* acnt);
 
-    static void update_reply(nanodbc::result& res,
+    static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_account* acnt);
 

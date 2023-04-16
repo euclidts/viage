@@ -4,6 +4,7 @@
 #include "s_person.hpp"
 #include "s_address.hpp"
 #include <Item/user_item.hpp>
+#include <drogon/orm/Result.h>
 #include <trantor/utils/Date.h>
 
 namespace Data
@@ -19,7 +20,7 @@ struct s_user final : public user_item
 
     trantor::Date last_access;
 
-    void set(const nanodbc::result& res);
+    void set(const Row& row);
 
     const std::string fields() const;
     const std::string insert(const s_user& usr) const;
@@ -28,12 +29,11 @@ struct s_user final : public user_item
 
     static void foreign_update(std::string& query, bool complete) {};
     static void condition(std::string& query, const s_user& usr) {};
-    static void update_reply(nanodbc::result& res, Json::Value& json) {};
+    static void update_reply(const Result& res, Json::Value& json) {};
 
     static const constexpr std::string search(const s_user& usr)
     {
-        if (usr.clearance < Administrator)
-            return "";
+        if (usr.clearance < Administrator) return "";
 
         return "SELECT "
                "a.[Id], "

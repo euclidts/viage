@@ -3,7 +3,6 @@
 
 #include "s_user.hpp"
 #include "s_company.hpp"
-#include <nanodbc/nanodbc.h>
 #include <Item/team_item.hpp>
 
 namespace Data
@@ -17,7 +16,7 @@ struct s_team final : public team_item
 
     int companyId{0};
 
-    void set(const nanodbc::result& res) override;
+    void set(const Row& row) override;
     void read(const Json::Value& json);
 
     const std::string insert(const People::s_user& usr, const s_company* foreign = nullptr) const;
@@ -33,7 +32,7 @@ struct s_team final : public team_item
                           const People::s_user& usr,
                           const s_company* foreign = nullptr) {};
 
-    static void update_reply(nanodbc::result& res,
+    static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_company* foreign = nullptr) {};
 

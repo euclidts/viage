@@ -46,86 +46,86 @@ const std::string s_user::update(const People::s_user& usr) const
             + std::to_string(id);
 }
 
-void s_user::set(const nanodbc::result& res)
+void s_user::set(const Row &row)
 {
-    s_person::set(res);
+    s_person::set(row);
 
     try
     {
-        if (!res.is_null("Company"))
-            company = res.get<std::string>("Company");
+        if (!row["Company"].isNull())
+            company = row["Company"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Clearance"))
-            clearance = clearances(res.get<int>("Clearance"));
+        if (!row["Clearance"].isNull())
+            clearance = clearances(row["Clearance"].as<int>());
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Team"))
-            team = res.get<std::string>("Team");
+        if (!row["Team"].isNull())
+            team = row["Team"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Beneficiary"))
-            beneficiary = res.get<std::string>("Beneficiary");
+        if (!row["Beneficiary"].isNull())
+            beneficiary = row["Beneficiary"].as<std::string>();
     }
     catch (...) {}
 
-    sa.set(res);
+    sa.set(row);
 
     try
     {
-        if (!res.is_null("Iban"))
-            iban = res.get<std::string>("Iban");
-    }
-    catch (...) {}
-
-    try
-    {
-        if (!res.is_null("Bic"))
-            bic = res.get<std::string>("Bic");
+        if (!row["Iban"].isNull())
+            iban = row["Iban"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("CompanyId"))
-            company_id = res.get<int>("CompanyId");
+        if (!row["Bic"].isNull())
+            bic = row["Bic"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Name"))
-            company = res.get<std::string>("Name");
+        if (!row["CompanyId"].isNull())
+            company_id = row["CompanyId"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("TeamId"))
-            team_id = res.get<int>("TeamId");
+        if (!row["Name"].isNull())
+            company = row["Name"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("Caption"))
-            team = res.get<std::string>("Caption");
+        if (!row["TeamId"].isNull())
+            team_id = row["TeamId"].as<int>();
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("IsLocked"))
-            isLocked = res.get<int>("IsLocked");
+        if (!row["Caption"].isNull())
+            team = row["Caption"].as<std::string>();
+    }
+    catch (...) {}
+
+    try
+    {
+        if (!row["IsLocked"].isNull())
+            isLocked = row["IsLocked"].as<bool>();
     }
     catch (...) {}
 }

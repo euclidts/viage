@@ -11,32 +11,32 @@ s_owner::s_owner()
 {
 }
 
-void s_owner::set(const nanodbc::result& res)
+void s_owner::set(const Row &row)
 {
-    s_infant::set(res);
+    s_infant::set(row);
 
     try
     {
-        if (!res.is_null("BirthDay"))
-            birthDay = server::utils::from_db_date(res.get<std::string>("BirthDay"));
+        if (!row["BirthDay"].isNull())
+            birthDay = server::utils::from_db_date(row["BirthDay"].as<std::string>());
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("CivilStatus"))
-            civilStatus = civilStates(res.get<int>("CivilStatus"));
+        if (!row["CivilStatus"].isNull())
+            civilStatus = civilStates(row["CivilStatus"].as<int>());
     }
     catch (...) {}
 
     try
     {
-        if (!res.is_null("AVS"))
-            avs = res.get<std::string>("AVS");
+        if (!row["AVS"].isNull())
+            avs = row["AVS"].as<std::string>();
     }
     catch (...) {}
 
-    ads.set(res);
+    ads.set(row);
 }
 
 const std::string s_owner::insert(const s_user& usr, const s_account* acnt) const
@@ -99,14 +99,14 @@ void s_owner::condition(std::string& query, const s_user& usr, const s_account* 
     acnt->condition(query, usr, acnt);
 }
 
-void s_owner::update_reply(nanodbc::result& res, Value& json, const s_account* acnt)
+void s_owner::update_reply(const Result& res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);
 
     try
     {
-        if (!res.is_null("Acronym"))
-            json["acronym"] = res.get<std::string>("Acronym");
+        if (!res.front()["Acronym"].isNull())
+            json["acronym"] = res.front()["Acronym"].as<std::string>();
     }
     catch (...) {}
 }
