@@ -37,7 +37,7 @@ struct s_user final : public user_item
         if (usr.clearance < Administrator) return "";
 
         return "SELECT "
-               "a.[Id], "
+               "a.Id, "
                "FirstName, "
                "LastName, "
                "Login, "
@@ -51,16 +51,16 @@ struct s_user final : public user_item
                "City, "
                "Canton, "
                "Zip, "
-               "a.[CompanyId], "
+               "a.CompanyId, "
                "TeamId, "
                "IsLocked, "
-               "b.[Name], "
-               "c.[Caption] "
+               "b.Name, "
+               "c.Caption "
                "FROM ((User a "
                "LEFT JOIN Company b "
-               "ON a.[CompanyId] = b.[Id]) "
+               "ON a.CompanyId = b.Id) "
                "LEFT JOIN Team c "
-               "ON a.[TeamId] = c.[Id]) ";
+               "ON a.TeamId = c.Id) ";
     };
 
 protected:
