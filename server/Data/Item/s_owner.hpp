@@ -19,6 +19,7 @@ struct s_owner final : public owner_item
     s_owner();
 
     void set(const Row& row);
+    void set(const Result& res) { s_base_data::set(res); };
 
     const std::string insert(const s_user& usr, const s_account* acnt) const;
     const std::string select(const s_user& usr, const s_account* acnt) const;

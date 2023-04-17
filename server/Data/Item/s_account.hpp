@@ -16,6 +16,10 @@ struct s_account final : public account_item
     static const constexpr auto table{"Account"};
 
     void set(const Row& row);
+    void set(const Result& res)
+    {
+        if (!res.empty()) set(res.front());
+    };
 
     const std::string insert(const People::s_user& usr) const;
     const std::string select(const People::s_user& usr) const;
@@ -55,7 +59,7 @@ struct s_account final : public account_item
                "c.Name "
                "FROM Account a, "
                "BaseOwner b, "
-               "[User] u, "
+               "User u, "
                "Company c "
                "WHERE b.OwnerAccountId = a.Id "
                "AND b.OwnerType = 'Owner' "
@@ -73,8 +77,6 @@ private:
     };
 
     int fields_set{None};
-
-    //    void remove_multiple(nanodbc::result& res);
 };
 
 }

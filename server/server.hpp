@@ -3,7 +3,6 @@
 
 #include <drogon/orm/Result.h>
 #include <json/value.h>
-#include <nanodbc/nanodbc.h>
 #include <drogon/utils/Utilities.h>
 #include <drogon/HttpRequest.h>
 #include <drogon/HttpResponse.h>
@@ -21,8 +20,6 @@ public:
 
     server(server const&) = delete;
     void operator = (server const&) = delete;
-
-    nanodbc::connection connection;
 
     bool user_connected(const std::string& uuid);
     Data::People::s_user& connected_user(const std::string& uuid) noexcept;
@@ -54,9 +51,8 @@ public:
 
             try
             {
-                auto result{nanodbc::execute(connection, query)};
-                result.next();
-                json["id"] = result.template get<int>(0);
+                auto result{execute(query)};
+                json["id"] = result.front()["Id"].template as<int>();
                 json["success"] = true;
             }
             catch (...)
@@ -83,9 +79,9 @@ public:
 
             if (query.empty()) return false;
 
-            auto result{nanodbc::execute(connection, query)};
+            auto result{execute(query)};
 
-            item.set_next(result);
+            item.set(result);
             item.write(json);
 
             return true;
@@ -107,9 +103,8 @@ public:
 
             if (query.empty()) return false;
 
-            auto result{nanodbc::execute(connection, query)};
+            auto result{execute(query)};
 
-            result.next();
             item.set(result);
             item.write(json);
 
@@ -139,7 +134,7 @@ public:
 
             try
             {
-                auto result{nanodbc::execute(connection, query)};
+                auto result{execute(query)};
                 json["success"] = true;
                 T::update_reply(result, json, args...);
             }
@@ -171,7 +166,7 @@ public:
 
             try
             {
-                auto result{nanodbc::execute(connection, query)};
+                auto result{execute(query)};
                 json["success"] = true;
             }
             catch (...)

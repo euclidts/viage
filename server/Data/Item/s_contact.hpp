@@ -16,7 +16,8 @@ struct s_contact final : public contact_item
 {
     s_contact();
 
-    void set(const nanodbc::result& res);
+    void set(const Row& row);
+    void set(const Result& res) { s_base_data::set(res); };
 
     const std::string insert(const s_user& usr, const s_account* acnt = nullptr) const;
     const std::string select(const s_user& usr, const s_account* acnt = nullptr) const;
@@ -31,7 +32,7 @@ struct s_contact final : public contact_item
                           const s_user& usr,
                           const s_account* acnt = nullptr);
 
-    static void update_reply(nanodbc::result& res,
+    static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_account* acnt);
 
@@ -48,7 +49,7 @@ struct s_contact final : public contact_item
                "b.IsInfant "
                "FROM Account a, "
                "BaseOwner b, "
-               "[User] u "
+               "User u "
                "WHERE b.InfantAccountId = "
                 + std::to_string(acnt->id) +
                 " AND b.OwnerType = 'Contact' "

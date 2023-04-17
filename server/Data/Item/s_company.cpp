@@ -37,14 +37,14 @@ void s_company::set(const Row& row)
     try
     {
         if (!row["Id"].isNull())
-            id = row["Id"].isNull();
+            id = row["Id"].as<int>();
     }
     catch (...) {}
 
     try
     {
         if (!row["Name"].isNull())
-            name = row["Name"].isNull();
+            name = row["Name"].as<std::string>();
     }
     catch (...) {}
 }

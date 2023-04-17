@@ -12,6 +12,7 @@ struct s_company final : public company_item
     explicit s_company();
 
     void set(const Row& row) override;
+    void set(const Result& res) { s_base_data::set(res); };
 
     const std::string insert(const People::s_user& usr) const;
     const std::string select(const People::s_user& usr) const;

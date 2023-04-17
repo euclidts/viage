@@ -17,7 +17,7 @@ const std::string s_user::insert(const People::s_user& usr) const
     if (usr.clearance < People::s_user::Administrator)
         return {};
 
-    return "INSERT INTO [User] "
+    return "INSERT INTO User "
            "(FirstName, LastName) "
            "OUTPUT Inserted.Id "
            "VALUES ('"
@@ -40,7 +40,7 @@ const std::string s_user::update(const People::s_user& usr) const
     if (usr.clearance < People::s_user::Administrator)
         return {};
 
-    return "UPDATE [User] SET "
+    return "UPDATE User SET "
             + fields() +
             " WHERE Id = "
             + std::to_string(id);

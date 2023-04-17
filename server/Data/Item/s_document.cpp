@@ -14,42 +14,42 @@ void s_document::set(const Row &row)
     try
     {
         if (!row["Id"].isNull())
-            id = row["Id");
+            id = row["Id"].as<int>();
     }
     catch (...) {}
 
     try
     {
         if (!row["Category"].isNull())
-            category = categories(row["Category"));
+            category = categories(row["Category"].as<int>());
     }
     catch (...) {}
 
     try
     {
         if (!row["Extension"].isNull())
-            extension = row["Extension");
+            extension = row["Extension"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
         if (!row["FileName"].isNull())
-            fileName = row["FileName");
+            fileName = row["FileName"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
         if (!row["RelativePath"].isNull())
-            localPath = row["RelativePath");
+            localPath = row["RelativePath"].as<std::string>();
     }
     catch (...) {}
 
     try
     {
         if (!row["isUploaded"].isNull())
-            state = row["isUploaded") ? Uploaded : NotUploded;
+            state = row["isUploaded"].as<bool>() ? Uploaded : NotUploded;
     }
     catch (...) {}
 }
@@ -119,16 +119,16 @@ void s_document::condition(std::string &query, const People::s_user& usr, const 
     if (acnt) acnt->condition(query, usr, acnt);
 }
 
-void s_document::update_reply(const Result &res, Value& json, const s_account* acnt)
+void s_document::update_reply(const Result& res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);
 
     try
     {
-        if (!res["IsUploaded"))
+        if (!res.front()["IsUploaded"].as<bool>())
         {
             Value val;
-            val["isUploaded"] = (bool)res["IsUploaded");
+            val["isUploaded"] = res.front()["IsUploaded"].as<bool>();
             json[key] = val;
         }
     }

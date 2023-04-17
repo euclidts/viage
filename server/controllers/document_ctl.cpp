@@ -27,18 +27,18 @@ void document_ctl::update(const HttpRequestPtr& req,
 
     if (val.isMember("body") && val["body"].isString())
     {
-        auto result{nanodbc::execute(server::server::get().connection,
-                                     "SELECT AccountId FROM Document "
-                                     "WHERE Id = "
-                                     + std::to_string(item.id))};
-        if (!result.next())
+        auto result{server::server::get().execute(
+            "SELECT AccountId FROM Document "
+            "WHERE Id = "
+            + std::to_string(item.id))};
+        if (result.empty())
         {
             server::server::get().error_reply(callback);
             return;
         }
 
         s_account acnt{};
-        acnt.id = result.get<int>(0);
+        acnt.id = result.front()["AccountId"].as<int>();
 
         using namespace drogon::utils;
         item.set_directory(acnt.id);
@@ -88,12 +88,11 @@ void document_ctl::remove(const HttpRequestPtr& req,
     s_document item{};
     item.id = val["id"].asInt();
 
-    auto result{nanodbc::execute(server::server::get().connection,
-                                 "SELECT RelativePath, FileName, Extension FROM Document "
-                                 "WHERE Id = "
-                                 + std::to_string(item.id))};
+    auto result{server::server::get().execute(
+        "SELECT RelativePath, FileName, Extension FROM Document "
+        "WHERE Id = "
+        + std::to_string(item.id))};
 
-    result.next();
     item.set(result);
 
     const auto path{item.get_path()};

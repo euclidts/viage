@@ -35,28 +35,32 @@ void account_ctl::search(const HttpRequestPtr& req,
         if (query == "")
             return false;
 
-        auto result{nanodbc::execute(server::server::get().connection, query)};
+        auto result{server::server::get().execute(query)};
 
-        if (result.next()) // handle potentialy empty list
+        if (!result.empty()) // handle potentialy empty list
         {
             // initialize
-            int prev_id{result.get<int>("Id")};
+            int prev_id{result.front()["Id"].as<int>()};
 
             s_account account{};
-            account.set(result);
+            account.set(result.front());
 
             Json::Value owners;
             std::vector<s_account> vec{};
 
             Json::Value tmp;
-            tmp["firstName"] = result.get<std::string>("FirstName", "");
-            tmp["lastName"] = result.get<std::string>("LastName", "");
+            tmp["firstName"] = result.front()["FirstName"].isNull() ?
+                                   "" :
+                                   result.front()["FirstName"].as<std::string>();
+            tmp["lastName"] = result.front()["LastName"].isNull() ?
+                                  "" :
+                                  result.front()["LastName"].as<std::string>();
             owners[0] = tmp;
 
             // iterate
-            while (result.next())
+            for (const auto row : result)
             {
-                int id{result.get<int>("Id")};
+                int id{row["Id"].as<int>()};
 
                 if (id != prev_id)
                 {
@@ -64,11 +68,15 @@ void account_ctl::search(const HttpRequestPtr& req,
                     owners.clear();
                     vec.push_back(account);
                     account.clear();
-                    account.set(result);
+                    account.set(row);
                 }
 
-                tmp["firstName"] = result.get<std::string>("FirstName", "");
-                tmp["lastName"] = result.get<std::string>("LastName", "");
+                tmp["firstName"] = row["FirstName"].isNull() ?
+                                       "" :
+                                       row["FirstName"].as<std::string>();
+                tmp["lastName"] = row["LastName"].isNull() ?
+                                      "" :
+                                      row["LastName"].as<std::string>();
                 owners[owners.size()] = tmp;
 
                 prev_id = id;
@@ -101,22 +109,22 @@ void account_ctl::remove(const HttpRequestPtr& req,
     s_account item{};
     item.id = val["id"].asInt();
 
-    auto result{nanodbc::execute(server::server::get().connection,
-                                 "SELECT RelativePath, FileName, Extension FROM Document "
-                                 "WHERE AccountId = "
-                                 + std::to_string(item.id))};
+    auto result{server::server::get().execute(
+        "SELECT RelativePath, FileName, Extension FROM Document "
+        "WHERE AccountId = "
+        + std::to_string(item.id))};
 
     s_document doc{};
 
-    while (result.next())
+    for (const auto row : result)
     {
-        doc.set(result);
+        doc.set(row);
         const auto path{doc.get_path()};
         if (!path.empty()) std::filesystem::remove(path);
         doc.clear();
     }
 
-    nanodbc::execute(server::server::get().connection,
+    server::server::get().execute(
                      "DELETE FROM Document "
                      "WHERE AccountId = "
                      + std::to_string(item.id) +

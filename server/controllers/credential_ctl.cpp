@@ -32,19 +32,6 @@ void credential_ctl::auth(const HttpRequestPtr& req,
     }
     else
     {
-//        auto users{nanodbc::execute(server::server::get().connection,
-//                                    "SELECT "
-//                                    "Id, "
-//                                    "Login, "
-//                                    "EMail, "
-//                                    "Clearance, "
-//                                    "CompanyId, "
-//                                    "TeamId, "
-//                                    "IsLocked, "
-//                                    "Password "
-//                                    "FROM [User]"
-//                                    "WHERE Login = "
-//                                    "'" + userName + "'")};
         auto users{server::server::get().execute(
                                     "SELECT "
                                     "Id, "
@@ -99,16 +86,16 @@ void credential_ctl::auth(const HttpRequestPtr& req,
                 if (binaryStringToHex(reinterpret_cast<const unsigned char*>(pwd.c_str()), pwd.length())
                     == getMd5(password))
                 {
-                    s_user usr{};
-                    usr.set(users);
-                    usr.last_access = trantor::Date::date();
+                    s_user u{};
+                    u.set(user);
+                    u.last_access = trantor::Date::date();
 
-                    server::server::get().add_connected_user(usr, uuid);
+                    server::server::get().add_connected_user(u, uuid);
 
                     Json::Value json;
                     json["sessionId"] = uuid;
-                    json["id"] = usr.id;
-                    json["clearance"] = usr.clearance;
+                    json["id"] = u.id;
+                    json["clearance"] = u.clearance;
 
                     resp = HttpResponse::newHttpJsonResponse(json);
                     break;

@@ -10,14 +10,14 @@ s_contact::s_contact()
 {
 }
 
-void s_contact::set(const nanodbc::result& res)
+void s_contact::set(const Row &row)
 {
-    s_infant::set(res);
+    s_infant::set(row);
 
     try
     {
-        if (!res.is_null("IsInfant"))
-            isInfant = res.get<int>("IsInfant");
+        if (!row["IsInfant"].isNull())
+            isInfant = row["IsInfant"].as<bool>();
     }
     catch (...) {}
 }
@@ -80,7 +80,7 @@ void s_contact::condition(std::string &query, const s_user &usr, const s_account
     acnt->condition(query, usr, acnt);
 }
 
-void s_contact::update_reply(nanodbc::result& res, Value& json, const s_account *acnt)
+void s_contact::update_reply(const Result &res, Value& json, const s_account *acnt)
 {
     acnt->update_reply(res, json);
 }

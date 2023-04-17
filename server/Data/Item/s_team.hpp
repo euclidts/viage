@@ -17,6 +17,8 @@ struct s_team final : public team_item
     int companyId{0};
 
     void set(const Row& row) override;
+    void set(const Result& res) { s_base_data::set(res); };
+
     void read(const Json::Value& json);
 
     const std::string insert(const People::s_user& usr, const s_company* foreign = nullptr) const;

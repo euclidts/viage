@@ -11,7 +11,7 @@ using Row = drogon::orm::Row;
 
 struct s_base_data
 {
-    virtual void set(const Row& row) {};
+    virtual void set(const Row& row) = 0;
     virtual void set(const Result& res)
     {
         if (!res.empty()) set(res.front());

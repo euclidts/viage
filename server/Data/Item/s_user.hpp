@@ -21,6 +21,7 @@ struct s_user final : public user_item
     trantor::Date last_access;
 
     void set(const Row& row);
+    void set(const Result& res) { s_base_data::set(res); };
 
     const std::string fields() const;
     const std::string insert(const s_user& usr) const;
@@ -55,7 +56,7 @@ struct s_user final : public user_item
                "IsLocked, "
                "b.[Name], "
                "c.[Caption] "
-               "FROM (([User] a "
+               "FROM ((User a "
                "LEFT JOIN Company b "
                "ON a.[CompanyId] = b.[Id]) "
                "LEFT JOIN Team c "

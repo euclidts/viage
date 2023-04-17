@@ -10,12 +10,13 @@
 
 namespace Data
 {
-struct s_document final : public document_item
-                        , public s_base_data
+struct s_document final : public document_item,
+                          public s_base_data
 {
     s_document();
 
     void set(const Row& row) override;
+    void set(const Result& res) { s_base_data::set(res); };
 
     const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string select(const People::s_user& usr, const s_account* acnt = nullptr) const;
@@ -45,11 +46,11 @@ struct s_document final : public document_item
                "isUploaded "
                "FROM Account a, "
                "Document d, "
-               "[User] u "
+               "User u "
                "WHERE d.AccountId = "
-                + std::to_string(acnt->id) +
-                " "
-                + server::utils::clearance_close(usr);
+               + std::to_string(acnt->id) +
+               " "
+               + server::utils::clearance_close(usr);
     }
 
     void set_directory(int acnt_id);
@@ -65,21 +66,20 @@ inline bool item_list<s_document>::is_completed() const
     if (m_items.empty()) return false;
 
     // retrieve isPPE value from the fist document's AccountId
-    auto result{nanodbc::execute(server::server::get().connection,
-                                 "SELECT DISTINCT a.isPPE, a.Id "
-                                 "FROM Account a, Document d "
-                                 "WHERE d.id = "
-                                     + std::to_string(m_items[0].id) +
-                                     " AND a.Id = d.AccountId")};
-    result.next();
+    auto result{server::server::get().execute(
+        "SELECT DISTINCT a.isPPE, a.Id "
+        "FROM Account a, Document d "
+        "WHERE d.id = "
+        + std::to_string(m_items[0].id) +
+        " AND a.Id = d.AccountId")};
 
-    if (!document_item::documents_completed<s_document>(m_items, result.get<int>("isPPE")))
+    if (!document_item::documents_completed<s_document>(m_items, result.front()["isPPE"].as<bool>()))
         return false;
 
     // double check all files are corectly updated
     for (const auto& doc : m_items)
     {
-        if (!std::filesystem::exists(doc.get_path(result.get<int>("Id"))))
+        if (!std::filesystem::exists(doc.get_path(result.front()["Id"].as<int>())))
             return false;
     }
 
@@ -93,9 +93,9 @@ inline void s_list<s_document>::foreign_update(std::string& query,
                                                const s_account* acnt)
 {
     std::string str{server::utils::update_flag(
-                    account_item::DocumentsCompleted,
-                    "State",
-                    complete)};
+        account_item::DocumentsCompleted,
+        "State",
+        complete)};
     acnt->foreign_update(str, complete, acnt);
     query.append(str);
 }

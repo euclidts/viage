@@ -15,6 +15,7 @@ struct s_habitat final : public habitat_item
     s_habitat();
 
     void set(const Row& row) override;
+    void set(const Result& res) { s_base_data::set(res); };
 
     const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string select(const People::s_user& usr, const s_account* acnt = nullptr) const;
@@ -48,7 +49,7 @@ struct s_habitat final : public habitat_item
                "M2Available, "
                "M3s "
                "FROM Account a, "
-               "[User] u "
+               "User u "
                "WHERE a.Id = "
                 + std::to_string(acnt->id) +
                 " "
