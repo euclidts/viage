@@ -45,7 +45,10 @@ find_package(Qt6 REQUIRED COMPONENTS
     LinguistTools
     Multimedia)
 
-set(TS_FILES resources/ts_files/viage_fr_FR.ts)
+qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}
+    resources/ts_files/viage_fr.ts
+    resources/ts_files/viage_de.ts)
+#configure_file(${QM_FILES} ${CMACK_SOURCE_DIR} COPYONLY)
 
 set(PROJECT_SOURCES
     main.cpp
@@ -81,7 +84,7 @@ set(PROJECT_SOURCES
     Data/Item/c_team.cpp
     resources/viage.qrc
     ${ALT_QRC}
-    ${TS_FILES})
+    ${QM_FILES})
 
 include_directories(SYSTEM
     "${DATA_FOLDER}"
@@ -110,8 +113,6 @@ if(ANDROID)
 
     target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Svg)
 endif()
-
-qt_add_translations(${PROJECT_NAME} TS_FILES ${TS_FILES})
 
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)

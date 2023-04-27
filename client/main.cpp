@@ -40,16 +40,8 @@ int main(int argc, char* argv[])
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
     QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages)
-    {
-        const QString baseName = "viage_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName))
-        {
-            app.installTranslator(&translator);
-            break;
-        }
-    }
+    if (translator.load(QLocale(), "viage", "_", ":/qm_files/"))
+        app.installTranslator(&translator);
 
     QQmlApplicationEngine engine;
     auto context = engine.rootContext();
@@ -58,8 +50,8 @@ int main(int argc, char* argv[])
     using namespace People;
 
     QString host{"https://viage.euclidtradingsystems.com"};
-    //    QString host{"https://viagetestrive.euclidtradingsystems.com"};
-    //    QString host{"http://127.0.0.0:8080"};
+//    QString host{"https://viagetestrive.euclidtradingsystems.com"};
+//    QString host{"http://127.0.0.0:8080"};
 
     for (int i = 0; i < argc; i++)
         if (QString::compare(argv[i], "--host") == 0)
