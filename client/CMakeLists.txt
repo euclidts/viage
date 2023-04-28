@@ -48,7 +48,6 @@ find_package(Qt6 REQUIRED COMPONENTS
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}
     resources/ts_files/viage_fr.ts
     resources/ts_files/viage_de.ts)
-#configure_file(${QM_FILES} ${CMACK_SOURCE_DIR} COPYONLY)
 
 set(PROJECT_SOURCES
     main.cpp

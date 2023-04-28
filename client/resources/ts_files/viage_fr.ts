@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_FR">
+<TS version="2.1" language="fr">
 <context>
     <name>AccountDelegate</name>
     <message>
         <location filename="../ui/AccountDelegate.qml" line="47"/>
         <source>Complet</source>
-        <translation></translation>
+        <translation>Complet</translation>
     </message>
 </context>
 <context>
@@ -14,27 +14,27 @@
     <message>
         <location filename="../ui/AddressChooser.qml" line="10"/>
         <source>Adresse</source>
-        <translation></translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="../ui/AddressChooser.qml" line="26"/>
         <source>Rue</source>
-        <translation></translation>
+        <translation>Rue</translation>
     </message>
     <message>
         <location filename="../ui/AddressChooser.qml" line="33"/>
         <source>Ville</source>
-        <translation></translation>
+        <translation>Ville</translation>
     </message>
     <message>
         <location filename="../ui/AddressChooser.qml" line="46"/>
         <source>Canton</source>
-        <translation></translation>
+        <translation>Canton</translation>
     </message>
     <message>
         <location filename="../ui/AddressChooser.qml" line="67"/>
         <source>NPA</source>
-        <translation></translation>
+        <translation>NPA</translation>
     </message>
 </context>
 <context>
@@ -42,62 +42,62 @@
     <message>
         <location filename="../ui/BottomBar.qml" line="19"/>
         <source>Conseillers</source>
-        <translation></translation>
+        <translation>Conseillers</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="34"/>
         <source>Document</source>
-        <translation></translation>
+        <translation>Document</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="36"/>
         <source>Rapport</source>
-        <translation></translation>
+        <translation>Rapport</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="49"/>
         <source>Calcul</source>
-        <translation></translation>
+        <translation>Calcul</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="59"/>
         <source>Onboarding</source>
-        <translation></translation>
+        <translation>Onboarding</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="73"/>
         <source>Ajouter un conseiller</source>
-        <translation></translation>
+        <translation>Ajouter un conseiller</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="89"/>
         <source>Accueil</source>
-        <translation></translation>
+        <translation>Accueil</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="96"/>
         <source>Ajouter un partenaire</source>
-        <translation></translation>
+        <translation>Ajouter un partenaire</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="97"/>
         <source>Ajouter un contact</source>
-        <translation></translation>
+        <translation>Ajouter un contact</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="114"/>
         <source>Continuer</source>
-        <translation></translation>
+        <translation>Continuer</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="131"/>
         <source>Terminer</source>
-        <translation></translation>
+        <translation>Terminer</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="151"/>
         <source>eMail</source>
-        <translation></translation>
+        <translation>eMail</translation>
     </message>
 </context>
 <context>
@@ -105,12 +105,12 @@
     <message>
         <location filename="../../Wrapper/wrapped_calculator.cpp" line="98"/>
         <source>M  …</source>
-        <translation></translation>
+        <translation>M  …</translation>
     </message>
     <message>
         <location filename="../../Wrapper/wrapped_calculator.cpp" line="98"/>
         <source>Mme</source>
-        <translation></translation>
+        <translation>Mme</translation>
     </message>
 </context>
 <context>
@@ -118,37 +118,37 @@
     <message>
         <location filename="../ui/CalculatorPage.qml" line="24"/>
         <source>Date estimée de la transaction</source>
-        <translation></translation>
+        <translation>Date estimée de la transaction</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="60"/>
         <source>Ajouter</source>
-        <translation></translation>
+        <translation>Ajouter</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="60"/>
         <source>Suprimer</source>
-        <translation></translation>
+        <translation>Suprimer</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="75"/>
         <source>Valeur estimée du bien</source>
-        <translation></translation>
+        <translation>Valeur estimée du bien</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="85"/>
         <source>Calculer</source>
-        <translation></translation>
+        <translation>Calculer</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="108"/>
         <source>Droit d&apos;habitation :</source>
-        <translation></translation>
+        <translation>Droit d&apos;habitation :</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="119"/>
         <source>Bouquet :</source>
-        <translation></translation>
+        <translation>Bouquet :</translation>
     </message>
 </context>
 <context>
@@ -156,22 +156,22 @@
     <message>
         <location filename="../ui/CameraScene.qml" line="54"/>
         <source>Annuler</source>
-        <translation></translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../ui/CameraScene.qml" line="71"/>
         <source>Scanner</source>
-        <translation></translation>
+        <translation>Scanner</translation>
     </message>
     <message>
         <location filename="../ui/CameraScene.qml" line="83"/>
         <source>Scanner de nouveau</source>
-        <translation></translation>
+        <translation>Scanner de nouveau</translation>
     </message>
     <message>
         <location filename="../ui/CameraScene.qml" line="94"/>
         <source>Valider</source>
-        <translation></translation>
+        <translation>Valider</translation>
     </message>
 </context>
 <context>
@@ -179,7 +179,7 @@
     <message>
         <location filename="../ui/ContactDelegate.qml" line="11"/>
         <source>Enfant</source>
-        <translation></translation>
+        <translation>Enfant</translation>
     </message>
 </context>
 <context>
@@ -187,12 +187,12 @@
     <message>
         <location filename="../ui/ContactPage.qml" line="31"/>
         <source>Contact</source>
-        <translation></translation>
+        <translation>Contact</translation>
     </message>
     <message>
         <location filename="../ui/ContactPage.qml" line="37"/>
         <source>Suprimer le </source>
-        <translation></translation>
+        <translation>Suprimer le </translation>
     </message>
 </context>
 <context>
@@ -200,82 +200,82 @@
     <message>
         <location filename="../ui/DateChooser.qml" line="11"/>
         <source>Date de naissance</source>
-        <translation></translation>
+        <translation>Date de naissance</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="22"/>
         <source>Jour</source>
-        <translation></translation>
+        <translation>Jour</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="39"/>
         <source>Mois</source>
-        <translation></translation>
+        <translation>Mois</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="45"/>
         <source>Janvier</source>
-        <translation></translation>
+        <translation>Janvier</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="46"/>
         <source>Fevrier</source>
-        <translation></translation>
+        <translation>Fevrier</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="47"/>
         <source>Mars</source>
-        <translation></translation>
+        <translation>Mars</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="48"/>
         <source>Avril</source>
-        <translation></translation>
+        <translation>Avril</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="49"/>
         <source>Mai</source>
-        <translation></translation>
+        <translation>Mai</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="50"/>
         <source>Juin</source>
-        <translation></translation>
+        <translation>Juin</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="51"/>
         <source>Juillet</source>
-        <translation></translation>
+        <translation>Juillet</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="52"/>
         <source>Août</source>
-        <translation></translation>
+        <translation>Août</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="53"/>
         <source>Septembre</source>
-        <translation></translation>
+        <translation>Septembre</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="54"/>
         <source>Octobre</source>
-        <translation></translation>
+        <translation>Octobre</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="55"/>
         <source>Novembre</source>
-        <translation></translation>
+        <translation>Novembre</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="56"/>
         <source>Decembre</source>
-        <translation></translation>
+        <translation>Decembre</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="69"/>
         <source>Année</source>
-        <translation></translation>
+        <translation>Année</translation>
     </message>
 </context>
 <context>
@@ -283,97 +283,97 @@
     <message>
         <location filename="../ui/DocumentPage.qml" line="24"/>
         <source>Photo de l&apos;objet</source>
-        <translation></translation>
+        <translation>Photo de l&apos;objet</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="31"/>
         <source>Pièces d’identité des partenaires</source>
-        <translation></translation>
+        <translation>Pièces d’identité des partenaires</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="38"/>
         <source>Extrait du registre foncier</source>
-        <translation></translation>
+        <translation>Extrait du registre foncier</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="45"/>
         <source>Extrait des poursuites</source>
-        <translation></translation>
+        <translation>Extrait des poursuites</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="52"/>
         <source>Déclaration d&apos;impôt</source>
-        <translation></translation>
+        <translation>Déclaration d&apos;impôt</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="59"/>
         <source>Détails concernant l&apos;immeuble</source>
-        <translation></translation>
+        <translation>Détails concernant l&apos;immeuble</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="66"/>
         <source>Assurance du bâtiment</source>
-        <translation></translation>
+        <translation>Assurance du bâtiment</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="73"/>
         <source>Certificat médical de discernement</source>
-        <translation></translation>
+        <translation>Certificat médical de discernement</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="80"/>
         <source>Cacul du droit d&apos;habitation</source>
-        <translation></translation>
+        <translation>Cacul du droit d&apos;habitation</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="92"/>
         <source>En cas de PPE</source>
-        <translation></translation>
+        <translation>En cas de PPE</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="99"/>
         <source>Acte de constitution</source>
-        <translation></translation>
+        <translation>Acte de constitution</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="106"/>
         <source>Règlement PPE</source>
-        <translation></translation>
+        <translation>Règlement PPE</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="113"/>
         <source>3 derniers PV des assemblées générales de la PPE</source>
-        <translation></translation>
+        <translation>3 derniers PV des assemblées générales de la PPE</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="120"/>
         <source>Détails additionnels</source>
-        <translation></translation>
+        <translation>Détails additionnels</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="127"/>
         <source>Contrat(s) d&apos;entretien</source>
-        <translation></translation>
+        <translation>Contrat(s) d&apos;entretien</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="134"/>
         <source>Descriptif / justificatifs des travaux des 5 dernières années</source>
-        <translation></translation>
+        <translation>Descriptif / justificatifs des travaux des 5 dernières années</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="141"/>
         <source>Descriptif des travaux à prévoir / devis</source>
-        <translation></translation>
+        <translation>Descriptif des travaux à prévoir / devis</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="148"/>
         <source>Cas échéant / police détaillée de l’établissement ou le BEB</source>
-        <translation></translation>
+        <translation>Cas échéant / police détaillée de l’établissement ou le BEB</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="155"/>
         <source>Autre</source>
-        <translation></translation>
+        <translation>Autre</translation>
     </message>
 </context>
 <context>
@@ -381,12 +381,12 @@
     <message>
         <location filename="../ui/ExceptionDialog.qml" line="40"/>
         <source>Annuler</source>
-        <translation></translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../ui/ExceptionDialog.qml" line="50"/>
         <source>Ok</source>
-        <translation></translation>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -394,113 +394,113 @@
     <message>
         <location filename="../ui/ExteriorPage.qml" line="27"/>
         <source>Parking</source>
-        <translation></translation>
+        <translation>Parking</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="44"/>
         <source>Disponible</source>
-        <translation></translation>
+        <translation>Disponible</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="51"/>
         <location filename="../ui/ExteriorPage.qml" line="164"/>
         <source>Surface (m²)</source>
-        <translation></translation>
+        <translation>Surface (m²)</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="59"/>
         <source>Nombre de places</source>
-        <translation></translation>
+        <translation>Nombre de places</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="66"/>
         <source>Type de places</source>
-        <translation></translation>
+        <translation>Type de places</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="83"/>
         <source>Moto</source>
-        <translation></translation>
+        <translation>Moto</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="88"/>
         <source>Voiture</source>
-        <translation></translation>
+        <translation>Voiture</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="93"/>
         <source>Interieur</source>
-        <translation></translation>
+        <translation>Interieur</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="98"/>
         <source>Exterieur</source>
-        <translation></translation>
+        <translation>Exterieur</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="103"/>
         <source>Individuel</source>
-        <translation></translation>
+        <translation>Individuel</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="108"/>
         <source>Collectif</source>
-        <translation></translation>
+        <translation>Collectif</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="152"/>
         <source>Terrain</source>
-        <translation></translation>
+        <translation>Terrain</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="172"/>
         <source>Description</source>
-        <translation></translation>
+        <translation>Description</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="175"/>
         <source>* Optionnel</source>
-        <translation></translation>
+        <translation>* Optionnel</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="182"/>
         <source>Equipements de proximité</source>
-        <translation></translation>
+        <translation>Equipements de proximité</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="195"/>
         <source>Santé</source>
-        <translation></translation>
+        <translation>Santé</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="200"/>
         <source>Restauration</source>
-        <translation></translation>
+        <translation>Restauration</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="205"/>
         <source>Education</source>
-        <translation></translation>
+        <translation>Education</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="210"/>
         <source>Loisirs</source>
-        <translation></translation>
+        <translation>Loisirs</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="215"/>
         <source>Commerces</source>
-        <translation></translation>
+        <translation>Commerces</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="220"/>
         <source>Transports</source>
-        <translation></translation>
+        <translation>Transports</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="263"/>
         <source>Etat général</source>
-        <translation></translation>
+        <translation>Etat général</translation>
     </message>
 </context>
 <context>
@@ -508,12 +508,12 @@
     <message>
         <location filename="../ui/FileDropRect.qml" line="28"/>
         <source>Chemin de fichier incorrect</source>
-        <translation></translation>
+        <translation>Chemin de fichier incorrect</translation>
     </message>
     <message>
         <location filename="../ui/FileDropRect.qml" line="29"/>
         <source>Assurez vous que le fichier selectioné possède l&apos;extension pdf, PDF, png, PNG, jpg, JPG, jpeg, JPEG, raw, tiff, odt, doc, docx, xls ou xlsx</source>
-        <translation></translation>
+        <translation>Assurez vous que le fichier selectioné possède l&apos;extension pdf, PDF, png, PNG, jpg, JPG, jpeg, JPEG, raw, tiff, odt, doc, docx, xls ou xlsx</translation>
     </message>
 </context>
 <context>
@@ -521,57 +521,57 @@
     <message>
         <location filename="../ui/HabitatPage.qml" line="27"/>
         <source>Situation du bien</source>
-        <translation></translation>
+        <translation>Situation du bien</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="48"/>
         <source>Maison individuelle</source>
-        <translation></translation>
+        <translation>Maison individuelle</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="53"/>
         <source>Maison mitoyenne</source>
-        <translation></translation>
+        <translation>Maison mitoyenne</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="59"/>
         <source>Appartement</source>
-        <translation></translation>
+        <translation>Appartement</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="81"/>
         <source>Nombre de Pièces</source>
-        <translation></translation>
+        <translation>Nombre de Pièces</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="92"/>
         <source>Surface</source>
-        <translation></translation>
+        <translation>Surface</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="103"/>
         <source>brut (m²)</source>
-        <translation></translation>
+        <translation>brut (m²)</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="111"/>
         <source>net (m²)</source>
-        <translation></translation>
+        <translation>net (m²)</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="119"/>
         <source>m² Construits</source>
-        <translation></translation>
+        <translation>m² Construits</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="127"/>
         <source>m² Disponibles</source>
-        <translation></translation>
+        <translation>m² Disponibles</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="138"/>
         <source>Nombre de m³</source>
-        <translation></translation>
+        <translation>Nombre de m³</translation>
     </message>
 </context>
 <context>
@@ -579,7 +579,7 @@
     <message>
         <location filename="../ui/LabeledTextField.qml" line="9"/>
         <source>* Champ Obligatoire</source>
-        <translation></translation>
+        <translation>* Champ Obligatoire</translation>
     </message>
 </context>
 <context>
@@ -587,12 +587,12 @@
     <message>
         <location filename="../ui/LoggInDialog.qml" line="38"/>
         <source>Nom d&apos;utilisateur</source>
-        <translation></translation>
+        <translation>Nom d&apos;utilisateur</translation>
     </message>
     <message>
         <location filename="../ui/LoggInDialog.qml" line="55"/>
         <source>Valider</source>
-        <translation></translation>
+        <translation>Valider</translation>
     </message>
 </context>
 <context>
@@ -600,57 +600,57 @@
     <message>
         <location filename="../ui/OwnersPage.qml" line="31"/>
         <source>Partenaire</source>
-        <translation></translation>
+        <translation>Partenaire</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="40"/>
         <source>AVS</source>
-        <translation></translation>
+        <translation>AVS</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="59"/>
         <source>État civil</source>
-        <translation></translation>
+        <translation>État civil</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="78"/>
         <source>Célibataire</source>
-        <translation></translation>
+        <translation>Célibataire</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="83"/>
         <source>Marié(e)</source>
-        <translation></translation>
+        <translation>Marié(e)</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="88"/>
         <source>Partenariat enregistré</source>
-        <translation></translation>
+        <translation>Partenariat enregistré</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="93"/>
         <source>Séparé(e)</source>
-        <translation></translation>
+        <translation>Séparé(e)</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="98"/>
         <source>Divorcé(e)</source>
-        <translation></translation>
+        <translation>Divorcé(e)</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="103"/>
         <source>Partenariat dissous</source>
-        <translation></translation>
+        <translation>Partenariat dissous</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="108"/>
         <source>Veuf</source>
-        <translation></translation>
+        <translation>Veuf</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="118"/>
         <source>Suprimer le </source>
-        <translation></translation>
+        <translation>Suprimer le </translation>
     </message>
 </context>
 <context>
@@ -658,17 +658,17 @@
     <message>
         <location filename="../ui/PersonDelegate.qml" line="20"/>
         <source>Nom</source>
-        <translation></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../ui/PersonDelegate.qml" line="28"/>
         <source>Prénom</source>
-        <translation></translation>
+        <translation>Prénom</translation>
     </message>
     <message>
         <location filename="../ui/PersonDelegate.qml" line="41"/>
         <source>Courriel</source>
-        <translation></translation>
+        <translation>Courriel</translation>
     </message>
     <message>
         <location filename="../ui/PersonDelegate.qml" line="47"/>
@@ -681,12 +681,12 @@
     <message>
         <location filename="../ui/PhoneChooser.qml" line="14"/>
         <source>Téléphone</source>
-        <translation></translation>
+        <translation>Téléphone</translation>
     </message>
     <message>
         <location filename="../ui/PhoneChooser.qml" line="61"/>
         <source>* Champ Obligatoire</source>
-        <translation></translation>
+        <translation>* Champ Obligatoire</translation>
     </message>
 </context>
 <context>
@@ -694,7 +694,7 @@
     <message>
         <location filename="../ui/PwdField.qml" line="12"/>
         <source>Mot de passe</source>
-        <translation></translation>
+        <translation>Mot de passe</translation>
     </message>
 </context>
 <context>
@@ -702,54 +702,54 @@
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="30"/>
         <source>Mode invisible</source>
-        <translation></translation>
+        <translation>Mode invisible</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="31"/>
         <source>Mode visible</source>
-        <translation></translation>
+        <translation>Mode visible</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="39"/>
         <source>Thème sombre</source>
-        <translation></translation>
+        <translation>Thème sombre</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="40"/>
         <source>Thème clair</source>
-        <translation></translation>
+        <translation>Thème clair</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="45"/>
         <source>Modification du mot de passe</source>
-        <translation></translation>
+        <translation>Modification du mot de passe</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="71"/>
         <location filename="../ui/SettingsDrawer.qml" line="80"/>
         <source>Nouveau mot de passe</source>
-        <translation></translation>
+        <translation>Nouveau mot de passe</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="90"/>
         <source>Valider</source>
-        <translation></translation>
+        <translation>Valider</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="100"/>
         <source>Déconnexion</source>
-        <translation></translation>
+        <translation>Déconnexion</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="116"/>
         <location filename="../ui/SettingsDrawer.qml" line="153"/>
         <source>Crédits</source>
-        <translation></translation>
+        <translation>Crédits</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="154"/>
         <source>Options</source>
-        <translation></translation>
+        <translation>Options</translation>
     </message>
 </context>
 <context>
@@ -757,12 +757,12 @@
     <message>
         <location filename="../ui/SexChooser.qml" line="21"/>
         <source>Monsieur</source>
-        <translation></translation>
+        <translation>Monsieur</translation>
     </message>
     <message>
         <location filename="../ui/SexChooser.qml" line="27"/>
         <source>Madame</source>
-        <translation></translation>
+        <translation>Madame</translation>
     </message>
 </context>
 <context>
@@ -770,7 +770,7 @@
     <message>
         <location filename="../ui/StatePage.qml" line="20"/>
         <source>Etat du Dossier</source>
-        <translation></translation>
+        <translation>Etat du Dossier</translation>
     </message>
 </context>
 <context>
@@ -779,87 +779,87 @@
         <location filename="../ui/TopBar.qml" line="24"/>
         <location filename="../ui/TopBar.qml" line="30"/>
         <source>Dernière modification</source>
-        <translation></translation>
+        <translation>Dernière modification</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="25"/>
         <location filename="../ui/TopBar.qml" line="31"/>
         <source>Création</source>
-        <translation></translation>
+        <translation>Création</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="26"/>
         <location filename="../ui/TopBar.qml" line="32"/>
         <source>Acronyme</source>
-        <translation></translation>
+        <translation>Acronyme</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="27"/>
         <location filename="../ui/TopBar.qml" line="33"/>
         <source>Partenaire</source>
-        <translation></translation>
+        <translation>Partenaire</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="28"/>
         <location filename="../ui/TopBar.qml" line="145"/>
         <source>Conseiller</source>
-        <translation></translation>
+        <translation>Conseiller</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="29"/>
         <location filename="../ui/TopBar.qml" line="59"/>
         <source>Société</source>
-        <translation></translation>
+        <translation>Société</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="60"/>
         <source>Nom</source>
-        <translation></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="61"/>
         <source>Role</source>
-        <translation></translation>
+        <translation>Role</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="111"/>
         <source>Recherche</source>
-        <translation></translation>
+        <translation>Recherche</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="145"/>
         <source>Calcul</source>
-        <translation></translation>
+        <translation>Calcul</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="169"/>
         <source>Partenaires</source>
-        <translation></translation>
+        <translation>Partenaires</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="183"/>
         <source>Contacts</source>
-        <translation></translation>
+        <translation>Contacts</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="198"/>
         <source>Habitat</source>
-        <translation></translation>
+        <translation>Habitat</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="213"/>
         <source>Exterieur</source>
-        <translation></translation>
+        <translation>Exterieur</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="228"/>
         <source>Documents</source>
-        <translation></translation>
+        <translation>Documents</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="243"/>
         <source>Etats</source>
-        <translation></translation>
+        <translation>Etats</translation>
     </message>
 </context>
 <context>
@@ -867,32 +867,32 @@
     <message>
         <location filename="../ui/UserDelegate.qml" line="26"/>
         <source>Équipe </source>
-        <translation></translation>
+        <translation>Équipe </translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="58"/>
         <source>Renvoyer de nouveaux identifiants</source>
-        <translation></translation>
+        <translation>Renvoyer de nouveaux identifiants</translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="71"/>
         <source>Rependre l&apos;activité</source>
-        <translation></translation>
+        <translation>Rependre l&apos;activité</translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="72"/>
         <source>Suspendre l&apos;activité</source>
-        <translation></translation>
+        <translation>Suspendre l&apos;activité</translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="74"/>
         <source>L&apos;utilisatuer séléctioné pourra de nouveau se connecter</source>
-        <translation></translation>
+        <translation>L&apos;utilisatuer séléctioné pourra de nouveau se connecter</translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="75"/>
         <source>L&apos;utilisatuer séléctioné ne pourra plus se connecter</source>
-        <translation></translation>
+        <translation>L&apos;utilisatuer séléctioné ne pourra plus se connecter</translation>
     </message>
 </context>
 <context>
@@ -900,17 +900,17 @@
     <message>
         <location filename="../ui/UserFullDelegate.qml" line="27"/>
         <source>Bénéficiaire du compte</source>
-        <translation></translation>
+        <translation>Bénéficiaire du compte</translation>
     </message>
     <message>
         <location filename="../ui/UserFullDelegate.qml" line="35"/>
         <source>Iban</source>
-        <translation></translation>
+        <translation>Iban</translation>
     </message>
     <message>
         <location filename="../ui/UserFullDelegate.qml" line="42"/>
         <source>SWIFT/BIC</source>
-        <translation></translation>
+        <translation>SWIFT/BIC</translation>
     </message>
 </context>
 <context>
@@ -918,27 +918,27 @@
     <message>
         <location filename="../ui/UserPage.qml" line="38"/>
         <source>Société</source>
-        <translation></translation>
+        <translation>Société</translation>
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="43"/>
         <source>Équipe</source>
-        <translation></translation>
+        <translation>Équipe</translation>
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="48"/>
         <source>Rôle</source>
-        <translation></translation>
+        <translation>Rôle</translation>
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="82"/>
         <source>Ajouter une Société</source>
-        <translation></translation>
+        <translation>Ajouter une Société</translation>
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="138"/>
         <source>Ajouter une Équipe</source>
-        <translation></translation>
+        <translation>Ajouter une Équipe</translation>
     </message>
 </context>
 <context>
@@ -954,98 +954,101 @@
     <message>
         <location filename="../ui/main.qml" line="28"/>
         <source>Initialisé</source>
-        <translation></translation>
+        <translation>Initialisé</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="29"/>
         <source>Partenaires complétés</source>
-        <translation></translation>
+        <translation>Partenaires complétés</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="30"/>
         <source>Contacts complétés</source>
-        <translation></translation>
+        <translation>Contacts complétés</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="31"/>
         <source>Habitat complété</source>
-        <translation></translation>
+        <translation>Habitat complété</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="32"/>
         <source>Exterieur complété</source>
-        <translation></translation>
+        <translation>Exterieur complété</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="33"/>
         <source>Documents complétés</source>
-        <translation></translation>
+        <translation>Documents complétés</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="34"/>
         <source>Réception du dossier 
  par Viage SA</source>
-        <translation></translation>
+        <translation>Réception du dossier 
+ par Viage SA</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="35"/>
         <source>Transmission du dossier 
  au CA de Viager Swiss SA</source>
-        <translation></translation>
+        <translation>Transmission du dossier 
+ au CA de Viager Swiss SA</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="36"/>
         <source>Expert immobilier</source>
-        <translation></translation>
+        <translation>Expert immobilier</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="37"/>
         <source>Décision du CA 
  de Viager Swiss SA</source>
-        <translation></translation>
+        <translation>Décision du CA 
+ de Viager Swiss SA</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="38"/>
         <source>Rendez-vous chez le notaire</source>
-        <translation></translation>
+        <translation>Rendez-vous chez le notaire</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="39"/>
         <source>Paiement de la commission</source>
-        <translation></translation>
+        <translation>Paiement de la commission</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="43"/>
         <location filename="../ui/main.qml" line="47"/>
         <source>Vendeur</source>
-        <translation></translation>
+        <translation>Vendeur</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="44"/>
         <location filename="../ui/main.qml" line="48"/>
         <source>Manager</source>
-        <translation></translation>
+        <translation>Manager</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="45"/>
         <location filename="../ui/main.qml" line="49"/>
         <source>Directeur</source>
-        <translation></translation>
+        <translation>Directeur</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="46"/>
         <source>Administrateur</source>
-        <translation></translation>
+        <translation>Administrateur</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="58"/>
         <source>Erreur d&apos;authentification</source>
-        <translation></translation>
+        <translation>Erreur d&apos;authentification</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="60"/>
         <source>Mot de passe ou identifiant incorrect, essyez de nouveau ou contactez Viage pour recevoir un nouveu mot de passe</source>
-        <translation></translation>
+        <translation>Mot de passe ou identifiant incorrect, essyez de nouveau ou contactez Viage pour recevoir un nouveu mot de passe</translation>
     </message>
 </context>
 </TS>
