@@ -168,17 +168,11 @@ ApplicationWindow {
                 case 1:
                     owners.validate(bridge.accountId)
                     break;
-                case 2:
-                    contacts.validate(bridge.accountId)
-                    break;
                 case 3:
                     habitat.validate(bridge.accountId)
                     break;
                 case 4:
                     exterior.validate(bridge.accountId)
-                    break;
-                case 5:
-                    documents.validate(bridge.accountId)
                     break;
                 }
             }

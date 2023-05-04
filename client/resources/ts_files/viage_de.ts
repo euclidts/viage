@@ -90,12 +90,12 @@
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="131"/>
+        <location filename="../ui/BottomBar.qml" line="133"/>
         <source>Terminer</source>
         <translation>Komplett</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="151"/>
+        <location filename="../ui/BottomBar.qml" line="153"/>
         <source>eMail</source>
         <translation>eMail</translation>
     </message>
@@ -804,7 +804,7 @@ Einrichtung oder des BEB</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="28"/>
-        <location filename="../ui/TopBar.qml" line="145"/>
+        <location filename="../ui/TopBar.qml" line="142"/>
         <source>Conseiller</source>
         <translation>Berater</translation>
     </message>
@@ -830,37 +830,37 @@ Einrichtung oder des BEB</translation>
         <translation>Suche</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="145"/>
+        <location filename="../ui/TopBar.qml" line="142"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="169"/>
+        <location filename="../ui/TopBar.qml" line="166"/>
         <source>Partenaires</source>
         <translation>Partner</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="183"/>
+        <location filename="../ui/TopBar.qml" line="180"/>
         <source>Contacts</source>
         <translation>Kontakte</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="198"/>
+        <location filename="../ui/TopBar.qml" line="195"/>
         <source>Habitat</source>
         <translation>Lebensraum</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="213"/>
+        <location filename="../ui/TopBar.qml" line="210"/>
         <source>Exterieur</source>
         <translation>Exterieur</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="228"/>
+        <location filename="../ui/TopBar.qml" line="225"/>
         <source>Documents</source>
         <translation>Dokumente</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="243"/>
+        <location filename="../ui/TopBar.qml" line="240"/>
         <source>Etats</source>
         <translation>Zustände</translation>
     </message>
