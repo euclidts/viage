@@ -151,7 +151,7 @@ void s_account::foreign_update(std::string& query, bool complete, const s_accoun
 {
     if (!acnt) return;
 
-    const auto date{trantor::Date::date().toDbStringLocal()};
+    const auto date{trantor::Date::date().toFormattedString(false)};
 
     query.insert(0,
                  " UPDATE Account "
@@ -159,7 +159,10 @@ void s_account::foreign_update(std::string& query, bool complete, const s_accoun
                  + date +
                  "' ");
 
-    query.append(" WHERE Id = " + std::to_string(acnt->id));
+    query.append(" WHERE Id = " + std::to_string(acnt->id)
+                 + "; SELECT State FROM Account WHERE Id = "
+                 + std::to_string(acnt->id)
+                 + ';');
 }
 
 void s_account::condition(std::string& query,
@@ -169,9 +172,7 @@ void s_account::condition(std::string& query,
     if (!acnt) return;
 
     query.insert(0,
-                 "SET NOCOUNT ON "
-                 "IF EXISTS "
-                 "(SELECT "
+                 "IF (SELECT "
                  "a.Id "
                  "FROM Account a, "
                  "User u, "
@@ -181,9 +182,9 @@ void s_account::condition(std::string& query,
                  " AND u.id = a.AdvisorId "
                  "AND c.id = u.CompanyId "
                  + server::utils::clearance_close(usr) +
-                 ") BEGIN ");
+                 ") THEN ");
 
-    query.append(" END ");
+    query.append(" END IF");
 }
 
 void s_account::update_reply(const Result& res,

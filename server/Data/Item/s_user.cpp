@@ -4,6 +4,35 @@ namespace Data
 {
 namespace People
 {
+const std::vector<drogon_model::MetaData> metaData_{[]()
+{
+    std::vector<drogon_model::MetaData> meta{
+        {"Login","std::string","varchar(24)",24,0,0,0},
+        {"Password","std::string","varchar(32)",32,0,0,0},
+        {"Clearance","int8_t","tinyint(4)",1,0,0,0},
+        {"Beneficiary","std::string","varchar(37)",37,0,0,0},
+        {"Bic","std::string","varchar(38)",38,0,0,0},
+        {"Iban","std::string","varchar(42)",42,0,0,0},
+        {"CompanyId","int8_t","tinyint(4)",1,0,0,0},
+        {"TeamId","int8_t","tinyint(4)",1,0,0,0},
+        {"IsLocked","int8_t","tinyint(4)",1,0,0,0}
+    };
+
+    for (const auto& data : s_person<s_user>::metaData_)
+        meta.emplace_back(data);
+
+    for (const auto& data : Places::s_address::metaData_)
+        meta.emplace_back(data);
+
+    return meta;
+}()};
+
+const std::string& s_user::getColumnName(size_t index) noexcept(false)
+{
+    assert(index < metaData_.size());
+    return metaData_[index].colName_;
+}
+
 s_user::s_user()
     : user_item{}
     , s_person{}

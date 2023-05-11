@@ -49,10 +49,10 @@ const std::string update_flag(int flag, const std::string& flag_name, bool set)
 {
     std::string str{", "};
     str += flag_name;
-    str += set ? "|= " : "&= ~";
-    str += std::to_string(flag) +
-            " OUTPUT inserted."
-            + flag_name;
+    str += " = ";
+    str += flag_name;
+    str += set ? " | " : " & ~";
+    str += std::to_string(flag);
 
     return str;
 }

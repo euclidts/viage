@@ -6,6 +6,12 @@ namespace Data
 {
 namespace Places
 {
+const std::vector<drogon_model::MetaData> s_address::metaData_={
+    {"Street","std::string","varchar(36)",36,0,0,0},
+    {"City","std::string","varchar(10)",10,0,0,0},
+    {"Canton","std::string","varchar(10)",10,0,0,0},
+    {"Zip","int32_t","mediumint(9)",3,0,0,0}
+};
 s_address::s_address(address_item* ai)
     : address{ai}
 {

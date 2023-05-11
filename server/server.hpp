@@ -130,11 +130,12 @@ public:
             T::foreign_update(query,
                               item.is_completed(),
                               args...);
-            T::condition(query, usr, args...);
+//            T::condition(query, usr, args...);
 
             try
             {
                 auto result{execute(query)};
+                LOG_DEBUG << "result size = " << result.size();
                 json["success"] = true;
                 T::update_reply(result, json, args...);
             }

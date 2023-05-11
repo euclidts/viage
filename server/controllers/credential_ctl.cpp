@@ -1,6 +1,8 @@
 #include "credential_ctl.hpp"
 #include <s_user.hpp>
 #include <server.hpp>
+#include <drogon/orm/Mapper.h>
+#include <models/User.h>
 
 namespace Data
 {
@@ -15,6 +17,8 @@ void credential_ctl::auth(const HttpRequestPtr& req,
                           bool remeberMe)
 {
     LOG_INFO << "User " << userName << " login";
+
+    drogon::orm::Mapper<Data::People::s_user> mp(drogon::app().getDbClient());
 
     HttpResponsePtr resp;
     auto uuid{req->session()->sessionId()};

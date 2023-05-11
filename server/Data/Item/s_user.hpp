@@ -4,6 +4,8 @@
 #include "s_person.hpp"
 #include "s_address.hpp"
 #include <Item/user_item.hpp>
+#include <drogon/orm/CoroMapper.h>
+#include <drogon/orm/Mapper.h>
 #include <drogon/orm/Result.h>
 #include <trantor/utils/Date.h>
 
@@ -14,9 +16,14 @@ namespace People
 struct s_user final : public user_item
                     , public s_person<user_item>
 {
-    s_user();
-
+    static const constexpr std::vector<drogon_model::MetaData> metaData_;
+    static size_t getColumnNumber() noexcept { return 18; }
+    static const std::string &getColumnName(size_t index) noexcept(false);
     static const constexpr auto table{"User"};
+
+    static const constexpr std::string tableName{"user"};
+
+    s_user();
 
     trantor::Date last_access;
 
@@ -65,6 +72,12 @@ struct s_user final : public user_item
 
 protected:
     Places::s_address sa;
+
+private:
+    friend drogon::orm::Mapper<s_user>;
+#ifdef __cpp_impl_coroutine
+    friend drogon::orm::CoroMapper<s_user>;
+#endif
 };
 
 }

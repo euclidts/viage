@@ -66,7 +66,7 @@ const std::string s_owner::update(const s_user& usr, const s_account* acnt) cons
     return "UPDATE BaseOwner SET "
             + s_infant::fields() +
             ", BirthDay = '"
-            + server::utils::to_db_date(birthDay) +
+            + birthDay +
             "', CivilStatus = "
             + std::to_string(civilStatus) +
             ", AVS = '"

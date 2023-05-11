@@ -22,6 +22,7 @@ set(TEMPLATE_SRC
     Data/Item/s_infant.hpp
     controllers/list_ctl.hpp
     controllers/base_controller.hpp
+    models/metadata.hpp
 )
 
 set(SRC
@@ -43,7 +44,7 @@ set(SRC
 aux_source_directory(controllers CTL_SRC)
 #aux_source_directory(filters FILTER_SRC)
 #aux_source_directory(plugins PLUGIN_SRC)
-#aux_source_directory(models MODEL_SRC)
+aux_source_directory(models MODEL_SRC)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}

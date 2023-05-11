@@ -7,6 +7,15 @@ namespace Data
 namespace People
 {
 template <typename T>
+const std::vector<drogon_model::MetaData> s_person<T>::metaData_={
+    {"Id","int8_t","tinyint(4)",1,0,1,1},
+    {"FirstName","std::string","varchar(10)",10,0,0,0},
+    {"LastName","std::string","varchar(15)",15,0,0,0},
+    {"EMail","std::string","varchar(42)",42,0,0,0},
+    {"Phone","std::string","varchar(16)",16,0,0,0}
+};
+
+template <typename T>
 s_person<T>::s_person()
     : person_item<T>{}
 {

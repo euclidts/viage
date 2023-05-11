@@ -3,6 +3,7 @@
 
 #include <Item/person_item.hpp>
 #include <s_base_data.hpp>
+#include <models/metadata.hpp>
 
 namespace Data
 {
@@ -12,6 +13,13 @@ template <typename T>
 struct s_person : virtual public person_item<T>
                 , public s_base_data
 {
+    static const std::vector<drogon_model::MetaData> metaData_;
+
+    static const constexpr bool hasPrimaryKey{true};
+    static const constexpr std::string primaryKeyName{"Id"};
+    using PrimaryKeyType = int8_t;
+    const constexpr PrimaryKeyType& getPrimaryKey() const { return person_item<T>::id; };
+
     void set(const Row& row) override;
 
 protected:
