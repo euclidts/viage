@@ -64,6 +64,8 @@ RowLayout {
         onClicked: {
             enabled = false
             busyDialog.open()
+            accountModel.sortRole = 0
+            topBar.searchBar.text = ""
             bridge.onboard()
             enabled = true // prevent double click
         }
@@ -122,8 +124,6 @@ RowLayout {
             // exception for contacts
             accountsPages.currentIndex == 2 ? contacts.validate(bridge.accountId)
                                             : accountsPages.validateItem()
-            accountModel.sortRole = 0
-            topBar.searchBar.text = ""
             accountsPages.loadItemAt(accountsPages.currentIndex + 1)
         }
     }

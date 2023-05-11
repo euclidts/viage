@@ -65,27 +65,27 @@
         <translation>Onboarding</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="73"/>
+        <location filename="../ui/BottomBar.qml" line="75"/>
         <source>Ajouter un conseiller</source>
         <translation>Einen Ratgeber hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="89"/>
+        <location filename="../ui/BottomBar.qml" line="91"/>
         <source>Accueil</source>
         <translation>Startseite</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="96"/>
+        <location filename="../ui/BottomBar.qml" line="98"/>
         <source>Ajouter un partenaire</source>
         <translation>Füge einen Partner hinzu</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="97"/>
+        <location filename="../ui/BottomBar.qml" line="99"/>
         <source>Ajouter un contact</source>
         <translation>Fügen Sie einen Kontakt hinzu</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="114"/>
+        <location filename="../ui/BottomBar.qml" line="116"/>
         <source>Continuer</source>
         <translation>Weiter</translation>
     </message>
