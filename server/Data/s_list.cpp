@@ -32,12 +32,11 @@ std::string s_list<T>::update(const People::s_user& usr, const Foreign*... f) co
     std::string str{};
 
     if (item_list<T>::size() == 0) // handle empty lists
-        str += " "; // prevent from returnoig empty string;
+        str += " "; // prevent from returnig empty string;
     else
         for (const auto& item : item_list<T>::m_items)
             str += item.update(usr, f...);
 
     return str;
 }
-
-}
+} // namespace Data

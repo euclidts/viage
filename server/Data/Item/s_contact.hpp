@@ -40,19 +40,18 @@ struct s_contact final : public contact_item
                                               const s_account* acnt)
     {
         return "SELECT DISTINCT "
-               "b.Id, "
-               "b.FirstName, "
-               "b.LastName, "
-               "b.Sex, "
-               "b.Phone, "
-               "b.EMail, "
-               "b.IsInfant "
+               "c.Id, "
+               "c.FirstName, "
+               "c.LastName, "
+               "c.Sex, "
+               "c.Phone, "
+               "c.EMail, "
+               "c.IsInfant "
                "FROM Account a, "
-               "BaseOwner b, "
+               "Contact c, "
                "User u "
-               "WHERE b.InfantAccountId = "
-                + std::to_string(acnt->id) +
-                " AND b.OwnerType = 'Contact' "
+               "WHERE c.AccountId = "
+                + std::to_string(acnt->id)
                 + server::utils::clearance_close(usr);
     }
 };

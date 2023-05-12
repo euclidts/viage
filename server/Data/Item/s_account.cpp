@@ -21,26 +21,18 @@ void s_account::read(const Value& json)
 
 const std::string s_account::insert(const People::s_user& usr) const
 {
-    const auto creation_date{trantor::Date::date().toDbStringLocal()};
+    const auto date{trantor::Date::date().toFormattedStringLocal(false)};
 
-    return "SET NOCOUNT ON "
-           "DECLARE @table table (id int) "
-           "INSERT INTO Account "
+    return "INSERT INTO Account "
            "(CreationDate, UpdateDate, AdvisorId, State, HabitatType) "
-           "OUTPUT inserted.id INTO @table "
            "VALUES ('"
-            + creation_date +
+            + date +
             "', '"
-            + creation_date +
+            + date +
             "', "
             + std::to_string(usr.id) +
-            ", 0, 0) "
-            "DECLARE @id int "
-            "SELECT @id = id FROM @table "
-            "INSERT INTO BaseOwner "
-            "(OwnerType, Sex, OwnerAccountId) "
-            "OUTPUT @id Id "
-            "VALUES ('Owner', 0, @id) ";
+           ", 0, 0) "
+            "RETURNING Id ";
 }
 
 const std::string s_account::select(const People::s_user& usr) const
@@ -139,19 +131,14 @@ const std::string s_account::update(const People::s_user& usr) const
 
 const std::string s_account::remove(const People::s_user& usr) const
 {
-    std::string str{"DELETE FROM Account WHERE Id = "
-                    + std::to_string(id)};
-
-    condition(str, usr, this); // workarount to condition without foreign object
-
-    return str;
+    return "DELETE FROM Account WHERE Id = " + std::to_string(id);
 }
 
 void s_account::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
     if (!acnt) return;
 
-    const auto date{trantor::Date::date().toDbStringLocal()};
+    const auto date{trantor::Date::date().toFormattedStringLocal(false)};
 
     query.insert(0,
                  " UPDATE Account "
@@ -169,7 +156,6 @@ void s_account::condition(std::string& query,
     if (!acnt) return;
 
     query.insert(0,
-                 "SET NOCOUNT ON "
                  "IF EXISTS "
                  "(SELECT "
                  "a.Id "

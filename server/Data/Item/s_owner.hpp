@@ -42,26 +42,25 @@ struct s_owner final : public owner_item
                                               const s_account* acnt)
     {
         return "SELECT DISTINCT "
-               "b.Id, "
-               "b.FirstName, "
-               "b.LastName, "
-               "b.Sex, "
-               "b.Phone, "
-               "b.EMail, "
-               "b.AVS, "
-               "b.BirthDay, "
-               "b.CivilStatus, "
-               "b.CivilStatus, "
-               "b.Street, "
-               "b.City, "
-               "b.Canton, "
-               "b.Zip "
+               "o.Id, "
+               "o.FirstName, "
+               "o.LastName, "
+               "o.Sex, "
+               "o.Phone, "
+               "o.EMail, "
+               "o.AVS, "
+               "o.BirthDay, "
+               "o.CivilStatus, "
+               "o.CivilStatus, "
+               "o.Street, "
+               "o.City, "
+               "o.Canton, "
+               "o.Zip "
                "FROM Account a, "
-               "BaseOwner b, "
+               "Owner o, "
                "User u "
-               "WHERE b.OwnerAccountId = "
-                + std::to_string(acnt->id) +
-                " AND b.OwnerType = 'Owner' "
+               "WHERE o.AccountId = "
+                + std::to_string(acnt->id)
                 + server::utils::clearance_close(usr);
     }
 

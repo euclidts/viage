@@ -26,8 +26,8 @@ const std::string s_contact::insert(const s_user& usr, const s_account* acnt) co
 {
     const auto date{trantor::Date::date().toDbStringLocal()};
 
-    std::string str{"INSERT INTO BaseOwner "
-                    "(OwnerType, Sex, InfantAccountId) "
+    std::string str{"INSERT INTO Contact "
+                    "(OwnerType, Sex, AccountId) "
                     "OUTPUT inserted.id "
                     "VALUES('Contact', "
                     + std::to_string(sex) +
@@ -39,19 +39,17 @@ const std::string s_contact::insert(const s_user& usr, const s_account* acnt) co
                 "' WHERE Id = "
                 + std::to_string(acnt->id)};
 
-    acnt->condition(str, usr, acnt);
-
     return str;
 }
 
 const std::string s_contact::select(const s_user &usr, const s_account *acnt) const
 {
-    return search(usr, acnt) + " AND  b.Id = " + std::to_string(id);
+    return search(usr, acnt) + " AND b.Id = " + std::to_string(id);
 }
 
 const std::string s_contact::update(const s_user& usr, const s_account* acnt) const
 {
-    return "UPDATE BaseOwner SET "
+    return "UPDATE Contact SET "
             + s_infant::fields() +
             " , IsInfant = "
             + std::to_string(isInfant) +
@@ -61,7 +59,7 @@ const std::string s_contact::update(const s_user& usr, const s_account* acnt) co
 
 const std::string s_contact::remove(const s_user &usr, const s_account *acnt) const
 {
-    return "DELETE FROM BaseOwner WHERE Id = "
+    return "DELETE FROM Contact WHERE Id = "
             + std::to_string(id);
 }
 

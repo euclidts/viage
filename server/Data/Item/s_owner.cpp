@@ -41,17 +41,16 @@ void s_owner::set(const Row &row)
 
 const std::string s_owner::insert(const s_user& usr, const s_account* acnt) const
 {
-    std::string str{"INSERT INTO BaseOwner "
-                    "(OwnerType, Sex, OwnerAccountId) "
-                    "OUTPUT inserted.id "
-                    "VALUES('Owner', "
+    std::string str{"INSERT INTO Owner "
+                    "(Sex, accountId) "
+                    "VALUES("
                     + std::to_string(sex) +
                 ", "
                 + std::to_string(acnt->id) +
-                "); "};
+                ") "
+                "RETURNING Id; "};
 
     acnt->foreign_update(str, acnt);
-    acnt->condition(str, usr, acnt);
 
     return str;
 }
@@ -63,7 +62,7 @@ const std::string s_owner::select(const s_user& usr, const s_account* acnt) cons
 
 const std::string s_owner::update(const s_user& usr, const s_account* acnt) const
 {
-    return "UPDATE BaseOwner SET "
+    return "UPDATE Owner SET "
             + s_infant::fields() +
             ", BirthDay = '"
             + server::utils::to_db_date(birthDay) +
@@ -80,7 +79,7 @@ const std::string s_owner::update(const s_user& usr, const s_account* acnt) cons
 
 const std::string s_owner::remove(const s_user &usr, const s_account *acnt) const
 {
-    return "DELETE FROM BaseOwner WHERE Id = "
+    return "DELETE FROM Owner WHERE Id = "
             + std::to_string(id);
 }
 

@@ -1,5 +1,6 @@
 #include "account_ctl.hpp"
 #include <s_account.hpp>
+#include <s_owner.hpp>
 #include <s_user.hpp>
 #include <s_document.hpp>
 #include <server.hpp>
@@ -13,9 +14,33 @@ void account_ctl::insert(const HttpRequestPtr& req,
 
     s_account item{};
 
-    server::server::get().insert(req,
-                                 callback,
-                                 item);
+    server::server::get().handle_query(req,
+                                       callback,
+                                       [&item]
+                                       (Json::Value& json, const Data::People::s_user& usr)
+    {
+        auto query{item.insert(usr)};
+
+        try
+        {
+            auto result{server::server::get().execute(query)};
+            item.id = result.front()["Id"].template as<int>();
+            json["id"] = item.id;
+
+            People::s_owner owner{};
+            query = owner.insert(usr, &item);
+            LOG_DEBUG << query;
+            server::server::get().execute(query);
+
+            json["success"] = true;
+        }
+        catch (...)
+        {
+            json["success"] = false;
+        }
+
+        return true;
+    });
 }
 
 void account_ctl::search(const HttpRequestPtr& req,
@@ -128,10 +153,10 @@ void account_ctl::remove(const HttpRequestPtr& req,
                      "DELETE FROM Document "
                      "WHERE AccountId = "
                      + std::to_string(item.id) +
-                     "; DELETE FROM BaseOwner "
-                     "WHERE InfantAccountId = "
+                     "; DELETE FROM Owner "
+                     "WHERE AccountId = "
                      + std::to_string(item.id) +
-                     " OR OwnerAccountId = "
+                     " OR AccountId = "
                      + std::to_string(item.id));
 
     server::server::get().remove(req,

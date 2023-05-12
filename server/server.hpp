@@ -130,7 +130,6 @@ public:
             T::foreign_update(query,
                               item.is_completed(),
                               args...);
-            T::condition(query, usr, args...);
 
             try
             {
@@ -161,8 +160,6 @@ public:
             auto query{item.remove(usr, args...)};
 
             if (query.empty()) return false;
-
-            T::condition(query, usr, args...);
 
             try
             {

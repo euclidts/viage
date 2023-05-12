@@ -66,9 +66,9 @@ const std::string s_document::insert(const People::s_user& usr, const s_account*
                 "); "};
 
     acnt->foreign_update(str, acnt);
-    acnt->condition(str, usr, acnt);
 
-    return str;}
+    return str;
+}
 
 const std::string s_document::select(const People::s_user &usr, const s_account *acnt) const
 {
