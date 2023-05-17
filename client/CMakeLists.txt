@@ -51,7 +51,7 @@ qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}
 
 set(PROJECT_SOURCES
     main.cpp
-    Interface/utils.cpp
+    Interface/client_utils.cpp
     Interface/bridge.cpp
     Interface/netManager.cpp
     Wrapper/base_wrapper.hpp

@@ -2,7 +2,7 @@
 #include "qurl.h"
 
 #include "c_document.hpp"
-#include <utils.hpp>
+#include <client_utils.hpp>
 
 using namespace Utils;
 

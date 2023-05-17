@@ -6,7 +6,7 @@
 
 #include <netManager.hpp>
 #include <item_list.hpp>
-#include <utils.hpp>
+#include <client_utils.hpp>
 
 using namespace Utils;
 
