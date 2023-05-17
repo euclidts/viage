@@ -23,6 +23,9 @@ struct account_ctl : public list_ctl<account_ctl, s_account>
     void search(const HttpRequestPtr& req,
                 std::function<void (const HttpResponsePtr &)>&& callback) const override;
 
+    void update(const HttpRequestPtr& req,
+                std::function<void (const HttpResponsePtr &)>&& callback) const override;
+
     void remove(const HttpRequestPtr& req,
                 std::function<void (const HttpResponsePtr &)>&& callback) const;
 };

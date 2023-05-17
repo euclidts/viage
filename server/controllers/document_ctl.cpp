@@ -64,8 +64,8 @@ void document_ctl::update(const HttpRequestPtr& req,
         server::server::get().update(req,
                                      callback,
                                      item,
-                                     &item,
-                                     &acnt);
+                                     &acnt,
+                                     &item);
     }
     else
         server::server::get().update(req,

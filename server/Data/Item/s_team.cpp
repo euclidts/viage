@@ -15,12 +15,11 @@ const std::string s_team::insert(const People::s_user& usr, const s_company* for
 
     return "INSERT INTO Team "
            "(Caption, CompanyId) "
-           "OUTPUT Inserted.Id "
            "VALUES ('"
             + caption +
             "', '"
             + std::to_string(foreign->id) +
-            "') ";
+            "') RETURNING Id";
 }
 
 const std::string s_team::select(const People::s_user& usr, const s_company* foreign) const

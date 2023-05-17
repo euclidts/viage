@@ -27,17 +27,12 @@ const std::string s_contact::insert(const s_user& usr, const s_account* acnt) co
     const auto date{trantor::Date::date().toDbStringLocal()};
 
     std::string str{"INSERT INTO Contact "
-                    "(OwnerType, Sex, AccountId) "
-                    "OUTPUT inserted.id "
-                    "VALUES('Contact', "
+                    "(Sex, AccountId) "
+                    "VALUES("
                     + std::to_string(sex) +
-                ", "
-                + std::to_string(acnt->id) +
-                "); UPDATE Account "
-                "SET UpdateDate = '"
-                + date +
-                "' WHERE Id = "
-                + std::to_string(acnt->id)};
+                    ", "
+                    + std::to_string(acnt->id) +
+                    ") RETURNING Id"};
 
     return str;
 }
@@ -57,7 +52,7 @@ const std::string s_contact::update(const s_user& usr, const s_account* acnt) co
             + std::to_string(id);
 }
 
-const std::string s_contact::remove(const s_user &usr, const s_account *acnt) const
+const std::string s_contact::remove(const s_user& usr, const s_account* acnt) const
 {
     return "DELETE FROM Contact WHERE Id = "
             + std::to_string(id);

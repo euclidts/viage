@@ -58,26 +58,25 @@ const std::string s_document::insert(const People::s_user& usr, const s_account*
 {
     std::string str{"INSERT INTO Document "
                     "(Category, AccountId) "
-                    "OUTPUT inserted.id "
                     "VALUES("
                     + std::to_string(category) +
                 ", "
                 + std::to_string(acnt->id) +
-                "); "};
+                ") RETURNING Id"};
 
     acnt->foreign_update(str, acnt);
 
     return str;
 }
 
-const std::string s_document::select(const People::s_user &usr, const s_account *acnt) const
+const std::string s_document::select(const People::s_user& usr, const s_account* acnt) const
 {
     return search(usr, acnt);
 }
 
 const std::string s_document::update(const People::s_user& usr,
-                                     const s_document* doc,
-                                     const s_account* acnt) const
+                                     const s_account* acnt,
+                                     const s_document* doc) const
 {
     std::string str{"UPDATE Document SET "
                     "Category = "
@@ -92,7 +91,7 @@ const std::string s_document::update(const People::s_user& usr,
     if (!localPath.empty())
         str += ", RelativePath = '"
                 + localPath.string() +
-                "' OUTPUT inserted.IsUploaded";
+                "' ";
 
     str += " WHERE Id = "
             + std::to_string(id);
@@ -106,8 +105,8 @@ const std::string s_document::remove(const People::s_user& usr, const s_account*
 }
 
 void s_document::foreign_update(std::string& query, bool complete,
-                                const s_document* doc,
-                                const s_account* acnt)
+                                const s_account* acnt,
+                                const s_document* doc)
 {
     if (acnt)
     {
@@ -122,15 +121,15 @@ void s_document::condition(std::string &query, const People::s_user& usr, const 
     if (acnt) acnt->condition(query, usr, acnt);
 }
 
-void s_document::select_updated(std::string &query, const s_document* doc, const s_account* acnt)
+void s_document::select_updated(std::string &query, const s_account* acnt, const s_document* doc)
 {
     if (!acnt) return;
     acnt->select_updated(query, acnt);
 }
 
 void s_document::update_reply(const Result& res, Value& json,
-                              const s_document* doc,
-                              const s_account* acnt)
+                              const s_account* acnt,
+                              const s_document* doc)
 {
     acnt->update_reply(res, json);
 

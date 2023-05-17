@@ -19,12 +19,11 @@ const std::string s_user::insert(const People::s_user& usr) const
 
     return "INSERT INTO User "
            "(FirstName, LastName) "
-           "OUTPUT Inserted.Id "
            "VALUES ('"
             + user_item::firstName +
             "', '"
             + user_item::lastName +
-            "') ";
+            "') RETURNING Id";
 }
 
 const std::string s_user::select(const s_user& usr) const

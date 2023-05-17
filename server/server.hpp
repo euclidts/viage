@@ -182,7 +182,7 @@ public:
 
             try
             {
-                auto result{execute(query)};
+                execute(query);
                 json["success"] = true;
             }
             catch (...)

@@ -66,7 +66,7 @@ struct full_controller : public base_controller<T, I, F, C>
 
         Json::Value val{*req->jsonObject()};
 
-        if (!(val.isMember("Id") && val["Id"].isInt()))
+        if (!(val.isMember("id") && val["id"].isInt()))
         {
             server::server::get().error_reply(callback);
             return;

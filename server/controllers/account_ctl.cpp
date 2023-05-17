@@ -115,7 +115,32 @@ void account_ctl::search(const HttpRequestPtr& req,
         }
 
         return true;
-    });
+                                       });
+}
+
+void account_ctl::update(const HttpRequestPtr &req,
+                         std::function<void (const HttpResponsePtr &)> &&callback) const
+{
+    LOG_INFO << "update account";
+
+    Json::Value val{*req->jsonObject()};
+    s_account item{};
+
+    if (val.isMember(s_account::key))
+        item.read(val[s_account::key]);
+    else
+        item.read(val);
+
+    if (item.id == 0)
+    {
+        server::server::get().error_reply(callback);
+        return;
+    }
+
+    server::server::get().update(req,
+                                 callback,
+                                 item,
+                                 &item);
 }
 
 void account_ctl::remove(const HttpRequestPtr& req,
@@ -135,8 +160,7 @@ void account_ctl::remove(const HttpRequestPtr& req,
     item.id = val["id"].asInt();
 
     auto result{server::server::get().execute(
-        "SELECT RelativePath, FileName, Extension FROM Document "
-        "WHERE AccountId = "
+        "SELECT RelativePath, FileName, Extension FROM Document WHERE AccountId = "
         + std::to_string(item.id))};
 
     s_document doc{};
@@ -149,15 +173,14 @@ void account_ctl::remove(const HttpRequestPtr& req,
         doc.clear();
     }
 
-    server::server::get().execute(
-                     "DELETE FROM Document "
-                     "WHERE AccountId = "
-                     + std::to_string(item.id) +
-                     "; DELETE FROM Owner "
-                     "WHERE AccountId = "
-                     + std::to_string(item.id) +
-                     " OR AccountId = "
-                     + std::to_string(item.id));
+    const auto account_id{std::to_string(item.id)};
+
+    server::server::get().execute({"DELETE FROM Document WHERE AccountId = "
+                                       + account_id,
+                                   "DELETE FROM Owner WHERE AccountId = "
+                                       + account_id,
+                                   "DELETE FROM Contact WHERE AccountId = "
+                                       + account_id});
 
     server::server::get().remove(req,
                                  callback,

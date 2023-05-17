@@ -15,12 +15,9 @@ const std::string s_company::insert(const People::s_user& usr) const
     if (name == "")
         return {};
 
-    return "INSERT INTO Company "
-           "(Name) "
-           "OUTPUT Inserted.Id "
-           "VALUES ('"
+    return "INSERT INTO Company (Name) VALUES ('"
             + name +
-            "') ";
+            "') RETURNING Id";
 }
 
 const std::string s_company::select(const People::s_user& usr) const

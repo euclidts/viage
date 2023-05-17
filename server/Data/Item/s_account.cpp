@@ -50,31 +50,23 @@ const std::string s_account::select(const People::s_user& usr) const
             + std::to_string(id);
 }
 
-const std::string s_account::update(const People::s_user& usr) const
+const std::string s_account::update(const People::s_user& usr, const s_account* acnt) const
 {
     if (fields_set == None) return {};
 
     std::string update_str{"UPDATE Account SET "};
-    std::string output_str{" OUTPUT "};
 
     if (fields_set & PpeSet)
-    {
         update_str += "IsPPE = " + std::to_string(ppe);
-        output_str += "inserted.IsPPE ";
-    }
 
     if (fields_set & StateSet)
     {
         if (state >= Onboarded) // only update state past onboarding
         {
             update_str += "State = " + std::to_string(state);
-            output_str += "inserted.State";
 
             if (fields_set & PpeSet)
-            {
                 update_str += ", ";
-                output_str += ", ";
-            }
 
             const int date_flags[]{Received,
                         Transmited,
@@ -106,9 +98,6 @@ const std::string s_account::update(const People::s_user& usr) const
                         update_str += " = '";
                         update_str += date;
                         update_str += '\'';
-
-                        output_str += " , inserted.";
-                        output_str += date_strings[i];
                     }
                 }
                 else
@@ -126,7 +115,7 @@ const std::string s_account::update(const People::s_user& usr) const
             return {};
     }
 
-    return update_str + output_str + " WHERE Id = " + std::to_string(id);
+    return update_str + " WHERE Id = " + std::to_string(id);
 }
 
 const std::string s_account::remove(const People::s_user& usr) const
@@ -174,11 +163,36 @@ void s_account::condition(std::string& query,
     query.append(" END ");
 }
 
-void s_account::select_updated(std::string& query, const s_account *acnt)
+void s_account::select_updated(std::string& query, const s_account* acnt)
 {
     if (!acnt) return;
     if (!query.empty()) query.insert(0, ", ");
     query.insert(0, "SELECT a.UpdateDate");
+
+    if (acnt->fields_set != None)
+    {
+        std::string output_str{};
+
+        if (acnt->fields_set & PpeSet)
+            output_str += ", a.IsPPE";
+
+        if (acnt->fields_set & StateSet)
+        {
+            if (!query.find("a.State"))
+                output_str += ", a.State";
+
+            if (acnt->state >= Onboarded) // only update state past onboarding
+                output_str += ", a.ReceivedDate"
+                              ", a.TransmitedDate"
+                              ", a.ExpertizedDate"
+                              ", a.DecidedDate"
+                              ", a.NotarizedDate"
+                              ", a.PaidDate";
+        }
+
+        query.append(output_str);
+    }
+
     query.append(" FROM Account a WHERE Id = " + std::to_string(acnt->id));
 }
 
