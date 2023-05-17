@@ -28,9 +28,9 @@ void document_ctl::update(const HttpRequestPtr& req,
     if (val.isMember("body") && val["body"].isString())
     {
         auto result{server::server::get().execute(
-            "SELECT AccountId FROM Document "
-            "WHERE Id = "
+            "SELECT AccountId FROM Document WHERE Id = "
             + std::to_string(item.id))};
+
         if (result.empty())
         {
             server::server::get().error_reply(callback);
@@ -64,6 +64,7 @@ void document_ctl::update(const HttpRequestPtr& req,
         server::server::get().update(req,
                                      callback,
                                      item,
+                                     &item,
                                      &acnt);
     }
     else
@@ -89,8 +90,7 @@ void document_ctl::remove(const HttpRequestPtr& req,
     item.id = val["id"].asInt();
 
     auto result{server::server::get().execute(
-        "SELECT RelativePath, FileName, Extension FROM Document "
-        "WHERE Id = "
+        "SELECT RelativePath, FileName, Extension FROM Document WHERE Id = "
         + std::to_string(item.id))};
 
     item.set(result);

@@ -20,13 +20,6 @@ const std::string clearance_close(const Data::People::s_user& usr)
     }
 }
 
-const std::string from_db_date_time(const std::string& db_date_itme)
-{
-    std::string str{db_date_itme};
-    str.erase(str.begin() + str.find_first_of('+') - 1, str.end());
-    return str;
-}
-
 const std::string from_db_date(const std::string& db_date)
 {
     std::string str{db_date};
@@ -42,17 +35,17 @@ const std::string to_db_date(const std::string& raw_date, const std::string& for
     std::istringstream ss{raw_date};
     date::year_month_day ymd;
     ss >> date::parse(format, ymd);
-    return date::format("%Y-%m-%d", ymd) + " 00:00:00.000000";
+//    return date::format("%Y-%m-%d", ymd) + " 00:00:00.000000";
+    return date::format("%Y-%m-%d", ymd);
 }
 
 const std::string update_flag(int flag, const std::string& flag_name, bool set)
 {
-    std::string str{", "};
+    std::string str{flag_name};
+    str += " = ";
     str += flag_name;
-    str += set ? "|= " : "&= ~";
-    str += std::to_string(flag) +
-            " OUTPUT inserted."
-            + flag_name;
+    str += set ? " | " : " & ~";
+    str += std::to_string(flag);
 
     return str;
 }

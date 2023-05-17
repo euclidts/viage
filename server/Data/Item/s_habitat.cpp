@@ -111,6 +111,13 @@ void s_habitat::condition(std::string &query, const People::s_user &usr, const s
     acnt->condition(query, usr, acnt);
 }
 
+void s_habitat::select_updated(std::string& query, const s_account* acnt)
+{
+    if (!acnt) return;
+    query.append("a.State");
+    acnt->select_updated(query, acnt);
+}
+
 void s_habitat::update_reply(const Result& res, Value& json, const s_account* acnt)
 {
     acnt->update_reply(res, json);

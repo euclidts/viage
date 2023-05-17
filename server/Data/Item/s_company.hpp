@@ -20,6 +20,7 @@ struct s_company final : public company_item
 
     static void foreign_update(std::string& query, bool complete) {};
     static void condition(std::string& query, const People::s_user& usr) {};
+    static void select_updated(std::string& query) {};
     static void update_reply(const Result& res, Json::Value& json) {};
 
     static const constexpr std::string search(const People::s_user& usr)

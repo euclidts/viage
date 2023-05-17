@@ -27,6 +27,7 @@ public:
     void remove_connected_user(const std::string& uuid);
 
     drogon::orm::Result execute(const std::string& query);
+    void execute(const std::vector<std::string>& queries);
 
     void error_reply(std::function<void (const drogon::HttpResponsePtr& )>& callback);
 
@@ -125,17 +126,35 @@ public:
         {
             auto query{item.update(usr, args...)};
 
-            if (query.empty()) return false;
-
-            T::foreign_update(query,
+            std::string foreign_query{};
+            T::foreign_update(foreign_query,
                               item.is_completed(),
                               args...);
 
+            auto update_query{combine(query, foreign_query)};
+
+            if (update_query.empty()) return false;
+
             try
             {
-                auto result{execute(query)};
-                json["success"] = true;
+                execute(update_query);
+            }
+            catch (...)
+            {
+                json["success"] = false;
+                return true;
+            }
+
+            foreign_query.clear();
+            T::select_updated(foreign_query, args...);
+
+            if (foreign_query.empty()) return false;
+
+            try
+            {
+                auto result{execute(foreign_query)};
                 T::update_reply(result, json, args...);
+                json["success"] = true;
             }
             catch (...)
             {
@@ -179,6 +198,9 @@ private:
     server() {}
 
     std::map<std::string, Data::People::s_user> connected_users;
+
+    std::vector<std::string> combine(const std::string& q1, const std::string& q2);
+    std::vector<std::string> combine(std::vector<std::string>& q1, const std::string& q2);
 };
 
 }

@@ -34,6 +34,9 @@ struct s_team final : public team_item
                           const People::s_user& usr,
                           const s_company* foreign = nullptr) {};
 
+    static void select_updated(std::string& query,
+                               const s_company* foreign = nullptr) {};
+
     static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_company* foreign = nullptr) {};

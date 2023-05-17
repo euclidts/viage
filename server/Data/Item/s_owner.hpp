@@ -34,6 +34,9 @@ struct s_owner final : public owner_item
                           const s_user& usr,
                           const s_account* acnt = nullptr);
 
+    static void select_updated(std::string& query,
+                               const s_account* acnt = nullptr);
+
     static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_account* acnt);
@@ -71,15 +74,15 @@ private:
 
 template<>
 template<>
-inline std::string s_list<People::s_owner>::update(const People::s_user& usr,
-                                                   const s_account* acnt) const
+inline std::vector<std::string> s_list<People::s_owner>::update(const People::s_user& usr,
+                                                                const s_account* acnt) const
 {
-    std::string str{};
+    std::vector<std::string> vec{};
 
     if (!m_items.empty())
     {
         for (const auto& item : m_items)
-            str += item.update(usr, acnt);
+            vec.emplace_back(item.update(usr, acnt));
 
         auto owner{m_items[0]};
 
@@ -104,15 +107,15 @@ inline std::string s_list<People::s_owner>::update(const People::s_user& usr,
             concat += year;
         }
 
-        str += "UPDATE Account "
-               "SET Acronym = '"
-                + concat +
-                "' WHERE Id = "
-                + std::to_string(acnt->id) +
-                "; ";
+        vec.emplace_back("UPDATE Account "
+                         "SET Acronym = '"
+                         + concat +
+                         "' WHERE Id = "
+                         + std::to_string(acnt->id) +
+                         "; ");
     }
 
-    return str;
+    return vec;
 }
 }
 

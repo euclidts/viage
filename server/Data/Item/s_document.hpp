@@ -20,19 +20,27 @@ struct s_document final : public document_item,
 
     const std::string insert(const People::s_user& usr, const s_account* acnt = nullptr) const;
     const std::string select(const People::s_user& usr, const s_account* acnt = nullptr) const;
-    const std::string update(const People::s_user& usr, const s_account* acnt = nullptr) const;
+    const std::string update(const People::s_user& usr,
+                             const s_document* doc = nullptr,
+                             const s_account* acnt = nullptr) const;
     const std::string remove(const People::s_user& usr, const s_account* acnt = nullptr) const;
 
     static void foreign_update(std::string& query,
                                bool complete,
+                               const s_document* doc = nullptr,
                                const s_account* acnt = nullptr);
 
     static void condition(std::string& query,
                           const People::s_user& usr,
                           const s_account* acnt = nullptr);
 
+    static void select_updated(std::string& query,
+                               const s_document* doc = nullptr,
+                               const s_account* acnt = nullptr);
+
     static void update_reply(const Result& res,
                              Json::Value& json,
+                             const s_document* doc = nullptr,
                              const s_account* acnt = nullptr);
 
     static const constexpr std::string search(const People::s_user& usr,
@@ -73,7 +81,8 @@ inline bool item_list<s_document>::is_completed() const
         + std::to_string(m_items[0].id) +
         " AND a.Id = d.AccountId")};
 
-    if (!document_item::documents_completed<s_document>(m_items, result.front()["isPPE"].as<bool>()))
+    if (!document_item::documents_completed<s_document>(m_items,
+                                                        result.front()["isPPE"].as<bool>()))
         return false;
 
     // double check all files are corectly updated
@@ -98,6 +107,16 @@ inline void s_list<s_document>::foreign_update(std::string& query,
         complete)};
     acnt->foreign_update(str, complete, acnt);
     query.append(str);
+}
+
+template<>
+template<>
+inline void s_list<s_document>::select_updated(std::string& query,
+                                               const s_account* acnt)
+{
+    if (!acnt) return;
+    query.append("a.State");
+    acnt->select_updated(query, acnt);
 }
 }
 

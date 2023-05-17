@@ -34,6 +34,9 @@ struct s_account final : public account_item
                           const People::s_user& usr,
                           const s_account* acnt = nullptr);
 
+    static void select_updated(std::string& query,
+                               const s_account* acnt = nullptr);
+
     static void update_reply(const Result& res,
                              Value& json_resp,
                              const s_account* = nullptr);

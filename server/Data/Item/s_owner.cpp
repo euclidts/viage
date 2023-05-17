@@ -18,7 +18,8 @@ void s_owner::set(const Row &row)
     try
     {
         if (!row["BirthDay"].isNull())
-            birthDay = server::utils::from_db_date(row["BirthDay"].as<std::string>());
+//            birthDay = server::utils::from_db_date(row["BirthDay"].as<std::string>());
+            birthDay = row["BirthDay"].as<std::string>();
     }
     catch (...) {}
 
@@ -57,7 +58,7 @@ const std::string s_owner::insert(const s_user& usr, const s_account* acnt) cons
 
 const std::string s_owner::select(const s_user& usr, const s_account* acnt) const
 {
-    return search(usr, acnt) + " AND  b.Id = " + std::to_string(id);
+    return search(usr, acnt) + " AND b.Id = " + std::to_string(id);
 }
 
 const std::string s_owner::update(const s_user& usr, const s_account* acnt) const
@@ -65,7 +66,7 @@ const std::string s_owner::update(const s_user& usr, const s_account* acnt) cons
     return "UPDATE Owner SET "
             + s_infant::fields() +
             ", BirthDay = '"
-            + server::utils::to_db_date(birthDay) +
+            + birthDay +
             "', CivilStatus = "
             + std::to_string(civilStatus) +
             ", AVS = '"
@@ -96,6 +97,13 @@ void s_owner::foreign_update(std::string& query, bool complete, const s_account*
 void s_owner::condition(std::string& query, const s_user& usr, const s_account* acnt)
 {
     acnt->condition(query, usr, acnt);
+}
+
+void s_owner::select_updated(std::string &query, const s_account *acnt)
+{
+    if (!acnt) return;
+    query.append("a.State");
+    acnt->select_updated(query, acnt);
 }
 
 void s_owner::update_reply(const Result& res, Value& json, const s_account* acnt)

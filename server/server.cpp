@@ -64,6 +64,12 @@ drogon::orm::Result server::execute(const std::string &query)
     return drogon::app().getDbClient()->execSqlSync(query);
 }
 
+void server::execute(const std::vector<std::string> &queries)
+{
+    for (const auto& query : queries)
+        drogon::app().getDbClient()->execSqlSync(query);
+}
+
 void server::error_reply(std::function<void (const drogon::HttpResponsePtr &)> &callback)
 {
     drogon::HttpResponsePtr resp{drogon::HttpResponse::newHttpResponse()};
@@ -101,6 +107,17 @@ void server::handle_query(const drogon::HttpRequestPtr& req,
     }
 
     callback(resp);
+}
+
+std::vector<std::string> server::combine(const std::string& q1, const std::string& q2)
+{
+    return {q1, q2};
+}
+
+std::vector<std::string> server::combine(std::vector<std::string>& q1, const std::string& q2)
+{
+    q1.emplace_back(q2);
+    return q1;
 }
 
 }

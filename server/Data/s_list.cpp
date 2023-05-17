@@ -27,16 +27,16 @@ void s_list<T>::set(const Result& res)
 
 template<typename T>
 template<typename ...Foreign>
-std::string s_list<T>::update(const People::s_user& usr, const Foreign*... f) const
+std::vector<std::string> s_list<T>::update(const People::s_user& usr, const Foreign*... f) const
 {
-    std::string str{};
+    std::vector<std::string> vec{};
 
-    if (item_list<T>::size() == 0) // handle empty lists
-        str += " "; // prevent from returnig empty string;
-    else
+//    if (item_list<T>::size() == 0) // handle empty lists
+//        vec.emplace_back(" "); // prevent from returnig empty string;
+//    else
         for (const auto& item : item_list<T>::m_items)
-            str += item.update(usr, f...);
+            vec.emplace_back(item.update(usr, f...));
 
-    return str;
+    return vec;
 }
 } // namespace Data

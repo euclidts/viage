@@ -32,6 +32,9 @@ struct s_contact final : public contact_item
                           const s_user& usr,
                           const s_account* acnt = nullptr);
 
+    static void select_updated(std::string& query,
+                               const s_account* acnt = nullptr);
+
     static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_account* acnt);

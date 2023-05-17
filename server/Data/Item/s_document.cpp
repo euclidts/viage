@@ -75,17 +75,19 @@ const std::string s_document::select(const People::s_user &usr, const s_account 
     return search(usr, acnt);
 }
 
-const std::string s_document::update(const People::s_user& usr, const s_account* acnt) const
+const std::string s_document::update(const People::s_user& usr,
+                                     const s_document* doc,
+                                     const s_account* acnt) const
 {
     std::string str{"UPDATE Document SET "
                     "Category = "
                     + std::to_string(category) +
-                ", Extension = '"
-                + extension +
-                "', FileName = '"
-                + fileName +
-                "', IsUploaded = "
-                + std::to_string(state == Uploaded)};
+                    ", Extension = '"
+                    + extension +
+                    "', FileName = '"
+                    + fileName +
+                    "', IsUploaded = "
+                    + std::to_string(state == Uploaded)};
 
     if (!localPath.empty())
         str += ", RelativePath = '"
@@ -100,11 +102,12 @@ const std::string s_document::update(const People::s_user& usr, const s_account*
 
 const std::string s_document::remove(const People::s_user& usr, const s_account* acnt) const
 {
-    return "DELETE FROM Document WHERE Id = "
-            + std::to_string(id);
+    return "DELETE FROM Document WHERE Id = " + std::to_string(id);
 }
 
-void s_document::foreign_update(std::string& query, bool complete, const s_account* acnt)
+void s_document::foreign_update(std::string& query, bool complete,
+                                const s_document* doc,
+                                const s_account* acnt)
 {
     if (acnt)
     {
@@ -119,20 +122,24 @@ void s_document::condition(std::string &query, const People::s_user& usr, const 
     if (acnt) acnt->condition(query, usr, acnt);
 }
 
-void s_document::update_reply(const Result& res, Value& json, const s_account* acnt)
+void s_document::select_updated(std::string &query, const s_document* doc, const s_account* acnt)
+{
+    if (!acnt) return;
+    acnt->select_updated(query, acnt);
+}
+
+void s_document::update_reply(const Result& res, Value& json,
+                              const s_document* doc,
+                              const s_account* acnt)
 {
     acnt->update_reply(res, json);
 
-    try
+    if (doc)
     {
-        if (!res.front()["IsUploaded"].as<bool>())
-        {
-            Value val;
-            val["isUploaded"] = res.front()["IsUploaded"].as<bool>();
-            json[key] = val;
-        }
+        Value val;
+        val["isUploaded"] = doc->state == Uploaded;
+        json[key] = val;
     }
-    catch (...) {}
 }
 
 const std::filesystem::path s_document::get_directory(int acnt_id) const

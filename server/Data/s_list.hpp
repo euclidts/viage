@@ -17,7 +17,7 @@ struct s_list final : public item_list<T>
     void set(const Row& row) override {};
 
     template <typename ...Foreign>
-    std::string update(const People::s_user& usr, const Foreign*... f) const;
+    std::vector<std::string> update(const People::s_user& usr, const Foreign*... f) const;
 
     template <typename ...Foreign>
     static void foreign_update(std::string& query,
@@ -33,6 +33,13 @@ struct s_list final : public item_list<T>
                           const Foreign*... f)
     {
         T::condition(query, usr, f...);
+    };
+
+    template <typename ...Foreign>
+    static void select_updated(std::string& query,
+                               const Foreign*... f)
+    {
+        T::select_updated(query, f...);
     };
 
     template <typename ...Foreign>

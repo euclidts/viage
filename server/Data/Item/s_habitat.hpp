@@ -29,6 +29,9 @@ struct s_habitat final : public habitat_item
                           const People::s_user& usr,
                           const s_account* acnt);
 
+    static void select_updated(std::string& query,
+                               const s_account* acnt = nullptr);
+
     static void update_reply(const Result& res,
                              Json::Value& json,
                              const s_account* acnt);

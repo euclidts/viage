@@ -78,6 +78,13 @@ void s_contact::condition(std::string &query, const s_user &usr, const s_account
     acnt->condition(query, usr, acnt);
 }
 
+void s_contact::select_updated(std::string &query, const s_account *acnt)
+{
+    if (!acnt) return;
+    query.append("a.State");
+    acnt->select_updated(query, acnt);
+}
+
 void s_contact::update_reply(const Result &res, Value& json, const s_account *acnt)
 {
     acnt->update_reply(res, json);
