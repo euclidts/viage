@@ -14,75 +14,58 @@ void credential_ctl::auth(const HttpRequestPtr& req,
                           const std::string& jsonconfig,
                           bool remeberMe)
 {
-    LOG_INFO << "User " << userName << " login";
+    LOG_INFO << "User " << userName << " signing in";
 
     HttpResponsePtr resp;
-    auto uuid{req->session()->sessionId()};
+    auto session_id{req->session()->sessionId()};
 
-    if (server::server::get().user_connected(uuid))
+    auto response{server::server::get().execute(
+        "SELECT "
+        "Id, "
+        "Login, "
+        "Clearance, "
+        "IsLocked, "
+        "Password,"
+        "SessionId "
+        "FROM User "
+        "WHERE Login = "
+        "'" + userName + "'")};
+
+    if (response.empty())
     {
-        const auto usr{server::server::get().connected_user(uuid)};
-
-        Json::Value json;
-        json["sessionId"] = uuid;
-        json["id"] = usr.id;
-        json["clearance"] = usr.clearance;
-
-        resp = HttpResponse::newHttpJsonResponse(json);
-    }
-    else
-    {
-        auto users{server::server::get().execute(
-                                    "SELECT "
-                                    "Id, "
-                                    "Login, "
-                                    "EMail, "
-                                    "Clearance, "
-                                    "CompanyId, "
-                                    "TeamId, "
-                                    "IsLocked, "
-                                    "Password "
-                                    "FROM User "
-                                    "WHERE Login = "
-                                    "'" + userName + "'")};
-
-        using namespace utils;
-
-        for (auto user : users)
-        {
-            if (user["Login"].as<std::string>() == userName
-                && !user["IsLocked"].as<bool>())
-            {
-                auto pwd{user["Password"].as<std::string>()};
-
-                if (pwd == getMd5(password))
-                {
-                    s_user u{};
-                    u.set(user);
-                    u.last_access = trantor::Date::date();
-
-                    server::server::get().add_connected_user(u, uuid);
-
-                    Json::Value json;
-                    json["sessionId"] = uuid;
-                    json["id"] = u.id;
-                    json["clearance"] = u.clearance;
-
-                    resp = HttpResponse::newHttpJsonResponse(json);
-                    break;
-                }
-            }
-        }
-
-        if (!resp)
-        {
-            resp = HttpResponse::newHttpResponse();
-            resp->setStatusCode(drogon::k401Unauthorized);
-        }
+        resp = HttpResponse::newHttpResponse();
+        resp->setStatusCode(drogon::k404NotFound);
+        callback(resp);
+        return;
     }
 
+    s_user user{};
+    user.set(response);
+
+    if (user.isLocked ||
+        response.front()["Password"].as<std::string>() != utils::getMd5(password))
+    {
+        resp = HttpResponse::newHttpResponse();
+        resp->setStatusCode(drogon::k403Forbidden);
+        callback(resp);
+        return;
+    }
+
+    if (response.front()["SessionId"].isNull())
+    {
+        server::server::get().execute("UPDATE User SET SessionId = '"
+                                      + session_id +
+                                      "' WHERE Id = "
+                                      + std::to_string(user.id));
+    }
+
+    Json::Value json;
+    json["sessionId"] = session_id;
+    json["id"] = user.id;
+    json["clearance"] = user.clearance;
+
+    resp = HttpResponse::newHttpJsonResponse(json);
     callback(resp);
 }
-
 }
 }

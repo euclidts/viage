@@ -21,11 +21,6 @@ public:
     server(server const&) = delete;
     void operator = (server const&) = delete;
 
-    bool user_connected(const std::string& uuid);
-    Data::People::s_user& connected_user(const std::string& uuid) noexcept;
-    void add_connected_user(const Data::People::s_user& usr, const std::string& uuid);
-    void remove_connected_user(const std::string& uuid);
-
     drogon::orm::Result execute(const std::string& query);
     void execute(const std::vector<std::string>& queries);
 
@@ -196,8 +191,6 @@ public:
 
 private:
     server() {}
-
-    std::map<std::string, Data::People::s_user> connected_users;
 
     std::vector<std::string> combine(const std::string& q1, const std::string& q2);
     std::vector<std::string> combine(std::vector<std::string>& q1, const std::string& q2);

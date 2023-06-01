@@ -21,7 +21,7 @@ void s_account::read(const Value& json)
 
 const std::string s_account::insert(const People::s_user& usr) const
 {
-    const auto date{trantor::Date::date().toFormattedStringLocal(false)};
+    const auto date{trantor::Date::date().toDbString()};
 
     return "INSERT INTO Account "
            "(CreationDate, UpdateDate, AdvisorId, State, HabitatType) "
@@ -85,7 +85,7 @@ const std::string s_account::update(const People::s_user& usr, const s_account* 
             auto result{server::server::get().execute(select(usr))};
             if (result.empty()) return{};
 
-            const auto date{trantor::Date::date().toFormattedStringLocal(false)};
+            const auto date{trantor::Date::date().toDbString()};
 
             for (int i = 0; i <= 5; i++)
             {
@@ -127,7 +127,7 @@ void s_account::foreign_update(std::string& query, bool complete, const s_accoun
 {
     if (!acnt) return;
 
-    const auto date{trantor::Date::date().toFormattedStringLocal(false)};
+    const auto date{trantor::Date::date().toDbString()};
 
     if (!query.empty()) query.insert(0, ", ");
 

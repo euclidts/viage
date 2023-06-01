@@ -18,8 +18,7 @@ void s_owner::set(const Row &row)
     try
     {
         if (!row["BirthDay"].isNull())
-//            birthDay = server::utils::from_db_date(row["BirthDay"].as<std::string>());
-            birthDay = row["BirthDay"].as<std::string>();
+            birthDay = server::utils::from_db_date(row["BirthDay"].as<std::string>());
     }
     catch (...) {}
 
@@ -66,7 +65,7 @@ const std::string s_owner::update(const s_user& usr, const s_account* acnt) cons
     return "UPDATE Owner SET "
             + s_infant::fields() +
             ", BirthDay = '"
-            + birthDay +
+           + server::utils::to_db_date(birthDay) +
             "', CivilStatus = "
             + std::to_string(civilStatus) +
             ", AVS = '"

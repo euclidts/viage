@@ -18,8 +18,6 @@ struct s_user final : public user_item
 
     static const constexpr auto table{"User"};
 
-    trantor::Date last_access;
-
     void set(const Row& row);
     void set(const Result& res) { s_base_data::set(res); };
 

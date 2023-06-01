@@ -32,7 +32,7 @@ void owner_item::write(Json::Value &json) const
 {
     infant_item::write(json);
 
-    json["birthDay"] = birthDay;
+    if (birthDay != "") json["birthDay"] = birthDay;
     json["civilStatus"] = civilStatus;
     json["avs"] = avs;
 

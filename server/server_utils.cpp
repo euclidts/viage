@@ -23,7 +23,6 @@ const std::string clearance_close(const Data::People::s_user& usr)
 const std::string from_db_date(const std::string& db_date)
 {
     std::string str{db_date};
-    str.erase(str.begin() + str.find_first_of(' '), str.end());
     std::istringstream ss{str};
     date::year_month_day ymd;
     ss >> date::parse("%Y-%m-%d", ymd);
@@ -35,7 +34,6 @@ const std::string to_db_date(const std::string& raw_date, const std::string& for
     std::istringstream ss{raw_date};
     date::year_month_day ymd;
     ss >> date::parse(format, ymd);
-//    return date::format("%Y-%m-%d", ymd) + " 00:00:00.000000";
     return date::format("%Y-%m-%d", ymd);
 }
 
@@ -50,5 +48,5 @@ const std::string update_flag(int flag, const std::string& flag_name, bool set)
     return str;
 }
 
-}
-}
+} // namespace utils
+} // namespace server

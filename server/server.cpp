@@ -18,45 +18,27 @@ void server::init(const Json::Value& json_config)
 {
     drogon::app().loadConfigJson(json_config);
     drogon::app().enableSession(DEFAULT_TIMEOUT); // force enable session
+
+    drogon::app().registerBeginningAdvice(
+        [this]{
+            auto result{execute("UPDATE User Set SessionId = NULL")};
+        });
+
+    drogon::app().registerSessionDestroyAdvice(
+        [this](const std::string& sessionId){
+            LOG_INFO << "Session " << sessionId << " expired";
+
+            execute("UPDATE User Set SessionId = NULL WHERE SessionId = '"
+                    + sessionId +
+                    "'");
+        });
+
+//    drogon::app().registerSessionStartAdvice(
+//        [this](const std::string& sessionId){
+//            LOG_INFO << "Session " << sessionId << " started";
+//        });
+
     drogon::app().run();
-}
-
-bool server::user_connected(const std::string& uuid)
-{
-    if (const auto it{connected_users.find(uuid)}; it != connected_users.end())
-    {
-        const auto then{trantor::Date::date().after(-DEFAULT_TIMEOUT)};
-
-        if (it->second.last_access < then)
-        {
-            remove_connected_user(uuid);
-            return false;
-        }
-
-        return true;
-    }
-
-    return false;
-}
-
-Data::People::s_user& server::connected_user(const std::string& uuid) noexcept
-{
-    return std::get<Data::People::s_user>(*connected_users.find(uuid));
-}
-
-void server::add_connected_user(const Data::People::s_user& usr,
-                                const std::string& uuid)
-{
-    if (user_connected(uuid)) return;
-
-    connected_users[uuid] = usr;
-}
-
-void server::remove_connected_user(const std::string& uuid)
-{
-    if (!user_connected(uuid)) return;
-
-    connected_users.erase(uuid);
 }
 
 drogon::orm::Result server::execute(const std::string &query)
@@ -82,11 +64,26 @@ void server::handle_query(const drogon::HttpRequestPtr& req,
                           const std::function<bool (Json::Value&, const Data::People::s_user&)>& handler)
 {
     drogon::HttpResponsePtr resp;
-    auto uuid{req->session()->sessionId()};
+    auto session_id{req->session()->sessionId()};
 
-    if (user_connected(uuid))
+    auto response{server::server::get().execute(
+        "SELECT "
+        "Id, "
+        "Clearance "
+        "FROM User "
+        "WHERE SessionId = '"
+        + session_id +
+        "' AND IsLocked = FALSE")};
+
+    if (response.empty())
     {
-        const auto usr{connected_user(uuid)};
+        resp = drogon::HttpResponse::newHttpResponse();
+        resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
+    }
+    else
+    {
+        Data::People::s_user usr{};
+        usr.set(response);
 
         Json::Value json;
 
@@ -99,11 +96,6 @@ void server::handle_query(const drogon::HttpRequestPtr& req,
             resp = drogon::HttpResponse::newHttpResponse();
             resp->setStatusCode(drogon::k401Unauthorized);
         }
-    }
-    else
-    {
-        resp = drogon::HttpResponse::newHttpResponse();
-        resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
     }
 
     callback(resp);
