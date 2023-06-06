@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/AccountDelegate.qml" line="47"/>
         <source>Complet</source>
-        <translation>Komplett</translation>
+        <translation>Vollständig</translation>
     </message>
 </context>
 <context>
@@ -19,12 +19,12 @@
     <message>
         <location filename="../ui/AddressChooser.qml" line="26"/>
         <source>Rue</source>
-        <translation>Straße</translation>
+        <translation>Strasse</translation>
     </message>
     <message>
         <location filename="../ui/AddressChooser.qml" line="33"/>
         <source>Ville</source>
-        <translation>Stadt</translation>
+        <translation>Ort</translation>
     </message>
     <message>
         <location filename="../ui/AddressChooser.qml" line="46"/>
@@ -42,7 +42,7 @@
     <message>
         <location filename="../ui/BottomBar.qml" line="19"/>
         <source>Conseillers</source>
-        <translation>Ratgeber</translation>
+        <translation>Berater/innen</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="34"/>
@@ -67,22 +67,22 @@
     <message>
         <location filename="../ui/BottomBar.qml" line="75"/>
         <source>Ajouter un conseiller</source>
-        <translation>Einen Ratgeber hinzufügen</translation>
+        <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="91"/>
         <source>Accueil</source>
-        <translation>Startseite</translation>
+        <translation>Empfang</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="98"/>
         <source>Ajouter un partenaire</source>
-        <translation>Füge einen Partner hinzu</translation>
+        <translation>Partner/in hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="99"/>
         <source>Ajouter un contact</source>
-        <translation>Fügen Sie einen Kontakt hinzu</translation>
+        <translation>Kontakt hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="116"/>
@@ -92,12 +92,12 @@
     <message>
         <location filename="../ui/BottomBar.qml" line="133"/>
         <source>Terminer</source>
-        <translation>Komplett</translation>
+        <translation>Abschliessen</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="153"/>
         <source>eMail</source>
-        <translation>eMail</translation>
+        <translation>E-Mail</translation>
     </message>
 </context>
 <context>
@@ -118,7 +118,7 @@
     <message>
         <location filename="../ui/CalculatorPage.qml" line="24"/>
         <source>Date estimée de la transaction</source>
-        <translation>Geschätztes Datum der Transaktion nicht abgeschlossen</translation>
+        <translation>Geschätztes Transaktionsdatum</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="60"/>
@@ -128,17 +128,17 @@
     <message>
         <location filename="../ui/CalculatorPage.qml" line="60"/>
         <source>Suprimer</source>
-        <translation>Überschreiben</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="75"/>
         <source>Valeur estimée du bien</source>
-        <translation>Schätzwert der Immobilie</translation>
+        <translation>Geschätzter Wert der Liegenschaft</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="85"/>
         <source>Calculer</source>
-        <translation>Berechnung</translation>
+        <translation>Berechnen</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="108"/>
@@ -148,7 +148,7 @@
     <message>
         <location filename="../ui/CalculatorPage.qml" line="119"/>
         <source>Bouquet :</source>
-        <translation>Blumenstrauß :</translation>
+        <translation>Abschlagzahlung :</translation>
     </message>
 </context>
 <context>
@@ -156,7 +156,7 @@
     <message>
         <location filename="../ui/CameraScene.qml" line="54"/>
         <source>Annuler</source>
-        <translation>Abbrechen</translation>
+        <translation>Rückgängig machen</translation>
     </message>
     <message>
         <location filename="../ui/CameraScene.qml" line="71"/>
@@ -192,7 +192,7 @@
     <message>
         <location filename="../ui/ContactPage.qml" line="37"/>
         <source>Suprimer le </source>
-        <translation>Verdrängung des </translation>
+        <translation>Löschen </translation>
     </message>
 </context>
 <context>
@@ -225,7 +225,7 @@
     <message>
         <location filename="../ui/DateChooser.qml" line="47"/>
         <source>Mars</source>
-        <translation>Mars</translation>
+        <translation>März</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="48"/>
@@ -270,7 +270,7 @@
     <message>
         <location filename="../ui/DateChooser.qml" line="56"/>
         <source>Decembre</source>
-        <translation>Decembre</translation>
+        <translation>Dezember</translation>
     </message>
     <message>
         <location filename="../ui/DateChooser.qml" line="69"/>
@@ -288,17 +288,17 @@
     <message>
         <location filename="../ui/DocumentPage.qml" line="31"/>
         <source>Pièces d’identité des partenaires</source>
-        <translation>Partner IDs</translation>
+        <translation>Ausweise der Partner</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="38"/>
         <source>Extrait du registre foncier</source>
-        <translation>Auszug aus dem Grundbuch</translation>
+        <translation>Grundbuchauszug</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="45"/>
         <source>Extrait des poursuites</source>
-        <translation>Auszug aus der Klage fertiggestellt</translation>
+        <translation>Steuererklärung</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="52"/>
@@ -318,17 +318,17 @@
     <message>
         <location filename="../ui/DocumentPage.qml" line="73"/>
         <source>Certificat médical de discernement</source>
-        <translation>Ärztliches Urteilszeugnis</translation>
+        <translation>Bestätigung der Urteilsfähigkeit</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="80"/>
         <source>Cacul du droit d&apos;habitation</source>
-        <translation>Cacul des Wohnrechts</translation>
+        <translation>Berechnung des Wohnrechts</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="92"/>
         <source>En cas de PPE</source>
-        <translation>Im Falle von PSA</translation>
+        <translation>Bei Stockwerkeigentum</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="99"/>
@@ -338,23 +338,23 @@
     <message>
         <location filename="../ui/DocumentPage.qml" line="106"/>
         <source>Règlement PPE</source>
-        <translation>EVP-Verordnung</translation>
+        <translation>Reglement der Eigentümergemeinschaft</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="113"/>
         <source>3 derniers PV des assemblées générales de la PPE</source>
         <translation>3 letzte Protokolle der Generalversammlungen
-der EVP</translation>
+der Eigentümergemeinschaft</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="120"/>
         <source>Détails additionnels</source>
-        <translation>Weitere Detailss</translation>
+        <translation>Zusätzliche Details</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="127"/>
         <source>Contrat(s) d&apos;entretien</source>
-        <translation>Wartungsvertrag(e)</translation>
+        <translation>Wartungsvertrag bzw. -verträge</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="134"/>
@@ -365,18 +365,17 @@ Jahre</translation>
     <message>
         <location filename="../ui/DocumentPage.qml" line="141"/>
         <source>Descriptif des travaux à prévoir / devis</source>
-        <translation>Beschreibung der zu planenden Arbeiten / Schätzung</translation>
+        <translation>Beschreibung der nötigen Arbeiten / Kostenvoranschlag</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="148"/>
         <source>Cas échéant / police détaillée de l’établissement ou le BEB</source>
-        <translation>Falls zutreffend / detaillierte Richtlinien der
-Einrichtung oder des BEB</translation>
+        <translation>Gegebenenfalls detaillierte Police der Einrichtung oder der BEB</translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="155"/>
         <source>Autre</source>
-        <translation>Andere</translation>
+        <translation>Anderes</translation>
     </message>
 </context>
 <context>
@@ -384,7 +383,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/ExceptionDialog.qml" line="40"/>
         <source>Annuler</source>
-        <translation>Abbrechen</translation>
+        <translation>Rückgängig machen</translation>
     </message>
     <message>
         <location filename="../ui/ExceptionDialog.qml" line="50"/>
@@ -397,12 +396,12 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="27"/>
         <source>Parking</source>
-        <translation>Parken</translation>
+        <translation>Parkgarage</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="44"/>
         <source>Disponible</source>
-        <translation>Erhältlich</translation>
+        <translation>Verfügbar</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="51"/>
@@ -413,12 +412,12 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="59"/>
         <source>Nombre de places</source>
-        <translation>Anzahl der Plätze</translation>
+        <translation>Anzahl Plätze</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="66"/>
         <source>Type de places</source>
-        <translation>Art der unfertigen Sitze</translation>
+        <translation>Art des Parkplatzes</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="83"/>
@@ -433,27 +432,27 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="93"/>
         <source>Interieur</source>
-        <translation>Interieur</translation>
+        <translation>Innenparkplatz</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="98"/>
         <source>Exterieur</source>
-        <translation>Exterieur</translation>
+        <translation>Aussenparkplatz</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="103"/>
         <source>Individuel</source>
-        <translation>Individuell</translation>
+        <translation>Einzelgarage</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="108"/>
         <source>Collectif</source>
-        <translation>Kollektiv</translation>
+        <translation>Gemeinschaftsgarage</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="152"/>
         <source>Terrain</source>
-        <translation>Land</translation>
+        <translation>Gelände</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="172"/>
@@ -468,7 +467,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="182"/>
         <source>Equipements de proximité</source>
-        <translation>Lokale Einrichtungen</translation>
+        <translation>Einrichtungen in der Nähe</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="195"/>
@@ -478,7 +477,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="200"/>
         <source>Restauration</source>
-        <translation>Wiederherstellung</translation>
+        <translation>Gastronomie</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="205"/>
@@ -493,17 +492,17 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="215"/>
         <source>Commerces</source>
-        <translation>Läden</translation>
+        <translation>Geschäfte</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="220"/>
         <source>Transports</source>
-        <translation>Transport</translation>
+        <translation>Öffentlicher Verkehr</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="263"/>
         <source>Etat général</source>
-        <translation>Allgemeinzustand</translation>
+        <translation>Allgemeiner Zustand</translation>
     </message>
 </context>
 <context>
@@ -516,7 +515,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/FileDropRect.qml" line="29"/>
         <source>Assurez vous que le fichier selectioné possède l&apos;extension pdf, PDF, png, PNG, jpg, JPG, jpeg, JPEG, raw, tiff, odt, doc, docx, xls ou xlsx</source>
-        <translation>Stellen Sie sicher, dass die ausgewählte Datei die Erweiterung pdf, PDF, png, PNG, jpg, JPG, jpeg, JPEG, raw, tiff, odt, doc, docx, xls oder xlsx hat</translation>
+        <translation>Vergewissern Sie sich, dass die ausgewählte Datei eine der folgenden Endungen hat: pdf, PDF, png, PNG, jpg, JPG, jpeg, JPEG, raw, tiff, odt, doc, docx, xls oder xlsx</translation>
     </message>
 </context>
 <context>
@@ -524,7 +523,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/HabitatPage.qml" line="27"/>
         <source>Situation du bien</source>
-        <translation>Lage der Immobilie</translation>
+        <translation>Lage des Objekts</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="48"/>
@@ -539,17 +538,17 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/HabitatPage.qml" line="59"/>
         <source>Appartement</source>
-        <translation>Apartment</translation>
+        <translation>Wohnung</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="81"/>
         <source>Nombre de Pièces</source>
-        <translation>Anzahl der Zimmer</translation>
+        <translation>Anzahl Zimmer</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="92"/>
         <source>Surface</source>
-        <translation>Oberfläche</translation>
+        <translation>Fläche</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="103"/>
@@ -564,12 +563,12 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/HabitatPage.qml" line="119"/>
         <source>m² Construits</source>
-        <translation>m² Gebautsunfertig</translation>
+        <translation>Bebaute m²</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="127"/>
         <source>m² Disponibles</source>
-        <translation>m² Verfügbar</translation>
+        <translation>Verfügbare m²</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="138"/>
@@ -595,7 +594,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/LoggInDialog.qml" line="55"/>
         <source>Valider</source>
-        <translation>Validierung</translation>
+        <translation>Bestätigen</translation>
     </message>
 </context>
 <context>
@@ -603,22 +602,22 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/OwnersPage.qml" line="31"/>
         <source>Partenaire</source>
-        <translation>Partner</translation>
+        <translation>Partner/in</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="40"/>
         <source>AVS</source>
-        <translation>AVS</translation>
+        <translation>AHV</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="59"/>
         <source>État civil</source>
-        <translation>Familienstand</translation>
+        <translation>Zivilstand</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="78"/>
         <source>Célibataire</source>
-        <translation>Single</translation>
+        <translation>Ledig</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="83"/>
@@ -628,7 +627,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/OwnersPage.qml" line="88"/>
         <source>Partenariat enregistré</source>
-        <translation>Eingetragene Partnerschaft</translation>
+        <translation>Eingetragene Partnerschaften</translation>
     </message>
     <message>
         <location filename="../ui/OwnersPage.qml" line="93"/>
@@ -653,7 +652,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/OwnersPage.qml" line="118"/>
         <source>Suprimer le </source>
-        <translation>Unterdrücken Sie den </translation>
+        <translation>Löschen </translation>
     </message>
 </context>
 <context>
@@ -705,27 +704,27 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="30"/>
         <source>Mode invisible</source>
-        <translation>Unsichtbarer Modus</translation>
+        <translation>Nicht anzeigen</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="31"/>
         <source>Mode visible</source>
-        <translation>Sichtbarer Modus</translation>
+        <translation>Anzeigen</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="39"/>
         <source>Thème sombre</source>
-        <translation>Dunkles Thema</translation>
+        <translation>Dunkles Design</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="40"/>
         <source>Thème clair</source>
-        <translation>Klares Thema</translation>
+        <translation>Helles Design</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="45"/>
         <source>Modification du mot de passe</source>
-        <translation>Ändern des Passworts</translation>
+        <translation>Passwort ändern</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="71"/>
@@ -736,7 +735,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="90"/>
         <source>Valider</source>
-        <translation>Valideer</translation>
+        <translation>Bestätigen</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="100"/>
@@ -747,7 +746,7 @@ Einrichtung oder des BEB</translation>
         <location filename="../ui/SettingsDrawer.qml" line="116"/>
         <location filename="../ui/SettingsDrawer.qml" line="153"/>
         <source>Crédits</source>
-        <translation>Kredite</translation>
+        <translation>Copyright</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="154"/>
@@ -773,7 +772,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/StatePage.qml" line="20"/>
         <source>Etat du Dossier</source>
-        <translation>Status des Ordners</translation>
+        <translation>Stand des Dossiers</translation>
     </message>
 </context>
 <context>
@@ -782,37 +781,37 @@ Einrichtung oder des BEB</translation>
         <location filename="../ui/TopBar.qml" line="24"/>
         <location filename="../ui/TopBar.qml" line="30"/>
         <source>Dernière modification</source>
-        <translation>Zuletzt geändert</translation>
+        <translation>Letzte Änderung</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="25"/>
         <location filename="../ui/TopBar.qml" line="31"/>
         <source>Création</source>
-        <translation>Erstellung</translation>
+        <translation>Erstellt von</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="26"/>
         <location filename="../ui/TopBar.qml" line="32"/>
         <source>Acronyme</source>
-        <translation>Akronym</translation>
+        <translation>Kürzel</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="27"/>
         <location filename="../ui/TopBar.qml" line="33"/>
         <source>Partenaire</source>
-        <translation>Partner</translation>
+        <translation>Partner/in</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="28"/>
         <location filename="../ui/TopBar.qml" line="142"/>
         <source>Conseiller</source>
-        <translation>Berater</translation>
+        <translation>Berater/in</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="29"/>
         <location filename="../ui/TopBar.qml" line="59"/>
         <source>Société</source>
-        <translation>Unternehmen</translation>
+        <translation>Firma</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="60"/>
@@ -837,7 +836,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/TopBar.qml" line="166"/>
         <source>Partenaires</source>
-        <translation>Partner</translation>
+        <translation>Partner/in</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="180"/>
@@ -847,12 +846,12 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/TopBar.qml" line="195"/>
         <source>Habitat</source>
-        <translation>Lebensraum</translation>
+        <translation>Wohnraum</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="210"/>
         <source>Exterieur</source>
-        <translation>Exterieur</translation>
+        <translation>Aussenbereich</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="225"/>
@@ -862,7 +861,7 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/TopBar.qml" line="240"/>
         <source>Etats</source>
-        <translation>Zustände</translation>
+        <translation>Stand</translation>
     </message>
 </context>
 <context>
@@ -875,29 +874,27 @@ Einrichtung oder des BEB</translation>
     <message>
         <location filename="../ui/UserDelegate.qml" line="58"/>
         <source>Renvoyer de nouveaux identifiants</source>
-        <translation>Neue Kennung zurückgebens</translation>
+        <translation>Neue Zugangsdaten senden</translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="71"/>
         <source>Rependre l&apos;activité</source>
-        <translation>Aktivität fortsetzen</translation>
+        <translation>Fortsetzen</translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="72"/>
         <source>Suspendre l&apos;activité</source>
-        <translation>Aktivität pausieren</translation>
+        <translation>Unterbrechen</translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="74"/>
         <source>L&apos;utilisatuer séléctioné pourra de nouveau se connecter</source>
-        <translation>Der ausgewählte Benutzer kann sich erneut
-anmelden</translation>
+        <translation>Der oder die ausgewählte Nutzer/in kann sich erneut anmelden</translation>
     </message>
     <message>
         <location filename="../ui/UserDelegate.qml" line="75"/>
         <source>L&apos;utilisatuer séléctioné ne pourra plus se connecter</source>
-        <translation>Der ausgewählte Benutzer kann sich nicht
-mehr anmelden</translation>
+        <translation>Der oder die ausgewählte Nutzer/in kann sich nicht mehr anmelden</translation>
     </message>
 </context>
 <context>
@@ -905,12 +902,12 @@ mehr anmelden</translation>
     <message>
         <location filename="../ui/UserFullDelegate.qml" line="27"/>
         <source>Bénéficiaire du compte</source>
-        <translation>Begünstigter des kontos</translation>
+        <translation>Kontoinhaber/in</translation>
     </message>
     <message>
         <location filename="../ui/UserFullDelegate.qml" line="35"/>
         <source>Iban</source>
-        <translation>Iban</translation>
+        <translation>IBAN</translation>
     </message>
     <message>
         <location filename="../ui/UserFullDelegate.qml" line="42"/>
@@ -923,7 +920,7 @@ mehr anmelden</translation>
     <message>
         <location filename="../ui/UserPage.qml" line="38"/>
         <source>Société</source>
-        <translation>Unternehmen</translation>
+        <translation>Firma</translation>
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="43"/>
@@ -938,12 +935,12 @@ mehr anmelden</translation>
     <message>
         <location filename="../ui/UserPage.qml" line="82"/>
         <source>Ajouter une Société</source>
-        <translation>Fügen Sie ein Unternehmen hinzu</translation>
+        <translation>Firma hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="138"/>
         <source>Ajouter une Équipe</source>
-        <translation>Füge ein Team hinzu</translation>
+        <translation>Team hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -964,88 +961,86 @@ mehr anmelden</translation>
     <message>
         <location filename="../ui/main.qml" line="29"/>
         <source>Partenaires complétés</source>
-        <translation>Abgeschlossene Partner</translation>
+        <translation>Partner/in vervollständigt</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="30"/>
         <source>Contacts complétés</source>
-        <translation>Abgeschlossene Kontakte</translation>
+        <translation>Kontakte vervollständigt</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="31"/>
         <source>Habitat complété</source>
-        <translation>Abgeschlossener Lebensraum</translation>
+        <translation>Wohnraum vervollständigt</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="32"/>
         <source>Exterieur complété</source>
-        <translation>Exterieur fertiggestellt</translation>
+        <translation>Aussenbereich vervollständigt</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="33"/>
         <source>Documents complétés</source>
-        <translation>Abgeschlossene Dokumente</translation>
+        <translation>Dokumente vervollständigt</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="34"/>
         <source>Réception du dossier 
  par Viage SA</source>
-        <translation>Eingang der Akte bei
-Viage SA</translation>
+        <translation>Dossier bei Viage SA 
+ eingegangen</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="35"/>
         <source>Transmission du dossier 
  au CA de Viager Swiss SA</source>
-        <translation>Übermittlung der Akte an
-den verwaltungsrat der
-Viager Swiss SA</translation>
+        <translation>Dossier an VR von Viager Swiss SA 
+ weitergeleitet</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="36"/>
         <source>Expert immobilier</source>
-        <translation>Immobilienexperte</translation>
+        <translation>Immobilienexperte/-expertin</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="37"/>
         <source>Décision du CA 
  de Viager Swiss SA</source>
-        <translation>Entscheidung des
-Vorstandes
-von Viager Swiss SA</translation>
+        <translation>Entscheid des VR
+ von Viager Swiss SA</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="38"/>
         <source>Rendez-vous chez le notaire</source>
-        <translation>Termin beim Notar</translation>
+        <translation>Termin bei der Notarin bzw. beim Notar</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="39"/>
         <source>Paiement de la commission</source>
-        <translation>Zahlung der Provision</translation>
+        <translation>Bezahlung der Kommission</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="43"/>
         <location filename="../ui/main.qml" line="47"/>
         <source>Vendeur</source>
-        <translation>Seller</translation>
+        <translation>Verkäufer/in</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="44"/>
         <location filename="../ui/main.qml" line="48"/>
         <source>Manager</source>
-        <translation>Manager</translation>
+        <translation>Manager/in</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="45"/>
         <location filename="../ui/main.qml" line="49"/>
         <source>Directeur</source>
-        <translation>Regisseur</translation>
+        <translation>Direktor/in</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="46"/>
         <source>Administrateur</source>
-        <translation>Administrator</translation>
+        <translation>Administrator/in</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="58"/>
@@ -1055,9 +1050,7 @@ von Viager Swiss SA</translation>
     <message>
         <location filename="../ui/main.qml" line="60"/>
         <source>Mot de passe ou identifiant incorrect, essyez de nouveau ou contactez Viage pour recevoir un nouveu mot de passe</source>
-        <translation>Falsches Passwort oder Benutzername, melden
-Sie sich erneut an oder kontaktieren Sie Viage,
-um ein neues Passwort zu erhalten</translation>
+        <translation>Falsches Passwort oder falscher Benutzername. Versuchen Sie es erneut oder kontaktieren Sie Viage, um ein neues Passwort zu erhalten</translation>
     </message>
 </context>
 </TS>
