@@ -53,7 +53,7 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DSERVER=OFF
         -DCMAKE_PREFIX_PATH="${{github.workspace}}/${{env.QT_VERSION}}/mingw_64"
-        -DCPACK_IFW_ROOT="${{github.workspace}}/Tools/QtInstallerFramework/4.5"
+        -DCPACK_IFW_ROOT="${{github.workspace}}/Tools/QtInstallerFramework/4.6"
 #        -DCMAKE_TOOLCHAIN_FILE="conan_paths.cmake"
 #      run: cmake .. -GNinja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DSERVER=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4
 

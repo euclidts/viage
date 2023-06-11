@@ -72,6 +72,7 @@
     </qresource>
     <qresource prefix="/data">
         <file alias="ofs.csv">ofs.csv</file>
+        <file alias="berechnung.docx">berechnung.docx</file>
         <file alias="calcul.docx">calcul.docx</file>
     </qresource>
     <qresource prefix="/qm_files">

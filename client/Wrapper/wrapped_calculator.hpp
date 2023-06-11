@@ -27,8 +27,11 @@ public:
 private:
     life_expectency exp;
     c_rent* rent;
-    QString docxPath{};
+    const QLocale::Language lingo{QLocale().language()};
+    std::string docxName;
+    std::string docxPath;
 
+    const std::string sex_string(const senior_citizen_item::sexes& sex);
     void calculate_rent();
     void write_to_file();
 
@@ -36,7 +39,7 @@ private:
     void skip_paragraphs(duckx::Paragraph& paragraphs, int n_skiped);
     void skip_runs(duckx::Run& runs, int n_skiped);
     void print_runs(duckx::Run& runs);
-    void print_duckx();
+//    void print_duckx();
 };
 }
 

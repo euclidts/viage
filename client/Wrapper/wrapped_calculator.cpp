@@ -16,7 +16,6 @@ wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
     : base_wrapper<c_list<c_senior_citizen>>{manager, context}
     , exp{inner}
     , rent{new c_rent{}}
-    , docxPath{tempPath + "/calcul.docx"}
 {
     inner->appendItems(); // at least one senior for the calculation
 
@@ -32,10 +31,32 @@ wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
 
     context->setContextProperty(c_rent::key, rent);
 
-    QFile rcs(":/data/calcul.docx");
+    if (lingo == QLocale::German)
+        docxName = "berechnung.docx";
+    else
+        docxName = "calcul.docx";
 
-    if (!rcs.copy(docxPath))
+    docxPath += tempPath.toStdString() +'/' + docxName;
+
+    QFile rcs(QString::fromStdString(":/data/" + docxName));
+
+    if (!rcs.copy(QString::fromStdString(docxPath)))
         mng->replyError("Calculation Document copy error", rcs.errorString());
+    // report error throug the net manager as it is connected to the bridge
+}
+
+const std::string wrapped_calculator::sex_string(const senior_citizen_item::sexes& sex)
+{
+    if (sex == senior_citizen_item::M)
+        if (lingo == QLocale::German)
+            return "Herr";
+        else
+            return "M  …";
+    else
+        if (lingo == QLocale::German)
+            return "Frau";
+        else
+            return "Mme…";
 }
 
 void wrapped_calculator::calculate_rent()
@@ -45,22 +66,22 @@ void wrapped_calculator::calculate_rent()
 
 void wrapped_calculator::write_to_file()
 {
-    QFile file{docxPath};
+    QFile file{QString::fromStdString(docxPath)};
     if (!file.exists())
     {
-        QFile rcs(":/data/calcul.docx");
+            QFile rcs(QString::fromStdString(":/data/" + docxName));
 
-        if (!rcs.copy(docxPath))
+            if (!rcs.copy(QString::fromStdString(docxPath)))
             mng->replyError("Calculation Document copy error", rcs.errorString());
-        // report error throug the net manager as it is connected to the bridge
+            // report error throug the net manager as it is connected to the bridge
     }
 
     file.setPermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner);
 
-    duckx::Document doc{docxPath.toStdString()};
+    duckx::Document doc{docxPath};
     doc.open();
 
-    QString str{QDate::currentDate().toString("dd/MM/yyyy")};
+    QString str{QDate::currentDate().toString("dd.MM.yyyy")};
 
     // skip to contract date
     auto t{doc.tables()};
@@ -78,12 +99,18 @@ void wrapped_calculator::write_to_file()
 
     // skip to pargraphs of interests
     skip_paragraphs(p, 4);
-
     ru = p.runs();
-    ru.next();
 
-    str = rent->getBirthDay().toString("dd/MM/yyyy");
-    ru.set_text(str.toStdString());
+    str = rent->getBirthDay().toString("dd.MM.yyyy");
+
+    if (lingo == QLocale::German)
+        ru.set_text("Geschätztes Transaktionsdatum "
+                    + str.toStdString());
+    else
+    {
+        ru.next();
+        ru.set_text(str.toStdString());
+    }
 
     end_runs(ru);
     p.next();
@@ -92,21 +119,31 @@ void wrapped_calculator::write_to_file()
     for (const auto& item : inner->items())
     {
         ru = p.runs();
-        skip_runs(ru, 2);
 
         auto partner{inner->item_at(i)};
-        QString sex{partner.sex == senior_citizen_item::M ? tr("M  …") : tr("Mme")};
-        ru.set_text(sex.toStdString());
-        skip_runs(ru, 2);
-
-        ru.set_text("……………………………………………………………");
-        ru.next();
-
-//        str = partner.birthDay.toString("dd/MM/yyyy");
+        const std::string sex{sex_string(partner.sex)};
         str = QString::fromStdString(partner.birthDay);
-        ru.set_text(str.toStdString());
-        end_runs(ru);
 
+        if (lingo == QLocale::German)
+        {
+            ru.set_text("Partner/in "
+                        + std::to_string(i + 1)
+                        + ": "
+                        + sex
+                        + "…………………………………………………………… "
+                        + str.toStdString());
+        }
+        else
+        {
+            ru.set_text("Partenaire "
+                        + std::to_string(i + 1)
+                        + ": "
+                        + sex
+                        + "…………………………………………………………… "
+                        + str.toStdString());
+        }
+
+        end_runs(ru);
         p.next();
         i++;
     }
@@ -125,19 +162,27 @@ void wrapped_calculator::write_to_file()
 
     ru = p.runs();
 
-    skip_runs(ru, 7);
-
     str = QLocale().toString(rent->getmarketPrice());
+
+    if (lingo == QLocale::German)
+        str.prepend("Geschätzter Wert der Liegenschaft: 			CHF ");
+    else
+        skip_runs(ru, 7);
+
     str.append(".-");
     ru.set_text(str.toStdString());
 
     end_runs(ru);
     p.next();
     ru = p.runs();
-
-    skip_runs(ru, 8);
 
     str = QLocale().toString(rent->getDab());
+
+    if (lingo == QLocale::German)
+        str.prepend("Wohnrecht: 						CHF ");
+    else
+        skip_runs(ru, 8);
+
     str.append(".-");
     ru.set_text(str.toStdString());
 
@@ -145,9 +190,13 @@ void wrapped_calculator::write_to_file()
     p.next();
     ru = p.runs();
 
-    skip_runs(ru, 9);
-
     str = QLocale().toString(rent->getBou());
+
+    if (lingo == QLocale::German)
+        str.prepend("Abschlagzahlung: 					CHF ");
+    else
+        skip_runs(ru, 9);
+
     str.append(".-");
     ru.set_text(str.toStdString());
 
@@ -155,7 +204,7 @@ void wrapped_calculator::write_to_file()
 
     doc.save();
     file.setPermissions(QFileDevice::ReadOwner);
-    if(!QDesktopServices::openUrl(docxPath))
+    if(!QDesktopServices::openUrl(QString::fromStdString(docxPath)))
         mng->replyError("Calculation Document error", "QDesktopervices : could not open .docx file");
 }
 
@@ -185,56 +234,79 @@ void wrapped_calculator::print_runs(duckx::Run& runs)
         std::cout << runs.get_text() << std::endl;
 }
 
-void wrapped_calculator::print_duckx()
-{
-    duckx::Document doc{docxPath.toStdString()};
-    doc.open();
+//void wrapped_calculator::print_duckx()
+//{
+//    const auto lingo{QLocale().language()};
+//    std::string docxName{};
+//    std::string docxPath{tempPath->toStdString()};
 
-    using namespace std;
+//    if (lingo == QLocale::German)
+//        docxName = "berechnung.docx";
+//    else
+//        docxName = "calcul.docx";
 
-    int i{0};
-    int j{0};
-    int k{0};
-    int l{0};
-    int m{0};
-    for (auto t = doc.tables(); t.has_next(); t.next())
-    {
-        cout << "tables :" << i << endl;
-        i++;
-        j = 0;
-        for (auto ro = t.rows(); ro.has_next(); ro.next())
-        {
-            cout << "__rows :" << j << endl;
-            j++;
-            k = 0;
-            for (auto c = ro.cells(); c.has_next(); c.next())
-            {
-                cout << "____cells :" << k << endl;
-                k++;
-                l = 0;
-                for (auto p = c.paragraphs(); p.has_next(); p.next())
-                {
-                    cout << "______paragraps :" << l << endl;
-                    l++;
-                    m = 0;
-                    for (auto ru = p.runs(); ru.has_next(); ru.next())
-                    {
-                        cout << "________runs :" << m << endl;
-                        m++;
-                        cout << "________" << ru.get_text() << endl;
-                    }
-                }
-            }
-        }
-    }
+//    docxPath += '/' + docxName;
 
-    auto t{doc.tables()};
-    auto ro{t.rows()};
-    ro.next();
-    ro.next();
-    auto c{ro.cells()};
-    auto p{c.paragraphs()};
-    auto ru{p.runs()};
-    cout << ru.get_text() << endl;
-}
+//    duckx::Document doc{docxPath};
+//    doc.open();
+
+//    using namespace std;
+
+//    int i{0};
+//    int j{0};
+//    int k{0};
+//    int l{0};
+//    int m{0};
+
+//    cout << "DOCUMENT TABLES" << endl;
+
+//    for (auto t : doc.tables())
+//    {
+//        cout << "table :" << i << endl;
+//        i++;
+//        j = 0;
+//        for (auto ro : t.rows())
+//        {
+//            cout << "__row :" << j << endl;
+//            j++;
+//            k = 0;
+//            for (auto c : ro.cells())
+//            {
+//                cout << "____cell :" << k << endl;
+//                k++;
+//                l = 0;
+//                for (auto p : c.paragraphs())
+//                {
+//                    cout << "______paragrap :" << l << endl;
+//                    l++;
+//                    m = 0;
+//                    for (auto ru : p.runs())
+//                    {
+//                        cout << "________run :" << m << endl;
+//                        m++;
+//                        cout << "________" << ru.get_text() << endl;
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+//    i = 0;
+//    j = 0;
+
+//    cout << "DOCUMENT PARAGRAPHES" << endl;
+
+//    for (auto p : doc.paragraphs())
+//    {
+//        cout << "______paragrap :" << i << endl;
+//        l++;
+//        j = 0;
+//        for (auto ru : p.runs())
+//        {
+//            cout << "________run :" << j << endl;
+//            j++;
+//            cout << "________" << ru.get_text() << endl;
+//        }
+//    }
+//}
 }

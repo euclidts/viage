@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de">
+<TS version="2.1" language="de_DE">
 <context>
     <name>AccountDelegate</name>
     <message>
@@ -103,14 +103,16 @@
 <context>
     <name>Calculator::wrapped_calculator</name>
     <message>
-        <location filename="../../Wrapper/wrapped_calculator.cpp" line="98"/>
         <source>M  …</source>
-        <translation>Herr</translation>
+        <translation type="vanished">Herr</translation>
     </message>
     <message>
-        <location filename="../../Wrapper/wrapped_calculator.cpp" line="98"/>
         <source>Mme</source>
-        <translation>Frau</translation>
+        <translation type="vanished">Frau</translation>
+    </message>
+    <message>
+        <source>calcul</source>
+        <translation type="vanished">berechnung</translation>
     </message>
 </context>
 <context>
