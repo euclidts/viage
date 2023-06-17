@@ -77,6 +77,5 @@
     </qresource>
     <qresource prefix="/qm_files">
         <file alias="viage_de.qm">qm_files/viage_de.qm</file>
-        <file alias="viage_fr.qm">qm_files/viage_fr.qm</file>
     </qresource>
 </RCC>

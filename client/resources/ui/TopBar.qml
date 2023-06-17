@@ -207,7 +207,7 @@ RowLayout {
 
                 RoundButton {
                     id: exteriorButton
-                    text: qsTr("Exterieur")
+                    text: qsTr("Extérieur")
                     highlighted: accountsPages.currentIndex == 4 ? true : false
                     font.capitalization: Font.MixedCase
                     font.bold: true
@@ -312,7 +312,7 @@ RowLayout {
             onClicked: settingsDrawer.open()
             hoverEnabled: true
             ToolTip.visible: containsMouse
-            ToolTip.text: "Options"
+            ToolTip.text: qsTr("Options")
         }
     }
 }

@@ -44,7 +44,7 @@ ColumnLayout {
             validator: RegularExpressionValidator {
                 regularExpression: /^$|\S+@\S+\.\S+$/
             }
-            placeHolder: qsTr("* Champ Nécessaire")
+            placeHolder: qsTr("* Champ nécessaire")
             capitalization: Font.MixedCase
         }
     }

@@ -46,7 +46,6 @@ find_package(Qt6 REQUIRED COMPONENTS
     Multimedia)
 
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}
-    resources/ts_files/viage_fr.ts
     resources/ts_files/viage_de.ts)
 
 set(PROJECT_SOURCES

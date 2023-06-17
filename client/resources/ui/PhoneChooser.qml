@@ -58,7 +58,7 @@ ColumnLayout {
             text: number.slice(3, number.length)
             inputMethodHints: Qt.ImhFormattedNumbersOnly
             Layout.fillWidth: true
-            placeholderText: qsTr("* Champ Obligatoire")
+            placeholderText: qsTr("* Champ obligatoire")
             onAccepted: focus = false
             validator: RegularExpressionValidator {
                 regularExpression: /^$|\d{9,13}?$/

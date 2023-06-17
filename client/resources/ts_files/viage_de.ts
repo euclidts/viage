@@ -8,6 +8,24 @@
         <source>Complet</source>
         <translation>Vollständig</translation>
     </message>
+    <message>
+        <location filename="../ui/AccountDelegate.qml" line="128"/>
+        <source>Supprimer le dossier</source>
+        <translation>Dossier löschen</translation>
+    </message>
+    <message>
+        <location filename="../ui/AccountDelegate.qml" line="130"/>
+        <source>Le dossier selectionné serra supprimé définitivement</source>
+        <translation>Das ausgewählte Dossier wird endgültig gelöscht</translation>
+    </message>
+    <message>
+        <source>Suprimer le dossier</source>
+        <translation type="vanished">Dossier löschen</translation>
+    </message>
+    <message>
+        <source>Le dossier selectioné serra suprimé définitivement</source>
+        <translation type="vanished">Das ausgewählte Dossier wird endgültig gelöscht</translation>
+    </message>
 </context>
 <context>
     <name>AddressChooser</name>
@@ -70,6 +88,21 @@
         <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
+        <location filename="../ui/BottomBar.qml" line="80"/>
+        <source>Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?</source>
+        <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="153"/>
+        <source>e-mail</source>
+        <translation>E-mail</translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="156"/>
+        <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
+        <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
+    </message>
+    <message>
         <location filename="../ui/BottomBar.qml" line="91"/>
         <source>Accueil</source>
         <translation>Empfang</translation>
@@ -95,9 +128,8 @@
         <translation>Abschliessen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="153"/>
         <source>eMail</source>
-        <translation>E-Mail</translation>
+        <translation type="vanished">E-Mail</translation>
     </message>
 </context>
 <context>
@@ -123,14 +155,27 @@
         <translation>Geschätztes Transaktionsdatum</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="60"/>
+        <location filename="../ui/CalculatorPage.qml" line="49"/>
+        <source>Partenaire </source>
+        <translation>Partner/in </translation>
+    </message>
+    <message>
         <source>Ajouter</source>
-        <translation>Hinzufügen</translation>
+        <translation type="vanished">Hinzufügen</translation>
+    </message>
+    <message>
+        <source>Suprimer</source>
+        <translation type="vanished">Löschen</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="60"/>
-        <source>Suprimer</source>
-        <translation>Löschen</translation>
+        <source>Ajouter un partenaire</source>
+        <translation>Einen Partner hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../ui/CalculatorPage.qml" line="60"/>
+        <source>Supprimer un partenaire</source>
+        <translation>Einen Partner löschen</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="75"/>
@@ -193,8 +238,12 @@
     </message>
     <message>
         <location filename="../ui/ContactPage.qml" line="37"/>
-        <source>Suprimer le </source>
+        <source>Supprimer le </source>
         <translation>Löschen </translation>
+    </message>
+    <message>
+        <source>Suprimer le </source>
+        <translation type="vanished">Löschen </translation>
     </message>
 </context>
 <context>
@@ -432,13 +481,21 @@ Jahre</translation>
         <translation>Auto</translation>
     </message>
     <message>
-        <location filename="../ui/ExteriorPage.qml" line="93"/>
         <source>Interieur</source>
+        <translation type="vanished">Innenparkplatz</translation>
+    </message>
+    <message>
+        <source>Exterieur</source>
+        <translation type="vanished">Aussenparkplatz</translation>
+    </message>
+    <message>
+        <location filename="../ui/ExteriorPage.qml" line="93"/>
+        <source>Intérieur</source>
         <translation>Innenparkplatz</translation>
     </message>
     <message>
         <location filename="../ui/ExteriorPage.qml" line="98"/>
-        <source>Exterieur</source>
+        <source>Extérieur</source>
         <translation>Aussenparkplatz</translation>
     </message>
     <message>
@@ -543,9 +600,28 @@ Jahre</translation>
         <translation>Wohnung</translation>
     </message>
     <message>
+        <location filename="../ui/HabitatPage.qml" line="71"/>
+        <source>PPE</source>
+        <translation>Stockwerkeigentum</translation>
+    </message>
+    <message>
         <location filename="../ui/HabitatPage.qml" line="81"/>
-        <source>Nombre de Pièces</source>
+        <source>Nombre de pièces</source>
         <translation>Anzahl Zimmer</translation>
+    </message>
+    <message>
+        <location filename="../ui/HabitatPage.qml" line="119"/>
+        <source>m² construits</source>
+        <translation>Bebaute m²</translation>
+    </message>
+    <message>
+        <location filename="../ui/HabitatPage.qml" line="127"/>
+        <source>m² disponibles</source>
+        <translation>Verfügbare m²</translation>
+    </message>
+    <message>
+        <source>Nombre de Pièces</source>
+        <translation type="vanished">Anzahl Zimmer</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="92"/>
@@ -563,14 +639,12 @@ Jahre</translation>
         <translation>netto (m²)</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="119"/>
         <source>m² Construits</source>
-        <translation>Bebaute m²</translation>
+        <translation type="vanished">Bebaute m²</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="127"/>
         <source>m² Disponibles</source>
-        <translation>Verfügbare m²</translation>
+        <translation type="vanished">Verfügbare m²</translation>
     </message>
     <message>
         <location filename="../ui/HabitatPage.qml" line="138"/>
@@ -581,8 +655,12 @@ Jahre</translation>
 <context>
     <name>LabeledTextField</name>
     <message>
-        <location filename="../ui/LabeledTextField.qml" line="9"/>
         <source>* Champ Obligatoire</source>
+        <translation type="vanished">* Pflichtfeld</translation>
+    </message>
+    <message>
+        <location filename="../ui/LabeledTextField.qml" line="9"/>
+        <source>* Champ obligatoire</source>
         <translation>* Pflichtfeld</translation>
     </message>
 </context>
@@ -676,8 +754,12 @@ Jahre</translation>
     </message>
     <message>
         <location filename="../ui/PersonDelegate.qml" line="47"/>
-        <source>* Champ Nécessaire</source>
+        <source>* Champ nécessaire</source>
         <translation>* Pflichtfeld</translation>
+    </message>
+    <message>
+        <source>* Champ Nécessaire</source>
+        <translation type="vanished">* Pflichtfeld</translation>
     </message>
 </context>
 <context>
@@ -689,8 +771,12 @@ Jahre</translation>
     </message>
     <message>
         <location filename="../ui/PhoneChooser.qml" line="61"/>
-        <source>* Champ Obligatoire</source>
+        <source>* Champ obligatoire</source>
         <translation>* Pflichtfeld</translation>
+    </message>
+    <message>
+        <source>* Champ Obligatoire</source>
+        <translation type="vanished">* Pflichtfeld</translation>
     </message>
 </context>
 <context>
@@ -725,8 +811,14 @@ Jahre</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="45"/>
+        <location filename="../ui/SettingsDrawer.qml" line="57"/>
         <source>Modification du mot de passe</source>
         <translation>Passwort ändern</translation>
+    </message>
+    <message>
+        <location filename="../ui/SettingsDrawer.qml" line="58"/>
+        <source>Êtes-vous sûr de vouloir changer votre mot de passe ?</source>
+        <translation>Wollen Sie Ihr Passwort wirklich ändern ?</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDrawer.qml" line="71"/>
@@ -852,8 +944,12 @@ Jahre</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="210"/>
-        <source>Exterieur</source>
+        <source>Extérieur</source>
         <translation>Aussenbereich</translation>
+    </message>
+    <message>
+        <source>Exterieur</source>
+        <translation type="vanished">Aussenbereich</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="225"/>
@@ -864,6 +960,11 @@ Jahre</translation>
         <location filename="../ui/TopBar.qml" line="240"/>
         <source>Etats</source>
         <translation>Stand</translation>
+    </message>
+    <message>
+        <location filename="../ui/TopBar.qml" line="315"/>
+        <source>Options</source>
+        <translation>Optionen</translation>
     </message>
 </context>
 <context>
@@ -879,6 +980,21 @@ Jahre</translation>
         <translation>Neue Zugangsdaten senden</translation>
     </message>
     <message>
+        <location filename="../ui/UserDelegate.qml" line="60"/>
+        <source>Le mot de passe actuelle de l&apos;utilisateur séléctionné sera perdu</source>
+        <translation>Das aktuelle Passwort der ausgewählten Nutzerin / des ausgewählten Nutzers wird gelöscht</translation>
+    </message>
+    <message>
+        <location filename="../ui/UserDelegate.qml" line="74"/>
+        <source>L&apos;utilisateur séléctionné pourra de nouveau se connecter</source>
+        <translation>Der oder die ausgewählte Nutzer/in kann sich erneut anmelden</translation>
+    </message>
+    <message>
+        <location filename="../ui/UserDelegate.qml" line="75"/>
+        <source>L&apos;utilisateur séléctionné ne pourra plus se connecter</source>
+        <translation>Der oder die ausgewählte Nutzer/in kann sich nicht mehr anmelden</translation>
+    </message>
+    <message>
         <location filename="../ui/UserDelegate.qml" line="71"/>
         <source>Rependre l&apos;activité</source>
         <translation>Fortsetzen</translation>
@@ -889,14 +1005,12 @@ Jahre</translation>
         <translation>Unterbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/UserDelegate.qml" line="74"/>
         <source>L&apos;utilisatuer séléctioné pourra de nouveau se connecter</source>
-        <translation>Der oder die ausgewählte Nutzer/in kann sich erneut anmelden</translation>
+        <translation type="vanished">Der oder die ausgewählte Nutzer/in kann sich erneut anmelden</translation>
     </message>
     <message>
-        <location filename="../ui/UserDelegate.qml" line="75"/>
         <source>L&apos;utilisatuer séléctioné ne pourra plus se connecter</source>
-        <translation>Der oder die ausgewählte Nutzer/in kann sich nicht mehr anmelden</translation>
+        <translation type="vanished">Der oder die ausgewählte Nutzer/in kann sich nicht mehr anmelden</translation>
     </message>
 </context>
 <context>
@@ -936,13 +1050,31 @@ Jahre</translation>
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="82"/>
-        <source>Ajouter une Société</source>
+        <source>Ajouter une société</source>
         <translation>Firma hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/UserPage.qml" line="138"/>
-        <source>Ajouter une Équipe</source>
+        <source>Ajouter une équipe</source>
         <translation>Team hinzufügen</translation>
+    </message>
+    <message>
+        <source>Ajouter une Société</source>
+        <translation type="vanished">Firma hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../ui/UserPage.qml" line="83"/>
+        <source>Êtes-vous sûr de vouloir ajouter la nouvelle société </source>
+        <translation>Wollen Sie die neue Firma wirklich hinzufügen </translation>
+    </message>
+    <message>
+        <source>Ajouter une Équipe</source>
+        <translation type="vanished">Team hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../ui/UserPage.qml" line="139"/>
+        <source>Êtes-vous sûr de vouloir ajouter l&apos;équipe </source>
+        <translation>Wollen Sie das Team Firma wirklich hinzufügen </translation>
     </message>
 </context>
 <context>
@@ -1051,8 +1183,12 @@ Jahre</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="60"/>
-        <source>Mot de passe ou identifiant incorrect, essyez de nouveau ou contactez Viage pour recevoir un nouveu mot de passe</source>
+        <source>Mot de passe ou identifiant incorrect, essayez de nouveau ou contactez Viage pour recevoir un nouveau mot de passe</source>
         <translation>Falsches Passwort oder falscher Benutzername. Versuchen Sie es erneut oder kontaktieren Sie Viage, um ein neues Passwort zu erhalten</translation>
+    </message>
+    <message>
+        <source>Mot de passe ou identifiant incorrect, essyez de nouveau ou contactez Viage pour recevoir un nouveu mot de passe</source>
+        <translation type="vanished">Falsches Passwort oder falscher Benutzername. Versuchen Sie es erneut oder kontaktieren Sie Viage, um ein neues Passwort zu erhalten</translation>
     </message>
 </context>
 </TS>

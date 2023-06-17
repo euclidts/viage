@@ -57,7 +57,7 @@ ApplicationWindow {
         else {
             onExceptionAction(qsTr("Erreur d'authentification"),
                     error === "Host requires authentication" ?
-                        qsTr("Mot de passe ou identifiant incorrect, essyez de nouveau ou contactez Viage pour recevoir un nouveu mot de passe")
+                        qsTr("Mot de passe ou identifiant incorrect, essayez de nouveau ou contactez Viage pour recevoir un nouveau mot de passe")
                       : error,
                     function() { logginDialog.open() })
         }

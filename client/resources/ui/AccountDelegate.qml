@@ -125,9 +125,9 @@ ItemDelegate {
                 visible: settingsDrawer.invisible.checked
                 icon.source: "qrc:/icons/trash-alt.svg"
                 ToolTip.visible: hovered
-                ToolTip.text: "Suprimer le dossier"
+                ToolTip.text: qsTr("Supprimer le dossier")
                 onClicked: onExceptionAction(ToolTip.text,
-                                         "Le dossier selectioné serra suprimé définitivement",
+                                         qsTr("Le dossier selectionné serra supprimé définitivement"),
                                          () => { accounts.remove(model.id) }, true)
             }
         }

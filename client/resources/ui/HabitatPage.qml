@@ -68,7 +68,7 @@ ScrollView {
 
                             MaterialButton {
                                 fillWidth: false
-                                text: "PPE"
+                                text: qsTr("PPE")
                                 icon.source: bridge.ppe ? "qrc:/icons/check-square.svg"
                                                         : "qrc:/icons/square.svg"
                                 onClicked: {
@@ -78,7 +78,7 @@ ScrollView {
                             }
 
                             IntChooser {
-                                name: qsTr("Nombre de Pièces")
+                                name: qsTr("Nombre de pièces")
                                 minimum: 1
                                 maximum: 50
                                 numberOf: habitat.rooms
@@ -116,7 +116,7 @@ ScrollView {
                             }
 
                             IntChooser {
-                                name: qsTr("m² Construits")
+                                name: qsTr("m² construits")
                                 minimum: 1
                                 maximum: 1000
                                 numberOf: habitat.m2Constructed
@@ -124,7 +124,7 @@ ScrollView {
                             }
 
                             IntChooser {
-                                name: qsTr("m² Disponibles")
+                                name: qsTr("m² disponibles")
                                 minimum: 0
                                 maximum: 1000
                                 numberOf: habitat.m2Available

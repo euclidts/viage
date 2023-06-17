@@ -79,8 +79,8 @@ ListView {
 
                             if (i === -1) {
                                 newText = editText
-                                onExceptionAction(qsTr("Ajouter une Société"),
-                                                  "Êtes-vous sûr de vouloir ajouter la nouvelle société "
+                                onExceptionAction(qsTr("Ajouter une société"),
+                                                  qsTr("Êtes-vous sûr de vouloir ajouter la nouvelle société ")
                                                   + editText
                                                   + " ?",
                                                   () => {
@@ -135,11 +135,9 @@ ListView {
 
                             if (i === -1) {
                                 newText = editText
-                                onExceptionAction(qsTr("Ajouter une Équipe"),
-                                                  "Êtes-vous sûr de vouloir ajouter l'équipe "
+                                onExceptionAction(qsTr("Ajouter une équipe"),
+                                                  qsTr("Êtes-vous sûr de vouloir ajouter l'équipe ")
                                                   + editText
-                                                  + " dans la sosciété "
-                                                  + companyCombo.currentText
                                                   + " ?",
                                                   () => {
                                                       busyDialog.open()

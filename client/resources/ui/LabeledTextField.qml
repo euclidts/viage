@@ -6,7 +6,7 @@ import QtQuick.Controls.Material
 ColumnLayout {
     spacing: 0
 
-    property string placeHolder: qsTr("* Champ Obligatoire")
+    property string placeHolder: qsTr("* Champ obligatoire")
     property alias validator: field.validator
     property alias text: field.text
     required property string name

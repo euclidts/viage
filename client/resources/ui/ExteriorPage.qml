@@ -90,12 +90,12 @@ ScrollView {
                                     }
                                     CheckBox {
                                         id: indoorCheck
-                                        text: qsTr("Interieur")
+                                        text: qsTr("Intérieur")
                                         onCheckStateChanged: parkingTypeColumn.setTypes()
                                     }
                                     CheckBox {
                                         id: outdoorCheck
-                                        text: qsTr("Exterieur")
+                                        text: qsTr("Extérieur")
                                         onCheckStateChanged: parkingTypeColumn.setTypes()
                                     }
                                     CheckBox {

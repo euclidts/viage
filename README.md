@@ -40,6 +40,9 @@
 ++ timeout for connection (3h)
 ++ position Title in error header
 
+* line skipt in calculation document
+* pull list of new teams when one is added
+
 # Server side
 
 * notify unique download in the onboarding mail

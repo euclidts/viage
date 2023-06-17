@@ -77,7 +77,7 @@ RowLayout {
                  && usersPages.currentIndex === 0
         icon.source: "qrc:/icons/plus.svg"
         onClicked: onExceptionAction(text,
-                                     "Êtes-vous sûr de vouloir ajouter un nouveau conseiller",
+                                     qsTr("Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?"),
                                      () => {
                                          busyDialog.open()
                                          bridge.hire()
@@ -150,10 +150,10 @@ RowLayout {
         visible: (rootStack.currentIndex === 0
                   && accountsPages.currentIndex === 6)
                  && bridge.clearance === 4
-        text: qsTr("eMail")
+        text: qsTr("e-mail")
         icon.source: "qrc:/icons/arrows-rotate.svg"
         onClicked: onExceptionAction(text,
-                                     "Êtes-vous sûr de vouloir régénérer le document d'ouverture de dossier, et de le renvoyer par eMail ?",
+                                     qsTr("Êtes-vous sûr de vouloir régénérer le document d'ouverture de dossier, et de le renvoyer par e-mail ?"),
                                      () => { bridge.requestEmail() }
                                      , true)
     }

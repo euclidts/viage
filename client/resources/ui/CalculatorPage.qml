@@ -46,7 +46,7 @@ ScrollView {
 
                         Label {
                             Layout.margins: 6
-                            text: qsTr("Partenaire " + (index + 1))
+                            text: qsTr("Partenaire ") + (index + 1)
                             font.bold: true
                         }
 
@@ -57,7 +57,7 @@ ScrollView {
 
                 RoundButton {
                     readonly property bool single: seniorList.count === 1
-                    text: (single ? qsTr("Ajouter") : qsTr("Suprimer")) + " un partenaire"
+                    text: single ? qsTr("Ajouter un partenaire") : qsTr("Supprimer un partenaire")
                     icon.source: single ? "qrc:/icons/plus.svg"
                                         : "qrc:/icons/trash-alt.svg"
                     onClicked: single ? seniorCitizens.appendItems(1)
