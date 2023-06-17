@@ -194,6 +194,40 @@ private:
 
     std::vector<std::string> combine(const std::string& q1, const std::string& q2);
     std::vector<std::string> combine(std::vector<std::string>& q1, const std::string& q2);
+
+    template <typename T, typename ...Foreign>
+    bool conditional_get(const T& item,
+                         const Data::People::s_user& usr,
+                         const Foreign*... foreignh)
+    {
+        return false;
+    }
+
+    template <typename T>
+    bool conditional_get(const T& item,
+                         const Data::People::s_user& usr)
+    {
+        const auto query{item.condition(usr)};
+
+        try
+        {
+            auto result{execute(query)};
+            item.set(result);
+            return true;
+        }
+        catch (...)
+        {
+            return false;
+        }
+    }
+
+    template <typename ...Foreign>
+    bool conditional_get(const Foreign*... foreign,
+                         const Data::People::s_user& usr)
+    {
+        return (... && conditional_get<Foreign>(*foreign, usr));
+    }
+
 };
 
 }

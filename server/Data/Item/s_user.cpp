@@ -13,8 +13,7 @@ s_user::s_user()
 
 const std::string s_user::insert(const People::s_user& usr) const
 {
-    if (usr.clearance < People::s_user::Administrator)
-        return {};
+    if (usr.clearance < Administrator) return {};
 
     return "INSERT INTO User "
            "(FirstName, LastName) "
@@ -27,16 +26,14 @@ const std::string s_user::insert(const People::s_user& usr) const
 
 const std::string s_user::select(const s_user& usr) const
 {
-    if (usr.clearance < Administrator)
-        return "";
+    if (usr.clearance < Administrator) return {};
 
     return search(usr) + " WHERE Id = " + std::to_string(id);
 }
 
 const std::string s_user::update(const People::s_user& usr) const
 {
-    if (usr.clearance < People::s_user::Administrator)
-        return {};
+    if (usr.clearance < Administrator) return {};
 
     return "UPDATE User SET "
             + fields() +

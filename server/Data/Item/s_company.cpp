@@ -23,7 +23,7 @@ const std::string s_company::insert(const People::s_user& usr) const
 const std::string s_company::select(const People::s_user& usr) const
 {
     if (usr.clearance < People::s_user::Administrator)
-        return "";
+        return {};
 
     return "SELECT * FROM Company WHERE Id = "
             + std::to_string(id);

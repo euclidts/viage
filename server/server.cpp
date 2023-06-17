@@ -20,23 +20,26 @@ void server::init(const Json::Value& json_config)
     drogon::app().enableSession(DEFAULT_TIMEOUT); // force enable session
 
     drogon::app().registerBeginningAdvice(
-        [this]{
-            auto result{execute("UPDATE User Set SessionId = NULL")};
-        });
-
-    drogon::app().registerSessionDestroyAdvice(
-        [this](const std::string& sessionId){
-            LOG_INFO << "Session " << sessionId << " expired";
-
-            execute("UPDATE User Set SessionId = NULL WHERE SessionId = '"
-                    + sessionId +
-                    "'");
+        [this]
+        {
+            execute("UPDATE User Set SessionId = NULL");
         });
 
 //    drogon::app().registerSessionStartAdvice(
-//        [this](const std::string& sessionId){
+//        [this](const std::string& sessionId)
+//        {
 //            LOG_INFO << "Session " << sessionId << " started";
 //        });
+
+    drogon::app().registerSessionDestroyAdvice(
+        [this](const std::string& session_id)
+        {
+            LOG_INFO << "Session " << session_id << " expired";
+
+            execute("UPDATE User Set SessionId = NULL WHERE SessionId = '"
+                    + session_id +
+                    "'");
+        });
 
     drogon::app().run();
 }

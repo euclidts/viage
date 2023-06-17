@@ -33,7 +33,7 @@ struct s_user final : public user_item
 
     static const constexpr std::string search(const s_user& usr)
     {
-        if (usr.clearance < Administrator) return "";
+        if (usr.clearance < Administrator) return {};
 
         return "SELECT "
                "a.Id, "

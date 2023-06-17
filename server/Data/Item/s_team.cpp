@@ -24,7 +24,7 @@ const std::string s_team::insert(const People::s_user& usr, const s_company* for
 
 const std::string s_team::select(const People::s_user& usr, const s_company* foreign) const
 {
-    if (usr.clearance < People::s_user::Administrator && !foreign) return "";
+    if (usr.clearance < People::s_user::Administrator && !foreign) return {};
 
     return "SELECT * FROM Team WHERE Id = "
            + std::to_string(id);
@@ -68,7 +68,7 @@ void s_team::read(const Json::Value &json)
     team_item::read(json);
 
     if (json.isMember("CompanyId") && json["CompanyId"].isInt())
-        companyId = json["CompanyId"].asInt();
+        company_id = json["CompanyId"].asInt();
 }
 
 }

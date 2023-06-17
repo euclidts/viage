@@ -14,7 +14,7 @@ struct s_team final : public team_item
 
     static const constexpr auto table{"Team"};
 
-    int companyId{0};
+    int company_id{0};
 
     void set(const Row& row) override;
     void set(const Result& res) { s_base_data::set(res); };
