@@ -1054,7 +1054,7 @@ Jahre</translation>
         <translation>Firma hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/UserPage.qml" line="153"/>
+        <location filename="../ui/UserPage.qml" line="139"/>
         <source>Ajouter une équipe</source>
         <translation>Team hinzufügen</translation>
     </message>
@@ -1072,7 +1072,7 @@ Jahre</translation>
         <translation type="vanished">Team hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/UserPage.qml" line="154"/>
+        <location filename="../ui/UserPage.qml" line="140"/>
         <source>Êtes-vous sûr de vouloir ajouter l&apos;équipe </source>
         <translation>Wollen Sie das Team Firma wirklich hinzufügen </translation>
     </message>
@@ -1088,101 +1088,101 @@ Jahre</translation>
 <context>
     <name>main</name>
     <message>
-        <location filename="../ui/main.qml" line="29"/>
+        <location filename="../ui/main.qml" line="28"/>
         <source>Initialisé</source>
         <translation>Initialisiert</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="30"/>
+        <location filename="../ui/main.qml" line="29"/>
         <source>Partenaires complétés</source>
         <translation>Partner/in vervollständigt</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="31"/>
+        <location filename="../ui/main.qml" line="30"/>
         <source>Contacts complétés</source>
         <translation>Kontakte vervollständigt</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="32"/>
+        <location filename="../ui/main.qml" line="31"/>
         <source>Habitat complété</source>
         <translation>Wohnraum vervollständigt</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="33"/>
+        <location filename="../ui/main.qml" line="32"/>
         <source>Exterieur complété</source>
         <translation>Aussenbereich vervollständigt</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="34"/>
+        <location filename="../ui/main.qml" line="33"/>
         <source>Documents complétés</source>
         <translation>Dokumente vervollständigt</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="35"/>
+        <location filename="../ui/main.qml" line="34"/>
         <source>Réception du dossier 
  par Viage SA</source>
         <translation>Dossier bei Viage SA 
  eingegangen</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="36"/>
+        <location filename="../ui/main.qml" line="35"/>
         <source>Transmission du dossier 
  au CA de Viager Swiss SA</source>
         <translation>Dossier an VR von Viager Swiss SA 
  weitergeleitet</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="37"/>
+        <location filename="../ui/main.qml" line="36"/>
         <source>Expert immobilier</source>
         <translation>Immobilienexperte/-expertin</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="38"/>
+        <location filename="../ui/main.qml" line="37"/>
         <source>Décision du CA 
  de Viager Swiss SA</source>
         <translation>Entscheid des VR
  von Viager Swiss SA</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="39"/>
+        <location filename="../ui/main.qml" line="38"/>
         <source>Rendez-vous chez le notaire</source>
         <translation>Termin bei der Notarin bzw. beim Notar</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="40"/>
+        <location filename="../ui/main.qml" line="39"/>
         <source>Paiement de la commission</source>
         <translation>Bezahlung der Kommission</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="44"/>
-        <location filename="../ui/main.qml" line="48"/>
+        <location filename="../ui/main.qml" line="43"/>
+        <location filename="../ui/main.qml" line="47"/>
         <source>Vendeur</source>
         <translation>Verkäufer/in</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="45"/>
-        <location filename="../ui/main.qml" line="49"/>
+        <location filename="../ui/main.qml" line="44"/>
+        <location filename="../ui/main.qml" line="48"/>
         <source>Manager</source>
         <translation>Manager/in</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="46"/>
-        <location filename="../ui/main.qml" line="50"/>
+        <location filename="../ui/main.qml" line="45"/>
+        <location filename="../ui/main.qml" line="49"/>
         <source>Directeur</source>
         <translation>Direktor/in</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="47"/>
+        <location filename="../ui/main.qml" line="46"/>
         <source>Administrateur</source>
         <translation>Administrator/in</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="59"/>
+        <location filename="../ui/main.qml" line="58"/>
         <source>Erreur d&apos;authentification</source>
         <translation>Authentifizierungsfehler</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="61"/>
+        <location filename="../ui/main.qml" line="60"/>
         <source>Mot de passe ou identifiant incorrect, essayez de nouveau ou contactez Viage pour recevoir un nouveau mot de passe</source>
         <translation>Falsches Passwort oder falscher Benutzername. Versuchen Sie es erneut oder kontaktieren Sie Viage, um ein neues Passwort zu erhalten</translation>
     </message>

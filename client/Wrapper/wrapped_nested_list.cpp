@@ -20,16 +20,19 @@ wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* ma
                   &Inner::addIn,
                   this,
                   [this] (int id)
-    { add_in_with(id); });
+                  { add_in_with(id); });
 
     this->connect(this->inner,
                   &Inner::addInWith,
                   this,
-                  &wrapped_nested_list::add_in_with);
+                  [this, parentList] (int id, const QJsonObject& obj)
+                  { add_in_with(id, obj, parentList); });
 }
 
 template<typename Inner, typename Outer>
-void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const QJsonObject& obj)
+void wrapped_nested_list<Inner, Outer>::add_in_with(int id,
+                                                    const QJsonObject& obj,
+                                                    Data::c_list<Outer>* parentList)
 {
     auto json{obj};
     Json::Value val{Utils::to_Json(obj)};
@@ -40,11 +43,17 @@ void wrapped_nested_list<Inner, Outer>::add_in_with(int id, const QJsonObject& o
 
     this->mng->postToKey(key.c_str(),
                          data,
-                         [this, val](const Json::Value& res)
+                         [this, val, parentList, id](const Json::Value& res)
     {
         Json::Value concat{val};
         Utils::concatenate(concat, res);
         this->inner->appendWith(concat);
+        if (parentList)
+        {
+            Outer outer{parentList->item_at_id(id)};
+            outer.update(this->inner);
+            parentList->setItemAtId(id, outer);
+        }
     },
     "addInWith error");
 }

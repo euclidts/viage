@@ -23,7 +23,9 @@ public:
 
 private:
     const std::string key;
-    void add_in_with(int id, const QJsonObject &obj = {});
+    void add_in_with(int id,
+                     const QJsonObject &obj = {},
+                     Data::c_list<Outer>* parentList = nullptr);
 };
 
 }
