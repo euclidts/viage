@@ -18,7 +18,8 @@ RowLayout {
 
     ComboBox {
         id: sort
-        Layout.rightMargin: -12
+        Layout.leftMargin: 6
+        background: null
 
         property var accountFilters: bridge.clearance === 4
                                      ? [qsTr("Dernière modification"),
@@ -36,10 +37,9 @@ RowLayout {
                  usersPages.currentIndex < 1 &&
                  rootStack.currentIndex < 2
         contentItem: IconLabel {
-            leftPadding: 6
-            rightPadding: -18
+            rightPadding: -10
             icon.width: 20
-            icon.height: 20
+            icon.height: icon.width
             icon.source: "qrc:/icons/filter.svg"
             icon.color: Material.foreground
         }
@@ -61,54 +61,15 @@ RowLayout {
                   qsTr("Role")]
 
         popup.width: 200
-
-        background: Rectangle {
-            radius: 2
-            color: Material.backgroundColor
-
-            PaddedRectangle {
-                y: search.height - height - search.bottomPadding - 9
-                width: parent.width - 12
-                height: search.activeFocus || search.hovered ? 2 : 1
-                color: search.activeFocus ? Material.accentColor
-                                          : (search.hovered ? Material.primaryTextColor
-                                                            : Material.hintTextColor)
-                topPadding: -2
-                clip: true
-            }
-        }
-    }
-
-    Button {
-        id: magnifyingGlass
-        visible: accountsPages.currentIndex < 1 &&
-                 usersPages.currentIndex < 1 &&
-                 rootStack.currentIndex < 2
-        flat: true
-        icon.source: search.text == "" ? "qrc:/icons/search.svg" : "qrc:/icons/times-circle.svg"
-        background: Rectangle {
-            radius: 2
-            color: Material.backgroundColor
-
-            PaddedRectangle {
-                y: search.height - height - search.bottomPadding + 3
-                width: parent.width
-                height: search.activeFocus || search.hovered ? 2 : 1
-                color: search.activeFocus ? Material.accentColor
-                                          : (search.hovered ? Material.primaryTextColor
-                                                            : Material.hintTextColor)
-                topPadding: -2
-                clip: true
-            }
-        }
-
-        onClicked: search.clear()
     }
 
     TextField {
         id: search
+        implicitHeight: 38
+        Layout.rightMargin: 6
         Layout.fillWidth: true
         placeholderText: qsTr("Recherche")
+        rightPadding: Material.textFieldHorizontalPadding + 50
         visible: accountsPages.currentIndex < 1 &&
                  usersPages.currentIndex < 1 &&
                  rootStack.currentIndex < 2
@@ -116,6 +77,18 @@ RowLayout {
         onTextChanged: rootStack.currentIndex === 0 ?
                            accountModel.setFilterFixedString(text.toString())
                          : userModel.setFilterFixedString(text.toString())
+
+        Button {
+            id: magnifyingGlass
+            visible: accountsPages.currentIndex < 1 &&
+                     usersPages.currentIndex < 1 &&
+                     rootStack.currentIndex < 2
+            flat: true
+            icon.source: search.text == "" ? "qrc:/icons/search.svg" : "qrc:/icons/times-circle.svg"
+            onClicked: search.clear()
+            x: parent.width - width
+            y: parent.y - 12
+        }
     }
 
     Button {
@@ -303,7 +276,6 @@ RowLayout {
         id: settings
         visible: rootStack.currentIndex < 3
         Layout.margins: 2
-        Layout.fillHeight: true
         source: "qrc:/images/ViageLogo.svg"
         sourceSize.height: searchBar.height
 

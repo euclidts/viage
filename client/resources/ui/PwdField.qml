@@ -16,40 +16,18 @@ RowLayout {
         id: field
         Layout.fillWidth: true
         placeholderText: placeholder
+        rightPadding: Material.textFieldHorizontalPadding + 50
         echoMode: echoSwitch.checked ? TextInput.Normal
                                      : TextInput.Password
         onAccepted: onFieldAccepted()
-    }
 
-    Button {
-        id: echoSwitch
-        flat: true
-        checkable: true
-        icon.source: checked ? "qrc:/icons/eye-slash.svg"
-                             : "qrc:/icons/eye.svg"
-        Layout.alignment: Qt.AlignLeft
-        background: Rectangle {
-            radius: 2
-            color: Material.buttonDisabledColor
-
-            PaddedRectangle {
-                y: field.height - height - field.bottomPadding + 3
-                width: parent.width
-                height: field.activeFocus || field.hovered ? 2 : 1
-                color: field.activeFocus ? Material.accentColor
-                                           : (field.hovered ? Material.primaryTextColor : Material.hintTextColor)
-                topPadding: -2
-                clip: true
-            }
-
-            Ripple {
-                clipRadius: 2
-                width: parent.width
-                height: parent.height
-                pressed: echoSwitch.pressed
-                anchor: echoSwitch
-                color: echoSwitch.flat && echoSwitch.highlighted ? Material.highlightedRippleColor : Material.rippleColor
-            }
+        Button {
+            id: echoSwitch
+            flat: true
+            checkable: true
+            icon.source: checked ? "qrc:/icons/eye-slash.svg"
+                                 : "qrc:/icons/eye.svg"
+            x: parent.width - width
         }
     }
 }

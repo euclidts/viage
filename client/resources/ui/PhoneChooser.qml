@@ -4,22 +4,23 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 
 ColumnLayout {
-    spacing: 0
+    spacing: 12
 
     required property var phoneOf
     property int capitalization: Font.Capitalize
 
     Label {
         id: label
+        Layout.topMargin: 6
         text: qsTr("Téléphone")
         font.italic: true
     }
 
     RowLayout {
-
+        Layout.topMargin: -6
         ComboBox {
             id: codeBox
-            Layout.maximumWidth: 80
+            Layout.maximumWidth: 90
 
             model: ListModel {
                 ListElement {
@@ -47,7 +48,7 @@ ColumnLayout {
 
         TextField {
             id: codeField
-            Layout.maximumWidth: 40
+            Layout.maximumWidth: 60
             readOnly: true
             text: phoneOf.phone.slice(0, 3)
         }

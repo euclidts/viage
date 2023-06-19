@@ -33,10 +33,9 @@ ScrollView {
 
                         ColumnLayout {
                             width: parent.width
-                            spacing: 0
 
                             RowLayout {
-                                spacing: 0
+                                Layout.topMargin: 6
 
                                 CheckBox {
                                     checked: exterior.hasParking
@@ -161,6 +160,7 @@ ScrollView {
                             width: parent.width
 
                             IntChooser {
+                                Layout.topMargin: 6
                                 name: qsTr("Surface (m²)")
                                 minimum: 1
                                 maximum: 20000

@@ -6,16 +6,18 @@ import QtQuick.Controls.Material.impl
 
 GroupBox {
     id: root
-    label: Label {
-        text: qsTr("Adresse")
-        font.italic: true
-    }
     Layout.topMargin: 12
     Layout.fillWidth: true
 
     required property var addressOf
 
+    label: Label {
+        text: qsTr("Adresse")
+        font.italic: true
+    }
+
     ColumnLayout {
+        spacing: 12
         width: parent.width
 
         GridLayout {
@@ -65,6 +67,7 @@ GroupBox {
 
             IntChooser {
                 name: qsTr("NPA")
+                maxSize: 150
                 minimum: 1000
                 maximum: 9999
                 numberOf: addressOf.zip

@@ -33,10 +33,9 @@ GroupBox {
         }
 
         ColumnLayout {
-            spacing: 0
-
             Label {
                 text: qsTr("Mois")
+                Layout.topMargin: 2
                 font.italic: true
             }
 
@@ -64,6 +63,7 @@ GroupBox {
         }
 
         IntChooser {
+            maxSize: 200
             minimum: new Date().getFullYear() - 120
             maximum: new Date().getFullYear() + maxYear
             name: qsTr("Année")

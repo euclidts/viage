@@ -5,7 +5,7 @@ import QtQuick.Controls.Material
 import QtQuick.Controls.Material.impl
 
 ColumnLayout {
-    spacing: 0
+    spacing: 12
 
     required property int numberOf
     required property string name
@@ -19,7 +19,7 @@ ColumnLayout {
     Label {
         text: name
         font.italic: true
-        Layout.alignment: Qt.AlignHCenter
+        Layout.topMargin: -6
     }
 
     SpinBox {

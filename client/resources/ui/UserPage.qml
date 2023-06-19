@@ -120,6 +120,7 @@ ListView {
                             root.model.team = currentText
                             root.model.teamId = currentValue
                         }
+
                         textRole: "caption"
                         valueRole: "id"
                         model: TeamsModel { list: teams }
