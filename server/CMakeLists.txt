@@ -47,15 +47,16 @@ aux_source_directory(controllers CTL_SRC)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/models)
+    ${CMAKE_CURRENT_SOURCE_DIR}/models
+)
 
 target_sources(${PROJECT_NAME} PRIVATE
     ${SRC}
     ${TEMPLATE_SRC}
-    ${SRC_DIR}
     ${CTL_SRC}
-    ${FILTER_SRC}
-    ${PLUGIN_SRC}
-    ${MODEL_SRC})
+#    ${FILTER_SRC}
+#    ${PLUGIN_SRC}
+#    ${MODEL_SRC}
+)
 
 #add_subdirectory(test)

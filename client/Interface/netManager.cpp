@@ -9,15 +9,21 @@ namespace Interface
 {
 W_OBJECT_IMPL(netManager)
 
-netManager::netManager(const QString& url,
+netManager& netManager::instance()
+{
+    static netManager instance;
+    return instance;
+}
+
+void netManager::init(const QString& url,
                        const QString& authentication_arguments,
                        const QString& extra_arguments)
-    : rqst{}
-    , prefix{url + '/'}
-    , auth_args{authentication_arguments}
-    , suffix{extra_arguments}
-
 {
+    rqst = {};
+    prefix = url + '/';
+    auth_args = authentication_arguments;
+    suffix = extra_arguments;
+
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);
     rqst.setHeader(QNetworkRequest::ContentTypeHeader,

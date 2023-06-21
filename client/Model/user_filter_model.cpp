@@ -5,6 +5,8 @@
 
 namespace Data
 {
+namespace People
+{
 W_OBJECT_IMPL(user_filter_model)
 
 user_filter_model::user_filter_model(QAbstractItemModel *model,
@@ -83,5 +85,5 @@ bool user_filter_model::lessThan(const QModelIndex& left, const QModelIndex& rig
 
     return false;
 }
-
+}
 }

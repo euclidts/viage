@@ -3,8 +3,6 @@
 
 namespace server
 {
-namespace utils
-{
 const std::string clearance_close(const Data::People::s_user& usr)
 {
     switch (usr.clearance)
@@ -47,6 +45,4 @@ const std::string update_flag(int flag, const std::string& flag_name, bool set)
 
     return str;
 }
-
-} // namespace utils
 } // namespace server

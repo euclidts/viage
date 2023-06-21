@@ -4,17 +4,14 @@
 #include <wobjectimpl.h>
 
 #include "base_wrapper.hpp"
-#include <netManager.hpp>
 
 namespace Wrapper
 {
 W_OBJECT_IMPL(base_wrapper<Inner>, template <typename Inner>)
 
 template <typename Inner>
-base_wrapper<Inner>::base_wrapper(Interface::netManager* manager,
-                                  QQmlContext* context)
+base_wrapper<Inner>::base_wrapper(QQmlContext* context)
     : QObject{}
-    , mng(manager)
     , inner{new Inner{}}
 {
     if (context)
@@ -33,5 +30,4 @@ Inner* base_wrapper<Inner>::get_inner() const
 {
     return inner;
 }
-
-}
+} // namespace Wrapper

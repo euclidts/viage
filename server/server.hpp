@@ -12,10 +12,10 @@
 
 namespace server
 {
-class server
+class server final
 {
 public:
-    static server& get();
+    static server& instance();
     void init(const Json::Value& usr_config);
 
     server(server const&) = delete;

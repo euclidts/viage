@@ -7,13 +7,13 @@
 
 #include "wrapped_calculator.hpp"
 #include <Item/c_rent.hpp>
+#include <Interface/netManager.hpp>
 
 namespace Calculator
 {
-wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
-                                       QQmlContext* context,
+wrapped_calculator::wrapped_calculator(QQmlContext* context,
                                        const QString& tempPath)
-    : base_wrapper<c_list<c_senior_citizen>>{manager, context}
+    : base_wrapper<c_list<c_senior_citizen>>{context}
     , exp{inner}
     , rent{new c_rent{}}
 {
@@ -41,7 +41,8 @@ wrapped_calculator::wrapped_calculator(Interface::netManager* manager,
     QFile rcs(QString::fromStdString(":/data/" + docxName));
 
     if (!rcs.copy(QString::fromStdString(docxPath)))
-        mng->replyError("Calculation Document copy error", rcs.errorString());
+        Interface::netManager::instance().replyError("Calculation Document copy error",
+                                                     rcs.errorString());
     // report error throug the net manager as it is connected to the bridge
 }
 
@@ -72,7 +73,8 @@ void wrapped_calculator::write_to_file()
             QFile rcs(QString::fromStdString(":/data/" + docxName));
 
             if (!rcs.copy(QString::fromStdString(docxPath)))
-            mng->replyError("Calculation Document copy error", rcs.errorString());
+            Interface::netManager::instance().replyError("Calculation Document copy error",
+                                                         rcs.errorString());
             // report error throug the net manager as it is connected to the bridge
     }
 
@@ -205,7 +207,8 @@ void wrapped_calculator::write_to_file()
     doc.save();
     file.setPermissions(QFileDevice::ReadOwner);
     if(!QDesktopServices::openUrl(QString::fromStdString(docxPath)))
-        mng->replyError("Calculation Document error", "QDesktopervices : could not open .docx file");
+        Interface::netManager::instance().replyError("Calculation Document error",
+                                                     "QDesktopervices : could not open .docx file");
 }
 
 void wrapped_calculator::end_runs(duckx::Run& run)

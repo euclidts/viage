@@ -13,17 +13,16 @@ using namespace Utils;
 namespace Wrapper
 {
 template <typename Inner>
-wrapped_list<Inner>::wrapped_list(Interface::netManager* manager,
-                                  QQmlContext* context)
-    : base_wrapper<Inner>{manager, context}
+wrapped_list<Inner>::wrapped_list(QQmlContext* context)
+    : base_wrapper<Inner>{context}
 {
 }
 
 template<typename Inner>
 void wrapped_list<Inner>::get() const
 {
-    this->mng->getFromKey(this->inner->key,
-                          [this](const QByteArray& bytes)
+    Interface::netManager::instance().getFromKey(this->inner->key,
+                                                 [this](const QByteArray& bytes)
     {
         this->inner->read(to_Json(bytes));
     });
@@ -44,9 +43,9 @@ void wrapped_list<Inner>::makeConnections() const
         Json::Value json;
         json[item.key] = obj;
 
-        this->mng->putToKey(this->inner->key,
-                            to_QByteArray(json),
-                            [this](const Json::Value& rep)
+        Interface::netManager::instance().putToKey(this->inner->key,
+            to_QByteArray(json),
+            [this](const Json::Value& rep)
         {},
         "Validate error");
     });
@@ -56,9 +55,9 @@ void wrapped_list<Inner>::makeConnections() const
                   this,
                   [this] ()
     {
-        this->mng->postToKey(this->inner->key,
-                             QByteArray{},
-                             [this](const Json::Value& rep)
+        Interface::netManager::instance().postToKey(this->inner->key,
+                          QByteArray{},
+                          [this](const Json::Value& rep)
         { this->inner->appendWith(rep); },
         "Add error");
     });
@@ -75,9 +74,9 @@ void wrapped_list<Inner>::makeConnections() const
         Json::Reader reader;
         reader.parse(data.toStdString(), val);
 
-        this->mng->postToKey(this->inner->key,
-                             data,
-                             [this, val](const Json::Value& res)
+        Interface::netManager::instance().postToKey(this->inner->key,
+            data,
+            [this, val](const Json::Value& res)
         {
             Json::Value concat{val};
             Utils::concatenate(concat, res);
@@ -102,9 +101,9 @@ void wrapped_list<Inner>::connectRemove() const
         Json::Value json;
         json["id"] = id;
 
-        this->mng->deleteToKey(this->inner->key,
-                               to_QByteArray(json),
-                               [this, id](const Json::Value& rep) {},
+        Interface::netManager::instance().deleteToKey(this->inner->key,
+            to_QByteArray(json),
+            [this, id](const Json::Value& rep) {},
         "Remove Error");
     });
 }

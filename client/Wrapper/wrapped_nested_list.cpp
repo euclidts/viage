@@ -5,10 +5,9 @@
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
-wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Interface::netManager* manager,
-                                                       Data::c_list<Outer>* parentList,
+wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Data::c_list<Outer>* parentList,
                                                        QQmlContext* context)
-    : wrapped_nested_item<Inner, Outer>{manager, context}
+    : wrapped_nested_item<Inner, Outer>{context}
     , key{this->makeKey(parentList)}
 {
     this->inner->complitionChecks();
@@ -41,13 +40,14 @@ void wrapped_nested_list<Inner, Outer>::add_in_with(int id,
     QJsonDocument doc{json};
     QByteArray data{doc.toJson(QJsonDocument::Compact)};
 
-    this->mng->postToKey(key.c_str(),
-                         data,
-                         [this, val, parentList, id](const Json::Value& res)
+    Interface::netManager::instance().postToKey(key.c_str(),
+        data,
+        [this, val, parentList, id](const Json::Value& res)
     {
         Json::Value concat{val};
         Utils::concatenate(concat, res);
         this->inner->appendWith(concat);
+
         if (parentList)
         {
             Outer outer{parentList->item_at_id(id)};

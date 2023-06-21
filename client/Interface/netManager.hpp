@@ -19,9 +19,13 @@ class netManager final : public QNetworkAccessManager
     W_OBJECT(netManager)
 
 public:
-    netManager(const QString& url,
-               const QString& authentication_arguments,
-               const QString& extra_arguments);
+    static netManager& instance();
+    void init(const QString& url,
+              const QString& authentication_arguments,
+              const QString& extra_arguments);
+
+    netManager(netManager const&) = delete;
+    void operator = (netManager const&) = delete;
 
     void authenticate(const QString& username, const QString& password);
 
@@ -62,8 +66,10 @@ public:
     W_SIGNAL(clearanceChanged, newClearance)
 
 private:
+    netManager() {};
+
     QNetworkRequest rqst;
-    const QString prefix;
+    QString prefix;
     QString auth_args;
     QString suffix;
 

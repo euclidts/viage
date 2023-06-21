@@ -5,9 +5,8 @@
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
-wrapped_nested_item<Inner, Outer>::wrapped_nested_item(Interface::netManager* manager,
-                                                       QQmlContext* context)
-    : wrapped_list<Inner>{manager, context}
+wrapped_nested_item<Inner, Outer>::wrapped_nested_item(QQmlContext* context)
+    : wrapped_list<Inner>{context}
 {
 }
 
@@ -47,9 +46,9 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::c_list<Outer>* par
         {
             parentList->setItemAtId(id, outer);
 
-            this->mng->putToKey(makeKey(parentList).c_str(),
-                                this->inner->toData(id),
-                                [=](const Json::Value& rep)
+            Interface::netManager::instance().putToKey(makeKey(parentList).c_str(),
+                this->inner->toData(id),
+                [=](const Json::Value& rep)
             {
                 Json::Value json;
                 Outer updated{};
@@ -74,8 +73,8 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::c_list<Outer>* par
 
         if (json.empty())
         {
-            this->mng->getFromKey(makeKey(parentList, id).c_str(),
-                                  [this](const QByteArray& rep)
+            Interface::netManager::instance().getFromKey(makeKey(parentList, id).c_str(),
+                                                         [this](const QByteArray& rep)
             {
                 if(!rep.isEmpty())
                     this->inner->read(Utils::to_Json(rep));

@@ -20,8 +20,7 @@ using namespace Wrapper;
 class wrapped_calculator : public base_wrapper<c_list<c_senior_citizen>>
 {
 public:
-    wrapped_calculator(Interface::netManager* manager,
-                       QQmlContext* context,
+    wrapped_calculator(QQmlContext* context,
                        const QString& tempPath);
 
 private:

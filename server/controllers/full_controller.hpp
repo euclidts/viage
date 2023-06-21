@@ -22,7 +22,7 @@ struct full_controller : public base_controller<T, I, F, C>
 
         if (!(val.isMember(F::foreign_key) && val[F::foreign_key].isInt()))
         {
-            server::server::get().error_reply(callback);
+            server::server::instance().error_reply(callback);
             return;
         }
 
@@ -30,7 +30,7 @@ struct full_controller : public base_controller<T, I, F, C>
 
         item.read(val);
 
-        server::server::get().insert(req,
+        server::server::instance().insert(req,
                                      callback,
                                      item,
                                      &foreign);
@@ -51,7 +51,7 @@ struct full_controller : public base_controller<T, I, F, C>
 
         item.read(val[I::key]);
 
-        server::server::get().update(req,
+        server::server::instance().update(req,
                                      callback,
                                      item,
                                      &foreign);
@@ -68,13 +68,13 @@ struct full_controller : public base_controller<T, I, F, C>
 
         if (!(val.isMember("id") && val["id"].isInt()))
         {
-            server::server::get().error_reply(callback);
+            server::server::instance().error_reply(callback);
             return;
         }
 
         item.id = val["id"].asInt();
 
-        server::server::get().remove(req,
+        server::server::instance().remove(req,
                                      callback,
                                      item);
     }

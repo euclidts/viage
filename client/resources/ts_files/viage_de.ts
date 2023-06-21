@@ -897,53 +897,53 @@ Jahre</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="29"/>
-        <location filename="../ui/TopBar.qml" line="115"/>
+        <location filename="../ui/TopBar.qml" line="114"/>
         <source>Conseiller</source>
         <translation>Berater/in</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="30"/>
-        <location filename="../ui/TopBar.qml" line="59"/>
+        <location filename="../ui/TopBar.qml" line="58"/>
         <source>Société</source>
         <translation>Firma</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="60"/>
+        <location filename="../ui/TopBar.qml" line="59"/>
         <source>Nom</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="61"/>
+        <location filename="../ui/TopBar.qml" line="60"/>
         <source>Role</source>
         <translation>Rolle</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="71"/>
+        <location filename="../ui/TopBar.qml" line="70"/>
         <source>Recherche</source>
         <translation>Suche</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="115"/>
+        <location filename="../ui/TopBar.qml" line="114"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="139"/>
+        <location filename="../ui/TopBar.qml" line="138"/>
         <source>Partenaires</source>
         <translation>Partner/in</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="153"/>
+        <location filename="../ui/TopBar.qml" line="152"/>
         <source>Contacts</source>
         <translation>Kontakte</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="168"/>
+        <location filename="../ui/TopBar.qml" line="167"/>
         <source>Habitat</source>
         <translation>Wohnraum</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="183"/>
+        <location filename="../ui/TopBar.qml" line="182"/>
         <source>Extérieur</source>
         <translation>Aussenbereich</translation>
     </message>
@@ -952,17 +952,17 @@ Jahre</translation>
         <translation type="vanished">Aussenbereich</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="198"/>
+        <location filename="../ui/TopBar.qml" line="197"/>
         <source>Documents</source>
         <translation>Dokumente</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="213"/>
+        <location filename="../ui/TopBar.qml" line="212"/>
         <source>Etats</source>
         <translation>Stand</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="287"/>
+        <location filename="../ui/TopBar.qml" line="286"/>
         <source>Options</source>
         <translation>Optionen</translation>
     </message>

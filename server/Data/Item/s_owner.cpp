@@ -18,7 +18,7 @@ void s_owner::set(const Row &row)
     try
     {
         if (!row["BirthDay"].isNull())
-            birthDay = server::utils::from_db_date(row["BirthDay"].as<std::string>());
+            birthDay = server::from_db_date(row["BirthDay"].as<std::string>());
     }
     catch (...) {}
 
@@ -65,7 +65,7 @@ const std::string s_owner::update(const s_user& usr, const s_account* acnt) cons
     return "UPDATE Owner SET "
             + s_infant::fields() +
             ", BirthDay = '"
-           + server::utils::to_db_date(birthDay) +
+           + server::to_db_date(birthDay) +
             "', CivilStatus = "
             + std::to_string(civilStatus) +
             ", AVS = '"
@@ -85,7 +85,7 @@ const std::string s_owner::remove(const s_user &usr, const s_account *acnt) cons
 
 void s_owner::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
-    std::string str{server::utils::update_flag(
+    std::string str{server::update_flag(
                     account_item::OwnersCompleted,
                     "State",
                     complete)};

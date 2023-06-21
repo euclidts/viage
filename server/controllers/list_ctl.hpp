@@ -18,9 +18,9 @@ struct list_ctl : public HttpController<T>
         I item{};
         item.read(*req->jsonObject());
 
-        server::server::get().insert(req,
-                                     callback,
-                                     item);
+        server::server::instance().insert(req,
+                                          callback,
+                                          item);
     }
 
     virtual void select(const HttpRequestPtr& req,
@@ -32,9 +32,9 @@ struct list_ctl : public HttpController<T>
         I item{};
         item.id = id;
 
-        server::server::get().select(req,
-                                     callback,
-                                     item);
+        server::server::instance().select(req,
+                                          callback,
+                                          item);
     }
 
     virtual void update(const HttpRequestPtr& req,
@@ -52,13 +52,13 @@ struct list_ctl : public HttpController<T>
 
         if (item.id == 0)
         {
-            server::server::get().error_reply(callback);
+            server::server::instance().error_reply(callback);
             return;
         }
 
-        server::server::get().update(req,
-                                     callback,
-                                     item);
+        server::server::instance().update(req,
+                                          callback,
+                                          item);
     }
 
     virtual void search(const HttpRequestPtr& req,
@@ -68,9 +68,9 @@ struct list_ctl : public HttpController<T>
 
         s_list<I> list{};
 
-        server::server::get().search(req,
-                                     callback,
-                                     list);
+        server::server::instance().search(req,
+                                          callback,
+                                          list);
     }
 };
 

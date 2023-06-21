@@ -103,7 +103,7 @@ const std::string s_exterior::update(const People::s_user& usr, const s_account*
 
 void s_exterior::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
-    std::string str{server::utils::update_flag(
+    std::string str{server::update_flag(
                     account_item::ExteriorCompleted,
                     "State",
                     complete)};

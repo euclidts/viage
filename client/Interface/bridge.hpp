@@ -7,9 +7,10 @@
 
 #include <wobjectdefs.h>
 
-#include "netManager.hpp"
 #include <Item/c_user.hpp>
 #include <Item/c_document.hpp>
+
+class QQmlContext;
 
 namespace Data
 {
@@ -17,6 +18,16 @@ struct c_account;
 
 template <typename T>
 class c_list;
+
+template <typename T>
+class list_model;
+
+class account_filter_model;
+
+namespace People
+{
+class user_filter_model;
+}
 }
 
 namespace Interface
@@ -26,11 +37,11 @@ class bridge final : public QObject
     W_OBJECT(bridge)
 
 public:
-    bridge(Interface::netManager* manager,
-           Data::c_list<Data::People::c_user>* users,
-           Data::c_list<Data::c_account>* accounts,
-           Data::c_list<Data::c_document>* documents,
-           const QString& path);
+    static bridge& instance();
+    void init(QQmlContext* context);
+
+    bridge(bridge const&) = delete;
+    void operator = (bridge const&) = delete;
 
     void onLogin(bool success, const QString& errorString) const;
 
@@ -184,14 +195,19 @@ public:
     W_PROPERTY(float, downloadProgress READ getDownloadProgress WRITE setDownloadProgress NOTIFY downloadProgressChanged)
 
 private:
+    bridge() {};
+
+    Data::list_model<Data::c_account>* accountModel;
+    Data::account_filter_model* accountFilter;
+    Data::list_model<Data::People::c_user>* userModel;
+    Data::People::user_filter_model* userFilter;
+    Data::People::user_filter_model* selectedUser;
+
     QObject* qmlObject;
-    netManager* mng;
-    QString rootPath;
 
     bool onboarding{false};
     bool hiring{false};
 
-    Data::c_list<Data::c_document>* docs;
     bool documentsCompleted{false};
     void check_doc_completion();
     void cleanup_docs(int ai);
@@ -200,8 +216,6 @@ private:
     int userId{0};
     Data::People::user_item::clearances clearance{Data::People::user_item::None};
 
-    Data::c_list<Data::People::c_user>* usrs;
-    Data::c_list<Data::c_account>* acnts;
     int accountId{0};
     int accountState{0};
     bool ppe{false};

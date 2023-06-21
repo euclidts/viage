@@ -5,8 +5,10 @@
 
 #include "base_filter_model.hpp"
 
-namespace Data {
-
+namespace Data
+{
+namespace People
+{
 class user_filter_model : public base_filter_model
 {
     W_OBJECT(user_filter_model)
@@ -26,6 +28,7 @@ private:
 
     bool isExclusif;
 };
+}
 }
 
 #endif // USER_FILTER_MODEL_HPP

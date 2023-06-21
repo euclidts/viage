@@ -15,22 +15,26 @@ if(ANDROID)
         ${3RDPARTY_FOLDER}/android_openssl/latest/arm/libssl_1_1.so
         ${3RDPARTY_FOLDER}/android_openssl/latest/arm/libcrypto_1_1.so
         DESTINATION
-        ${CMAKE_BINARY_DIR}/android-build/libs/armeabi-v7a)
+        ${CMAKE_BINARY_DIR}/android-build/libs/armeabi-v7a
+    )
     file(COPY
         ${3RDPARTY_FOLDER}/android_openssl/latest/arm64/libssl_1_1.so
         ${3RDPARTY_FOLDER}/android_openssl/latest/arm64/libcrypto_1_1.so
         DESTINATION
-        ${CMAKE_BINARY_DIR}/android-build/libs/arm64-v8a)
+        ${CMAKE_BINARY_DIR}/android-build/libs/arm64-v8a
+    )
     file(COPY
         ${3RDPARTY_FOLDER}/android_openssl/latest/x86/libssl_1_1.so
         ${3RDPARTY_FOLDER}/android_openssl/latest/x86/libcrypto_1_1.so
         DESTINATION
-        ${CMAKE_BINARY_DIR}/android-build/libs/x86)
+        ${CMAKE_BINARY_DIR}/android-build/libs/x86
+    )
     file(COPY
         ${3RDPARTY_FOLDER}/android_openssl/latest/x86_64/libssl_1_1.so
         ${3RDPARTY_FOLDER}/android_openssl/latest/x86_64/libcrypto_1_1.so
         DESTINATION
-        ${CMAKE_BINARY_DIR}/android-build/libs/x86_64)
+        ${CMAKE_BINARY_DIR}/android-build/libs/x86_64
+    )
 
     find_package(Qt6 REQUIRED COMPONENTS Svg)
 
@@ -43,14 +47,17 @@ find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
     LinguistTools
-    Multimedia)
+    Multimedia
+)
 
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}
-    resources/ts_files/viage_de.ts)
+    resources/ts_files/viage_de.ts
+)
 
 set(PROJECT_SOURCES
     main.cpp
-    Interface/client_utils.cpp
+    client.cpp
+    client_utils.cpp
     Interface/bridge.cpp
     Interface/netManager.cpp
     Wrapper/base_wrapper.hpp
@@ -82,9 +89,11 @@ set(PROJECT_SOURCES
     Data/Item/c_team.cpp
     resources/viage.qrc
     ${ALT_QRC}
-    ${QM_FILES})
+    ${QM_FILES}
+)
 
 include_directories(SYSTEM
+    ${CMAKE_CURRENT_SOURCE_DIR}
     "${DATA_FOLDER}"
     "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"
@@ -92,7 +101,8 @@ include_directories(SYSTEM
     "${3RDPARTY_FOLDER}/verdigris/src"
     "${3RDPARTY_FOLDER}/DuckX/include"
     "${3RDPARTY_FOLDER}/DuckX/thirdparty/zip"
-    "${3RDPARTY_FOLDER}/DuckX/thirdparty/pugixml")
+    "${3RDPARTY_FOLDER}/DuckX/thirdparty/pugixml"
+)
 
 add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
 
@@ -101,7 +111,8 @@ set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appic
 qt_add_executable(${PROJECT_NAME}
     WIN32 ${app_icon_resource_windows}
     MANUAL_FINALIZATION
-    ${PROJECT_SOURCES})
+    ${PROJECT_SOURCES}
+)
 
 if(ANDROID)
     # Define target properties for Android with Qt 6 as:
@@ -122,7 +133,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::Multimedia
     duckx
-    mutual)
+    mutual
+)
 
 #set_target_properties(${PROJECT_NAME} PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

@@ -17,9 +17,8 @@ template <typename Inner, typename Outer>
 class wrapped_nested_list : public wrapped_nested_item<Inner, Outer>
 {
 public:
-    explicit wrapped_nested_list(Interface::netManager *manager,
-                Data::c_list<Outer>* parentList,
-                QQmlContext* context = nullptr);
+    explicit wrapped_nested_list(Data::c_list<Outer>* parentList,
+                                 QQmlContext* context = nullptr);
 
 private:
     const std::string key;

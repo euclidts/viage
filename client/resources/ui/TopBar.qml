@@ -39,7 +39,6 @@ RowLayout {
         contentItem: IconLabel {
             rightPadding: -10
             icon.width: 20
-            icon.height: icon.width
             icon.source: "qrc:/icons/filter.svg"
             icon.color: Material.foreground
         }

@@ -7,11 +7,6 @@ class QQmlContext;
 
 class Outer;
 
-namespace Interface
-{
-class netManager;
-}
-
 namespace Data
 {
 template <typename Outer>
@@ -25,8 +20,7 @@ template <typename Inner>
 class wrapped_list : public base_wrapper<Inner>
 {
 public:
-    explicit wrapped_list(Interface::netManager* manager,
-                          QQmlContext* context = nullptr);
+    explicit wrapped_list(QQmlContext* context = nullptr);
 
     void makeConnections() const;
     void get() const;

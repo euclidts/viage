@@ -1,59 +1,128 @@
 #include <QDesktopServices>
+#include <QQmlContext>
+#include "qqml.h"
 
 #include <wobjectimpl.h>
 
 #include "bridge.hpp"
+#include "netManager.hpp"
+#include <client.hpp>
 #include <client_utils.hpp>
 #include <Item/c_account.hpp>
+#include <Item/c_owner.hpp>
+#include <Item/c_contact.hpp>
+#include <Item/c_company.hpp>
+#include <Item/c_team.hpp>
+#include <Item/c_senior_citizen.hpp>
 #include <c_list.hpp>
+#include <Model/list_model.hpp>
+#include <account_filter_model.hpp>
+#include <user_filter_model.hpp>
+#include <document_filter_model.hpp>
 
 using namespace Utils;
+using namespace Json;
 
 namespace Interface
 {
 W_OBJECT_IMPL(bridge)
 
-bridge::bridge(Interface::netManager* manager,
-               Data::c_list<Data::People::c_user>* users,
-               Data::c_list<Data::c_account>* accounts,
-               Data::c_list<Data::c_document>* documents,
-               const QString& tempPath)
-    : mng{manager}
-    , usrs{users}
-    , acnts{accounts}
-    , docs{documents}
-    , rootPath{tempPath}
+bridge& bridge::instance()
 {
-    connect(mng, &netManager::loggedIn,
-            this, &bridge::onLogin);
+    static bridge instance;
+    return instance;
+}
 
-    connect(mng, &netManager::replyError,
-            this, &bridge::onException);
+void bridge::init(QQmlContext* context)
+{
+    using namespace Data;
+    using namespace People;
 
-    connect(mng, &netManager::userChanged,
-            this, &bridge::setUserId);
+    // calculator
+    qmlRegisterType<list_model<c_senior_citizen>>("People", 1, 0, "SeniorCitizenModel");
 
-    connect(mng, &netManager::clearanceChanged,
-            this, &bridge::setClearance);
+    // accounts
+    accountModel = new list_model<c_account>{};
+    accountModel->setList(client::instance().get_accounts());
+
+    accountFilter = new account_filter_model{accountModel};
+    qmlRegisterUncreatableType<account_filter_model>("Data", 1, 0, "AccountModel", "");
+    context->setContextProperty("accountModel", accountFilter);
+
+    // owners
+    qmlRegisterType<list_model<c_owner>>("People", 1, 0, "OwnersModel");
+
+    // contacts
+    qmlRegisterType<list_model<c_contact>>("People", 1, 0, "ContactModel");
+
+    // documents
+    qmlRegisterType<list_model<c_document>>("Data", 1, 0, "DocumentModel");
+    qmlRegisterType<document_filter_model>("Data", 1, 0, "DocumentFilterModel");
+
+    // users
+    userModel = new list_model<c_user>{};
+    userModel->setList(client::instance().get_users());
+
+    userFilter = new user_filter_model{userModel};
+    selectedUser = new user_filter_model{userModel, true};
+    qmlRegisterUncreatableType<user_filter_model>("People", 1, 0, "UserModel", "");
+    context->setContextProperty("userModel", userFilter);
+    context->setContextProperty("selectedUser", selectedUser);
+
+    // companies
+    qmlRegisterType<list_model<c_company>>("Data", 1, 0, "CompaniesModel");
+
+    // teams
+    qmlRegisterType<list_model<c_team>>("Data", 1, 0, "TeamsModel");
+
+    // Hiering
+    connect(this,
+            &bridge::requestUser,
+            selectedUser,
+            &user_filter_model::forceFilterRole);
+
+    connect(&Interface::netManager::instance(),
+            &netManager::loggedIn,
+            this,
+            &bridge::onLogin);
+
+    connect(&Interface::netManager::instance(),
+            &netManager::replyError,
+            this,
+            &bridge::onException);
+
+    connect(&Interface::netManager::instance(),
+            &netManager::userChanged,
+            this,
+            &bridge::setUserId);
+
+    connect(&Interface::netManager::instance(),
+            &netManager::clearanceChanged,
+            this,
+            &bridge::setClearance);
 
     using namespace Data;
 
-    connect(acnts, &c_list<c_account>::postItemsAppended,
-            this, [this]()
+    connect(client::instance().get_accounts(),
+            &c_list<c_account>::postItemsAppended,
+            this,
+            [this]()
     {
         if (onboarding)
         {
             onboarding = false;
-            setAccoountId(acnts->items().constLast().id);
+            setAccoountId(client::instance().get_accounts()->items().constLast().id);
             setAccountState(0);
             emit preOnboarding(accountId);
         }
     });
 
-    connect(acnts, &c_list<c_account>::dataChangedAt,
-            this, [this] (int index)
+    connect(client::instance().get_accounts(),
+            &c_list<c_account>::dataChangedAt,
+            this,
+            [this] (int index)
     {
-        const auto item{acnts->item_at_id(accountId)};
+        const auto item{client::instance().get_accounts()->item_at_id(accountId)};
 
         setAccountState(item.state);
         setPPE(item.ppe);
@@ -65,30 +134,43 @@ bridge::bridge(Interface::netManager* manager,
         setAccountPaid(to_QDateTime(item.paidDate).date());
     });
 
-    connect(docs, &c_list<c_document>::loaded,
-            this, &bridge::check_doc_completion);
+    connect(client::instance().get_documents(),
+            &c_list<c_document>::loaded,
+            this,
+            &bridge::check_doc_completion);
 
-    connect(docs, &c_list<c_document>::dataChangedAt,
-            this, &bridge::upload_doc);
+    connect(client::instance().get_documents(),
+            &c_list<c_document>::dataChangedAt,
+            this,
+            &bridge::upload_doc);
 
-    connect(docs, &c_list<c_document>::postItemsRemoved,
-            this, &bridge::check_doc_completion);
+    connect(client::instance().get_documents(),
+            &c_list<c_document>::postItemsRemoved,
+            this,
+            &bridge::check_doc_completion);
 
-    connect(docs, &c_list<c_document>::validate,
-            this, &bridge::cleanup_docs);
+    connect(client::instance().get_documents(),
+            &c_list<c_document>::validate,
+            this,
+            &bridge::cleanup_docs);
 
     using namespace People;
 
-    connect(usrs, &c_list<c_user>::postItemsAppended,
-            this, [this]()
+    connect(client::instance().get_users(),
+            &c_list<c_user>::postItemsAppended,
+            this,
+            [this]()
     {
         if (hiring)
         {
             hiring = false;
-            emit requestUser(usrs->items().constLast().id);
+            emit requestUser(client::instance().get_documents()->items().constLast().id);
             emit loaded();
         }
     });
+
+    qmlRegisterUncreatableType<bridge>("Interface", 1, 0, "Bridge", "");
+    context->setContextProperty("bridge", this);
 }
 
 void bridge::onLogin(bool success, const QString &errorString) const
@@ -109,12 +191,12 @@ void bridge::onException(const QString &prefix, const QString &errorString) cons
 
 void bridge::authenticate(const QString &username, const QString &password) const
 {
-    mng->authenticate(username, password);
+    Interface::netManager::instance().authenticate(username, password);
 }
 
 void bridge::downloadFile(const QString &key, const QUrl &directory, const QString &fileName) const
 {
-    mng->downloadFile(key.toStdString().c_str(),
+    Interface::netManager::instance().downloadFile(key.toStdString().c_str(),
                       filePath(directory, fileName),
                       [this] (bool success, const QString& string)
     {
@@ -126,13 +208,13 @@ void bridge::requestReport()
 {
     setDownloadProgress(0.f);
 
-    mng->downloadFile("export/accounts",
-                      rootPath + "/Viage.xlsx",
+    Interface::netManager::instance().downloadFile("export/accounts",
+                      client::instance().get_tempPath() + "/Viage.xlsx",
                       [this] (bool success, const QString& error)
     {
         if (success)
         {
-            if (!QDesktopServices::openUrl(rootPath + "/Viage.xlsx"))
+            if (!QDesktopServices::openUrl(client::instance().get_tempPath() + "/Viage.xlsx"))
                 onException("requestReport error", "QDesktopervices : could not open excel");
             else
                 emit loaded();
@@ -155,14 +237,14 @@ void bridge::requestAccount()
     str.append(std::to_string(accountId));
     str.append("/pdf");
 
-    QString path{rootPath};
+    QString path{client::instance().get_tempPath()};
     path.append('/');
     path.append(QString::number(accountId));
     path.append(".pdf");
 
     setDownloadProgress(0.f);
 
-    mng->downloadFile(str.c_str(),
+    Interface::netManager::instance().downloadFile(str.c_str(),
                       path,
                       [this, path] (bool success, const QString& error)
     {
@@ -195,7 +277,7 @@ void bridge::requestEmail()
 
     std::string params{"&forceRefreshPdf=True"};
 
-    mng->getFromKey(str.c_str(),
+    Interface::netManager::instance().getFromKey(str.c_str(),
                     [this] (const QByteArray& rep)
     {
         Value json;
@@ -228,7 +310,7 @@ void bridge::resetPwd(int id) const
 
 void bridge::changePwd(const char *key, const Value& json) const
 {
-    mng->putToKey(key,
+    Interface::netManager::instance().putToKey(key,
                   to_QByteArray(json),
                   [this] (const Value& rep)
     { emit loaded(); },
@@ -241,7 +323,7 @@ void bridge::lockUser(int id, bool locked) const
     json["id"] = id;
     json["lock"] = locked;
 
-    mng->putToKey("lock",
+    Interface::netManager::instance().putToKey("lock",
                   to_QByteArray(json),
                   [this] (const Value& rep)
     { emit loaded(); },
@@ -253,7 +335,7 @@ void bridge::getAccountDates() const
     std::string key{"accountState/"};
     key.append(std::to_string(accountId));
 
-    mng->getFromKey(key.c_str(),
+    Interface::netManager::instance().getFromKey(key.c_str(),
                     [this] (const QByteArray& rep)
     {
         Value json;
@@ -262,13 +344,13 @@ void bridge::getAccountDates() const
 
         if (!json.isMember("state") && !json.isMember("accountState"))
         {
-            emit mng->replyError("getAccountDates error");
+            emit Interface::netManager::instance().replyError("getAccountDates error");
             return;
         }
 
-        auto account{acnts->item_at_id(accountId)};
+        auto account{client::instance().get_accounts()->item_at_id(accountId)};
         account.read(json);
-        acnts->setItemAtId(accountId, account);
+        client::instance().get_accounts()->setItemAtId(accountId, account);
         emit loaded();
     });
 }
@@ -279,13 +361,13 @@ void bridge::updateState(int newState) const
     json["id"] = accountId;
     json["state"] = accountState + newState;
 
-    mng->putToKey("accountState",
+    Interface::netManager::instance().putToKey("accountState",
                   to_QByteArray(json),
                   [this] (const Value& rep)
     {
-        auto account{acnts->item_at_id(accountId)};
+        auto account{client::instance().get_accounts()->item_at_id(accountId)};
         account.read(rep);
-        acnts->setItemAtId(accountId, account);
+        client::instance().get_accounts()->setItemAtId(accountId, account);
         emit loaded();
     },
     "updateState error");
@@ -297,13 +379,13 @@ void bridge::updatePPE() const
     json["id"] = accountId;
     json["isPPE"] = !ppe;
 
-    mng->putToKey("accountPPE",
+    Interface::netManager::instance().putToKey("accountPPE",
                   to_QByteArray(json),
                   [this] (const Value& rep)
     {
-        auto account{acnts->item_at_id(accountId)};
+        auto account{client::instance().get_accounts()->item_at_id(accountId)};
         account.read(rep);
-        acnts->setItemAtId(accountId, account);
+        client::instance().get_accounts()->setItemAtId(accountId, account);
         emit loaded();
     },
     "updatePPE error");
@@ -314,14 +396,14 @@ void bridge::sendOnboardedEmail() const
     std::string str{"accounts/"};
     str.append(std::to_string(accountId));
     str.append("/email");
-    mng->getFromKey(str.c_str(),
+    Interface::netManager::instance().getFromKey(str.c_str(),
                     [this](const QByteArray& rep)
     { emit loaded(); });
 }
 
 QUrl bridge::getPictureName(QString name, int index) const
 {
-    return QUrl::fromLocalFile(rootPath
+    return QUrl::fromLocalFile(client::instance().get_tempPath()
                                + '/'
                                + QString::number(accountId)
                                + '_'
@@ -399,29 +481,29 @@ void bridge::setDocumentsCompleted(bool newDocumentsCompleted)
 void bridge::check_doc_completion()
 {
     using namespace Data;
-    setDocumentsCompleted(document_item::documents_completed(docs->get_list(), ppe));
+    setDocumentsCompleted(document_item::documents_completed(client::instance().get_documents()->get_list(), ppe));
 }
 
 void bridge::cleanup_docs(int ai)
 {
     bool update_parent{false};
 
-    for (const auto& doc : docs->items())
+    for (const auto& doc : client::instance().get_documents()->items())
     {
         if (doc.category == Data::document_item::None)
         {
             // clean orphan documents
-            docs->remove(doc.id);
+            client::instance().get_documents()->remove(doc.id);
             update_parent = true;
         }
     }
 
     if (update_parent)
     {
-        auto account{acnts->item_at_id(ai)};
+        auto account{client::instance().get_accounts()->item_at_id(ai)};
 
-        if (account.update(docs))
-            acnts->setItemAtId(ai, account);
+        if (account.update(client::instance().get_documents()))
+            client::instance().get_accounts()->setItemAtId(ai, account);
     }
 
     emit loaded();
@@ -429,7 +511,7 @@ void bridge::cleanup_docs(int ai)
 
 void bridge::upload_doc(int index)
 {
-    auto doc{docs->item_at(index)};
+    auto doc{client::instance().get_documents()->item_at(index)};
 
     if (doc.state != Data::document_item::NotUploded || doc.localPath.empty())
         return;
@@ -450,24 +532,24 @@ void bridge::upload_doc(int index)
 
             int parent_account{accountId};
 
-            mng->putToKey(docs->key,
+            Interface::netManager::instance().putToKey(client::instance().get_documents()->key,
                           to_QByteArray(json),
                           [this, parent_account, doc]
                           (const Value& rep)
                           mutable {
-                auto updated_account{acnts->item_at_id(parent_account)};
+                auto updated_account{client::instance().get_accounts()->item_at_id(parent_account)};
 
                 if (rep.isMember("document") && rep["document"].isObject())
                 {
                     doc.read(rep["document"]);
-                    docs->setItemAtId(doc.id, doc);
+                    client::instance().get_documents()->setItemAtId(doc.id, doc);
                 }
 
                 if (rep.isMember("accountState") && rep["accountState"].isInt())
                 {
                     updated_account.state = Data::account_item::states(rep["accountState"].asInt());
-                    updated_account.update(docs);
-                    acnts->setItemAtId(parent_account, updated_account);
+                    updated_account.update(client::instance().get_documents());
+                    client::instance().get_accounts()->setItemAtId(parent_account, updated_account);
                 }
 
                 check_doc_completion();
@@ -483,7 +565,7 @@ void bridge::upload_doc(int index)
                     doc.state = Data::document_item::Uploading;
 
                 doc.uploadProgress = (byteSent / 1024.) / (totalbytes / 1024.);
-                docs->setItemAtId(doc.id, doc);
+                client::instance().get_documents()->setItemAtId(doc.id, doc);
             });
         }
     }
@@ -617,13 +699,13 @@ const QString bridge::filePath(const QUrl &directory, const QString &fileName) c
 void bridge::onboard()
 {
     onboarding = true;
-    acnts->add();
+    client::instance().get_accounts()->add();
 }
 
 void bridge::hire()
 {
     hiring = true;
-    usrs->add();
+    client::instance().get_users()->add();
 }
 
 }

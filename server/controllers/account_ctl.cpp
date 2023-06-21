@@ -14,7 +14,7 @@ void account_ctl::insert(const HttpRequestPtr& req,
 
     s_account item{};
 
-    server::server::get().handle_query(req,
+    server::server::instance().handle_query(req,
                                        callback,
                                        [&item]
                                        (Json::Value& json, const Data::People::s_user& usr)
@@ -23,14 +23,14 @@ void account_ctl::insert(const HttpRequestPtr& req,
 
         try
         {
-            auto result{server::server::get().execute(query)};
+            auto result{server::server::instance().execute(query)};
             item.id = result.front()["Id"].template as<int>();
             json["id"] = item.id;
 
             People::s_owner owner{};
             query = owner.insert(usr, &item);
             LOG_DEBUG << query;
-            server::server::get().execute(query);
+            server::server::instance().execute(query);
 
             json["success"] = true;
         }
@@ -50,7 +50,7 @@ void account_ctl::search(const HttpRequestPtr& req,
 
     s_list<s_account> list{};
 
-    server::server::get().handle_query(req,
+    server::server::instance().handle_query(req,
                                        callback,
                                        [&list]
                                        (Json::Value& json, const Data::People::s_user& usr)
@@ -60,7 +60,7 @@ void account_ctl::search(const HttpRequestPtr& req,
         if (query == "")
             return false;
 
-        auto result{server::server::get().execute(query)};
+        auto result{server::server::instance().execute(query)};
 
         if (!result.empty()) // handle potentialy empty list
         {
@@ -133,11 +133,11 @@ void account_ctl::update(const HttpRequestPtr &req,
 
     if (item.id == 0)
     {
-        server::server::get().error_reply(callback);
+        server::server::instance().error_reply(callback);
         return;
     }
 
-    server::server::get().update(req,
+    server::server::instance().update(req,
                                  callback,
                                  item,
                                  &item);
@@ -152,14 +152,14 @@ void account_ctl::remove(const HttpRequestPtr& req,
 
     if (!(val.isMember("id") && val["id"].isInt()))
     {
-        server::server::get().error_reply(callback);
+        server::server::instance().error_reply(callback);
         return;
     }
 
     s_account item{};
     item.id = val["id"].asInt();
 
-    auto result{server::server::get().execute(
+    auto result{server::server::instance().execute(
         "SELECT RelativePath, FileName, Extension FROM Document WHERE AccountId = "
         + std::to_string(item.id))};
 
@@ -175,14 +175,14 @@ void account_ctl::remove(const HttpRequestPtr& req,
 
     const auto account_id{std::to_string(item.id)};
 
-    server::server::get().execute({"DELETE FROM Document WHERE AccountId = "
+    server::server::instance().execute({"DELETE FROM Document WHERE AccountId = "
                                        + account_id,
                                    "DELETE FROM Owner WHERE AccountId = "
                                        + account_id,
                                    "DELETE FROM Contact WHERE AccountId = "
                                        + account_id});
 
-    server::server::get().remove(req,
+    server::server::instance().remove(req,
                                  callback,
                                  item);
 

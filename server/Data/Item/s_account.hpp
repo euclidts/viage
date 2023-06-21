@@ -67,7 +67,7 @@ struct s_account final : public account_item
                "WHERE o.AccountId = a.Id "
                "AND u.id = a.AdvisorId "
                "AND c.id = u.CompanyId "
-                + server::utils::clearance_close(usr);
+                + server::clearance_close(usr);
     };
 
 private:

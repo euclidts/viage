@@ -8,7 +8,7 @@
 
 namespace server
 {
-server& server::get()
+server& server::instance()
 {
     static server instance;
     return instance;
@@ -69,7 +69,7 @@ void server::handle_query(const drogon::HttpRequestPtr& req,
     drogon::HttpResponsePtr resp;
     auto session_id{req->session()->sessionId()};
 
-    auto response{server::server::get().execute(
+    auto response{execute(
         "SELECT "
         "Id, "
         "Clearance "
