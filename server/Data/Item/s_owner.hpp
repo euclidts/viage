@@ -64,7 +64,7 @@ struct s_owner final : public owner_item
                "User u "
                "WHERE o.AccountId = "
                 + std::to_string(acnt->id)
-                + server::clearance_close(usr);
+                + server_utils::clearance_close(usr);
     }
 
 private:

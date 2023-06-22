@@ -60,7 +60,7 @@ const std::string s_contact::remove(const s_user& usr, const s_account* acnt) co
 
 void s_contact::foreign_update(std::string& query, bool complete, const s_account* acnt)
 {
-    std::string str{server::update_flag(
+    std::string str{server_utils::update_flag(
                     account_item::ContactsCompleted,
                     "State",
                     complete)};

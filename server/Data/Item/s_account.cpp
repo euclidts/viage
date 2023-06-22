@@ -82,7 +82,7 @@ const std::string s_account::update(const People::s_user& usr, const s_account* 
                                        "NotarizedDate",
                                        "PaidDate"};
 
-            auto result{server::server::instance().execute(select(usr))};
+            auto result{server::instance().execute(select(usr))};
             if (result.empty()) return{};
 
             const auto date{trantor::Date::date().toDbString()};
@@ -157,7 +157,7 @@ void s_account::condition(std::string& query,
                  + std::to_string(acnt->id) +
                  " AND u.id = a.AdvisorId "
                  "AND c.id = u.CompanyId "
-                 + server::clearance_close(usr) +
+                 + server_utils::clearance_close(usr) +
                  ") BEGIN ");
 
     query.append(" END ");

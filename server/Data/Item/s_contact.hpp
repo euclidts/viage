@@ -55,7 +55,7 @@ struct s_contact final : public contact_item
                "User u "
                "WHERE c.AccountId = "
                 + std::to_string(acnt->id)
-                + server::clearance_close(usr);
+                + server_utils::clearance_close(usr);
     }
 };
 }

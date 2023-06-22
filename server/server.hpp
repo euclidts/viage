@@ -10,8 +10,6 @@
 #include <Data/Item/s_user.hpp>
 #include <s_list.hpp>
 
-namespace server
-{
 class server final
 {
 public:
@@ -229,7 +227,5 @@ private:
     }
 
 };
-
-}
 
 #endif // SERVER_HPP

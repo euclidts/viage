@@ -20,7 +20,7 @@
 #include <user_filter_model.hpp>
 #include <document_filter_model.hpp>
 
-using namespace Utils;
+using namespace client_utils;
 using namespace Json;
 
 namespace Interface

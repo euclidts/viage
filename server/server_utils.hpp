@@ -3,7 +3,7 @@
 
 #include <s_user.hpp>
 
-namespace server
+namespace server_utils
 {
 const std::string clearance_close(const Data::People::s_user& usr);
 const std::string from_db_date(const std::string& db_date);

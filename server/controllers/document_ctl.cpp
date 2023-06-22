@@ -18,7 +18,7 @@ void document_ctl::update(const HttpRequestPtr& req,
 
     if (!(val.isMember("id") && val["id"].isInt()))
     {
-        server::server::instance().error_reply(callback);
+        server::instance().error_reply(callback);
         return;
     }
 
@@ -27,13 +27,13 @@ void document_ctl::update(const HttpRequestPtr& req,
 
     if (val.isMember("body") && val["body"].isString())
     {
-        auto result{server::server::instance().execute(
+        auto result{server::instance().execute(
             "SELECT AccountId FROM Document WHERE Id = "
             + std::to_string(item.id))};
 
         if (result.empty())
         {
-            server::server::instance().error_reply(callback);
+            server::instance().error_reply(callback);
             return;
         }
 
@@ -47,28 +47,28 @@ void document_ctl::update(const HttpRequestPtr& req,
         std::ofstream file(item.get_path(), std::ios::binary);
         if (!file.is_open())
         {
-            server::server::instance().error_reply(callback);
+            server::instance().error_reply(callback);
             return;
         }
 
         const auto decoded{base64Decode(val["body"].asString())};
         if (!file.write(decoded.data(), decoded.size()))
         {
-            server::server::instance().error_reply(callback);
+            server::instance().error_reply(callback);
             return;
         }
         file.close();
 
         item.state = document_item::Uploaded;
 
-        server::server::instance().update(req,
+        server::instance().update(req,
                                      callback,
                                      item,
                                      &acnt,
                                      &item);
     }
     else
-        server::server::instance().update(req,
+        server::instance().update(req,
                                      callback,
                                      item);
 }
@@ -82,14 +82,14 @@ void document_ctl::remove(const HttpRequestPtr& req,
 
     if (!(val.isMember("id") && val["id"].isInt()))
     {
-        server::server::instance().error_reply(callback);
+        server::instance().error_reply(callback);
         return;
     }
 
     s_document item{};
     item.id = val["id"].asInt();
 
-    auto result{server::server::instance().execute(
+    auto result{server::instance().execute(
         "SELECT RelativePath, FileName, Extension FROM Document WHERE Id = "
         + std::to_string(item.id))};
 
@@ -98,7 +98,7 @@ void document_ctl::remove(const HttpRequestPtr& req,
     const auto path{item.get_path()};
     if (!path.empty()) std::filesystem::remove(path);
 
-    server::server::instance().remove(req,
+    server::instance().remove(req,
                                  callback,
                                  item);
 }

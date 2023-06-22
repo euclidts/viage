@@ -58,7 +58,7 @@ struct s_document final : public document_item,
                "WHERE d.AccountId = "
                + std::to_string(acnt->id) +
                " "
-               + server::clearance_close(usr);
+               + server_utils::clearance_close(usr);
     }
 
     void set_directory(int acnt_id);
@@ -74,7 +74,7 @@ inline bool item_list<s_document>::is_completed() const
     if (m_items.empty()) return false;
 
     // retrieve isPPE value from the fist document's AccountId
-    auto result{server::server::instance().execute(
+    auto result{server::instance().execute(
         "SELECT DISTINCT a.isPPE, a.Id "
         "FROM Account a, Document d "
         "WHERE d.id = "
@@ -101,7 +101,7 @@ inline void s_list<s_document>::foreign_update(std::string& query,
                                                bool complete,
                                                const s_account* acnt)
 {
-    std::string str{server::update_flag(
+    std::string str{server_utils::update_flag(
         account_item::DocumentsCompleted,
         "State",
         complete)};

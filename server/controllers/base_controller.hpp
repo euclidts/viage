@@ -20,7 +20,7 @@ struct base_controller : public HttpController<T>
         F foreign{};
         foreign.id = foreign_id;
 
-        server::server::instance().select(req,
+        server::instance().select(req,
                                      callback,
                                      item,
                                      &foreign);
@@ -37,7 +37,7 @@ struct base_controller : public HttpController<T>
         F foreign{};
         foreign.id = foreign_id;
 
-        server::server::instance().search(req,
+        server::instance().search(req,
                                      callback,
                                      item,
                                      &foreign);
@@ -54,7 +54,7 @@ struct base_controller : public HttpController<T>
 
         if (!(val.isMember("Id") && val["Id"].isInt()))
         {
-            server::server::instance().error_reply(callback);
+            server::instance().error_reply(callback);
             return;
         }
 
@@ -62,7 +62,7 @@ struct base_controller : public HttpController<T>
         foreign.id = val["Id"].asInt();
         item.read(val[item.key]);
 
-        server::server::instance().update(req,
+        server::instance().update(req,
                                      callback,
                                      item,
                                      &foreign);

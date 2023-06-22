@@ -5,7 +5,7 @@
 
 #include <json/json.h>
 
-namespace Utils
+namespace client_utils
 {
 QString to_QString(const std::string& str);
 std::string to_string(const QString &str);

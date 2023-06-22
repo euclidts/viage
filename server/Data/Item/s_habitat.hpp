@@ -56,7 +56,7 @@ struct s_habitat final : public habitat_item
                "WHERE a.Id = "
                 + std::to_string(acnt->id) +
                 " "
-                + server::clearance_close(usr);
+                + server_utils::clearance_close(usr);
     }
 
 private:

@@ -4,7 +4,7 @@
 
 #include "client_utils.hpp"
 
-namespace Utils
+namespace client_utils
 {
 QString to_QString(const std::string& str)
 {

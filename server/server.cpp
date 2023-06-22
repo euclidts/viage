@@ -6,8 +6,6 @@
 
 #define DEFAULT_TIMEOUT 1200
 
-namespace server
-{
 server& server::instance()
 {
     static server instance;
@@ -113,6 +111,4 @@ std::vector<std::string> server::combine(std::vector<std::string>& q1, const std
 {
     q1.emplace_back(q2);
     return q1;
-}
-
 }

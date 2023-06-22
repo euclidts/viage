@@ -5,7 +5,7 @@
 #include <Item/senior_citizen_item.hpp> // for age Macros
 #include <client_utils.hpp>
 
-using namespace Utils;
+using namespace client_utils;
 
 namespace Data
 {

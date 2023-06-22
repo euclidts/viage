@@ -1,6 +1,8 @@
 #pragma once
-#include "wrapped_nested_list.hpp"
+
 #include "qjsondocument.h"
+
+#include "wrapped_nested_list.hpp"
 
 namespace Wrapper
 {
@@ -34,7 +36,7 @@ void wrapped_nested_list<Inner, Outer>::add_in_with(int id,
                                                     Data::c_list<Outer>* parentList)
 {
     auto json{obj};
-    Json::Value val{Utils::to_Json(obj)};
+    Json::Value val{to_Json(obj)};
 
     json[Outer::foreign_key] = id;
     QJsonDocument doc{json};
@@ -45,7 +47,7 @@ void wrapped_nested_list<Inner, Outer>::add_in_with(int id,
         [this, val, parentList, id](const Json::Value& res)
     {
         Json::Value concat{val};
-        Utils::concatenate(concat, res);
+        concatenate(concat, res);
         this->inner->appendWith(concat);
 
         if (parentList)

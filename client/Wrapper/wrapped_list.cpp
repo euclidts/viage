@@ -8,7 +8,7 @@
 #include <item_list.hpp>
 #include <client_utils.hpp>
 
-using namespace Utils;
+using namespace client_utils;
 
 namespace Wrapper
 {
@@ -79,7 +79,7 @@ void wrapped_list<Inner>::makeConnections() const
             [this, val](const Json::Value& res)
         {
             Json::Value concat{val};
-            Utils::concatenate(concat, res);
+            concatenate(concat, res);
             this->inner->appendWith(concat);
         },
         "addWith error");

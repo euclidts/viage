@@ -26,7 +26,7 @@ const QByteArray c_base_data<T>::toData(const char* parentKey, int parentId)
 
     writeWithKey<T>(data);
 
-    return Utils::to_QByteArray(data);
+    return client_utils::to_QByteArray(data);
 }
 
 template <typename T>
@@ -37,7 +37,7 @@ const QByteArray c_base_data<T>::toData(int parentId)
 
     base_data<T>::writeWithKey(data);
 
-    return Utils::to_QByteArray(data);
+    return client_utils::to_QByteArray(data);
 }
 
 template <typename T>

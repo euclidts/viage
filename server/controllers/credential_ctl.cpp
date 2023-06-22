@@ -19,7 +19,7 @@ void credential_ctl::auth(const HttpRequestPtr& req,
     HttpResponsePtr resp;
     auto session_id{req->session()->sessionId()};
 
-    auto response{server::server::instance().execute(
+    auto response{server::instance().execute(
         "SELECT "
         "Id, "
         "Login, "
@@ -53,7 +53,7 @@ void credential_ctl::auth(const HttpRequestPtr& req,
 
     if (response.front()["SessionId"].isNull())
     {
-        server::server::instance().execute("UPDATE User SET SessionId = '"
+        server::instance().execute("UPDATE User SET SessionId = '"
                                       + session_id +
                                       "' WHERE Id = "
                                       + std::to_string(user.id));

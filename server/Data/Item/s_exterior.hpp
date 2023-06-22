@@ -53,7 +53,7 @@ struct s_exterior final : public exterior_item
                "WHERE a.Id = "
                 + std::to_string(acnt->id) +
                 " "
-                + server::clearance_close(usr);
+                + server_utils::clearance_close(usr);
     }
 };
 

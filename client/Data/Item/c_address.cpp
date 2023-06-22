@@ -5,7 +5,7 @@
 #include <iostream>
 #include "client_utils.hpp"
 
-using namespace Utils;
+using namespace client_utils;
 
 namespace Data
 {

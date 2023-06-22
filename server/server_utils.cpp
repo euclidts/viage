@@ -1,7 +1,7 @@
 #include "server_utils.hpp"
 #include <date/date.h>
 
-namespace server
+namespace server_utils
 {
 const std::string clearance_close(const Data::People::s_user& usr)
 {
