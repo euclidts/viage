@@ -6,14 +6,14 @@
 #include <QFile>
 
 #include "wrapped_calculator.hpp"
+#include <client.hpp>
 #include <Item/c_rent.hpp>
 #include <Interface/netManager.hpp>
 
 namespace Calculator
 {
-wrapped_calculator::wrapped_calculator(QQmlContext* context,
-                                       const QString& tempPath)
-    : base_wrapper<c_list<c_senior_citizen>>{context}
+wrapped_calculator::wrapped_calculator()
+    : base_wrapper<c_list<c_senior_citizen>>{}
     , exp{inner}
     , rent{new c_rent{}}
 {
@@ -29,14 +29,14 @@ wrapped_calculator::wrapped_calculator(QQmlContext* context,
                   this,
                   &wrapped_calculator::write_to_file);
 
-    context->setContextProperty(c_rent::key, rent);
+    Interface::bridge::instance().context()->setContextProperty(c_rent::key, rent);
 
     if (lingo == QLocale::German)
         docxName = "berechnung.docx";
     else
         docxName = "calcul.docx";
 
-    docxPath += tempPath.toStdString() +'/' + docxName;
+    docxPath += client::get_tempPath().toStdString() +'/' + docxName;
 
     QFile rcs(QString::fromStdString(":/data/" + docxName));
 

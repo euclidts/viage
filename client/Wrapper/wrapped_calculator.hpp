@@ -20,8 +20,7 @@ using namespace Wrapper;
 class wrapped_calculator : public base_wrapper<c_list<c_senior_citizen>>
 {
 public:
-    wrapped_calculator(QQmlContext* context,
-                       const QString& tempPath);
+    wrapped_calculator();
 
 private:
     life_expectency exp;

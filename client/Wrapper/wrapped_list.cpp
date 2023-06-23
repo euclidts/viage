@@ -13,8 +13,8 @@ using namespace client_utils;
 namespace Wrapper
 {
 template <typename Inner>
-wrapped_list<Inner>::wrapped_list(QQmlContext* context)
-    : base_wrapper<Inner>{context}
+wrapped_list<Inner>::wrapped_list()
+    : base_wrapper<Inner>{}
 {
 }
 

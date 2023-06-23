@@ -3,8 +3,6 @@
 
 #include <base_wrapper.hpp>
 
-class QQmlContext;
-
 class Outer;
 
 namespace Data
@@ -20,7 +18,7 @@ template <typename Inner>
 class wrapped_list : public base_wrapper<Inner>
 {
 public:
-    explicit wrapped_list(QQmlContext* context = nullptr);
+    explicit wrapped_list();
 
     void makeConnections() const;
     void get() const;

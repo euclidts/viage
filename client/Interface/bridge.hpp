@@ -10,6 +10,7 @@
 #include <Item/c_user.hpp>
 #include <Item/c_document.hpp>
 
+class QQmlApplicationEngine;
 class QQmlContext;
 
 namespace Data
@@ -38,10 +39,14 @@ class bridge final : public QObject
 
 public:
     static bridge& instance();
-    void init(QQmlContext* context);
+    void init();
+    void registerQml();
 
     bridge(bridge const&) = delete;
     void operator = (bridge const&) = delete;
+
+    QQmlApplicationEngine* engine;
+    QQmlContext* context();
 
     void onLogin(bool success, const QString& errorString) const;
 

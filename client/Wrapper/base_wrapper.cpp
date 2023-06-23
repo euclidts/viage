@@ -1,8 +1,11 @@
 #pragma once
+
+#include "qqml.h"
 #include <QQmlContext>
 
 #include <wobjectimpl.h>
 
+#include <Interface/bridge.hpp>
 #include "base_wrapper.hpp"
 
 namespace Wrapper
@@ -10,19 +13,18 @@ namespace Wrapper
 W_OBJECT_IMPL(base_wrapper<Inner>, template <typename Inner>)
 
 template <typename Inner>
-base_wrapper<Inner>::base_wrapper(QQmlContext* context)
+base_wrapper<Inner>::base_wrapper()
     : QObject{}
     , inner{new Inner{}}
 {
-    if (context)
-        registerToQml(context);
+    registerToQml();
 }
 
 template<typename Inner>
-void base_wrapper<Inner>::registerToQml(QQmlContext* context) const
+void base_wrapper<Inner>::registerToQml() const
 {
     qmlRegisterUncreatableType<Inner>(inner->uri, 1, 0, inner->qmlName, "");
-    context->setContextProperty(inner->key, inner);
+    Interface::bridge::instance().context()->setContextProperty(inner->key, inner);
 }
 
 template<typename Inner>

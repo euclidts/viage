@@ -7,9 +7,8 @@
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
-wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Data::c_list<Outer>* parentList,
-                                                       QQmlContext* context)
-    : wrapped_nested_item<Inner, Outer>{context}
+wrapped_nested_list<Inner, Outer>::wrapped_nested_list(Data::c_list<Outer>* parentList)
+    : wrapped_nested_item<Inner, Outer>{}
     , key{this->makeKey(parentList)}
 {
     this->inner->complitionChecks();

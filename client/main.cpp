@@ -1,54 +1,27 @@
 #include <QGuiApplication>
-
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
 #include <QLocale>
 #include <QTranslator>
 
 #include <client.hpp>
 #include <netManager.hpp>
 #include <bridge.hpp>
-#include <wrapped_nested_list.hpp>
-#include <list_model.hpp>
-#include <account_filter_model.hpp>
-#include <user_filter_model.hpp>
-#include <document_filter_model.hpp>
-#include <Item/c_user.hpp>
-#include <Item/c_company.hpp>
-#include <Item/c_team.hpp>
-#include <Item/c_account.hpp>
-#include <Item/c_owner.hpp>
-#include <Item/c_contact.hpp>
-#include <Item/c_habitat.hpp>
-#include <Item/c_exterior.hpp>
-#include <Item/c_document.hpp>
-#include <wrapped_calculator.hpp>
 
 int main(int argc, char* argv[])
 {
     QGuiApplication app(argc, argv);
 
-//    QString tempPath{};
-//    QTemporaryDir tempDir{};
-//    if (tempDir.isValid())
-//        tempPath = tempDir.path();
-//    else
-//    {
-//        qDebug() << "temp directory error :" << tempDir.errorString();
-//        return 4;
-//    }
+    if (!client::tempDir.isValid())
+    {
+        qDebug() << "temp directory error :" << client::tempDir.errorString();
+        return 4;
+    }
 
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
     QTranslator translator;
     if (translator.load(QLocale(), "viage", "_", ":/qm_files/"))
         app.installTranslator(&translator);
-
-    QQmlApplicationEngine engine;
-    auto context = engine.rootContext();
-
-    using namespace Data;
-    using namespace People;
 
 //    QString host{"https://viage.euclidtradingsystems.com"};
     QString host{"https://viagetestrive.euclidtradingsystems.com"};
@@ -65,15 +38,17 @@ int main(int argc, char* argv[])
 
     using namespace Interface;
 
+    bridge::instance().init();
+
     netManager::instance().init(host,
                                 "auth",
                                 "format=json&jsconfig=TreatEnumAsInteger");
 
-    client::instance().init(context);
+    client::instance().init();
 
     // qml engine
     const QUrl url(QStringLiteral("qrc:/ui/main.qml"));
-    QObject::connect(&engine,
+    QObject::connect(bridge::instance().engine,
         &QQmlApplicationEngine::objectCreated,
         &app,
         [url]
@@ -85,7 +60,7 @@ int main(int argc, char* argv[])
                 bridge::instance().setQmlObject(obj);
         }, Qt::QueuedConnection);
 
-    engine.load(url);
+    bridge::instance().engine->load(url);
 
     return app.exec();
 }

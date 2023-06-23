@@ -1,6 +1,6 @@
 #include <QDesktopServices>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "qqml.h"
 
 #include <wobjectimpl.h>
 
@@ -33,7 +33,17 @@ bridge& bridge::instance()
     return instance;
 }
 
-void bridge::init(QQmlContext* context)
+void bridge::init()
+{
+    engine = new QQmlApplicationEngine{};
+}
+
+QQmlContext* bridge::context()
+{
+    return engine->rootContext();
+}
+
+void bridge::registerQml()
 {
     using namespace Data;
     using namespace People;
@@ -47,7 +57,7 @@ void bridge::init(QQmlContext* context)
 
     accountFilter = new account_filter_model{accountModel};
     qmlRegisterUncreatableType<account_filter_model>("Data", 1, 0, "AccountModel", "");
-    context->setContextProperty("accountModel", accountFilter);
+    context()->setContextProperty("accountModel", accountFilter);
 
     // owners
     qmlRegisterType<list_model<c_owner>>("People", 1, 0, "OwnersModel");
@@ -66,8 +76,8 @@ void bridge::init(QQmlContext* context)
     userFilter = new user_filter_model{userModel};
     selectedUser = new user_filter_model{userModel, true};
     qmlRegisterUncreatableType<user_filter_model>("People", 1, 0, "UserModel", "");
-    context->setContextProperty("userModel", userFilter);
-    context->setContextProperty("selectedUser", selectedUser);
+    context()->setContextProperty("userModel", userFilter);
+    context()->setContextProperty("selectedUser", selectedUser);
 
     // companies
     qmlRegisterType<list_model<c_company>>("Data", 1, 0, "CompaniesModel");
@@ -170,7 +180,7 @@ void bridge::init(QQmlContext* context)
     });
 
     qmlRegisterUncreatableType<bridge>("Interface", 1, 0, "Bridge", "");
-    context->setContextProperty("bridge", this);
+    context()->setContextProperty("bridge", this);
 }
 
 void bridge::onLogin(bool success, const QString &errorString) const
@@ -209,12 +219,12 @@ void bridge::requestReport()
     setDownloadProgress(0.f);
 
     Interface::netManager::instance().downloadFile("export/accounts",
-                      client::instance().get_tempPath() + "/Viage.xlsx",
+                      client::get_tempPath() + "/Viage.xlsx",
                       [this] (bool success, const QString& error)
     {
         if (success)
         {
-            if (!QDesktopServices::openUrl(client::instance().get_tempPath() + "/Viage.xlsx"))
+            if (!QDesktopServices::openUrl(client::get_tempPath() + "/Viage.xlsx"))
                 onException("requestReport error", "QDesktopervices : could not open excel");
             else
                 emit loaded();
@@ -237,7 +247,7 @@ void bridge::requestAccount()
     str.append(std::to_string(accountId));
     str.append("/pdf");
 
-    QString path{client::instance().get_tempPath()};
+    QString path{client::get_tempPath()};
     path.append('/');
     path.append(QString::number(accountId));
     path.append(".pdf");
@@ -403,7 +413,7 @@ void bridge::sendOnboardedEmail() const
 
 QUrl bridge::getPictureName(QString name, int index) const
 {
-    return QUrl::fromLocalFile(client::instance().get_tempPath()
+    return QUrl::fromLocalFile(client::get_tempPath()
                                + '/'
                                + QString::number(accountId)
                                + '_'

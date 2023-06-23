@@ -5,8 +5,8 @@
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
-wrapped_nested_item<Inner, Outer>::wrapped_nested_item(QQmlContext* context)
-    : wrapped_list<Inner>{context}
+wrapped_nested_item<Inner, Outer>::wrapped_nested_item()
+    : wrapped_list<Inner>{}
 {
 }
 

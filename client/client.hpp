@@ -10,8 +10,6 @@
 #include <Item/c_company.hpp>
 #include <Item/c_team.hpp>
 
-class QQmlContext;
-
 namespace Calculator
 {
 class wrapped_calculator;
@@ -33,7 +31,7 @@ class client final
 {
 public:
     static client& instance();
-    void init(QQmlContext* context);
+    void init();
 
     client(client const&) = delete;
     void operator = (client const&) = delete;
@@ -42,13 +40,11 @@ public:
     Data::c_list<Data::c_document>* get_documents() const;
     Data::c_list<Data::People::c_user>* get_users() const;
 
-    QString get_tempPath() const;
+    static const QTemporaryDir tempDir;
+    static const QString get_tempPath();
 
 private:
     client() {};
-
-    static const QTemporaryDir tempDir;
-    QString tempPath;
 
     Calculator::wrapped_calculator* calculator;
 

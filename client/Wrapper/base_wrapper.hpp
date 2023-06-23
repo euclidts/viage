@@ -5,8 +5,6 @@
 
 #include <wobjectdefs.h>
 
-class QQmlContext;
-
 namespace Wrapper
 {
 
@@ -19,9 +17,9 @@ public:
     Inner* get_inner() const;
 
 protected:
-    explicit base_wrapper(QQmlContext* context = nullptr);
+    explicit base_wrapper();
 
-    void registerToQml(QQmlContext* context) const;
+    void registerToQml() const;
 
     Inner* inner;
 };

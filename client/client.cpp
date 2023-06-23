@@ -1,9 +1,5 @@
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-
 #include "client.hpp"
 #include <bridge.hpp>
-#include <document_filter_model.hpp>
 #include <user_filter_model.hpp>
 #include <wrapped_calculator.hpp>
 #include <wrapped_nested_list.hpp>
@@ -20,62 +16,54 @@ client& client::instance()
     return instance;
 }
 
-void client::init(QQmlContext* context)
+void client::init()
 {
-    if (tempDir.isValid())
-        tempPath = tempDir.path();
-    else
-    {
-        qDebug() << "temp directory error :" << tempDir.errorString();
-    }
-
     using namespace Data;
     using namespace People;
 
     // calculator
-    calculator = new Calculator::wrapped_calculator{context, tempPath};
+    calculator = new Calculator::wrapped_calculator{};
 
     using namespace Wrapper;
 
     // accounts
-    accounts = new wrapped_list<c_list<c_account>>{context};
+    accounts = new wrapped_list<c_list<c_account>>{};
     accounts->makeConnections();
 
     // owners
-    owners = new wrapped_nested_list<c_list<c_owner>, c_account>{accounts->get_inner(), context};
+    owners = new wrapped_nested_list<c_list<c_owner>, c_account>{accounts->get_inner()};
 
     // contacts
-    contacts = new wrapped_nested_list<c_list<c_contact>, c_account>{accounts->get_inner(), context};
+    contacts = new wrapped_nested_list<c_list<c_contact>, c_account>{accounts->get_inner()};
 
     using namespace Places;
 
     // habitat
-    habitat = new wrapped_nested_item<c_habitat, c_account>{context};
+    habitat = new wrapped_nested_item<c_habitat, c_account>{};
     habitat->makeConnections(accounts->get_inner());
 
     // exterior
-    exterior = new wrapped_nested_item<c_exterior, c_account>{context};
+    exterior = new wrapped_nested_item<c_exterior, c_account>{};
     exterior->makeConnections(accounts->get_inner());
 
     // documents
-    documents = new wrapped_nested_list<c_list<c_document>, c_account>{accounts->get_inner(), context};
+    documents = new wrapped_nested_list<c_list<c_document>, c_account>{accounts->get_inner()};
 
     // users
-    users = new wrapped_list<c_list<c_user>>{context};
+    users = new wrapped_list<c_list<c_user>>{};
     users->makeConnections();
 
     // companies
-    companies = new wrapped_list<c_list<c_company>>{context};
+    companies = new wrapped_list<c_list<c_company>>{};
     companies->makeConnections();
 
     // teams
-    teams = new wrapped_nested_list<c_list<c_team>, c_company>{companies->get_inner(), context};
+    teams = new wrapped_nested_list<c_list<c_team>, c_company>{companies->get_inner(), };
 
     using namespace Interface;
 
     // bridge
-    bridge::instance().init(context);
-
+    bridge::instance().registerQml();
 
     QObject::connect(&netManager::instance(),
                      &netManager::loggedIn,
@@ -164,9 +152,9 @@ Data::c_list<Data::People::c_user>* client::get_users() const
     return users->get_inner();
 }
 
-QString client::get_tempPath() const
+const QString client::get_tempPath()
 {
-    return tempPath;
+    return tempDir.path();
 }
 
 const QTemporaryDir client::tempDir{};
