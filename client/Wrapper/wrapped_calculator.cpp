@@ -17,6 +17,15 @@ wrapped_calculator::wrapped_calculator()
     , exp{inner}
     , rent{new c_rent{}}
 {
+    const auto local{QLocale().language()};
+
+    if (local == QLocale::German
+        || local == QLocale::SwissGerman
+        || local == QLocale::LowGerman)
+        lingo = QLocale::German;
+    else
+        lingo = local;
+
     inner->appendItems(); // at least one senior for the calculation
 
     this->connect(rent,
