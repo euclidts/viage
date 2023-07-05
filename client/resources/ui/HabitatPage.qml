@@ -135,7 +135,6 @@ ScrollView {
 
                     IntChooser {
                         name: qsTr("Nombre de m³")
-                        maxSize: 200
                         minimum: 0
                         maximum: 100000
                         numberOf: habitat.m3s

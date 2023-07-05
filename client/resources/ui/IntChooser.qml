@@ -13,7 +13,6 @@ ColumnLayout {
     property int minimum: 0
     property int maximum
     property int step: 1
-    property int maxSize: 130
     property alias spin: spin
 
     Label {
@@ -33,6 +32,5 @@ ColumnLayout {
         onFocusChanged: if (focus) contentItem.selectAll()
         onValueModified: onEdit(value)
         inputMethodHints: Qt.ImhFormattedNumbersOnly
-        Layout.maximumWidth: maxSize
     }
 }

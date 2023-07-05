@@ -67,7 +67,6 @@ GroupBox {
 
             IntChooser {
                 name: qsTr("NPA")
-                maxSize: 150
                 minimum: 1000
                 maximum: 9999
                 numberOf: addressOf.zip

@@ -183,17 +183,17 @@
         <translation>Geschätzter Wert der Liegenschaft</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="85"/>
+        <location filename="../ui/CalculatorPage.qml" line="84"/>
         <source>Calculer</source>
         <translation>Berechnen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="108"/>
+        <location filename="../ui/CalculatorPage.qml" line="107"/>
         <source>Droit d&apos;habitation :</source>
         <translation>Wohnrecht :</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="119"/>
+        <location filename="../ui/CalculatorPage.qml" line="118"/>
         <source>Bouquet :</source>
         <translation>Abschlagzahlung :</translation>
     </message>
@@ -324,7 +324,7 @@
         <translation>Dezember</translation>
     </message>
     <message>
-        <location filename="../ui/DateChooser.qml" line="69"/>
+        <location filename="../ui/DateChooser.qml" line="68"/>
         <source>Année</source>
         <translation>Jahr</translation>
     </message>

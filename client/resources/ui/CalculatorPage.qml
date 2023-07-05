@@ -73,7 +73,6 @@ ScrollView {
 
                     IntChooser {
                         name: qsTr("Valeur estimée du bien")
-                        maxSize: 200
                         minimum: 50000
                         maximum: 15000000
                         step: 1000

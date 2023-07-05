@@ -63,7 +63,6 @@ GroupBox {
         }
 
         IntChooser {
-            maxSize: 200
             minimum: new Date().getFullYear() - 120
             maximum: new Date().getFullYear() + maxYear
             name: qsTr("Année")
