@@ -62,15 +62,15 @@ void document_ctl::update(const HttpRequestPtr& req,
         item.state = document_item::Uploaded;
 
         server::instance().update(req,
-                                     callback,
-                                     item,
-                                     &acnt,
-                                     &item);
+                                  callback,
+                                  item,
+                                  &acnt,
+                                  &item);
     }
     else
         server::instance().update(req,
-                                     callback,
-                                     item);
+                                  callback,
+                                  item);
 }
 
 void document_ctl::remove(const HttpRequestPtr& req,
@@ -99,7 +99,7 @@ void document_ctl::remove(const HttpRequestPtr& req,
     if (!path.empty()) std::filesystem::remove(path);
 
     server::instance().remove(req,
-                                 callback,
-                                 item);
+                              callback,
+                              item);
 }
 }

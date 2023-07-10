@@ -27,9 +27,19 @@ struct s_user final : public user_item
     const std::string update(const s_user& usr) const;
 
     static void foreign_update(std::string& query, bool complete) {};
-    static void condition(std::string& query, const s_user& usr) {};
     static void select_updated(std::string& query) {};
     static void update_reply(const Result& res, Json::Value& json) {};
+
+    static const constexpr std::string from_session_id(const std::string& session_id)
+    {
+        return "SELECT "
+               "Id, "
+               "Clearance "
+               "FROM User "
+               "WHERE SessionId = '"
+               + session_id +
+               "' AND IsLocked = FALSE";
+    };
 
     static const constexpr std::string search(const s_user& usr)
     {

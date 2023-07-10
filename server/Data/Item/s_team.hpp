@@ -30,10 +30,6 @@ struct s_team final : public team_item
                                bool complete,
                                const s_company* foreign = nullptr) {};
 
-    static void condition(std::string& query,
-                          const People::s_user& usr,
-                          const s_company* foreign = nullptr) {};
-
     static void select_updated(std::string& query,
                                const s_company* foreign = nullptr) {};
 

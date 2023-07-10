@@ -21,9 +21,9 @@ struct base_controller : public HttpController<T>
         foreign.id = foreign_id;
 
         server::instance().select(req,
-                                     callback,
-                                     item,
-                                     &foreign);
+                                  callback,
+                                  item,
+                                  &foreign);
     }
 
     virtual void search(const HttpRequestPtr& req,
@@ -38,9 +38,9 @@ struct base_controller : public HttpController<T>
         foreign.id = foreign_id;
 
         server::instance().search(req,
-                                     callback,
-                                     item,
-                                     &foreign);
+                                  callback,
+                                  item,
+                                  &foreign);
     }
 
     virtual void update_from(const HttpRequestPtr& req,
@@ -63,9 +63,9 @@ struct base_controller : public HttpController<T>
         item.read(val[item.key]);
 
         server::instance().update(req,
-                                     callback,
-                                     item,
-                                     &foreign);
+                                  callback,
+                                  item,
+                                  &foreign);
     }
 };
 

@@ -30,10 +30,6 @@ struct s_account final : public account_item
                                bool complete,
                                const s_account* acnt = nullptr);
 
-    static void condition(std::string& query,
-                          const People::s_user& usr,
-                          const s_account* acnt = nullptr);
-
     static void select_updated(std::string& query,
                                const s_account* acnt = nullptr);
 
@@ -41,8 +37,7 @@ struct s_account final : public account_item
                              Value& json_resp,
                              const s_account* = nullptr);
 
-    static const constexpr std::basic_string<char, std::char_traits<char>> search(
-            const People::s_user& usr)
+    static const constexpr std::string search(const People::s_user& usr)
     {
         return "SELECT "
                "a.Id, "

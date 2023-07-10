@@ -30,10 +30,6 @@ struct s_owner final : public owner_item
                                bool complete,
                                const s_account* acnt);
 
-    static void condition(std::string& query,
-                          const s_user& usr,
-                          const s_account* acnt = nullptr);
-
     static void select_updated(std::string& query,
                                const s_account* acnt = nullptr);
 

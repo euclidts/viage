@@ -14,10 +14,10 @@ void account_ctl::insert(const HttpRequestPtr& req,
 
     s_account item{};
 
-    server::instance().handle_query(req,
-                                       callback,
-                                       [&item]
-                                       (Json::Value& json, const Data::People::s_user& usr)
+    server::instance().handle_raw_query(req,
+                                        callback,
+                                        [&item]
+                                        (Json::Value& json, const Data::People::s_user& usr)
     {
         auto query{item.insert(usr)};
 
@@ -50,10 +50,10 @@ void account_ctl::search(const HttpRequestPtr& req,
 
     s_list<s_account> list{};
 
-    server::instance().handle_query(req,
-                                       callback,
-                                       [&list]
-                                       (Json::Value& json, const Data::People::s_user& usr)
+    server::instance().handle_raw_query(req,
+                                        callback,
+                                        [&list]
+                                        (Json::Value& json, const Data::People::s_user& usr)
     {
         const auto query{s_account::search(usr)};
 
@@ -138,9 +138,9 @@ void account_ctl::update(const HttpRequestPtr &req,
     }
 
     server::instance().update(req,
-                                 callback,
-                                 item,
-                                 &item);
+                              callback,
+                              item,
+                              &item);
 }
 
 void account_ctl::remove(const HttpRequestPtr& req,
@@ -183,8 +183,8 @@ void account_ctl::remove(const HttpRequestPtr& req,
                                        + account_id});
 
     server::instance().remove(req,
-                                 callback,
-                                 item);
+                              callback,
+                              item);
 
 }
 }

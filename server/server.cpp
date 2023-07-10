@@ -23,14 +23,16 @@ void server::init(const Json::Value& json_config)
             execute("UPDATE User Set SessionId = NULL");
         });
 
-//    drogon::app().registerSessionStartAdvice(
-//        [this](const std::string& sessionId)
-//        {
-//            LOG_INFO << "Session " << sessionId << " started";
-//        });
+    drogon::app().registerSessionStartAdvice(
+        []
+        (const std::string& session_id)
+        {
+            LOG_INFO << "Session " << session_id << " started";
+        });
 
     drogon::app().registerSessionDestroyAdvice(
-        [this](const std::string& session_id)
+        [this]
+        (const std::string& session_id)
         {
             LOG_INFO << "Session " << session_id << " expired";
 
@@ -60,43 +62,48 @@ void server::error_reply(std::function<void (const drogon::HttpResponsePtr &)> &
     callback(resp);
 }
 
-void server::handle_query(const drogon::HttpRequestPtr& req,
-                          std::function<void (const drogon::HttpResponsePtr&)>& callback,
-                          const std::function<bool (Json::Value&, const Data::People::s_user&)>& handler)
+void server::handle_raw_query(const drogon::HttpRequestPtr& req,
+                              std::function<void (const drogon::HttpResponsePtr&)>& callback,
+                              const std::function<bool (Json::Value&, const Data::People::s_user&)>& handler)
 {
     drogon::HttpResponsePtr resp;
     auto session_id{req->session()->sessionId()};
 
-    auto response{execute(
-        "SELECT "
-        "Id, "
-        "Clearance "
-        "FROM User "
-        "WHERE SessionId = '"
-        + session_id +
-        "' AND IsLocked = FALSE")};
-
-    if (response.empty())
+    try
     {
-        resp = drogon::HttpResponse::newHttpResponse();
-        resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
-    }
-    else
-    {
-        Data::People::s_user usr{};
-        usr.set(response);
+        auto response{execute(Data::People::s_user::from_session_id(session_id))};
 
-        Json::Value json;
-
-        if (handler(json, usr) && usr.clearance > Data::People::user_item::None)
+        if (response.empty())
         {
-            resp = drogon::HttpResponse::newHttpJsonResponse(json);
+            resp = drogon::HttpResponse::newHttpResponse();
+            resp->setStatusCode(drogon::k511NetworkAuthenticationRequired);
         }
         else
         {
-            resp = drogon::HttpResponse::newHttpResponse();
-            resp->setStatusCode(drogon::k401Unauthorized);
+            Data::People::s_user usr{};
+            usr.set(response);
+
+            Json::Value json;
+
+            if (handler(json, usr))
+            {
+                resp = drogon::HttpResponse::newHttpJsonResponse(json);
+            }
+            else
+            {
+                if (json.empty())
+                    resp = drogon::HttpResponse::newHttpResponse();
+                else
+                    resp = drogon::HttpResponse::newHttpJsonResponse(json);
+
+                resp->setStatusCode(drogon::k404NotFound);
+            }
         }
+    }
+    catch (...)
+    {
+        resp = drogon::HttpResponse::newHttpResponse();
+        resp->setStatusCode(drogon::k500InternalServerError);
     }
 
     callback(resp);

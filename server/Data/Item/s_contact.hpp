@@ -28,10 +28,6 @@ struct s_contact final : public contact_item
                                bool complete,
                                const s_account* acnt = nullptr);
 
-    static void condition(std::string& query,
-                          const s_user& usr,
-                          const s_account* acnt = nullptr);
-
     static void select_updated(std::string& query,
                                const s_account* acnt = nullptr);
 

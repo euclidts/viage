@@ -30,10 +30,6 @@ struct s_document final : public document_item,
                                const s_account* acnt = nullptr,
                                const s_document* doc = nullptr);
 
-    static void condition(std::string& query,
-                          const People::s_user& usr,
-                          const s_account* acnt = nullptr);
-
     static void select_updated(std::string& query,
                                const s_account* acnt = nullptr,
                                const s_document* doc = nullptr);

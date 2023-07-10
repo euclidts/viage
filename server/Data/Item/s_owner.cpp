@@ -93,11 +93,6 @@ void s_owner::foreign_update(std::string& query, bool complete, const s_account*
     query.append(str);
 }
 
-void s_owner::condition(std::string& query, const s_user& usr, const s_account* acnt)
-{
-    acnt->condition(query, usr, acnt);
-}
-
 void s_owner::select_updated(std::string &query, const s_account *acnt)
 {
     if (!acnt) return;

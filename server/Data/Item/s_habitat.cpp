@@ -106,11 +106,6 @@ void s_habitat::foreign_update(std::string& query, bool complete, const s_accoun
     query.append(str);
 }
 
-void s_habitat::condition(std::string &query, const People::s_user &usr, const s_account* acnt)
-{
-    acnt->condition(query, usr, acnt);
-}
-
 void s_habitat::select_updated(std::string& query, const s_account* acnt)
 {
     if (!acnt) return;

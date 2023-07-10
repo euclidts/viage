@@ -116,11 +116,6 @@ void s_document::foreign_update(std::string& query, bool complete,
     }
 }
 
-void s_document::condition(std::string &query, const People::s_user& usr, const s_account* acnt)
-{
-    if (acnt) acnt->condition(query, usr, acnt);
-}
-
 void s_document::select_updated(std::string &query, const s_account* acnt, const s_document* doc)
 {
     if (!acnt) return;

@@ -38,6 +38,7 @@ const std::string s_account::insert(const People::s_user& usr) const
 const std::string s_account::select(const People::s_user& usr) const
 {
     return "SELECT "
+           "Id, "
            "State, "
            "IsPPE, "
            "ReceivedDate, "
@@ -46,8 +47,14 @@ const std::string s_account::select(const People::s_user& usr) const
            "DecidedDate, "
            "NotarizedDate, "
            "PaidDate "
-           "FROM Account WHERE Id = "
-            + std::to_string(id);
+           "FROM Account a, "
+           "User u, "
+           "Company c "
+           "WHERE a.Id = "
+           + std::to_string(id) +
+           " AND u.id = a.AdvisorId "
+           "AND c.id = u.CompanyId "
+           + server_utils::clearance_close(usr);
 }
 
 const std::string s_account::update(const People::s_user& usr, const s_account* acnt) const
@@ -138,29 +145,6 @@ void s_account::foreign_update(std::string& query, bool complete, const s_accoun
                  "' ");
 
     query.append(" WHERE Id = " + std::to_string(acnt->id));
-}
-
-void s_account::condition(std::string& query,
-                          const People::s_user& usr,
-                          const s_account* acnt)
-{
-    if (!acnt) return;
-
-    query.insert(0,
-                 "IF EXISTS "
-                 "(SELECT "
-                 "a.Id "
-                 "FROM Account a, "
-                 "User u, "
-                 "Company c "
-                 "WHERE a.Id = "
-                 + std::to_string(acnt->id) +
-                 " AND u.id = a.AdvisorId "
-                 "AND c.id = u.CompanyId "
-                 + server_utils::clearance_close(usr) +
-                 ") BEGIN ");
-
-    query.append(" END ");
 }
 
 void s_account::select_updated(std::string& query, const s_account* acnt)

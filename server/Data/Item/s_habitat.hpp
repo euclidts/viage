@@ -25,10 +25,6 @@ struct s_habitat final : public habitat_item
                                bool complete,
                                const s_account* acnt = nullptr);
 
-    static void condition(std::string& query,
-                          const People::s_user& usr,
-                          const s_account* acnt);
-
     static void select_updated(std::string& query,
                                const s_account* acnt = nullptr);
 

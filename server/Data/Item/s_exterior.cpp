@@ -111,11 +111,6 @@ void s_exterior::foreign_update(std::string& query, bool complete, const s_accou
     query.append(str);
 }
 
-void s_exterior::condition(std::string &query, const People::s_user& usr, const s_account* acnt)
-{
-    acnt->condition(query, usr, acnt);
-}
-
 void s_exterior::select_updated(std::string &query, const s_account* acnt)
 {
     if (!acnt) return;
