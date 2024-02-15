@@ -174,7 +174,7 @@ void bridge::registerQml()
         if (hiring)
         {
             hiring = false;
-            emit requestUser(client::instance().get_documents()->items().constLast().id);
+            emit requestUser(client::instance().get_users()->items().constLast().id);
             emit loaded();
         }
     });
