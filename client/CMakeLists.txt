@@ -36,8 +36,6 @@ if(ANDROID)
         ${CMAKE_BINARY_DIR}/android-build/libs/x86_64
     )
 
-    find_package(Qt6 REQUIRED COMPONENTS Svg)
-
     set(ALT_QRC "resources/empty.qrc")
 else()
     set(ALT_QRC "resources/complete.qrc")
@@ -48,6 +46,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Quick
     LinguistTools
     Multimedia
+    Svg
 )
 
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}
@@ -106,10 +105,21 @@ include_directories(SYSTEM
 
 add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
 
-set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.rc")
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    if(WIN32)
+        set(RC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.rc")
+    endif()
+
+    if(APPLE)
+        set(ICON_NAME "ViageLogo.icns")
+        set(ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/${ICON_NAME}")
+        set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    endif()
+endif()
 
 qt_add_executable(${PROJECT_NAME}
-    WIN32 ${app_icon_resource_windows}
+    WIN32 ${RC_PATH}
+    MACOSX_BUNDLE ${ICON_PATH}
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
 )
@@ -119,8 +129,6 @@ if(ANDROID)
     set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
     # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-
-    target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Svg)
 endif()
 
 target_compile_definitions(${PROJECT_NAME}
@@ -132,79 +140,86 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Quick
     Qt6::Multimedia
+    Qt6::Svg
     duckx
     mutual
 )
-
-#set_target_properties(${PROJECT_NAME} PROPERTIES
-#    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-#    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-#    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-#    )
 
 qt_import_qml_plugins(${PROJECT_NAME})
 
 qt_finalize_executable(${PROJECT_NAME})
 
-# Installer setup copyed from
-# https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeList.txt
-
-if (NOT ANDROID AND NOT IOS AND CMAKE_BUILD_TYPE STREQUAL "Release")
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    if(WIN32)
+    # Installer setup copyed from
+    # https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeList.txt
     set(COMPONENT_NAME_MAIN "${PROJECT_NAME}")
     set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
     include(GNUInstallDirs)
     install(TARGETS ${PROJECT_NAME}
-            DESTINATION ${CMAKE_INSTALL_BINDIR}
-            COMPONENT ${COMPONENT_NAME_MAIN})
+        DESTINATION ${CMAKE_INSTALL_BINDIR}
+        COMPONENT ${COMPONENT_NAME_MAIN})
 
-    if(MINGW)
-        message(STATUS "Installing system-libraries: MinGW DLLs.")
-        get_target_property(QMAKE_EXECUTABLE Qt::qmake IMPORTED_LOCATION)
-        get_filename_component(QT_BINARY_DIR "${QMAKE_EXECUTABLE}" DIRECTORY)
-        set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS
-            ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
-            ${QT_BINARY_DIR}/libstdc++-6.dll
-            ${QT_BINARY_DIR}/libwinpthread-1.dll)
-    endif()
+        if(MINGW)
+            message(STATUS "Installing system-libraries: MinGW DLLs.")
+            get_target_property(QMAKE_EXECUTABLE Qt::qmake IMPORTED_LOCATION)
+            get_filename_component(QT_BINARY_DIR "${QMAKE_EXECUTABLE}" DIRECTORY)
+            set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS
+                ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
+                ${QT_BINARY_DIR}/libstdc++-6.dll
+                ${QT_BINARY_DIR}/libwinpthread-1.dll)
+        endif()
 
-    set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
-    include(InstallRequiredSystemLibraries)
+        set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
+        include(InstallRequiredSystemLibraries)
 
-    set(CPACK_GENERATOR "IFW")
-    set(CPACK_IFW_PACKAGE_NAME "${PROJECT_NAME}")
-    set(CPACK_IFW_PACKAGE_TITLE "${PROJECT_NAME}")
-    set(CPACK_IFW_PACKAGE_PUBLISHER "${PROJECT_NAME}")
-    set(CPACK_IFW_PACKAGE_WIZARD_STYLE "Classic")
-    set(CPACK_IFW_PACKAGE_WIZARD_SHOW_PAGE_LIST OFF)
+        set(CPACK_GENERATOR "IFW")
+        set(CPACK_IFW_PACKAGE_NAME "${PROJECT_NAME}")
+        set(CPACK_IFW_PACKAGE_TITLE "${PROJECT_NAME}")
+        set(CPACK_IFW_PACKAGE_PUBLISHER "${PROJECT_NAME}")
+        set(CPACK_IFW_PACKAGE_WIZARD_STYLE "Classic")
+        set(CPACK_IFW_PACKAGE_WIZARD_SHOW_PAGE_LIST OFF)
 
-    set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE)
+        set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE)
 
-    if (WIN32)
         find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
         configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in"
-            "${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake" @ONLY)
+            "${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake"
+            @ONLY)
 
         if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
             install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
                 DESTINATION ${CMAKE_INSTALL_BINDIR}
                 COMPONENT ${COMPONENT_NAME_MAIN})
+
+            set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
+            set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
+            set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake)
         endif()
 
-        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
-        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
-        set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/deploy-qt-windows.cmake)
+        include(CPack)
+        include(CPackIFW)
+
+        CPACK_ADD_COMPONENT(${COMPONENT_NAME_MAIN})
+
+        cpack_ifw_configure_component(${COMPONENT_NAME_DEPENDENCIES} VIRTUAL FORCED_INSTALLATION)
+        cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} ESSENTIAL FORCED_INSTALLATION)
+        cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES
+            "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})
+        cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} SCRIPT
+            ${CMAKE_CURRENT_SOURCE_DIR}/ci/installScript.qs)
     endif()
 
-    include(CPack)
-    include(CPackIFW)
+    if(APPLE)
+        set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE)
+        set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE ${ICON_NAME})
 
-    CPACK_ADD_COMPONENT(${COMPONENT_NAME_MAIN})
+        find_program(MACDEPLOYQT macdeployqt HINTS "${_qt_bin_dir}")
 
-    cpack_ifw_configure_component(${COMPONENT_NAME_DEPENDENCIES} VIRTUAL FORCED_INSTALLATION)
-    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} ESSENTIAL FORCED_INSTALLATION)
-    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES
-        "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})
-    cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} SCRIPT
-        ${CMAKE_CURRENT_SOURCE_DIR}/ci/installScript.qs)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${MACDEPLOYQT} ${CMAKE_BINARY_DIR}"/bin/${PROJECT_NAME}.app"
+            -qmldir"=${CMAKE_CURRENT_SOURCE_DIR}"
+            -dmg)
+    endif()
 endif()
