@@ -105,24 +105,30 @@ include_directories(SYSTEM
 
 add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
 
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    if(WIN32)
-        set(RC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.rc")
-    endif()
+if(WIN32)
+    set(RC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.rc")
 
-    if(APPLE)
-        set(ICON_NAME "ViageLogo.icns")
-        set(ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/${ICON_NAME}")
-        set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-    endif()
+    qt_add_executable(${PROJECT_NAME}
+        WIN32 ${RC_PATH}
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES})
+
+elseif(APPLE)
+    set(ICON_NAME "ViageLogo.icns")
+    set(ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/${ICON_NAME}")
+    set_source_files_properties(${ICON_PATH} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+
+    qt_add_executable(${PROJECT_NAME}
+        MACOSX_BUNDLE ${ICON_PATH}
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES})
+
+else()
+    qt_add_executable(${PROJECT_NAME}
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES})
 endif()
 
-qt_add_executable(${PROJECT_NAME}
-    WIN32 ${RC_PATH}
-    MACOSX_BUNDLE ${ICON_PATH}
-    MANUAL_FINALIZATION
-    ${PROJECT_SOURCES}
-)
 
 if(ANDROID)
     # Define target properties for Android with Qt 6 as:

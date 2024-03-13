@@ -25,7 +25,7 @@ class item_list : public virtual base_data<item_list<T>>
         auto key_str = new char[tmp_str.length() + 1];
         strcpy(key_str, tmp_str.c_str());
         return key_str;
-    };
+    }
 
     bool is_empty_completed() const;
 
