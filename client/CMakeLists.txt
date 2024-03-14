@@ -169,11 +169,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
             message(STATUS "Installing system-libraries: MinGW DLLs.")
             get_target_property(QMAKE_EXECUTABLE Qt::qmake IMPORTED_LOCATION)
             get_filename_component(QT_BINARY_DIR "${QMAKE_EXECUTABLE}" DIRECTORY)
-            set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS
-                # ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
-                ${QT_BINARY_DIR}/libstdc++-6.dll
-                # ${QT_BINARY_DIR}/libwinpthread-1.dll
-            )
+            # set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${QT_BINARY_DIR}/libstdc++-6.dll)
         endif()
 
         set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
@@ -193,15 +189,15 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
             "${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake"
             @ONLY)
 
-        if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
-            install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
-                DESTINATION ${CMAKE_INSTALL_BINDIR}
-                COMPONENT ${COMPONENT_NAME_MAIN})
+        # if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
+        #     install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
+        #         DESTINATION ${CMAKE_INSTALL_BINDIR}
+        #         COMPONENT ${COMPONENT_NAME_MAIN})
+        # endif()
 
-            set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
-            set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
-            set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake)
-        endif()
+        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
+        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
+        set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake)
 
         include(CPack)
         include(CPackIFW)

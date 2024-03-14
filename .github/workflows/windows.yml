@@ -19,10 +19,6 @@ jobs:
 
     - uses: seanmiddleditch/gha-setup-ninja@v4
 
-    # - run: pip install aqtinstall
-    # - run: aqt install-qt windows desktop ${{env.QT_VERSION}} win64_mingw -m qtmultimedia
-    # - run: aqt install-tool windows desktop qt.tools.ifw.${{env.IFW_VERSION}}
-
     - uses: jurplel/install-qt-action@v3
       with:
        version: ${{env.QT_VERSION}}
@@ -31,7 +27,7 @@ jobs:
        arch: 'win64_mingw'
        modules: 'qtmultimedia'
        tools: 'tools_ifw'
-       dir: ${{ github.workspace }}
+       dir: ${{github.workspace}}
 
     - run: mkdir build
 
@@ -41,13 +37,12 @@ jobs:
         cmake .. -GNinja
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DSERVER=OFF    
-        -DCMAKE_PREFIX_PATH="${{github.workspace}}/${{env.QT_VERSION}}/mingw_64"
-        -DCPACK_IFW_ROOT="${{github.workspace}}/Tools/QtInstallerFramework/${{env.IFW_VERSION}}"
+        -DCPACK_IFW_ROOT="${{github.workspace}}/Qt/Tools/QtInstallerFramework/${{env.IFW_VERSION}}"
 
     - name: Build
       run: cmake --build build --target package
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: viage
         path: ${{github.workspace}}/build/viage-*-win64.exe
