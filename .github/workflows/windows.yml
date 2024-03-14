@@ -2,60 +2,47 @@ name: Windows
 
 on:
   push
-#  push:
-#    tags:
-#      - '*'
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
   QT_VERSION: 6.6.2
+  IFW_VERSION: 4.7
 
 jobs:
   build_release:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - uses: seanmiddleditch/gha-setup-ninja@v3
-    - run: >
-        pip install
-        aqtinstall
-#        conan
-    - run: aqt install-qt windows desktop ${{env.QT_VERSION}} win64_mingw -m qtmultimedia
-    - run: aqt install-tool windows desktop tools_ifw
+    - uses: seanmiddleditch/gha-setup-ninja@v4
+
+    # - run: pip install aqtinstall
+    # - run: aqt install-qt windows desktop ${{env.QT_VERSION}} win64_mingw -m qtmultimedia
+    # - run: aqt install-tool windows desktop qt.tools.ifw.${{env.IFW_VERSION}}
+
+    - uses: jurplel/install-qt-action@v3
+      with:
+       version: ${{env.QT_VERSION}}
+       host: 'windows'
+       target: 'desktop'
+       arch: 'win64_mingw'
+       modules: 'qtmultimedia'
+       tools: 'tools_ifw'
+       dir: ${{ github.workspace }}
 
     - run: mkdir build
-
-#    - name: install connan packages
-#      working-directory: ./build
-#      run: >
-#        conan install ..
-#        -s compiler="Visual Studio"
-#        -s compiler.version=16
-#        -sbuild_type=${{env.BUILD_TYPE}}
-#        -g cmake_paths
-
-#    - run: echo "-DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.4" >> $GITHUB_PATH
-#    - run: echo "C:/Program Files (x86)/Etc" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8 "${{github.workspace}}/Tools/QtInstallerFramework/4.4"
-
 
     - name: Configure CMake
       working-directory: ./build
       run: >
         cmake .. -GNinja
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        -DSERVER=OFF
+        -DSERVER=OFF    
         -DCMAKE_PREFIX_PATH="${{github.workspace}}/${{env.QT_VERSION}}/mingw_64"
-        -DCPACK_IFW_ROOT="${{github.workspace}}/Tools/QtInstallerFramework/4.7"
-#        -DCMAKE_TOOLCHAIN_FILE="conan_paths.cmake"
-#      run: cmake .. -GNinja -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DSERVER=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/${{env.QT_VERSION}}/mingw_64 -DCPACK_IFW_ROOT=${{github.workspace}}/Tools/QtInstallerFramework/4.7
+        -DCPACK_IFW_ROOT="${{github.workspace}}/Tools/QtInstallerFramework/${{env.IFW_VERSION}}"
 
     - name: Build
       run: cmake --build build --target package
@@ -64,9 +51,3 @@ jobs:
       with:
         name: viage
         path: ${{github.workspace}}/build/viage-*-win64.exe
-
-    #- name: Test
-      # working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      # run: ctest -C ${{env.BUILD_TYPE}}

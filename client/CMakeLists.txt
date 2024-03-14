@@ -112,7 +112,6 @@ if(WIN32)
         WIN32 ${RC_PATH}
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES})
-
 elseif(APPLE)
     set(ICON_NAME "ViageLogo.icns")
     set(ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/${ICON_NAME}")
@@ -122,7 +121,6 @@ elseif(APPLE)
         MACOSX_BUNDLE ${ICON_PATH}
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES})
-
 else()
     qt_add_executable(${PROJECT_NAME}
         MANUAL_FINALIZATION
@@ -172,9 +170,10 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
             get_target_property(QMAKE_EXECUTABLE Qt::qmake IMPORTED_LOCATION)
             get_filename_component(QT_BINARY_DIR "${QMAKE_EXECUTABLE}" DIRECTORY)
             set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS
-                ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
+                # ${QT_BINARY_DIR}/libgcc_s_seh-1.dll
                 ${QT_BINARY_DIR}/libstdc++-6.dll
-                ${QT_BINARY_DIR}/libwinpthread-1.dll)
+                # ${QT_BINARY_DIR}/libwinpthread-1.dll
+            )
         endif()
 
         set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
