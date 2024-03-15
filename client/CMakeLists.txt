@@ -160,20 +160,11 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(COMPONENT_NAME_MAIN "${PROJECT_NAME}")
     set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
-    include(GNUInstallDirs)
     install(TARGETS ${PROJECT_NAME}
         DESTINATION ${CMAKE_INSTALL_BINDIR}
         COMPONENT ${COMPONENT_NAME_MAIN})
 
-        if(MINGW)
-            message(STATUS "Installing system-libraries: MinGW DLLs.")
-            get_target_property(QMAKE_EXECUTABLE Qt::qmake IMPORTED_LOCATION)
-            get_filename_component(QT_BINARY_DIR "${QMAKE_EXECUTABLE}" DIRECTORY)
-            # set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${QT_BINARY_DIR}/libstdc++-6.dll)
-        endif()
-
         set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
-        include(InstallRequiredSystemLibraries)
 
         set(CPACK_GENERATOR "IFW")
         set(CPACK_IFW_PACKAGE_NAME "${PROJECT_NAME}")
@@ -181,23 +172,15 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
         set(CPACK_IFW_PACKAGE_PUBLISHER "${PROJECT_NAME}")
         set(CPACK_IFW_PACKAGE_WIZARD_STYLE "Classic")
         set(CPACK_IFW_PACKAGE_WIZARD_SHOW_PAGE_LIST OFF)
-
+        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
+        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
+        set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake)
         set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE)
 
         find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
         configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in"
             "${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake"
             @ONLY)
-
-        # if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
-        #     install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
-        #         DESTINATION ${CMAKE_INSTALL_BINDIR}
-        #         COMPONENT ${COMPONENT_NAME_MAIN})
-        # endif()
-
-        set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
-        set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
-        set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake)
 
         include(CPack)
         include(CPackIFW)
