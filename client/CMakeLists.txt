@@ -155,16 +155,21 @@ qt_finalize_executable(${PROJECT_NAME})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WIN32)
-    # Installer setup copyed from
-    # https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeList.txt
-    set(COMPONENT_NAME_MAIN "${PROJECT_NAME}")
-    set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
+        # Installer setup copyed from
+        # https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeList.txt
+        set(COMPONENT_NAME_MAIN "${PROJECT_NAME}")
+        set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
-    install(TARGETS ${PROJECT_NAME}
-        DESTINATION ${CMAKE_INSTALL_BINDIR}
-        COMPONENT ${COMPONENT_NAME_MAIN})
+        install(TARGETS ${PROJECT_NAME}
+            DESTINATION ${CMAKE_INSTALL_BINDIR}
+            COMPONENT ${COMPONENT_NAME_MAIN})
 
         set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
+
+        find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
+        configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in"
+            "${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake"
+            @ONLY)
 
         set(CPACK_GENERATOR "IFW")
         set(CPACK_IFW_PACKAGE_NAME "${PROJECT_NAME}")
@@ -177,10 +182,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
         set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake)
         set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE)
 
-        find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
-        configure_file("${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake.in"
-            "${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake"
-            @ONLY)
 
         include(CPack)
         include(CPackIFW)

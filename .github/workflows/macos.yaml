@@ -1,0 +1,43 @@
+name: Macos
+on:
+  push
+
+env:
+  BUILD_TYPE: Release
+  MIN_OSX_VERSION: 11.0
+
+jobs:
+  build_release:
+      strategy:
+        matrix:
+          include:
+            - {os: macos-14, chip: arm}
+            - {os: macos-13, chip: intel}
+
+      runs-on: ${{matrix.os}}
+
+      steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - run: HOMEBREW_NO_AUTO_UPDATE=1 brew install ninja qt
+      - run: mkdir build
+
+      - name: Configure CMake
+        working-directory: ./build
+        run: >
+          cmake .. -GNinja
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          -DCMAKE_CXX_COMPILER=clang++
+          -DCMAKE_C_COMPILER=clang
+          -DSERVER=OFF
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=${{env.MIN_OSX_VERSION}}
+
+      - name: Build
+        run: cmake --build build --target viage
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: viage_${{matrix.chip}}
+          path: ${{github.workspace}}/build/bin/viage.dmg
