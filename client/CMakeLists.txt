@@ -182,7 +182,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
         set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake)
         set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE)
 
-
         include(CPack)
         include(CPackIFW)
 
@@ -197,8 +196,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     endif()
 
     if(APPLE)
-        set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE)
-        set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE ${ICON_NAME})
+        set_target_properties(${PROJECT_NAME} PROPERTIES
+            MACOSX_BUNDLE TRUE
+            MACOSX_BUNDLE_ICON_FILE ${ICON_NAME})
 
         find_program(MACDEPLOYQT macdeployqt HINTS "${_qt_bin_dir}")
 

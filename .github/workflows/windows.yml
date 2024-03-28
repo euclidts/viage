@@ -35,12 +35,12 @@ jobs:
       working-directory: ./build
       run: >
         cmake .. -GNinja
-# github.workspace can't be parsed for compiler path for some reason
-        -DCMAKE_CXX_COMPILER=D:/a/viage/viage/Qt/Tools/mingw1120_64/bin/g++.exe
-        -DCMAKE_C_COMPILER=D:/a/viage/viage/Qt/Tools/mingw1120_64/bin/gcc.exe
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DSERVER=OFF
         -DCPACK_IFW_ROOT=${{github.workspace}}/Qt/Tools/QtInstallerFramework/${{env.IFW_VERSION}}
+        -DCMAKE_CXX_COMPILER=D:/a/viage/viage/Qt/Tools/mingw1120_64/bin/g++.exe
+        -DCMAKE_C_COMPILER=D:/a/viage/viage/Qt/Tools/mingw1120_64/bin/gcc.exe
+        # github.workspace can't be parsed for compiler path for some reason
 
     - name: Build
       run: cmake --build build --target package
