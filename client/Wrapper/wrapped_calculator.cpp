@@ -215,7 +215,11 @@ void wrapped_calculator::write_to_file()
 
     doc.save();
     file.setPermissions(QFileDevice::ReadOwner);
-    if(!QDesktopServices::openUrl(QString::fromStdString(docxPath)))
+
+    QString docxFullPath{"file://"};
+    docxFullPath += docxPath;
+
+    if(!QDesktopServices::openUrl(QUrl{docxFullPath, QUrl::TolerantMode}))
         Interface::netManager::instance().replyError("Calculation Document error",
                                                      "QDesktopervices : could not open .docx file");
 }

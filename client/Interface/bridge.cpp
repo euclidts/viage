@@ -221,24 +221,26 @@ void bridge::requestReport()
     Interface::netManager::instance().downloadFile("export/accounts",
                       client::get_tempPath() + "/Viage.xlsx",
                       [this] (bool success, const QString& error)
-    {
-        if (success)
         {
-            if (!QDesktopServices::openUrl(client::get_tempPath() + "/Viage.xlsx"))
-                onException("requestReport error", "QDesktopervices : could not open excel");
-            else
-                emit loaded();
-        }
-        else
-            onException("requestReport error", error);
+            if (success)
+            {
+                auto xlsx_path{"file://" + client::get_tempPath() + "/Viage.xlsx"};
 
-        setDownloadProgress(-1.f);
-    },
-    [this](qint64 byteSent, qint64 totalbytes)
-    {
-        setDownloadProgress((byteSent / 1024.) / (totalbytes / 1024.));
-        qDebug() << (byteSent / 1024.) / (totalbytes / 1024.);
-    });
+                if (!QDesktopServices::openUrl(QUrl{xlsx_path, QUrl::TolerantMode}))
+                    onException("requestReport error", "QDesktopervices : could not open excel");
+                else
+                    emit loaded();
+            }
+            else
+                onException("requestReport error", error);
+
+            setDownloadProgress(-1.f);
+        },
+        [this](qint64 byteSent, qint64 totalbytes)
+        {
+            setDownloadProgress((byteSent / 1024.) / (totalbytes / 1024.));
+            qDebug() << (byteSent / 1024.) / (totalbytes / 1024.);
+        });
 }
 
 void bridge::requestAccount()
@@ -255,26 +257,28 @@ void bridge::requestAccount()
     setDownloadProgress(0.f);
 
     Interface::netManager::instance().downloadFile(str.c_str(),
-                      path,
-                      [this, path] (bool success, const QString& error)
-    {
-        if (success)
+        path,
+        [this, &path] (bool success, const QString& error)
         {
-            if (!QDesktopServices::openUrl(path))
-                onException("requestAccount error", "QDesktopervices : could not open pdf");
-            else
-                emit loaded();
-        }
-        else
-            onException("requestAccount error", error);
+            if (success)
+            {
+                auto full_path{"file://" + path};
 
-        setDownloadProgress(-1.f);
-    },
-    [this](qint64 byteSent, qint64 totalbytes)
-    {
-        setDownloadProgress((byteSent / 1024.) / (totalbytes / 1024.));
-        qDebug() << (byteSent / 1024.) / (totalbytes / 1024.);
-    });
+                if (!QDesktopServices::openUrl(QUrl{full_path, QUrl::TolerantMode}))
+                    onException("requestAccount error", "QDesktopervices : could not open pdf");
+                else
+                    emit loaded();
+            }
+            else
+                onException("requestAccount error", error);
+
+            setDownloadProgress(-1.f);
+        },
+        [this](qint64 byteSent, qint64 totalbytes)
+        {
+            setDownloadProgress((byteSent / 1024.) / (totalbytes / 1024.));
+            qDebug() << (byteSent / 1024.) / (totalbytes / 1024.);
+        });
 }
 
 using namespace Json;
