@@ -17,15 +17,6 @@ wrapped_calculator::wrapped_calculator()
     , exp{inner}
     , rent{new c_rent{}}
 {
-    const auto local{QLocale().language()};
-
-    if (local == QLocale::German
-        || local == QLocale::SwissGerman
-        || local == QLocale::LowGerman)
-        lingo = QLocale::German;
-    else
-        lingo = local;
-
     inner->appendItems(); // at least one senior for the calculation
 
     this->connect(rent,
@@ -40,10 +31,16 @@ wrapped_calculator::wrapped_calculator()
 
     Interface::bridge::instance().context()->setContextProperty(c_rent::key, rent);
 
-    if (lingo == QLocale::German)
+    if (client_utils::is_german())
+    {
+        lingo = QLocale::German;
         docxName = "berechnung.docx";
+    }
     else
+    {
+        lingo = QLocale().language();
         docxName = "calcul.docx";
+    }
 
     docxPath += client::get_tempPath().toStdString() +'/' + docxName;
 

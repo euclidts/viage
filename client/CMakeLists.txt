@@ -100,8 +100,7 @@ include_directories(SYSTEM
     "${3RDPARTY_FOLDER}/verdigris/src"
     "${3RDPARTY_FOLDER}/DuckX/include"
     "${3RDPARTY_FOLDER}/DuckX/thirdparty/zip"
-    "${3RDPARTY_FOLDER}/DuckX/thirdparty/pugixml"
-)
+    "${3RDPARTY_FOLDER}/DuckX/thirdparty/pugixml")
 
 add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
 
@@ -146,8 +145,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Multimedia
     Qt6::Svg
     duckx
-    mutual
-)
+    mutual)
 
 qt_import_qml_plugins(${PROJECT_NAME})
 

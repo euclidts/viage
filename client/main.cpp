@@ -20,8 +20,14 @@ int main(int argc, char* argv[])
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
     QTranslator translator;
-    if (translator.load(QLocale(), "viage", "_", ":/qm_files/"))
-        app.installTranslator(&translator);
+    if (client_utils::is_german())
+    {
+        if (translator.load("viage_de", ":/qm_files/"))
+            app.installTranslator(&translator);
+    }
+
+    // if (translator.load(QLocale(), "viage", "_", ":/qm_files/"))
+    //     app.installTranslator(&translator);
 
     QString host{"https://viage.euclidtradingsystems.com"};
 //    QString host{"https://viagetestrive.euclidtradingsystems.com"};

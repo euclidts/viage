@@ -28,6 +28,8 @@ QByteArray to_QByteArray(const Json::Value& json);
 // Recursively copy the values of b into a. Both a and b must be objects.
 // as read in https://stackoverflow.com/questions/22512420/is-there-an-elegant-way-to-cascade-merge-two-json-trees-using-jsoncpp
 void concatenate(Json::Value& a, const Json::Value& b);
+
+bool is_german();
 }
 
 #endif // UTILS_HPP

@@ -99,4 +99,16 @@ void concatenate(Json::Value &a, const Json::Value& b)
     }
 }
 
+bool is_german()
+{
+    const auto local{QLocale().language()};
+
+    if (local == QLocale::German
+        || local == QLocale::SwissGerman
+        || local == QLocale::LowGerman)
+        return true;
+
+    return false;
+}
+
 }
