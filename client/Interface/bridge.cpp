@@ -224,9 +224,9 @@ void bridge::requestReport()
         {
             if (success)
             {
-                auto xlsx_path{"file://" + client::get_tempPath() + "/Viage.xlsx"};
+                auto xlsx_path{client::get_tempPath() + "/Viage.xlsx"};
 
-                if (!QDesktopServices::openUrl(QUrl{xlsx_path, QUrl::TolerantMode}))
+                if (!QDesktopServices::openUrl(QUrl::fromLocalFile(xlsx_path)))
                     onException("requestReport error", "QDesktopervices : could not open excel");
                 else
                     emit loaded();
@@ -262,9 +262,7 @@ void bridge::requestAccount()
         {
             if (success)
             {
-                auto full_path{"file://" + path};
-
-                if (!QDesktopServices::openUrl(QUrl{full_path, QUrl::TolerantMode}))
+                if (!QDesktopServices::openUrl(QUrl::fromLocalFile(path)))
                     onException("requestAccount error", "QDesktopervices : could not open pdf");
                 else
                     emit loaded();
