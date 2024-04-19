@@ -4,9 +4,11 @@
 #include <json/json.h>
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QSslConfiguration>
 #include <QSaveFile>
+#include <QNetworkAccessManager>
+#ifndef EMSCRIPTEN
+#include <QSslConfiguration>
+#endif
 
 #include <wobjectdefs.h>
 
@@ -20,9 +22,15 @@ class netManager final : public QNetworkAccessManager
 
 public:
     static netManager& instance();
+
+#ifndef EMSCRIPTEN
     void init(const QString& url,
               const QString& authentication_arguments,
               const QString& extra_arguments);
+#endif
+    void init(const QString& authentication_arguments,
+              const QString& extra_arguments);
+
 
     netManager(netManager const&) = delete;
     void operator = (netManager const&) = delete;
@@ -68,8 +76,10 @@ public:
 private:
     netManager() {};
 
-    QNetworkRequest rqst;
+#ifndef EMSCRIPTEN
     QString prefix;
+#endif
+    QNetworkRequest rqst;
     QString auth_args;
     QString suffix;
 

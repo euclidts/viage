@@ -15,34 +15,44 @@ netManager& netManager::instance()
     return instance;
 }
 
+#ifndef EMSCRIPTEN
 void netManager::init(const QString& url,
-                       const QString& authentication_arguments,
-                       const QString& extra_arguments)
+                      const QString& authentication_arguments,
+                      const QString& extra_arguments)
 {
-    rqst = {};
     prefix = url + '/';
-    auth_args = authentication_arguments;
-    suffix = extra_arguments;
 
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);
     rqst.setHeader(QNetworkRequest::ContentTypeHeader,
                    "application/json");
 
-    setTransferTimeout();
-
     connect(this, &QNetworkAccessManager::sslErrors,
             this, [](QNetworkReply* reply,
-            const QList<QSslError>& errors)
-    { reply->ignoreSslErrors(errors); });
+               const QList<QSslError>& errors)
+            { reply->ignoreSslErrors(errors); });
+
+    init(authentication_arguments,
+         extra_arguments);
+}
+#endif
+
+void netManager::init(const QString& authentication_arguments,
+                      const QString& extra_arguments)
+{
+    rqst = {};
+    auth_args = authentication_arguments;
+    suffix = extra_arguments;
+
+    setTransferTimeout();
 
     connect(this, &QNetworkAccessManager::finished,
             this, [this](QNetworkReply* reply)
-    {
-        if (reply->error() != QNetworkReply::NoError)
-            emit replyError("netManager reply error",
-                            reply->errorString());
-    });
+            {
+                if (reply->error() != QNetworkReply::NoError)
+                    emit replyError("netManager reply error",
+                                    reply->errorString());
+            });
 }
 
 using namespace Json;
@@ -50,11 +60,19 @@ using namespace Json;
 void netManager::authenticate(const QString& username,
                               const QString& password)
 {
+#ifndef EMSCRIPTEN
     QUrl url{prefix + auth_args
                 + '?' + "userName=" + username
                 + '&' + "password=" + password
                 + '&' + suffix
                 + "&rememberMe=True"};
+#else
+    QUrl url{QString{'/'} + auth_args
+             + '?' + "userName=" + username
+             + '&' + "password=" + password
+             + '&' + suffix
+             + "&rememberMe=True"};
+#endif
 
     rqst.setUrl(url);
 
@@ -233,7 +251,11 @@ void netManager::setCallback(QNetworkReply* reply,
 
 void netManager::setRequest(const char* key, const char * params)
 {
+#ifndef EMSCRIPTEN
     QUrl url{prefix + key + '?' + suffix + params};
+#else
+    QUrl url{QString{'/'} + key + '?' + params};
+#endif
     rqst.setUrl(url);
 }
 

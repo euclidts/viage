@@ -15,12 +15,8 @@ if(SERVER)
     include_directories(${JSONCPP_INCLUDE_DIRS})
     link_libraries(Jsoncpp_lib)
 else()
-    # Only link aqainst jsoncpp
-    set(JSONCPP_WITH_TESTS OFF CACHE BOOL "do not buid jsoncpp_tests" FORCE)
-    add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/jsoncpp")
-    get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
-    include_directories(${JSON_INC_PATH})
-    link_libraries(jsoncpp_lib)
+    # Not sure why it has to be included here and not in lib
+    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/lib/3rdparty/jsoncpp/include")
 endif()
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/lib/include")

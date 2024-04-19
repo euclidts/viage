@@ -17,8 +17,6 @@ int main(int argc, char* argv[])
         return 4;
     }
 
-    qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
-
     QTranslator translator;
     if (client_utils::is_german())
     {
@@ -28,6 +26,13 @@ int main(int argc, char* argv[])
 
     // if (translator.load(QLocale(), "viage", "_", ":/qm_files/"))
     //     app.installTranslator(&translator);
+
+    using namespace Interface;
+
+    bridge::instance().init();
+
+#ifndef EMSCRIPTEN
+    qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
     QString host{"https://viage.euclidtradingsystems.com"};
 //    QString host{"https://viagetestrive.euclidtradingsystems.com"};
@@ -42,13 +47,14 @@ int main(int argc, char* argv[])
 
     qDebug() << "Host :" << host;
 
-    using namespace Interface;
-
-    bridge::instance().init();
 
     netManager::instance().init(host,
                                 "auth",
                                 "format=json&jsconfig=TreatEnumAsInteger");
+#else
+    netManager::instance().init("auth",
+                                "format=json&jsconfig=TreatEnumAsInteger");
+#endif
 
     client::instance().init();
 
