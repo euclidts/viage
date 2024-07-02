@@ -14,9 +14,9 @@ W_OBJECT(rent)
 public:
     explicit rent(QObject* parent = nullptr);
 
-    static consteval auto key() { return "rentItem"; }
-    static consteval auto qmlName() { return "RentItem"; }
-    static consteval auto uri() { return "Data"; }
+    static const constexpr auto key() { return "rentItem"; }
+    static const constexpr auto qmlName() { return "RentItem"; }
+    static const constexpr auto uri() { return "Data"; }
 
     void clear() override;
     W_SLOT(clear)

@@ -37,11 +37,11 @@ public:
 
     void loggedIn(bool success,
                   const QString& errorString = "")
-    W_SIGNAL(loggedIn, success, errorString);
+    W_SIGNAL(loggedIn, success, errorString)
 
     void replyError(const QString& prefix = "",
                     const QString& errorString = "")
-    W_SIGNAL(replyError, prefix, errorString);
+    W_SIGNAL(replyError, prefix, errorString)
 
     void downloadFile(const char* key,
                       const QString& path,
@@ -72,7 +72,7 @@ public:
     W_SIGNAL(clearanceChanged, newClearance)
 
 private:
-    netManager() {};
+    netManager() {}
 
 #ifndef EMSCRIPTEN
     QString prefix;

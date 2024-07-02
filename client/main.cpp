@@ -3,9 +3,10 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include <client.hpp>
-#include <netManager.hpp>
 #include <bridge.hpp>
+#include <netManager.hpp>
+#include "client_utils.hpp"
+#include "client.hpp"
 
 int main(int argc, char* argv[])
 {

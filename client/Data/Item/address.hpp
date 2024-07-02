@@ -15,7 +15,7 @@ struct address final : public base_item<address>
 {
     address();
 
-    static consteval auto key() { return "address"; };
+    static const constexpr auto key() { return "address"; }
 
     enum roles
     {
@@ -31,7 +31,7 @@ struct address final : public base_item<address>
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    void read(const QJsonObject& json) override;
+    void read(const QJsonObject& json);
     void write(QJsonObject& json) const override;
 
     bool is_completed() const override;

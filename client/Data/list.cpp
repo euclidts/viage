@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include <wobjectimpl.h>
 
@@ -127,6 +129,58 @@ void list<T>::read(const QJsonArray& array)
 }
 
 template <typename T>
+void list<T>::read(const QByteArray& bytes)
+{
+    const auto json = QJsonDocument::fromJson(bytes).array();
+    read(json);
+}
+
+template <typename T>
+void list<T>::write(QJsonArray& json) const
+{
+    for (const auto& item : m_items)
+    {
+        QJsonObject obj{};
+        item.write(obj);
+        json.push_back(obj);
+    }
+}
+
+template<typename T>
+const QByteArray list<T>::toData(const char* parentKey, int parentId)
+{
+    QString str{parentKey};
+    str.append("Id");
+
+    QJsonObject data{ {str, parentId} };
+
+    writeWithKey(data);
+
+    QJsonDocument bytes{data};
+    return bytes.toJson();
+}
+
+template<typename T>
+const QByteArray list<T>::toData(int parentId)
+{
+    QJsonObject data{ {"Id", parentId} };
+
+    writeWithKey(data);
+
+    QJsonDocument bytes{data};
+    return bytes.toJson();
+}
+
+template<typename T>
+void list<T>::writeWithKey(QJsonObject& json) const
+{
+    QJsonArray array{};
+    write(array);
+
+    json[key()] = array;
+}
+
+template <typename T>
 qsizetype list<T>::size() const { return m_items.size(); }
 
 template <typename T>
@@ -156,7 +210,7 @@ void list<T>::appendWith(int id)
 template<typename T>
 bool list<T>::setItemAtId(int id, const T& item)
 {
-    int index{this->index_at_id(id)};
+    int index{index_at_id(id)};
 
     if (index == -1)
         return false;
@@ -216,13 +270,13 @@ bool list<T>::is_empty_completed() const
 template<typename T>
 void list<T>::checkCompleted()
 {
-    this->setCompleted(this->is_completed());
+    setCompleted(is_completed());
 }
 
 template<typename T>
 void list<T>::erase(int id)
 {
-    int index{this->index_at_id(id)};
+    int index{index_at_id(id)};
 
     if (index == -1)
         return;

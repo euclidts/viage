@@ -14,7 +14,7 @@ namespace People
 struct infant : virtual public base_item<infant>
               , virtual public person
 {
-    static consteval auto key() { return "infant"; }
+    static const constexpr auto key() { return "infant"; }
 
     enum roles
     {
@@ -28,7 +28,7 @@ struct infant : virtual public base_item<infant>
     void setData(const QVariant& value, int role);
 
     void read(const QJsonObject& json);
-    void write(QJsonObject& json) const;
+    void write(QJsonObject& json) const override;
 
     bool is_completed() const override;
 

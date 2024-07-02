@@ -13,9 +13,9 @@ struct document final : public base_item<document>
 {
     document();
 
-    static consteval auto key() { return "document"; };
-    static consteval auto qmlName() { return "Document"; };
-    static consteval auto uri() { return "Data"; };
+    static const constexpr auto key() { return "document"; }
+    static const constexpr auto qmlName() { return "Document"; }
+    static const constexpr auto uri() { return "Data"; }
 
     enum categories
     {
@@ -106,7 +106,7 @@ struct document final : public base_item<document>
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    void read(const QJsonObject& json) override;
+    void read(const QJsonObject& json);
     void write(QJsonObject& json) const override;
 
     bool is_completed() const override;
@@ -115,12 +115,12 @@ struct document final : public base_item<document>
     QUrl localPath;
     categories category;
     states state;
+    float uploadProgress;
 
 private:
     QUrl relativePath;
     QString fileName;
     QString extension;
-    float uploadProgress;
     QDate uploadDate;
 
     void set_file_info();

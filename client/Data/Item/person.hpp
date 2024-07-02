@@ -11,8 +11,8 @@ namespace People
 {
 struct person : base_item<person>
 {
-    static consteval auto key() { return "person"; }
-    static consteval auto uri() { return "People"; }
+    static const constexpr auto key() { return "person"; }
+    static const constexpr auto uri() { return "People"; }
 
     enum roles
     {
@@ -28,7 +28,7 @@ struct person : base_item<person>
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    void read(const QJsonObject& json) override;
+    void read(const QJsonObject& json);
     void write(QJsonObject &json) const override;
 
     int id;

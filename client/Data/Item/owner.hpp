@@ -14,8 +14,8 @@ struct owner final : public virtual base_item<owner>
 {
     owner();
 
-    static consteval auto key() { return "owner"; }
-    static consteval auto qmlName() { return "Owner"; }
+    static const constexpr auto key() { return "owner"; }
+    static const constexpr auto qmlName() { return "Owner"; }
 
     enum civilStates
     {
@@ -42,7 +42,7 @@ struct owner final : public virtual base_item<owner>
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
 
-    void read(const QJsonObject& json) override;
+    void read(const QJsonObject& json);
     void write(QJsonObject& json) const override;
 
     bool is_completed() const override;

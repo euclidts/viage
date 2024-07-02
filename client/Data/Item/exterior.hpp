@@ -18,12 +18,12 @@ class exterior final : virtual public base_item<exterior>
 public:
     explicit exterior(QObject* parent = nullptr);
 
-    static consteval auto key() { return "exterior"; }
-    static consteval auto qmlName() { return "ExteriorItem"; }
-    static consteval auto uri() { return "Places"; }
+    static const constexpr auto key() { return "exterior"; }
+    static const constexpr auto qmlName() { return "ExteriorItem"; }
+    static const constexpr auto uri() { return "Places"; }
 
 
-    void read(const QJsonObject& json) override;
+    void read(const QJsonObject& json);
     void write(QJsonObject& json) const override;
 
     void clear() override;

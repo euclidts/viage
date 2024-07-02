@@ -10,8 +10,7 @@ template <typename T>
 class base_item
 {
 public:
-    virtual void read(const QJsonObject& json) {}
-    virtual void write(QJsonObject& json) const {}
+    virtual void write(QJsonObject &) const {}
 
     const QByteArray toData(const char* parentKey, int parentId)
     {

@@ -15,7 +15,7 @@ W_OBJECT_IMPL(base_wrapper<Inner>, template <typename Inner>)
 template <typename Inner>
 base_wrapper<Inner>::base_wrapper()
     : QObject{}
-    , inner{new Inner{}}
+    , inner{new Inner}
 {
     registerToQml();
 }

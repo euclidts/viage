@@ -44,7 +44,7 @@ public:
     static const QString get_tempPath();
 
 private:
-    client() {};
+    client() {}
 
     Calculator::wrapped_calculator* calculator;
 

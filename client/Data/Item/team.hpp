@@ -3,12 +3,15 @@
 
 #include "qnamespace.h"
 
+#include "base_item.hpp"
+
 namespace Data
 {
-struct team final
+struct team final : base_item<team>
 {
-    static const constexpr auto qmlName{"Team"};
-    static const constexpr auto uri{"Data"};
+    static const constexpr auto key() { return "Team"; }
+    static const constexpr auto qmlName() { return "Team"; }
+    static const constexpr auto uri() { return "Data"; }
 
     enum roles
     {
@@ -21,6 +24,11 @@ struct team final
 
     QVariant data(int role) const;
     void setData(const QVariant& value, int role);
+
+    void read(const QJsonObject& json);
+    void write(QJsonObject& json) const override;
+
+    bool is_completed() const override;
 
 private:
     int id;
