@@ -19,11 +19,11 @@ class habitat final : public base_item<habitat>
 public:
     explicit habitat(QObject* parent = nullptr);
 
-    static consteval auto key() { return "habitat"; }
-    static consteval auto qmlName() { return "Habitat"; }
-    static consteval auto uri() { return "Places"; }
+    static const constexpr auto key() { return "habitat"; }
+    static const constexpr auto qmlName() { return "Habitat"; }
+    static const constexpr auto uri() { return "Places"; }
 
-    void read(const QJsonObject& json) override;
+    void read(const QJsonObject& json);
     void write(QJsonObject &json) const override;
 
     void clear() override;

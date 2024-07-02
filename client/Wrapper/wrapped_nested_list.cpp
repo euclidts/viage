@@ -35,7 +35,7 @@ void wrapped_nested_list<Inner, Outer>::add_in_with(int id,
                                                     Data::list<Outer>* parentList)
 {
     auto json{obj};
-    json[Outer::foreign_key] = id;
+    json[Outer::foreign_key()] = id;
     QJsonDocument data{json};
 
     Interface::netManager::instance().postToKey(key.c_str(),

@@ -16,9 +16,9 @@ class list final : public base_data
 public:
     list(QObject* parent = nullptr);
 
-    static consteval auto key() { return T::key(); }
-    static consteval auto qmlName() { return T::qmlName(); }
-    static consteval auto uri() { return T::uri(); }
+    static const constexpr auto key() { return T::key(); }
+    static const constexpr auto qmlName() { return T::qmlName(); }
+    static const constexpr auto uri() { return T::uri(); }
 
     QVector<T> items() const;
     T item_at(int index) const;
@@ -71,7 +71,11 @@ public:
     void erase(int id);
 
     void read(const QJsonArray& json);
+    void read(const QByteArray& bytes);
     void write(QJsonArray& json) const;
+
+    const QByteArray toData(const char* parentKey, int parnetId);
+    const QByteArray toData(int parnetId);
 
     bool is_completed() const;
 
@@ -83,6 +87,8 @@ public:
 private:
     void checkCompleted();
     int index_at_id(int id) const noexcept;
+
+    void writeWithKey(QJsonObject& json) const;
 
     QVector<T> m_items;
 };

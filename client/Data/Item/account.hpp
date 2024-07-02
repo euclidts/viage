@@ -31,9 +31,10 @@ struct account final : public base_item<account>
 {
     account();
 
-    static consteval auto key() { return "account"; };
-    static consteval auto qmlName() { return "Account"; };
-    static consteval auto uri() { return "Data"; };
+    static const constexpr auto key() { return "account"; }
+    static const constexpr auto qmlName() { return "Account"; }
+    static const constexpr auto uri() { return "Data"; }
+    static const constexpr auto foreign_key() { return "AccountId"; }
 
     enum states
     {
@@ -81,16 +82,16 @@ struct account final : public base_item<account>
     bool update(list<People::owner>* ol);
     bool update(list<People::contact>* cl);
     bool update(Places::habitat* ht);
-    // bool update(Places::exterior* er);
+    bool update(Places::exterior* er);
     bool update(list<document>* ds);
 
     QJsonArray get(list<People::owner>* ol) const;
     QJsonArray get(list<People::contact>* cl) const;
     QJsonObject get(Places::habitat* ht) const;
-    // QJsonObject get(Places::exterior* er) const;
+    QJsonObject get(Places::exterior* er) const;
     QJsonArray get(list<document>* ds) const;
 
-    void read(const QJsonObject& json) override;
+    void read(const QJsonObject& json);
     void write(QJsonObject& json) const override;
 
     bool is_completed() const override;
@@ -109,7 +110,7 @@ private:
     QJsonArray owners;
     QJsonArray contacts;
     QJsonObject habitat;
-    // QJsonObject exterior;
+    QJsonObject exterior;
     QJsonArray documents;
 
 

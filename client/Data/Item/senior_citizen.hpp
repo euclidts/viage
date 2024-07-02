@@ -14,9 +14,9 @@ struct senior_citizen final
 {
     senior_citizen();
 
-    static consteval auto key() { return "seniorCitizen"; }
-    static consteval auto qmlName() { return "SeniorCitizen"; }
-    static consteval auto uri() { return "People"; }
+    static const constexpr auto key() { return "seniorCitizen"; }
+    static const constexpr auto qmlName() { return "SeniorCitizen"; }
+    static const constexpr auto uri() { return "People"; }
 
     enum sexes
     {

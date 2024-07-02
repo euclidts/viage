@@ -10,8 +10,8 @@ namespace People
 {
 struct contact final : virtual public infant
 {
-    static consteval auto key() { return "contact"; }
-    static consteval auto qmlName() { return "Contact"; }
+    static const constexpr auto key() { return "contact"; }
+    static const constexpr auto qmlName() { return "Contact"; }
 
     enum roles
     {
@@ -25,7 +25,7 @@ struct contact final : virtual public infant
     void setData(const QVariant& value, int role);
 
     void read(const QJsonObject& json);
-    void write(QJsonObject &json) const;
+    void write(QJsonObject &json) const override;
 
     bool is_completed() const;
 

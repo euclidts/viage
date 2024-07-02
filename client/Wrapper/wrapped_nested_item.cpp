@@ -46,11 +46,11 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::list<Outer>* paren
         {
             parentList->setItemAtId(id, outer);
 
-            Interface::netManager::instance().putToKey(makeKey(parentList).str(),
+            Interface::netManager::instance().putToKey(makeKey(parentList).c_str(),
                 this->inner->toData(id),
-                [=](const Json::Value& rep)
+                [=](const QJsonObject& rep)
             {
-                Json::Value json;
+                QJsonObject json;
                 Outer updated{};
                 outer.write(json);
                 updated.read(json);
@@ -73,17 +73,16 @@ void wrapped_nested_item<Inner, Outer>::makeConnections(Data::list<Outer>* paren
 
         if (json.empty())
         {
-            Interface::netManager::instance().getFromKey(makeKey(parentList, id).str(),
+            Interface::netManager::instance().getFromKey(makeKey(parentList, id).c_str(),
                                                          [this](const QByteArray& rep)
             {
                 if(!rep.isEmpty())
-                    this->inner->read(to_Json(rep));
+                    this->inner->read(rep);
             });
         }
         else
             this->inner->read(json);
     });
-
 }
 
 }

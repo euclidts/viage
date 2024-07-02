@@ -39,4 +39,17 @@ void team::setData(const QVariant& value, int role)
         has_users = value.toBool();
 }
 
+void team::write(QJsonObject& json) const
+{
+    json["id"] = id;
+    json["caption"] = caption;
+}
+
+bool team::is_completed() const
+{
+    if (caption == "")
+        return false;
+
+    return true;
+}
 }

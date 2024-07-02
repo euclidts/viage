@@ -517,7 +517,7 @@ void bridge::upload_doc(int index)
     if (doc.state != Data::document::NotUploded || doc.localPath.isEmpty())
         return;
 
-    QFile file{doc.localPath};
+    QFile file{doc.localPath.toLocalFile()};
     if (file.exists())
     {
         if (!file.open(QIODevice::ReadOnly))
@@ -534,7 +534,7 @@ void bridge::upload_doc(int index)
             QJsonDocument data{obj};
             int parent_account{accountId};
 
-            Interface::netManager::instance().putToKey(client::instance().get_documents()->key,
+            Interface::netManager::instance().putToKey(client::instance().get_documents()->key(),
                           data.toJson(),
                 [this, parent_account, doc]
                           (const QJsonObject& rep)
@@ -547,9 +547,9 @@ void bridge::upload_doc(int index)
                     client::instance().get_documents()->setItemAtId(doc.id, doc);
                 }
 
-                if (rep.contains("accountState") && rep["accountState"].isInt())
+                if (rep.contains("accountState") && rep["accountState"].isDouble())
                 {
-                    updated_account.state = Data::account_item::states(rep["accountState"].asInt());
+                    updated_account.state = Data::account::states(rep["accountState"].toInt());
                     updated_account.update(client::instance().get_documents());
                     client::instance().get_accounts()->setItemAtId(parent_account, updated_account);
                 }
@@ -563,8 +563,8 @@ void bridge::upload_doc(int index)
                 if (byteSent == 0)
                     return;
 
-                if (doc.state != Data::document_item::Uploading)
-                    doc.state = Data::document_item::Uploading;
+                if (doc.state != Data::document::Uploading)
+                    doc.state = Data::document::Uploading;
 
                 doc.uploadProgress = (byteSent / 1024.) / (totalbytes / 1024.);
                 client::instance().get_documents()->setItemAtId(doc.id, doc);

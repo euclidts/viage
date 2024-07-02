@@ -150,17 +150,17 @@ bool account::update(Places::habitat* ht)
     return true;
 }
 
-// bool account::update(Places::exterior* er)
-// {
-//     QJsonObject obj{};
-//     er->write(obj);
-//     if (exterior == obj)
-//         return false;
+bool account::update(Places::exterior* er)
+{
+    QJsonObject obj{};
+    er->write(obj);
+    if (exterior == obj)
+        return false;
 
-//     exterior = obj;
-//     modified = QDateTime::currentDateTime();
-//     return true;
-// }
+    exterior = obj;
+    modified = QDateTime::currentDateTime();
+    return true;
+}
 
 bool account::update(list<document>* ds)
 {
@@ -201,13 +201,13 @@ QJsonObject account::get(Places::habitat* ht) const
         return {};
 }
 
-// QJsonObject account::get(Places::exterior* er) const
-// {
-//     if (exterior.contains("id"))
-//         return exterior;
-//     else
-//         return {};
-// }
+QJsonObject account::get(Places::exterior* er) const
+{
+    if (exterior.contains("id"))
+        return exterior;
+    else
+        return {};
+}
 
 QJsonArray account::get(list<document>* ds) const
 {
@@ -233,8 +233,8 @@ void account::read(const QJsonObject& json)
     if (json.contains("habitat") && json["habitat"].isObject())
         habitat = json["habitat"].toObject();
 
-    // if (json.contains("exterior") && json["exterior"].isObject())
-    //     exterior = json["exterior"].toObject();
+    if (json.contains("exterior") && json["exterior"].isObject())
+        exterior = json["exterior"].toObject();
 
     if (json.contains("documents") && json["documents"].isArray())
         documents = json["documents"].toArray();
@@ -290,7 +290,7 @@ void account::write(QJsonObject& json) const
     json["owners"] = owners;
     json["contacts"] = contacts;
     json["habitat"] = habitat;
-    // json["exterior"] = exterior;
+    json["exterior"] = exterior;
     json["documents"] = documents;
     json["state"] = state;
     json["receivedDate"] = receivedDate.toString("dd.MM.yyyy");
