@@ -2,9 +2,6 @@
 #include <QDate>
 
 #include "senior_citizen.hpp"
-#include <client_utils.hpp>
-
-using namespace client_utils;
 
 namespace Data
 {

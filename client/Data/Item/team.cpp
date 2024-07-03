@@ -1,9 +1,14 @@
-#include "qvariant.h"
+#include <QVariant>
+#include <QJsonArray>
 
 #include "team.hpp"
 
 namespace Data
 {
+team::team()
+    : base_item<team>{}
+{}
+
 QHash<int, QByteArray> Data::team::roleNames()
 {
     QHash<int, QByteArray> names;
@@ -37,6 +42,18 @@ void team::setData(const QVariant& value, int role)
 
     if (role == HasUsersRole)
         has_users = value.toBool();
+}
+
+void team::read(const QJsonObject& json)
+{
+    if (json.contains("id") && json["id"].isDouble())
+        id = json["id"].toInt();
+
+    if (json.contains("caption") && json["caption"].isString())
+        caption = json["caption"].toString();
+
+    if (json.contains("users") && json["users"].isArray())
+        has_users = !json["users"].toArray().isEmpty();
 }
 
 void team::write(QJsonObject& json) const

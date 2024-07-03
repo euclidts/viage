@@ -5,7 +5,6 @@
 
 #include <bridge.hpp>
 #include <netManager.hpp>
-#include "client_utils.hpp"
 #include "client.hpp"
 
 int main(int argc, char* argv[])
@@ -19,7 +18,7 @@ int main(int argc, char* argv[])
     }
 
     QTranslator translator;
-    if (client_utils::is_german())
+    if (client::is_german())
     {
         if (translator.load("viage_de", ":/qm_files/"))
             app.installTranslator(&translator);

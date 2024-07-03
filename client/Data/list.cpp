@@ -120,7 +120,7 @@ void list<T>::read(const QJsonArray& array)
         if (json.isNull()) break;
 
         T item{};
-        item.read(json);
+        item.read(json.toObject());
         m_items.push_back(item);
     }
 

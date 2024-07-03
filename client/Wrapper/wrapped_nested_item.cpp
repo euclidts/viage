@@ -1,14 +1,12 @@
 #pragma once
 #include "wrapped_nested_item.hpp"
-#include <client_utils.hpp>
 
 namespace Wrapper
 {
 template <typename Inner, typename Outer>
 wrapped_nested_item<Inner, Outer>::wrapped_nested_item()
     : wrapped_list<Inner>{}
-{
-}
+{}
 
 template<typename Inner, typename Outer>
 std::string wrapped_nested_item<Inner, Outer>::makeKey(Data::list<Outer>* parentList)

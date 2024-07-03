@@ -8,8 +8,11 @@ namespace Data
 {
 namespace People
 {
-struct contact final : virtual public infant
+struct contact final : public base_item<contact>
+                     , public infant
 {
+    contact();
+
     static const constexpr auto key() { return "contact"; }
     static const constexpr auto qmlName() { return "Contact"; }
 
@@ -25,9 +28,9 @@ struct contact final : virtual public infant
     void setData(const QVariant& value, int role);
 
     void read(const QJsonObject& json);
-    void write(QJsonObject &json) const override;
+    void write(QJsonObject& json) const override;
 
-    bool is_completed() const;
+    bool is_completed() const override;
 
 private:
     bool isInfant;

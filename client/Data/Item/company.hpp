@@ -15,7 +15,7 @@ struct team;
 
 struct company final : public base_item<company>
 {
-    company() = default;
+    company();
 
     static const constexpr auto key() { return "company"; }
     static const constexpr auto qmlName() { return "Company"; }
@@ -42,8 +42,9 @@ struct company final : public base_item<company>
 
     bool is_completed() const override;
 
-private:
     int id;
+
+private:
     QString name;
     QJsonArray teams;
 };

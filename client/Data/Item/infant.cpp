@@ -1,24 +1,29 @@
-#pragma once
 #include <QVariant>
 
-#include "c_infant.hpp"
+#include "infant.hpp"
 
 namespace Data
 {
 namespace People
 {
-QHash<int, QByteArray> c_infant::roleNames()
+infant::infant()
+    : base_item<infant>{}
+    , person{}
+    , sex{senior_citizen::M}
+{}
+
+QHash<int, QByteArray> infant::roleNames()
 {
-    QHash<int, QByteArray> names = c_person::roleNames();
+    QHash<int, QByteArray> names = person::roleNames();
 
     names[SexRole] = "sex";
 
     return names;
 }
 
-QVariant c_infant::data(int role) const
+QVariant infant::data(int role) const
 {
-    QVariant base_data{c_person::data(role)};
+    QVariant base_data{person::data(role)};
 
     if (base_data != QVariant{})
         return base_data;
@@ -29,32 +34,32 @@ QVariant c_infant::data(int role) const
     return QVariant{};
 }
 
-void c_infant::setData(const QVariant &value, int role)
+void infant::setData(const QVariant& value, int role)
 {
-    c_person::setData(value, role);
+    person::setData(value, role);
 
     if (role == SexRole)
-        sex = c_senior_citizen::sexes(value.toInt());
+        sex = senior_citizen::sexes(value.toInt());
 }
 
-void c_infant::read(const QJsonObject& json)
+void infant::read(const QJsonObject& json)
 {
-    c_person::read(json);
+    person::read(json);
 
     if (json.contains("sex") && json["sex"].isDouble())
-        sex = c_senior_citizen::sexes(json["sex"].toInt());
+        sex = senior_citizen::sexes(json["sex"].toInt());
 }
 
-void c_infant::write(QJsonObject& json) const
+void infant::write(QJsonObject& json) const
 {
-    c_person::write(json);
+    person::write(json);
 
     json["sex"] = sex;
 }
 
-bool c_infant::is_completed() const
+bool infant::is_completed() const
 {
-    if (!c_person::is_completed())
+    if (!person::is_completed())
         return false;
 
     return true;

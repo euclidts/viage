@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QVariant>
 
 #include "address.hpp"
@@ -9,10 +7,10 @@ namespace Data
 namespace Places
 {
 address::address()
-    : zip{9000}
+    : base_item<address>{}
+    , zip{9000}
     , canton{"Appenzell"}
-{
-}
+{}
 
 QHash<int, QByteArray> address::roleNames()
 {

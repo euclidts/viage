@@ -123,10 +123,10 @@ void client::init()
                                             ? senior_citizen::F
                                             : senior_citizen::M;
 
-                             item.ca.street = previous.ca.street;
-                             item.ca.city = previous.ca.city;
-                             item.ca.zip = previous.ca.zip;
-                             item.ca.canton = previous.ca.canton;
+                             item.address.street = previous.address.street;
+                             item.address.city = previous.address.city;
+                             item.address.zip = previous.address.zip;
+                             item.address.canton = previous.address.canton;
                              item.civilStatus = previous.civilStatus;
                              item.lastName = previous.lastName;
 

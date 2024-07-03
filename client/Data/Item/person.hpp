@@ -31,6 +31,8 @@ struct person : base_item<person>
     void read(const QJsonObject& json);
     void write(QJsonObject &json) const override;
 
+    bool is_completed() const override;
+
     int id;
     QString firstName;
     QString lastName;

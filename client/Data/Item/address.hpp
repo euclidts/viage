@@ -1,7 +1,7 @@
 #ifndef ADDRESS_HPP
 #define ADDRESS_HPP
 
-#include "qjsonobject.h"
+#include <QJsonObject>
 
 #include "base_item.hpp"
 
@@ -9,8 +9,6 @@ namespace Data
 {
 namespace Places
 {
-struct address_item;
-
 struct address final : public base_item<address>
 {
     address();

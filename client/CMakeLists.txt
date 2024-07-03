@@ -56,7 +56,6 @@ qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}
 set(PROJECT_SOURCES
     main.cpp
     client.cpp
-    client_utils.cpp
     Interface/bridge.cpp
     Interface/netManager.cpp
     Wrapper/base_wrapper.hpp
@@ -70,13 +69,13 @@ set(PROJECT_SOURCES
     Model/account_filter_model.cpp
     Model/document_filter_model.cpp
     Model/user_filter_model.cpp
-    Data/base_data.hpp
+    Data/base_data.cpp
     Data/list.hpp
     Data/Item/address.cpp
-    Data/Item/person.hpp
+    Data/Item/person.cpp
     Data/Item/senior_citizen.cpp
     Data/Item/user.cpp
-    Data/Item/infant.hpp
+    Data/Item/infant.cpp
     Data/Item/contact.cpp
     Data/Item/owner.cpp
     Data/Item/habitat.cpp

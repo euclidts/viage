@@ -1,8 +1,8 @@
 #ifndef BASE_ITEM_HPP
 #define BASE_ITEM_HPP
 
-#include "qjsonobject.h"
-#include "qjsondocument.h"
+#include <QJsonObject>
+#include <QJsonDocument>
 
 namespace Data
 {
@@ -10,7 +10,7 @@ template <typename T>
 class base_item
 {
 public:
-    virtual void write(QJsonObject &) const {}
+    virtual void write(QJsonObject &) const = 0;
 
     const QByteArray toData(const char* parentKey, int parentId)
     {

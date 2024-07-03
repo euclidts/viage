@@ -7,7 +7,9 @@ namespace Data
 namespace People
 {
 user::user()
-    : clearance{Vendor}
+    : base_item<user>{}
+    , person{}
+    , clearance{Vendor}
 {}
 
 QHash<int, QByteArray> user::roleNames()

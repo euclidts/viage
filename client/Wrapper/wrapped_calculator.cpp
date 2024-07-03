@@ -31,7 +31,7 @@ wrapped_calculator::wrapped_calculator()
 
     Interface::bridge::instance().context()->setContextProperty(Data::rent::key(), rent);
 
-    if (client_utils::is_german())
+    if (client::is_german())
     {
         lingo = QLocale::German;
         docxName = "berechnung.docx";

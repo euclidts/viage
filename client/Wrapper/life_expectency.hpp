@@ -3,9 +3,6 @@
 
 #include <QDate>
 #include <Item/senior_citizen.hpp>
-#include <client_utils.hpp>
-
-using namespace client_utils;
 
 namespace Data
 {
