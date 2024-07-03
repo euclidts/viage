@@ -10,8 +10,8 @@ namespace Data
 {
 namespace People
 {
-struct user final : virtual public base_item<user>
-                  , virtual public person
+struct user final : public base_item<user>
+                  , public person
 {
     user();
 

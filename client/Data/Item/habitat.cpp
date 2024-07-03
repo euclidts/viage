@@ -8,7 +8,8 @@ namespace Places
 W_OBJECT_IMPL(habitat)
 
 habitat::habitat(QObject* parent)
-    : base_data{parent}
+    : base_item<habitat>{}
+    , base_data{parent}
     , habitatType{None}
     , rooms{2}
     , rawSurface{50}
@@ -52,6 +53,12 @@ void habitat::read(const QJsonObject& json)
 
     emit loaded();
     checkCompleted();
+}
+
+void habitat::read(const QByteArray& bytes)
+{
+    const auto json = QJsonDocument::fromJson(bytes).object();
+    read(json);
 }
 
 void habitat::write(QJsonObject& json) const

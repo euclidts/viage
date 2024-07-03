@@ -7,7 +7,6 @@
 #include "bridge.hpp"
 #include "netManager.hpp"
 #include <client.hpp>
-#include <client_utils.hpp>
 #include <Item/account.hpp>
 #include <Item/owner.hpp>
 #include <Item/contact.hpp>
@@ -276,8 +275,6 @@ void bridge::requestAccount()
         });
 }
 
-using namespace Json;
-
 void bridge::requestEmail()
 {
     std::string str{"accounts/"};
@@ -543,7 +540,7 @@ void bridge::upload_doc(int index)
 
                 if (rep.contains("document") && rep["document"].isObject())
                 {
-                    doc.read(rep["document"]);
+                    doc.read(rep["document"].toObject());
                     client::instance().get_documents()->setItemAtId(doc.id, doc);
                 }
 

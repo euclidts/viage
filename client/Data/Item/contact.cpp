@@ -6,6 +6,11 @@ namespace Data
 {
 namespace People
 {
+contact::contact()
+    : base_item<contact>{}
+    , infant{}
+{}
+
 QHash<int, QByteArray> contact::roleNames()
 {
     QHash<int, QByteArray> names = infant::roleNames();
@@ -28,12 +33,15 @@ QVariant contact::data(int role) const
     return QVariant{};
 }
 
-void contact::setData(const QVariant &value, int role)
+void contact::setData(const QVariant& value, int role)
 {
-    infant::setData(value, role);
-
     if (role == IsInfantRole)
+    {
         isInfant = value.toBool();
+        return;
+    }
+
+    infant::setData(value, role);
 }
 
 void contact::read(const QJsonObject& json)

@@ -24,6 +24,7 @@ public:
     static const constexpr auto uri() { return "Places"; }
 
     void read(const QJsonObject& json);
+    void read(const QByteArray& bytes);
     void write(QJsonObject &json) const override;
 
     void clear() override;

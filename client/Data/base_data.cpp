@@ -1,8 +1,8 @@
-#pragma once
-
 #include <wobjectimpl.h>
 
 #include "base_data.hpp"
+
+W_OBJECT_IMPL(Data::base_data)
 
 namespace Data
 {
@@ -24,4 +24,3 @@ void base_data::setCompleted(bool newCompleted)
 }
 }
 
-W_OBJECT_IMPL(Data::base_data)

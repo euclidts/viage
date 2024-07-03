@@ -9,7 +9,7 @@ namespace Data
 {
 class rent final : public base_data
 {
-W_OBJECT(rent)
+    W_OBJECT(rent)
 
 public:
     explicit rent(QObject* parent = nullptr);

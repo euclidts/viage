@@ -6,10 +6,13 @@
 
 namespace Data
 {
-namespace People {
-
+namespace People
+{
 owner::owner()
-    : civilStatus{None}
+    : base_item<owner>{}
+    , infant{}
+    , address{}
+    , civilStatus{None}
     , birthDay{QDate::currentDate().addYears(-AGE_MIN)}
 {}
 
@@ -43,7 +46,7 @@ QVariant owner::data(int role) const
         return avs;
     }
 
-    extra_data = ca.data(role);
+    extra_data = address.data(role);
 
     if (extra_data != QVariant{})
         return extra_data;
@@ -68,7 +71,7 @@ void owner::setData(const QVariant &value, int role)
         break;
     }
 
-    ca.setData(value, role);
+    address.setData(value, role);
 }
 
 void owner::read(const QJsonObject &json)
@@ -86,7 +89,7 @@ void owner::read(const QJsonObject &json)
         avs = json["avs"].toString();
 
     if (json.contains("address") && json["address"].isObject())
-        ca.read(json["address"].toObject());
+        address.read(json["address"].toObject());
 }
 
 void owner::write(QJsonObject& json) const
@@ -98,7 +101,7 @@ void owner::write(QJsonObject& json) const
     json["avs"] = avs;
 
     QJsonObject jsonAddress{};
-    ca.write(jsonAddress);
+    address.write(jsonAddress);
 
     json["address"] = jsonAddress;
 }
@@ -114,7 +117,7 @@ bool owner::is_completed() const
     if (avs == "")
         return false;
 
-    if (!ca.is_completed())
+    if (!address.is_completed())
         return false;
 
     return true;

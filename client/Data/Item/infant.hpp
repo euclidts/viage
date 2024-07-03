@@ -11,8 +11,8 @@ namespace Data
 {
 namespace People
 {
-struct infant : virtual public base_item<infant>
-              , virtual public person
+struct infant : public base_item<infant>
+              , public person
 {
     static const constexpr auto key() { return "infant"; }
 
@@ -32,10 +32,10 @@ struct infant : virtual public base_item<infant>
 
     bool is_completed() const override;
 
-    senior_citizen::sexes sex{senior_citizen::M};
+    senior_citizen::sexes sex;
 
 protected:
-    infant() = default;
+    infant();
 };
 
 }

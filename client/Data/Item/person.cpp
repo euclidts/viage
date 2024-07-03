@@ -1,17 +1,17 @@
-#pragma once
 #include <QVariant>
 
-#include "c_person.hpp"
+#include "person.hpp"
 
 namespace Data
 {
 namespace People
 {
-c_person::c_person()
-    : phone{"+41"}
+person::person()
+    : base_item<person>{}
+    , phone{"+41"}
 {}
 
-QHash<int, QByteArray> c_person::roleNames()
+QHash<int, QByteArray> person::roleNames()
 {
     QHash<int, QByteArray> names;
 
@@ -24,7 +24,7 @@ QHash<int, QByteArray> c_person::roleNames()
     return names;
 }
 
-QVariant c_person::data(int role) const
+QVariant person::data(int role) const
 {
     switch (role)
     {
@@ -43,7 +43,7 @@ QVariant c_person::data(int role) const
     return QVariant{};
 }
 
-void c_person::setData(const QVariant& value, int role)
+void person::setData(const QVariant& value, int role)
 {
     switch (role)
     {
@@ -62,7 +62,7 @@ void c_person::setData(const QVariant& value, int role)
     }
 }
 
-void c_person::read(const QJsonObject& json)
+void person::read(const QJsonObject& json)
 {
     if (json.contains("id") && json["id"].isDouble())
         id = json["id"].toInt();
@@ -80,13 +80,27 @@ void c_person::read(const QJsonObject& json)
         eMail = json["eMail"].toString();
 }
 
-void c_person::write(QJsonObject& json) const
+void person::write(QJsonObject& json) const
 {
     json["id"] = id;
     json["firstName"] = firstName;
     json["lastName"] = lastName;
     json["phone"] = phone;
     json["eMail"] = eMail;
+}
+
+bool person::is_completed() const
+{
+    if (firstName == "")
+        return false;
+
+    if (lastName == "")
+        return false;
+
+    if (phone.size() <= 3)
+        return false;
+
+    return true;
 }
 
 }

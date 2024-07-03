@@ -6,9 +6,6 @@
 
 #include <netManager.hpp>
 #include <list.hpp>
-#include <client_utils.hpp>
-
-using namespace client_utils;
 
 namespace Wrapper
 {
@@ -32,9 +29,7 @@ void wrapped_list<Inner>::get() const
 {
     Interface::netManager::instance().getFromKey(Inner::key(),
                                                  [this](const QByteArray& bytes)
-    {
-        this->inner->read(to_Json(bytes));
-    });
+                                                 { this->inner->read(bytes); });
 }
 
 template<typename Inner>

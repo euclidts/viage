@@ -42,6 +42,17 @@ public:
 
     static const QTemporaryDir tempDir;
     static const QString get_tempPath();
+    static bool is_german()
+    {
+        const auto local{QLocale().language()};
+
+        if (local == QLocale::German
+            || local == QLocale::SwissGerman
+            || local == QLocale::LowGerman)
+            return true;
+
+        return false;
+    }
 
 private:
     client() {}

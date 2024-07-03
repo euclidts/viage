@@ -9,7 +9,7 @@ namespace Data
 {
 namespace People
 {
-struct owner final : public virtual base_item<owner>
+struct owner final : public base_item<owner>
                    , public infant
 {
     owner();
@@ -49,7 +49,7 @@ struct owner final : public virtual base_item<owner>
 
     civilStates civilStatus;
 
-    Places::address ca;
+    Places::address address;
 
 protected:
     QDate birthDay;

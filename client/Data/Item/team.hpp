@@ -9,6 +9,8 @@ namespace Data
 {
 struct team final : base_item<team>
 {
+    team();
+
     static const constexpr auto key() { return "Team"; }
     static const constexpr auto qmlName() { return "Team"; }
     static const constexpr auto uri() { return "Data"; }
@@ -30,8 +32,9 @@ struct team final : base_item<team>
 
     bool is_completed() const override;
 
-private:
     int id;
+
+private:
     QString caption;
     bool has_users;
 };

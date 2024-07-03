@@ -10,7 +10,7 @@ namespace Data
 {
 namespace Places
 {
-class exterior final : virtual public base_item<exterior>
+class exterior final : public base_item<exterior>
                      , public base_data
 {
     W_OBJECT(exterior)
@@ -24,6 +24,7 @@ public:
 
 
     void read(const QJsonObject& json);
+    void read(const QByteArray& bytes);
     void write(QJsonObject& json) const override;
 
     void clear() override;

@@ -2,16 +2,14 @@
 #include <wobjectimpl.h>
 
 #include "exterior.hpp"
-#include <client_utils.hpp>
-
-using namespace client_utils;
 
 namespace Data
 {
 namespace Places
 {
 exterior::exterior(QObject* parent)
-    : base_data{parent}
+    : base_item<exterior>{}
+    , base_data{parent}
     , parkingType{NoParking}
     , terrainSurface{50}
     , equipement{None}
@@ -47,11 +45,11 @@ void exterior::read(const QJsonObject& json)
     checkCompleted();
 }
 
-// void exterior::read(const QByteArray &bytes)
-// {
-//     const auto json = QJsonDocument::fromJson(bytes).object();
-//     read(json);
-// }
+void exterior::read(const QByteArray& bytes)
+{
+    const auto json = QJsonDocument::fromJson(bytes).object();
+    read(json);
+}
 
 void exterior::write(QJsonObject& json) const
 {

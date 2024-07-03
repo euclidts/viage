@@ -3,7 +3,8 @@
 namespace Data
 {
 document::document()
-    : category{categories::None}
+    : base_item<document>{}
+    , category{categories::None}
     , uploadDate{}
 {}
 

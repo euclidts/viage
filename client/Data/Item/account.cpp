@@ -12,7 +12,8 @@
 namespace Data
 {
 account::account()
-    : state{Initialized}
+    : base_item<account>{}
+    , state{Initialized}
     , created{QDateTime::currentDateTime()}
     , modified{QDateTime::currentDateTime()}
 {}
