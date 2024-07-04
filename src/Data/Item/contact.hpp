@@ -1,8 +1,8 @@
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
 
+#include <list.hpp>
 #include "infant.hpp"
-#include <Data/list.hpp>
 
 namespace Data
 {
