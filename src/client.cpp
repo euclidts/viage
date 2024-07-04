@@ -5,10 +5,10 @@
 #include <wrapped_nested_list.hpp>
 #include <account_filter_model.hpp>
 
-#include <Data/Item/contact.hpp>
-#include <Data/Item/habitat.hpp>
-#include <Data/Item/exterior.hpp>
-#include <Data/Item/document.hpp>
+#include <Item/contact.hpp>
+#include <Item/habitat.hpp>
+#include <Item/exterior.hpp>
+#include <Item/document.hpp>
 
 client& client::instance()
 {

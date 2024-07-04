@@ -6,7 +6,7 @@
 
 #include "bridge.hpp"
 #include "netManager.hpp"
-#include <client.hpp>
+#include <src/client.hpp>
 #include <Item/account.hpp>
 #include <Item/owner.hpp>
 #include <Item/contact.hpp>
@@ -14,7 +14,7 @@
 #include <Item/team.hpp>
 #include <Item/senior_citizen.hpp>
 #include <list.hpp>
-#include <Model/list_model.hpp>
+#include <list_model.hpp>
 #include <account_filter_model.hpp>
 #include <user_filter_model.hpp>
 #include <document_filter_model.hpp>

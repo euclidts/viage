@@ -5,10 +5,10 @@
 #include <QLocale>
 #include <QFile>
 
-#include "wrapped_calculator.hpp"
-#include <client.hpp>
+#include <src/client.hpp>
 #include <Item/rent.hpp>
-#include <Interface/netManager.hpp>
+#include <netManager.hpp>
+#include "wrapped_calculator.hpp"
 
 namespace Calculator
 {
