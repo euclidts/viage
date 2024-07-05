@@ -10,6 +10,8 @@
 #include "base_data.hpp"
 #include "list.hpp"
 
+#include <bridge.hpp>
+
 namespace Data
 {
 template <typename T>
@@ -172,6 +174,7 @@ public:
 
         emit postItemsAppended();
     }
+
     void appendWith(const QJsonObject& json)
     {
         emit preItemsAppended(1);
@@ -215,11 +218,18 @@ public:
         emit postItemsAppended();
         emit loaded();
     }
+
     void read(const QByteArray& bytes)
     {
-        const auto json = QJsonDocument::fromJson(bytes).array();
-        read(json);
+        QJsonParseError err{};
+        const auto json = QJsonDocument::fromJson(bytes, &err);
+
+        if (err.error != QJsonParseError::NoError)
+            Interface::bridge::instance().onException("json parse error", err.errorString());
+
+        read(json.array());
     }
+
     void write(QJsonArray& json) const
     {
         for (const auto& item : m_items)

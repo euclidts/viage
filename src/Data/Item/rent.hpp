@@ -14,8 +14,8 @@ class rent final : public base_data
 public:
     explicit rent(QObject* parent = nullptr);
 
-    static const constexpr auto key() { return "rentItem"; }
-    static const constexpr auto qmlName() { return "RentItem"; }
+    static const constexpr auto key() { return "rent"; }
+    static const constexpr auto qmlName() { return "Rent"; }
     static const constexpr auto uri() { return "Data"; }
 
     void clear() override;
