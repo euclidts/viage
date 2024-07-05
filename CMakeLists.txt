@@ -50,6 +50,7 @@ endif()
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
+    Widgets
     LinguistTools
     Multimedia
     Svg
@@ -150,6 +151,7 @@ target_compile_definitions(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Quick
+    Qt6::Widgets
     Qt6::Multimedia
     Qt6::Svg
     duckx)

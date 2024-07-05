@@ -2,6 +2,9 @@
 #include <QNetworkRequest>
 #include <QJsonObject>
 #include <QJsonDocument>
+#ifdef EMSCRIPTEN
+#include <QFileDialog>
+#endif
 
 #include <wobjectimpl.h>
 
@@ -138,6 +141,7 @@ void netManager::downloadFile(const char* key,
             return;
         }
 
+#ifndef EMSCRIPTEN
         QSaveFile file(path);
         if (file.open(QIODevice::WriteOnly))
         {
@@ -149,6 +153,12 @@ void netManager::downloadFile(const char* key,
         }
         else
             callback(false, file.errorString());
+#else
+        QUrl url{path};
+        QFileDialog::saveFileContent(bytes, url.fileName());
+        callback(true, "");
+#endif
+
     });
 
     connect(reply,
@@ -247,7 +257,7 @@ void netManager::setRequest(const char* key, const char * params)
 #ifndef EMSCRIPTEN
     QUrl url{prefix + key + '?' + suffix + params};
 #else
-    QUrl url{QString{'/'} + key + '?' + params};
+    QUrl url{QString{'/'} + key + '?' + suffix + params};
 #endif
     rqst.setUrl(url);
 }
