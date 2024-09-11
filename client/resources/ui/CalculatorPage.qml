@@ -104,7 +104,7 @@ ScrollView {
 //                    }
 
                     Label {
-                        text: qsTr("Droit d'habitation :")
+                        text: qsTr("Usufruit strictement personnel :")
                         font.bold: true
                         Layout.alignment: Qt.AlignRight
                     }

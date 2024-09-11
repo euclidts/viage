@@ -77,7 +77,7 @@ ScrollView {
 
                 DocumentListView {
                     id: calculation
-                    name: qsTr("Cacul du droit d'habitation")
+                    name: qsTr("Cacul de l'usufruit strictement personnel")
                     documentCategory: 2048 // Calculation
                     documentsFrom: documents
                 }

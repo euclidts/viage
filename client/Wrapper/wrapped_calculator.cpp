@@ -102,6 +102,7 @@ void wrapped_calculator::write_to_file()
     auto ru{p.runs()};
 
     ru.set_text(str.toStdString());
+    end_runs(ru);
 
     p = doc.paragraphs();
 
@@ -175,7 +176,10 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Geschätzter Wert der Liegenschaft: 			CHF ");
     else
-        skip_runs(ru, 7);
+    {
+        skip_runs(ru, 5);
+        str.prepend("CHF ");
+    }
 
     str.append(".-");
     ru.set_text(str.toStdString());
@@ -189,7 +193,10 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Wohnrecht: 						CHF ");
     else
-        skip_runs(ru, 8);
+    {
+        skip_runs(ru, 5);
+        str.prepend("CHF ");
+    }
 
     str.append(".-");
     ru.set_text(str.toStdString());
@@ -203,7 +210,10 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Abschlagzahlung: 					CHF ");
     else
-        skip_runs(ru, 9);
+    {
+        skip_runs(ru, 7);
+        str.prepend("CHF ");
+    }
 
     str.append(".-");
     ru.set_text(str.toStdString());

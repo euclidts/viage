@@ -189,8 +189,12 @@
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="107"/>
+        <source>Usufruit strictement personnel :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Droit d&apos;habitation :</source>
-        <translation>Wohnrecht :</translation>
+        <translation type="vanished">Wohnrecht :</translation>
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="118"/>
@@ -372,9 +376,13 @@
         <translation>Bestätigung der Urteilsfähigkeit</translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="80"/>
         <source>Cacul du droit d&apos;habitation</source>
-        <translation>Berechnung des Wohnrechts</translation>
+        <translation type="vanished">Berechnung des Wohnrechts</translation>
+    </message>
+    <message>
+        <location filename="../ui/DocumentPage.qml" line="80"/>
+        <source>Cacul de l&apos;usufruit strictement personnel</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/DocumentPage.qml" line="92"/>
@@ -1080,6 +1088,7 @@ Jahre</translation>
 <context>
     <name>cpp_tutorial</name>
     <message>
+        <location filename="../../../3rdparty/verdigris/tutorial/cpp_tutorial.qml" line="11"/>
         <location filename="../../3rdparty/verdigris/tutorial/cpp_tutorial.qml" line="11"/>
         <source>Cpp Tutorial</source>
         <translation></translation>
