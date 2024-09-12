@@ -50,7 +50,6 @@ endif()
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
-    Widgets
     LinguistTools
     Multimedia
     Svg
@@ -151,7 +150,6 @@ target_compile_definitions(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Quick
-    Qt6::Widgets
     Qt6::Multimedia
     Qt6::Svg
     duckx)
@@ -187,7 +185,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
         set(CPACK_IFW_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
         set(CPACK_IFW_PACKAGE_LOGO "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/viageLogo.ico")
         set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/ci/deploy-qt-windows.cmake)
-        set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE)
+        set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
 
         include(CPack)
         include(CPackIFW)
