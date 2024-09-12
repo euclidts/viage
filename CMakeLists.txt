@@ -159,15 +159,16 @@ qt_import_qml_plugins(${PROJECT_NAME})
 qt_finalize_executable(${PROJECT_NAME})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    message(STATUS "Release build")
+
     if(WIN32)
         # Installer setup copyed from
         # https://github.com/christopro/AwesomeWorld-Cmake/blob/main/AwesomeWorld/CMakeList.txt
-        set(COMPONENT_NAME_MAIN "${PROJECT_NAME}")
         set(COMPONENT_NAME_DEPENDENCIES "RuntimeLibs")
 
         install(TARGETS ${PROJECT_NAME}
             DESTINATION ${CMAKE_INSTALL_BINDIR}
-            COMPONENT ${COMPONENT_NAME_MAIN})
+            COMPONENT ${PROJECT_NAME})
 
         set(CMAKE_INSTALL_SYSTEM_RUNTIME_COMPONENT ${COMPONENT_NAME_DEPENDENCIES})
 
@@ -190,13 +191,13 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
         include(CPack)
         include(CPackIFW)
 
-        CPACK_ADD_COMPONENT(${COMPONENT_NAME_MAIN})
+        CPACK_ADD_COMPONENT(${PROJECT_NAME})
 
         cpack_ifw_configure_component(${COMPONENT_NAME_DEPENDENCIES} VIRTUAL FORCED_INSTALLATION)
-        cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} ESSENTIAL FORCED_INSTALLATION)
-        cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} LICENSES
+        cpack_ifw_configure_component(${PROJECT_NAME} ESSENTIAL FORCED_INSTALLATION)
+        cpack_ifw_configure_component(${PROJECT_NAME} LICENSES
             "LGPL License" ${CPACK_RESOURCE_FILE_LICENSE})
-        cpack_ifw_configure_component(${COMPONENT_NAME_MAIN} SCRIPT
+        cpack_ifw_configure_component(${PROJECT_NAME} SCRIPT
             ${CMAKE_CURRENT_SOURCE_DIR}/ci/installScript.qs)
     endif()
 

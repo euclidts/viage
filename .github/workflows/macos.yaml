@@ -36,7 +36,6 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
           -DCMAKE_CXX_COMPILER=clang++
           -DCMAKE_C_COMPILER=clang
-          -DSERVER=OFF
           -DCMAKE_OSX_DEPLOYMENT_TARGET=${{env.MIN_OSX_VERSION}}
 
       - name: Build

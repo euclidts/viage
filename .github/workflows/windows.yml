@@ -17,7 +17,7 @@ jobs:
       with:
         submodules: recursive
 
-    - uses: seanmiddleditch/gha-setup-ninja@v4
+    - uses: seanmiddleditch/gha-setup-ninja@v5
 
     - uses: jurplel/install-qt-action@v3
       with:
@@ -36,7 +36,6 @@ jobs:
       run: >
         cmake .. -GNinja
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        -DSERVER=OFF
         -DCPACK_IFW_ROOT=${{github.workspace}}/Qt/Tools/QtInstallerFramework/${{env.IFW_VERSION}}
         -DCMAKE_CXX_COMPILER=D:/a/viage/viage/Qt/Tools/mingw1120_64/bin/g++.exe
         -DCMAKE_C_COMPILER=D:/a/viage/viage/Qt/Tools/mingw1120_64/bin/gcc.exe
