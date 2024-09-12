@@ -1088,7 +1088,6 @@ Jahre</translation>
 <context>
     <name>cpp_tutorial</name>
     <message>
-        <location filename="../../../3rdparty/verdigris/tutorial/cpp_tutorial.qml" line="11"/>
         <location filename="../../3rdparty/verdigris/tutorial/cpp_tutorial.qml" line="11"/>
         <source>Cpp Tutorial</source>
         <translation></translation>
