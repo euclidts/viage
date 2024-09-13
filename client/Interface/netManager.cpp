@@ -40,7 +40,6 @@ void netManager::init(const QString& url,
 void netManager::init(const QString& authentication_arguments,
                       const QString& extra_arguments)
 {
-    rqst = {};
     auth_args = authentication_arguments;
     suffix = extra_arguments;
 

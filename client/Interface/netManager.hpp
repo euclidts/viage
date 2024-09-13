@@ -79,7 +79,7 @@ private:
 #ifndef EMSCRIPTEN
     QString prefix;
 #endif
-    QNetworkRequest rqst;
+    QNetworkRequest rqst{};
     QString auth_args;
     QString suffix;
 
