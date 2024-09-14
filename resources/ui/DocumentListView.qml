@@ -52,7 +52,7 @@ GroupBox {
                 required property var model
                 required property int index
                 property var updateFunc: function() {
-                    model.localPath = urlProvider.path
+                    model.localPath = bridge.uploadPath
                 }
 
                 Component.onCompleted: {
@@ -72,7 +72,7 @@ GroupBox {
                     FolderButton {
                         onClicked: {
                             urlProvider.func = updateFunc
-                            urlProvider.fileDialog.open()
+                            bridge.getUploadFile()
                         }
                     }
 
@@ -80,7 +80,7 @@ GroupBox {
                         icon.source: "qrc:/icons/camera.svg"
                         onClicked: {
                             urlProvider.func = updateFunc
-                            urlProvider.path = bridge.getPictureName(name, index)
+                            bridge.getPictureName(name, index)
                             urlProvider.loader.active = true
                         }
                     }
@@ -119,7 +119,7 @@ GroupBox {
                 FolderButton {
                     onClicked: {
                         urlProvider.func = aquireFunc
-                        urlProvider.fileDialog.open()
+                        bridge.getUploadFile()
                     }
                 }
 
@@ -127,7 +127,7 @@ GroupBox {
                     icon.source: "qrc:/icons/camera.svg"
                     onClicked: {
                         urlProvider.func = aquireFunc
-                        urlProvider.path = bridge.getPictureName(name, root.count)
+                        bridge.getPictureName(name, root.count)
                         urlProvider.loader.active = true
                     }
                 }

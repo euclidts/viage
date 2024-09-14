@@ -1,6 +1,7 @@
 #include <QDesktopServices>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QFileDialog>
 
 #include <wobjectimpl.h>
 
@@ -220,13 +221,11 @@ void bridge::requestReport()
         {
             if (success)
             {
-#ifndef EMSCRIPTEN
                 auto xlsx_path{client::get_tempPath() + "/Viage.xlsx"};
 
                 if (!QDesktopServices::openUrl(QUrl::fromLocalFile(xlsx_path)))
                     onException("requestReport error", "QDesktopervices : could not open excel");
                 else
-#endif
                     emit loaded();
             }
             else
@@ -260,11 +259,9 @@ void bridge::requestAccount()
         {
             if (success)
             {
-#ifndef EMSCRIPTEN
                 if (!QDesktopServices::openUrl(QUrl::fromLocalFile(path)))
                     onException("requestAccount error", "QDesktopervices : could not open pdf");
                 else
-#endif
                     emit loaded();
             }
             else
@@ -403,16 +400,16 @@ void bridge::sendOnboardedEmail() const
     { emit loaded(); });
 }
 
-QUrl bridge::getPictureName(QString name, int index) const
+void bridge::getPictureName(QString name, int index)
 {
-    return QUrl::fromLocalFile(client::get_tempPath()
-                               + '/'
-                               + QString::number(accountId)
-                               + '_'
-                               + name.replace(' ', '_').replace('/', '-')
-                               + '_'
-                               + QString::number(index + 1)
-                               + ".jpeg");
+    setUploadPath(QUrl::fromLocalFile(client::get_tempPath()
+                                + '/'
+                                + QString::number(accountId)
+                                + '_'
+                                + name.replace(' ', '_').replace('/', '-')
+                                + '_'
+                                + QString::number(index + 1)
+                                + ".jpeg"));
 }
 
 Data::People::user::clearances bridge::getClearance() const
@@ -582,6 +579,19 @@ void bridge::setDownloadProgress(float newDownloadProgress)
     emit downloadProgressChanged();
 }
 
+QUrl bridge::getUploadPath() const
+{
+    return uploadPath;
+}
+
+void bridge::setUploadPath(const QUrl& newUploadPath)
+{
+    if (uploadPath == newUploadPath)
+        return;
+    uploadPath = newUploadPath;
+    emit uploadPathChanged();
+}
+
 float bridge::getDownloadProgress() const
 {
     return downloadProgress;
@@ -686,6 +696,20 @@ bool bridge::hasFlag(int value, int flag) const noexcept
 bool bridge::accountHasFlag(int flag) const noexcept
 {
     return hasFlag(accountState, flag);
+}
+
+void bridge::getUploadFile()
+{
+    QFileDialog::getOpenFileContent("(*.pdf *.PDF *.png *.PNG *.jpg *.JPG *.jpeg *.JPEG *.raw *.tiff)",
+                                    [this]
+                                    (const QString& fileName, const QByteArray& fileContent)
+                                    {
+                                        if (!fileName.isEmpty())
+                                        {
+                                            setUploadPath(QUrl::fromLocalFile(fileName));
+                                            QMetaObject::invokeMethod(qmlObject, "urlAction");
+                                        }
+                                    });
 }
 
 const QString bridge::filePath(const QUrl &directory, const QString &fileName) const

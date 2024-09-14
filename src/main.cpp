@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QLocale>
 #include <QTranslator>
@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     if (!client::tempDir.isValid())
     {
