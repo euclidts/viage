@@ -78,6 +78,8 @@ ApplicationWindow {
         onException(prefix, error)
     }
 
+    function urlAction() { urlProvider.func() }
+
     Image {
         id: backDrop
         source: "qrc:/images/vue_du_lac.jpg"
@@ -86,7 +88,7 @@ ApplicationWindow {
         clip: true
         fillMode: Image.PreserveAspectCrop
 
-        Component.onCompleted: logginDialog.open()
+        // Component.onCompleted: logginDialog.open()
     }
 
     ExceptionDialog { id: exceptionDialog }
@@ -107,12 +109,14 @@ ApplicationWindow {
     StackLayout {
         id: rootStack
         anchors.fill: parent
-        currentIndex: 3
+        // currentIndex: 3
+        currentIndex: 0
 
         onCurrentIndexChanged: topBar.searchBar.text = ""
 
         StackLayout {
             id: accountsPages
+            currentIndex: 5
 
             function loadItem() {
                 busyDialog.open()

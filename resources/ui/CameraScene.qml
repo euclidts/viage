@@ -7,16 +7,17 @@ ColumnLayout {
     id: root
     anchors.fill: parent
 
-    property string path
     property var onValidate
 
     CaptureSession {
         camera: Camera {
             id: camera
+            active: true
 
             onErrorOccurred: function(error, errorString) {
                 if (Camera.NoError !== error) {
                     console.log("Camera error " + error + errorString)
+                    camera.acive = false
                     root.parent.active = false
                 }
             }
@@ -35,7 +36,6 @@ ColumnLayout {
         Layout.fillHeight: true
         Layout.fillWidth: true
         fillMode: Image.PreserveAspectFit
-        Component.onCompleted: camera.start()
     }
 
     Image {
@@ -53,7 +53,10 @@ ColumnLayout {
         MaterialButton {
             text: qsTr("Annuler")
             icon.source: "qrc:/icons/arrow-left.svg"
-            onClicked: root.parent.active = false
+            onClicked: {
+                camera.active = false
+                root.parent.active = false
+            }
         }
 
         ComboBox {
@@ -63,6 +66,7 @@ ColumnLayout {
             model: mediaDevices.videoInputs
 
             MediaDevices { id: mediaDevices }
+
             onCurrentIndexChanged: camera.cameraDevice = mediaDevices.videoInputs[currentIndex]
         }
 
@@ -95,8 +99,9 @@ ColumnLayout {
             icon.source: "qrc:/icons/arrow-right.svg"
             visible: preview.visible
             onClicked: {
-                imageCapture.saveToFile(path)
+                imageCapture.saveToFile(bridge.uploadPath)
                 onValidate()
+                camera.active = false
                 root.parent.active = false
             }
         }

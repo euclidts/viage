@@ -98,7 +98,7 @@ public:
     void resetPwd(int id) const;
     W_INVOKABLE(resetPwd)
 
-    QUrl getPictureName(QString name, int index) const;
+    void getPictureName(QString name, int index);
     W_INVOKABLE(getPictureName, (QString, int))
 
     void setQmlObject(QObject* obj) noexcept { qmlObject = obj; };
@@ -107,6 +107,9 @@ public:
     W_INVOKABLE(hasFlag, (int, int))
     bool accountHasFlag(int flag) const noexcept;
     W_INVOKABLE(accountHasFlag, (int))
+
+    void getUploadFile();
+    W_INVOKABLE(getUploadFile)
 
     void logout() const
     W_SIGNAL(logout)
@@ -185,6 +188,11 @@ public:
     void downloadProgressChanged()
     W_SIGNAL(downloadProgressChanged)
 
+    QUrl getUploadPath() const;
+    void setUploadPath(const QUrl& newUploadPath);
+    QUrl uploadPathChanged()
+    W_SIGNAL(uploadPathChanged)
+
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(Data::People::user::clearances, clearance READ getClearance NOTIFY clearanceChanged)
     W_PROPERTY(int, userId READ getUserId NOTIFY userIdChanged)
@@ -198,6 +206,7 @@ public:
     W_PROPERTY(QDate, accountPaid READ getAccountPaid NOTIFY accountPaidChanged)
     W_PROPERTY(QDate, accountDecided READ getAccountDecided NOTIFY accountDecidedChanged)
     W_PROPERTY(float, downloadProgress READ getDownloadProgress WRITE setDownloadProgress NOTIFY downloadProgressChanged)
+    W_PROPERTY(QUrl, uploadPath READ getUploadPath WRITE setUploadPath NOTIFY uploadPathChanged)
 
 private:
     bridge() {}
@@ -231,6 +240,7 @@ private:
     QDate accountNotarized{};
     QDate accountPaid{};
     float downloadProgress{-1.f};
+    QUrl uploadPath{};
 
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;

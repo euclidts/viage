@@ -210,17 +210,17 @@
         <translation>Rückgängig machen</translation>
     </message>
     <message>
-        <location filename="../ui/CameraScene.qml" line="71"/>
+        <location filename="../ui/CameraScene.qml" line="75"/>
         <source>Scanner</source>
         <translation>Scannen</translation>
     </message>
     <message>
-        <location filename="../ui/CameraScene.qml" line="83"/>
+        <location filename="../ui/CameraScene.qml" line="87"/>
         <source>Scanner de nouveau</source>
         <translation>Erneut scannen</translation>
     </message>
     <message>
-        <location filename="../ui/CameraScene.qml" line="94"/>
+        <location filename="../ui/CameraScene.qml" line="98"/>
         <source>Valider</source>
         <translation>Bestätigen</translation>
     </message>
@@ -1089,6 +1089,7 @@ Jahre</translation>
     <name>cpp_tutorial</name>
     <message>
         <location filename="../../3rdparty/verdigris/tutorial/cpp_tutorial.qml" line="11"/>
+        <location filename="../../client/3rdparty/verdigris/tutorial/cpp_tutorial.qml" line="11"/>
         <source>Cpp Tutorial</source>
         <translation></translation>
     </message>
