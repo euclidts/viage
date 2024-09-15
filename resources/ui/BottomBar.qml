@@ -122,8 +122,8 @@ RowLayout {
 
         onClicked: {
             // exception for contacts
-            accountsPages.currentIndex == 2 ? contacts.validate(bridge.accountId)
-                                            : accountsPages.validateItem()
+            accountsPages.currentIndex === 2 ? contacts.validate(bridge.accountId)
+                                             : accountsPages.validateItem()
             accountsPages.loadItemAt(accountsPages.currentIndex + 1)
         }
     }

@@ -88,7 +88,7 @@ ApplicationWindow {
         clip: true
         fillMode: Image.PreserveAspectCrop
 
-        // Component.onCompleted: logginDialog.open()
+        Component.onCompleted: logginDialog.open()
     }
 
     ExceptionDialog { id: exceptionDialog }
@@ -109,14 +109,12 @@ ApplicationWindow {
     StackLayout {
         id: rootStack
         anchors.fill: parent
-        // currentIndex: 3
-        currentIndex: 0
+        currentIndex: 3
 
         onCurrentIndexChanged: topBar.searchBar.text = ""
 
         StackLayout {
             id: accountsPages
-            currentIndex: 5
 
             function loadItem() {
                 busyDialog.open()

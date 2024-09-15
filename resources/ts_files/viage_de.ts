@@ -93,12 +93,12 @@
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="153"/>
+        <location filename="../ui/BottomBar.qml" line="154"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="156"/>
+        <location filename="../ui/BottomBar.qml" line="157"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
         <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
@@ -123,7 +123,7 @@
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="133"/>
+        <location filename="../ui/BottomBar.qml" line="134"/>
         <source>Terminer</source>
         <translation>Abschliessen</translation>
     </message>
@@ -593,37 +593,37 @@ Jahre</translation>
         <translation>Lage des Objekts</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="48"/>
+        <location filename="../ui/HabitatPage.qml" line="46"/>
         <source>Maison individuelle</source>
         <translation>Einfamilienhaus</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="53"/>
+        <location filename="../ui/HabitatPage.qml" line="51"/>
         <source>Maison mitoyenne</source>
         <translation>Reihenhaus</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="59"/>
+        <location filename="../ui/HabitatPage.qml" line="57"/>
         <source>Appartement</source>
         <translation>Wohnung</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="71"/>
+        <location filename="../ui/HabitatPage.qml" line="69"/>
         <source>PPE</source>
         <translation>Stockwerkeigentum</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="81"/>
+        <location filename="../ui/HabitatPage.qml" line="79"/>
         <source>Nombre de pièces</source>
         <translation>Anzahl Zimmer</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="119"/>
+        <location filename="../ui/HabitatPage.qml" line="117"/>
         <source>m² construits</source>
         <translation>Bebaute m²</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="127"/>
+        <location filename="../ui/HabitatPage.qml" line="125"/>
         <source>m² disponibles</source>
         <translation>Verfügbare m²</translation>
     </message>
@@ -632,17 +632,17 @@ Jahre</translation>
         <translation type="vanished">Anzahl Zimmer</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="92"/>
+        <location filename="../ui/HabitatPage.qml" line="90"/>
         <source>Surface</source>
         <translation>Fläche</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="103"/>
+        <location filename="../ui/HabitatPage.qml" line="101"/>
         <source>brut (m²)</source>
         <translation>brutto (m²)</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="111"/>
+        <location filename="../ui/HabitatPage.qml" line="109"/>
         <source>net (m²)</source>
         <translation>netto (m²)</translation>
     </message>
@@ -655,7 +655,7 @@ Jahre</translation>
         <translation type="vanished">Verfügbare m²</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="137"/>
+        <location filename="../ui/HabitatPage.qml" line="135"/>
         <source>Nombre de m³</source>
         <translation>Anzahl m³</translation>
     </message>
@@ -973,6 +973,29 @@ Jahre</translation>
         <location filename="../ui/TopBar.qml" line="286"/>
         <source>Options</source>
         <translation>Optionen</translation>
+    </message>
+</context>
+<context>
+    <name>UrlProvider</name>
+    <message>
+        <location filename="../ui/UrlProvider.qml" line="73"/>
+        <source>Annuler</source>
+        <translation type="unfinished">Rückgängig machen</translation>
+    </message>
+    <message>
+        <location filename="../ui/UrlProvider.qml" line="91"/>
+        <source>Scanner</source>
+        <translation type="unfinished">Scannen</translation>
+    </message>
+    <message>
+        <location filename="../ui/UrlProvider.qml" line="103"/>
+        <source>Scanner de nouveau</source>
+        <translation type="unfinished">Erneut scannen</translation>
+    </message>
+    <message>
+        <location filename="../ui/UrlProvider.qml" line="114"/>
+        <source>Valider</source>
+        <translation type="unfinished">Bestätigen</translation>
     </message>
 </context>
 <context>
