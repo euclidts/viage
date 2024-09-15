@@ -26,8 +26,6 @@ void netManager::init(const QString& url,
 
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);
-    rqst.setHeader(QNetworkRequest::ContentTypeHeader,
-                   "application/json");
 
     connect(this, &QNetworkAccessManager::sslErrors,
             this, [](QNetworkReply* reply,
@@ -46,6 +44,9 @@ void netManager::init(const QString& authentication_arguments,
     suffix = extra_arguments;
 
     setTransferTimeout();
+
+    rqst.setHeader(QNetworkRequest::ContentTypeHeader,
+                   "application/json");
 
     connect(this, &QNetworkAccessManager::finished,
             this, [this](QNetworkReply* reply)

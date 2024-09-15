@@ -978,24 +978,20 @@ Jahre</translation>
 <context>
     <name>UrlProvider</name>
     <message>
-        <location filename="../ui/UrlProvider.qml" line="73"/>
         <source>Annuler</source>
-        <translation type="unfinished">Rückgängig machen</translation>
+        <translation type="obsolete">Rückgängig machen</translation>
     </message>
     <message>
-        <location filename="../ui/UrlProvider.qml" line="91"/>
         <source>Scanner</source>
-        <translation type="unfinished">Scannen</translation>
+        <translation type="obsolete">Scannen</translation>
     </message>
     <message>
-        <location filename="../ui/UrlProvider.qml" line="103"/>
         <source>Scanner de nouveau</source>
-        <translation type="unfinished">Erneut scannen</translation>
+        <translation type="obsolete">Erneut scannen</translation>
     </message>
     <message>
-        <location filename="../ui/UrlProvider.qml" line="114"/>
         <source>Valider</source>
-        <translation type="unfinished">Bestätigen</translation>
+        <translation type="obsolete">Bestätigen</translation>
     </message>
 </context>
 <context>
