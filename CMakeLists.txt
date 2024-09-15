@@ -41,18 +41,14 @@ if(ANDROID)
         DESTINATION
         ${CMAKE_BINARY_DIR}/android-build/libs/x86_64
     )
-
-    set(ALT_QRC "resources/empty.qrc")
-else()
-    set(ALT_QRC "resources/complete.qrc")
 endif()
 
 find_package(Qt6 REQUIRED COMPONENTS
-    Core
+    # Core
     Widgets
     Quick
     LinguistTools
-    Multimedia
+    # Multimedia
     Svg
 )
 
@@ -87,7 +83,6 @@ set(PROJECT_SOURCES
     src/Data/Item/company.cpp
     src/Data/Item/team.cpp
     resources/viage.qrc
-    ${ALT_QRC}
     ${QM_FILES}
 )
 
@@ -149,10 +144,10 @@ target_compile_definitions(${PROJECT_NAME}
 #target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Werror)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt6::Core
+    # Qt6::Core
     Qt6::Widgets
     Qt6::Quick
-    Qt6::Multimedia
+    # Qt6::Multimedia
     Qt6::Svg
     duckx)
 

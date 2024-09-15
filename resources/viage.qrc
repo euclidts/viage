@@ -37,6 +37,7 @@
         <file alias="ExceptionDialog.qml">ui/ExceptionDialog.qml</file>
         <file alias="FileDropRect.qml">ui/FileDropRect.qml</file>
         <file alias="PhoneChooser.qml">ui/PhoneChooser.qml</file>
+        <file alias="UrlProvider.qml">ui/UrlProvider.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="ViageLogo.svg">images/ViageLogo.svg</file>

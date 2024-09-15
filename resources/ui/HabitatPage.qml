@@ -28,9 +28,7 @@ ScrollView {
                         font.bold: true
                     }
 
-                    AddressChooser {
-                        addressOf: habitat
-                    }
+                    AddressChooser { addressOf: habitat }
 
                     ButtonGroup {
                         id: habitatTypes

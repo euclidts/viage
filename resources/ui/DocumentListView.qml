@@ -22,8 +22,7 @@ GroupBox {
     property var jsonMetadata
     property var aquireFunc: function() {
         root.aquiring = true
-        urlProvider.jsonMetadata = jsonMetadata
-        documentsFrom.addInWith(bridge.accountId, urlProvider.jsonMetadata)
+        documentsFrom.addInWith(bridge.accountId, jsonMetadata)
         busyDialog.open()
     }
 
@@ -51,9 +50,7 @@ GroupBox {
 
                 required property var model
                 required property int index
-                property var updateFunc: function() {
-                    model.localPath = bridge.uploadPath
-                }
+                property var updateFunc: function() { model.localPath = bridge.uploadPath }
 
                 Component.onCompleted: {
                     if (root.aquiring) {
@@ -69,21 +66,23 @@ GroupBox {
                     columns: 4
                     width: parent.width
 
-                    FolderButton {
+                    RoundButton {
+                        icon.source: "qrc:/icons/folder-open.svg"
+                        icon.width: height * 0.4
                         onClicked: {
                             urlProvider.func = updateFunc
                             bridge.getUploadFile()
                         }
                     }
 
-                    RoundButton {
-                        icon.source: "qrc:/icons/camera.svg"
-                        onClicked: {
-                            urlProvider.func = updateFunc
-                            bridge.getPictureName(name, index)
-                            urlProvider.loader.active = true
-                        }
-                    }
+                    // RoundButton {
+                    //     icon.source: "qrc:/icons/camera.svg"
+                    //     onClicked: {
+                    //         urlProvider.func = updateFunc
+                    //         bridge.getPictureName(name, index)
+                    //         urlProvider.active = true
+                    //     }
+                    // }
 
                     TextField {
                         id: flieName
@@ -116,21 +115,23 @@ GroupBox {
             RowLayout {
                 spacing: 0
 
-                FolderButton {
+                RoundButton {
+                    icon.source: "qrc:/icons/folder-open.svg"
+                    icon.width: height * 0.4
                     onClicked: {
                         urlProvider.func = aquireFunc
                         bridge.getUploadFile()
                     }
                 }
 
-                RoundButton {
-                    icon.source: "qrc:/icons/camera.svg"
-                    onClicked: {
-                        urlProvider.func = aquireFunc
-                        bridge.getPictureName(name, root.count)
-                        urlProvider.loader.active = true
-                    }
-                }
+                // RoundButton {
+                //     icon.source: "qrc:/icons/camera.svg"
+                //     onClicked: {
+                //         urlProvider.func = aquireFunc
+                //         bridge.getPictureName(name, root.count)
+                //         urlProvider.active = true
+                //     }
+                // }
             }
         }
 
