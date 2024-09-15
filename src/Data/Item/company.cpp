@@ -75,8 +75,12 @@ void company::read(const QJsonObject& json)
 void company::write(QJsonObject& json) const
 {
     json["id"] = id;
-    json["name"] = name;
-    json["teams"] = teams;
+
+    if (name.isEmpty())
+        json["name"] = name;
+
+    if (teams.isEmpty())
+        json["teams"] = teams;
 }
 
 bool company::is_completed() const

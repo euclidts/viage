@@ -5,8 +5,6 @@ namespace Data
 {
 namespace Places
 {
-W_OBJECT_IMPL(habitat)
-
 habitat::habitat(QObject* parent)
     : base_item<habitat>{}
     , base_data{parent}
@@ -66,7 +64,9 @@ void habitat::write(QJsonObject& json) const
     QJsonObject jsonAddress{};
     address.write(jsonAddress);
 
-    json["address"] = jsonAddress;
+    if (!jsonAddress.isEmpty())
+        json["address"] = jsonAddress;
+
     json["habitatType"] = habitatType;
     json["rooms"] = rooms;
     json["rawSurface"] = rawSurface;
@@ -142,6 +142,7 @@ void habitat::setCanton(const QString& newCanton)
         return;
     address.canton = newCanton;
     emit cantonChanged();
+    checkCompleted();
 }
 
 const QString habitat::getCity() const
@@ -252,8 +253,22 @@ void habitat::setM3s(int newM3s)
 
 void habitat::checkCompleted()
 {
-    setCompleted(is_completed());
+    if (habitatType == habitatTypes::None)
+    {
+        setCompleted(false);
+        return;
+    }
+
+    if (!address.is_completed())
+    {
+        setCompleted(false);
+        return;
+    }
+
+    setCompleted(true);
 }
 
 }
 }
+
+W_OBJECT_IMPL(Data::Places::habitat)

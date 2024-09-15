@@ -77,10 +77,16 @@ void address::read(const QJsonObject& json)
 
 void address::write(QJsonObject& json) const
 {
-    json["street"] = street;
+    if (!street.isEmpty())
+        json["street"] = street;
+
     json["zip"] = zip;
-    json["canton"] = canton;
-    json["city"] = city;
+
+    if (!canton.isEmpty())
+        json["canton"] = canton;
+
+    if (!city.isEmpty())
+        json["city"] = city;
 }
 
 bool address::is_completed() const

@@ -98,12 +98,15 @@ void owner::write(QJsonObject& json) const
 
     json["birthDay"] = birthDay.toString("dd.MM.yyyy");
     json["civilStatus"] = civilStatus;
-    json["avs"] = avs;
+
+    if (!avs.isEmpty())
+        json["avs"] = avs;
 
     QJsonObject jsonAddress{};
     address.write(jsonAddress);
 
-    json["address"] = jsonAddress;
+    if (!jsonAddress.isEmpty())
+        json["address"] = jsonAddress;
 }
 
 bool owner::is_completed() const

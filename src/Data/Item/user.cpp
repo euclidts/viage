@@ -149,17 +149,29 @@ void user::write(QJsonObject& json) const
 {
     person::write(json);
 
-    json["company"] = company;
+    if (!company.isEmpty())
+        json["company"] = company;
+
     json["clearance"] = clearance;
-    json["team"] = team;
-    json["beneficiary"] = beneficiary;
+
+    if (!team.isEmpty())
+        json["team"] = team;
+
+    if (!beneficiary.isEmpty())
+        json["beneficiary"] = beneficiary;
 
     QJsonObject jsonAddress{};
     ca.write(jsonAddress);
 
-    json["address"] = jsonAddress;
-    json["iban"] = iban;
-    json["bic"] = bic;
+    if (!jsonAddress.isEmpty())
+        json["address"] = jsonAddress;
+
+    if (!iban.isEmpty())
+        json["iban"] = iban;
+
+    if (!bic.isEmpty())
+        json["bic"] = bic;
+
     json["companyId"] = company_id;
     json["teamId"] = team_id;
     json["isLocked"] = isLocked;

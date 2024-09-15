@@ -93,12 +93,12 @@
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="154"/>
+        <location filename="../ui/BottomBar.qml" line="153"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="157"/>
+        <location filename="../ui/BottomBar.qml" line="156"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
         <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
@@ -123,7 +123,7 @@
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="134"/>
+        <location filename="../ui/BottomBar.qml" line="133"/>
         <source>Terminer</source>
         <translation>Abschliessen</translation>
     </message>

@@ -54,13 +54,17 @@ void exterior::read(const QByteArray& bytes)
 void exterior::write(QJsonObject& json) const
 {
     json["hasParking"] = hasParking;
+
     if (hasParking)
     {
         json["parkingSpots"] = parkingSpots;
         json["parkingType"] = parkingType;
         json["parkingSurface"] = parkingSurface;
     }
-    json["terrainDescription"] = terrainDescription;
+
+    if (!terrainDescription.isEmpty())
+        json["terrainDescription"] = terrainDescription;
+
     json["terrainSurface"] = terrainSurface;
     json["equipements"] = equipement;
     json["rating"] = rating;
