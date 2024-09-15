@@ -38,7 +38,7 @@ Dialog {
             placeholderText: qsTr("Nom d'utilisateur")
             onAccepted: passwordField.text !== "" ? validate()
                                                    : passwordField.fieldFocus = true
-            Component.onCompleted: focus = true
+            // Component.onCompleted: focus = true
         }
 
         PwdField {

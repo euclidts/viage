@@ -130,7 +130,6 @@ else()
         ${PROJECT_SOURCES})
 endif()
 
-
 if(ANDROID)
     # Define target properties for Android with Qt 6 as:
     set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY
