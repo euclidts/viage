@@ -234,6 +234,9 @@ void account::read(const QJsonObject& json)
     if (json.contains("habitat") && json["habitat"].isObject())
         habitat = json["habitat"].toObject();
 
+    if (json.contains("isPPE") && json["isPPE"].isBool())
+        ppe = json["isPPE"].toBool();
+
     if (json.contains("exterior") && json["exterior"].isObject())
         exterior = json["exterior"].toObject();
 
@@ -288,24 +291,61 @@ void account::read(const QJsonObject& json)
 
 void account::write(QJsonObject& json) const
 {
-    json["owners"] = owners;
-    json["contacts"] = contacts;
-    json["habitat"] = habitat;
-    json["exterior"] = exterior;
-    json["documents"] = documents;
+    if (!owners.empty())
+        json["owners"] = owners;
+
+    if (!contacts.empty())
+        json["contacts"] = contacts;
+
+    if (!habitat.empty())
+        json["habitat"] = habitat;
+
+    json["isPPE"] = ppe;
+
+    if (!exterior.empty())
+        json["exterior"] = exterior;
+
+    if (!documents.empty())
+        json["documents"] = documents;
+
     json["state"] = state;
-    json["receivedDate"] = receivedDate.toString("dd.MM.yyyy");
-    json["transmitedDate"] = transmitedDate.toString("dd.MM.yyyy");
-    json["expertizedDate"] = expertizedDate.toString("dd.MM.yyyy");
-    json["decidedDate"] = decidedDate.toString("dd.MM.yyyy");
-    json["notarizedDate"] = notarizedDate.toString("dd.MM.yyyy");
-    json["paidDateDate"] = paidDate.toString("dd.MM.yyyy");
-    json["created"] = created.toString("yyyy-MM-dd hh:mm:ss");
-    json["modified"] = modified.toString("yyyy-MM-dd hh:mm:ss");
-    json["advisorFirstName"] = advisorFirstName;
-    json["advisorLastName"] = advisorLastName;
-    json["company"] = company;
-    json["acronym"] = acronym;
+
+    if (!receivedDate.isNull())
+        json["receivedDate"] = receivedDate.toString("dd.MM.yyyy");;
+
+    if (!transmitedDate.isNull())
+        json["transmitedDate"] = transmitedDate.toString("dd.MM.yyyy");;
+
+    if (!expertizedDate.isNull())
+        json["expertizedDate"] = expertizedDate.toString("dd.MM.yyyy");;
+
+    if (!decidedDate.isNull())
+        json["decidedDate"] = decidedDate.toString("dd.MM.yyyy");;
+
+    if (!notarizedDate.isNull())
+        json["notarizedDate"] = notarizedDate.toString("dd.MM.yyyy");;
+
+    if (!paidDate.isNull())
+        json["paidDate"] = paidDate.toString("dd.MM.yyyy");;
+
+    if (!created.isNull())
+        json["created"] = created.toString("yyyy-MM-dd hh:mm:ss");
+
+    if (!modified.isNull())
+        json["modified"] = modified.toString("yyyy-MM-dd hh:mm:ss");
+
+    if (!advisorFirstName.isEmpty())
+        json["advisorFirstName"] = advisorFirstName;
+
+    if (!advisorLastName.isEmpty())
+        json["advisorLastName"] = advisorLastName;
+
+    if (!company.isEmpty())
+        json["company"] = company;
+
+    if (!acronym.isEmpty())
+        json["acronym"] = acronym;
+
     json["id"] = id;
 }
 

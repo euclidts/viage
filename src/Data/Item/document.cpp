@@ -113,8 +113,13 @@ void document::write(QJsonObject& json) const
 {
     json["category"] = category;
     json["isUploaded"] = state == Uploaded;
-    json["fileName"] = fileName;
-    json["extension"] = extension;
+
+    if (!fileName.isEmpty())
+        json["fileName"] = fileName;
+
+    if (!extension.isEmpty())
+        json["extension"] = extension;
+
     json["id"] = id;
 }
 

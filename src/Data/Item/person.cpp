@@ -83,10 +83,18 @@ void person::read(const QJsonObject& json)
 void person::write(QJsonObject& json) const
 {
     json["id"] = id;
-    json["firstName"] = firstName;
-    json["lastName"] = lastName;
-    json["phone"] = phone;
-    json["eMail"] = eMail;
+
+    if (!firstName.isEmpty())
+        json["firstName"] = firstName;
+
+    if (!lastName.isEmpty())
+        json["lastName"] = lastName;
+
+    if (!phone.isEmpty())
+        json["phone"] = phone;
+
+    if (!eMail.isEmpty())
+        json["eMail"] = eMail;
 }
 
 bool person::is_completed() const

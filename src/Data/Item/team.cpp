@@ -59,7 +59,9 @@ void team::read(const QJsonObject& json)
 void team::write(QJsonObject& json) const
 {
     json["id"] = id;
-    json["caption"] = caption;
+
+    if (!caption.isEmpty())
+        json["caption"] = caption;
 }
 
 bool team::is_completed() const
