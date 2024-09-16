@@ -1,7 +1,7 @@
 name: Windows
 
-on:
-  push
+on: workflow_dispatch
+  # push
 
 env:
   BUILD_TYPE: Release
