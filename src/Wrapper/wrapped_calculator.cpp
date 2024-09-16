@@ -50,10 +50,12 @@ wrapped_calculator::wrapped_calculator()
 
     QFile rcs(QString::fromStdString(":/data/" + docxName));
 
+    // report error throug the net manager as it is connected to the bridge
     if (!rcs.copy(QString::fromStdString(docxPath)))
         Interface::netManager::instance().replyError("Calculation Document copy error",
                                                      rcs.errorString());
-    // report error throug the net manager as it is connected to the bridge
+
+    // print_duckx();
 }
 
 const std::string wrapped_calculator::sex_string(const senior_citizen::sexes& sex)
@@ -117,12 +119,12 @@ void wrapped_calculator::write_to_file()
     str = rent->getBirthDay().toString("dd.MM.yyyy");
 
     if (lingo == QLocale::German)
-        ru.set_text("Geschätztes Transaktionsdatum "
+        ru.set_text("Geschätztes Transaktionsdatum : "
                     + str.toStdString());
     else
     {
-        ru.next();
-        ru.set_text(str.toStdString());
+        ru.set_text("Date estimée de la transaction : "
+                    + str.toStdString());
     }
 
     end_runs(ru);
@@ -180,10 +182,7 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Geschätzter Wert der Liegenschaft: 			CHF ");
     else
-    {
-        skip_runs(ru, 5);
-        str.prepend("CHF ");
-    }
+        str.prepend("Valeur estimée du bien : 				CHF ");
 
     str.append(".-");
     ru.set_text(str.toStdString());
@@ -197,10 +196,7 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Wohnrecht: 						CHF ");
     else
-    {
-        skip_runs(ru, 5);
-        str.prepend("CHF ");
-    }
+        str.prepend("Usufruit strictement personnel : 			CHF ");
 
     str.append(".-");
     ru.set_text(str.toStdString());
@@ -214,10 +210,7 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Abschlagzahlung: 					CHF ");
     else
-    {
-        skip_runs(ru, 7);
-        str.prepend("CHF ");
-    }
+        str.prepend("Bouquet : 					           CHF ");
 
     str.append(".-");
     ru.set_text(str.toStdString());
@@ -264,19 +257,8 @@ void wrapped_calculator::print_runs(duckx::Run& runs)
         std::cout << runs.get_text() << std::endl;
 }
 
-//void wrapped_calculator::print_duckx()
-//{
-//    const auto lingo{QLocale().language()};
-//    std::string docxName{};
-//    std::string docxPath{tempPath->toStdString()};
-
-//    if (lingo == QLocale::German)
-//        docxName = "berechnung.docx";
-//    else
-//        docxName = "calcul.docx";
-
-//    docxPath += '/' + docxName;
-
+// void wrapped_calculator::print_duckx()
+// {
 //    duckx::Document doc{docxPath};
 //    doc.open();
 
@@ -338,5 +320,5 @@ void wrapped_calculator::print_runs(duckx::Run& runs)
 //            cout << "________" << ru.get_text() << endl;
 //        }
 //    }
-//}
+// }
 }

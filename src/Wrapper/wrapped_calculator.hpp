@@ -37,7 +37,7 @@ private:
     void skip_paragraphs(duckx::Paragraph& paragraphs, int n_skiped);
     void skip_runs(duckx::Run& runs, int n_skiped);
     void print_runs(duckx::Run& runs);
-//    void print_duckx();
+    // void print_duckx();
 };
 }
 
