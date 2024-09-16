@@ -1,4 +1,8 @@
+#ifndef EMSCRIPTEN
 #include <QDesktopServices>
+#else
+#include <QFileDialog>
+#endif
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QFileDialog>
@@ -223,10 +227,16 @@ void bridge::requestReport()
             {
                 auto xlsx_path{client::get_tempPath() + "/Viage.xlsx"};
 
+#ifndef EMSCRIPTEN
                 if (!QDesktopServices::openUrl(QUrl::fromLocalFile(xlsx_path)))
                     onException("requestReport error", "QDesktopervices : could not open excel");
                 else
                     emit loaded();
+#else
+                QFile file{xlsx_path};
+                QFileDialog::saveFileContent(file.readAll(), xlsx_path);
+                emit loaded();
+#endif
             }
             else
                 onException("requestReport error", error);
@@ -259,10 +269,16 @@ void bridge::requestAccount()
         {
             if (success)
             {
+#ifndef EMSCRIPTEN
                 if (!QDesktopServices::openUrl(QUrl::fromLocalFile(path)))
                     onException("requestAccount error", "QDesktopervices : could not open pdf");
                 else
                     emit loaded();
+#else
+                QFile file{path};
+                QFileDialog::saveFileContent(file.readAll(), path);
+                emit loaded();
+#endif
             }
             else
                 onException("requestAccount error", error);

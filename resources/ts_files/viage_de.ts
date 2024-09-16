@@ -593,37 +593,37 @@ Jahre</translation>
         <translation>Lage des Objekts</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="46"/>
+        <location filename="../ui/HabitatPage.qml" line="47"/>
         <source>Maison individuelle</source>
         <translation>Einfamilienhaus</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="51"/>
+        <location filename="../ui/HabitatPage.qml" line="52"/>
         <source>Maison mitoyenne</source>
         <translation>Reihenhaus</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="57"/>
+        <location filename="../ui/HabitatPage.qml" line="58"/>
         <source>Appartement</source>
         <translation>Wohnung</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="69"/>
+        <location filename="../ui/HabitatPage.qml" line="70"/>
         <source>PPE</source>
         <translation>Stockwerkeigentum</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="79"/>
+        <location filename="../ui/HabitatPage.qml" line="80"/>
         <source>Nombre de pièces</source>
         <translation>Anzahl Zimmer</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="117"/>
+        <location filename="../ui/HabitatPage.qml" line="118"/>
         <source>m² construits</source>
         <translation>Bebaute m²</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="125"/>
+        <location filename="../ui/HabitatPage.qml" line="126"/>
         <source>m² disponibles</source>
         <translation>Verfügbare m²</translation>
     </message>
@@ -632,17 +632,17 @@ Jahre</translation>
         <translation type="vanished">Anzahl Zimmer</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="90"/>
+        <location filename="../ui/HabitatPage.qml" line="91"/>
         <source>Surface</source>
         <translation>Fläche</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="101"/>
+        <location filename="../ui/HabitatPage.qml" line="102"/>
         <source>brut (m²)</source>
         <translation>brutto (m²)</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="109"/>
+        <location filename="../ui/HabitatPage.qml" line="110"/>
         <source>net (m²)</source>
         <translation>netto (m²)</translation>
     </message>
@@ -655,7 +655,7 @@ Jahre</translation>
         <translation type="vanished">Verfügbare m²</translation>
     </message>
     <message>
-        <location filename="../ui/HabitatPage.qml" line="135"/>
+        <location filename="../ui/HabitatPage.qml" line="136"/>
         <source>Nombre de m³</source>
         <translation>Anzahl m³</translation>
     </message>

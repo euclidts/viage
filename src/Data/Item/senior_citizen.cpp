@@ -9,6 +9,7 @@ namespace People
 {
 senior_citizen::senior_citizen()
     : birthDay{QDate::currentDate().addYears(-AGE_MIN)}
+    , sex{sexes::M}
 {}
 
 QHash<int, QByteArray> senior_citizen::roleNames()

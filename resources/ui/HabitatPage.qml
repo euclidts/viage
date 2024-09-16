@@ -30,13 +30,14 @@ ScrollView {
 
                     AddressChooser { addressOf: habitat }
 
-                    ButtonGroup {
-                        id: habitatTypes
-                        buttons: habitatTypeColumn.children
-                        onCheckedButtonChanged: habitat.habitatType = checkedButton.index
-                    }
-
                     RowLayout {
+
+                        ButtonGroup {
+                            id: habitatTypes
+                            buttons: habitatTypeColumn.children
+                            onCheckedButtonChanged: habitat.habitatType = checkedButton.index
+                        }
+
                         ColumnLayout {
                             id: habitatTypeColumn
                             spacing: 0

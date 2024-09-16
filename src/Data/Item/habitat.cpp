@@ -8,6 +8,7 @@ namespace Places
 habitat::habitat(QObject* parent)
     : base_item<habitat>{}
     , base_data{parent}
+    , address{}
     , habitatType{None}
     , rooms{2}
     , rawSurface{50}
@@ -142,7 +143,6 @@ void habitat::setCanton(const QString& newCanton)
         return;
     address.canton = newCanton;
     emit cantonChanged();
-    checkCompleted();
 }
 
 const QString habitat::getCity() const
