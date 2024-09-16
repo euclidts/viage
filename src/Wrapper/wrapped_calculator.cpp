@@ -1,9 +1,13 @@
 #include <iostream>
 
 #include <QQmlEngine>
-#include <QDesktopServices>
 #include <QLocale>
 #include <QFile>
+#ifndef EMSCRIPTEN
+#include <QDesktopServices>
+#else
+#include <QFileDialog>
+#endif
 
 #include <src/client.hpp>
 #include <Item/rent.hpp>
@@ -222,11 +226,16 @@ void wrapped_calculator::write_to_file()
 
     doc.save();
 
+#ifndef EMSCRIPTEN
     file.setPermissions(QFileDevice::ReadOwner);
 
     if(!QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(docxPath))))
         Interface::netManager::instance().replyError("Calculation Document error",
                                                      "QDesktopervices : could not open .docx file");
+#else
+    file.open(QFile::ReadOnly);
+    QFileDialog::saveFileContent(file.readAll(), QString::fromStdString(docxName));
+#endif
 }
 
 void wrapped_calculator::end_runs(duckx::Run& run)

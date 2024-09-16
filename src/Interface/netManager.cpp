@@ -2,6 +2,9 @@
 #include <QNetworkRequest>
 #include <QJsonObject>
 #include <QJsonDocument>
+#ifdef EMSCRIPTEN
+#include <QFileDialog>
+#endif
 
 #include <wobjectimpl.h>
 
@@ -131,26 +134,32 @@ void netManager::downloadFile(const char* key,
     auto* reply = get(rqst);
     setCallback(reply,
                 [path, callback](const QByteArray& bytes)
-    {
-        if (bytes.isValidUtf8())
-        {
-            qDebug() << QString(bytes);
-            callback(false, QString(bytes));
-            return;
-        }
+                {
+                    if (bytes.isValidUtf8())
+                    {
+                        qDebug() << QString(bytes);
+                        callback(false, QString(bytes));
+                        return;
+                    }
 
-        QSaveFile file(path);
-        if (file.open(QIODevice::WriteOnly))
-        {
-            file.write(bytes);
-            if (file.commit())
-                callback(true, "");
-            else
-                callback(false, file.errorString());
-        }
-        else
-            callback(false, file.errorString());
-    });
+#ifndef EMSCRIPTEN
+                    QSaveFile file(path);
+                    if (file.open(QIODevice::WriteOnly))
+                    {
+                        file.write(bytes);
+                        if (file.commit())
+                            callback(true, "");
+                        else
+                            callback(false, file.errorString());
+                    }
+                    else
+                        callback(false, file.errorString());
+#else
+                    QUrl url{path};
+                    QFileDialog::saveFileContent(bytes, url.fileName());
+                    callback(true, "");
+#endif
+                });
 
     connect(reply,
             &QNetworkReply::uploadProgress,
