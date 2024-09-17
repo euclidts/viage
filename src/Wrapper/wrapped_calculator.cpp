@@ -130,19 +130,44 @@ void wrapped_calculator::write_to_file()
     end_runs(ru);
     p.next();
 
-    int i{0};
-    for (const auto& item : inner->items())
-    {
-        ru = p.runs();
+    ru = p.runs();
 
-        auto partner{inner->item_at(i)};
+    auto partner{inner->item_at(0)};
+    const std::string sex{sex_string(partner.sex)};
+    str = partner.birthDay.toString("dd.MM.yyyy");
+
+    if (lingo == QLocale::German)
+    {
+        ru.set_text("Partner/in "
+                    + std::to_string(1)
+                    + ": "
+                    + sex
+                    + "…………………………………………………………… "
+                    + str.toStdString());
+    }
+    else
+    {
+        ru.set_text("Usufruitier : "
+                    + sex
+                    + "…………………………………………………………… "
+                    + str.toStdString());
+    }
+
+    end_runs(ru);
+    p.next();
+
+    ru = p.runs();
+
+    if (inner->size() > 1)
+    {
+        partner = inner->item_at(1);
         const std::string sex{sex_string(partner.sex)};
         str = partner.birthDay.toString("dd.MM.yyyy");
 
         if (lingo == QLocale::German)
         {
             ru.set_text("Partner/in "
-                        + std::to_string(i + 1)
+                        + std::to_string(2)
                         + ": "
                         + sex
                         + "…………………………………………………………… "
@@ -150,9 +175,7 @@ void wrapped_calculator::write_to_file()
         }
         else
         {
-            ru.set_text("Partenaire "
-                        + std::to_string(i + 1)
-                        + ": "
+            ru.set_text("2ème usufruitier : "
                         + sex
                         + "…………………………………………………………… "
                         + str.toStdString());
@@ -160,11 +183,8 @@ void wrapped_calculator::write_to_file()
 
         end_runs(ru);
         p.next();
-        i++;
     }
-
-    // erase second partner paragraph
-    if (i == 1)
+    else// erase second partner paragraph
     {
         ru = p.runs();
         ru.set_text("");
@@ -182,7 +202,7 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Geschätzter Wert der Liegenschaft: 			CHF ");
     else
-        str.prepend("Valeur estimée du bien : 				CHF ");
+        str.prepend("Valeur estimée du bien : 				    CHF ");
 
     str.append(".-");
     ru.set_text(str.toStdString());
@@ -210,7 +230,7 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Abschlagzahlung: 					CHF ");
     else
-        str.prepend("Bouquet : 					           CHF ");
+        str.prepend("Bouquet : 					                CHF ");
 
     str.append(".-");
     ru.set_text(str.toStdString());
