@@ -193,7 +193,7 @@ void wrapped_calculator::write_to_file()
     }
 
     // skip to pargraphs of interests
-    skip_paragraphs(p, 3);
+    skip_paragraphs(p, 2);
 
     ru = p.runs();
 
