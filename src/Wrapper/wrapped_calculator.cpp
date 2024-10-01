@@ -192,17 +192,23 @@ void wrapped_calculator::write_to_file()
         p.next();
     }
 
-    // skip to pargraphs of interests
-    skip_paragraphs(p, 2);
-
-    ru = p.runs();
 
     str = QLocale().toString(rent->getmarketPrice());
 
     if (lingo == QLocale::German)
-        str.prepend("Geschätzter Wert der Liegenschaft: 			CHF ");
+    {
+        // skip to pargraphs of interests
+        skip_paragraphs(p, 3);
+        ru = p.runs();
+        str.prepend("Geschätzter Wert der Liegenschaft:         CHF ");
+    }
     else
+    {
+        // skip to pargraphs of interests
+        skip_paragraphs(p, 2);
+        ru = p.runs();
         str.prepend("Valeur estimée du bien : 				    CHF ");
+    }
 
     str.append(".-");
     ru.set_text(str.toStdString());
@@ -214,7 +220,7 @@ void wrapped_calculator::write_to_file()
     str = QLocale().toString(rent->getDab());
 
     if (lingo == QLocale::German)
-        str.prepend("Wohnrecht: 						CHF ");
+        str.prepend("Wohnrecht:                                 CHF ");
     else
         str.prepend("Usufruit strictement personnel : 			CHF ");
 
@@ -228,7 +234,7 @@ void wrapped_calculator::write_to_file()
     str = QLocale().toString(rent->getBou());
 
     if (lingo == QLocale::German)
-        str.prepend("Abschlagzahlung: 					CHF ");
+        str.prepend("Abschlagzahlung:                           CHF ");
     else
         str.prepend("Bouquet : 					                CHF ");
 

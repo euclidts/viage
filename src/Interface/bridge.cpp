@@ -531,28 +531,23 @@ void bridge::upload_doc(int index)
     if (doc.state != Data::document::NotUploded || doc.localPath.isEmpty())
         return;
 
-    QFile file{doc.localPath.toLocalFile()};
-    if (file.exists())
+    if (!uploadContent.isEmpty())
     {
-        if (!file.open(QIODevice::ReadOnly))
-            onException("upload_doc error", file.errorString());
-        else
-        {
-            const auto bytes{file.readAll()};
-            const auto body{QString(bytes.toBase64())};
+        const auto body{QString(uploadContent.toBase64())};
 
-            QJsonObject obj{};
-            doc.write(obj);
-            obj["body"] = body;
+        QJsonObject obj{};
+        doc.write(obj);
+        obj["body"] = body;
 
-            QJsonDocument data{obj};
-            int parent_account{accountId};
+        QJsonDocument data{obj};
+        int parent_account{accountId};
 
-            Interface::netManager::instance().putToKey(client::instance().get_documents()->key(),
-                          data.toJson(),
-                [this, parent_account, doc]
-                          (const QJsonObject& rep)
-                          mutable {
+        Interface::netManager::instance().putToKey(
+            client::instance().get_documents()->key(),
+            data.toJson(),
+            [this, parent_account, doc]
+            (const QJsonObject& rep)
+            mutable {
                 auto updated_account{client::instance().get_accounts()->item_at_id(parent_account)};
 
                 if (rep.contains("document") && rep["document"].isObject())
@@ -583,7 +578,6 @@ void bridge::upload_doc(int index)
                 doc.uploadProgress = (byteSent / 1024.) / (totalbytes / 1024.);
                 client::instance().get_documents()->setItemAtId(doc.id, doc);
             });
-        }
     }
     else
     { onException("upload_doc error", "Fichier introuvable"); }
@@ -723,6 +717,7 @@ void bridge::getUploadFile()
                                         if (!fileName.isEmpty())
                                         {
                                             setUploadPath(QUrl::fromLocalFile(fileName));
+                                            uploadContent = fileContent;
                                             QMetaObject::invokeMethod(qmlObject, "urlAction");
                                         }
                                     });
