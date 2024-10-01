@@ -242,6 +242,8 @@ private:
     float downloadProgress{-1.f};
     QUrl uploadPath{};
 
+    QByteArray uploadContent{};
+
     const QString filePath(const QUrl& directory,
                            const QString& fileName) const;
 
