@@ -46,7 +46,7 @@ void netManager::init(const QString& authentication_arguments,
     auth_args = authentication_arguments;
     suffix = extra_arguments;
 
-    setTransferTimeout();
+    setTransferTimeout(300000);
 
     rqst.setHeader(QNetworkRequest::ContentTypeHeader,
                    "application/json");
