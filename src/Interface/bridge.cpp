@@ -219,22 +219,20 @@ void bridge::requestReport()
 {
     setDownloadProgress(0.f);
 
+    QString xlsx_path{client::get_tempPath() + "/Viage.xlsx"};
+
     Interface::netManager::instance().downloadFile("export/accounts",
-                      client::get_tempPath() + "/Viage.xlsx",
-                      [this] (bool success, const QString& error)
+                      xlsx_path,
+                      [this, &xlsx_path] (bool success, const QString& error)
         {
             if (success)
             {
-                auto xlsx_path{client::get_tempPath() + "/Viage.xlsx"};
-
 #ifndef EMSCRIPTEN
                 if (!QDesktopServices::openUrl(QUrl::fromLocalFile(xlsx_path)))
                     onException("requestReport error", "QDesktopervices : could not open excel");
                 else
                     emit loaded();
 #else
-                QFile file{xlsx_path};
-                QFileDialog::saveFileContent(file.readAll(), xlsx_path);
                 emit loaded();
 #endif
             }
@@ -275,8 +273,6 @@ void bridge::requestAccount()
                 else
                     emit loaded();
 #else
-                QFile file{path};
-                QFileDialog::saveFileContent(file.readAll(), path);
                 emit loaded();
 #endif
             }
