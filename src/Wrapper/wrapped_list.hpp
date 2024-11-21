@@ -38,11 +38,10 @@ public:
                           auto item{this->inner->item_at_id(id)};
                           item.write(obj);
 
-                          const auto key{this->inner->key()};
+                          QJsonObject json{{ item.key(), obj }};
 
-                          QJsonObject json{{ key, obj }};
-
-                          Interface::netManager::instance().putToKey(key,
+                          Interface::netManager::instance().putToKey(
+                              this->inner->key(),
                               QJsonDocument{json}.toJson(),
                               [this] (const QJsonObject& rep)
                               {},

@@ -11,7 +11,7 @@ struct team final : base_item<team>
 {
     team();
 
-    static const constexpr auto key() { return "Team"; }
+    static const constexpr auto key() { return "team"; }
     static const constexpr auto qmlName() { return "Team"; }
     static const constexpr auto uri() { return "Data"; }
 
