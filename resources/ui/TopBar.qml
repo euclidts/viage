@@ -36,8 +36,10 @@ RowLayout {
         visible: accountsPages.currentIndex < 1 &&
                  usersPages.currentIndex < 1 &&
                  rootStack.currentIndex < 2
-        contentItem: IconLabel {
+        contentItem: ItemDelegate {
             rightPadding: -10
+            leftPadding: 0
+            width: 10
             icon.width: 20
             icon.source: "qrc:/icons/filter.svg"
             icon.color: Material.foreground
