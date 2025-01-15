@@ -189,7 +189,7 @@
     </message>
     <message>
         <location filename="../ui/CalculatorPage.qml" line="107"/>
-        <source>Usufruit strictement personnel :</source>
+        <source>Usufruit :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
