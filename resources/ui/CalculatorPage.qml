@@ -104,7 +104,7 @@ ScrollView {
 //                    }
 
                     Label {
-                        text: qsTr("Usufruit strictement personnel :")
+                        text: qsTr("Usufruit :")
                         font.bold: true
                         Layout.alignment: Qt.AlignRight
                     }

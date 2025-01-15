@@ -155,7 +155,6 @@ void wrapped_calculator::write_to_file()
 
     end_runs(ru);
     p.next();
-
     ru = p.runs();
 
     if (inner->size() > 1)
@@ -205,7 +204,7 @@ void wrapped_calculator::write_to_file()
     else
     {
         // skip to pargraphs of interests
-        skip_paragraphs(p, 2);
+        skip_paragraphs(p, 3);
         ru = p.runs();
         str.prepend("Valeur estimée du bien : 				    CHF ");
     }
@@ -222,7 +221,7 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Wohnrecht:                                 CHF ");
     else
-        str.prepend("Usufruit strictement personnel : 			CHF ");
+        str.prepend("Usufruit : 					               CHF ");
 
     str.append(".-");
     ru.set_text(str.toStdString());
