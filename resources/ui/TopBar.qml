@@ -277,7 +277,8 @@ RowLayout {
         id: settings
         visible: rootStack.currentIndex < 3
         Layout.margins: 2
-        source: "qrc:/images/ViageLogo.svg"
+        source: settingsDrawer.theme.checked ? "qrc:/icons/icons/logo_viage.png"
+                                             : "qrc:/icons/icons/logo_viage_white.png"
         sourceSize.height: searchBar.height
 
         MouseArea {

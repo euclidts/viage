@@ -26,9 +26,10 @@ Dialog {
 
         Image {
             id: logo
-            source: "qrc:/images/ViageLogo.svg"
+            source: settingsDrawer.theme.checked ? "qrc:/icons/icons/logo_viage.png"
+                                                 : "qrc:/icons/icons/logo_viage_white.png"
             Layout.fillWidth: true
-            Layout.preferredHeight: width
+            Layout.preferredHeight: 150
             fillMode: Image.PreserveAspectFit
         }
 
