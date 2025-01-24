@@ -675,12 +675,12 @@ Jahre</translation>
 <context>
     <name>LoggInDialog</name>
     <message>
-        <location filename="../ui/LoggInDialog.qml" line="38"/>
+        <location filename="../ui/LoggInDialog.qml" line="39"/>
         <source>Nom d&apos;utilisateur</source>
         <translation>Benutzername</translation>
     </message>
     <message>
-        <location filename="../ui/LoggInDialog.qml" line="55"/>
+        <location filename="../ui/LoggInDialog.qml" line="56"/>
         <source>Valider</source>
         <translation>Bestätigen</translation>
     </message>
@@ -970,7 +970,7 @@ Jahre</translation>
         <translation>Stand</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="288"/>
+        <location filename="../ui/TopBar.qml" line="289"/>
         <source>Options</source>
         <translation>Optionen</translation>
     </message>

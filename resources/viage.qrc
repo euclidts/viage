@@ -40,7 +40,6 @@
         <file alias="UrlProvider.qml">ui/UrlProvider.qml</file>
     </qresource>
     <qresource prefix="/images">
-        <file alias="ViageLogo.svg">images/ViageLogo.svg</file>
         <file alias="vue_du_lac.jpg">images/vue_du_lac.jpg</file>
     </qresource>
     <qresource prefix="/icons">
@@ -57,7 +56,6 @@
         <file alias="times-circle.svg">icons/times-circle.svg</file>
         <file alias="trash-alt.svg">icons/trash-alt.svg</file>
         <file alias="users.svg">icons/users.svg</file>
-        <file alias="ViageLogo.ico">icons/ViageLogo.ico</file>
         <file alias="arrow-left.svg">icons/arrow-left.svg</file>
         <file alias="arrow-right.svg">icons/arrow-right.svg</file>
         <file alias="calculator.svg">icons/calculator.svg</file>
@@ -70,6 +68,8 @@
         <file alias="lock.svg">icons/lock.svg</file>
         <file alias="square.svg">icons/square.svg</file>
         <file alias="arrows-rotate.svg">icons/arrows-rotate.svg</file>
+        <file>icons/logo_viage_white.png</file>
+        <file>icons/logo_viage.png</file>
     </qresource>
     <qresource prefix="/data">
         <file alias="ofs.csv">ofs.csv</file>
