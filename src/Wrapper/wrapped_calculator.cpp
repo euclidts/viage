@@ -95,8 +95,6 @@ void wrapped_calculator::write_to_file()
     duckx::Document doc{docxPath};
     doc.open();
 
-    QString str{QDate::currentDate().toString("dd.MM.yyyy")};
-
     // skip to contract date
     auto t{doc.tables()};
     auto ro{t.rows()};
@@ -107,13 +105,14 @@ void wrapped_calculator::write_to_file()
     auto p{c.paragraphs()};
     auto ru{p.runs()};
 
+    QString str{QDate::currentDate().toString("dd.MM.yyyy")};
     ru.set_text(str.toStdString());
     end_runs(ru);
 
     p = doc.paragraphs();
 
     // skip to pargraphs of interests
-    skip_paragraphs(p, 4);
+    skip_paragraphs(p, 6);
     ru = p.runs();
 
     str = rent->getBirthDay().toString("dd.MM.yyyy");
@@ -179,18 +178,15 @@ void wrapped_calculator::write_to_file()
                         + "…………………………………………………………… "
                         + str.toStdString());
         }
-
-        end_runs(ru);
-        p.next();
     }
     else// erase second partner paragraph
     {
         ru = p.runs();
         ru.set_text("");
-        end_runs(ru);
-        p.next();
     }
 
+    end_runs(ru);
+    p.next();
 
     str = QLocale().toString(rent->getmarketPrice());
 
@@ -206,7 +202,7 @@ void wrapped_calculator::write_to_file()
         // skip to pargraphs of interests
         skip_paragraphs(p, 3);
         ru = p.runs();
-        str.prepend("Valeur estimée du bien : 				    CHF ");
+        str.prepend("Valeur estimée du bien : CHF ");
     }
 
     str.append(".-");
@@ -221,7 +217,7 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Wohnrecht:                                 CHF ");
     else
-        str.prepend("Usufruit : 					               CHF ");
+        str.prepend("Usufruit : CHF ");
 
     str.append(".-");
     ru.set_text(str.toStdString());
@@ -235,7 +231,7 @@ void wrapped_calculator::write_to_file()
     if (lingo == QLocale::German)
         str.prepend("Abschlagzahlung:                           CHF ");
     else
-        str.prepend("Bouquet : 					                CHF ");
+        str.prepend("Bouquet : CHF ");
 
     str.append(".-");
     ru.set_text(str.toStdString());
