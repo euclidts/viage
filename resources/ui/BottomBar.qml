@@ -36,7 +36,10 @@ RowLayout {
                   qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"
         onClicked: if (accountsPages.currentIndex === 6)
+                   {
                        bridge.requestAccount()
+                       busyDialog.open()
+                   }
                    else if (rootStack.currentIndex === 2)
                        rent.writeToFile()
                    else

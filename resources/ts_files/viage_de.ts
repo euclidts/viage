@@ -73,57 +73,57 @@
         <translation>Bericht</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="49"/>
+        <location filename="../ui/BottomBar.qml" line="52"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="59"/>
+        <location filename="../ui/BottomBar.qml" line="62"/>
         <source>Onboarding</source>
         <translation>Onboarding</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="75"/>
+        <location filename="../ui/BottomBar.qml" line="78"/>
         <source>Ajouter un conseiller</source>
         <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="80"/>
+        <location filename="../ui/BottomBar.qml" line="83"/>
         <source>Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?</source>
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="153"/>
+        <location filename="../ui/BottomBar.qml" line="156"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="156"/>
+        <location filename="../ui/BottomBar.qml" line="159"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
         <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="91"/>
+        <location filename="../ui/BottomBar.qml" line="94"/>
         <source>Accueil</source>
         <translation>Empfang</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="98"/>
+        <location filename="../ui/BottomBar.qml" line="101"/>
         <source>Ajouter un partenaire</source>
         <translation>Partner/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="99"/>
+        <location filename="../ui/BottomBar.qml" line="102"/>
         <source>Ajouter un contact</source>
         <translation>Kontakt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="116"/>
+        <location filename="../ui/BottomBar.qml" line="119"/>
         <source>Continuer</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="133"/>
+        <location filename="../ui/BottomBar.qml" line="136"/>
         <source>Terminer</source>
         <translation>Abschliessen</translation>
     </message>
