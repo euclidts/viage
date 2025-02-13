@@ -7,10 +7,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
+
+add_subdirectory("3rdparty/date")
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Drogon::Drogon
     duckx
     mutual
+    date
 )
 
 include_directories(Data Data/Item)

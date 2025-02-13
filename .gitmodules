@@ -10,3 +10,6 @@
 [submodule "lib/3rdparty/jsoncpp"]
 	path = lib/3rdparty/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "server/3rdparty/date"]
+	path = server/3rdparty/date
+	url = https://github.com/HowardHinnant/date.git

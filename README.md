@@ -3,6 +3,16 @@
 * cmake >= 3.14
 * cpp 20 compiler
 * qt6 Multimedia
+* libdrogon
+* jsoncpp
+**TODO : faire le ménage dans les dépendances de drogon
+* sqlite3
+* postgresql
+* maria/mysql
+* brotli
+* libhiredis
+* yalm
+* kbd
 
 ## Changelog
 * change paseword in settings, popup + close settings pane
