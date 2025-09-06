@@ -19,21 +19,21 @@ namespace Calculator
 wrapped_calculator::wrapped_calculator()
     : base_wrapper<list<senior_citizen>>{}
     , exp{inner}
-    , rent{new Data::rent}
+    , rent_m{new Data::rent}
 {
     inner->appendItems(); // at least one senior for the calculation
 
-    this->connect(rent,
+    this->connect(rent_m,
                   &rent::calculate,
                   this,
                   &wrapped_calculator::calculate_rent);
 
-    this->connect(rent,
+    this->connect(rent_m,
                   &rent::writeToFile,
                   this,
                   &wrapped_calculator::write_to_file);
 
-    Interface::bridge::instance().context()->setContextProperty(Data::rent::key(), rent);
+    Interface::bridge::instance().context()->setContextProperty(Data::rent::key(), rent_m);
 
     if (client::is_german())
     {
@@ -74,7 +74,7 @@ const std::string wrapped_calculator::sex_string(const senior_citizen::sexes& se
 
 void wrapped_calculator::calculate_rent()
 {
-    rent->from_expectency(exp.get_expectency(rent->getBirthDay()));
+    rent_m->from_expectency(exp.get_expectency(rent_m->getBirthDay()));
 }
 
 void wrapped_calculator::write_to_file()
@@ -115,7 +115,7 @@ void wrapped_calculator::write_to_file()
     skip_paragraphs(p, 6);
     ru = p.runs();
 
-    str = rent->getBirthDay().toString("dd.MM.yyyy");
+    str = rent_m->getBirthDay().toString("dd.MM.yyyy");
 
     if (lingo == QLocale::German)
         ru.set_text("Geschätztes Transaktionsdatum : "
@@ -188,7 +188,7 @@ void wrapped_calculator::write_to_file()
     end_runs(ru);
     p.next();
 
-    str = QLocale().toString(rent->getmarketPrice());
+    str = QLocale().toString(rent_m->getmarketPrice());
 
     if (lingo == QLocale::German)
     {
@@ -212,7 +212,7 @@ void wrapped_calculator::write_to_file()
     p.next();
     ru = p.runs();
 
-    str = QLocale().toString(rent->getDab());
+    str = QLocale().toString(rent_m->getDab());
 
     if (lingo == QLocale::German)
         str.prepend("Wohnrecht:                                 CHF ");
@@ -226,7 +226,7 @@ void wrapped_calculator::write_to_file()
     p.next();
     ru = p.runs();
 
-    str = QLocale().toString(rent->getBou());
+    str = QLocale().toString(rent_m->getBou());
 
     if (lingo == QLocale::German)
         str.prepend("Abschlagzahlung:                           CHF ");

@@ -24,7 +24,7 @@ public:
 
 private:
     life_expectency exp;
-    rent* rent;
+    rent* rent_m;
     QLocale::Language lingo;
     std::string docxName;
     std::string docxPath;

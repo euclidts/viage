@@ -47,7 +47,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     # Core
     Widgets
     Quick
-    LinguistTools
+    Linguist
     # Multimedia
     Svg
 )
@@ -94,7 +94,7 @@ add_custom_target(templates SOURCES
     src/Model/list_model.hpp
     src/Data/list.hpp
 )
-
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)#for duckX
 include_directories(SYSTEM
     ${CMAKE_CURRENT_SOURCE_DIR}
     "${DATA_FOLDER}"
