@@ -166,6 +166,48 @@ void netManager::downloadFile(const char* key,
             onProgress);
 }
 
+void netManager::downloadFilePost(const char* key,
+                                  const QByteArray &postData,
+                                  const QString &path,
+                                  const std::function<void (bool, const QString &)> &callback,
+                                  const std::function<void (qint64, qint64)>& onProgress)
+{
+    setRequest(key);
+    auto* reply = post(rqst,postData);
+    setCallback(reply,
+                [path, callback](const QByteArray& bytes)
+                {
+                    if (bytes.isValidUtf8())
+                    {
+                        qDebug() << QString(bytes);
+                        callback(false, QString(bytes));
+                        return;
+                    }
+
+#ifndef EMSCRIPTEN
+                    QSaveFile file(path);
+                    if (file.open(QIODevice::WriteOnly))
+                    {
+                        file.write(bytes);
+                        if (file.commit())
+                            callback(true, "");
+                        else
+                            callback(false, file.errorString());
+                    }
+                    else
+                        callback(false, file.errorString());
+#else
+                    QUrl url{path};
+                    QFileDialog::saveFileContent(bytes, url.fileName());
+                    callback(true, "");
+#endif
+                });
+
+    connect(reply,
+            &QNetworkReply::uploadProgress,
+            onProgress);
+}
+
 void netManager::getFromKey(const char* key,
                             const std::function<void (const QByteArray &)> &callback, const char *params)
 {

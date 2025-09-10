@@ -47,6 +47,11 @@ public:
                       const QString& path,
                       const std::function<void (bool, const QString &)> &callback,
                       const std::function<void (qint64, qint64)>& onProgress = [](qint64 byteSent, qint64 totalBytes){});
+    void downloadFilePost(const char* key,
+                        const QByteArray &postData,
+                        const QString &path,
+                        const std::function<void (bool, const QString &)> &callback,
+                        const std::function<void (qint64, qint64)>& onProgress);
     void getFromKey(const char* key,
                     const std::function<void (const QByteArray &)> &callback,
                     const char* params = "");

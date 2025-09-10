@@ -3,6 +3,7 @@
 #include <QQmlEngine>
 #include <QLocale>
 #include <QFile>
+#include <QJsonObject>
 #ifndef EMSCRIPTEN
 #include <QDesktopServices>
 #else
@@ -79,177 +80,61 @@ void wrapped_calculator::calculate_rent()
 
 void wrapped_calculator::write_to_file()
 {
-    QFile file{QString::fromStdString(docxPath)};
-    if (!file.exists())
-    {
-            QFile rcs(QString::fromStdString(":/data/" + docxName));
-
-            if (!rcs.copy(QString::fromStdString(docxPath)))
-            Interface::netManager::instance().replyError("Calculation Document copy error",
-                                                         rcs.errorString());
-            // report error throug the net manager as it is connected to the bridge
-    }
-
-    file.setPermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner);
-
-    duckx::Document doc{docxPath};
-    doc.open();
-
-    // skip to contract date
-    auto t{doc.tables()};
-    auto ro{t.rows()};
-    ro.next();
-    ro.next();
-    ro.next();
-    auto c{ro.cells()};
-    auto p{c.paragraphs()};
-    auto ru{p.runs()};
-
-    QString str{QDate::currentDate().toString("dd.MM.yyyy")};
-    ru.set_text(str.toStdString());
-    end_runs(ru);
-
-    p = doc.paragraphs();
-
-    // skip to pargraphs of interests
-    skip_paragraphs(p, 6);
-    ru = p.runs();
-
-    str = rent_m->getBirthDay().toString("dd.MM.yyyy");
-
-    if (lingo == QLocale::German)
-        ru.set_text("Geschätztes Transaktionsdatum : "
-                    + str.toStdString());
-    else
-    {
-        ru.set_text("Date estimée de la transaction : "
-                    + str.toStdString());
-    }
-
-    end_runs(ru);
-    p.next();
-
-    ru = p.runs();
-
+    QJsonObject req;
+    req["Lang"] = (lingo == QLocale::German) ? "German" : "French";
     auto partner{inner->item_at(0)};
     const std::string sex{sex_string(partner.sex)};
-    str = partner.birthDay.toString("dd.MM.yyyy");
 
-    if (lingo == QLocale::German)
-    {
-        ru.set_text("Partner/in "
-                    + std::to_string(1)
-                    + ": "
-                    + sex
-                    + "…………………………………………………………… "
-                    + str.toStdString());
-    }
-    else
-    {
-        ru.set_text("Usufruitier : "
-                    + sex
-                    + "…………………………………………………………… "
-                    + str.toStdString());
-    }
-
-    end_runs(ru);
-    p.next();
-    ru = p.runs();
-
+    QJsonObject person1;
+    person1["Sex"] = partner.sex == 0 ? "M" : "F";
+    person1["Birthdate"] = partner.birthDay.toString("yyyy/MM/dd");
+    req["Person1"] = person1;
     if (inner->size() > 1)
     {
-        partner = inner->item_at(1);
-        const std::string sex{sex_string(partner.sex)};
-        str = partner.birthDay.toString("dd.MM.yyyy");
-
-        if (lingo == QLocale::German)
-        {
-            ru.set_text("Partner/in "
-                        + std::to_string(2)
-                        + ": "
-                        + sex
-                        + "…………………………………………………………… "
-                        + str.toStdString());
-        }
-        else
-        {
-            ru.set_text("2ème usufruitier : "
-                        + sex
-                        + "…………………………………………………………… "
-                        + str.toStdString());
-        }
+        auto partner2{inner->item_at(1)};
+        QJsonObject person2;
+        person2["Birthdate"] = partner2.birthDay.toString("yyyy/MM/dd");
+        person2["Sex"] = partner2.sex == 0 ? "M" : "F";
+        req["Person2"] = person2;
     }
-    else// erase second partner paragraph
-    {
-        ru = p.runs();
-        ru.set_text("");
-    }
+    req["ValeurBien"] = rent_m->getmarketPrice();
+    req["DateTransaction"] = rent_m->getBirthDay().toString("yyyy/MM/dd");
 
-    end_runs(ru);
-    p.next();
 
-    str = QLocale().toString(rent_m->getmarketPrice());
 
-    if (lingo == QLocale::German)
-    {
-        // skip to pargraphs of interests
-        skip_paragraphs(p, 3);
-        ru = p.runs();
-        str.prepend("Geschätzter Wert der Liegenschaft:         CHF ");
-    }
-    else
-    {
-        // skip to pargraphs of interests
-        skip_paragraphs(p, 3);
-        ru = p.runs();
-        str.prepend("Valeur estimée du bien : CHF ");
-    }
 
-    str.append(".-");
-    ru.set_text(str.toStdString());
 
-    end_runs(ru);
-    p.next();
-    ru = p.runs();
 
-    str = QLocale().toString(rent_m->getDab());
-
-    if (lingo == QLocale::German)
-        str.prepend("Wohnrecht:                                 CHF ");
-    else
-        str.prepend("Usufruit : CHF ");
-
-    str.append(".-");
-    ru.set_text(str.toStdString());
-
-    end_runs(ru);
-    p.next();
-    ru = p.runs();
-
-    str = QLocale().toString(rent_m->getBou());
-
-    if (lingo == QLocale::German)
-        str.prepend("Abschlagzahlung:                           CHF ");
-    else
-        str.prepend("Bouquet : CHF ");
-
-    str.append(".-");
-    ru.set_text(str.toStdString());
-
-    end_runs(ru);
-
-    doc.save();
-
+        QString path{client::get_tempPath() + "/calculUsufruit.docx"};
+        QJsonDocument data{req};
+        Interface::netManager::instance().downloadFilePost("Account/Usufruit",
+                                                           data.toJson(),
+                                                           path,
+                                                           [this, &path] (bool success, const QString& error)
+                                                           {
+                                                               if (success)
+                                                               {
 #ifndef EMSCRIPTEN
-    file.setPermissions(QFileDevice::ReadOwner);
+                //file.setPermissions(QFileDevice::ReadOwner);
 
-    if(!QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(docxPath))))
-        Interface::netManager::instance().replyError("Calculation Document error",
-                                                     "QDesktopervices : could not open .docx file");
+                if(!QDesktopServices::openUrl(QUrl::fromLocalFile(path)))
+                    Interface::netManager::instance().replyError("Calculation Document error",
+                                                                 "QDesktopervices : could not open .docx file");
 #else
-    file.open(QFile::ReadOnly);
-    QFileDialog::saveFileContent(file.readAll(), QString::fromStdString(docxName));
+                file.open(QFile::ReadOnly);
+                QFileDialog::saveFileContent(file.readAll(), QString::fromStdString(docxName));
 #endif
+                                                               }
+                                                               //else
+                                                                   //onException("requestReport error", error);
+
+                                                               //setDownloadProgress(-1.f);
+                                                           },
+                                                           [this](qint64 byteSent, qint64 totalbytes)
+                                                           {
+                                                               //setDownloadProgress((byteSent / 1024.) / (totalbytes / 1024.));
+                                                               qDebug() << (byteSent / 1024.) / (totalbytes / 1024.);
+                                                           });
 }
 
 void wrapped_calculator::end_runs(duckx::Run& run)
@@ -278,68 +163,4 @@ void wrapped_calculator::print_runs(duckx::Run& runs)
         std::cout << runs.get_text() << std::endl;
 }
 
-// void wrapped_calculator::print_duckx()
-// {
-//    duckx::Document doc{docxPath};
-//    doc.open();
-
-//    using namespace std;
-
-//    int i{0};
-//    int j{0};
-//    int k{0};
-//    int l{0};
-//    int m{0};
-
-//    cout << "DOCUMENT TABLES" << endl;
-
-//    for (auto t : doc.tables())
-//    {
-//        cout << "table :" << i << endl;
-//        i++;
-//        j = 0;
-//        for (auto ro : t.rows())
-//        {
-//            cout << "__row :" << j << endl;
-//            j++;
-//            k = 0;
-//            for (auto c : ro.cells())
-//            {
-//                cout << "____cell :" << k << endl;
-//                k++;
-//                l = 0;
-//                for (auto p : c.paragraphs())
-//                {
-//                    cout << "______paragrap :" << l << endl;
-//                    l++;
-//                    m = 0;
-//                    for (auto ru : p.runs())
-//                    {
-//                        cout << "________run :" << m << endl;
-//                        m++;
-//                        cout << "________" << ru.get_text() << endl;
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//    i = 0;
-//    j = 0;
-
-//    cout << "DOCUMENT PARAGRAPHES" << endl;
-
-//    for (auto p : doc.paragraphs())
-//    {
-//        cout << "______paragrap :" << i << endl;
-//        l++;
-//        j = 0;
-//        for (auto ru : p.runs())
-//        {
-//            cout << "________run :" << j << endl;
-//            j++;
-//            cout << "________" << ru.get_text() << endl;
-//        }
-//    }
-// }
 }

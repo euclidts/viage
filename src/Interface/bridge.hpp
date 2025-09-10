@@ -193,6 +193,9 @@ public:
     QUrl uploadPathChanged()
     W_SIGNAL(uploadPathChanged)
 
+    void requestUsufruitDocument(const QByteArray);
+
+
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(Data::People::user::clearances, clearance READ getClearance NOTIFY clearanceChanged)
     W_PROPERTY(int, userId READ getUserId NOTIFY userIdChanged)
