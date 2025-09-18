@@ -121,9 +121,9 @@ void wrapped_calculator::write_to_file()
                     Interface::netManager::instance().replyError("Calculation Document error",
                                                                  "QDesktopervices : could not open .docx file");
 #else
-                QFile file(path);
-                file.open(QFile::ReadOnly);
-                QFileDialog::saveFileContent(file.readAll(), QString::fromStdString(docxName));
+                //QFile file(path);
+                //file.open(QFile::ReadOnly);
+                //QFileDialog::saveFileContent(file.readAll(), QString("CalculUsufruit.docx")) ;
 #endif
                                                                }
                                                                //else
