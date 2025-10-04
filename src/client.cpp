@@ -1,7 +1,6 @@
 #include "client.hpp"
 #include <bridge.hpp>
 #include <user_filter_model.hpp>
-#include <wrapped_calculator.hpp>
 #include <wrapped_nested_list.hpp>
 #include <account_filter_model.hpp>
 
@@ -20,9 +19,6 @@ void client::init()
 {
     using namespace Data;
     using namespace People;
-
-    // calculator
-    calculator = new Calculator::wrapped_calculator{};
 
     using namespace Wrapper;
 

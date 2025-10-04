@@ -57,8 +57,6 @@ public:
 private:
     client() {}
 
-    Calculator::wrapped_calculator* calculator;
-
     Wrapper::wrapped_list<Data::list<Data::account>>* accounts;
     Wrapper::wrapped_nested_list<Data::list<Data::People::owner>, Data::account>* owners;
     Wrapper::wrapped_nested_list<Data::list<Data::People::contact>, Data::account>* contacts;

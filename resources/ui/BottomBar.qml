@@ -53,7 +53,6 @@ RowLayout {
         icon.source: "qrc:/icons/calculator.svg"
         icon.width: height * 0.35
         onClicked: {
-            rent.clear()
             rootStack.currentIndex = 2
         }
     }

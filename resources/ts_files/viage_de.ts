@@ -78,52 +78,52 @@
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="62"/>
+        <location filename="../ui/BottomBar.qml" line="61"/>
         <source>Onboarding</source>
         <translation>Onboarding</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="78"/>
+        <location filename="../ui/BottomBar.qml" line="77"/>
         <source>Ajouter un conseiller</source>
         <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="83"/>
+        <location filename="../ui/BottomBar.qml" line="82"/>
         <source>Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?</source>
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="156"/>
+        <location filename="../ui/BottomBar.qml" line="155"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="159"/>
+        <location filename="../ui/BottomBar.qml" line="158"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
         <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="94"/>
+        <location filename="../ui/BottomBar.qml" line="93"/>
         <source>Accueil</source>
         <translation>Empfang</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="101"/>
+        <location filename="../ui/BottomBar.qml" line="100"/>
         <source>Ajouter un partenaire</source>
         <translation>Partner/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="102"/>
+        <location filename="../ui/BottomBar.qml" line="101"/>
         <source>Ajouter un contact</source>
         <translation>Kontakt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="119"/>
+        <location filename="../ui/BottomBar.qml" line="118"/>
         <source>Continuer</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="136"/>
+        <location filename="../ui/BottomBar.qml" line="135"/>
         <source>Terminer</source>
         <translation>Abschliessen</translation>
     </message>
@@ -150,12 +150,12 @@
 <context>
     <name>CalculatorPage</name>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="24"/>
+        <location filename="../ui/CalculatorPage.qml" line="22"/>
         <source>Date estimée de la transaction</source>
         <translation>Geschätztes Transaktionsdatum</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="49"/>
+        <location filename="../ui/CalculatorPage.qml" line="53"/>
         <source>Partenaire </source>
         <translation>Partner/in </translation>
     </message>
@@ -168,27 +168,32 @@
         <translation type="vanished">Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="60"/>
+        <location filename="../ui/CalculatorPage.qml" line="64"/>
+        <source>Date de naissance</source>
+        <translation type="unfinished">Geburtsdatum</translation>
+    </message>
+    <message>
+        <location filename="../ui/CalculatorPage.qml" line="75"/>
         <source>Ajouter un partenaire</source>
         <translation>Einen Partner hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="60"/>
+        <location filename="../ui/CalculatorPage.qml" line="75"/>
         <source>Supprimer un partenaire</source>
         <translation>Einen Partner löschen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="75"/>
+        <location filename="../ui/CalculatorPage.qml" line="96"/>
         <source>Valeur estimée du bien</source>
         <translation>Geschätzter Wert der Liegenschaft</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="84"/>
+        <location filename="../ui/CalculatorPage.qml" line="105"/>
         <source>Calculer</source>
         <translation>Berechnen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="107"/>
+        <location filename="../ui/CalculatorPage.qml" line="160"/>
         <source>Usufruit :</source>
         <translation type="unfinished"></translation>
     </message>
@@ -197,7 +202,7 @@
         <translation type="vanished">Wohnrecht :</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="118"/>
+        <location filename="../ui/CalculatorPage.qml" line="172"/>
         <source>Bouquet :</source>
         <translation>Abschlagzahlung :</translation>
     </message>
@@ -331,6 +336,89 @@
         <location filename="../ui/DateChooser.qml" line="68"/>
         <source>Année</source>
         <translation>Jahr</translation>
+    </message>
+</context>
+<context>
+    <name>DateChooserLocal</name>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="11"/>
+        <source>Date de naissance</source>
+        <translation type="unfinished">Geburtsdatum</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="22"/>
+        <source>Jour</source>
+        <translation type="unfinished">Tag</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="38"/>
+        <source>Mois</source>
+        <translation type="unfinished">Monat</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="45"/>
+        <source>Janvier</source>
+        <translation type="unfinished">Januar</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="46"/>
+        <source>Fevrier</source>
+        <translation type="unfinished">Februar</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="47"/>
+        <source>Mars</source>
+        <translation type="unfinished">März</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="48"/>
+        <source>Avril</source>
+        <translation type="unfinished">April</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="49"/>
+        <source>Mai</source>
+        <translation type="unfinished">Mai</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="50"/>
+        <source>Juin</source>
+        <translation type="unfinished">Juni</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="51"/>
+        <source>Juillet</source>
+        <translation type="unfinished">Juli</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="52"/>
+        <source>Août</source>
+        <translation type="unfinished">August</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="53"/>
+        <source>Septembre</source>
+        <translation type="unfinished">September</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="54"/>
+        <source>Octobre</source>
+        <translation type="unfinished">Oktober</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="55"/>
+        <source>Novembre</source>
+        <translation type="unfinished">November</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="56"/>
+        <source>Decembre</source>
+        <translation type="unfinished">Dezember</translation>
+    </message>
+    <message>
+        <location filename="../ui/DateChooserLocal.qml" line="70"/>
+        <source>Année</source>
+        <translation type="unfinished">Jahr</translation>
     </message>
 </context>
 <context>
@@ -867,6 +955,19 @@ Jahre</translation>
         <location filename="../ui/SexChooser.qml" line="27"/>
         <source>Madame</source>
         <translation>Frau</translation>
+    </message>
+</context>
+<context>
+    <name>SexChooserLocal</name>
+    <message>
+        <location filename="../ui/SexChooserLocal.qml" line="25"/>
+        <source>Monsieur</source>
+        <translation type="unfinished">Herr</translation>
+    </message>
+    <message>
+        <location filename="../ui/SexChooserLocal.qml" line="32"/>
+        <source>Madame</source>
+        <translation type="unfinished">Frau</translation>
     </message>
 </context>
 <context>

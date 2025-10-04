@@ -61,8 +61,6 @@ set(PROJECT_SOURCES
     src/client.cpp
     src/Interface/bridge.cpp
     src/Interface/netManager.cpp
-    src/Wrapper/life_expectency.cpp
-    src/Wrapper/wrapped_calculator.cpp
     src/Model/base_filter_model.cpp
     src/Model/account_filter_model.cpp
     src/Model/document_filter_model.cpp
@@ -79,7 +77,6 @@ set(PROJECT_SOURCES
     src/Data/Item/exterior.cpp
     src/Data/Item/document.cpp
     src/Data/Item/account.cpp
-    src/Data/Item/rent.cpp
     src/Data/Item/company.cpp
     src/Data/Item/team.cpp
     resources/viage.qrc
@@ -101,12 +98,9 @@ include_directories(SYSTEM
     "${MODEL_FOLDER}"
     "${WRAPPER_FOLDER}"
     "${INTERFACE_FOLDER}"
-    "${3RDPARTY_FOLDER}/verdigris/src"
-    "${3RDPARTY_FOLDER}/DuckX/include"
-    "${3RDPARTY_FOLDER}/DuckX/thirdparty/zip"
-    "${3RDPARTY_FOLDER}/DuckX/thirdparty/pugixml")
+    "${3RDPARTY_FOLDER}/verdigris/src")
 
-add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
+#add_subdirectory("${3RDPARTY_FOLDER}/DuckX")
 
 if(WIN32)
     set(RC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.rc")
@@ -147,8 +141,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Widgets
     Qt6::Quick
     # Qt6::Multimedia
-    Qt6::Svg
-    duckx)
+    Qt6::Svg)
 
 qt_import_qml_plugins(${PROJECT_NAME})
 

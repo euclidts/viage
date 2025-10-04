@@ -38,6 +38,9 @@
         <file alias="FileDropRect.qml">ui/FileDropRect.qml</file>
         <file alias="PhoneChooser.qml">ui/PhoneChooser.qml</file>
         <file alias="UrlProvider.qml">ui/UrlProvider.qml</file>
+        <file alias="DateChooserLocal.qml">ui/DateChooserLocal.qml</file>
+        <file alias="SexChooserLocal.qml">ui/SexChooserLocal.qml</file>
+        <file>IntChooserLocal.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="vue_du_lac.jpg">images/vue_du_lac.jpg</file>
@@ -71,11 +74,7 @@
         <file>icons/logo_viage_white.png</file>
         <file>icons/logo_viage.png</file>
     </qresource>
-    <qresource prefix="/data">
-        <file alias="ofs.csv">ofs.csv</file>
-        <file alias="berechnung.docx">berechnung.docx</file>
-        <file alias="calcul.docx">calcul.docx</file>
-    </qresource>
+    <qresource prefix="/data"/>
     <qresource prefix="/qm_files">
         <file alias="viage_de.qm">qm_files/viage_de.qm</file>
     </qresource>

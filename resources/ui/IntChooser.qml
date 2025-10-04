@@ -9,7 +9,7 @@ ColumnLayout {
 
     required property int numberOf
     required property string name
-    property var onEdit
+    property var onEdit: function(value) {}
     property int minimum: 0
     property int maximum
     property int step: 1
