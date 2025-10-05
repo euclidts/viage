@@ -6,7 +6,7 @@ GroupBox {
     Layout.topMargin: 12
     Layout.fillWidth: true
 
-    property date birthDay : new Date()
+    required property var dateValue
     property int maxYear: -70
     property string name: qsTr("Date de naissance")
 
@@ -22,13 +22,13 @@ GroupBox {
             name: qsTr("Jour")
             minimum: 1
             maximum: 31
-            numberOf: birthDay.getDate()
+            numberOf: dateValue ? dateValue.getDate() : 1
             // bypass Qt.locale()
             spin.textFromValue: (value, locale) => { return Number(value).toString() }
             onEdit: (val) => {
-                let date = new Date(birthDay)
+                let date = new Date(dateValue)
                 date.setDate(val)
-                birthDay = date
+                dateValue = date
                 dateChanged(date)
             }
         }
@@ -55,12 +55,12 @@ GroupBox {
                     qsTr("Novembre"),
                     qsTr("Decembre")]
                 onActivated: {
-                    let date = new Date(birthDay)
+                    let date = new Date(dateValue)
                     date.setMonth(currentIndex)
-                    birthDay = date
+                    dateValue = date
                     dateChanged(date)
                 }
-                currentIndex: birthDay.getMonth()
+                currentIndex: dateValue ? dateValue.getMonth() : 0
             }
         }
 
@@ -68,13 +68,13 @@ GroupBox {
             minimum: new Date().getFullYear() - 120
             maximum: new Date().getFullYear() + maxYear
             name: qsTr("Année")
-            numberOf: birthDay.getFullYear()
+            numberOf: dateValue ? dateValue.getFullYear() : minimum
             // bypass Qt.locale()
             spin.textFromValue: (value, locale) => { return Number(value).toString() }
             onEdit: (val) => {
-                let d = new Date(birthDay)
+                let d = new Date(dateValue)
                 d.setFullYear(val)
-                birthDay = d
+                dateValue = d
                 dateChanged(d)
             }
         }

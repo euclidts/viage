@@ -41,6 +41,8 @@
         <file alias="DateChooserLocal.qml">ui/DateChooserLocal.qml</file>
         <file alias="SexChooserLocal.qml">ui/SexChooserLocal.qml</file>
         <file>IntChooserLocal.qml</file>
+        <file>CalculDataModel.qml</file>
+        <file>qmldir</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="vue_du_lac.jpg">images/vue_du_lac.jpg</file>

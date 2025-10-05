@@ -73,57 +73,57 @@
         <translation>Bericht</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="52"/>
+        <location filename="../ui/BottomBar.qml" line="54"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="61"/>
+        <location filename="../ui/BottomBar.qml" line="63"/>
         <source>Onboarding</source>
         <translation>Onboarding</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="77"/>
+        <location filename="../ui/BottomBar.qml" line="79"/>
         <source>Ajouter un conseiller</source>
         <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="82"/>
+        <location filename="../ui/BottomBar.qml" line="84"/>
         <source>Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?</source>
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="155"/>
+        <location filename="../ui/BottomBar.qml" line="157"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="158"/>
+        <location filename="../ui/BottomBar.qml" line="160"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
         <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="93"/>
+        <location filename="../ui/BottomBar.qml" line="95"/>
         <source>Accueil</source>
         <translation>Empfang</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="100"/>
+        <location filename="../ui/BottomBar.qml" line="102"/>
         <source>Ajouter un partenaire</source>
         <translation>Partner/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="101"/>
+        <location filename="../ui/BottomBar.qml" line="103"/>
         <source>Ajouter un contact</source>
         <translation>Kontakt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="118"/>
+        <location filename="../ui/BottomBar.qml" line="120"/>
         <source>Continuer</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="135"/>
+        <location filename="../ui/BottomBar.qml" line="137"/>
         <source>Terminer</source>
         <translation>Abschliessen</translation>
     </message>
@@ -150,7 +150,7 @@
 <context>
     <name>CalculatorPage</name>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="22"/>
+        <location filename="../ui/CalculatorPage.qml" line="30"/>
         <source>Date estimée de la transaction</source>
         <translation>Geschätztes Transaktionsdatum</translation>
     </message>
@@ -173,27 +173,27 @@
         <translation type="unfinished">Geburtsdatum</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="75"/>
+        <location filename="../ui/CalculatorPage.qml" line="74"/>
         <source>Ajouter un partenaire</source>
         <translation>Einen Partner hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="75"/>
+        <location filename="../ui/CalculatorPage.qml" line="74"/>
         <source>Supprimer un partenaire</source>
         <translation>Einen Partner löschen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="96"/>
+        <location filename="../ui/CalculatorPage.qml" line="95"/>
         <source>Valeur estimée du bien</source>
         <translation>Geschätzter Wert der Liegenschaft</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="105"/>
+        <location filename="../ui/CalculatorPage.qml" line="104"/>
         <source>Calculer</source>
         <translation>Berechnen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="160"/>
+        <location filename="../ui/CalculatorPage.qml" line="116"/>
         <source>Usufruit :</source>
         <translation type="unfinished"></translation>
     </message>
@@ -202,7 +202,7 @@
         <translation type="vanished">Wohnrecht :</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="172"/>
+        <location filename="../ui/CalculatorPage.qml" line="128"/>
         <source>Bouquet :</source>
         <translation>Abschlagzahlung :</translation>
     </message>

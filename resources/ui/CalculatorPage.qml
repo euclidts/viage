@@ -2,10 +2,17 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Material
+import "qrc:/ui" 1.0
+
+
 
 ScrollView {
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+    function parseDate(str) {
+        var parts = str.split("/")
+        return new Date(parts[0], parts[1]-1, parts[2])
+    }
 
     FlickableItem {
         BackgroundRect {
@@ -17,18 +24,11 @@ ScrollView {
 
                 DateChooserLocal {
                     id: transactionDateChooser
+                    dateValue: CalculDataModel.transactionDate
                     Layout.margins: 6
                     maxYear: 30
                     name: qsTr("Date estimée de la transaction")
-                }
-
-
-                ListModel {
-                    id: seniorCitizens
-                }
-
-                Component.onCompleted: {
-                    seniorCitizens.append({ sex: 0, birthDay: "1950/01/01" })
+                    onDateChanged: d => CalculDataModel.transactionDate = d
                 }
 
                 ListView {
@@ -42,7 +42,7 @@ ScrollView {
                     bottomMargin: 3
                     spacing: 6
 
-                    model: seniorCitizens
+                    model: CalculDataModel.seniorCitizens
 
                     delegate: ColumnLayout {
                         spacing: 0
@@ -62,25 +62,24 @@ ScrollView {
                         DateChooserLocal {
                             Layout.margins: 6
                             name: qsTr("Date de naissance")
-                            birthDay: new Date(model.birthDay)
-                            //birthDay: model.birthDay //|| new Date(1990, 0, 1)
-                            onDateChanged: seniorCitizens.setProperty(index, "birthDay",
-                                                             Qt.formatDate(birthDay, "yyyy/MM/dd"))
+                            dateValue: parseDate(model.birthDay)
+                            onDateChanged: CalculDataModel.seniorCitizens.setProperty(index, "birthDay",
+                                                             Qt.formatDate(dateValue, "yyyy/MM/dd"))
                         }
                     }
                 }
 
                 RoundButton {
-                    property bool single: seniorCitizens.count === 1
+                    property bool single: CalculDataModel.getSeniorCitizensSingle()
                     text: single ? qsTr("Ajouter un partenaire") : qsTr("Supprimer un partenaire")
                     icon.source: single ? "qrc:/icons/plus.svg" : "qrc:/icons/trash-alt.svg"
                     highlighted: single
 
                     onClicked: {
                         if (single) {
-                            seniorCitizens.append({ sex: 1, birthDay: "1950/01/01"})
+                            CalculDataModel.seniorCitizens.append({ sex: 1, birthDay: "1950/01/01"})
                         } else {
-                            seniorCitizens.remove(seniorCitizens.count - 1)
+                            CalculDataModel.seniorCitizens.remove(CalculDataModel.seniorCitizens.count - 1)
                         }
                     }
                 }
@@ -94,64 +93,21 @@ ScrollView {
                     IntChooser {
                         id: valueChooser
                         name: qsTr("Valeur estimée du bien")
-                        numberOf:1500000
+                        numberOf: CalculDataModel.valueBien
                         minimum: 50000
                         maximum: 15000000
                         step: 1000
-                        onEdit: value => numberOf = value
+                        onEdit: value => CalculDataModel.valueBien = value
                     }
 
                     RoundButton {
                         text: qsTr("Calculer")
                         icon.source: "qrc:/icons/calculator.svg"
                         onClicked: {
-                            if (seniorCitizens.count < 1 || seniorCitizens.count > 2) {
-                                console.error("Il faut 1 ou 2 partenaires.")
-                                return
-                            }
-
-                            function sexToChar(sex) { return sex === 0 ? "M" : "F"; }
-
-                            var payload = {
-                                DateTransaction: Qt.formatDate(transactionDateChooser.birthDay, "yyyy/MM/dd"),
-                                ValeurBien: valueChooser.numberOf
-                            }
-
-                            if (seniorCitizens.count >= 1) {
-                                var p1 = seniorCitizens.get(0)
-                                payload.Person1 = {
-                                    Sex: sexToChar(p1.sex),
-                                    Birthdate: p1.birthDay
-                                }
-                            }
-
-                            if (seniorCitizens.count >= 2) {
-                                var p2 = seniorCitizens.get(1)
-                                payload.Person2 = {
-                                    Sex: sexToChar(p2.sex),
-                                    Birthdate: Qt.formatDate(p2.birthDay, "yyyy/MM/dd")
-                                }
-                            }
-
-                            console.error(JSON.stringify(payload))
-                            var xhr = new XMLHttpRequest()
-                            xhr.open("POST", "http://127.0.0.1:8000/Account/Usufruit/Calcul?format=json")
-                            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
-                            xhr.setRequestHeader("Accept", "application/json")
-
-                            xhr.onreadystatechange = function() {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    if (xhr.status >= 200 && xhr.status < 300) {
-                                        var result = JSON.parse(xhr.responseText)
-                                        usufruit.text = Math.round(result.usufruit).toLocaleString(Qt.locale())
-                                        bouquet.text = Math.round(result.bouquet).toLocaleString(Qt.locale())
-                                    } else {
-                                        console.error("Erreur API :", xhr.status, xhr.responseText)
-                                    }
-                                }
-                            }
-
-                            xhr.send(JSON.stringify(payload))
+                            CalculDataModel.calculer(function(result){
+                                usufruit.text = Math.round(result.usufruit).toLocaleString(Qt.locale())
+                                bouquet.text = Math.round(result.bouquet).toLocaleString(Qt.locale())
+                            })
                         }
                         highlighted: true
                     }
@@ -164,7 +120,7 @@ ScrollView {
 
                     Label {
                         id: usufruit
-                        text: 0 === 0 ? "" : rent.dab.toLocaleString(Qt.locale())
+                        text: ""
                         Layout.alignment: Qt.AlignRight
                     }
 
@@ -176,7 +132,7 @@ ScrollView {
 
                     Label {
                         id:bouquet
-                        text: 0 === 0 ? "" : rent.bou.toLocaleString(Qt.locale())
+                        text: ""
                         Layout.alignment: Qt.AlignRight
                     }
 

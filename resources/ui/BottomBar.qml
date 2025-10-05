@@ -40,8 +40,10 @@ RowLayout {
                        bridge.requestAccount()
                        busyDialog.open()
                    }
-                   else if (rootStack.currentIndex === 2)
-                       rent.writeToFile()
+                   else if (rootStack.currentIndex === 2){
+                       var foo = Calculator.getPayload()
+                       console.error(foo)
+                   }
                    else
                        bridge.requestReport()
     }
