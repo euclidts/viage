@@ -20,13 +20,10 @@ netManager& netManager::instance()
     return instance;
 }
 
-#ifndef EMSCRIPTEN
-void netManager::init(const QString& url,
-                      const QString& authentication_arguments,
-                      const QString& extra_arguments)
+void netManager::init(const QString& url)
 {
     prefix = url + '/';
-
+#ifndef EMSCRIPTEN
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);
 
@@ -34,17 +31,12 @@ void netManager::init(const QString& url,
             this, [](QNetworkReply* reply,
                const QList<QSslError>& errors)
             { reply->ignoreSslErrors(errors); });
-
-    init(authentication_arguments,
-         extra_arguments);
-}
 #endif
+    init();
+}
 
-void netManager::init(const QString& authentication_arguments,
-                      const QString& extra_arguments)
+void netManager::init()
 {
-    auth_args = authentication_arguments;
-    suffix = extra_arguments;
 
     // setTransferTimeout(300000);
 
@@ -63,19 +55,11 @@ void netManager::init(const QString& authentication_arguments,
 void netManager::authenticate(const QString& username,
                               const QString& password)
 {
-#ifndef EMSCRIPTEN
-    QUrl url{prefix + auth_args
+    QUrl url{prefix + "auth"
                 + '?' + "userName=" + username
                 + '&' + "password=" + password
                 + '&' + suffix
                 + "&rememberMe=True"};
-#else
-    QUrl url{QString{'/'} + auth_args
-             + '?' + "userName=" + username
-             + '&' + "password=" + password
-             + '&' + suffix
-             + "&rememberMe=True"};
-#endif
 
     rqst.setUrl(url);
 

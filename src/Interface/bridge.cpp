@@ -49,9 +49,6 @@ void bridge::registerQml()
     using namespace Data;
     using namespace People;
 
-    // calculator
-    qmlRegisterType<list_model<senior_citizen>>("People", 1, 0, "SeniorCitizenModel");
-
     // accounts
     accountModel = new list_model<account>{};
     accountModel->setList(client::instance().get_accounts());

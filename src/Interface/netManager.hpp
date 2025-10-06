@@ -21,14 +21,10 @@ class netManager final : public QNetworkAccessManager
 public:
     static netManager& instance();
 
-#ifndef EMSCRIPTEN
-    void init(const QString& url,
-              const QString& authentication_arguments,
-              const QString& extra_arguments);
-#endif
-    void init(const QString& authentication_arguments,
-              const QString& extra_arguments);
-
+    void init(const QString& url);
+protected:
+    void init();
+public:
 
     netManager(netManager const&) = delete;
     void operator = (netManager const&) = delete;
@@ -79,12 +75,9 @@ public:
 private:
     netManager() {}
 
-#ifndef EMSCRIPTEN
     QString prefix;
-#endif
     QNetworkRequest rqst{};
-    QString auth_args;
-    QString suffix;
+    QString suffix = "format=json&jsconfig=TreatEnumAsInteger";
 
     void setCallback(QNetworkReply* reply,
                      const std::function<void (const QByteArray &)> &callback);

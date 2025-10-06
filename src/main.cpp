@@ -48,12 +48,9 @@ int main(int argc, char* argv[])
     qDebug() << "Host :" << host;
 
 
-    netManager::instance().init(host,
-                                "auth",
-                                "format=json&jsconfig=TreatEnumAsInteger");
+    netManager::instance().init(host);
 #else
-    netManager::instance().init("auth",
-                                "format=json&jsconfig=TreatEnumAsInteger");
+    netManager::instance().init("");
 #endif
 
     client::instance().init();
@@ -67,7 +64,7 @@ int main(int argc, char* argv[])
         (QObject* obj, const QUrl &objUrl)
         {
             if (!obj && url == objUrl)
-                QCoreApplication::exit(-1);
+                QCoreApplication::exit(-2);
             else
                 bridge::instance().setQmlObject(obj);
         }, Qt::QueuedConnection);
