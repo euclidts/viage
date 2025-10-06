@@ -41,7 +41,7 @@ RowLayout {
                        busyDialog.open()
                    }
                    else if (rootStack.currentIndex === 2){
-                       var foo = Calculator.getPayload()
+                       var foo = CalculDataModel.getDocument()
                        console.error(foo)
                    }
                    else

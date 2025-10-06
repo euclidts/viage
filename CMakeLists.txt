@@ -121,7 +121,8 @@ elseif(APPLE)
 else()
     qt_add_executable(${PROJECT_NAME}
         MANUAL_FINALIZATION
-        ${PROJECT_SOURCES})
+        ${PROJECT_SOURCES}
+        compile_wasm.sh)
 endif()
 
 if(ANDROID)

@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
     // QString host{"https://viage.euclidtradingsystems.com"};
     //QString host{"https://viagetestrive.euclidtradingsystems.com"};
-        QString host{"http://127.0.0.1:8000"};
+    QString host{"http://127.0.0.1:8000"};
 
     for (int i = 0; i < argc; i++)
         if (QString::compare(argv[i], "--host") == 0)
