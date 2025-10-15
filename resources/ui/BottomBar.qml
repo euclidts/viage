@@ -41,8 +41,7 @@ RowLayout {
                        busyDialog.open()
                    }
                    else if (rootStack.currentIndex === 2){
-                       var foo = CalculDataModel.getDocument()
-                       console.error(foo)
+                       CalculDataModel.getDocument()
                    }
                    else
                        bridge.requestReport()

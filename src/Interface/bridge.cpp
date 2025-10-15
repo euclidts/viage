@@ -6,7 +6,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QFileDialog>
-
+#include <QJSEngine>
 #include <wobjectimpl.h>
 
 #include "bridge.hpp"
@@ -739,4 +739,87 @@ void bridge::hire()
     client::instance().get_users()->add();
 }
 
+}
+
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QFile>
+#include <QEventLoop>
+#include <QUrl>
+#include <QDebug>
+
+static QNetworkAccessManager * manager = nullptr;
+void Interface::bridge::requestUsufruitDocument(const QJsonObject payload){
+
+    if(!manager)
+        manager = new QNetworkAccessManager(this);
+    QString outputPath("CalculUsufruit.docx");
+    qDebug() << "prefix :" << Interface::netManager::instance().getPrefix();
+
+    QUrl url(Interface::netManager::instance().getPrefix() +"Account/Usufruit?format=json");
+    QNetworkRequest request(url);
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader("Accept", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
+    QByteArray data = QJsonDocument(payload).toJson(QJsonDocument::Compact);
+    QNetworkReply *reply = manager->post(request, data);
+
+
+QObject::connect(reply, &QNetworkReply::finished, [reply,outputPath]() {
+    if (reply->error() == QNetworkReply::NoError) {
+        QByteArray responseData = reply->readAll();
+        QFile file(outputPath);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(responseData);
+            file.close();
+            qDebug() << "Fichier sauvegardé :" << outputPath;
+
+#ifndef EMSCRIPTEN
+            QDesktopServices::openUrl(QUrl::fromLocalFile(outputPath));
+#else
+            file.open(QFile::ReadOnly);
+            QFileDialog::saveFileContent(file.readAll(), outputPath);
+#endif
+        } else {
+            qWarning() << "Impossible d'ouvrir le fichier pour écriture :" << outputPath;
+        }
+    } else {
+        qWarning() << "⚠️ Erreur HTTP :" << reply->errorString();
+    }
+        reply->deleteLater();
+    });
+
+}
+
+
+
+
+
+void Interface::bridge::calculerUsufruit(const QJsonObject payload)
+{
+
+    if(!manager)
+        manager = new QNetworkAccessManager(this);
+    QNetworkRequest req(QUrl(Interface::netManager::instance().getPrefix() +"Account/Usufruit/Calcul?format=json"));
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    req.setRawHeader("Accept", "application/json");
+
+    QByteArray data = QJsonDocument(payload).toJson(QJsonDocument::Compact);
+    QNetworkReply *reply = manager->post(req, data);
+    connect(reply, &QNetworkReply::finished, [this, reply]() {
+        int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        QByteArray data = reply->readAll();
+
+        if (status >= 200 && status < 300) {
+            QVariant result = QJsonDocument::fromJson(data).toVariant();
+            emit calculOk(result);
+        } else {
+            emit calculErreur(status, QString::fromUtf8(data));
+        }
+        reply->deleteLater();
+    });
 }

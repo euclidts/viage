@@ -13,6 +13,16 @@ ScrollView {
         var parts = str.split("/")
         return new Date(parts[0], parts[1]-1, parts[2])
     }
+    Connections{
+        target:bridge
+        onCalculOk: function(result) {
+            usufruit.text = Math.round(result.usufruit).toLocaleString(Qt.locale())
+            bouquet.text = Math.round(result.bouquet).toLocaleString(Qt.locale())
+        }
+        onCalculErreur: function(status, response) {
+            console.error("Erreur calcul:", status, response)
+        }
+    }
 
     FlickableItem {
         BackgroundRect {
@@ -104,10 +114,8 @@ ScrollView {
                         text: qsTr("Calculer")
                         icon.source: "qrc:/icons/calculator.svg"
                         onClicked: {
-                            CalculDataModel.calculer(function(result){
-                                usufruit.text = Math.round(result.usufruit).toLocaleString(Qt.locale())
-                                bouquet.text = Math.round(result.bouquet).toLocaleString(Qt.locale())
-                            })
+                            var pl = CalculDataModel.getPayload()
+                            bridge.calculerUsufruit(pl);
                         }
                         highlighted: true
                     }

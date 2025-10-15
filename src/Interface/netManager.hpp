@@ -72,6 +72,9 @@ public:
     void clearanceChanged(int newClearance)
     W_SIGNAL(clearanceChanged, newClearance)
 
+    QString getPrefix(){
+        return prefix;
+    }
 private:
     netManager() {}
 

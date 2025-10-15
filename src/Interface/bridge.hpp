@@ -193,8 +193,15 @@ public:
     QUrl uploadPathChanged()
     W_SIGNAL(uploadPathChanged)
 
-    void requestUsufruitDocument(const QByteArray);
+    void requestUsufruitDocument(const QJsonObject);
+    W_INVOKABLE(requestUsufruitDocument)
 
+    void calculerUsufruit(const QJsonObject payload);
+    W_INVOKABLE(calculerUsufruit);
+    void calculOk(QVariant result)
+    W_SIGNAL(calculOk,result)
+    void calculErreur(int status, QString response)
+    W_SIGNAL(calculErreur,status,response)
 
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(Data::People::user::clearances, clearance READ getClearance NOTIFY clearanceChanged)
