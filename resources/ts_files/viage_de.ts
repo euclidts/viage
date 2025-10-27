@@ -1034,7 +1034,7 @@ Jahre</translation>
     <message>
         <location filename="../ui/TopBar.qml" line="101"/>
         <source>Comptes suspendus</source>
-        <translation type="unfinished"></translation>
+        <translation>gesperrte Konten</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="133"/>
