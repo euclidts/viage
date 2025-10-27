@@ -40,10 +40,16 @@ bool user_filter_model::filterAcceptsRow(int sourceRow,
         else
             return false;
     }
+    const auto& locked{sourceModel()->data(
+        sourceModel()->index(sourceRow, 0, sourceParent),
+        People::user::LockedRole)};
+
 
     const auto& userName{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     People::user::LastNameRole)};
+    if(locked.toBool() && !showLocked)
+        return false;
 
     const auto& company{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),

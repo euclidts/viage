@@ -22,11 +22,24 @@ public:
     void forceFilterRole(int role);
     W_INVOKABLE(forceFilterRole, (int))
 
+    void setShowLocked(bool b){
+        showLocked = b;
+    }
+    W_INVOKABLE(setShowLocked,(bool))
+
+    bool getShowLocked(){
+        return showLocked;
+    }
+    W_PROPERTY(bool, showLocked READ getShowLocked WRITE setShowLocked)
+
+
+
 private:
     bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const override;
     bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
 
     bool isExclusif;
+    bool showLocked = false;
 };
 }
 }
