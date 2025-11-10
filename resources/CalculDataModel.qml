@@ -2,12 +2,13 @@ pragma Singleton
 import QtQuick
 import QtCore
 import QtQuick.Controls 2.15
+import QtQuick.Controls
+
 QtObject {
     id:dataModel
 
     property ListModel seniorCitizens: ListModel {}
-
-
+    property Dialog busyDialog
     property date transactionDate : new Date()
     property int valueBien : 1500000
 
@@ -44,31 +45,9 @@ QtObject {
         return payload
     }
 
-    function calculer(callback_good,callback_bad=function(status,r){console.error("call calculer",status,r)}){
-        if (seniorCitizens.count < 1 || seniorCitizens.count > 2) {
-            console.error("Il faut 1 ou 2 partenaires.")
-            return
-        }
-        var payload = getPayload()
-        var xhr = new XMLHttpRequest()
-        xhr.open("POST", "https://viagetestrive.euclidtradingsystems.com/Account/Usufruit/Calcul?format=json")
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
-        xhr.setRequestHeader("Accept", "application/json")
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    var result = JSON.parse(xhr.responseText)
-                    callback_good(result)
-                } else {
-                    callback_bad(xhr.status, xhr.responseText)
-                }
-            }
-        }
-        xhr.send(JSON.stringify(payload))
-    }
 
     function getDocument(lang) {
+        busyDialog.open()
         var payload = getPayload();
         payload.Lang = lang;
         bridge.requestUsufruitDocument(payload);

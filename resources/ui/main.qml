@@ -1,8 +1,8 @@
 import QtQuick.Window
-import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
 import QtQuick.Controls.Material
+import "qrc:/ui" 1.0
 
 import Data
 import People
@@ -261,6 +261,7 @@ ApplicationWindow {
         }
 
         CalculatorPage { id: calculatorPage }
+
     }
 
     header: TopBar { id: topBar }

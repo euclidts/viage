@@ -63,67 +63,77 @@
         <translation>Berater/innen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="39"/>
+        <location filename="../ui/BottomBar.qml" line="63"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="41"/>
+        <location filename="../ui/BottomBar.qml" line="65"/>
         <source>Rapport</source>
         <translation>Bericht</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="58"/>
+        <location filename="../ui/BottomBar.qml" line="44"/>
+        <source>Français</source>
+        <translation>Französisch</translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="44"/>
+        <source>Allemand</source>
+        <translation>Deutsch</translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="82"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="67"/>
+        <location filename="../ui/BottomBar.qml" line="91"/>
         <source>Onboarding</source>
         <translation>Onboarding</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="83"/>
+        <location filename="../ui/BottomBar.qml" line="107"/>
         <source>Ajouter un conseiller</source>
         <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="88"/>
+        <location filename="../ui/BottomBar.qml" line="112"/>
         <source>Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?</source>
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="161"/>
+        <location filename="../ui/BottomBar.qml" line="185"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="164"/>
+        <location filename="../ui/BottomBar.qml" line="188"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
         <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="99"/>
+        <location filename="../ui/BottomBar.qml" line="123"/>
         <source>Accueil</source>
         <translation>Empfang</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="106"/>
+        <location filename="../ui/BottomBar.qml" line="130"/>
         <source>Ajouter un partenaire</source>
         <translation>Partner/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="107"/>
+        <location filename="../ui/BottomBar.qml" line="131"/>
         <source>Ajouter un contact</source>
         <translation>Kontakt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="124"/>
+        <location filename="../ui/BottomBar.qml" line="148"/>
         <source>Continuer</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="141"/>
+        <location filename="../ui/BottomBar.qml" line="165"/>
         <source>Terminer</source>
         <translation>Abschliessen</translation>
     </message>
@@ -150,12 +160,12 @@
 <context>
     <name>CalculatorPage</name>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="40"/>
+        <location filename="../ui/CalculatorPage.qml" line="46"/>
         <source>Date estimée de la transaction</source>
         <translation>Geschätztes Transaktionsdatum</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="63"/>
+        <location filename="../ui/CalculatorPage.qml" line="69"/>
         <source>Partenaire </source>
         <translation>Partner/in </translation>
     </message>
@@ -168,32 +178,32 @@
         <translation type="vanished">Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="74"/>
+        <location filename="../ui/CalculatorPage.qml" line="80"/>
         <source>Date de naissance</source>
         <translation type="unfinished">Geburtsdatum</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="84"/>
+        <location filename="../ui/CalculatorPage.qml" line="90"/>
         <source>Ajouter un partenaire</source>
         <translation>Einen Partner hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="84"/>
+        <location filename="../ui/CalculatorPage.qml" line="90"/>
         <source>Supprimer un partenaire</source>
         <translation>Einen Partner löschen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="105"/>
+        <location filename="../ui/CalculatorPage.qml" line="114"/>
         <source>Valeur estimée du bien</source>
         <translation>Geschätzter Wert der Liegenschaft</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="114"/>
+        <location filename="../ui/CalculatorPage.qml" line="123"/>
         <source>Calculer</source>
         <translation>Berechnen</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="124"/>
+        <location filename="../ui/CalculatorPage.qml" line="134"/>
         <source>Usufruit :</source>
         <translation type="unfinished"></translation>
     </message>
@@ -202,7 +212,7 @@
         <translation type="vanished">Wohnrecht :</translation>
     </message>
     <message>
-        <location filename="../ui/CalculatorPage.qml" line="136"/>
+        <location filename="../ui/CalculatorPage.qml" line="146"/>
         <source>Bouquet :</source>
         <translation>Abschlagzahlung :</translation>
     </message>

@@ -18,11 +18,17 @@ ScrollView {
         onCalculOk: function(result) {
             usufruit.text = Math.round(result.usufruit).toLocaleString(Qt.locale())
             bouquet.text = Math.round(result.bouquet).toLocaleString(Qt.locale())
+            busyDialog.close()
         }
         onCalculErreur: function(status, response) {
             console.error("Erreur calcul:", status, response)
+            exceptionDialog.title = "Calcul"
+            exceptionDialog.text = response
+            exceptionDialog.open()
+            busyDialog.close()
         }
     }
+
 
     FlickableItem {
         BackgroundRect {
@@ -93,6 +99,9 @@ ScrollView {
                         }
                     }
                 }
+                Component.onCompleted: {
+                    CalculDataModel.busyDialog = busyDialog
+                }
 
                 GridLayout {
                     Layout.leftMargin: 6
@@ -114,6 +123,7 @@ ScrollView {
                         text: qsTr("Calculer")
                         icon.source: "qrc:/icons/calculator.svg"
                         onClicked: {
+                            busyDialog.open()
                             var pl = CalculDataModel.getPayload()
                             bridge.calculerUsufruit(pl);
                         }

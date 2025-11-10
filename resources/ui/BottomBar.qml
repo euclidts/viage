@@ -23,9 +23,33 @@ RowLayout {
         onClicked: rootStack.currentIndex = 1
     }
 
-    function languageTag() {
-        var loc = Qt.locale().name
-        return loc.startsWith("de") ? "German" : "French"
+    Connections{
+        target:bridge
+        onDocumentOk: function() {
+            busyDialog.close()
+        }
+        onDocumentErreur: function(status, response) {
+            console.error("Erreur document:", status, response)
+            busyDialog.close()
+            exceptionDialog.title = "Erreur document"
+            exceptionDialog.text = response
+            exceptionDialog.open()
+        }
+    }
+
+    ComboBox {
+        visible: (rootStack.currentIndex === 2)
+        id: languageCombo
+        //Layout.preferredWidth: 120
+        model: [qsTr("Français"), qsTr("Allemand")]
+
+        // valeur par défaut basée sur la locale
+        Component.onCompleted: {
+            if (Qt.locale().name.startsWith("de"))
+                languageCombo.currentIndex = 1 // German
+            else
+                languageCombo.currentIndex = 0 // French
+        }
     }
 
     MaterialButton {
@@ -46,7 +70,7 @@ RowLayout {
                        busyDialog.open()
                    }
                    else if (rootStack.currentIndex === 2){
-                       CalculDataModel.getDocument(languageTag())
+                       CalculDataModel.getDocument(languageCombo.currentIndex == 0 ? "French" : "German")
                    }
                    else
                        bridge.requestReport()

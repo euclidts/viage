@@ -195,6 +195,10 @@ public:
 
     void requestUsufruitDocument(const QJsonObject);
     W_INVOKABLE(requestUsufruitDocument)
+    void documentOk()
+    W_SIGNAL(documentOk)
+    void documentErreur(int status, QString response)
+    W_SIGNAL(documentErreur,status,response)
 
     void calculerUsufruit(const QJsonObject payload);
     W_INVOKABLE(calculerUsufruit);
@@ -202,6 +206,8 @@ public:
     W_SIGNAL(calculOk,result)
     void calculErreur(int status, QString response)
     W_SIGNAL(calculErreur,status,response)
+
+
 
     W_PROPERTY(bool, documentsCompleted READ getDocumentsCompleted NOTIFY documentsCompletedChanged)
     W_PROPERTY(Data::People::user::clearances, clearance READ getClearance NOTIFY clearanceChanged)

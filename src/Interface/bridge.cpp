@@ -769,7 +769,7 @@ void Interface::bridge::requestUsufruitDocument(const QJsonObject payload){
     QNetworkReply *reply = manager->post(request, data);
 
 
-QObject::connect(reply, &QNetworkReply::finished, [reply,outputPath]() {
+QObject::connect(reply, &QNetworkReply::finished, [this,reply,outputPath]() {
     if (reply->error() == QNetworkReply::NoError) {
         QByteArray responseData = reply->readAll();
         QFile file(outputPath);
@@ -777,6 +777,7 @@ QObject::connect(reply, &QNetworkReply::finished, [reply,outputPath]() {
             file.write(responseData);
             file.close();
             qDebug() << "Fichier sauvegardé :" << outputPath;
+            emit documentOk();
 
 #ifndef EMSCRIPTEN
             QDesktopServices::openUrl(QUrl::fromLocalFile(outputPath));
@@ -789,10 +790,10 @@ QObject::connect(reply, &QNetworkReply::finished, [reply,outputPath]() {
         }
     } else {
         qWarning() << "⚠️ Erreur HTTP :" << reply->errorString();
+        emit documentErreur(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),reply->errorString());
     }
         reply->deleteLater();
     });
-
 }
 
 
