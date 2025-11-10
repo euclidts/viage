@@ -68,7 +68,7 @@ QtObject {
         xhr.send(JSON.stringify(payload))
     }
 
-    function getDocument(lang = "French") {
+    function getDocument(lang) {
         var payload = getPayload();
         payload.Lang = lang;
         bridge.requestUsufruitDocument(payload);

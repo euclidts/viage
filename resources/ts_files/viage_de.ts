@@ -63,67 +63,67 @@
         <translation>Berater/innen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="34"/>
+        <location filename="../ui/BottomBar.qml" line="39"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="36"/>
+        <location filename="../ui/BottomBar.qml" line="41"/>
         <source>Rapport</source>
         <translation>Bericht</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="53"/>
+        <location filename="../ui/BottomBar.qml" line="58"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="62"/>
+        <location filename="../ui/BottomBar.qml" line="67"/>
         <source>Onboarding</source>
         <translation>Onboarding</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="78"/>
+        <location filename="../ui/BottomBar.qml" line="83"/>
         <source>Ajouter un conseiller</source>
         <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="83"/>
+        <location filename="../ui/BottomBar.qml" line="88"/>
         <source>Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?</source>
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="156"/>
+        <location filename="../ui/BottomBar.qml" line="161"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="159"/>
+        <location filename="../ui/BottomBar.qml" line="164"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
         <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="94"/>
+        <location filename="../ui/BottomBar.qml" line="99"/>
         <source>Accueil</source>
         <translation>Empfang</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="101"/>
+        <location filename="../ui/BottomBar.qml" line="106"/>
         <source>Ajouter un partenaire</source>
         <translation>Partner/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="102"/>
+        <location filename="../ui/BottomBar.qml" line="107"/>
         <source>Ajouter un contact</source>
         <translation>Kontakt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="119"/>
+        <location filename="../ui/BottomBar.qml" line="124"/>
         <source>Continuer</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="136"/>
+        <location filename="../ui/BottomBar.qml" line="141"/>
         <source>Terminer</source>
         <translation>Abschliessen</translation>
     </message>

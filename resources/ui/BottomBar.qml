@@ -23,6 +23,11 @@ RowLayout {
         onClicked: rootStack.currentIndex = 1
     }
 
+    function languageTag() {
+        var loc = Qt.locale().name
+        return loc.startsWith("de") ? "German" : "French"
+    }
+
     MaterialButton {
         id: reportButton
         enabled: bridge.downloadProgress === -1.
@@ -41,7 +46,7 @@ RowLayout {
                        busyDialog.open()
                    }
                    else if (rootStack.currentIndex === 2){
-                       CalculDataModel.getDocument()
+                       CalculDataModel.getDocument(languageTag())
                    }
                    else
                        bridge.requestReport()
