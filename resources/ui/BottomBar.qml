@@ -31,7 +31,7 @@ RowLayout {
         onDocumentErreur: function(status, response) {
             console.error("Erreur document:", status, response)
             busyDialog.close()
-            exceptionDialog.title = "Erreur document"
+            exceptionDialog.title = "document error"
             exceptionDialog.text = response
             exceptionDialog.open()
         }
@@ -70,7 +70,7 @@ RowLayout {
                        busyDialog.open()
                    }
                    else if (rootStack.currentIndex === 2){
-                       CalculDataModel.getDocument(languageCombo.currentIndex == 0 ? "French" : "German")
+                       CalculDataModel.getDocument(languageCombo.currentIndex === 0 ? "French" : "German")
                    }
                    else
                        bridge.requestReport()
