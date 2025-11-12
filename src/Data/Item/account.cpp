@@ -287,6 +287,12 @@ void account::read(const QJsonObject& json)
 
     if (json.contains("paidDate") && json["paidDate"].isString())
         paidDate = QDateTime::fromString(json["paidDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
+
+    if (json.contains("houseBoughtDate") && json["houseBoughtDate"].isString())
+        houseBoughtDate = QDateTime::fromString(json["houseBoughtDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
+
+    if (json.contains("houseRefusedDate") && json["houseRefusedDate"].isString())
+        houseRefusedDate = QDateTime::fromString(json["houseRefusedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
 }
 
 void account::write(QJsonObject& json) const

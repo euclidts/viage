@@ -50,7 +50,9 @@ struct account final : public base_item<account>
         Expertized = 128,
         Decided = 256,
         Notarized = 512,
-        Paid = 1024
+        Paid = 1024,
+        Bought = 2048,
+        Refused = 4096
     };
 
     enum roles
@@ -105,6 +107,8 @@ struct account final : public base_item<account>
     QDate decidedDate;
     QDate notarizedDate;
     QDate paidDate;
+    QDate houseBoughtDate;
+    QDate houseRefusedDate;
 
 private:
     QJsonArray owners;

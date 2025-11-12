@@ -1297,35 +1297,45 @@ Jahre</translation>
         <translation>Bezahlung der Kommission</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="43"/>
-        <location filename="../ui/main.qml" line="47"/>
-        <source>Vendeur</source>
-        <translation>Verkäufer/in</translation>
+        <location filename="../ui/main.qml" line="40"/>
+        <source>Maison achetée</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="44"/>
-        <location filename="../ui/main.qml" line="48"/>
-        <source>Manager</source>
-        <translation>Manager/in</translation>
+        <location filename="../ui/main.qml" line="41"/>
+        <source>Maison refusée</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="45"/>
         <location filename="../ui/main.qml" line="49"/>
+        <source>Vendeur</source>
+        <translation>Verkäufer/in</translation>
+    </message>
+    <message>
+        <location filename="../ui/main.qml" line="46"/>
+        <location filename="../ui/main.qml" line="50"/>
+        <source>Manager</source>
+        <translation>Manager/in</translation>
+    </message>
+    <message>
+        <location filename="../ui/main.qml" line="47"/>
+        <location filename="../ui/main.qml" line="51"/>
         <source>Directeur</source>
         <translation>Direktor/in</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="46"/>
+        <location filename="../ui/main.qml" line="48"/>
         <source>Administrateur</source>
         <translation>Administrator/in</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="58"/>
+        <location filename="../ui/main.qml" line="60"/>
         <source>Erreur d&apos;authentification</source>
         <translation>Authentifizierungsfehler</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="60"/>
+        <location filename="../ui/main.qml" line="62"/>
         <source>Mot de passe ou identifiant incorrect, essayez de nouveau ou contactez Viage pour recevoir un nouveau mot de passe</source>
         <translation>Falsches Passwort oder falscher Benutzername. Versuchen Sie es erneut oder kontaktieren Sie Viage, um ein neues Passwort zu erhalten</translation>
     </message>
