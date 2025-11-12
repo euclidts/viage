@@ -225,6 +225,7 @@ QJsonArray account::get(list<document>* ds) const
 
 void account::read(const QJsonObject& json)
 {
+    qDebug() << json;
     if (json.contains("owners") && json["owners"].isArray())
         owners = json["owners"].toArray();
 
