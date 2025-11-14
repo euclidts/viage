@@ -45,11 +45,16 @@ ItemDelegate {
                 function setAccountState() {
                     if (model.state === 31)
                         return qsTr("Complet")
-                    else
-                        for (var i = 0; i < 12; i++) {
-                            if (!bridge.hasFlag(model.state, Math.pow(2, i)))
+                    else {
+                            if(bridge.hasFlag(model.state, Math.pow(2, 11)))
+                                return stateNames[12]
+                            if(bridge.hasFlag(model.state, Math.pow(2, 12)))
+                                return stateNames[13]
+                        for (var i = 0; i < 12; i++){
+                            if(!bridge.hasFlag(model.state, Math.pow(2, i)))
                                 return stateNames[i]
                         }
+                    }
                 }
 
                 Connections {

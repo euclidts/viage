@@ -32,6 +32,8 @@ QHash<int, QByteArray> account::roleNames()
     names[DecidedRole] = "decidedDate";
     names[NotarizedRole] = "notarizedDate";
     names[PaidRole] = "paidDate";
+    names[HouseBoughtRole] = "HouseBoughtDate";
+    names[HouseRefusedRole] = "HouseRefusedDate";
     names[CreatedRole] = "created";
     names[ModifiedRole] = "modified";
     names[AdvisorFirstNameRole] = "advisorFirstName";
@@ -71,6 +73,10 @@ QVariant account::data(int role) const
         return QVariant(notarizedDate);
     case PaidRole:
         return QVariant(paidDate);
+    case HouseBoughtRole:
+        return QVariant(houseBoughtDate);
+    case HouseRefusedRole:
+        return QVariant(houseRefusedDate);
     case CreatedRole:
         return QVariant(created);
     case ModifiedRole:
@@ -225,7 +231,6 @@ QJsonArray account::get(list<document>* ds) const
 
 void account::read(const QJsonObject& json)
 {
-    qDebug() << json;
     if (json.contains("owners") && json["owners"].isArray())
         owners = json["owners"].toArray();
 

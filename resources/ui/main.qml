@@ -36,9 +36,9 @@ ApplicationWindow {
         qsTr("Expert immobilier"),
         qsTr("Décision du CA \n de Viager Swiss SA"),
         qsTr("Rendez-vous chez le notaire"),
-        qsTr("Paiement de la commission"),
-        qsTr("Maison achetée"),
-        qsTr("Maison refusée")
+        qsTr("Paiement de la commission"), //11
+        qsTr("Maison achetée"),            //12
+        qsTr("Maison refusée")             //13
     ]
 
     readonly property var clearanceNames: bridge.clearance === 4

@@ -67,6 +67,8 @@ struct account final : public base_item<account>
         DecidedRole,
         NotarizedRole,
         PaidRole,
+        HouseBoughtRole,
+        HouseRefusedRole,
         CreatedRole,
         ModifiedRole,
         AdvisorFirstNameRole,

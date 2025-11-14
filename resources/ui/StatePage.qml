@@ -127,14 +127,14 @@ ScrollView {
                 Connections {
                     target: bridge
                     function onHouseBoughtChanged() {
-                        decidedCheck.validation = bridge.accountDecided
+                        houseBought.validation = bridge.houseBought
                     }
                 }
 
                 Connections {
                     target: bridge
                     function onHouseRefusedChanged() {
-                        paidCheck.validation = bridge.accountPaid
+                        houseRefused.validation = bridge.houseRefused
                     }
                 }
             }

@@ -9,12 +9,12 @@
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="../ui/AccountDelegate.qml" line="128"/>
+        <location filename="../ui/AccountDelegate.qml" line="133"/>
         <source>Supprimer le dossier</source>
         <translation>Dossier löschen</translation>
     </message>
     <message>
-        <location filename="../ui/AccountDelegate.qml" line="130"/>
+        <location filename="../ui/AccountDelegate.qml" line="135"/>
         <source>Le dossier selectionné serra supprimé définitivement</source>
         <translation>Das ausgewählte Dossier wird endgültig gelöscht</translation>
     </message>
@@ -1299,12 +1299,12 @@ Jahre</translation>
     <message>
         <location filename="../ui/main.qml" line="40"/>
         <source>Maison achetée</source>
-        <translation type="unfinished"></translation>
+        <translation>Gekauftes Haus</translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="41"/>
         <source>Maison refusée</source>
-        <translation type="unfinished"></translation>
+        <translation>Abgelehntes Haus </translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="45"/>
