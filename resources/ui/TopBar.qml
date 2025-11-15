@@ -92,22 +92,6 @@ RowLayout {
         }
     }
 
-    CheckBox{
-        id:show_locked
-        implicitHeight: 38
-        Layout.rightMargin: 6
-        Layout.fillWidth: false
-        checked: false
-        text: qsTr("Comptes suspendus")
-        visible: accountsPages.currentIndex < 1 &&
-                 usersPages.currentIndex === 0 &&
-                 rootStack.currentIndex === 1
-        onToggled: {
-            userModel.showLocked = checked;
-            userModel.invalidate();
-        }
-
-    }
 
     Button {
         id: backButton

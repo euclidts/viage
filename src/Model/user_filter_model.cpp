@@ -43,13 +43,14 @@ bool user_filter_model::filterAcceptsRow(int sourceRow,
     const auto& locked{sourceModel()->data(
         sourceModel()->index(sourceRow, 0, sourceParent),
         People::user::LockedRole)};
-
+    if(filterRegularExpression().match("").hasMatch() && locked.toBool()){
+        return false;
+    }
 
     const auto& userName{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
                     People::user::LastNameRole)};
-    if(locked.toBool() && !showLocked)
-        return false;
+
 
     const auto& company{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),
