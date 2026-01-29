@@ -63,12 +63,12 @@
         <translation>Berater/innen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="63"/>
+        <location filename="../ui/BottomBar.qml" line="81"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="65"/>
+        <location filename="../ui/BottomBar.qml" line="83"/>
         <source>Rapport</source>
         <translation>Bericht</translation>
     </message>
@@ -83,59 +83,68 @@
         <translation>Deutsch</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="82"/>
+        <location filename="../ui/BottomBar.qml" line="100"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="91"/>
+        <location filename="../ui/BottomBar.qml" line="109"/>
         <source>Onboarding</source>
         <translation>Onboarding</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="107"/>
+        <location filename="../ui/BottomBar.qml" line="125"/>
         <source>Ajouter un conseiller</source>
         <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="112"/>
+        <location filename="../ui/BottomBar.qml" line="130"/>
         <source>Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?</source>
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="185"/>
+        <location filename="../ui/BottomBar.qml" line="57"/>
+        <source>Sauvegarder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="184"/>
+        <source>Completer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="208"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="188"/>
+        <location filename="../ui/BottomBar.qml" line="211"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
         <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="123"/>
+        <location filename="../ui/BottomBar.qml" line="141"/>
         <source>Accueil</source>
         <translation>Empfang</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="130"/>
+        <location filename="../ui/BottomBar.qml" line="148"/>
         <source>Ajouter un partenaire</source>
         <translation>Partner/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="131"/>
+        <location filename="../ui/BottomBar.qml" line="149"/>
         <source>Ajouter un contact</source>
         <translation>Kontakt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="148"/>
+        <location filename="../ui/BottomBar.qml" line="166"/>
         <source>Continuer</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="165"/>
         <source>Terminer</source>
-        <translation>Abschliessen</translation>
+        <translation type="vanished">Abschliessen</translation>
     </message>
     <message>
         <source>eMail</source>

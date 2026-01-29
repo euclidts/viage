@@ -53,18 +53,36 @@ RowLayout {
     }
 
     MaterialButton {
+        id: finishButton
+        text: qsTr("Sauvegarder")
+
+        visible: accountsPages.currentIndex === 5 && accountsPages.itemAt(5).completed
+                 || usersPages.currentIndex === 1 && userPage.completed
+        icon.source: "qrc:/icons/arrow-left.svg"
+
+        onClicked: if (rootStack.currentIndex === 0) {
+                       documents.validate(bridge.accountId)
+                       accountsPages.currentIndex = 0
+                   } else if (rootStack.currentIndex === 1) {
+                       users.validate(selectedUser.filterRole)
+                       usersPages.currentIndex = 0
+                   }
+    }
+
+
+    MaterialButton {
         id: reportButton
         enabled: bridge.downloadProgress === -1.
         visible: (rootStack.currentIndex === 0 &&
                   (accountsPages.currentIndex === 0
-                   || accountsPages.currentIndex === 6))
+                   || accountsPages.currentIndex === 6) || accountsPages.currentIndex === 5)
                  || rootStack.currentIndex === 2
-        text: if (rootStack.currentIndex === 2 || accountsPages.currentIndex === 6)
+        text: if (rootStack.currentIndex === 2 || accountsPages.currentIndex === 6 || accountsPages.currentIndex === 5)
                   qsTr("Document")
               else
                   qsTr("Rapport")
         icon.source: "qrc:/icons/download.svg"
-        onClicked: if (accountsPages.currentIndex === 6)
+        onClicked: if (accountsPages.currentIndex === 6 || accountsPages.currentIndex === 5)
                    {
                        bridge.requestAccount()
                        busyDialog.open()
@@ -160,28 +178,33 @@ RowLayout {
         }
     }
 
+
     MaterialButton {
-        id: finishButton
-        text: qsTr("Terminer")
+        id: onbobard_button
+        text: qsTr("Completer")
+
+        ToolTip.visible: hovered
+        ToolTip.text: "Envoie l'email au client"
 
         visible: accountsPages.currentIndex === 5 && accountsPages.itemAt(5).completed
-                 || usersPages.currentIndex === 1 && userPage.completed
-        icon.source: "qrc:/icons/arrow-left.svg"
+        //icon.source: "qrc:/icons/arrow-right.svg"
 
         onClicked: if (rootStack.currentIndex === 0) {
                        documents.validate(bridge.accountId)
-                       accountsPages.currentIndex = 0
-                   } else if (rootStack.currentIndex === 1) {
-                       users.validate(selectedUser.filterRole)
-                       usersPages.currentIndex = 0
-                   }
+                       if(bridge.accountState === 15){
+                            bridge.updateState(16)
+                       }
+                       accountsPages.currentIndex = 6
+                    }
     }
+
+
 
     MaterialButton {
         id: emailButton
         visible: (rootStack.currentIndex === 0
                   && accountsPages.currentIndex === 6)
-                 && bridge.clearance === 4
+                  && bridge.clearance === 4
         text: qsTr("e-mail")
         icon.source: "qrc:/icons/arrows-rotate.svg"
         onClicked: onExceptionAction(text,
