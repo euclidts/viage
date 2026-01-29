@@ -103,6 +103,11 @@
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
+        <location filename="../ui/BottomBar.qml" line="211"/>
+        <source>Êtes-vous sûr de vouloir générer le document d&apos;ouverture de dossier, et de l&apos;envoyer par e-mail ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../ui/BottomBar.qml" line="57"/>
         <source>Sauvegarder</source>
         <translation type="unfinished"></translation>
@@ -118,9 +123,8 @@
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="211"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
-        <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
+        <translation type="vanished">Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
     <message>
         <location filename="../ui/BottomBar.qml" line="141"/>

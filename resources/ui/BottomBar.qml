@@ -184,7 +184,7 @@ RowLayout {
         text: qsTr("Completer")
 
         ToolTip.visible: hovered
-        ToolTip.text: "Envoie l'email au client"
+        ToolTip.text: "n'envoie pas le dossier par mail"
 
         visible: accountsPages.currentIndex === 5 && accountsPages.itemAt(5).completed
         //icon.source: "qrc:/icons/arrow-right.svg"
@@ -206,9 +206,9 @@ RowLayout {
                   && accountsPages.currentIndex === 6)
                   && bridge.clearance === 4
         text: qsTr("e-mail")
-        icon.source: "qrc:/icons/arrows-rotate.svg"
+        //icon.source: "qrc:/icons/arrows-rotate.svg"
         onClicked: onExceptionAction(text,
-                                     qsTr("Êtes-vous sûr de vouloir régénérer le document d'ouverture de dossier, et de le renvoyer par e-mail ?"),
+                                     qsTr("Êtes-vous sûr de vouloir générer le document d'ouverture de dossier, et de l'envoyer par e-mail ?"),
                                      () => { bridge.requestEmail() }
                                      , true)
     }
