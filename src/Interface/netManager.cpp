@@ -2,7 +2,7 @@
 #include <QNetworkRequest>
 #include <QJsonObject>
 #include <QJsonDocument>
-#ifdef EMSCRIPTEN
+#ifdef __EMSCRIPTEN__
 #include <QFileDialog>
 #endif
 
@@ -23,7 +23,7 @@ netManager& netManager::instance()
 void netManager::init(const QString& url)
 {
     prefix = url + '/';
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
     auto conf = QSslConfiguration::defaultConfiguration();
     rqst.setSslConfiguration(conf);
 
@@ -126,7 +126,7 @@ void netManager::downloadFile(const char* key,
                         return;
                     }
 
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
                     QSaveFile file(path);
                     if (file.open(QIODevice::WriteOnly))
                     {
@@ -168,7 +168,7 @@ void netManager::downloadFilePost(const char* key,
                         return;
                     }
 
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
                     QSaveFile file(path);
                     if (file.open(QIODevice::WriteOnly))
                     {
@@ -280,7 +280,7 @@ void netManager::setCallback(QNetworkReply* reply,
 
 void netManager::setRequest(const char* key, const char * params)
 {
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
     QUrl url{prefix + key + '?' + suffix + params};
 #else
     QUrl url{QString{'/'} + key + '?' + suffix + params};

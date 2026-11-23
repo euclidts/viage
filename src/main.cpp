@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 
     bridge::instance().init();
 
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
     // QString host{"https://viage.euclidtradingsystems.com"};

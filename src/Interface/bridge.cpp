@@ -1,4 +1,4 @@
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
 #include <QDesktopServices>
 #else
 #include <QFileDialog>
@@ -226,7 +226,7 @@ void bridge::requestReport()
         {
             if (success)
             {
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
                 if (!QDesktopServices::openUrl(QUrl::fromLocalFile(xlsx_path)))
                     onException("requestReport error", "QDesktopervices : could not open excel");
                 else
@@ -266,7 +266,7 @@ void bridge::requestAccount()
         {
             if (success)
             {
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
                 if (!QDesktopServices::openUrl(QUrl::fromLocalFile(path)))
                     onException("requestAccount error", "QDesktopervices : could not open pdf");
                 else
@@ -806,7 +806,7 @@ QObject::connect(reply, &QNetworkReply::finished, [this,reply,outputPath]() {
             qDebug() << "Fichier sauvegardé :" << outputPath;
             emit documentOk();
 
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
             QDesktopServices::openUrl(QUrl::fromLocalFile(outputPath));
 #else
             file.open(QFile::ReadOnly);

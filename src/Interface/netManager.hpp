@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QSaveFile>
 #include <QNetworkAccessManager>
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
 #include <QSslConfiguration>
 #endif
 

@@ -457,32 +457,32 @@
         <translation>Ausweise der Partner</translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="38"/>
+        <location filename="../ui/DocumentPage.qml" line="45"/>
         <source>Extrait du registre foncier</source>
         <translation>Grundbuchauszug</translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="45"/>
+        <location filename="../ui/DocumentPage.qml" line="52"/>
         <source>Extrait des poursuites</source>
         <translation>Steuererklärung</translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="52"/>
+        <location filename="../ui/DocumentPage.qml" line="59"/>
         <source>Déclaration d&apos;impôt</source>
         <translation>Steuererklärung</translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="59"/>
+        <location filename="../ui/DocumentPage.qml" line="66"/>
         <source>Détails concernant l&apos;immeuble</source>
         <translation>Gebäudedetails</translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="66"/>
+        <location filename="../ui/DocumentPage.qml" line="73"/>
         <source>Assurance du bâtiment</source>
         <translation>Gebäudeversicherung</translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="73"/>
+        <location filename="../ui/DocumentPage.qml" line="80"/>
         <source>Certificat médical de discernement</source>
         <translation>Bestätigung der Urteilsfähigkeit</translation>
     </message>
@@ -491,7 +491,7 @@
         <translation type="vanished">Berechnung des Wohnrechts</translation>
     </message>
     <message>
-        <location filename="../ui/DocumentPage.qml" line="80"/>
+        <location filename="../ui/DocumentPage.qml" line="38"/>
         <source>Cacul de l&apos;usufruit strictement personnel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1236,6 +1236,7 @@ Jahre</translation>
     <name>cpp_tutorial</name>
     <message>
         <location filename="../../3rdparty/verdigris/tutorial/cpp_tutorial.qml" line="11"/>
+        <location filename="../../client/3rdparty/verdigris/tutorial/cpp_tutorial.qml" line="11"/>
         <source>Cpp Tutorial</source>
         <translation></translation>
     </message>

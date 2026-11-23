@@ -34,6 +34,13 @@ ScrollView {
                 }
 
                 DocumentListView {
+                    id: calculation
+                    name: qsTr("Cacul de l'usufruit strictement personnel")
+                    documentCategory: 2048 // Calculation
+                    documentsFrom: documents
+                }
+
+                DocumentListView {
                     id: registery
                     name: qsTr("Extrait du registre foncier")
                     documentCategory: 4 // RegisteryExcerpt
@@ -72,13 +79,6 @@ ScrollView {
                     id: lucidity
                     name: qsTr("Certificat médical de discernement")
                     documentCategory: 128 // Discernement
-                    documentsFrom: documents
-                }
-
-                DocumentListView {
-                    id: calculation
-                    name: qsTr("Cacul de l'usufruit strictement personnel")
-                    documentCategory: 2048 // Calculation
                     documentsFrom: documents
                 }
 
