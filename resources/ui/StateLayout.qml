@@ -24,7 +24,26 @@ RowLayout {
                            else
                                return
                        } else {
-                           if (bridge.accountHasFlag(Math.pow(2, nameIndex - 2)))
+                           if(nameIndex == 13)/*house refused*/ {
+                               if(bridge.accountHasFlag(Math.pow(2,11)) //do nothing if bought or not yet paid
+                                  || !bridge.accountHasFlag(Math.pow(2,10))){
+                                   return;
+                               } else {
+                                   bridge.updateState(tag);
+                                   return;
+                               }
+                           }
+                           if(nameIndex == 12) /* house bought */{
+                               if(bridge.accountHasFlag(Math.pow(2,12)) //do nothing if refused or not yet paid
+                                  || !bridge.accountHasFlag(Math.pow(2,10))){
+                                   return;
+                               } else {
+                                   bridge.updateState(tag);
+                                   return;
+                               }
+                           }
+
+                           if (bridge.accountHasFlag(Math.pow(2, nameIndex - 2))) // nominal case
                                bridge.updateState(tag)
                            else
                                return

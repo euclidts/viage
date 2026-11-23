@@ -18,8 +18,9 @@ bool account_filter_model::filterAcceptsRow(int sourceRow, const QModelIndex &so
                     account::StateRole).toInt()};
 
     if (filterRegularExpression().match("").hasMatch() &&
-        ((state & account::Paid) == account::Paid))
+        ((state & account::Bought) || (state & account::Refused)))
         return false;
+
 
     const auto& owners{sourceModel()->data(
                     sourceModel()->index(sourceRow, 0, sourceParent),

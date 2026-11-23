@@ -9,12 +9,12 @@
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="../ui/AccountDelegate.qml" line="128"/>
+        <location filename="../ui/AccountDelegate.qml" line="133"/>
         <source>Supprimer le dossier</source>
         <translation>Dossier löschen</translation>
     </message>
     <message>
-        <location filename="../ui/AccountDelegate.qml" line="130"/>
+        <location filename="../ui/AccountDelegate.qml" line="135"/>
         <source>Le dossier selectionné serra supprimé définitivement</source>
         <translation>Das ausgewählte Dossier wird endgültig gelöscht</translation>
     </message>
@@ -63,12 +63,12 @@
         <translation>Berater/innen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="63"/>
+        <location filename="../ui/BottomBar.qml" line="81"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="65"/>
+        <location filename="../ui/BottomBar.qml" line="83"/>
         <source>Rapport</source>
         <translation>Bericht</translation>
     </message>
@@ -83,59 +83,72 @@
         <translation>Deutsch</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="82"/>
+        <location filename="../ui/BottomBar.qml" line="100"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="91"/>
+        <location filename="../ui/BottomBar.qml" line="109"/>
         <source>Onboarding</source>
         <translation>Onboarding</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="107"/>
+        <location filename="../ui/BottomBar.qml" line="125"/>
         <source>Ajouter un conseiller</source>
         <translation>Berater/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="112"/>
+        <location filename="../ui/BottomBar.qml" line="130"/>
         <source>Êtes-vous sûr de vouloir ajouter un nouveau conseiller ?</source>
         <translation>Möchten Sie wirklich eine/n neue/n Berater/in hinzufügen ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="185"/>
+        <location filename="../ui/BottomBar.qml" line="211"/>
+        <source>Êtes-vous sûr de vouloir générer le document d&apos;ouverture de dossier, et de l&apos;envoyer par e-mail ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="57"/>
+        <source>Sauvegarder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="184"/>
+        <source>Completer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/BottomBar.qml" line="208"/>
         <source>e-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="188"/>
         <source>Êtes-vous sûr de vouloir régénérer le document d&apos;ouverture de dossier, et de le renvoyer par e-mail ?</source>
-        <translation>Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
+        <translation type="vanished">Möchten Sie das Dokument zur Dossiereröffnung wirklich neu generieren und erneut per E-Mail senden ?</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="123"/>
+        <location filename="../ui/BottomBar.qml" line="141"/>
         <source>Accueil</source>
         <translation>Empfang</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="130"/>
+        <location filename="../ui/BottomBar.qml" line="148"/>
         <source>Ajouter un partenaire</source>
         <translation>Partner/in hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="131"/>
+        <location filename="../ui/BottomBar.qml" line="149"/>
         <source>Ajouter un contact</source>
         <translation>Kontakt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="148"/>
+        <location filename="../ui/BottomBar.qml" line="166"/>
         <source>Continuer</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../ui/BottomBar.qml" line="165"/>
         <source>Terminer</source>
-        <translation>Abschliessen</translation>
+        <translation type="vanished">Abschliessen</translation>
     </message>
     <message>
         <source>eMail</source>
@@ -1016,7 +1029,7 @@ Jahre</translation>
     </message>
     <message>
         <location filename="../ui/TopBar.qml" line="29"/>
-        <location filename="../ui/TopBar.qml" line="133"/>
+        <location filename="../ui/TopBar.qml" line="117"/>
         <source>Conseiller</source>
         <translation>Berater/in</translation>
     </message>
@@ -1042,32 +1055,31 @@ Jahre</translation>
         <translation>Suche</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="101"/>
         <source>Comptes suspendus</source>
-        <translation>gesperrte Konten</translation>
+        <translation type="vanished">gesperrte Konten</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="133"/>
+        <location filename="../ui/TopBar.qml" line="117"/>
         <source>Calcul</source>
         <translation>Berechnung</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="157"/>
+        <location filename="../ui/TopBar.qml" line="141"/>
         <source>Partenaires</source>
         <translation>Partner/in</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="171"/>
+        <location filename="../ui/TopBar.qml" line="155"/>
         <source>Contacts</source>
         <translation>Kontakte</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="186"/>
+        <location filename="../ui/TopBar.qml" line="170"/>
         <source>Habitat</source>
         <translation>Wohnraum</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="201"/>
+        <location filename="../ui/TopBar.qml" line="185"/>
         <source>Extérieur</source>
         <translation>Aussenbereich</translation>
     </message>
@@ -1076,17 +1088,17 @@ Jahre</translation>
         <translation type="vanished">Aussenbereich</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="216"/>
+        <location filename="../ui/TopBar.qml" line="200"/>
         <source>Documents</source>
         <translation>Dokumente</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="231"/>
+        <location filename="../ui/TopBar.qml" line="215"/>
         <source>Etats</source>
         <translation>Stand</translation>
     </message>
     <message>
-        <location filename="../ui/TopBar.qml" line="306"/>
+        <location filename="../ui/TopBar.qml" line="290"/>
         <source>Options</source>
         <translation>Optionen</translation>
     </message>
@@ -1297,35 +1309,45 @@ Jahre</translation>
         <translation>Bezahlung der Kommission</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="43"/>
-        <location filename="../ui/main.qml" line="47"/>
-        <source>Vendeur</source>
-        <translation>Verkäufer/in</translation>
+        <location filename="../ui/main.qml" line="40"/>
+        <source>Maison achetée</source>
+        <translation>Gekauftes Haus</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="44"/>
-        <location filename="../ui/main.qml" line="48"/>
-        <source>Manager</source>
-        <translation>Manager/in</translation>
+        <location filename="../ui/main.qml" line="41"/>
+        <source>Maison refusée</source>
+        <translation>Abgelehntes Haus </translation>
     </message>
     <message>
         <location filename="../ui/main.qml" line="45"/>
         <location filename="../ui/main.qml" line="49"/>
+        <source>Vendeur</source>
+        <translation>Verkäufer/in</translation>
+    </message>
+    <message>
+        <location filename="../ui/main.qml" line="46"/>
+        <location filename="../ui/main.qml" line="50"/>
+        <source>Manager</source>
+        <translation>Manager/in</translation>
+    </message>
+    <message>
+        <location filename="../ui/main.qml" line="47"/>
+        <location filename="../ui/main.qml" line="51"/>
         <source>Directeur</source>
         <translation>Direktor/in</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="46"/>
+        <location filename="../ui/main.qml" line="48"/>
         <source>Administrateur</source>
         <translation>Administrator/in</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="58"/>
+        <location filename="../ui/main.qml" line="60"/>
         <source>Erreur d&apos;authentification</source>
         <translation>Authentifizierungsfehler</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="60"/>
+        <location filename="../ui/main.qml" line="62"/>
         <source>Mot de passe ou identifiant incorrect, essayez de nouveau ou contactez Viage pour recevoir un nouveau mot de passe</source>
         <translation>Falsches Passwort oder falscher Benutzername. Versuchen Sie es erneut oder kontaktieren Sie Viage, um ein neues Passwort zu erhalten</translation>
     </message>

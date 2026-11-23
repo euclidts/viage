@@ -51,6 +51,18 @@ ScrollView {
                     id: paidCheck
                     nameIndex: 11
                 }
+                RowLayout {
+                StateLayout {
+                    id: houseBought
+                    nameIndex: 12
+                }
+
+                StateLayout {
+                    id: houseRefused
+                    nameIndex: 13
+                }
+                }
+
 
                 function checkStates() {
                     recieivedCheck.flagged = bridge.accountHasFlag(32)
@@ -59,6 +71,8 @@ ScrollView {
                     decidedCheck.flagged = bridge.accountHasFlag(256)
                     notaryCheck.flagged = bridge.accountHasFlag(512)
                     paidCheck.flagged = bridge.accountHasFlag(1024)
+                    houseBought.flagged = bridge.accountHasFlag(2048)
+                    houseRefused.flagged = bridge.accountHasFlag(4096)
                 }
 
                 Connections {
@@ -107,6 +121,20 @@ ScrollView {
                     target: bridge
                     function onAccountPaidChanged() {
                         paidCheck.validation = bridge.accountPaid
+                    }
+                }
+
+                Connections {
+                    target: bridge
+                    function onHouseBoughtChanged() {
+                        houseBought.validation = bridge.houseBought
+                    }
+                }
+
+                Connections {
+                    target: bridge
+                    function onHouseRefusedChanged() {
+                        houseRefused.validation = bridge.houseRefused
                     }
                 }
             }

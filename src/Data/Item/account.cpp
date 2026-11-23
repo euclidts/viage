@@ -32,6 +32,8 @@ QHash<int, QByteArray> account::roleNames()
     names[DecidedRole] = "decidedDate";
     names[NotarizedRole] = "notarizedDate";
     names[PaidRole] = "paidDate";
+    names[HouseBoughtRole] = "HouseBoughtDate";
+    names[HouseRefusedRole] = "HouseRefusedDate";
     names[CreatedRole] = "created";
     names[ModifiedRole] = "modified";
     names[AdvisorFirstNameRole] = "advisorFirstName";
@@ -71,6 +73,10 @@ QVariant account::data(int role) const
         return QVariant(notarizedDate);
     case PaidRole:
         return QVariant(paidDate);
+    case HouseBoughtRole:
+        return QVariant(houseBoughtDate);
+    case HouseRefusedRole:
+        return QVariant(houseRefusedDate);
     case CreatedRole:
         return QVariant(created);
     case ModifiedRole:
@@ -287,6 +293,12 @@ void account::read(const QJsonObject& json)
 
     if (json.contains("paidDate") && json["paidDate"].isString())
         paidDate = QDateTime::fromString(json["paidDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
+
+    if (json.contains("houseBoughtDate") && json["houseBoughtDate"].isString())
+        houseBoughtDate = QDateTime::fromString(json["houseBoughtDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
+
+    if (json.contains("houseRefusedDate") && json["houseRefusedDate"].isString())
+        houseRefusedDate = QDateTime::fromString(json["houseRefusedDate"].toString(), "yyyy-MM-dd hh:mm:ss").date();
 }
 
 void account::write(QJsonObject& json) const

@@ -140,6 +140,8 @@ void bridge::registerQml()
         setAccountNotarized(item.notarizedDate);
         setAccountDecided(item.decidedDate);
         setAccountPaid(item.paidDate);
+        setHouseBought(item.houseBoughtDate);
+        setHouseRefused(item.houseRefusedDate);
     });
 
     connect(client::instance().get_documents(),
@@ -676,6 +678,31 @@ void bridge::setAccountPaid(const QDate &newAccountPaid)
         return;
     accountPaid = newAccountPaid;
     emit accountPaidChanged();
+}
+
+
+const QDate &bridge::getHouseBought() const
+{
+    return houseBought;
+}
+void bridge::setHouseBought(const QDate &newHouseBought)
+{
+    if(houseBought == newHouseBought)
+        return;
+    houseBought = newHouseBought;
+    emit houseBoughtChanged();
+}
+
+const QDate &bridge::getHouseRefused() const
+{
+    return houseRefused;
+}
+void bridge::setHouseRefused(const QDate &newHouseRefused)
+{
+    if(houseRefused == newHouseRefused)
+        return;
+    houseRefused = newHouseRefused;
+    emit houseRefusedChanged();
 }
 
 int bridge::getUserId() const

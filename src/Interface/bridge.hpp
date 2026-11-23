@@ -183,6 +183,17 @@ public:
     void accountDecidedChanged()
     W_SIGNAL(accountDecidedChanged)
 
+    const QDate &getHouseBought() const;
+    void setHouseBought(const QDate &newHouseBought);
+    void houseBoughtChanged()
+    W_SIGNAL(houseBoughtChanged)
+
+    const QDate &getHouseRefused() const;
+    void setHouseRefused(const QDate &newHouseRefused);
+    void houseRefusedChanged()
+    W_SIGNAL(houseRefusedChanged)
+
+
     float getDownloadProgress() const;
     void setDownloadProgress(float newDownloadProgress);
     void downloadProgressChanged()
@@ -221,6 +232,8 @@ public:
     W_PROPERTY(QDate, accountNotarized READ getAccountNotarized NOTIFY accountNotarizedChanged)
     W_PROPERTY(QDate, accountPaid READ getAccountPaid NOTIFY accountPaidChanged)
     W_PROPERTY(QDate, accountDecided READ getAccountDecided NOTIFY accountDecidedChanged)
+    W_PROPERTY(QDate, houseBought READ getHouseBought NOTIFY houseBoughtChanged)
+    W_PROPERTY(QDate, houseRefused READ getHouseRefused NOTIFY houseRefusedChanged)
     W_PROPERTY(float, downloadProgress READ getDownloadProgress WRITE setDownloadProgress NOTIFY downloadProgressChanged)
     W_PROPERTY(QUrl, uploadPath READ getUploadPath WRITE setUploadPath NOTIFY uploadPathChanged)
 
@@ -255,6 +268,8 @@ private:
     QDate accountDecided{};
     QDate accountNotarized{};
     QDate accountPaid{};
+    QDate houseBought{};
+    QDate houseRefused{};
     float downloadProgress{-1.f};
     QUrl uploadPath{};
 
